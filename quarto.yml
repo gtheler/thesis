@@ -1,0 +1,79 @@
+lang: es
+
+project:
+  type: book
+
+book:
+  title: "Diseño e implementación de una herramienta de elementos finitos para resolver problemas termomecánicos en la nube"
+  author: "Mg. Ing. Germán Theler"
+  date: git_date
+  output-file: "phd-theler"
+  chapters:
+    - index.md
+    - 020-neutronica/README.md
+    - 030-transporte-y-difusion/README.md
+    - 040-discretizacion/README.md
+    - 050-implementacion/README.md
+    - 060-resultados/README.md
+    - 100-srs/README.md
+    - 110-sds/README.md
+    - referencias.md
+
+bibliography: references.bib
+
+format:
+  html:
+    default-image-extension: svg
+    theme: cosmo
+    html-math-method: katex
+  pdf:
+    documentclass: book
+    pdf-engine: xelatex
+    keep-tex: true
+    default-image-extension: pdf
+    papersize: a4
+    fontsize: 12pt
+    fontfamily: libertinus
+    mainfont: LinLibertineO
+    sansfont: Carlito
+    monofont: DejaVuSansMono
+    cap-location: bottom
+    fig-align: center
+    geometry:
+      - top=30mm
+      - bindingoffset=0mm
+      - footskip=12mm
+      - headsep=8mm
+      - headheight=13.6pt
+      - marginparwidth=0pt
+      - left=20mm
+      - right=20mm
+      - bottom=30mm
+      - foot=20mm
+    toc: true
+    lof: false
+    lot: false
+    include-in-header: 
+      text: |
+        \usepackage{lipsum}
+        \include{ibthesis.tex}
+        \usepackage{scrlayer-scrpage}
+        \lehead{\leftmark}
+        \rohead{\leftmark}
+        \cfoot{git_hash}
+        % TODO: poner estos campos como metadata en yaml?
+        \encabezado{Tesis~de~la~Carrera~de\\Doctorado~en~Ingeniería~Nuclear}
+        \englishtitle{Design and implementation of something}
+        \rolAutor{Doctorando}
+        \directorIzq{Dr.~Fabián~J.~Bonetto}
+        \rolIzq{Co-director}
+        \directorDer{Dr.~Alejandro~Clausse}
+        \rolDer{Co-director}
+        \location{San Carlos de Bariloche}
+    include-before:
+      - \include{misc/dedicatoria}
+      - \include{misc/resumen}
+      - \include{misc/abstract}
+  epub:
+    default-image-extension: svg
+    theme: default
