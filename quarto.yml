@@ -1,4 +1,4 @@
-lang: es
+lang: es-AR
 
 project:
   type: book
@@ -15,11 +15,23 @@ book:
     - 040-discretizacion/README.md
     - 050-implementacion/README.md
     - 060-resultados/README.md
+    - referencias.md
+  appendices:
     - 100-srs/README.md
     - 110-sds/README.md
-    - referencias.md
 
+filters:
+  - lua/include-files.lua
+  - lua/include-code-files.lua
+  - lua/code-style.lua
+  - lua/not-in-format.lua
+  - lua/only-in-format.lua
+  - lua/img-width.lua
+  
+  
 bibliography: references.bib
+license: "CC BY"
+appendix-style: plain
 
 format:
   html:
@@ -27,24 +39,26 @@ format:
     theme: cosmo
     html-math-method: katex
   pdf:
-    documentclass: book
+    documentclass: scrbook
     pdf-engine: xelatex
     keep-tex: true
     default-image-extension: pdf
     papersize: a4
     fontsize: 12pt
-    fontfamily: libertinus
     mainfont: LinLibertineO
     sansfont: Carlito
     monofont: DejaVuSansMono
     cap-location: bottom
     fig-align: center
+    url-style: tt
+    colorlinks: true
+    listings: true
     geometry:
       - top=30mm
       - bindingoffset=0mm
       - footskip=12mm
       - headsep=8mm
-      - headheight=13.6pt
+      - headheight=29pt
       - marginparwidth=0pt
       - left=20mm
       - right=20mm
@@ -55,11 +69,16 @@ format:
     lot: false
     include-in-header: 
       text: |
+        % quotes with a bar in the left (like bootstrap)
+        \usepackage{mdframed}
+        \global\mdfdefinestyle{exampledefault}{linecolor=gray,linewidth=2pt,leftmargin=0.5cm,rightmargin=0.5cm,topline=false,bottomline=false,rightline=false}
+        \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
+        %
         \usepackage{lipsum}
         \include{ibthesis.tex}
         \usepackage{scrlayer-scrpage}
-        \lehead{\leftmark}
-        \rohead{\leftmark}
+        %\lehead{\leftmark}
+        %\rohead{\leftmark}
         \cfoot{git_hash}
         % TODO: poner estos campos como metadata en yaml?
         \encabezado{Tesis~de~la~Carrera~de\\Doctorado~en~Ingeniería~Nuclear}
@@ -70,6 +89,10 @@ format:
         \directorDer{Dr.~Alejandro~Clausse}
         \rolDer{Co-director}
         \location{San Carlos de Bariloche}
+        \fecha{Diciembre 2023}
+        %
+        \input{syntax-feenox}
+        \input{syntax}
     include-before:
       - \include{misc/dedicatoria}
       - \include{misc/resumen}

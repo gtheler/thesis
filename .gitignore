@@ -1,4 +1,7 @@
 /.quarto/
+_quarto.yml
 _book
 *.aux
+*.log
+*.toc
 phd-theler.tex

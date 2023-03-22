@@ -1,0 +1,78 @@
+---
+title: Download & install FeenoX
+lang: en-US
+number-sections: true
+toc: true
+...
+
+
+
+
+
+> Please note that FeenoX is a **cloud-first** [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) aimed at advanced users.
+> It **does not include a graphical interface** and it is not expected to run in Windows.
+> See this 5-min explanation about why:
+>
+> ::::: {.container .text-center .my-5 .ratio .ratio-16x9}
+> <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/66WvYTb4pSg?rel=0" allowfullscreen></iframe>
+> :::::
+>
+>
+>
+> For an easy-to-use web-based front end with FeenoX running in the cloud directly from your browser see [CAEplex](https://www.caeplex.com) at <https://www.caeplex.com>.
+>
+> ::::: {.container .text-center .my-5 .ratio .ratio-16x9}
+> <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/kD3tQdq17ZE?rel=0" allowfullscreen></iframe>
+> :::::
+>
+> Any contribution to make dekstop GUIs such as [PrePoMax](https://prepomax.fs.um.si/) or [FreeCAD](http://https://www.freecadweb.org) to work with FeenoX are welcome.
+
+
+
+# Downloads {#sec-downloads}
+
+```{.include}
+downloads.md
+```
+
+## Debian/Ubuntu packages {#sec-debian}
+
+```{.include}
+debian.md
+```
+
+
+## Statically-linked binaries {#sec-binaries}
+
+```{.include}
+binary.md
+```
+
+## Compile from source {#sec-source}
+
+```{.include}
+source.md
+```
+
+## Github repository {#sec-github}
+
+```{.include}
+git.md
+```
+
+See the [Compilation Guide](compile.md) for details.
+Ask in the [GitHub Discussions page](https://github.com/seamplex/feenox/discussions) for help.
+
+
+# Licensing {#sec-licensing}
+
+FeenoX is distributed under the terms of the [GNU General Public License](http://www.gnu.org/copyleft/gpl.html) version 3 or (at your option) any later version. The following text was borrowed from the [Gmsh documentation](http://gmsh.info/texinfo/gmsh.html#Copying-conditions). Replacing “Gmsh” with “FeenoX” gives:
+
+> ```include
+> freesw.md
+> ```
+
+```include
+licensing.md
+```
+

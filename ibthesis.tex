@@ -41,7 +41,7 @@
   \vspace{\fill}
 
   \@location\\
-  \@date
+  \@fecha
 
   \vspace{2cm}
 
@@ -55,7 +55,6 @@
 \addtolength{\oddsidemargin}{0.5\manejeparacentrar}
 }
 
-\def\date#1{\def\@date{#1}}
 \def\author#1{\def\@author{#1}}
 \def\rolAutor#1{\def\@rolAutor{#1}}
 \def\directorIzq#1{\def\@directorIzq{#1}}
@@ -65,6 +64,7 @@
 \def\title#1{\def\@title{#1}}
 \def\englishtitle#1{\def\@englishtitle{#1}}
 \def\location#1{\def\@location{#1}}
+\def\fecha#1{\def\@fecha{#1}}
 \def\encabezado#1{\def\@encabezado{#1}}
 \def\cierre#1{\def\@cierre{#1}}
 
@@ -78,56 +78,56 @@
 \newlength{\izquierda}
 \newlength{\capitulo}
 \newlength{\derecha}
-
-\def\@makechapterhead#1{%
-  {
-   % horrible maneje %
-   \setlength{\izquierda}{0.75cm}
-%    \settowidth{\capitulo}{\mbox{\,\large{\textsc{\@chapapp~\capituloromano}}\,}}
-   \settowidth{\capitulo}{\mbox{\,\large{\textsc{\@chapapp~\thechapter}}\,}}
-
-   \setlength{\derecha}{\textwidth}
-   \addtolength{\derecha}{-\capitulo}
-   \addtolength{\derecha}{-\izquierda}
-
-
-   \noindent \parbox{\textwidth}{\rule[4pt]{\izquierda}{0.5pt}%
-%    \mbox{\,\large{\textsc{\@chapapp~\capituloromano}}\,}%
-   \mbox{\,\large{\textsc{\@chapapp~\thechapter}}\,}%
-   \rule[4pt]{\derecha}{0.5pt}}%
-
-   \vspace{1.2cm}
-
-% alineado a la izquierda
-%  \hspace{1.5cm}\parbox[c]{12cm}{\linespread{1.1}\raggedright\hspace{-0.5cm}\huge{\sf{\bfseries{#1}}}}
-
-%centrado
-   \linespread{1.1}\centering\huge{\sf{\bfseries{#1}}}
-
-   \vspace{2cm}
-
-%  \noindent \rule{\textwidth}{0.5pt}
-   \nobreak
-   \vspace{0.25cm}
-
-   % nada de headers
-   \thispagestyle{empty}
-
-  }%
-}
-
-\def\@makeschapterhead#1{%
-  {
-   ~
-   \vspace{1.5cm}
-
-   \noindent \huge{\sf{\bfseries{#1}}}
-
-   \vspace{1.5cm}
-
-   \thispagestyle{empty}
-  }%
-}
+% 
+% \def\@makechapterhead#1{%
+%   {
+%    % horrible maneje %
+%    \setlength{\izquierda}{0.75cm}
+% %    \settowidth{\capitulo}{\mbox{\,\large{\textsc{\@chapapp~\capituloromano}}\,}}
+%    \settowidth{\capitulo}{\mbox{\,\large{\textsc{\@chapapp~\thechapter}}\,}}
+% 
+%    \setlength{\derecha}{\textwidth}
+%    \addtolength{\derecha}{-\capitulo}
+%    \addtolength{\derecha}{-\izquierda}
+% 
+% 
+%    \noindent \parbox{\textwidth}{\rule[4pt]{\izquierda}{0.5pt}%
+% %    \mbox{\,\large{\textsc{\@chapapp~\capituloromano}}\,}%
+%    \mbox{\,\large{\textsc{\@chapapp~\thechapter}}\,}%
+%    \rule[4pt]{\derecha}{0.5pt}}%
+% 
+%    \vspace{1.2cm}
+% 
+% % alineado a la izquierda
+% %  \hspace{1.5cm}\parbox[c]{12cm}{\linespread{1.1}\raggedright\hspace{-0.5cm}\huge{\textsf{\bfseries{#1}}}}
+% 
+% %centrado
+%    \linespread{1.1}\centering\huge{\textsf{\bfseries{#1}}}
+% 
+%    \vspace{2cm}
+% 
+% %  \noindent \rule{\textwidth}{0.5pt}
+%    \nobreak
+%    \vspace{0.25cm}
+% 
+%    % nada de headers
+%    \thispagestyle{empty}
+% 
+%   }%
+% }
+% 
+% \def\@makeschapterhead#1{%
+%   {
+%    ~
+%    \vspace{1.5cm}
+% 
+%    \noindent \huge{\textsf{\bfseries{#1}}}
+% 
+%    \vspace{1.5cm}
+% 
+%    \thispagestyle{empty}
+%   }%
+% }
 
 \def\@part[#1]#2{%
     \ifnum \c@secnumdepth >-2\relax
@@ -142,7 +142,7 @@
      \interlinepenalty \@M
      \normalfont
      \ifnum \c@secnumdepth >-2\relax
-       \sf\huge\bfseries  \partname\nobreakspace\thepart
+       \textsf\huge\bfseries  \partname\nobreakspace\thepart
        \par
        \vskip 20\p@
      \fi
