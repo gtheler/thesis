@@ -129,28 +129,75 @@
 %   }%
 % }
 
-\def\@part[#1]#2{%
-    \ifnum \c@secnumdepth >-2\relax
-      \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-    \else
-      \addcontentsline{toc}{part}{#1}%
-    \fi
-    \markboth{}{}%
-    {\vspace{3.5cm}
-     \centering
-     \interlinepenalty \@M
-     \normalfont
-     \ifnum \c@secnumdepth >-2\relax
-       \textsf\huge\bfseries  \partname\nobreakspace\thepart
-       \par
-       \vskip 20\p@
-     \fi
-     \thispagestyle{empty}
-     \Huge \bfseries #2\par}%
-    \vfill
-    \hfill\includegraphics{part\thepart}
-    \vspace{1.5cm}
-    \@endpart}
+% \def\@part[#1]#2{%
+%     \ifnum \c@secnumdepth >-2\relax
+%       \refstepcounter{part}%
+%       \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+%     \else
+%       \addcontentsline{toc}{part}{#1}%
+%     \fi
+%     \markboth{}{}%
+%     {\vspace{3.5cm}
+%      \centering
+%      \interlinepenalty \@M
+%      \normalfont
+%      \ifnum \c@secnumdepth >-2\relax
+%        \textsf\huge\bfseries  \partname\nobreakspace\thepart
+%        \par
+%        \vskip 20\p@
+%      \fi
+%      \thispagestyle{empty}
+%      \Huge \bfseries #2\par}%
+%     \vfill
+%     \hfill\includegraphics{part\thepart}
+%     \vspace{1.5cm}
+%     \@endpart}
+
 
 \makeatother
+
+\newenvironment{chapterquote}[1][0.7\linewidth]{
+\vspace{0.5 cm plus 0.25cm minus 0.25cm}
+\hspace{\fill}\begin{minipage}{#1}
+  \begin{flushright}
+    \bgroup
+    \par
+    \sffamily\selectfont%
+}
+{%
+    \par\egroup
+  \end{flushright}
+\end{minipage}
+\par\vspace{2cm plus 0.5cm minus 0.5cm}%
+}
+
+
+
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+% definiciones y renews especificos para la tesis
+% -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\newcommand{\omegaversor}{\boldsymbol{\hat{\Omega}}}
+\newcommand{\omegaprimaversor}{\boldsymbol{\hat{\Omega}^\prime}}
+
+% los vectores son en bold, no con una flecha maraca arriba
+\renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
+% las matrices son asi
+\newcommand{\mat}[1]{\ensuremath\mathsf{#1}}
+
+% redefinicion del cuadradito de qed, me gusta mas negrencio
+%\renewcommand{\qedsymbol}{$\blacksquare$}
+
+% para isotopos, esta bueno esta definicion y hacer
+% \nucl{235}{92}{U} o directamente \nucl{235}{}{U}
+\newcommand{\nucl}[3]{
+\ensuremath{
+\phantom{\ensuremath{^{#1}_{#2}}}
+\llap{\ensuremath{^{#1}}}
+\llap{\ensuremath{_{\rule{0pt}{.75em}#2}}}
+\mbox{#3}
+}
+}
+
+% gradiente
+\newcommand{\Dgrad}[1]{\text{grad}\,#1\;}
+\newcommand{\Ddiv}[1]{\text{div}\,#1\;}

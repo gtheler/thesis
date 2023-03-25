@@ -1,33 +1,36 @@
-# Neutrónica de núcleo en un PHWR {#sec-neutronica-phwr}
+# Introducción {#cap:introduccion}
 
-```{=latex}
-\begin{chapterquote}
-```
-It was the best of times, it was the worst of times,  
-it was the age of wisdom, it was the age of foolishness,  
-it was the epoch of belief, it was the epoch of incredulity...
+::: chapterquote
+El que mucho abarca poco aprieta.\
+La confianza mata al gato.\
+Más vale pájaro en mano que cien volando.\
+*Dichos populares argentinos [@chaco]*\
+:::
 
-\medskip
-
-*Charles Dickens, A Tale of Two Cities, 1859*
-
-```{=latex}
-\end{chapterquote}
-```
-
-
-cerrar el lazo Nacho/Chaco
-
-
-
-
-
+Suele suceder que cuando un profesional se pasa unos cuantos años
+trabajando en un cierto problema, comienza a dar por sentadas muchas de
+situaciones que el resto de las personas no tiene por qué siquiera
+sospechar. Personalmente, esto me ha pasado no una sino varias veces a
+lo largo de mi vida. Es en este sentido que esta introducción enmarca el
+trabajo de esta tesis académica de doctorado, indicando las diferentes
+fuentes de las que abrevó mi motivación a trabajar en el tema propuesto.
+Para ello, en lugar de elegir una dirección clara entre lo general y lo
+particular, iremos pasando revista a ciertos temas que contribuyeron a
+definir el marco este trabajo ---todos influidos por mi perfil
+profesional, mis convicciones personales y por supuesto, un poco de
+azar--- para poder justificar en la
+sección [1.2](#sec:problemdesc){reference-type="ref"
+reference="sec:problemdesc"} por qué el problema que queremos resolver
+es interesante y finalmente indicar explícitamente en la
+sección [1.3](#sec:thesolution){reference-type="ref"
+reference="sec:thesolution"} cuáles son las contribuciones de este
+trabajo académico de doctorado.
 
 ## Historia de dos reactores
 
 Atucha I y II
 
-### Neutrones contantes y sonantes
+##### Neutrones contantes y sonantes
 
 El martes 3 de junio de 2014 a las 9:03 el núcleo[^1] de la Central
 Nuclear Atucha II logró mantener por primera vez una reacción nuclear de
@@ -55,7 +58,7 @@ prueba de escépticos de que realmente el reactor era capaz de generar
 potencia térmica a partir de la fisión del uranio mediante reacciones
 inducidas por neutrones.
 
-### Más de una rueda de auxilio
+##### Más de una rueda de auxilio
 
 Aún cuando no son deseados, los imprevistos existen. Es por eso todos
 nos aseguramos de que la rueda de auxilio de nuestro auto esté en
@@ -87,7 +90,7 @@ moderador. De esta forma, como los núcleos[^2] de $^{10}$Bo son grandes
 absorbentes de neutrones, las reacciones de fisión se extinguen a medida
 que el boro ingresa a la zona del núcleo del reactor.
 
-### La conexión europea
+##### La conexión europea
 
 Fue condición necesaria para la puesta a crítico de la central, la
 preparación del Informe Final de Seguridad y su presentación a la
@@ -122,7 +125,7 @@ distribución espacio-temporal de concentración de boro en el moderador
 al código neutrónico es la misma.</figcaption>
 </figure>
 
-### Aprendiendo de los que saben
+##### Aprendiendo de los que saben
 
 A partir de la experiencia ganada desde la interacción con estos
 expertos y de las capacidades propias desarrolladas durante el proceso
@@ -174,7 +177,7 @@ href="#fig:mallareprpce" data-reference-type="ref"
 data-reference="fig:mallareprpce">[fig:mallareprpce]</a>.</figcaption>
 </figure>
 
-### Claro como el agua pesada
+##### Claro como el agua pesada
 
 En los reactores de agua pesada presurizada, si bien las funciones de
 refrigeración del combustible y moderación de los neutrones son
@@ -222,7 +225,7 @@ Atucha II <span class="citation"
 data-cites="aatn-pumita-2014"></span>.</figcaption>
 </figure>
 
-### Dos son compañía, tres son multitud
+##### Dos son compañía, tres son multitud
 
 Podemos estudiar la mayoría de los casos que componen el Capítulo 15
 "Análisis de accidentes" del FSAR utilizando cinética neutrónica puntual
@@ -243,7 +246,7 @@ espacio-temporales de propiedades, en particular concentración de boro
 en el moderador, calculadas a partir de técnicas tipo Computational
 Fluid Dynamics.
 
-### Multifísica multiescala
+##### Multifísica multiescala
 
 En cualquiera de los dos casos ilustrados en la
 figura [1.1](#fig:acopleboro){reference-type="ref"
@@ -253,7 +256,9 @@ neutrónico resuelve la ecuación de difusión de neutrones en el núcleo
 con secciones eficaces macroscópicas homogeneizadas espacialmente a
 nivel de canal refrigerante individual y condensadas a dos grupos de
 energía. Es decir, la celda unitaria que se resuelve en el nivel de
-cálculo de celda en el esquema multi-escala usual @sec-multiescala contiene un canal refrigerante con las
+cálculo de celda en el esquema multi-escala usual
+(sección [\[sec:multiescala\]](#sec:multiescala){reference-type="ref"
+reference="sec:multiescala"}) contiene un canal refrigerante con las
 barras que componen el elemento combustible y una porción de moderador
 asociada a dicho
 canal (figura [1.3](#fig:celdacna1){reference-type="ref"
@@ -312,7 +317,7 @@ class="citation" data-cites="enief-2014-cpl"></span>. No es posible
 observar la presencia de los canales.</figcaption>
 </figure>
 
-### Calcule un litro y obtenga dos (por el mismo precio)
+##### Calcule un litro y obtenga dos (por el mismo precio)
 
 Durante la interacción con los consultores extranjeros en la etapa de
 evaluación de la inyección de boro en Atucha II hemos identificado que
@@ -380,7 +385,7 @@ cálculo del código neutrónico
 reference="fig:boropce"}, $\sim$ 200.000 celdas para
 $4\times 4 \times 20$).
 
-### Celdas refinadas
+##### Celdas refinadas
 
 Dado que el efecto de dilución de secciones eficaces macroscópicas se
 reduce drásticamente con el tamaño de la celda, hemos realizado estudios
@@ -451,7 +456,7 @@ que el código de núcleo modifique todas las secciones eficaces
 macroscópicas de la celda 1, incluso las relacionadas a la fisión cuando
 en realidad no hay materiales físiles ni fisionables en ella.
 
-### Neutrones difundidos
+##### Neutrones difundidos
 
 Tanto el código neutrónico de núcleo empleado en el esquema acoplado
 propuesto para actualizar los transitorios del Capítulo 15 del FSAR de
@@ -465,23 +470,29 @@ corriente neta de neutrones es proporcional al gradiente del flujo
 escalar a través de un cierto coeficiente de difusión. Esta ecuación es
 una aproximación que podemos deducir a partir de la ecuación de
 transporte de neutrones (de hecho la deducimos matemáticamente en esta
-tesis en la @sec-difusion). La validez de la aproximación es tanto mejor
+tesis en la
+sección [\[sec:difusion\]](#sec:difusion){reference-type="ref"
+reference="sec:difusion"}). La validez de la aproximación es tanto mejor
 mientras más ciertas sean las famosas siete suposiciones de la
-página 125 del libro de Lamarsh @lamarsh:
+página 125 del libro de @lamarsh [@lamarsh]:
 
- 1. el medio es infinito;
+1.  []{#it:infinito label="it:infinito"} el medio es infinito;
 
- 2. el medio es uniforme, de forma
+2.  []{#it:uniforme label="it:uniforme"} el medio es uniforme, de forma
     tal que todas las secciones eficaces son constantes,
     independientemente de la posición;
 
-3.  no hay fuentes de neutrones;
+3.  []{#it:sinfuentes label="it:sinfuentes"} no hay fuentes de
+    neutrones;
 
-4.  el scattering es istrópico en el sistemas de coordenadas del *laboratorio*;[^3]
+4.  []{#it:scattering label="it:scattering"} el scattering es istrópico
+    en el sistemas de coordenadas del *laboratorio*;[^3]
 
-5.  el flujo neutrónico es una función levemente dependiente de la posición;
+5.  []{#it:continuo label="it:continuo"} el flujo neutrónico es una
+    función levemente dependiente de la posición;
 
-6.  el flujo neutrónico no es un función del tiempo.
+6.  []{#it:estacionario label="it:estacionario"} el flujo neutrónico no
+    es un función del tiempo.
 
 Si bien estas hipótesis pueden ser relajadas y aún así poder suponer que
 la corriente neta de neutrones es proporcional al gradiente del flujo
@@ -501,11 +512,14 @@ del boro es necesario reducir los tamaños de las celdas de cálculo. Esta
 solución, además de no ser completamente efectiva para contrarrestar la
 demasiada inserción de reactividad negativa, configura una situación en
 la cual la ecuación de difusión deja de ser válida. En particular, las
-condiciones 2 y 5 dejan de cumplirse y no sólo no podemos evaluar
+condiciones [\[it:uniforme\]](#it:uniforme){reference-type="ref"
+reference="it:uniforme"}
+y [\[it:continuo\]](#it:continuo){reference-type="ref"
+reference="it:continuo"} dejan de cumplirse y no sólo no podemos evaluar
 la magnitud sino que ni siquiera podemos conocer el signo del error
 cometido.
 
-## Inconvenientes de formulación neutrónica actual
+## El problema de la formulación neutrónica actual {#sec:problemdesc}
 
 Resumiendo las ideas desarrolladas hasta el momento, podemos concluir
 que el enfoque que hemos propuesto según el estado del arte y las
@@ -562,13 +576,12 @@ de una fuente de potencia de origen neutrónico [@theler2008]. Poder
 realizar una tesis de doctorado en temas de neutrónica de nivel de
 núcleo me permite cerrar en forma académica el lazo
 termohidráulica-neutrónica-control, que fue también el eje de mi
-participación profesional en el completamiento de la Central Nuclear
+participación profesional en el completamiento de la Central Nuclar
 Atucha II.
 
+### Analfabetismo computacional y maestranza digital
 
-## Las propuestas
-
-### Mallas no estructuradas
+## La formulación superadora propuesta en esta tesis {#sec:thesolution}
 
 Entendemos que la evaluación de la neutrónica asociada a un evento
 accidental que requiere la actuación del segundo sistema de extinción en
@@ -775,7 +788,7 @@ absorción en la periferia de las pastillas.
 A veces ni siquiera basta con hacer un par de pasos hacia atrás para ver
 el elefante completo.[^6]
 
-![image](elephant.jpg){width="8cm"}
+![image](introduccion/elephant.jpg){width="8cm"}
 
 [^1]: En el sentido del inglés *core*.
 
@@ -795,4 +808,3 @@ el elefante completo.[^6]
 
 [^6]: Ver referencia [@chaco] y
     <https://en.wikipedia.org/wiki/Blind_men_and_an_elephant>
-

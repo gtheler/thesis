@@ -6,4 +6,4 @@
  * poner un footnote y explicar lo de los laterales con sandías
  * index?
  * zebra tables
- 
+ * CSL style 

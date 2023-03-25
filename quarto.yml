@@ -15,6 +15,7 @@ book:
     - 040-discretizacion/README.md
     - 050-implementacion/README.md
     - 060-resultados/README.md
+    - 090-conclusiones/README.md
     - referencias.md
   appendices:
     - 100-srs/README.md
@@ -75,6 +76,7 @@ format:
         \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
         %
         \usepackage{lipsum}
+        \usepackage{bigints}
         \include{ibthesis.tex}
         \usepackage{scrlayer-scrpage}
         %\lehead{\leftmark}

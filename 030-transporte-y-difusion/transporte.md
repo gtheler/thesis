@@ -1,22 +1,17 @@
-# Transporte y difusión de neutrones {sec-transporte-difusion}
+# Transporte y difusión de neutrones {#cap:transporte}
 
-```{=latex}
-\begin{chapterquote}
-```
-::: {lang=en-US}
-In an enterprise such as the development nuclear physics  
-the difference between ideas, hopes, suggestions and theoretical  
-calculations, and solid numbers based on measurement, is paramount.  
-All the committees, the politicking and the plans would have come  
-to naught if a few unpredictable nuclear cross sections  
-had been different from what they are by a factor of two.
+::: chapterquote
+::: foreignlanguage
+english In an enterprise such as the development nuclear physics\
+the difference between ideas, hopes, suggestions and theoretical\
+calculations, and solid numbers based on measurement, is paramount.\
+All the committees, the politicking and the plans would have come\
+to naught if a few unpredictable nuclear cross sections\
+had been different from what they are by a factor of two.\
 :::
 
 *Emilio Segré*
-```{=latex}
-\end{chapterquote}
-```
-
+:::
 
 En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
@@ -56,8 +51,8 @@ Consideramos que la construcción de la
 figura [1.7](#fig:harmonics){reference-type="ref"
 reference="fig:harmonics"} que ilustra la utilización de armónicos
 esféricos para expandir el flujo angular o la derivación de la ley de
-Fick en la sección [1.4.3](#sec-fick){reference-type="ref"
-reference="sec-fick"} son ya de por sí resultados parciales de este
+Fick en la sección [1.4.3](#sec:fick){reference-type="ref"
+reference="sec:fick"} son ya de por sí resultados parciales de este
 trabajo que podrían llegar a tener algún tipo de interés para la
 comunidad académica.
 
@@ -213,16 +208,16 @@ de agua, que hacen que las secciones eficaces de el todo (i.e. de un
 conjunto de átomos enlazados covalentemente) no sean iguales a la suma
 algebraica de las partes y debamos calcular las secciones eficaces
 macroscópicas con una metodología más apropiada (ver
-sección [1.6.1](#sec-evaluacionxs){reference-type="ref"
-reference="sec-evaluacionxs"} y referencia [@methods]). Por otro lado,
+sección [1.6.1](#sec:evaluacionxs){reference-type="ref"
+reference="sec:evaluacionxs"} y referencia [@methods]). Por otro lado,
 justamente en los reactores nucleares las reacciones que interesan son
 las que dan como resultado la transmutación de materiales por lo que
 continuamente la densidad atómica $n$ de todos los isótopos varía con el
 tiempo. En este trabajo, no vamos a tratar con la dependencia de las
 secciones eficaces con el tiempo explícitamente sino que llegado el
 caso, como discutimos en la
-sección [1.6](#sec-multiescala){reference-type="ref"
-reference="sec-multiescala"}, daremos la dependencia implícitamente a
+sección [1.6](#sec:multiescala){reference-type="ref"
+reference="sec:multiescala"}, daremos la dependencia implícitamente a
 través de otras propiedades intermedias tales como la evolución del
 quemado del combustible y/o la concentración de xenón 135 en la matriz
 de dióxido de uranio.
@@ -231,7 +226,7 @@ A partir de este momento suponemos que conocemos las secciones eficaces
 macroscópicas en función del vector posición $\vec{x}$ para todos los
 problemas que planteamos.
 
-### Dispersión de neutrones {#sec-scattering}
+### Dispersión de neutrones {#sec:scattering}
 
 Cuando un neutrón que viaja en una cierta dirección $\omegaversor$ con
 una energía $E$ colisiona con un núcleo blanco en una reacción de
@@ -519,10 +514,10 @@ ecuación [\[eq:scatteringanisotropico\]](#eq:scatteringanisotropico){reference
 reference="eq:scatteringanisotropico"} y suponemos que conocemos
 tanto $\Sigma_{s_0}$ como $\Sigma_{s_1}$ en función del espacio y de las
 energías antes de resolver la ecuación de transporte a nivel de núcleo
-(ver sección [1.6](#sec-multiescala){reference-type="ref"
-reference="sec-multiescala"}).
+(ver sección [1.6](#sec:multiescala){reference-type="ref"
+reference="sec:multiescala"}).
 
-### Fisión de neutrones {#sec-fision}
+### Fisión de neutrones {#sec:fision}
 
 Cuando un núcleo pesado se fisiona en dos núcleos más pequeños, ya sea
 debido a una fisión espontánea o a una fisión inducida por la absorción
@@ -604,16 +599,16 @@ neutrones estarán contribuyendo a la reactividad neta del reactor. En el
 caso particular en el que no hay una fuente externa de neutrones sino
 que todas las fuentes se deban a fisiones la probabilidad de que el
 reactor esté exactamente crítico es cero como discutimos en la
-sección [1.5](#sec-problemas){reference-type="ref"
-reference="sec-problemas"}. Para poder realizar cálculos estacionarios y
+sección [1.5](#sec:problemas){reference-type="ref"
+reference="sec:problemas"}. Para poder realizar cálculos estacionarios y
 además tener una idea de la distancia a la criticidad debemos recurrir a
 un reactor crítico asociado, cuya forma más usual es el *reactor crítico
 asociado en $k$*. En este caso, dividimos las fuentes de fisión se
 artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser
 una incógnita del problema y cuya diferencia con la unidad da una idea
 de la distancia a la criticidad del reactor original (ver
-sección [1.5](#sec-problemas){reference-type="ref"
-reference="sec-problemas"}).
+sección [1.5](#sec:problemas){reference-type="ref"
+reference="sec:problemas"}).
 
 ## Flujos y ritmos de reacción
 
@@ -823,8 +818,8 @@ unidad de longitud de recorrido de neutrones que viajando en con una
 energía $E^\prime$ en una dirección $\omegaprimaversor$ colisionen con
 un núcleo blanco en el punto $\vec{x}$ y como resultado adquieren una
 dirección de viaje $\omegaversor$ y una energía $E$ (ver
-sección [1.1.1](#sec-scattering){reference-type="ref"
-reference="sec-scattering"}) por la cantidad de longitudes lineales
+sección [1.1.1](#sec:scattering){reference-type="ref"
+reference="sec:scattering"}) por la cantidad de longitudes lineales
 viajadas, teniendo en cuenta todos los posibles valores
 de $\omegaprimaversor$ y de $E^\prime$. Es decir
 
@@ -838,8 +833,8 @@ q_s(\vec{x}, \omegaversor, E, t)
 
 Debemos notar que en esta ecuación hemos invertido el índice de las
 variables primadas con respecto a la
-sección [1.1.1](#sec-scattering){reference-type="ref"
-reference="sec-scattering"}, inversión que mantendremos a lo largo de
+sección [1.1.1](#sec:scattering){reference-type="ref"
+reference="sec:scattering"}, inversión que mantendremos a lo largo de
 esta sección.
 
 #### Fuente por fisión
@@ -847,8 +842,8 @@ esta sección.
 Los neutrones que nacen por fisiones de núcleos de materiales
 combustibles en el punto $\vec{x}$ lo hacen isotrópicamente y con una
 cierta distribución energética $\chi(E)$ (ver
-sección [1.1.2](#sec-fision){reference-type="ref"
-reference="sec-fision"}). Como también discutimos en la página , debemos
+sección [1.1.2](#sec:fision){reference-type="ref"
+reference="sec:fision"}). Como también discutimos en la página , debemos
 calcular la fuente de fisión ligeramente diferente si se trata de un
 problema transitorio, estacionario con fuente o estacionario sin fuente.
 Sin pérdida de generalidad, para fijar ideas supongamos que desde el
@@ -859,8 +854,8 @@ y $E+dE$ por unidad de longitud de recorrido de neutrones que viajando
 con dirección $\omegaversor$ y energía $E$ generan la fisión del núcleo
 pesado en el punto $\vec{x}$ debido a neutrones incidentes con dirección
 de viaje $\omegaprimaversor$ y energía incidente $E^\prime$ (ver
-sección [1.1.2](#sec-fision){reference-type="ref"
-reference="sec-fision"}) por la cantidad de longitudes lineales
+sección [1.1.2](#sec:fision){reference-type="ref"
+reference="sec:fision"}) por la cantidad de longitudes lineales
 viajadas, teniendo en cuenta todos los posibles valores
 de $\omegaprimaversor$ y de $E^\prime$:
 
@@ -1221,7 +1216,7 @@ $$\begin{gathered}
 \left. + 3 \cdot \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \omegaversor\right) \, dE^\prime \right]
 \end{gathered}$$
 
-### Condiciones de contorno {#sec-bctransporte}
+### Condiciones de contorno {#sec:bctransporte}
 
 La ecuación [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
 reference="eq:transporte"} es una ecuación diferencial en derivadas
@@ -1309,7 +1304,7 @@ $$\psi(\vec{x}, \omegaversor, E, t) = f(\vec{x}) \quad\quad \forall \vec{x} \not
 Notamos que en todos los casos las condiciones de contorno de la
 ecuación de transporte son de tipo Dirichlet.
 
-## Aproximación de difusión {#sec-difusion}
+## Aproximación de difusión {#sec:difusion}
 
 ### Conservación de neutrones
 
@@ -1415,8 +1410,8 @@ todas las posibles direcciones del término de fuentes de fisión $q_f$.
 Para el caso de la ecuación [\[eq:qf\]](#eq:qf){reference-type="eqref"
 reference="eq:qf"}, que corresponde a un problema estacionario con
 fisión y fuente independiente (ver
-sección [1.5](#sec-problemas){reference-type="ref"
-reference="sec-problemas"}), tenemos
+sección [1.5](#sec:problemas){reference-type="ref"
+reference="sec:problemas"}), tenemos
 
 $$\begin{aligned}
 \label{eq:Qf}
@@ -1434,7 +1429,7 @@ $$\label{eq:S}
   = s_0(\vec{x},E,t)$$ es decir, el momento de orden cero de la
 expansión en armónicos esféricos de la fuente.
 
-### Ley de Fick {#sec-fick}
+### Ley de Fick {#sec:fick}
 
 Como ya hemos mencionado, nuestro enfoque será primero que nada
 esencialmente matemático. Dejamos para el final del capítulo el análisis
@@ -1738,14 +1733,14 @@ función de la energía $E$, $s_0$ es el momento de orden cero en la
 expansión de la fuente independiente en armónicos esféricos y $m$ es la
 masa en reposo del neutrón, todos parámetros que asumimos son conocidos.
 
-### Condiciones de contorno {#sec-bcdifusion}
+### Condiciones de contorno {#sec:bcdifusion}
 
 La ecuación de difusión es elíptica sobre las coordenadas espaciales por
 lo que debemos especificar, además de las condiciones iniciales
 apropiadas en el caso transitorio, condiciones de contorno en toda la
 frontera $\partial U$ del dominio espacial. Tal como discutimos en la
-sección [1.3.5](#sec-bctransporte){reference-type="ref"
-reference="sec-bctransporte"}, éstas pueden ser
+sección [1.3.5](#sec:bctransporte){reference-type="ref"
+reference="sec:bctransporte"}, éstas pueden ser
 
 1.  de Dirichlet donde especificamos el valor del flujo escalar $\phi$
     en $\Gamma_D \subset \partial U$;
@@ -1899,7 +1894,7 @@ reference="eq:difusion"}.
 aún cuando no se cumplan todas, todavía se puede obtener una relación
 entre el gradiente del flujo y la corriente
 
-## Problemas de estado estacionario {#sec-problemas}
+## Problemas de estado estacionario {#sec:problemas}
 
 Si bien hasta el momento hemos mantenido por completitud la dependencia
 temporal explícitamente en los flujos y corrientes, en este tesis
@@ -1985,15 +1980,15 @@ ejemplo problema de la sección XXX
 
 caso no lineal (manual de milonga)
 
-### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
+### Medio multiplicativo con fuentes independientes {#sec:multiplicativoconfuente}
 
 Si además de contar con fuentes independientes de fisión el medio
 contiene material multiplicativo, entonces los neutrones pueden provenir
 tanto de las fuentes como de las fisiones. En este caso, tenemos que
 tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$
 es proporcional al flujo escalar en $\vec{x}$. En la
-sección [1.1.2](#sec-fision){reference-type="ref"
-reference="sec-fision"} indicamos que debemos utilizar expresiones
+sección [1.1.2](#sec:fision){reference-type="ref"
+reference="sec:fision"} indicamos que debemos utilizar expresiones
 diferentes para la fuente de fisión dependiendo de si estamos
 resolviendo un problema transitorio o estacionario. Si bien sólo una
 fracción $\beta$ de todos los netrones nacidos por fisión se generan en
@@ -2154,15 +2149,15 @@ La segunda propiedad es que las condiciones de contorno también deben
 ser homogéneas. Es decir, no es posible fijar valores de flujo o
 corrientes diferentes de cero. De todas formas, las condiciones de
 contorno definidas con nombre y apellido en las
-secciones [1.3.5](#sec-bctransporte){reference-type="ref"
-reference="sec-bctransporte"}
- [1.4.5](#sec-bcdifusion){reference-type="ref"
-reference="sec-bcdifusion"} son homogéneas por lo que aplican
+secciones [1.3.5](#sec:bctransporte){reference-type="ref"
+reference="sec:bctransporte"}
+ [1.4.5](#sec:bcdifusion){reference-type="ref"
+reference="sec:bcdifusion"} son homogéneas por lo que aplican
 perfectamente para los medios multiplicativos sin fuentes externas.
 
 no linealidades, ya no es cierto que el flujo es cualquier cosa
 
-## Esquema de solución multiescala {#sec-multiescala}
+## Esquema de solución multiescala {#sec:multiescala}
 
 Si bien la ecuación de
 transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
@@ -2173,9 +2168,9 @@ energía de los neutrones
 Los coeficientes de la ecuación de transporte son esencialmente las
 secciones eficaces macroscópicas.
 
-### Evaluación y procesamiento de secciones eficaces {#sec-evaluacionxs}
+### Evaluación y procesamiento de secciones eficaces {#sec:evaluacionxs}
 
-### Cálculo a nivel celda {#sec-celda}
+### Cálculo a nivel celda {#sec:celda}
 
 ### Cálculo a nivel núcleo
 
@@ -2193,10 +2188,10 @@ $$R \cdot \vec{\phi} = \frac{1}{k_\text{eff}} F \cdot \vec{\phi}$$
     ecuación [\[eq:sigmalegendremu\]](#eq:sigmalegendremu){reference-type="eqref"
     reference="eq:sigmalegendremu"} es tal que sea consistente con los
     usos y costumbres históricos de la evaluación de secciones eficaces
-    (sección [1.6.1](#sec-evaluacionxs){reference-type="ref"
-    reference="sec-evaluacionxs"}) y de códigos de celda
-    (sección [1.6.2](#sec-celda){reference-type="ref"
-    reference="sec-celda"}). Es posible dar otra definición y
+    (sección [1.6.1](#sec:evaluacionxs){reference-type="ref"
+    reference="sec:evaluacionxs"}) y de códigos de celda
+    (sección [1.6.2](#sec:celda){reference-type="ref"
+    reference="sec:celda"}). Es posible dar otra definición y
     desarrollar consistentemente la matemática para llegar a las mismas
     ecuaciones finales, pero ello modificaría la definición de los
     coeficientes de la expansión dados por la
@@ -2224,7 +2219,3 @@ $$R \cdot \vec{\phi} = \frac{1}{k_\text{eff}} F \cdot \vec{\phi}$$
     tiene tres componentes, sólo dos son independientes (por ejemplo las
     coordenadas angulares cenital $\theta$ y azimutal $\varphi$) ya que
     debe cumplirse que $\Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$.
-
-
-
-
