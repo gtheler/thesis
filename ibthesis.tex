@@ -9,38 +9,37 @@
 \addtolength{\oddsidemargin}{-0.5\manejeparacentrar}
  \begin{center}
 
-  \parbox{0.75\linewidth}{\centering\large{\textsc{\@encabezado}}}
+  \parbox{0.75\linewidth}{\centering\large{\textsc{Tesis~de~la~Carrera~de\\Doctorado~en~Ingeniería~Nuclear}}}
 
   \vspace{3.5cm}
 
-  \parbox{0.95\linewidth}{\centering\large{\textbf{\@title}}}
+  \parbox{0.65\linewidth}{\centering\large{\textbf{\@title}}}
 
   \vspace{1.2cm}
 
    \begin{center}
     \makebox{\@author} \\
-    \makebox{\textbf{\@rolAutor}}
+    \makebox{\textbf{Doctorando}}
    \end{center}
 
   \vspace{2cm}
 
   \begin{minipage}{0.45\linewidth}
    \begin{center}
-    \makebox{\@directorIzq} \\
-    \makebox{\textbf{\@rolIzq}}
+    \makebox{Dr.~Fabián~J.~Bonetto} \\
+    \makebox{\textbf{Co-director}}
    \end{center}
   \end{minipage}
-%% TODO: si *Der es vacio, esta parte no va
-\begin{minipage}{0.45\linewidth}
+  \begin{minipage}{0.45\linewidth}
    \begin{center}
-    \makebox{\@directorDer} \\
-    \makebox{\textbf{\@rolDer}}
+    \makebox{Dr.~Alejandro~Clausse} \\
+    \makebox{\textbf{Co-director}}
    \end{center}
   \end{minipage}
 
   \vspace{\fill}
 
-  \@location\\
+  San Carlos de Bariloche\\
   \@fecha
 
   \vspace{2cm}
@@ -55,18 +54,8 @@
 \addtolength{\oddsidemargin}{0.5\manejeparacentrar}
 }
 
-\def\author#1{\def\@author{#1}}
-\def\rolAutor#1{\def\@rolAutor{#1}}
-\def\directorIzq#1{\def\@directorIzq{#1}}
-\def\rolIzq#1{\def\@rolIzq{#1}}
-\def\directorDer#1{\def\@directorDer{#1}}
-\def\rolDer#1{\def\@rolDer{#1}}
-\def\title#1{\def\@title{#1}}
 \def\englishtitle#1{\def\@englishtitle{#1}}
-\def\location#1{\def\@location{#1}}
 \def\fecha#1{\def\@fecha{#1}}
-\def\encabezado#1{\def\@encabezado{#1}}
-\def\cierre#1{\def\@cierre{#1}}
 
 
 % -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -183,9 +172,6 @@
 \renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
 % las matrices son asi
 \newcommand{\mat}[1]{\ensuremath\mathsf{#1}}
-
-% redefinicion del cuadradito de qed, me gusta mas negrencio
-%\renewcommand{\qedsymbol}{$\blacksquare$}
 
 % para isotopos, esta bueno esta definicion y hacer
 % \nucl{235}{92}{U} o directamente \nucl{235}{}{U}

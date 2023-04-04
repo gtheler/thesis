@@ -19,7 +19,7 @@ _Wayne Gretzky_
 Ver apéndice ejemplos
 
 
-## Stanford Bunny
+## Reactor con forma de Stanford Bunny
 
 ## IAEA PWR Benchmark
 
@@ -43,9 +43,11 @@ comparar con onedim?
 
 ## Benchmarks de criticidad desnudos
 
-## Slab a dos zonas, efecto de dilución
+## Slab a dos zonas, efecto de dilución de XSs
 
 ## El reactor cubo-esfera
 
+## PHWR de siete canales y tres barras de control inclinadas
 
+Dependencias espaciales no triviales
 

@@ -17,18 +17,20 @@ had been different from what they are by a factor of two.
 \end{chapterquote}
 ```
 
+```{=latex}
+% los vectores son en bold, no con una flecha maraca arriba
+\renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
+% las matrices son asi
+\renewcommand{\mat}[1]{\ensuremath\mathsf{#1}}
+```
 
 En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
 objetivos:
 
--   fijar las ideas sobre las que se basa el código neutrónico
-    desarrollado
-
--   declarar las suposiciones, aproximaciones y limitaciones de los
-    modelos matemáticos utilizados
-
--   definir una nomenclatura consistente para el resto de la tesis.
+ a. fijar las ideas sobre las que se basa la implementación computacional del solver neutrónico desarrollado
+ b. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados
+ c. definir una nomenclatura consistente para el resto de la tesis.
 
 No buscamos explicar los fundamentos físicos de los modelos matemáticos
 ni realizar una introducción para el lector lego. Para estos casos
@@ -76,23 +78,13 @@ espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el
 problema para casos particulares de dominios de una y dos dimensiones.
 Para ello, vamos a suponer que [@lewis]
 
-1.  podemos considerar a los neutrones como puntos geométricos
-
-2.  los neutrones viajan en línea recta entre colisiones
-
-3.  las interacciones neutrón-neutrón pueden ser despreciadas
-
-4.  podemos considerar a las colisiones entre neutrones y núcleos como
-    instantáneas
-
-5.  las propiedades de los materiales son isotrópicas
-
-6.  conocemos las propiedades de los núcleos y la composición de los
-    materiales y éstas no dependen del tiempo
-
-7.  es suficiente que consideremos sólo el valor medio de la
-    distribución de densidad espacial de neutrones y no sus
-    fluctuaciones estadísticas
+ #.  podemos considerar a los neutrones como puntos geométricos
+ #. los neutrones viajan en línea recta entre colisiones
+ #. las interacciones neutrón-neutrón pueden ser despreciadas
+ #. podemos considerar a las colisiones entre neutrones y núcleos como instantáneas
+ #. las propiedades de los materiales son isotrópicas
+ #. conocemos las propiedades de los núcleos y la composición de los materiales y éstas no dependen del tiempo
+ #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus   fluctuaciones estadísticas
 
 <figure id="fig:neutron">
 <div class="center">
@@ -101,7 +93,7 @@ Para ello, vamos a suponer que [@lewis]
 <figcaption><span id="fig:neutron" label="fig:neutron"></span>Un neutrón
 individual (bola celeste), en un cierto tiempo <span
 class="math inline"><em>t</em> ∈ ℝ</span> está caracterizado por la
-posición <span class="math inline"><em>x⃗</em> ∈ ℝ<sup>3</sup></span> que
+posición $\vec{x} \in \mathbb{R}^3$ que
 ocupa en el espacio, por la dirección <span
 class="math inline">$\omegaversor \in \mathbb{R}^2$</span> en la que
 viaja y por su energía cinética <span
@@ -2179,7 +2171,7 @@ secciones eficaces macroscópicas.
 
 ### Cálculo a nivel núcleo
 
-$$R \cdot \vec{\phi} = \frac{1}{k_\text{eff}} F \cdot \vec{\phi}$$
+$$R \cdot \mathbf{\phi} = \frac{1}{k_\text{eff}} F \cdot \mathbf{\phi}$$
 
 [^1]: Se dice que durante las primeras mediciones experimentales de
     secciones eficaces los físicos americanos esperaban encontrar

@@ -1,19 +1,8 @@
-# Esquemas de discretización numérica {#sec-esquemas}
+# Esquemas de discretización numérica {#cap:esquemas}
 
-```{=latex}
-\begin{chapterquote}
-```
-Para una inteligencia que conociera en un momento dado todas  
-las fuerzas que actúan en la naturaleza y la situación de  
-los seres de que se compone [...] nada le sería incierto y  
-tanto el futuro como el pasado estarían presentes ante su vista.
-
-_Pierre de Simon Laplace, Teoría Analítica de las Probabilidades, 1812_
-```{=latex}
-\end{chapterquote}
-```
-
-
+::: chapterquote
+*CITA DE PIAGET - RUBBER DUCK DEBUGGING*
+:::
 
 Las formulaciones de los modelos matemáticos del transporte y difusión
 de neutrones en estado estacionario desarrollados en el capítulo
@@ -56,7 +45,9 @@ conceptos más generales de matemática discreta es equivalente a aplicar
 el método de volúmenes finitos, sólo que esta vez los volúmenes son
 volúmenes de energía. En efecto, tomemos el intervalo de
 energías $[0,E_0]$ donde $E_0$ es la mayor energía esperada de un
-neutrón individual. Como ilustramos en la @fig.multigroup, dividamos dicho intervalo en $G$ grupos
+neutrón individual. Como ilustramos en la
+figura [1.1](#fig:multigroup){reference-type="ref"
+reference="fig:multigroup"}, dividamos dicho intervalo en $G$ grupos
 (volúmenes) no necesariamente iguales cada uno definido por energías de
 corte $0=E_G < E_{G-1} < \dots < E_2 < E_1 < E_0$, de forma tal que el
 grupo $g$ es el intervalo $[E_g,E_{g-1}]$. Notamos que con esta
@@ -64,7 +55,19 @@ notación, el grupo número uno siempre es el de mayor energía. A medida
 que un neutrón va perdiendo energía, va aumentando el número de su grupo
 de energía.
 
-![Discretización del dominio energético en grupos (volúmenes) de energía. Tomamos la mayor energía esperada $E_0$ y divididmos el intervalo $[0,E_0]$ en $G$ grupos, no necesariamente iguales. El esquema matemático es equivalente a una discretización por volúmenes finitos. El grupo uno es el de mayor energía.](multigroup-energy)[fig-multigroup]
+<figure id="fig:multigroup">
+<div class="center">
+<img src="esquemas/multigroup-energy" />
+</div>
+<figcaption><span id="fig:multigroup"
+label="fig:multigroup"></span>Discretización del dominio energético en
+grupos (volúmenes) de energía. Tomamos la mayor energía esperada <span
+class="math inline"><em>E</em><sub>0</sub></span> y divididmos el
+intervalo <span class="math inline">[0,<em>E</em><sub>0</sub>]</span>
+en <span class="math inline"><em>G</em></span> grupos, no necesariamente
+iguales. El esquema matemático es equivalente a una discretización por
+volúmenes finitos. El grupo uno es el de mayor energía.</figcaption>
+</figure>
 
 El objetivo de discretizar la energía en $G$ grupos es transformar la
 dependencia continua del flujo $\psi(\vec{x}, \omegaversor, E)$ por $G$
@@ -133,8 +136,11 @@ $$\label{eq:sigmasggprima}
 \Sigma_{s}(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, dE^\prime \, dE }
 {\displaystyle \int_{E_g}^{E_{g-1}} \int_{E^\prime_{g^\prime}}^{E^\prime_{g^\prime -1}} \psi(\vec{x}, \omegaprimaversor, E^\prime) \, dE^\prime \, dE}$$
 
-Tomemos entonces el caso de medio multiplicativo con fuente de la @sec-multiplicativoconfuente e integremos la ecuación de
-transporte @eq-transportemmfi sobre la energía $E$ en el grupo $g$, es
+Tomemos entonces el caso de medio multiplicativo con fuente de la
+sección [\[sec:multiplicativoconfuente\]](#sec:multiplicativoconfuente){reference-type="ref"
+reference="sec:multiplicativoconfuente"} e integremos la ecuación de
+transporte [\[eq:transportemmfi\]](#eq:transportemmfi){reference-type="eqref"
+reference="eq:transportemmfi"} sobre la energía $E$ en el grupo $g$, es
 decir en el intervalo $E_g < E < E_{g-1}$:
 
 $$\begin{gathered}
@@ -354,6 +360,7 @@ ecuación [\[eq:qsfacil\]](#eq:qsfacil){reference-type="eqref"
 reference="eq:qsfacil"}
 
 $$\begin{gathered}
+\tag{\ref{eq:qsfacil}}
  q_s(\vec{x}, \omegaversor, E, t) =
 \frac{1}{4\pi} \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}, t) \, dE^\prime \\
 + \frac{3}{4\pi} \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \boldsymbol{\hat\Omega}\right) \, dE^\prime  \\
@@ -382,7 +389,7 @@ $$\begin{gathered}
 + s_{mg}(\vec{x})
 \end{gathered}$$
 
-### Conjuntos de cuadraturas en tres dimensiones {#sec-cuadraturas}
+### Conjuntos de cuadraturas {#sec:cuadraturas}
 
 Para completar el método de las ordenadas discretas debemos
 especificar $M$ pares de direcciones y
@@ -477,7 +484,8 @@ desarrollado para esta tesis y descripto en el
 capítulo [\[cap:implementacion\]](#cap:implementacion){reference-type="ref"
 reference="cap:implementacion"}.
 
-::: {#tbl-quadratureset}
+::: center
+::: {#tab:quadratureset}
                $\mu_1$       $m$      $8 \cdot w_i$
   ------- -- ----------- -- ----- -- ---------------
    S$_4$      0.3500212       1            1/3
@@ -487,17 +495,20 @@ reference="cap:implementacion"}.
                               2         0.0907407
                               3         0.0925926
 
-: Set de cuadraturas para S$_N$ de nivel simétrico. Para cada $N$
+  : Set de cuadraturas para S$_N$ de nivel simétrico. Para cada $N$
   mostramos el primer coseno director (el resto se calcula con la
   ecuación [\[eq:cosenos\]](#eq:cosenos){reference-type="eqref"
   reference="eq:cosenos"}) y ocho veces el peso asociado a cada
   permutación, de forma tal que se puedan utilizar los mismos valores
   para dos dimensiones dividiendo por cuatro en lugar de por ocho (ver
-  @sec-dosdimensiones. Datos tomados de la
+  sección [1.2.2](#sec:dosdimensiones){reference-type="ref"
+  reference="sec:dosdimensiones"}). Datos tomados de la
   referencia [@lewis Tabla 4-1 pág. 162].
 :::
+:::
 
-::: {#tbl-mus}
+::: center
+::: {#tab:mus}
            $m$   $\hat{\Omega}_{mx}$   $\hat{\Omega}_{my}$   $\hat{\Omega}_{mz}$   $i$
   ------- ----- --------------------- --------------------- --------------------- -----
    S$_4$    1          $\mu_1$               $\mu_1$               $\mu_2$          1
@@ -510,9 +521,12 @@ reference="cap:implementacion"}.
             5          $\mu_3$               $\mu_1$               $\mu_1$          1
             6          $\mu_1$               $\mu_3$               $\mu_1$          1
 
-: Combinaciones de cosenos directores positivos que forman las
+  : Combinaciones de cosenos directores positivos que forman las
   direcciones en el primer cuadrante ($m=1,\dots,N(N+2)/8$) para S$_4$
-  y S$_2$. El índice $i$ indica el peso $w_i$ de la @tbl-quadratureset aplicable a la dirección $m$.
+  y S$_2$. El índice $i$ indica el peso $w_i$ de la
+  tabla [1.1](#tab:quadratureset){reference-type="ref"
+  reference="tab:quadratureset"} aplicable a la dirección $m$.
+:::
 :::
 
 Para obtener entonces un conjunto de cuadraturas aplicable a S$_N$ de
@@ -528,17 +542,25 @@ primer octante. Para extender estas direcciones a los demás cuadrantes,
 notamos que si asignamos un índice $n$ a cada octantes de la siguiente
 manera:
 
- 0.  $x>0$, $y>0$, $z>0$
- 1.  $x<0$, $y>0$, $z>0$
- 2.  $x>0$, $y<0$, $z>0$
- 3.  $x<0$, $y<0$, $z>0$
- 4.  $x>0$, $y>0$, $z<0$
- 5.  $x<0$, $y>0$, $z<0$
- 6.  $x>0$, $y<0$, $z<0$
- 7.  $x<0$, $y<0$, $z<0$
+0.  $x>0$, $y>0$, $z>0$
 
-![image](axes-with-octs){width=70%}
+1.  $x<0$, $y>0$, $z>0$
 
+2.  $x>0$, $y<0$, $z>0$
+
+3.  $x<0$, $y<0$, $z>0$
+
+4.  $x>0$, $y>0$, $z<0$
+
+5.  $x<0$, $y>0$, $z<0$
+
+6.  $x>0$, $y<0$, $z<0$
+
+7.  $x<0$, $y<0$, $z<0$
+
+::: center
+![image](esquemas/axes-with-octs){width="0.7\\linewidth"}
+:::
 
 Notamos que el desarrollo binario del índice $n$ tiene tres bits y éstos
 indican si hubo un cambio de signo o no en cada uno de los tres ejes con
@@ -589,7 +611,7 @@ realizar cálculos de transporte con el método de las ordenadas
 discretas.</figcaption>
 </figure>
 
-### Dos dimensiones {#sec-dosdimensiones}
+### Dos dimensiones {#sec:dosdimensiones}
 
 El caso bidimensional en realidad es un problema en tres dimensiones
 pero sin dependencia de los parámetros del problema en una de las
@@ -717,9 +739,12 @@ $$\label{eq:1dgauss}
 Si los puntos $\hat{\Omega}_{xm}$ y los pesos $\omega_m=2\cdot w_m$ son
 los asociados a la integración de Gauss y $f(\hat{\Omega}_x)$ es un
 polinomio de orden $2N-1$ o menos, entonces la integración es exacta
-(ver @sec-gauss) y la
-ecuación @eq-1dgauss deja de ser una aproximación para transformarse
-en una igualdad. En la tabla @tbl-gauss1d mostramos el conjunto de cuadraturas utilizadas
+(ver apéndice [\[sec:gauss\]](#sec:gauss){reference-type="ref"
+reference="sec:gauss"}) y la
+ecuación [\[eq:1dgauss\]](#eq:1dgauss){reference-type="eqref"
+reference="eq:1dgauss"} deja de ser una aproximación para transformarse
+en una igualdad. En la tabla [1.3](#tab:gauss1d){reference-type="ref"
+reference="tab:gauss1d"} mostramos el conjunto de cuadraturas utilizadas
 para una dimensión, que contiene esencialmente las abscisas y los pesos
 de la cuadratura de Gauss.
 
@@ -748,7 +773,7 @@ de la cuadratura de Gauss.
 :::
 :::
 
-## Formulaciones de ecuaciones en derivadas parciales
+## Formulaciones fuertes, integrales y débiles
 
 Antes de comenzar a discutir las discretizaciones espaciales tanto de la
 ecuación de transporte multigrupo con ordenadas discretas como de la
@@ -760,7 +785,7 @@ resumimos las ecuaciones en derivadas parciales con respecto a las
 coordenadas espaciales que debemos resolver para obtener la distribución
 de flujo neutrónico de estado estacionario en un reactor nuclear.
 
-### Formulaciones fuertes {#sec-fuertes}
+### Formulaciones fuertes {#sec:fuertes}
 
 La formulación fuerte de un problema de derivadas parciales consiste en
 escribir directamente las ecuaciones diferenciales y sus condiciones de
@@ -791,8 +816,6 @@ ser evaluado. Este es uno de los varios inconvenientes que tiene esta
 formulación a la hora de utilizarla para resolver numéricamente los
 problemas planteados en esta tesis.
 
-#### Operador de Laplace escalar
-
 #### Ordenadas discretas
 
 La formulación fuerte del problema de transporte de neutrones
@@ -802,6 +825,7 @@ diferencial [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-typ
 reference="eq:transportesngeneral"}
 
 $$\begin{gathered}
+\tag{\ref{eq:transportesngeneral}}
  \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
  + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \\
   \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot
@@ -813,7 +837,8 @@ $$\begin{gathered}
 ($n=1,2,3$) para el grupo de energía $g=1,\dots,G$ y para la
 dirección $m=1,\dots,M$ con las condiciones de contorno de Dirichlet
 discutidas en la
-sección @sec-bctransporte:
+sección [\[sec:bctransporte\]](#sec:bctransporte){reference-type="ref"
+reference="sec:bctransporte"}:
 
 $$\label{eq:transportesncc}
 \psi_{mg}^{ij} =
@@ -850,7 +875,7 @@ $$\begin{gathered}
 + \frac{\chi_g}{k_\text{eff}} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
 \end{gathered}$$
 
-#### Difusión de neutrones
+#### Difusión
 
 La formulación fuerte del problema de difusión de neutrones discretizado
 en energía mediante el método multigrupo es la
@@ -858,6 +883,7 @@ ecuación [\[eq:difusionmultigrupo\]](#eq:difusionmultigrupo){reference-type="e
 reference="eq:difusionmultigrupo"}
 
 $$\begin{gathered}
+\tag{\ref{eq:difusionmultigrupo}}
  - \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]
  + \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x})
  = \\
@@ -866,7 +892,8 @@ $$\begin{gathered}
 \end{gathered}$$ sobre el dominio espacial $U \in \mathbb{R}^n$
 ($n=1,2,3$) para el grupo de energía $g=1,\dots,G$ con las condiciones
 de contorno discutidas en la
-sección @sec-bcdifusion:
+sección [\[sec:bcdifusion\]](#sec:bcdifusion){reference-type="ref"
+reference="sec:bcdifusion"}:
 
 $$\label{eq:difusioncc}
  \begin{cases}
@@ -900,7 +927,7 @@ $$\begin{gathered}
 \frac{\chi_g}{k_\text{eff}} \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
 \end{gathered}$$
 
-### Formulaciones integrales {#sec-integrales}
+### Formulaciones integrales {#sec:integrales}
 
 Dado que las ecuaciones de la sección anterior se cumplen punto a punto,
 podemos operar lógica y matemáticamente sobre ellas para obtener otras
@@ -908,8 +935,6 @@ formulaciones más adecuadas para ser atacadas por esquemas de
 discretización espacial. Las formulaciones integrales son la base de los
 métodos basdos en volúmenes finitos y consisten en integrar las
 ecuaciones sobre volúmenes de control.
-
-#### Operador de Laplace escalar
 
 #### Ordenadas discretas
 
@@ -975,7 +1000,7 @@ formulación débil. De hecho, justamente las soluciones encontradas con
 el método de volúmenes finitos satisfacen la formulación integral pero
 no la formulación débil para volúmenes de control $V$ de tamaño finito.
 
-#### Difusión de neutrones
+#### Difusión
 
 Procediendo en forma análoga, integramos la formulación
 fuerte [\[eq:difusionmultigrupo\]](#eq:difusionmultigrupo){reference-type="eqref"
@@ -1016,12 +1041,9 @@ $$\begin{gathered}
 ecuación [\[eq:difusioncc\]](#eq:difusioncc){reference-type="eqref"
 reference="eq:difusioncc"}.
 
-### Formulaciones débiles {#sec-debiles}
+### Formulaciones débiles {#sec:debiles}
 
 TO BE DONE
-
-#### Operador de Laplace escalar
-
 
 #### Ordenadas discretas
 
@@ -1031,11 +1053,7 @@ TO BE DONE
 
 TO BE DONE
 
-## Discretización espacial por elementos finitos {#sec-discretizacion_espacial}
-
-
-### Operador de Laplace escalar
-
+## Discretización espacial {#sec:discretizacion_espacial}
 
 El objetivo de la discretización espacial es obtener a partir de
 ecuaciones que sólo dependen de la coordenada espacial $\vec{x}$ un
@@ -1102,6 +1120,7 @@ adelante en este capítulo que podemos escribir
      k_\text{eff} \cdot R \cdot \boldsymbol{\xi} = F \cdot \boldsymbol{\xi} \\
     \end{aligned}$$
 
+### Mallas estructuradas y no estructuradas
 
 cuatro figuras: un cuadrado uniforme, un cuadrado con deltas x e y no
 uniformes, un circulo con cosas radiales y un paralelogramo o algo curvo
@@ -1123,8 +1142,878 @@ Todo lo demás, incluyendo nodos y celdas son elementos.
 
 figuras de dmplex?
 
+## Volúmenes finitos
 
-### Ecuación de difusión de neutrones
+El método de volúmenes finitos se basa en la formulación integral
+discutida en la sección [1.3.2](#sec:integrales){reference-type="ref"
+reference="sec:integrales"}. Los términos integrados sobre volúmenes son
+aproximados por un valor medio del integrando multiplicado por el
+volúmen de la celda. Los términos integrados sobre superficies son
+reemplazados por aproximaciones de los integrandos sobre las superficies
+a partir de los valores medios de las celdas adyacentes. Estos esquemas
+se basan más en un enfoque geométrico que en un formalismo matemático
+(al contrario de lo que sucede con el método de elementos finitos que
+discutimos en la sección [1.6](#sec:elementos){reference-type="ref"
+reference="sec:elementos"}), aunque es posible estudiar su errores y sus
+propiedades de convergencia [@bookevol].
 
-### Ordenadas discretas
+### Ordenadas discretas en volúmenes
 
+En el método de los volúmenes finitos que proponemos, las incógnitas del
+problema son los valores medios de los flujos en las $I$ celdas, a
+diferencia de lo que sucede en diferencias o elementos finitos donde las
+incógnitas son los valores que toman los flujos sobre los $K$ nodos.
+
+::: definicion
+El flujo angular del grupo $g=1,\dots,G$ en la dirección $m=1,\dots,M$
+en la celda $i=1,\dots,I$ es
+
+$$\label{eq:flujo-medio}
+ \psi_{mg}^i = \frac{\displaystyle \int_{V_i} \psi_{mg}(\vec{x}) \, d^n\vec{x}}{\displaystyle \int_{V_i} \, d^n\vec{x}}$$
+donde $V_i \in \mathbb{R}^n$ es el volumen del dominio $U$ ocupado por
+la celda $i$.
+:::
+
+De esta manera, el problema consiste en encontrar
+los $I \cdot G \cdot M$ valores $\psi_{mg}^i$, que son los elementos del
+vector incógnita $\boldsymbol{\xi} \in \mathbb{R}^{IGM}$ definido en la
+ecuación [\[eq:incognita\]](#eq:incognita){reference-type="eqref"
+reference="eq:incognita"}. Para ello, tomamos la formulación integral
+del problema de ordenadas discretas dada por la
+ecuación [\[eq:transportesnintegral\]](#eq:transportesnintegral){reference-type="eqref"
+reference="eq:transportesnintegral"} introducida en la
+sección [1.3.2](#sec:integrales){reference-type="ref"
+reference="sec:integrales"}
+
+$$\begin{gathered}
+\tag{\ref{eq:transportesnintegral}}
+ \int_S \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+ +
+ \int_V \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} = \\
+ \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot  \sum_{\ell=0}^\infty 
+\int_V \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot (2\ell+1) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x} \\
++
+ \chi_g  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot \int_V \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x}
++
+ \int_V s_{mg}(\vec{x}) \, d^n\vec{x}
+\end{gathered}$$ y analizamos cómo podemos aproximar cada término en
+función de las incógnitas del problema, que son los flujos medios el las
+celdas dados por la
+ecuación [\[eq:flujo-medio\]](#eq:flujo-medio){reference-type="eqref"
+reference="eq:flujo-medio"}.
+
+#### Términos volumétricos
+
+Exceptuando el primer y el último término de la
+ecuación [\[eq:transportesnintegral\]](#eq:transportesnintegral){reference-type="eqref"
+reference="eq:transportesnintegral"}, todos los demás tienen la forma
+
+$$\label{eq:snvol1}
+\int_{V} f(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x}$$
+
+Como la
+ecuación [\[eq:transportesnintegral\]](#eq:transportesnintegral){reference-type="eqref"
+reference="eq:transportesnintegral"} vale para cualquier volumen $V$
+arbitrario, entonces deberá valer para cada volumen $V_i$ de las $I$
+celdas que aproximan el dominio $U \in \mathbb{R}^n$. En particular,
+podemos evaluar la
+ecuación [\[eq:snvol1\]](#eq:snvol1){reference-type="eqref"
+reference="eq:snvol1"} para la celda $i$-ésima multiplicando y
+dividiendo por $\int_{V_i} \, d^n\vec{x}$ y
+por $\int_{V_i} \psi_{mg}(\vec{x}) d^n\vec{x}$ y recordando la
+definición [\[eq:flujo-medio\]](#eq:flujo-medio){reference-type="eqref"
+reference="eq:flujo-medio"} de $\psi_{mg}^i$
+
+$$\begin{aligned}
+\label{eq:snvol2}
+\int_{V_i} f(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} &=
+\int_{V_i} f(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} \cdot
+\frac{\displaystyle \int_{V_i} \, d^n\vec{x}}{\displaystyle \int_{V_i} \, d^n\vec{x}} \cdot
+\frac{\displaystyle \int_{V_i} \psi_{mg}(\vec{x}) \, d^n\vec{x}}{\displaystyle \int_{V_i} \psi_{mg}(\vec{x}) \, d^n\vec{x}} \nonumber \\
+&=
+\frac{\displaystyle \int_{V_i} f(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x}}{\displaystyle \int_{V_i} \psi_{mg}(\vec{x}) \, d^n\vec{x}} \cdot
+\int_{V_i} \, d^n\vec{x} \cdot \psi_{mg}^i
+\end{aligned}$$
+
+Podemos aproximar la
+ecuación [\[eq:snvol2\]](#eq:snvol2){reference-type="eqref"
+reference="eq:snvol2"} como
+
+$$\label{eq:snvol3}
+  \int_{V_i} f(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} \approx
+  \left[ \int_{V_i} f(\vec{x}) \, d^n\vec{x} \right] \cdot \psi_{mg}^i
+=
+ f^i \cdot V_i \cdot \psi_{mg}^i$$ donde directamente denotamos con la
+variable $V_i$ al volumen $\int_{V_i} \, d^n\vec{x}$ de la celda.
+Si $f(\vec{x})$ es idénticamente igual a una constante $f^i$ para
+todo $\vec{x} \in V_i$, entonces debemos reemplazar el signo de
+aproximación de la
+ecuación [\[eq:snvol3\]](#eq:snvol3){reference-type="eqref"
+reference="eq:snvol3"} por un signo de igualdad. Si $f(\vec{x})$ no es
+uniforme dentro de la celda $i$, entonces debemos utilizar nuestro
+juicio de ingeniería para evaluar qué tan válida es esta aproximación en
+función del tamaño $V_i$ de la celda y de la magnitud del cambio
+de $f(\vec{x}$) dentro de la misma.
+
+#### Término de fugas {#sec:snvolfugas}
+
+Por otro lado, el primer término de la formulación
+integral [\[eq:transportesnintegral\]](#eq:transportesnintegral){reference-type="eqref"
+reference="eq:transportesnintegral"} es el término que da la tasa neta
+de fugas a través de la superficie externa del volumen $V$. En
+particular, para la celda $i$, tenemos
+
+$$\int_{S_i} \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+= \sum_{j~\text{vecinos}} \int_{S_{ij}} \psi_{mg}(\vec{x}) \cdot \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right)  \, d^{n-1}\vec{x}$$
+donde $J$ es la cantidad de caras planas que definen a la celda $i$
+y $S_{ij}$ es la superficie que separa a la celda $i$ de la celda $j$
+adyacente. En este caso, $\hat{\vec{n}}_{ij}$ es el versor normal a la
+superficie $S_{ij}$ en la dirección externa a la celda $i$
+(figura [1.6](#fig:nij){reference-type="ref" reference="fig:nij"}).
+Decimos que las celdas $i$ y $j$ son *vecinos*. Como las superficies son
+planas, entonces $\hat{\vec{n}}_{ij}$ no depende de $\vec{x}$ y el
+producto escalar puede salir fuera de la integral
+
+<figure id="fig:nij">
+<div class="center">
+<img src="esquemas/nij" />
+</div>
+<figcaption><span id="fig:nij" label="fig:nij"></span>Ilustración de la
+superficie <span
+class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span> que
+separada las celdas vecinas <span class="math inline"><em>i</em></span>
+y <span class="math inline"><em>j</em></span> en una malla no
+estructurada bidimensional. Los baricentros de las celdas son <span
+class="math inline"><em>x⃗</em><sub><em>i</em></sub></span> y <span
+class="math inline"><em>x⃗</em><sub><em>j</em></sub></span>
+respectivamente. El baricentro de la superficie <span
+class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span>
+es <span
+class="math inline"><em>x⃗</em><sub><em>i</em><em>j</em></sub></span> y
+la normal externa con respecto a <span
+class="math inline"><em>i</em></span> es <span
+class="math inline">$\hat{\vec{n}}_{ij}$</span>. </figcaption>
+</figure>
+
+$$\label{eq:snvol5}
+ \int_{S_i} \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+= \sum_{j~\text{vecinos}} \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot \int_{S_{ij}} \psi_{mg}(\vec{x})  \, d^{n-1}\vec{x}$$
+
+Ahora nos queda aproximar la integral del flujo escalar $\psi_{mg}$
+sobre la superficie $S_{ij}$ en función de los valores
+medios $\psi_{mg}^i$ y $\psi_{mg}^j$. Proponemos aproximar este término
+como
+
+$$\label{eq:snvol4}
+ \int_{S_i} \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+\approx \sum_{j~\text{vecinos}} \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot  \left[ \omega_{ij} \cdot \psi_{mg}^i + (1-\omega_{ij}) \cdot \psi_{mg}^j \right] \cdot S_{ij}$$
+siendo $S_{ij}$ el área de la cara que separa la celda $i$ de la
+celda $j$ y donde hemos introducido un peso $0 \leq \omega_{ij} \leq 1$
+que depende en principio de la geometrías de las celdas $i$ y $j$. En
+efecto, siguiendo la idea de la interpolación de Shepard [@shepard] en
+la cual un valor interpolado es la suma de los valores cercanos pesados
+con alguna potencia $p$ de la distancia al punto de interpolación,
+podemos plantear que si $x_i$ es el baricentro de la celda $i$, $x_j$ es
+el baricentro de la celda $j$ y $x_{ij}$ es el baricentro de la
+superficie que separa ambas celdas, entonces
+
+$$\psi_{mg}^{ij} = \frac{\displaystyle \frac{\psi_{mg}^i}{|\vec{x}_{ij} - \vec{x}_i|^p} + \frac{\psi_{mg}^j}{|\vec{x}_{ij} - \vec{x}_j|^p}}
+{\displaystyle \frac{1}{|\vec{x}_{ij} - \vec{x}_i|^p} + \frac{1}{|\vec{x}_{ij} - \vec{x}_j|^p}}$$
+que podemos escribir en la forma que propusimos en la
+ecuación [\[eq:snvol4\]](#eq:snvol4){reference-type="eqref"
+reference="eq:snvol4"}
+
+$$\psi_{mg}^{ij} = \tilde{\omega}_{ij} \cdot \psi_{mg}^i + (1-\tilde{\omega}_{ij}) \cdot \psi_{mg}^j$$
+eligiendo como peso puramente geométrico
+
+$$\label{eq:wij}
+ \tilde{\omega}_{ij} = \frac{|\vec{x}_{ij} - \vec{x}_j|^p}{|\vec{x}_{ij} - \vec{x}_i|^p + |\vec{x}_{ij} - \vec{x}_j|^p}$$
+
+<figure id="fig:shepard">
+<div class="center">
+<img src="esquemas/shepard" />
+</div>
+<figcaption><span id="fig:shepard"
+label="fig:shepard"></span>Interpolación de dos puntos mediante su suma
+pesada con la inversa de la distancia al punto de interpolación elevado
+a una potencia <span class="math inline"><em>p</em></span> (método de
+Shepard <span class="citation"
+data-cites="shepard"></span>).</figcaption>
+</figure>
+
+En la figura [1.7](#fig:shepard){reference-type="ref"
+reference="fig:shepard"} podemos observar que para $p=1$ recuperamos la
+interpolación lineal tradicional. Para valores de $p>1$ se le da más
+peso al punto más cercano, y viceversa. De hecho para $p=\infty$ la
+interpolación arroja un resultado constante por trozos equivalente a la
+interpolación constante a primeros vecinos. El caso $p=1$ es importante
+porque es el único esquema de interpolación que da una estricta
+conservación de neutrones. En efecto, según la
+ecuación [\[eq:snvol5\]](#eq:snvol5){reference-type="eqref"
+reference="eq:snvol5"} de la formulación integral continua tenemos que
+para una cara plana que separa dos celdas se debe cumplir
+
+$$\left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot \int_{S_{ij}} \psi_{mg}(\vec{x})  \, d^{n-1}\vec{x}
+=
+- \left( \omegaversor_m \cdot \hat{\vec{n}}_{ji}\right) \cdot \int_{S_{ji}} \psi_{mg}(\vec{x})  \, d^{n-1}\vec{x}$$
+
+Con la aproximación de la
+ecuación [\[eq:snvol4\]](#eq:snvol4){reference-type="eqref"
+reference="eq:snvol4"}, se cumple que
+
+$$\begin{gathered}
+  \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot  \left[ \tilde{\omega}_{ij} \cdot \psi_{mg}^i + (1-\tilde{\omega}_{ij}) \cdot \psi_{mg}^j \right] \cdot S_{ij} 
+= \\
+- \left( \omegaversor_m \cdot \hat{\vec{n}}_{ji}\right) \cdot  \left[ \tilde{\omega}_{ji} \cdot \psi_{mg}^j + (1-\tilde{\omega}_{ji}) \cdot \psi_{mg}^i \right] \cdot S_{ji} 
+\end{gathered}$$ sólo si
+
+$$\tilde{\omega}_{ji} = 1 - \tilde{\omega}_{ij}$$
+
+Para cumplir esta condición de conservatividad hacemos entonces $p=1$ en
+la definición del peso $\omega_{ij}$ de la
+ecuación [\[eq:wij\]](#eq:wij){reference-type="eqref"
+reference="eq:wij"}.
+
+Independientemente de la formulación, la ecuación de transporte plantea
+un problema hiperbólico que presenta dificultades para ser resuelto
+numéricamente sin términos especiales para estabilizar la solución.
+Efectivamente, los problemas de transporte inducen oscilaciones espurias
+en las soluciones numéricas cuando son discretizados con esquemas
+centrados. Dejamos una breve introducción y discusión del tema para el
+apéndice [\[ap:oscilaciones\]](#ap:oscilaciones){reference-type="ref"
+reference="ap:oscilaciones"}. Para evitar que aparezcan estas
+oscilaciones que eventualmente pueden hacer que la solución diverja
+debemos recurrir a esquemas con *upwinding* en la dirección del
+transporte. Para el caso de neutrones sobre celdas, esto implica que en
+una interfaz entre dos celdas debe tener más peso la celda que está
+aguas abajo en la dirección de viaje del neutrón. Para ello introducimos
+un factor $\alpha$ y definimos en peso $\omega_{ij}$ que utilizamos en
+la ecuación [\[eq:snvol4\]](#eq:snvol4){reference-type="eqref"
+reference="eq:snvol4"} como sigue.
+
+::: definicion
+El peso $\omega_{ij}$ estabilizado con upwinding para aproximar el flujo
+escalar $\psi_{mg}^{ij}$ en la superficie plana $S_{ij}$ que separa las
+celdas $i$ y $j$ en la
+expresión [\[eq:snvol4\]](#eq:snvol4){reference-type="eqref"
+reference="eq:snvol4"}
+
+$$\tag{\ref{eq:snvol4}}
+ \int_{S_i} \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+\approx \sum_{j~\text{vecinos}} \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot  \left[ \omega_{ij} \cdot \psi_{mg}^i + (1-\omega_{ij}) \cdot \psi_{mg}^j \right] \cdot S_{ij}$$
+es
+
+$$\label{eq:wij_estabilizado}
+ \omega_{ij} =
+\begin{cases}
+ \tilde{\omega}_{ij} + \alpha \cdot (1 - \tilde{\omega}_{ij}) & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} \ge 0$}\\
+ \tilde{\omega}_{ij} - \alpha \cdot \tilde{\omega}_{ij}       & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} < 0$}\\
+\end{cases}$$ donde $\tilde{\omega}_{ij}$ es un peso geométrico, por
+ejemplo el propuesto en la
+ecuación [\[eq:wij\]](#eq:wij){reference-type="eqref"
+reference="eq:wij"}
+
+$$\tag{\ref{eq:wij}}
+ \tilde{\omega}_{ij} = \frac{|\vec{x}_{ij} - \vec{x}_j|^p}{|\vec{x}_{ij} - \vec{x}_i|^p + |\vec{x}_{ij} - \vec{x}_j|^p}$$
+
+Si el peso geométrico cumple que $\omega_{ji} = 1-\omega_{ij}$, entonces
+el peso estabilizado $\omega_{ij}$ definido en la
+ecuación [\[eq:wij_estabilizado\]](#eq:wij_estabilizado){reference-type="eqref"
+reference="eq:wij_estabilizado"} también lo cumple. Luego el esquema de
+volúmenes finitos es conservativo en el sentido de que la cantidad total
+de neutrones se conserva en el problema discretizado.
+:::
+
+#### Condiciones de contorno
+
+Si la celda $i$ está en el borde del dominio, entonces al menos una de
+sus caras no tendrá una celda vecina $j$. Pero la superficie libre de la
+celda deberá estar asociada a alguna condición de contorno, que para el
+caso de la ecuación de transporte debe ser de tipo Dirichlet. Por lo
+tanto, para aquellas direcciones $\omegaversor_m$ tales
+que $\omegaversor_m \cdot \hat{\vec{n}}_{ij} < 0$ conocemos el valor del
+flujo escalar $\phi_{mg}(\vec{x})$ en dicha superficie, que es
+justamente lo que necesitamos para evaluar el término de fugas. Más aún,
+si la condición de contorno es de flujo entrante nulo, el término
+correspondiente a $S_{ij}$ para
+$\omegaversor_m \cdot \hat{\vec{n}}_{ij} < 0$. Para las direcciones
+salientes no conocemos el flujo en la cara. Pero adoptando un esquema de
+upwinding completo, podemos decir que el flujo
+escalar $\psi_{mg}(\vec{x}_{ij})$ es igual al flujo
+escalar $\psi_{mg}^i$ para valores de $m$ tales que
+$\omegaversor_m \cdot \hat{\vec{n}}_{ij} > 0$. Luego
+
+$$\label{eq:snvolcc}
+ \int_{S_{ij}} \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+\approx 
+\begin{cases}
+\left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot S_{ij}  \cdot \psi_{mg}(\vec{x}_{ij}) & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} < 0$} \\
+\left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot S_{ij}  \cdot \psi_{mg}^i & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} \geq 0$} \\
+\end{cases}$$ donde $\psi_{mg}(\vec{x}_{ij})$ es el tipo de condición de
+contorno de acuerdo a la
+ecuación [\[eq:transportesncc\]](#eq:transportesncc){reference-type="eqref"
+reference="eq:transportesncc"} evaluado en $\vec{x}_{ij}$
+
+$$\tag{\ref{eq:transportesncc}}
+\psi_{mg}(\vec{x}_{ij}) =
+ \begin{cases}
+  \psi_{mg}(\vec{x}) = 0 
+& \forall \vec{x} \in \Gamma_V \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
+  \psi_{mg}(\vec{x}) = \psi_{mg^\prime} / \omegaversor_{g^\prime} = \omegaversor_m - 2 \left( \omegaversor_m \cdot \hat{\vec{n}} \right) \hat{\vec{n}}
+& \forall \vec{x} \in \Gamma_M \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
+  \psi_{mg}(\vec{x}) = f_{mg}(\vec{x})
+& \forall \vec{x} \notin \Gamma_V \bigcup \Gamma_M \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
+ \end{cases}$$ según lo discutido en la
+sección [\[sec:bctransporte\]](#sec:bctransporte){reference-type="ref"
+reference="sec:bctransporte"}.
+
+#### Formulación matricial
+
+Volviendo una vez más a la formulación integral
+
+$$\begin{gathered}
+\tag{\ref{eq:transportesnintegral}}
+ \int_S \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
+ +
+ \int_V \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} = \\
+ \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot  \sum_{\ell=0}^\infty 
+\int_V \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot (2\ell+1) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x} \\
++
+ \chi_g  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot \int_V \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x}
++
+ \int_V s_{mg}(\vec{x}) \, d^n\vec{x}
+\end{gathered}$$ podemos ahora escribir los términos volumétricos en la
+forma [\[eq:snvol3\]](#eq:snvol3){reference-type="eqref"
+reference="eq:snvol3"} y el término de fugas según lo discutido en la
+sección [1.5.1.2](#sec:snvolfugas){reference-type="ref"
+reference="sec:snvolfugas"} para obtener un sistema de $I\cdot G\cdot M$
+ecuaciones algebraicas como sigue
+
+$$\begin{gathered}
+\label{eq:snvolalgebraica}
+\sum_{j~\text{vecinos}} \left( \omegaversor_m \cdot \hat{\vec{n}}_{ij}\right) \cdot S_{ij} \cdot \psi_{mg}^{ij}
++
+ \left[ \int_{V_i} \Sigma_{tg}(\vec{x}) \, d^n\vec{x} \right] \cdot \psi_{mg}
+= \\
+ \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  \sum_{\ell=0}^\infty
+ w_{m^\prime} \cdot \left[ \int_{V_i} \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \, d^n\vec{x} \right]  \cdot (2\ell+1) \cdot  P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \cdot \psi_{m^\prime g^\prime}^i \\
++
+ \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  \chi_g \cdot w_{m^\prime}  \cdot \left[ \int_{V_i} \nu\Sigma_{fg^\prime}(\vec{x}) \, d^n\vec{x} \right] \cdot \psi_{m^\prime g^\prime}^i
++
+ \int_{V_i} s_{mg}(\vec{x}) \, d^n\vec{x}
+\end{gathered}$$ para la celda $i=1,\dots,I$, el grupo de
+energía $g=1,\dots,g$ y la dirección $m=1,\dots,M$, donde introducios el
+factor $\psi_{mg}^{ij}$ que depende del vecino $j$
+
+$$\psi_{mg}^{ij} =
+\begin{cases}
+\left[ \omega_{ij} \cdot \psi_{mg}^i + (1-\omega_{ij}) \cdot \psi_{mg}^j \right] & \text{si~$\exists$ celda~$j$} \\
+\psi_{mg}(\vec{x}_{ij}) & \text{si~$\nexists$ celda~$j$ $\wedge$ $\omegaversor \cdot \hat{\vec{n}}_{ij} < 0$} \\
+\psi_{mg}^i             & \text{si~$\nexists$ celda~$j$ $\wedge$ $\omegaversor \cdot \hat{\vec{n}}_{ij} \geq 0$} \\
+\end{cases}$$
+
+El peso $\omega_{ij}$ es el desarrollado en la
+sección [1.5.1.2](#sec:snvolfugas){reference-type="ref"
+reference="sec:snvolfugas"} con $p=1$ que involucra el factor $\alpha$
+que puede ir entre cero (sin upwinding) y uno (upwinding completo):
+
+$$\begin{aligned}
+\tilde{\omega}_{ij} &= \frac{|\vec{x}_{ij} - \vec{x}_j|}{|\vec{x}_{ij} - \vec{x}_i| + |\vec{x}_{ij} - \vec{x}_j|} \tag{\ref{eq:wij}} \\
+ \omega_{ij} &=
+\begin{cases}
+ \tilde{\omega}_{ij} + \alpha \cdot (1 - \tilde{\omega}_{ij}) & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} \ge 0$}\\
+ \tilde{\omega}_{ij} - \alpha \cdot \tilde{\omega}_{ij}       & \text{si $\omegaversor_m \cdot \hat{\vec{n}}_{ij} < 0$}\\
+\end{cases}
+\tag{\ref{eq:wij_estabilizado}}
+\end{aligned}$$
+
+Es interesante notar que el término de fugas acopla las celdas
+vecinas $j$ a la celda $i$ pero sobre el mismo grupo $g$ y
+dirección $m$. Por otro lado, los términos de scattering y de fisión
+acoplan diferentes grupos $g^\prime$ y direcciones $m^\prime$ a $g$ y
+a $m$ pero sobre la misma celda $i$. El coeficiente $s_{mg}^i$ del
+término de fuente independiente es el valor medio de la fuente en la
+celda $i$. Si este término es cero y hay fisiones entonces debemos
+dividir $\chi_g$ por $k_\text{eff}$ en la
+ecuación [\[eq:snvolalgebraica\]](#eq:snvolalgebraica){reference-type="eqref"
+reference="eq:snvolalgebraica"}.
+
+Utilizando la notación de la
+sección [1.4](#sec:discretizacion_espacial){reference-type="ref"
+reference="sec:discretizacion_espacial"}, definamos el vector
+incógnita $\boldsymbol{\xi}$ como
+
+$$\boldsymbol{\xi} =
+\left[
+\psi_{1 1}^{1} ~~
+\psi_{2 1}^{1} ~~
+\psi_{3 1}^{1} ~~
+\dots          ~~
+\psi_{M 1}^{1} ~~
+\psi_{1 2}^{1} ~~
+\psi_{2 2}^{1} ~~
+\dots          ~~
+\psi_{M G}^{1} ~~
+\psi_{1 1}^{2} ~~
+\psi_{2 1}^{2} ~~
+\dots          ~~
+\psi_{m g}^{I} ~~
+\dots          ~~
+\psi_{M G}^{I}
+\right]^T$$ es decir, ordenamos primero las incógnitas por
+celda $i=1,\dots,I$, después dentro de cada celda por grupo de
+energía $g=1,\dots,G$ y, finalmente, dentro de cada grupo por
+dirección $m=1,\dots,M$. Con este ordenamiento propuesto, el índice $p$
+del flujo angular en la celda $i$ en el grupo $g$ y en la dirección $m$
+es
+
+$$\label{eq:orden_snvol}
+ p = i \cdot MG + g \cdot M + m$$
+
+::: algorithm
+inicializar $R \gets 0, F \gets 0, \vec{S} \gets 0$
+:::
+
+Podríamos haber planteado otro ordenamiento, como por ejemplo primero
+ordenar por dirección, después por grupo y finalmente por celda. Esta
+elección cambia luego las propiedades numéricas de las matrices
+asociadas al problema. En cualquier caso, podemos construir el
+vector $S$ y las matrices $R$ y $F$ con el
+algoritmo [\[fig:snvol-matrices\]](#fig:snvol-matrices){reference-type="ref"
+reference="fig:snvol-matrices"}. En dicho listado hacemos referencias a
+algunas ecuaciones que desarrollamos a lo largo de este capítulo, que a
+su vez se refieren a la teoría introducida en el capitulo anterior. Sólo
+mostramos la inclusión de fuentes independientes isotrópicas y scatterig
+linealmente anisotrópico, casos que se pueden generalizar fácilmente
+pero que complicarían la presentación del algoritmo. Debemos remarcar la
+diferencia caligráfica entre el peso $w_m$ asociado a la dirección $m$
+utilizado para integrar sobre $\omegaversor$ el peso $\omega_{ij}$
+asociado a la superficie $S_{ij}$ para estimar el flujo en las caras de
+la celdas.
+
+### Difusión en volúmenes
+
+Para formular el problema de difusión de neutrones con un esquema basado
+en el método de volúmenes finitos procedemos en forma similar a la
+sección anterior definiendo el flujo escalar en cada celda.
+
+::: definicion
+[]{#def:flujoescalarcelda label="def:flujoescalarcelda"} El flujo
+escalar del grupo $g=1,\dots,G$ en la celda $i=1,\dots,I$ es
+
+$$\phi_{g}^i = \frac{\displaystyle \int_{V_i} \phi_{g}(\vec{x}) \, d^n\vec{x}}{\displaystyle \int_{V_i} \, d^n\vec{x}}$$
+donde $V_i \in \mathbb{R}^n$ es el volumen del dominio $U$ ocupado por
+la celda $i$.
+:::
+
+De la misma manera que en la sección anterior, el problema consiste en
+encontrar los $I \cdot G$ valores $\phi_{g}^i$, que son los elementos
+del vector incógnita $\boldsymbol{\xi} \in \mathbb{R}^{IG}$ definido en
+la ecuación [\[eq:incognita\]](#eq:incognita){reference-type="eqref"
+reference="eq:incognita"}. Para ello, tomamos la formulación integral
+del problema de difusión dada por la
+ecuación [\[eq:difusionintegral\]](#eq:difusionintegral){reference-type="eqref"
+reference="eq:difusionintegral"} introducida en la
+sección [1.3.2](#sec:integrales){reference-type="ref"
+reference="sec:integrales"}
+
+$$\begin{gathered}
+\tag{\ref{eq:difusionintegral}}
+ - \int_S D_g(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi_g(\vec{x}) \right] \cdot \hat{\vec{n}}(\vec{x}) \Big] \, d^{n-1} \vec{x}
+ + \int_V \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x}) \, d^n \vec{x}
+ = \\
+ \sum_{g^\prime = 1}^G \int_V \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
++
+ \chi_g \sum_{g^\prime = 1}^G \int_V  \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
+ +
+\int_V s_{0_g}(\vec{x}) \, d^n \vec{x}
+\end{gathered}$$ estudiando cada uno de sus términos para escribirlos en
+función de los flujos en las celdas introducidos en la
+definición [\[def:flujoescalarcelda\]](#def:flujoescalarcelda){reference-type="ref"
+reference="def:flujoescalarcelda"}.
+
+#### Términos volumétricos
+
+El segundo término del miembro izquierdo y los dos primeros del miembro
+derecho de la
+ecuación [\[eq:difusionintegral\]](#eq:difusionintegral){reference-type="eqref"
+reference="eq:difusionintegral"} tienen la forma
+
+$$\int_{V_i} f(\vec{x}) \cdot \phi_g(\vec{x}) \, d^n\vec{x}$$ que, de la
+misma forma que en la
+ecuación [\[eq:snvol3\]](#eq:snvol3){reference-type="eqref"
+reference="eq:snvol3"}, sabemos que podemos aproximar como
+
+$$\label{eq:difvol3}
+  \int_{V_i} f(\vec{x}) \cdot \phi_g(\vec{x}) \, d^n\vec{x} \approx \left[ \int_{V_i} f(\vec{x}) \, d^n\vec{x} \right] \cdot \phi_{g}^i = \hat{f}^i \cdot V_i \cdot \hat{\phi}_g^i$$
+donde la aproximación es exacta si $f(\vec{x})$ es uniforme dentro de la
+celda.
+
+#### Término de fugas {#término-de-fugas}
+
+El primer término del miembro izquierdo de la
+ecuación [\[eq:difusionintegral\]](#eq:difusionintegral){reference-type="eqref"
+reference="eq:difusionintegral"} representa, a menos de un signo
+negativo, el ritmo neto de fugas de neutrones de energía $g$ a través de
+la superficie que delimita el volumen $V_i$ según la teoría de difusión
+de neutrones. Es en este término donde aparece el acople entre celdas
+espaciales y cobra importancia el método de volúmenes finitos.
+Utilizando el teorema de la divergencia, podemos escribir
+
+$$\label{eq:difvol4}
+ \int_{V_i} \text{div} {\Big[ D_g(\vec{x}) \cdot \text{grad} {\big[\phi_g(\vec{x})\big]} \Big]} d^n\vec{x} =
+\int_{S_i} \Big[ D_g(\vec{x}) \cdot \text{grad} {\big[\phi_g(\vec{x})\big]} \Big] \cdot \hat{\vec{n}}(\vec{x}) \, d^{n-1} \vec{x}$$
+donde $S_i$ representa la superficie que delimita el volumen $V_i$
+y $\hat{\vec{n}}$ es el vector unitario normal a la superficie $S_i$ que
+apunta en en sentido externo al volumen $V_i$. Para una celda de la
+malla, la superficie $S_i$ está compuesta por una cantidad finita de
+superficies planas $S_{ij}$ tal que, al igual que en la sección
+anterior, $S_{ij}$ separa a la celda $i$ de la celda $j$ como ya
+ilustramos en la figura [1.6](#fig:nij){reference-type="ref"
+reference="fig:nij"}. Entonces el miembro derecho de la
+ecuación [\[eq:difvol4\]](#eq:difvol4){reference-type="eqref"
+reference="eq:difvol4"} es la suma de las integrales sobre cada $S_{ij}$
+
+$$\int_{S_i} \Big[ D_g(\vec{x}) \cdot \text{grad} {\big[\phi_g(\vec{x})\big]} \Big] \cdot \hat{\vec{n}}(\vec{x}) \, d^{n-1} \vec{x} =
+\sum_{j \text{vecinos}}
+\int_{S_{ij}} D_g(\vec{x}) \cdot \Big[ \text{grad} {\big[\phi_g(\vec{x})\big]}  \cdot \hat{\vec{n}}_{ij} \Big] \, d^{n-1} \vec{x}$$
+donde además hemos asociado el producto
+escalar $\nabla \phi_g \cdot \hat{\vec{n}}_{ij}$, que está evaluado
+sobre la cara $S_{ij}$.
+
+<figure id="fig:gradiente">
+<div class="center">
+<img src="esquemas/gradiente" />
+</div>
+<figcaption><span id="fig:gradiente"
+label="fig:gradiente"></span>Estimación del gradiente del flujo campo
+escalar <span
+class="math inline"><em>ϕ</em><sub><em>g</em></sub>(<em>x⃗</em>)</span>
+en una interfaz <span
+class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span> que
+separa dos celdas del mismo material.</figcaption>
+</figure>
+
+Si las celdas $i$ y $j$ están compuestas del mismo material entonces el
+coeficiente de difusión $D_g(\vec{x})$ es continuo en la
+dirección $\hat{\vec{n}}_{ij}$ normal a la cara. En efecto, aunque las
+celdas podrían tener diferentes propiedades termohidráulicas---digamos
+diferentes temperaturas---esperamos que estas propiedades sean continuas
+en el espacio. Entonces asumimos que el módulo del gradiente del flujo
+escalar es aproximadamente igual a la diferencia entre los
+flujos $\phi_g^j$ y $\phi_g^i$ dividido la distancia entre los
+baricentros de las celdas $i$ y $j$
+
+$$\label{eq:vol_mod_grad_hom}
+\Big| \Dgrad {\big[ \phi_g(\vec{x}) \big]} \Big|_{\vec{x} \in S_{ij}} \approx \frac{\phi_g^j - \phi_g^i}{ | \vec{x}_j - \vec{x}_i |}$$
+y que el vector gradiente apunta en la dirección del
+vector $\vec{x}_j-\vec{x}_i$ que une los baricentros $\vec{x}_j$
+y $\vec{x}_i$ de las celdas $j$ e $i$ respectivamente
+(figura [1.8](#fig:gradiente){reference-type="ref"
+reference="fig:gradiente"}). Esta dirección forma un cierto
+ángulo $\theta_{ij}$ con la normal $\hat{\vec{n}}_{ij}$, que podemos
+calcular geométricamente a partir de las coordenadas de los nodos que
+definen la superficie $S_{ij}$ y de las coordenadas de los
+baricentros $\vec{x}_i$ y $\vec{x}_j$ como
+
+$$\cos \theta_{ij} = \frac{(\vec{x}_j - \vec{x}_i) \cdot \hat{\vec{n}}_{ij}}{| \vec{x}_j - \vec{x}_i |}$$
+
+Luego la tasa neta de neutrones de energía $g$ que cruzan cada una de
+las superficies $S_{ij}$ de la
+ecuación [\[eq:difvol4\]](#eq:difvol4){reference-type="eqref"
+reference="eq:difvol4"} es
+
+$$\label{eq:vol-tasa-cruce-hom}
+\int_{S_{ij}} D_g(\vec{x}) \cdot \Big[ \text{grad} {\big[\phi_g(\vec{x})\big]}  \cdot \hat{\vec{n}}_{ij} \Big] \, d^{n-1} \vec{x}
+\approx
+\left( \int_{S_{ij}} D_g(\vec{x}) \, d^{n-1} \vec{x} \right) \cdot \frac{(\vec{x}_j - \vec{x}_i) \cdot \hat{\vec{n}}_{ij}}{| \vec{x}_j - \vec{x}_i |^2}  \cdot \Big[ \phi_g^j - \phi_g^i\Big]$$
+
+Podemos calcular la integral del coeficiente de difusión numéricamente a
+partir de la distribución $D_g(\vec{x})$ dada como dato, ya que hemos
+supuesto que $D_g(\vec{x})$ es continua en $S_{ij}$ y por lo tanto su
+integral está bien definida.
+
+Notar que estimar el módulo del gradiente del flujo en el borde del
+volumen según la
+ecuación [\[eq:vol_mod_grad_hom\]](#eq:vol_mod_grad_hom){reference-type="eqref"
+reference="eq:vol_mod_grad_hom"} es equivalente a suponer que, dada una
+función continua $\phi(x)$, el punto $c$ que cumple el teorema del valor
+medio
+
+$$\phi^{\prime}(c) = \frac{\phi(b) - \phi(a)}{b - a}$$ es
+$c \approx (b-a)/2$. Esta aproximación es un orden $\Delta x^2$---i.e.
+es exacta para una parábola---mientras que la aproximación
+
+<figure id="fig:continuo">
+<div class="center">
+<img src="esquemas/continuo" style="width:12cm" />
+</div>
+<figcaption><span id="fig:continuo"
+label="fig:continuo"></span>Representación unidimensional de una función
+continua <span class="math inline"><em>ϕ</em>(<em>x</em>)</span>, con
+valores medios de volúmenes (cuadrados) y valores estimados en border
+(cruces). La estimación de la derivada en los bordes a primeros vecinos
+es de orden superior a la estimación del valor de la
+función.</figcaption>
+</figure>
+
+$$\phi\left( \frac{b-a}{2} \right) \approx \frac{1}{2} \big[ \phi(a) + \phi(b) \big]$$
+es de orden $\Delta x$ (es exacta para una recta). Ilustramos la
+situación en la figura [1.9](#fig:continuo){reference-type="ref"
+reference="fig:continuo"}, donde los cuadrados representan los valores
+medios en los volúmenes y las cruces los valores que tomaría el flujo en
+los bordes con una interpolación lineal. Aproximar las derivadas en los
+bordes con los valores medios es más preciso que aproximar los flujos en
+los bordes con los valores medios de los volúmenes vecinos.
+
+Si las celdas $i$ y $j$ están compuestas de materiales diferentes es de
+esperar que el coeficiente de difusión $D_g(\vec{x})$ no sea continuo
+sobre la superficie $S_{ij}$ en la dirección
+normal $\hat{\vec{n}}_{ij}$. En este caso, la integral de la
+ecuación [\[eq:vol-tasa-cruce-hom\]](#eq:vol-tasa-cruce-hom){reference-type="eqref"
+reference="eq:vol-tasa-cruce-hom"} no está bien definida y no podemos
+evaluarla. Más aún, el flujo escalar $\phi_g$ debe tener derivada
+primera discontinua de forma tal de que las corrientes evaluadas en
+ambas caras de la interfaz mediante la ley de Fick de la
+ecuación [\[eq:fick\]](#eq:fick){reference-type="eqref"
+reference="eq:fick"} sean iguales y se conserve la cantidad de
+neutrones:
+
+$$\label{eq:continuidad-corrientes}
+\vec{J}_{g}^{ij}
+=
+\Big[ D_g^i(\vec{x}) \cdot \text{grad} \left[\phi_g(\vec{x})\right] \Big]_{\vec{x} \in S_{ij}}
+=
+\Big[ D_g^j(\vec{x}) \cdot \text{grad} \left[\phi_g(\vec{x})\right] \Big]_{\vec{x} \in S_{ji}}
+=
+\vec{J}_{g}^{ji}$$
+
+En este caso, aproximar el gradiente del flujo en la interfaz utilizando
+los valores medios en los volúmenes vecinos arroja una pobre estimación,
+como ilustramos en la
+figura [1.10](#fig:discontinuo){reference-type="ref"
+reference="fig:discontinuo"} (y en el problema resuelto en la
+sección [\[sec:doszonas\]](#sec:doszonas){reference-type="ref"
+reference="sec:doszonas"}). Además, necesitamos obtener un valor para el
+gradiente a un lado de la interfaz y otro valor al otro lado de forma
+tal de satisfacer la
+ecuación [\[eq:continuidad-corrientes\]](#eq:continuidad-corrientes){reference-type="eqref"
+reference="eq:continuidad-corrientes"}.
+
+<figure id="fig:discontinuo">
+<div class="center">
+<img src="esquemas/discontinuo" style="width:12cm" />
+</div>
+<figcaption><span id="fig:discontinuo"
+label="fig:discontinuo"></span>Idem figura <a href="#fig:continuo"
+data-reference-type="ref" data-reference="fig:continuo">1.9</a> para una
+interfaz material. La estimación de la derivada en la interfaz
+utilizando valores medios (cuadrados) es pobre. Conviene estimar el
+valor del flujo en la interfaz (cruz) y luego tomar derivadas a cada
+lado de la superficie.</figcaption>
+</figure>
+
+Conviene entonces, evaluar el gradiente del flujo a un lado de la
+superficie $S_{ij}$ partir del valor medio $\phi(\vec{x}_i)$ (cuadrado)
+y de $\phi_g(\vec{x}_{ij})=\phi(\vec{x}_{ji})$ (cruz) y al otro
+lado---que llamamos $S_{ji}$---a partir de $\phi_g(\vec{x}_j)$
+(cuadrado) y de $\phi_g(\vec{x}_{ij})$ (cruz). Debido a que el
+flujo $\phi_g(\vec{x})$ debe ser continuo en $\vec{x}$, el valor en la
+superficie $\phi_g(\vec{x}_{ij})$ debe ser único tanto visto desde el
+volumen $i$ como desde el volumen $j$.
+
+<figure id="fig:gradiente-heterogeneo">
+<div class="center">
+<img src="esquemas/gradiente-heterogeneo" style="width:14cm" />
+</div>
+<figcaption><span id="fig:gradiente-heterogeneo"
+label="fig:gradiente-heterogeneo"></span>Idem figura <a
+href="#fig:gradiente" data-reference-type="ref"
+data-reference="fig:gradiente">1.8</a> para el caso en que la
+superficie <span
+class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span>
+corresponda a una interfaz material. El punto <span
+class="math inline"><em>x⃗</em><sub><em>i</em><em>j</em></sub></span> es
+el baricentro de la superficie <span
+class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span>, y
+no necesariamente está sobre la dirección <span
+class="math inline"><em>x⃗</em><sub><em>j</em></sub> − <em>x⃗</em><sub><em>i</em></sub></span>.</figcaption>
+</figure>
+
+Proponemos entonces estimar el módulo del gradiente del flujo sobre la
+superficie $S_{ij}$ ahora como
+
+$$\label{eq:vol_mod_grad_het}
+\Big\| \Dgrad {\big[ \phi_g(\vec{x}) \big]} \Big\|_{\vec{x} \in S_{ij}} \approx \frac{\phi_g(\vec{x}_{ij}) - \hat{\phi}_g^i}{ \| \vec{x}_{ij} - \vec{x}_i \|}$$
+tomándolo en la dirección del vector $\vec{x}_{ij}-\vec{x}_i$ que une el
+baricentro $\vec{x}_{ij}$ de la superficie $S_{ij}$ y el
+baricentro $\vec{x}_i$ del volumen $i$
+(figura [1.11](#fig:gradiente-heterogeneo){reference-type="ref"
+reference="fig:gradiente-heterogeneo"}). En la
+ecuación [\[eq:vol_mod_grad_het\]](#eq:vol_mod_grad_het){reference-type="eqref"
+reference="eq:vol_mod_grad_het"} aparece el valor del flujo sobre la
+cara $\phi(\vec{x}_{ij})$ (cruz), que no es parte de las incógnitas del
+problema. Tenemos que estimarlo en función de los
+valores $\hat{\phi}_g^i$ y $\hat{\phi}_g^j$ de tal manera de que se
+satisfaga la continuidad de corrientes.
+
+Llamemos $S_{ij}$ la superficie orientada cuya normal exterior da al
+volumen $i$, y $S_{ji}$ la que da al volumen $j$. Podemos plantear una
+ecuación de donde despejar $\phi_g(\vec{x}_{ij})$. En efecto, la
+continuidad de corrientes requiere que
+
+$$\begin{aligned}
+ \int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad{ \phi_g(\vec{x})} \Big]_i \cdot \vec{\hat{n}}_{ij} \, dS
+&=
+ - \int_{S_{ji}} \Big[ D_g(\vec{x}) \cdot \Dgrad{\phi_g(\vec{x})} \Big]_j \cdot \vec{\hat{n}}_{ji} \, dS
+\\
+\int_{S_{ij}} D_g^i(\vec{x}) \, dS \cdot \frac{\phi_g(\vec{x}_{ij}) - \hat{\phi}_g^i}{\| \vec{x}_{ij} - \vec{x}_i \|} \cos \theta_{ij}
+&=
+ - \int_{S_{ji}} D_g^j(\vec{x}) \, dS \cdot \frac{\phi(\vec{x}_{ji},g) - \hat{\phi}_g^j}{\| \vec{x}_{ji} - \vec{x}_j \|} \cos \theta_{ji}
+\end{aligned}$$ donde entendemos que la integral sobre $S_{ij}$ se tiene
+que realizar evaluando el coeficiente de difusión sobre el volumen $i$,
+y viceversa escribiendo los subíndices $i$ y $j$ en el
+símbolo $D_g(\vec{x})$. Para simplificar el despeje
+de $\phi_g(\vec{x}_{ij})=\phi(\vec{x}_{ji},g)$ definimos los factores de
+peso
+
+$$\begin{aligned}
+ w_{ij} &= \left( \int_{S_{ij}} D_g^i(\vec{x}) \, dS \right) \cdot \frac{(\vec{x}_{ij} - \vec{x}_i) \cdot \vec{\hat{n}}_{ij}}{\| \vec{x}_{ij} - \vec{x}_i \|^2} \label{eq:vol-peso-het-ij}
+\\
+ w_{ji} &= \left( \int_{S_{ji}} D_g^j(\vec{x}) \, dS \right) \cdot \frac{(\vec{x}_{ji} - \vec{x}_j) \cdot \vec{\hat{n}}_{ji}}{\| \vec{x}_{ji} - \vec{x}_j \|^2} \label{eq:vol-peso-het-ji}
+\end{aligned}$$
+
+Entonces
+
+$$w_{ij} \Big[ \phi_g(\vec{x}_{ij}) - \hat{\phi}_g^i \Big] = -w_{ji} \Big[ \phi_g(\vec{x}_{ji}) - \hat{\phi}_g^j \Big]$$
+y el flujo $\phi_g(\vec{x}_{ij})$ en la interfaz es aproximadamente
+
+$$\label{eq:vol_phi_cruz}
+ \phi_g(\vec{x}_{ij}) \approx \frac{w_{ij}}{w_{ij} + w_{ji}} \cdot \hat{\phi}_g^i + \frac{w_{ji}}{w_{ij} + w_{ji}} \cdot \hat{\phi}_g^j$$
+
+Reemplazando la
+ecuación [\[eq:vol_phi_cruz\]](#eq:vol_phi_cruz){reference-type="eqref"
+reference="eq:vol_phi_cruz"} en la
+expresión [\[eq:vol_mod_grad_het\]](#eq:vol_mod_grad_het){reference-type="eqref"
+reference="eq:vol_mod_grad_het"} propuesta para el módulo del gradiente,
+obtenemos
+
+$$\Big\| \Dgrad {\big[ \phi_g(\vec{x}) \big]} \Big\|_{\vec{x} \in S_{ij}} \approx \left( \frac{w_{ji}}{w_{ij} + w_{ji}}\right) \cdot \left( \frac{\hat\phi_g^j - \hat{\phi}_g^i}{ \| \vec{x}_{ij} - \vec{x}_i \|} \right)$$
+
+La tasa neta de cruce de neutrones sobre la superficie $S_{ij}$ cuando
+ésta coincide con una interfaz material es aproximadamente
+
+$$\begin{aligned}
+\label{eq:vol-tasa-cruce-het}
+& \int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad {\big[\phi_g(\vec{x})\big]} \Big] \cdot \vec{\hat{n}}_{ij} \, dS \approx \nonumber \\
+& \quad\quad\quad\quad
+\left( \int_{S_{ij}} D_g(\vec{x}) \, dS \right) \cdot \frac{w_{ji}}{w_{ij} + w_{ji}} \cdot \frac{(\vec{x}_{ij} - \vec{x}_i) \cdot \vec{\hat{n}}_{ij}}{\| \vec{x}_{ij} - \vec{x}_i \|^2}  \cdot \Big[ \hat{\phi}_g^j - \hat{\phi}_g^i\Big]
+\end{aligned}$$ donde la integral del coeficiente de difusión tiene que
+tomarse sobre la cara orientada de $S_{ij}$ que da al volúmen $V_i$, es
+decir, con las propiedades del material de la celda $i$, y los factores
+de peso $w_{ij}$ y $w_{ji}$ están definidos en las
+ecuaciones [\[eq:vol-peso-het-ij\]](#eq:vol-peso-het-ij){reference-type="eqref"
+reference="eq:vol-peso-het-ij"}
+y [\[eq:vol-peso-het-ji\]](#eq:vol-peso-het-ji){reference-type="eqref"
+reference="eq:vol-peso-het-ji"}.
+
+Si bien la
+ecuación [\[eq:vol-tasa-cruce-het\]](#eq:vol-tasa-cruce-het){reference-type="eqref"
+reference="eq:vol-tasa-cruce-het"} puede utilizarse aún cuando los
+volúmenes $V_i$ y $V_j$ tengan el mismo material para estimar el término
+de fugas, la
+ecuación [\[eq:vol-tasa-cruce-hom\]](#eq:vol-tasa-cruce-hom){reference-type="eqref"
+reference="eq:vol-tasa-cruce-hom"} es más precisa ya que la aproximación
+para el gradiente dada por la
+ecuación [\[eq:vol_mod_grad_hom\]](#eq:vol_mod_grad_hom){reference-type="eqref"
+reference="eq:vol_mod_grad_hom"} es de orden $\Delta x^2$, mientras que
+la aproximación del gradiente dada por la
+ecuación [\[eq:vol_mod_grad_het\]](#eq:vol_mod_grad_het){reference-type="eqref"
+reference="eq:vol_mod_grad_het"} es de orden $\Delta x$ ya que se basa
+en estimar el flujo en el borde de los volúmenes, como ilustramos en la
+figura [1.9](#fig:continuo){reference-type="ref"
+reference="fig:continuo"}. Sin embargo, si $S_{ij}$ coincide con una
+interfaz y el coeficiente de difusión es discontinuo, la
+ecuación [\[eq:vol-tasa-cruce-het\]](#eq:vol-tasa-cruce-het){reference-type="eqref"
+reference="eq:vol-tasa-cruce-het"} arroja mejores resultados ya que
+tiene en cuenta el efecto mostrado en la
+figura [1.10](#fig:discontinuo){reference-type="ref"
+reference="fig:discontinuo"}. Luego, para minimizar el error cometido
+por la discretización basada en el esquema de volúmenes finitos
+propuesto, si $S_{ij}$ no define una interfaz, utilizamos la
+ecuación [\[eq:vol-tasa-cruce-hom\]](#eq:vol-tasa-cruce-hom){reference-type="eqref"
+reference="eq:vol-tasa-cruce-hom"} para calcular los coeficientes que
+formarán parte de la matriz de remoción $R$. De otra manera, utilizamos
+la
+ecuación [\[eq:vol-tasa-cruce-het\]](#eq:vol-tasa-cruce-het){reference-type="eqref"
+reference="eq:vol-tasa-cruce-het"}.
+
+#### Condiciones de contorno nulas
+
+Si la superficie $S_{ij}$ está en el borde del dominio, entonces debemos
+calcular la integral de superficie
+
+$$\int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad {\big[\phi_g(\vec{x})\big]} \Big] \cdot \vec{\hat{n}} \, dS$$
+teniendo en cuenta las condiciones de contorno del problema. Como
+discutimos en la sección [\[sec:cc\]](#sec:cc){reference-type="ref"
+reference="sec:cc"}, sólo se pueden dar condiciones de contorno
+homogéneas. En particular, si la superficie $S_{ij}$ tiene una condición
+de contorno de Dirichlet, como mencionamos en la
+sección [\[sec:cc\]](#sec:cc){reference-type="ref" reference="sec:cc"},
+ésta debe ser deflujo nulo. Luego, $\phi_g(\vec{x}_{ij}) = 0$ y
+
+$$\Big\| \Dgrad {\big[ \phi_g(\vec{x}) \big]} \Big\|_{\vec{x} \in S_{ij}} \approx \frac{0 - \hat{\phi}_g^i}{ \| \vec{x}_{ij} - \vec{x}_i \|}$$
+
+La tasa neta de cruce de neutrones sobre la superficie $S_{ij}$ cuando
+ésta coincide con un borde del dominio con condición de contorno de
+flujo nulo es
+
+$$\label{eq:vol-tasa-cruce-flujo-nulo}
+\int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad {\big[\phi_g(\vec{x})\big]} \Big] \cdot \vec{\hat{n}}_{ij} \, dS \approx
+\left( \int_{S_{ij}} D_g(\vec{x}) \, dS \right) \cdot \frac{(\vec{x}_{ij} - \vec{x}_i) \cdot \vec{\hat{n}}_{ij}}{\| \vec{x}_{ij} - \vec{x}_i \|^2}  \cdot \Big[ - \hat{\phi}_g^i\Big]$$
+
+#### Condiciones de contorno espejo
+
+Para especificar superficies de simetría, se debe una condición de
+contorno de Neumann con derivada normal nula
+(sección [\[sec:cc\]](#sec:cc){reference-type="ref"
+reference="sec:cc"}). Si $S_{ij}$ coincide con una de estas superficies,
+entonces el módulo del gradiente es cero y su integral también lo es.
+Por lo tanto, la tasa neta de cruce de neutrones sobre la
+superficie $S_{ij}$ es cero y
+
+$$\label{eq:vol-tasa-cruce-derivada-nula}
+\int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad {\big[\phi_g(\vec{x})\big]} \Big] \cdot \vec{\hat{n}}_{ij} \, dS = 0$$
+
+#### Condiciones de contorno de Robin
+
+Si la superficie $S_{ij}$ pertenece a una zona de la frontera del
+dominio $\partial U$ con condiciones de contorno de Robin
+(sección [\[sec:cc\]](#sec:cc){reference-type="ref"
+reference="sec:cc"}), entonces
+
+$$\Big[ \Dgrad {\big[\phi_g(\vec{x})\big]} \cdot \vec{\hat{n}}\Big]_{\vec{x} \in \partial U} =  \frac{\partial \phi_g}{\partial n} \Big|_{\vec{x} \in \partial U} = \frac{a_g(\vec{x})}{D_g(\vec{x})} \cdot \phi_g(\vec{x})\Big|_{\vec{x} \in \partial U}$$
+
+Asumiendo que $\phi_g(\vec{x})$ para $\vec{x}\in \partial U$ es
+aproximadamente igual a $\hat{\phi}_g^i$, la tasa neta de cruce de
+neutrones a través de la superficie $S_{ij}$ es
+
+$$\label{eq:vol-tasa-cruce-robin}
+\int_{S_{ij}} \Big[ D_g(\vec{x}) \cdot \Dgrad {\big[\phi_g(\vec{x})\big]} \Big] \cdot \vec{\hat{n}} \, dS \approx S_{ij} \cdot a_g(\vec{x}) \cdot \Big[ \hat{\phi}_g^i\Big]$$
+donde $S_{ij}$ es el área de la superficie.
+
+#### Condiciones de contorno
+
+#### Formulación matricial
+
+capaz que esto debería ir en implementación
+
+::: algorithm
+inicializar $R \gets 0, F \gets 0$
+:::
+
+## Elementos finitos {#sec:elementos}
+
+### Difusión en elementos
+
+### Ordenadas discretas en elementos

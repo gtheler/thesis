@@ -505,7 +505,7 @@ condiciones 2 y 5 dejan de cumplirse y no sólo no podemos evaluar
 la magnitud sino que ni siquiera podemos conocer el signo del error
 cometido.
 
-## Inconvenientes de formulación neutrónica actual
+## Limitaciones de la formulación neutrónica actual
 
 Resumiendo las ideas desarrolladas hasta el momento, podemos concluir
 que el enfoque que hemos propuesto según el estado del arte y las
@@ -566,9 +566,7 @@ participación profesional en el completamiento de la Central Nuclear
 Atucha II.
 
 
-## Las propuestas
-
-### Mallas no estructuradas
+## Las propuestas de esta tesis
 
 Entendemos que la evaluación de la neutrónica asociada a un evento
 accidental que requiere la actuación del segundo sistema de extinción en

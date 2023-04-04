@@ -4,7 +4,7 @@ project:
   type: book
 
 book:
-  title: "Diseño e implementación de una herramienta de elementos finitos para resolver problemas termomecánicos en la nube"
+  title: "Resolviendo ecuaciones diferenciales en la nube: aplicación al transporte de neutrones"
   author: "Mg. Ing. Germán Theler"
   date: git_date
   output-file: "phd-theler"
@@ -20,7 +20,11 @@ book:
   appendices:
     - 100-srs/README.md
     - 110-sds/README.md
+    - 110-sds/feenox-unix.md
+    - 110-sds/feenox-history.md
 
+title-en: "Solving differential equations in the cloud: aplication to neutron transport"
+   
 filters:
   - lua/include-files.lua
   - lua/include-code-files.lua
@@ -28,7 +32,6 @@ filters:
   - lua/not-in-format.lua
   - lua/only-in-format.lua
   - lua/img-width.lua
-  
   
 bibliography: references.bib
 license: "CC BY"
@@ -69,36 +72,33 @@ format:
     lof: false
     lot: false
     include-in-header: 
-      text: |
-        % quotes with a bar in the left (like bootstrap)
-        \usepackage{mdframed}
-        \global\mdfdefinestyle{exampledefault}{linecolor=gray,linewidth=2pt,leftmargin=0.5cm,rightmargin=0.5cm,topline=false,bottomline=false,rightline=false}
-        \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
-        %
-        \usepackage{lipsum}
-        \usepackage{bigints}
-        \include{ibthesis.tex}
-        \usepackage{scrlayer-scrpage}
-        %\lehead{\leftmark}
-        %\rohead{\leftmark}
-        \cfoot{git_hash}
-        % TODO: poner estos campos como metadata en yaml?
-        \encabezado{Tesis~de~la~Carrera~de\\Doctorado~en~Ingeniería~Nuclear}
-        \englishtitle{Design and implementation of something}
-        \rolAutor{Doctorando}
-        \directorIzq{Dr.~Fabián~J.~Bonetto}
-        \rolIzq{Co-director}
-        \directorDer{Dr.~Alejandro~Clausse}
-        \rolDer{Co-director}
-        \location{San Carlos de Bariloche}
-        \fecha{Diciembre 2023}
-        %
-        \input{syntax-feenox}
-        \input{syntax}
-    include-before:
-      - \include{misc/dedicatoria}
-      - \include{misc/resumen}
-      - \include{misc/abstract}
+      - text: |
+          % quotes with a bar in the left (like bootstrap)
+          \usepackage{mdframed}
+          \global\mdfdefinestyle{exampledefault}{linecolor=gray,linewidth=2pt,leftmargin=0.5cm,rightmargin=0.5cm,topline=false,bottomline=false,rightline=false}
+          \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
+          %
+          \usepackage{lipsum}
+          \usepackage{bigints}
+          \include{ibthesis.tex}
+          \usepackage{scrlayer-scrpage}
+          %\lehead{\leftmark}
+          %\rohead{\leftmark}
+          \cfoot{git_hash}
+          \fecha{Diciembre 2023}
+    include-before-body:
+      - file: syntax-feenox.tex
+      - file: syntax.tex
+      - file: misc/dedicatoria.tex
+      - file: misc/resumen.tex
+      - file: misc/abstract.tex
+    keywords:
+      - core-level neutron transport
+      - neutron diffusion
+      - cloud computing
+      - high-performance computing
+      - finite elements
+      - unstructured grids
   epub:
     default-image-extension: svg
     theme: default

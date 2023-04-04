@@ -21,10 +21,43 @@ centrarme en PDEs, no tanto en cloud
 
 sí en virtual methods y eso, un directorio por PDEs
 
-## La ecuación de Laplace
+## [FeenoX, a cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool]{lang=en-US}
+
+### Arquitectura del código fuente
+
+PETSc: TS, SNES, KSP, PC
+
+Discusión del lenguaje.
+
+Virtual methods vs. function pointers.
+
+LTO. Macro para single-pde.
+
+## Tipos de problemas en estado estacionario
+
+### Problemas lineales
+
+### Problemas no lineales
+
+### Problemas de autovalores
+
+
+## Formulaciones elementales arbitrarias a partir de apuntadores a funciones
+
+### Matrices de rigidez y masa
+
+### Vectores de condiciones de contorno naturales
+
+### Condiciones de contorno esenciales
+
+### Optimización del código mediante expansión en linea 
+
+
+
+## El operador de Laplace escalar
 
 ## Difusión de neutrones multigrupo
 
-## Transporte con ordenadas discretas
+## Transporte multigrupo con ordenadas discretas
 
 
