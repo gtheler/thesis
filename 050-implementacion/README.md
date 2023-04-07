@@ -1,4 +1,4 @@
-# Implementación computacional
+# Implementación computacional {#sec-implementacion}
 
 ```{=latex}
 \begin{chapterquote}

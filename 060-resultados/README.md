@@ -1,4 +1,4 @@
-# Resultados
+# Resultados {#sec-resultados}
 
 ```{=latex}
 \begin{chapterquote}

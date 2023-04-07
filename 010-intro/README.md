@@ -1,4 +1,4 @@
-# Introducción
+# Introducción {#sec-introduccion}
 
 ```{=latex}
 \begin{chapterquote}
@@ -58,8 +58,79 @@ SRS/SDS: rationale
 cerrar el lazo Nacho/Chaco
 
 
+    
+    
+Esta problemática es (o debería ser) de interés para la industria
+nuclear argentina, teniendo en cuenta que al sus tres centrales
+nucleares activas (al momento de escribir esta tesis) son refrigeradas
+con agua pesada a través de canales cilíndricos, moderadas con agua
+pesada más fría desde un tanque exterior a los canales y el segundo
+sistema de extinción consiste en la inyección rápida de una solución
+absorbente en el tanque del moderador. Más aún, situaciones similares
+---aunque diferentes en cada caso--- se pueden llegar a encontrar en
+reactores de investigación, tecnología en la cual Argentina es un
+reconocido líder mundial.
+
+En los últimos años se han completado dos Tesis de Doctorado en el
+Instituto Balseiro relacionadas a la presente.
+La primera consiste en el desarrollo y
+aplicación de nuevas bibliotecas de secciones eficaces con especial
+énfasis en el scattering debido al agua pesada [@nacho]. La segunda
+introduce una metodología de análisis neutrónico del celdas de reactores
+de agua pesada [@chaco]. Consideramos que es pertinente contribuir al
+desarrollo de las capacidades científico-tecnológicas en ingeniería
+nuclear al estudiar la resolución de problemas neutrónicos a nivel de
+núcleo teniendo en cuenta las particularidades propias de los reactores
+de agua pesada.
+
+Finalmente, a modo personal debo notar que en el Proyecto Integrador de
+mi Carerra de Ingeniería Nuclear traté temas de control en loops de
+convección natural caóticos [@theler2007] y en la Tesis de Maestrías en
+Ingeniería traté temas de inestabilidades termohidráulicas en presencia
+de una fuente de potencia de origen neutrónico [@theler2008]. Poder
+realizar una tesis de doctorado en temas de neutrónica de nivel de
+núcleo me permite cerrar en forma académica el lazo
+termohidráulica-neutrónica-control, que fue también el eje de mi
+participación profesional en el completamiento de la Central Nuclear
+Atucha II.
+
+
+Resumiendo lo discutido hasta el momento, este es un trabajo académico
+con interés industrial que amalgama matemática, programación y física de
+reactores teniendo en cuenta siempre un criterio ingenieril para juzgar
+aproximaciones e interpretar resultados. Si bien los ingenieros solemos
+recurrir al método científico y a las herramientas que nos proveen las
+ciencias duras, nuestra profesión es en verdad un caso de optimización:
+resolver problemas de la mejora manera posible con el menor costo
+asociado. Por eso es que estudiamos métodos numéricos, técnicas de
+programación, generamos bibliotecas de secciones eficaces para agua
+pesada, desarrollamos metodologías para análisis de celdas y resolvemos
+la ecuación de transporte de neutrones sobre mallas no estructuradas.
+Pero a veces entran otros factores en juego, y los problemas se
+resuelven aún contradiciendo lo que dicen los libros de texto. Podría
+suceder que, pongamos por caso, aunque un exhaustivo estudio
+técnico-económico indique que no es conveniente enriquecer ligeramente
+el combustible de una central de agua pesada, puede darse el caso de que
+la máquina de recambio de combustible tenga inconvenientes operacionales
+por lo que deba ser necesario disminuir la tasa de recambios. O puede
+darse el caso que alguien diseñe e implemente una lógica de movimiento
+de barras de control en función de resultados neutrónicos preliminares e
+incorrectos. O que una vez crítico y operativo el reactor, uno diseñe un
+protocolo para determinar experimentalmente el coeficiente de
+reactividad por efecto Doppler en el combustible [@doppler2013] y luego
+los resultados indiquen que los códigos de cálculo utilizados durante
+años no habían tenido en cuenta correctamente las resonancia de
+absorción en la periferia de las pastillas.
+
+
+
+
 why: 1 & 2
 
 how: 3 & 4
 
 what: 5 & 6
+
+
+
+

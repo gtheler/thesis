@@ -1,4 +1,4 @@
-# Transporte y difusión de neutrones {sec-transporte-difusion}
+# Transporte y difusión de neutrones {#sec-transporte-difusion}
 
 ```{=latex}
 \begin{chapterquote}

@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="100%"
+   width="100%"
+   viewBox="-34 -30 283.46456 283.46456"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="celdascna1.svg">
+  <metadata
+     id="metadata192">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs190" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     id="namedview188"
+     showgrid="false"
+     inkscape:zoom="3.0160275"
+     inkscape:cx="153.13482"
+     inkscape:cy="143.35766"
+     inkscape:window-x="-4"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     units="mm" />
+  <g
+     id="Canal0"
+     transform="matrix(4.2232437,0,0,4.2232437,107.97753,111.73227)">
+    <circle
+       r="5.5017052"
+       id="circle7"
+       d="M 5.5017052,0 C 5.5017052,3.0385079 3.0385079,5.5017052 0,5.5017052 -3.0385079,5.5017052 -5.5017052,3.0385079 -5.5017052,0 c 0,-3.0385079 2.4631973,-5.5017052 5.5017052,-5.5017052 3.0385079,0 5.5017052,2.4631973 5.5017052,5.5017052 z"
+       cx="0"
+       cy="0"
+       sodipodi:cx="0"
+       sodipodi:cy="0"
+       sodipodi:rx="5.5017052"
+       sodipodi:ry="5.5017052"
+       style="fill:#9deaee;stroke:#000000;stroke-width:0.22355001" />
+    <g
+       id="Tubito0">
+      <!-- Radio interno 0.5400
+        Radio externo 0.5950
+        Radio medio   0.5675                                   Espesor 0.0550 -->
+      <circle
+         r="0.5675"
+         id="circle10"
+         d="M 0.5675,0 C 0.5675,0.31342159 0.31342159,0.5675 0,0.5675 -0.31342159,0.5675 -0.5675,0.31342159 -0.5675,0 c 0,-0.31342159 0.25407841,-0.5675 0.5675,-0.5675 0.31342159,0 0.5675,0.25407841 0.5675,0.5675 z"
+         cx="0"
+         cy="0"
+         sodipodi:cx="0"
+         sodipodi:cy="0"
+         sodipodi:rx="0.5675"
+         sodipodi:ry="0.5675"
+         style="fill:#aaaaaa;stroke:#000000;stroke-width:0.055" />
+    </g>
+    <g
+       id="Tubito1"
+       transform="translate(0,1.6)">
+      <use
+         xlink:href="#Tubito0"
+         id="use13"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,0.8660254,-0.8660254,0.5,0,0)"
+       id="g15">
+      <use
+         xlink:href="#Tubito1"
+         id="use17"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,0,0)"
+       id="g19">
+      <use
+         xlink:href="#Tubito1"
+         id="use21"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="scale(-1,-1)"
+       id="g23">
+      <use
+         xlink:href="#Tubito1"
+         id="use25"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,0,0)"
+       id="g27">
+      <use
+         xlink:href="#Tubito1"
+         id="use29"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,0,0)"
+       id="g31">
+      <use
+         xlink:href="#Tubito1"
+         id="use33"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       id="Tubito2"
+       transform="matrix(0.96592583,0.25881905,-0.25881905,0.96592583,-0.78422171,2.9267553)">
+      <use
+         xlink:href="#Tubito0"
+         id="use36"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,0,0)"
+       id="g38">
+      <use
+         xlink:href="#Tubito2"
+         id="use40"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,0.8660254,-0.8660254,0.5,0,0)"
+       id="g42">
+      <use
+         xlink:href="#Tubito2"
+         id="use44"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0,1,-1,0,0,0)"
+       id="g46">
+      <use
+         xlink:href="#Tubito2"
+         id="use48"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,0,0)"
+       id="g50">
+      <use
+         xlink:href="#Tubito2"
+         id="use52"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.8660254,0.5,-0.5,-0.8660254,0,0)"
+       id="g54">
+      <use
+         xlink:href="#Tubito2"
+         id="use56"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="scale(-1,-1)"
+       id="g58">
+      <use
+         xlink:href="#Tubito2"
+         id="use60"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,0,0)"
+       id="g62">
+      <use
+         xlink:href="#Tubito2"
+         id="use64"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,0,0)"
+       id="g66">
+      <use
+         xlink:href="#Tubito2"
+         id="use68"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0,-1,1,0,0,0)"
+       id="g70">
+      <use
+         xlink:href="#Tubito2"
+         id="use72"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,0,0)"
+       id="g74">
+      <use
+         xlink:href="#Tubito2"
+         id="use76"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,0,0)"
+       id="g78">
+      <use
+         xlink:href="#Tubito2"
+         id="use80"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       id="Tubito3"
+       transform="translate(0,4.51)">
+      <use
+         xlink:href="#Tubito0"
+         id="use83"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.93969262,0.34202014,-0.34202014,0.93969262,0,0)"
+       id="g85">
+      <use
+         xlink:href="#Tubito3"
+         id="use87"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.76604444,0.64278761,-0.64278761,0.76604444,0,0)"
+       id="g89">
+      <use
+         xlink:href="#Tubito3"
+         id="use91"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,0.8660254,-0.8660254,0.5,0,0)"
+       id="g93">
+      <use
+         xlink:href="#Tubito3"
+         id="use95"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.17364818,0.98480775,-0.98480775,0.17364818,0,0)"
+       id="g97">
+      <use
+         xlink:href="#Tubito3"
+         id="use99"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.17364818,0.98480775,-0.98480775,-0.17364818,0,0)"
+       id="g101">
+      <use
+         xlink:href="#Tubito3"
+         id="use103"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,0,0)"
+       id="g105">
+      <use
+         xlink:href="#Tubito3"
+         id="use107"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.76604444,0.64278761,-0.64278761,-0.76604444,0,0)"
+       id="g109">
+      <use
+         xlink:href="#Tubito3"
+         id="use111"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.93969262,0.34202014,-0.34202014,-0.93969262,0,0)"
+       id="g113">
+      <use
+         xlink:href="#Tubito3"
+         id="use115"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="scale(-1,-1)"
+       id="g117">
+      <use
+         xlink:href="#Tubito3"
+         id="use119"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.93969262,-0.34202014,0.34202014,-0.93969262,0,0)"
+       id="g121">
+      <use
+         xlink:href="#Tubito3"
+         id="use123"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.76604444,-0.64278761,0.64278761,-0.76604444,0,0)"
+       id="g125">
+      <use
+         xlink:href="#Tubito3"
+         id="use127"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,0,0)"
+       id="g129">
+      <use
+         xlink:href="#Tubito3"
+         id="use131"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(-0.17364818,-0.98480775,0.98480775,-0.17364818,0,0)"
+       id="g133">
+      <use
+         xlink:href="#Tubito3"
+         id="use135"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.17364818,-0.98480775,0.98480775,0.17364818,0,0)"
+       id="g137">
+      <use
+         xlink:href="#Tubito3"
+         id="use139"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.5,-0.8660254,0.8660254,0.5,0,0)"
+       id="g141">
+      <use
+         xlink:href="#Tubito3"
+         id="use143"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.76604444,-0.64278761,0.64278761,0.76604444,0,0)"
+       id="g145">
+      <use
+         xlink:href="#Tubito3"
+         id="use147"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+    <g
+       transform="matrix(0.93969262,-0.34202014,0.34202014,0.93969262,0,0)"
+       id="g149">
+      <use
+         xlink:href="#Tubito3"
+         id="use151"
+         x="0"
+         y="0"
+         width="68"
+         height="60" />
+    </g>
+  </g>
+  <rect
+     x="49.485615"
+     y="61.990887"
+     width="116.98385"
+     height="99.482727"
+     id="rect180"
+     style="opacity:0.4;fill:#2976a1;fill-opacity:1;stroke:#000000;stroke-width:1.26697313999999994;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  <circle
+     d="M 14.281,0 C 14.281,7.8871786 7.8871786,14.281 0,14.281 -7.8871786,14.281 -14.281,7.8871786 -14.281,0 c 0,-7.8871786 6.3938214,-14.281 14.281,-14.281 7.8871786,0 14.281,6.3938214 14.281,14.281 z"
+     r="14.281"
+     id="circle184"
+     style="opacity:0.4;fill:#0ea1ee;fill-opacity:1;stroke:#000000;stroke-width:0.20000000000000001;stroke-dasharray:2, 0.63000000000000000"
+     cx="0"
+     cy="0"
+     sodipodi:cx="0"
+     sodipodi:cy="0"
+     sodipodi:rx="14.281"
+     sodipodi:ry="14.281"
+     transform="matrix(4.2232437,0,0,4.2232437,107.97753,111.73227)" />
+  <use
+     height="60"
+     width="68"
+     y="0"
+     x="0"
+     id="use154"
+     xlink:href="#Canal0"
+     transform="translate(114.87223,1.4988744e-5)" />
+  <line
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0"
+     id="line156"
+     y2="78.571312"
+     y1="144.89319"
+     x2="165.41367"
+     x1="165.41367" />
+  <use
+     height="60"
+     width="68"
+     y="0"
+     x="0"
+     id="use4012"
+     xlink:href="#Canal0"
+     transform="matrix(0.5,0.8660254,-0.8660254,0.5,208.18789,61.837105)" />
+  <line
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0"
+     id="line4014"
+     y2="144.89291"
+     y1="178.05392"
+     x2="165.41379"
+     x1="107.97741" />
+  <text
+     xml:space="preserve"
+     style="font-size:7.99999952px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+     x="204.94189"
+     y="175.99986"
+     id="text3844"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan3846"
+       x="204.94189"
+       y="175.99986">celda rectangular del</tspan><tspan
+       sodipodi:role="line"
+       x="204.94189"
+       y="185.99986"
+       id="tspan3848">código de núcleo</tspan></text>
+  <text
+     sodipodi:linespacing="125%"
+     id="text3850"
+     y="173.1543"
+     x="9.0291166"
+     style="font-size:7.99999974px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+     xml:space="preserve"><tspan
+       id="tspan3854"
+       y="173.1543"
+       x="9.0291166"
+       sodipodi:role="line">celda circular del</tspan><tspan
+       y="181.58565"
+       x="9.0291166"
+       sodipodi:role="line"
+       id="tspan3858">código de celda</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:7.99999952px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+     x="13.317411"
+     y="48.270504"
+     id="text3860"
+     sodipodi:linespacing="125%"><tspan
+       id="tspan3864"
+       sodipodi:role="line"
+       x="13.31741"
+       y="48.270504">celda base hexagonal</tspan><tspan
+       sodipodi:role="line"
+       x="13.317411"
+       y="58.270504"
+       id="tspan3868" /></text>
+  <path
+     style="fill:none;stroke:#66666b;stroke-width:0.42232436;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 162.21007,154.42209 c 0,0 22.93566,-5.21145 33.49511,-1.54781 3.56872,1.23818 6.6738,4.15115 8.56363,7.42185 1.50313,2.60139 1.71274,8.84908 1.71274,8.84908"
+     id="path3880"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="caac" />
+  <path
+     style="fill:none;stroke:#66666b;stroke-width:0.42232436;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 63.402733,110.56851 c 0,0 -44.740773,12.78909 -36.510355,27.46933 4.016351,7.16377 16.06086,-6.56659 20.345291,0.44019 7.08365,11.58457 -31.003022,26.42429 -31.003022,26.42429"
+     id="path3882"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cssc" />
+  <use
+     xlink:href="#Canal0"
+     id="use4036"
+     x="0"
+     y="0"
+     width="68"
+     height="60"
+     transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,201.29321,173.56938)" />
+  <line
+     x1="50.54129"
+     x2="107.97768"
+     y1="144.89291"
+     y2="178.05392"
+     id="line4038"
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0" />
+  <path
+     style="fill:none;stroke:#66666b;stroke-width:0.42232436;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     d="m 107.90049,48.895222 c 0,0 -16.790918,0.987701 -25.186373,0.740711 -8.095077,-0.238154 -24.20125,-2.14066 -24.20125,-2.14066"
+     id="path3884"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cac" />
+  <use
+     height="60"
+     width="68"
+     y="0"
+     x="0"
+     id="use4024"
+     xlink:href="#Canal0"
+     transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,7.7671912,161.62744)" />
+  <line
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0"
+     id="line4026"
+     y2="78.571571"
+     y1="45.410709"
+     x2="50.54129"
+     x1="107.97768" />
+  <use
+     transform="matrix(-1,0,0,-1,101.08285,223.46454)"
+     height="60"
+     width="68"
+     y="0"
+     x="0"
+     id="use4018"
+     xlink:href="#Canal0" />
+  <line
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0"
+     id="line4020"
+     y2="144.89319"
+     y1="78.571381"
+     x2="50.541431"
+     x1="50.541431" />
+  <use
+     height="60"
+     width="68"
+     y="0"
+     x="0"
+     id="use4030"
+     xlink:href="#Canal0"
+     transform="matrix(0.5,-0.8660254,0.8660254,0.5,14.661877,49.895184)" />
+  <line
+     style="stroke:#808080;stroke-width:0.84464872;stroke-dasharray:2.40724887, 1.77376233, 1.81599477, 0"
+     id="line4032"
+     y2="45.410709"
+     y1="78.571571"
+     x2="107.97741"
+     x1="165.41379" />
+</svg>

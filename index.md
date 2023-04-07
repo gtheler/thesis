@@ -1,1 +1,1 @@
-010-intro/README.md
+front/dedicatoria.md

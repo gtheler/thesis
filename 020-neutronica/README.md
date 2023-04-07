@@ -3,6 +3,8 @@
 ```{=latex}
 \begin{chapterquote}
 ```
+
+::: {lang=en-US}
 It was the best of times, it was the worst of times,  
 it was the age of wisdom, it was the age of foolishness,  
 it was the epoch of belief, it was the epoch of incredulity...
@@ -10,13 +12,11 @@ it was the epoch of belief, it was the epoch of incredulity...
 \medskip
 
 *Charles Dickens, A Tale of Two Cities, 1859*
+:::
 
 ```{=latex}
 \end{chapterquote}
 ```
-
-
-cerrar el lazo Nacho/Chaco
 
 
 
@@ -25,11 +25,26 @@ cerrar el lazo Nacho/Chaco
 
 ## Historia de dos reactores
 
-Atucha I y II
+El reactor de la Central Nuclear Atucha I fue puesto en condición crítica el 13 de enero de 1974, constituyendo así la primera planta de generación nucleoeléctrica instalada en América Latina. Es un reactor térmico de 357 MWe brutos, moderado por agua pesada con canales combustibles verticales refrigerados también por agua pesada a la misma presión que el moderador pero a diferente temperatura. Debido a que el combustible es uranio natural, la poca reactividad en exceso hace que el reactor deba tener un recambio de combustible continuo. Para ello existe una máquina de recambio que opera sobre verticalmente la tapa superior del reactor extrayendo elementos combustibles gastados e introduciendo frescos a un ritmo aproximado de uno por día. El resto del tiempo la máquina opera haciendo [_shuffling_]{lang=en-US} para homogeneizar el quemado de los combustibles y optimizar el quemado de extracción final. Dado que la parte superior del recipiente de presión debe quedar libre para que trabaje la máquina de recambio, los mecanismos de control de reactividad tanto primarios (las barras de control) como secundarios (sistema de inyección de boro de emergencia) deben entrar el núcleo en forma oblicua a los canales combustibles, configurando un diseño esencialmente único en el mundo.
+
+Atucha II tiene un diseño similar aunque más del doble de potencia, 745 MWe brutos. Debido a una combinación de causas que quedan fuera del alcance de cualquier análisis, el contrato de construcción se firmó en 1980 pero la obra no se terminó hasta 2014. Detalles más detalles menos, el diseño del reactor es similar al de Atucha I (@fig-rpv).
+
+::: {#fig-rpv layout="[50,50]" layout-valign="bottom"}
+
+![Vista en corte](rpv2d.jpg){#fig-rpv2d}
+
+![Vista 3D](rpv3d.jpg){#fig-rpv3d}
+
+[Layout]{lang=en-US} de canales y tubos guía de barras de control en el reactor de presión de la Central Nuclear Atucha II @dypra-stni.
+:::
+
+
+
+
 
 ### Neutrones contantes y sonantes
 
-El martes 3 de junio de 2014 a las 9:03 el núcleo[^1] de la Central
+El martes 3 de junio de 2014 a las 9:03 el núcleo^[En el sentido del inglés [*core*]{lang=en-US}.] de la Central
 Nuclear Atucha II logró mantener por primera vez una reacción nuclear de
 fisión en cadena autosostenida. Este suceso marcó un hito no sólo en la
 industria nuclear argentina sino también en mi carrera profesional.
@@ -38,14 +53,11 @@ equipo ingenieros de Nucleoeléctrica Argentina S.A. en el desarrollo de
 modelos y códigos de cálculo acoplados para predecir, estudiar y
 analizar el comportamiento de la central teniendo en cuenta neutrónica
 espacial, realimentaciones termohidráulicas y acciones del sistema de
-control, limitación y protección del reactor (en el
-apéndice [\[ap:publicaciones\]](#ap:publicaciones){reference-type="ref"
-reference="ap:publicaciones"} se puede consultar una lista de
-publicaciones e informes técnicos relacionados a mi trabajo en
-Atucha II). Esa mañana pude presenciar de primera mano las indicaciones
+control, limitación y protección del reactor.
+Esa mañana pude presenciar de primera mano las indicaciones
 de los instrumentos que mostraban un incremento lineal en el tiempo de
 la señal de nivel de flujo neutrónico en el núcleo del reactor, que es
-lo que yo había leido en los libros de texto que debía suceder en un
+lo que yo había leído en los libros de texto que debía suceder en un
 reactor crítico en presencia de una fuente independiente de neutrones.
 Para terminar de despejar cualquier clase de dudas (incluyendo físicas,
 tecnológicas e industriales), durante los siguientes meses continué
@@ -60,40 +72,40 @@ inducidas por neutrones.
 Aún cuando no son deseados, los imprevistos existen. Es por eso todos
 nos aseguramos de que la rueda de auxilio de nuestro auto esté en
 condiciones ante de emprender un viaje más o menos largo ya que existe
-una probabilidad $p_1$ no nula de que se nos pinche una cubierta en el
-camino. ¿Pero por qué decimos *la* rueda de auxilio y no *las* ruedas de
-auxilio? ¿Acaso la probabilidad $p_2 \approx p_1^2$ de pinchar no una
-sino *dos* cubiertas no es también diferente de cero al fin y al cabo?
-Sí, pero esa probabilidad $p_2$ es tan pequeña que no vale la pena el
+una probabilidad $p_1$ no nula de que se nos pinche una cubierta en el camino.
+¿Pero por qué decimos *la* rueda de auxilio y no *las* ruedas de auxilio?
+¿Acaso la probabilidad $p_2 \approx p_1^2$ de pinchar no una sino *dos* cubiertas no es también diferente de cero al fin y al cabo?
+Sí, claro, pero esa probabilidad $p_2 < p_1$ es tan pequeña que no vale la pena el
 esfuerzo y el costo que implica llevar dos ruedas de auxilio en nuestro
 automóvil. Llegado el caso, llamamos a la grúa. En el diseño de
 centrales nucleares usamos un razonamiento similar: para todos los
 eventos cuyas probabilidades $p_i$ de ocurrencia sea significativas
 (accidentes de base de diseño) debemos tomar precauciones; para el resto
-(accidentes fuera de la base de diseño), preparamos soluciones de
-contingencia.
+(accidentes fuera de la base de diseño), preparamos soluciones de contingencia.
 
 En general, los reactores nucleares de potencia necesitan más de un
 único mecanismo de extinción de las reacciones de fisión. El primero son
 las mismas barras de control, que son insertadas rápidamente dentro del
 núcleo para absorber neutrones y no permitir que las fisiones se
-autosostengan en el tiempo. Si bien la probabilidad de que este
+auto-sostengan en el tiempo. Si bien la probabilidad de que este
 mecanismo falle es pequeña en términos absolutos, debemos incluir al
 menos un sistema más de extinción del reactor redundante, diverso e
 independiente. En el caso de las Centrales Nucleares tipo Atucha, el
 segundo sistema de extinción del reactor consiste en inyectar
 rápidamente una solución de ácido deuterobórico en el tanque del
-moderador. De esta forma, como los núcleos[^2] de $^{10}$Bo son grandes
+moderador. De esta forma, como los núcleos^[En el sentido del inglés [*nuclei*]{lang=en-US}.] de $^{10}$Bo son grandes
 absorbentes de neutrones, las reacciones de fisión se extinguen a medida
 que el boro ingresa a la zona del núcleo del reactor.
+
 
 ### La conexión europea
 
 Fue condición necesaria para la puesta a crítico de la central, la
-preparación del Informe Final de Seguridad y su presentación a la
+preparación del Informe Final de Seguridad (FSAR) y su presentación a la
 Autoridad Regulatoria Nuclear. Si bien la mayor parte de la ingeniería
 necesaria para su elaboración fue realizada en el país, debido a ciertas
-características del proyecto Atucha II, para la evaluación de algunos
+características---tanto técnicas como de gerenciamiento, con las que coincido completamente---del proyecto Atucha II,
+para la evaluación de algunos
 aspectos relacionados al Capítulo 15 de Análisis de Accidentes fueron
 contratados consultores del exterior. En particular, el modelado de la
 actuación del sistema de inyección de boro de emergencia y su efecto
@@ -104,23 +116,16 @@ los trabajos de licenciamento de la central. Por otro lado, suele ser
 una buena práctica involucrar a grupos internacionales especializados,
 sobretodo en temas complejos, delicados y sensibles.
 
-<figure id="fig:acopleboro">
-<div class="center">
 
-</div>
-<figcaption><span id="fig:acopleboro"
-label="fig:acopleboro"></span>Esquema de acople propuesto para el
-modelado de accidentes que involucran la actuación del sistema de
-inyección de boro de emergencia en la Central Nuclear Atucha I. La
-primera alternativa es calcular la reactividad negativa debida a la
-inyección de boro y luego incorporar <span
-class="math inline"><em>ρ</em><sub><em>b</em></sub>(<em>t</em>)</span> a
-la reactividad total de las ecuaciones de cinética puntual. La segunda
-consiste en un esquema completamente acoplado utilizando cinética
-neutrónica espacial. En cualquier caso, la forma de incorporar la
-distribución espacio-temporal de concentración de boro en el moderador
-al código neutrónico es la misma.</figcaption>
-</figure>
+::: {#fig-acopleboro layout-ncol=1}
+
+![Esquema de dos pasos estimando la primero reactividad $\rho_b(t)$ debida a la inyección de boro y luego incorporándola a las ecuaciones de cinética puntual.](borocinetica){#fig-esquema-dos-pasos width=80%}
+
+![Esquema completamente acoplado utilizando cinética neutrónica espacial.](borofull3d){#fig-esquema-full width=80%}
+
+Esquema de acople propuesto para el modelado de accidentes que involucran la actuación del sistema de inyección de boro de emergencia en la Central Nuclear Atucha I. La primera alternativa es calcular la reactividad negativa debida a la inyección de boro y luego incorporar $\rho_b(t)$ a la reactividad total de las ecuaciones de cinética puntual. La segunda consiste en un esquema completamente acoplado utilizando cinética neutrónica espacial. En cualquier caso, la forma de incorporar la distribución espacio-temporal de concentración de boro en el moderador al código neutrónico es la misma.
+:::
+
 
 ### Aprendiendo de los que saben
 
@@ -145,34 +150,19 @@ estudios necesarios para analizar una treintena de accidentes de base de
 diseño que componen el Capítulo 15 del FSAR de la Central Nuclear
 Atucha I.
 
-<figure id="fig:arrays">
-<div class="center">
 
-</div>
-<figcaption><span id="fig:arrays" label="fig:arrays"></span>Arreglo de
-canales en el plano perpendicular a la dirección axial en los reactores
-de agua pesada que operan en la Argentina. En ambos casos los canales
-están inmersos en un tanque que contiene agua pesada que actúa como
-moderador de los neutrones que nacen en los elementos combustibles
-alojados en los canales. Ambas figuras están representadas en la misma
-escala espacial, por lo que se puede observar la diferencia en los pasos
-y en los radios de los canales.</figcaption>
-</figure>
+::: {#fig-arrays layout="[50,50]"}
 
-<figure id="fig:celdacna1">
-<div class="center">
-<img src="introduccion/celdascna1" />
-</div>
-<figcaption><span id="fig:celdacna1" label="fig:celdacna1"></span> Celda
-neutrónica unitaria para el núcleo de Atucha I <span class="citation"
-data-cites="aatn-xs-2014"></span>. El cálculo de celda se realiza sobre
-un círculo de radio equivalente a la celda hexagonal geométrica. El
-cálculo de núcleo utiliza las secciones eficaces homogeneizadas a dos
-grupos y las aplica a una celda rectangular. Esta última celda es la que
-define la malla de representación de la figura <a
-href="#fig:mallareprpce" data-reference-type="ref"
-data-reference="fig:mallareprpce">[fig:mallareprpce]</a>.</figcaption>
-</figure>
+![Atucha (canales verticales)](array2d-atucha){#fig-arrayatucha}
+
+![CANDU (canales horizontales)](array2d-candu){#fig-arraycandu}
+
+Arreglo de canales en el plano perpendicular a la dirección axial en los reactores de agua pesada que operan en la Argentina. En ambos casos los canales están inmersos en un tanque que contiene agua pesada que actúa como moderador de los neutrones que nacen en los elementos combustibles alojados en los canales. Ambas figuras están representadas en la misma escala espacial, por lo que se puede observar la diferencia en los pasos y en los radios de los canales.
+:::
+
+
+![Celda neutrónica unitaria para el núcleo de Atucha I @aatn-xs-2014. El cálculo de celda se realiza sobre un círculo de radio equivalente a la celda hexagonal geométrica. El cálculo de núcleo utiliza las secciones eficaces homogeneizadas a dos grupos y las aplica a una celda rectangular. Esta última celda es la que define la malla de representación de la @fig-mallareprpce.}](celdascna1){#fig-celdacna1 width=55%}
+
 
 ### Claro como el agua pesada
 
@@ -188,14 +178,13 @@ refrigerantes con sus ejes paralelos entre sí. En los reactores tipo
 Atucha los canales se encuentran en forma vertical y con un arreglo
 sobre el plano transversal basado en triángulos equiláteros, mientras
 que éstos son horizontales y distribuidos como vértices de cuadrados en
-reactores tipo CANDU (figura [1.2](#fig:arrays){reference-type="ref"
-reference="fig:arrays"}). Los canales están inmersos en un gran tanque
+reactores tipo CANDU (@fig-arrays). Los canales están inmersos en un gran tanque
 que contiene el moderador líquido, que usualmente se mantiene más frío
 que el refrigerante con el objetivo de mejorar la moderación y aumentar
 así el factor de multiplicación infinito $k_\infty$ del núcleo. El
 elemento combustible está compuesto por un arreglo de barras
 individuales (37 en Atucha, 36 en CANDU) que contienen las pastillas de
-dióxido de uranio recubiertas por un cladding de zircaloy.
+dióxido de uranio recubiertas por un [cladding]{lang=en-US} de [zircalloy]{lang=en-US}.
 
 En este tipo de reactores la parada rápida del reactor se realiza
 mediante la inserción de las barras de control por gravedad. El segundo
@@ -204,23 +193,16 @@ líquida absorbente de neutrones en el tanque del moderador. En
 particular, para el caso de Atucha I y II se emplea ácido deuterobórico
 con boro enriquecido en su isótopo diez.
 
-<figure id="fig:mallaspce">
-<div class="center">
 
-</div>
-<figcaption><span id="fig:mallaspce" label="fig:mallaspce"></span>
-Mallas de representación y de cálculo propias del código neutrónico
-utilizado en el esquema acoplado propuesto de la figura <a
-href="#fig:acopleboro" data-reference-type="ref"
-data-reference="fig:acopleboro">1.1</a> para Atucha I. Las figuras
-fueron generadas con la herramienta libre ParaView (apéndice <a
-href="#paraview" data-reference-type="ref"
-data-reference="paraview">[paraview]</a>) a partir de extensiones al
-código neutrónico original realizadas por el autor del esta tesis
-durante sus trabajos para el licenciamento de la Central Nuclear
-Atucha II <span class="citation"
-data-cites="aatn-pumita-2014"></span>.</figcaption>
-</figure>
+::: {#fig-mallaspce layout="[50,50]"}
+
+![Malla de representación](cna1rep.png){#fig-mallareprpce}
+
+![Malla de cálculo](cna1calc.png){#fig-mallacalcpce}
+
+Mallas _estructuradas_ del código neutrónico utilizado en el esquema acoplado propuesto de la @fig-acopleboro para Atucha II @aatn-pumita-2014.
+::: 
+
 
 ### Dos son compañía, tres son multitud
 
@@ -234,20 +216,48 @@ con pérdida de refrigerante, es importante que consideremos efectos
 espaciales al presentarse una retroalimentación compleja debido tanto a
 las características termohidráulicas como neutrónicas de este tipo de
 reactores. Ambas situaciones son tenidas en cuenta en el esquema
-acoplado propuesto, que ilustramos en la
-figura [1.1](#fig:acopleboro){reference-type="ref"
-reference="fig:acopleboro"}. En él se involucra a un código de planta, a
+acoplado propuesto, que ilustramos en la @fig-acopleboro.
+En él se involucra a un código de planta, a
 un modelo de la lógica de control y protección del reactor y a un código
 de cinética espacial capaz de incorporar distribuciones
 espacio-temporales de propiedades, en particular concentración de boro
-en el moderador, calculadas a partir de técnicas tipo Computational
-Fluid Dynamics.
+en el moderador, calculadas a partir de técnicas tipo CFD.
+
+### Gloriosa la discretitud del alfabeto
+
+El punto principal de esta tesis es que las herramientas de neutrónica de núcleo al final del día lo que hacen es utilizar computadores digitales para resolver ecuaciones diferenciales en derivadas parciales. Para ello es necesario discretizar el dominio espacial de la ecuación diferencial en derivadas parciales para obtener una cantidad finita de ecuaciones diferenciales ordinarias. La forma de discretizar el dominio depende de la formulación espacial discretizada, es decir diferencias, volúmenes o elementos finitos.
+
+Dado un dominio espacial continuo (@fig-dominio-continuo), esencialmente se puede proceder de dos maneras diferentes.
+O bien se superpone una grilla cartesiana (@fig-dominio-continuo-estructurado) y luego se ajusta el dominio a la grilla para obtener una malla estructurada (@fig-dominio-estructurado).
+O bien se aplican técnicas de mallado no estructurado para obtener una malla que permita representar la geometría original con mucha mayor precisión (@fig-dominio-no-estructurado).
+
+
+::: {#fig-dominio layout="[45,-10,45]"}
+
+![Dominio continuo](dominio-continuo){#fig-dominio-continuo}
+
+![Grilla uniforme superpuesta](dominio-continuo-estructurado){#fig-dominio-continuo-estructurado}
+
+![Malla estructurada](dominio-estructurado){#fig-dominio-estructurado}
+
+![Malla no estructurada](dominio-no-estructurado){#fig-dominio-no-estructurado}
+
+Discretizaciones estructurada y no estructurada de un dominio espacial arbitrario.
+:::
+
+La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas.
+
+La mayoría de las herramientas de neutrónica a nivel de núcleo utilizan mallas estructuradas.
+Definitivamente todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
+Por lo tanto, cuando hablemos de neutrónica en lo que resta del capítulo solamente aparecerán mallas estructuradas hasta que discutamos las propuesta de esta tesis de doctorado.
+
+
+
 
 ### Multifísica multiescala
 
-En cualquiera de los dos casos ilustrados en la
-figura [1.1](#fig:acopleboro){reference-type="ref"
-reference="fig:acopleboro"} para la evaluación de la neutrónica asociada
+En cualquiera de los dos casos ilustrados en la @fig-acopleboro
+para la evaluación de la neutrónica asociada
 a la actuación del sistema de inyección de boro de emergencia, el código
 neutrónico resuelve la ecuación de difusión de neutrones en el núcleo
 con secciones eficaces macroscópicas homogeneizadas espacialmente a
@@ -255,15 +265,14 @@ nivel de canal refrigerante individual y condensadas a dos grupos de
 energía. Es decir, la celda unitaria que se resuelve en el nivel de
 cálculo de celda en el esquema multi-escala usual @sec-multiescala contiene un canal refrigerante con las
 barras que componen el elemento combustible y una porción de moderador
-asociada a dicho
-canal (figura [1.3](#fig:celdacna1){reference-type="ref"
-reference="fig:celdacna1"}).
+asociada a dicho canal (@fig-celdacna1).
+
+\medskip
 
 El código de núcleo trabaja con dos mallas (o retículas según la
 nomenclatura propuesta por el autor original del código), ambas
-estructuradas: una de representación y una de cálculo
-(figura [1.4](#fig:mallaspce){reference-type="ref"
-reference="fig:mallaspce"}). En la primera es donde se definen las
+_completamente estructuradas_: una de representación y una de cálculo como ilustramos en la @fig-mallaspce.
+En la primera es donde se definen las
 secciones eficaces macroscópicas que dependen de las propiedades medias
 de la celda: quemado y temperatura de combustible, temperaturas y
 densidades de moderador y refrigerante, concentración de boro en
@@ -279,38 +288,16 @@ celda en $n\times n$ rectángulos más pequeños (por la geometría del
 arreglo de canales $n$ debe ser una potencia de dos) y la longitud
 activa $h$ del núcleo en una cantidad $m$ de celdas axiales. En el
 equipo de trabajo entonces se dice que un cálculo se realiza con una
-malla de de $2\times 2 \times 20$, $4\times 4 \times 80$, etc. La
-figura [\[fig:mallacalcpce\]](#fig:mallacalcpce){reference-type="ref"
-reference="fig:mallacalcpce"} muestra una malla de cálculo de
-$4 \times 4 \times 20$.
+malla de $2\times 2 \times 20$, $4\times 4 \times 80$, etc. La @fig-mallacalcpce
+muestra una malla de cálculo de $4 \times 4 \times 20$.
 
-<figure id="fig:gota">
-<div class="center">
-<img src="introduccion/gota" />
-</div>
-<figcaption><span id="fig:gota" label="fig:gota"></span>Efecto de
-dilución geométrica de secciones eficaces. Una pequeña gota de
-absorbente al ser diluida en el volumen de una celda mucho mayor
-utilizando sólo relaciones geométricas resulta en secciones eficaces
-homogeneizadas excesivamente absorbentes. Un absorbente negro del 5% del
-volumen de una celda transforma la celda completa en un absorbente casi
-negro.</figcaption>
-</figure>
+![Efecto de dilución geométrica de secciones eficaces. Una pequeña gota de absorbente al ser diluida en el volumen de una celda mucho mayor utilizando sólo relaciones geométricas resulta en secciones eficaces homogeneizadas excesivamente absorbentes. Un absorbente negro del 5% del volumen de una celda transforma la celda completa en un absorbente casi negro.](gota){#fig-gota}
 
-<figure id="fig:boropce">
-<div class="center">
-<img src="introduccion/cfd" />
-</div>
-<div class="center">
-<img src="introduccion/boropce" />
-</div>
-<figcaption><span id="fig:boropce" label="fig:boropce"></span>Mapeo de
-la distribución instantánea de boro a una malla de cálculo del código
-neutrónico de núcleo de <span class="math inline">4 × 4 × 20</span>
-(<span class="math inline">∼</span> 200.000 celdas) <span
-class="citation" data-cites="enief-2014-cpl"></span>. No es posible
-observar la presencia de los canales.</figcaption>
-</figure>
+
+![Cálculo fluidodinámico de la evolución temporal de la pluma de boro en el tanque del moderador de Atucha I realizada por ingenieros de NA-SA con técnicas CFD sobre una malla no estructurada de aproximadamente 4.5 millones de celdas~\cite{enief-2014-cpl}. Se pueden observar los huecos en la distribución espacial generados por la presencia de los canales.](cfd.png){#fig-cfd}
+
+![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce}
+
 
 ### Calcule un litro y obtenga dos (por el mismo precio)
 
@@ -322,9 +309,8 @@ de secciones eficaces que repasamos a continuación. En efecto,
 consideremos una pequeña gota de ácido deuterobórico con una gran
 concentración de boro, digamos 2000 partes por millón, que en algún
 instante se encuentra dentro de una de las celdas sobre las cuales se
-homogeneizan las secciones eficaces macroscópicas, como ilustramos en la
-figura [1.5](#fig:gota){reference-type="ref" reference="fig:gota"}, y
-supongamos que la gota ocupa el 5% del volumen de la celda. Para poder
+homogeneizan las secciones eficaces macroscópicas, como ilustramos en la @fig-gota, y
+supongamos que la gota ocupa el 5% del volumen de la celda. Para poder
 avanzar un paso del cálculo cinético-espacial de núcleo debemos
 asignarle secciones eficaces mascroscópicas a la celda que contiene la
 pequeña gota de boro, a partir de cálculos paramétricos de nivel de
@@ -332,12 +318,11 @@ celda en los cuales conocemos cómo varían las secciones eficaces en
 función de los parámetros termohidráulicos (temperaturas y densidades) y
 de la concentración de venenos (xenón y boro) de la celda. Como el boro
 no está uniformemente distribuido, debemos obtener un valor medio que
-proponemos calculars como un promedio de las concentraciones de boro de
+proponemos calcular como un promedio de las concentraciones de boro de
 la gota y del resto de la celda pesado con los volúmenes relativos. Para
-el caso de la figura [1.5](#fig:gota){reference-type="ref"
-reference="fig:gota"}, la concentración media de boro de la celda sería
-100 ppm, resultando en una absorción casi negra para toda la celda en
-lugar de una absorción completamente negra sólo en el 5% del volumen. La
+el caso de la @fig-gota, la concentración media de boro de la celda
+sería 100 ppm, resultando en una absorción casi negra para toda la celda en
+lugar de una absorción completamente negra sólo en el 5% del volumen. La
 alternativa a la dilución geométrica sería homogeneizar de forma tal no
 de mantener la relación de volúmenes sino los ritmos de reacción. Esto
 implicaría tener que realizar un nuevo cálculo de celda para cada una de
@@ -348,51 +333,40 @@ podría llegar a ser un esquema alternativo. Sin embargo, como discutimos
 más adelante, aún existen otros inconvenientes en la formulación que no
 pueden ser salvados de esta forma.
 
-<figure id="fig:4x4">
-<div class="center">
+::: {#fig-4x4 layout="[50,50]"}
 
-</div>
-<figcaption><span id="fig:4x4" label="fig:4x4"></span>Distribución de
-boro para un cierto instante mapeada desde la malla de CFD a la malla de
-cálculo neutrónico de <span class="math inline">4 × 4</span> con (a) 40
-celdas axiales y (b) 60 celdas axiales <span class="citation"
-data-cites="aatn-aet-2014"></span>. En el segundo caso con las celdas
-más pequeñas, el mapeo de malla no estructurada (CFD) a malla
-estructurada (neutrónica) no pueda reproducir los resultados en las
-zonas donde la malla de CFD no está suficientemente refinada. El
-resultado es que en forma espuria se remueve boro del tanque del
-moderador para mallas de cálculo neutrónico demasiado
-finas.</figcaption>
-</figure>
+![$4 \times 4 \times 40$](4x4-40.png){#fig-4x4-40}
+
+![$4 \times 4 \times 60$](4x4-60.png){#fig-4x4-60}
+
+Distribución de boro para un cierto instante mapeada desde la malla de CFD a la malla de cálculo neutrónico de $4 \times 4$ con (a) 40 celdas axiales y (b) 60 celdas axiales @aatn-aet-2014. En el segundo caso con las celdas más pequeñas, el mapeo de malla no estructurada (CFD) a malla estructurada (neutrónica) no puede reproducir los resultados en las zonas donde la malla de CFD no está suficientemente refinada. El resultado es que en forma espuria se remueve boro del tanque del moderador para mallas de cálculo neutrónico demasiado finas.
+:::
+
 
 Para reducir este efecto y además poder realizar estudio de convergencia
 de malla hemos decidido extender el código de núcleo para permitir que
 la definición de la distribución instantánea de boro pueda realizarse
 también sobre la malla de cálculo, en lugar de hacerlo sólo sobre la de
 representación como el resto de los parámetros (temperaturas,
-densidades, etc.) [@aatn-pumita-2014]. En este caso, a partir de
+densidades, etc.) @aatn-pumita-2014. En este caso, a partir de
 resultados fluidodinámicos es que incorporamos la pluma de boro al
 esquema de cálculo acoplado mapeando las celdas la mallas del código CFD
-(figura [\[fig:cfd\]](#fig:cfd){reference-type="ref"
-reference="fig:cfd"}, $\sim$ 4.5 millones de celdas) a la malla de
-cálculo del código neutrónico
-(figura [1.6](#fig:boropce){reference-type="ref"
-reference="fig:boropce"}, $\sim$ 200.000 celdas para
+(@fig-cfd, $\sim$ 4.5 millones de celdas) a la malla de
+cálculo del código neutrónico (@fig-boropce, $\sim$ 200.000 celdas para
 $4\times 4 \times 20$).
 
 ### Celdas refinadas
 
 Dado que el efecto de dilución de secciones eficaces macroscópicas se
 reduce drásticamente con el tamaño de la celda, hemos realizado estudios
-de convergencia de malla [@aatn-aet-2014] con el doble objetivo de
+de convergencia de malla @aatn-aet-2014 con el doble objetivo de
 estimar los errores cometidos y para extrapolar las reactividades
 obtenidas a una discretización espacial infinitesimal. Sin embargo,
 hemos encontrado que no siempre es conveniente trabajar con mallas de
-cálculo neutrónico demasiado finas. En la
-figura [1.7](#fig:4x4){reference-type="ref" reference="fig:4x4"}
+cálculo neutrónico demasiado finas. En la @fig-4x4
 mostramos el resultado de mapear una cierta distribución de
-concentración de boro para dos mallas de cálculo similares, una con 40
-celdas axiales y otra con 60. Debido a que el cálculo CFD se realiza
+concentración de boro para dos mallas de cálculo similares, una con 40
+celdas axiales y otra con 60. Debido a que el cálculo CFD se realiza
 sobre una malla no estructurada, ésta se ha diseñado de forma tal de ser
 más refinada en ciertas ubicaciones de interés dentro del tanque del
 moderador. En algunas zonas donde esta malla es más gruesa, sucede que
@@ -410,37 +384,24 @@ la de cálculo neutrónico que tenga en cuenta estos casos particulares.
 Sin embargo, como discutimos más, aún existen otros inconvenientes en la
 formulación que no pueden ser salvados de esta forma.
 
-<figure id="fig:4x4ref">
-<div class="center">
-<img src="introduccion/4x4ref" />
-</div>
-<figcaption><span id="fig:4x4ref" label="fig:4x4ref"></span>Cuando el
-frente de la pluma de boro llega a un canal refrigerante, la
-homogeneización geométrica asigna concentraciones de boro según las
-relaciones de los volúmenes de las celdas con respecto a la pluma
-discretizada en la malla de CFD. Como el moderador no está separado de
-la mezcla combustible más refrigerante, se producen inconsistencias en
-las secciones eficaces asignadas a cada celda de cálculo.</figcaption>
-</figure>
+![Cuando el frente de la pluma de boro llega a un canal refrigerante, la homogeneización geométrica asigna concentraciones de boro según las relaciones de los volúmenes de las celdas con respecto a la pluma discretizada en la malla de CFD. Como el moderador no está separado de la mezcla combustible más refrigerante, se producen inconsistencias en las secciones eficaces asignadas a cada celda de cálculo.](4x4ref){#fig-4x4ref width=100%}
 
-En la figura [\[fig:cfd\]](#fig:cfd){reference-type="ref"
-reference="fig:cfd"}, podemos observar que la nube de boro calculada en
+
+En la @fig-cfd, podemos observar que la nube de boro calculada en
 la malla de CFD avanza sólo en el tanque del moderador. Es decir, los
 canales individuales forman parte de la frontera del dominio
 fluidodinámico. En la malla neutrónica, los canales están embebidos en
 un arreglo de paralelepípedos que no son capaces de reproducir su
-geometría cilíndrica. Más aún, la remoción espuria de boro que de la
-figura [1.7](#fig:4x4){reference-type="ref" reference="fig:4x4"} se da
-aún cuando la malla de $4 \times 4$ no es lo suficientemente refinada
+geometría cilíndrica. Más aún, la remoción espuria de boro que de la @fig-4x4
+se da aún cuando la malla de $4 \times 4$ no es lo suficientemente refinada
 como para poder incluso separar completamente en los canales del
-moderador, aún aproximando éstos por cuadrados de $2 \times 2$. En
-efecto, en la figura [1.8](#fig:4x4ref){reference-type="ref"
-reference="fig:4x4ref"} ilustramos este concepto suponiendo que el
+moderador, aún aproximando éstos por cuadrados de $2 \times 2$.
+En efecto, en la @fig-4x4ref ilustramos este concepto suponiendo que el
 frente de la pluma de boro hace contacto con un canal refrigerante. Al
 homogeneizar geométricamente, la celda 1 tendrá asignada una
 concentración de boro $c_{b1} = 1000~\text{ppm}$ ya que se encuentra en
 su totalidad dentro de la nube. Las celdas 2 y 3 tendrán alguna cierta
-concentración de boro entre 0 y 1000 ppm. Estas celdas sufrirán en
+concentración de boro entre 0 y 1000 ppm. Estas celdas sufrirán en
 alguna medida el efecto de dilución de secciones eficaces ya discutido.
 Pero la situación en la celda 4 es más compleja aún, porque la
 concentración $c_{b4}$ asignada supone que todo el volumen de la celda
@@ -455,9 +416,7 @@ en realidad no hay materiales físiles ni fisionables en ella.
 
 Tanto el código neutrónico de núcleo empleado en el esquema acoplado
 propuesto para actualizar los transitorios del Capítulo 15 del FSAR de
-Atucha I ilustrado en la
-figura [1.1](#fig:acopleboro){reference-type="ref"
-reference="fig:acopleboro"} como el código utilizado por los expertos
+Atucha I ilustrado en la @fig-acopleboro como el código utilizado por los expertos
 internacionales para estudiar la inyección de boro durante el
 licenciamiento de Atucha II resuelven la ecuación de difusión de
 neutrones a dos grupos de energía. En esta formulación, se supone que la
@@ -466,22 +425,15 @@ escalar a través de un cierto coeficiente de difusión. Esta ecuación es
 una aproximación que podemos deducir a partir de la ecuación de
 transporte de neutrones (de hecho la deducimos matemáticamente en esta
 tesis en la @sec-difusion). La validez de la aproximación es tanto mejor
-mientras más ciertas sean las famosas siete suposiciones de la
-página 125 del libro de Lamarsh @lamarsh:
+mientras más ciertas sean las famosas seis suposiciones de la
+página 125 del libro clásico de Lamarsh @lamarsh:
 
- 1. el medio es infinito;
-
- 2. el medio es uniforme, de forma
-    tal que todas las secciones eficaces son constantes,
-    independientemente de la posición;
-
-3.  no hay fuentes de neutrones;
-
-4.  el scattering es istrópico en el sistemas de coordenadas del *laboratorio*;[^3]
-
-5.  el flujo neutrónico es una función levemente dependiente de la posición;
-
-6.  el flujo neutrónico no es un función del tiempo.
+ 1. el medio es infinito
+ 2. el medio es uniforme, de forma tal que todas las secciones eficaces son constantes, independientemente de la posición
+ 3. no hay fuentes de neutrones
+ 4. el [scattering]{lang=en-US} es isotrópico en el sistema de coordenadas del *laboratorio*^[De *la planta* o *la central* serían mejores términos para el caso tratado en este trabajo.]
+ 5. el flujo neutrónico es una función levemente dependiente de la posición
+ 6. el flujo neutrónico no es un función del tiempo.
 
 Si bien estas hipótesis pueden ser relajadas y aún así poder suponer que
 la corriente neta de neutrones es proporcional al gradiente del flujo
@@ -505,292 +457,142 @@ condiciones 2 y 5 dejan de cumplirse y no sólo no podemos evaluar
 la magnitud sino que ni siquiera podemos conocer el signo del error
 cometido.
 
+
+
 ## Limitaciones de la formulación neutrónica actual
 
-Resumiendo las ideas desarrolladas hasta el momento, podemos concluir
-que el enfoque que hemos propuesto según el estado del arte y las
-capacidades propias del equipo de trabajo encargado de actualizar el
-Capítulo 15 del FSAR de Atucha I (que de todas maneras es superior en
-varios aspectos al implementado por expertos internacionales para el
-licenciamiento de Atucha II) posee al menos tres inconvenientes, a
-saber:
+El enfoque propuesto para evaluar la efectividad del segundo sistema de apagado de un reactor tipo Atucha involucra los siguientes pasos:
 
-1.  Una malla de cálculo neutrónico muy gruesa con respecto a la malla
+ 1. realizar un cálculo tipo CFD para obtener la distribución espacio-temporal de concentración de ácido deuterobórico sobre una malla detallada teniendo en cuenta la geometría del tanque del moderador, de los canales combustibles, tubos guía de barras de control y lanzas de inyección de boro.
+ 
+ 2. convertir dicha distribución a una malla estructurada para que esa información pueda ser tenida en cuenta por las herramientas neutrónicas disponibles
+ 
+ 3. calcular la dependencia de las secciones eficaces macroscópicas del moderador en función de la concentración de boro compatibles con la aproximación de difusión
+ 
+ 4. realizar un cálculo de difusión de neutrones a nivel de núcleo tomando la información obtenida en los puntos 2 y 3 como entrada
+
+Tanto la metodología como los estudios propiamente dichos han sido aprobados por la Autoridad Regulatoria Nuclear y,
+de hecho, es en varios aspectos técnicos superior al implementado por expertos internacionales para Atucha II.
+Sin embargo, esta metodología presenta al menos tres inconvenientes:
+
+ i. Una malla de cálculo neutrónico muy gruesa con respecto a la malla
     de CFD produce una de dilución de secciones eficaces absorbentes que
     hace que se sobrestime la reactividad negativa introducida por el
     boro, aunque un refinamiento excesivo de la malla de cálculo
     neutrónico remueve boro numéricamente en forma espuria introduciendo
     un efecto opuesto.
 
-2.  Los canales no se pueden representar en forma satisfactoria con un
+ ii. Los canales no se pueden representar en forma satisfactoria con un
     malla de cálculo neutrónico estructurada basada en paralelepípedos,
     y para tamaños de celda menores a la mitad de la distancia entre
     canales el código termina modificando secciones eficaces de fisión
     homogeneizadas en función de la concentración de boro en ubicaciones
     donde no hay combustible sino sólo moderador.
 
-3.  No se cumplen enteramente las condiciones de validez de la ecuación
-    de difusión de neutrones.
+ iii. No se cumplen enteramente las condiciones de validez de la ecuación
+    de difusión de neutrones, por lo que el cálculo neutrónico de núcleo
+    tiene una incerteza demasiado grande.
 
-Esta problemática es (o debería ser) de interés para la industria
-nuclear argentina, teniendo en cuenta que al sus tres centrales
-nucleares activas (al momento de escribir esta tesis) son refrigerados
-con agua pesada a través de canales cilíndricos, moderadas con agua
-pesada más fría desde un tanque exterior a los canales y el segundo
-sistema de extinción consiste en la inyección rápida de una solución
-absorbente en el tanque del moderador. Más aún, situaciones similares
----aunque diferentes en cada caso--- se pueden llegar a encontrar en
-reactores de investigación, tecnología en la cual Argentina es un
-reconocido líder mundial.
-
-Además, recientemente[^4] se han completado dos Tesis de Doctorado en el
-Instituto Balseiro relacionadas. La primera consiste en el desarrollo y
-aplicación de nuevas bibliotecas de secciones eficaces con especial
-énfasis en el scattering debido al agua pesada [@nacho]. La segunda
-introduce una metodología de análisis neutrónico del celdas de reactores
-de agua pesada [@chaco]. Consideramos que es pertinente contribuir al
-desarrollo de las capacidades científico-tecnológicas en ingeniería
-nuclear al estudiar la resolución de problemas neutrónicos a nivel de
-núcleo teniendo en cuenta las particularidades propias de los reactores
-de agua pesada.
-
-Finalmente, a modo personal debo notar que en el Proyecto Integrador de
-mi Carerra de Ingeniería Nuclear traté temas de control en loops de
-convección natural caóticos [@theler2007] y en la Tesis de Maestrías en
-Ingeniería traté temas de inestabilidades termohidráulicas en presencia
-de una fuente de potencia de origen neutrónico [@theler2008]. Poder
-realizar una tesis de doctorado en temas de neutrónica de nivel de
-núcleo me permite cerrar en forma académica el lazo
-termohidráulica-neutrónica-control, que fue también el eje de mi
-participación profesional en el completamiento de la Central Nuclear
-Atucha II.
-
+Aún cuando es posible que los resultados de ingeniería obtenidos sean suficientemente exactos y precisos, no es posible determinar cuantitativamente dicha exactitud y precisión si no se dispone de un método objetivamente más exacto y preciso contra el cual poder comparar los resultados.
 
 ## Las propuestas de esta tesis
 
-Entendemos que la evaluación de la neutrónica asociada a un evento
-accidental que requiere la actuación del segundo sistema de extinción en
-reactores de agua pesada es una tarea compleja que involucra a un equipo
-de ingeniería durante varios años de trabajo. Las contribuciones de este
-trabajo son:
+La motivación fundamental de esta tesis parte del tercer punto de la sección anterior y luego continúa subiendo hacia los otros dos puntos, encadenando varias ideas en un mismo hilo conductor: desarrollar una herramienta objetivamente más precisa para poder verificar la precisión y exactitud de las aproximaciones involucradas en cálculos de transitorios neutrónicos a nivel de núcleo.
 
-1.  Desarrollar una herramienta computacional libre y abierta que
-    permita evitar la aparición de los tres inconvenientes principales
-    del esquema de cálculo propuesto actualmente, es decir
 
-    -   resolver una formulación de transporte de neutrones que no se
-        base en la aproximación de difusión
 
-    -   permitir la separación entre el moderador y los canales
-        refrigerantes utilizando mallas no estructuradas
+Esencialmente, se trata de indicar que en lugar de resolver la ecuación de difusión a nivel de núcleo sería más preciso utilizar otro tipo de formulación numérica de la ecuación de transporte de neutrones tal como el método de ordenadas discretas, también conocido como $S_N$.
+Ahora bien, el principal problema de $S_N$ es que el tamaño del problema discretizado escala como el producto de
 
-2.  Proponer una metodología de trabajo que permita resolver problemas
-    similares a los relacionados a la evaluación de la reactividad en
-    transitorios de inyección de boro de emergencia con el objetivo de
-    poder estimar los errores cometidos por el enfoque propuesto
-    actualmente aplicando buenas prácticas de ingeniería con énfasis en
-    el control de cambios, en la repetibilidad y en la trazabilidad de
-    los cálculos de ingeniería
+ a. la cantidad de incógnitas espaciales, es decir el número de nodos o celdas de la malla,
+ b. la cantidad de grupos de energía,
+ c. la cantidad $N \cdot (N+2)$ de direcciones de vuelo de los neutrones en la formulación $S_N$
 
-Si bien ---como describimos en el
-capítulo [\[cap:related\]](#cap:related){reference-type="ref"
-reference="cap:related"} donde analizamos otros enfoques propuestos en
-trabajos relacionados y cómo se comparan éstos con nuestras
-contribuciones una vez que las hayamos introducido, explicado y
-discutido--- últimamente están apareciendo códigos de tipo multifísica
-que involucran mallas no estructuradas, la mayoría de los códigos de
-cálculo neutrónico de uso industrial han sido diseñados para modelar
-reactores de agua liviana. Por un lado, en estos reactores no existe
-separación entre refrigerante y moderador. Por otro, la disposición de
-los combustibles dentro de los núcleos es especialmente apta para ser
-tratada espacialmente utilizando mallas estructuradas. Es por eso que
-prácticamente no existen códigos neutrónicos de núcleo que permitan
-incorporar mallas no estructuradas capaces de discretizar en forma
-efectiva geometrías complejas como el conejo de Stanford que ilustramos
-en la figura [1.9](#fig:bunny-meshed){reference-type="ref"
-reference="fig:bunny-meshed"} y con el cual volveremos a toparnos más
-adelante en el
-capítulo [\[cap:abiertos\]](#cap:abiertos){reference-type="ref"
-reference="cap:abiertos"}.
+A su vez, los recursos computacionales necesarios para resolver el problema, esencialmente tiempo de procesador y memoria, escalan con una velocidad más que lineal con el producto de los tres puntos mencionados, usualmente entre $O(n \log n)$ y $O(n^2)$. Esto hace que para casos con mallas de interés de ingeniería sea imposible emplear una única computadora digital para resolver el problema ya aún cuando el tiempo de procesamiento pueda ser arbitrariamente grande, la escala de la memoria requerida no permitiría la flexibilidad suficiente para realizar los estudios de convergencia de malla, de energía y de direcciones necesarios para estudiar la verificación tanto de la herramienta de transporte por $S_N$ en sí como de la comparación con formulaciones más simplificadas basadas en difusión. Es necesario entonces diseñar un esquema numérico de resolución de ecuaciones diferenciales que pueda escalar con el tamaño del problema a resolver.
+Para ello, el esquema debe ser paralelizable, flexible y extensible.
 
-<figure id="fig:bunny-meshed">
-<div class="center">
+$$
+\text{difusión} \rightarrow \text{muy simplificado} \Rightarrow S_N \rightarrow \text{escala muy rápido} \Rightarrow \text{esquema}
+\begin{cases}
+ \text{paralelizable} \\
+ \text{flexible} \\
+ \text{extensible}
+\end{cases}
+$$
 
-</div>
-<figcaption><span id="fig:bunny-meshed"
-label="fig:bunny-meshed"></span>Las mallas no estructuradas permiten
-aproximar una geometría compleja en forma mucho más satisfactoria que
-una malla estructurada con la misma cantidad de celdas. Tanto la malla
-como la figura fueron generadas por la herramienta libre de mallado Gmsh
-(apéndice <a href="#gmsh" data-reference-type="ref"
-data-reference="gmsh">[gmsh]</a>).</figcaption>
-</figure>
 
-En efecto, las mallas no estructuradas suelen encontrar cabida en otras
-ramas de la ingeniería tales como la mecánica de fluidos, la
-transferencia de calor y el análisis estructural. En estas
-especialidades también son mucho más comunes las técnicas de
-programación tipo High-Performance Computing que involucran por ejemplo
-paralelización masiva y utilización de Graphic Processing Units en lugar
-de CPUs tradicionales. En este trabajo desarrollamos una herramienta que
-incorpora algunas de estas ideas en la resolución de la neutrónica de
-núcleo de reactores nucleares. Pero además, como también discutimos en
-el capítulo [\[cap:related\]](#cap:related){reference-type="ref"
-reference="cap:related"}, muchos de los proyectos de desarrollo de
-códigos de cálculo y bibliotecas numéricas tipo HPC son libres y
-abiertos, lo que implica una forma de realizar el desarrollo, de
-vincularse con otras herramientas y de compartir información técnica que
-es particularmente fructífera y que se relaciona con la segunda parte de
-esta tesis, que es la propuesta de una metodología de trabajo para
-resolver problemas de ingeniería nuclear. Aunque se iniciaron a partir
-de ideas diferentes (el software libre se basa en principios éticos
-relacionados libertad [@faif] tanto del usuario como del desarrollador
-mientras que el software abierto se basa en el principio técnico "*given
-enough eyeballs, all bugs are shallow*" [@cathedral]), el resultado
-final es similar: existe una comunidad de desarrolladores que comparte
-información técnica y trabaja en conjunto aplicando técnicas adecuadas
-con el fin de mejorar la calidad los resultados obtenidos. Los puntos
-ilustrativos de estas dos corrientes son el proyecto GNU (software
-libre) y el kernel de Linux (software abierto), cuyo éxito permite por
-ejemplo que hoy en día podamos realizar cálculos complejos utilizando
-técnicas de HPC sobre clústers de cálculo con una potencia y
-flexibilidad que no se podría lograr en plataformas cerradas.[^5] Ambos
-proyectos están basados en la metodología de trabajo implícita en la
-filosofía UNIX [@raymond], que proviene de principios de la década de
-1970 donde los desarrolladores de hardware y de software encontraron que
-la forma de trabajo óptima consistía básicamente en
 
--   compartir información con otros programas y con sus desarrolladores
 
--   reutilizar código de buena calidad que ya alguien haya desarrollado
-    antes
+ i. Paralelizable de forma que el problema se pueda resolver con un cierto número de computadoras digitales trabajando en conjunto de forma tal que los recursos computacionales (esencialmente la memoria) sean suficientes para que cada una pueda tratar una parte del problema.
+ 
+    Una condición necesaria para poder implementar este tipo de paralelización es poder dividir el dominio espacial de forma tal de minimizar la cantidad de información que deben compartir cada una de las computadoras con el resto. Esto implica resolver un problema de descomposición de dominio (DDM) que involucra teoría de grafos, lo que a su vez necesita la topología explícita de la malla.
+    
+    Este requerimiento concuerda con la necesidad de utilizar mallas no estructuradas para poder modelar geometrías complejas en reactores PHWR, a saber
 
--   automatizar tareas sencillas pero repetitivas para evitar introducir
-    errores
+     * moderador separado de refrigerante en canales circulares
+     * barras de control inclinadas
+     * lanzas de inyección de boro inclinadas
+     * plumas de ácido deuterobórico transitorias no triviales 
 
-A partir de mi experiencia profesional considero que la incorporación de
-estas ideas a la metodología de resolución de problemas de ingeniería
-nuclear en general y especialmente a la preparación de la documentación
-asociada a los informes de seguridad de centrales nucleares permitiría
-no sólo mejorar la productividad y reducir la tasa de errores sino
-también incrementar la calidad de los resultados obtenidos.
+    Las mallas no estructuradas incluso permiten también
 
-<figure id="fig:array3d">
-<div class="center">
+     * modelar reactores de investigación sin sufrir el “efecto escalera” de la @fig-dominio-estructurado
+     * evitar efectos numéricos tales como la dilución de secciones eficaces en los extremos de las barras de control
+     * facilitar la resolución de problemas tipo benchmark en geometrías cilíndricas o esféricas
+     * resolver problemas abstractos tales como dominios con forma de conejo o una transición entre un cubo y una esfera
+   
+ ii. Flexible en el número de computadoras a utilizar dependiendo del tamaño del problema. 
 
-</div>
-<figcaption><span id="fig:array3d" label="fig:array3d"></span>Las
-figuras <a href="#fig:arrayatucha" data-reference-type="ref"
-data-reference="fig:arrayatucha">[fig:arrayatucha]</a> y <a
-href="#fig:arraycandu" data-reference-type="ref"
-data-reference="fig:arraycandu">[fig:arraycandu]</a> son un caso
-particular (i.e. la vista superior) del caso general tridimensional en
-el cual la ubicación de los canales se genera programáticamente con la
-herramienta libre FreeCAD (apéndice <a href="#freecad"
-data-reference-type="ref" data-reference="freecad">[freecad]</a>) a
-partir de un script de Python que calcula los centros y los diámetros de
-los canales en forma paramétrica. Con otro script, esta vez de Bash
-(sección <a href="#bash" data-reference-type="ref"
-data-reference="bash">[bash]</a>) se llama a la herramienta libre
-Gmsh (sección <a href="#gmsh" data-reference-type="ref"
-data-reference="gmsh">[gmsh]</a>) para generar una malla para un
-eventual cálculo neutrónico.</figcaption>
-</figure>
+     Un problema de tamaño arbitrario en principio requeriría una cantidad también arbitraria de computadoras para ser resuelto.
+     Una herramienta computacional diseñada para correr en un clúster de cálculo de tamaño fijo no cumpliría esta condición, por lo que debe ser posible explotar la oferta de servidores públicos en la nube. Luego la herramienta computacional debe ser diseñada desde el comienzo para operar en la nube (i.e. [cloud-first]{lang=en-US}) en lugar hacer que sea posible su ejecución en la nube (i.e. [cloud-friendly]{lang=en-US}). Hay sutiles pero importantes diferencias entre estos dos conceptos.
+ 
+ iii. Extensible para poder modificar o agregar modelos matemáticos que eventualmente ayuden a mejorar la calidad, precisión y exactitud de los resultados obtenidos.
+ 
+      Está claro que teniendo acceso al código fuente de una herramienta computacional, en principio siempre es posible modificar y/o agregar nuevas formulaciones y/o modelos matemáticos. Sin embargo, eso no quiere decir que si no se tienen en cuenta posibles mecanismos de extensión de forma tal que el esfuerzo necesario para lograr extender la funcionalidad sea razonable, la herramienta en cuestión sea extensible. 
+      Más aún, bajo el espíritu académico de un trabajo de doctorado, la herramienta debe calificar como software libre de forma tal de que cualquier investigador o profesional pueda modificarla y/o extenderla para poder resolver problemas planteados como ecuaciones diferenciales parciales de la mejor manera posible.
+      
 
-Consideremos por ejemplo las inocentes
-figuras [\[fig:arrayatucha\]](#fig:arrayatucha){reference-type="ref"
-reference="fig:arrayatucha"}
-y [\[fig:arraycandu\]](#fig:arraycandu){reference-type="ref"
-reference="fig:arraycandu"} que nos han servido para ilustrar las
-diferencias entre la disposición de los canales en Atucha y en Embalse.
-Estas dos ilustraciones son en realidad la vista superior de un modelo
-que no sólo contiene la geometrías tridimensional de los canales sino
-que además tiene la particularidad de que fue generado forma
-programática a partir de un script escrito en Python. En efecto, los
-centros y los diámetros de los cilindros que representan los canales
-refrigerantes fueron generados por dos lazos tipo `for` (uno para la
-coordenada $x$ y otro para la coordenada $y$) en los cuales se llama a
-la biblioteca provista por el programa libre de diseño 3D FreeCAD para
-generar un modelo tridimensional que a su vez es leído y procesado por
-la herramienta de mallado Gmsh. Una vez que se preparan los scripts y
-los archivos de entrada, todo el proceso (en este caso la generación de
-los modelos tridimensionales, las mallas e incluso las figuras para su
-incorporación a esta tesis) se lleva a cabo sin intervención del
-usuario. De esta esta manera no sólo reducimos el tiempo que nos insume
-a nosotros los ingeniers realizar tareas repetitiva dejándonos más
-tiempo libre para pensar, sino que también disminuye la probabilidad de
-incorporar de errores humanos propios de los procedimientos tipo
-*point-and-click*, especialmente en las tareas propias de la profesión:
-cálculos paramétricos, análisis de sensibilidad y optimización no-lineal
-de parámetros multdimensionales.
+      
 
-Esto es posible gracias a que todos y cada uno de los programas están
-diseñados sobre lo aprendido en la filosofía de
-programación UNIX [@raymond] y son libres y abiertos, por lo que podemos
-hacerlos interactuar en forma efectiva. Incluso, llegado el caso,
-podemos modificarlos (o pedirle a alguien que lo haga) para que se
-comporten de la manera que necesitemos. Por completitud, mostramos los
-scripts utilizados para generar la
-figura [1.10](#fig:array3d){reference-type="ref"
-reference="fig:array3d"} en el
-apéndice [\[ap:array\]](#ap:array){reference-type="ref"
-reference="ap:array"}. La segunda parte de esta tesis ---que es
-ciertamente la más divertida--- consiste básicamente en la preparación
-de scripts y archivos de entrada de forma tal de resolver y presentar
-los resultados obtenidos en forma programática, por lo que ahondaremos
-en los detalles en los
-capítulos [\[cap:canonicos\]](#cap:canonicos){reference-type="ref"
-reference="cap:canonicos"}--[\[cap:abiertos\]](#cap:abiertos){reference-type="ref"
-reference="cap:abiertos"}.
+La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga estas tres condiciones.
+Es por eso que:
 
-Resumiendo lo discutido hasta el momento, este es un trabajo académico
-con interés industrial que amalgama matemática, programación y física de
-reactores teniendo en cuenta siempre un criterio ingenieril para juzgar
-aproximaciones e interpretar resultados. Si bien los ingenieros solemos
-recurrir al método científico y a las herramientas que nos proveen las
-ciencias duras, nuestra profesión es en verdad un caso de optimización:
-resolver problemas de la mejora manera posible con el menor costo
-asociado. Por eso es que estudiamos métodos numéricos, técnicas de
-programación, generamos bibliotecas de secciones eficaces para agua
-pesada, desarrollamos metodologías para análisis de celdas y resolvemos
-la ecuación de transporte de neutrones sobre mallas no estructuradas.
-Pero a veces entran otros factores en juego, y los problemas se
-resuelven aún contradiciendo lo que dicen los libros de texto. Podría
-suceder que, pongamos por caso, aunque un exhaustivo estudio
-técnico-económico indique que no es conveniente enriquecer ligeramente
-el combustible de una central de agua pesada, puede darse el caso de que
-la máquina de recambio de combustible tenga inconvenientes operacionales
-por lo que deba ser necesario disminuir la tasa de recambios. O puede
-darse el caso que alguien diseñe e implemente una lógica de movimiento
-de barras de control en función de resultados neutrónicos preliminares e
-incorrectos. O que una vez crítico y operativo el reactor, uno diseñe un
-protocolo para determinar experimentalmente el coeficiente de
-reactividad por efecto Doppler en el combustible [@doppler2013] y luego
-los resultados indiquen que los códigos de cálculo utilizados durante
-años no habían tenido en cuenta correctamente las resonancia de
-absorción en la periferia de las pastillas.
+ 1. los esquemas numéricos desarrollados a lo largo del @sec-esquemas para resolver las ecuaciones de transporte y difusión de neutrones introducidas en el @sec-transporte-difusion se basan en formulaciones basadas en elementos finitos, que son intrínsecamente compatibles con mallas no estructuradas. 
+ 
+ 2. tal como discutimos en el @sec-introduccion, el primer requerimiento de la herramienta computacional desarrollada es que sea [cloud first]{lang=en-US}. Los [@sec-sds; @sec-srs] describen los requerimientos y las especificaciones desde el punto de vista de desarrollo de software. En resumen, la herramienta...
+ 
+    * es libre y abierta, distribuida bajo licencia GPLv3+.
+    * sigue la filosofía de programación Unix.
+    * lee uno o más archivos de entrada de texto plano que definen completamente la entrada y escribe cero o más archivos de salida con los resultados solicitados.
+    * los archivos de entrada deben...
+       - ser simples para problemas simples.
+       - ser parecidos para problemas parecidos.
+       - reproducir la estructura de la definición del problema a resolver que haría un profesional humano.
+       - separar la definición del problema continuo a resolver de la discretización espacial particular utilizada para resolverlo.
+       - permitir una dependencia espacial no trivial de las propiedades de los materiales, por ejemplo
+          * quemado
+          * de concentración de venenos neutrónicos
+          * posición de barras de control
+          
+         a través de
+         
+          * expresiones algebraicas, y/o
+          * funciones definidas por puntos
+            - a partir de una distribución unidimensional
+            - definidos sobre una malla con topología explícita
+            - dispersos en varias dimensiones sin topología
+       - ser amigables con...
+          * los sistemas de control de versiones distribuidos como Git
+          * lenguajes de expansión de macros como M4
+          * interfaces gráficas de usuario, especialmente basadas en web
+    * no escribe (y muy probablemente ni siquiera calcula) un resultado si éste no se pide explícitamente en el archivo de entrada
+ 
+ 3. el @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también contiene:
 
-A veces ni siquiera basta con hacer un par de pasos hacia atrás para ver
-el elefante completo.[^6]
+    * ecuación de Laplace/Poisson
+    * conducción de calor
+    * elasticidad lineal
+    * análisis modal
 
-![image](elephant.jpg){width="8cm"}
-
-[^1]: En el sentido del inglés *core*.
-
-[^2]: En el sentido del inglés *nuclei*.
-
-[^3]: De *la planta* sería un mejor término para el caso tratado en este
-    trabajo.
-
-[^4]: Este adverbio fue escrito al comenzar la redacción de la tesis,
-    casi dos años antes de la finalización de la redacción. En el medio
-    pasaron el nacimiento de un hijo y dos cambios de carrera laboral y
-    profesional.
-
-[^5]: Notar que nunca hemos hecho referencia a la palabra *costos*, ni
-    hemos vinculado los adjetivos *libre* y *abierto* a cuestiones de
-    *precio*.
-
-[^6]: Ver referencia [@chaco] y
-    <https://en.wikipedia.org/wiki/Blind_men_and_an_elephant>
-
+Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas tres características.
+Terminada la explicación del _por qué_, pasemos entonces al _cómo_.

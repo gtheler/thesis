@@ -1,11 +1,9 @@
----
-title: Software Requirements Specification for an Engineering Computational Tool
-lang: en-US
----
+# [Software Requirements Specification for an Engineering Computational Tool]{lang=en-US} {#sec-srs}
 
 ::::::: {lang=en-US}
 
 An imaginary (a thought experiment if you will) “Request for Quotation” issued by a fictitious agency asking for vendors to offer a free and open source cloud-based computational tool to solve engineering problems. This (imaginary but plausible) Software Requirements Specification document describes the mandatory features this tool ought to have and lists some features which would be nice the tool had, following current state-of-the-art methods and technologies.
+
 
 ## Introduction {#sec-srs-introduction}
 

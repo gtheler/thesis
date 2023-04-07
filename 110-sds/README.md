@@ -1,7 +1,5 @@
----
-title: FeenoX Software Design Specification
-lang: en-US
----
+# [FeenoX Software Design Specification]{lang=en-US} {#sec-sds}
+
 
 ::::::: {lang=en-US}
 

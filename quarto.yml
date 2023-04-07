@@ -10,21 +10,27 @@ book:
   output-file: "phd-theler"
   chapters:
     - index.md
+    - front/resumen.md
+    - front/abstract.md
+    - 010-intro/README.md
     - 020-neutronica/README.md
     - 030-transporte-y-difusion/README.md
     - 040-discretizacion/README.md
     - 050-implementacion/README.md
     - 060-resultados/README.md
     - 090-conclusiones/README.md
-    - referencias.md
+    - bibliografia/referencias.md
+
   appendices:
     - 100-srs/README.md
     - 110-sds/README.md
     - 110-sds/feenox-unix.md
     - 110-sds/feenox-history.md
 
-title-en: "Solving differential equations in the cloud: aplication to neutron transport"
-   
+title-en: "Solving differential equations in the cloud: application to neutron transport"
+keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"
+palabras_clave: "transporte de neutrones, difusión de neutones, computación en la nube, computación de alto rendimiento, elementos finitos, mallas no estructuradas"    
+
 filters:
   - lua/include-files.lua
   - lua/include-code-files.lua
@@ -32,8 +38,14 @@ filters:
   - lua/not-in-format.lua
   - lua/only-in-format.lua
   - lua/img-width.lua
-  
-bibliography: references.bib
+
+bibliography:
+ - bibliografia/bibliografia.bib
+ - bibliografia/monografias.bib
+ - bibliografia/congresos.bib
+ - bibliografia/internacionales.bib
+
+csl: ieee.csl
 license: "CC BY"
 appendix-style: plain
 
@@ -68,7 +80,8 @@ format:
       - right=20mm
       - bottom=30mm
       - foot=20mm
-    toc: true
+    toc: false
+    toc-title: "Tabla de contenidos"
     lof: false
     lot: false
     include-in-header: 
@@ -89,16 +102,7 @@ format:
     include-before-body:
       - file: syntax-feenox.tex
       - file: syntax.tex
-      - file: misc/dedicatoria.tex
-      - file: misc/resumen.tex
-      - file: misc/abstract.tex
-    keywords:
-      - core-level neutron transport
-      - neutron diffusion
-      - cloud computing
-      - high-performance computing
-      - finite elements
-      - unstructured grids
+    
   epub:
     default-image-extension: svg
     theme: default
