@@ -1,7 +1,10 @@
 /.quarto/
-_quarto.yml
+_date.yml.local
 _book
+*.html
 *.aux
 *.log
 *.toc
 phd-theler.tex
+
+/_*.local

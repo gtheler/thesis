@@ -28,9 +28,9 @@ En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
 objetivos:
 
- a. fijar las ideas sobre las que se basa la implementación computacional del solver neutrónico desarrollado
- b. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados
- c. definir una nomenclatura consistente para el resto de la tesis.
+ a. fijar las ideas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones neutrónica discretizadas derivadas en el @sec-esquemas,
+ b. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
+ c. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
 No buscamos explicar los fundamentos físicos de los modelos matemáticos
 ni realizar una introducción para el lector lego. Para estos casos
@@ -40,36 +40,22 @@ tesis---y a la literatura clásica de física de
 reactores [@henry; @lamarsh; @duderstadt; @glasstone; @lewis; @stammler].
 Si bien gran parte del material aquí expuesto ha sido tomado de estas
 referencias, hay algunos desarrollos matemáticos propios que ayudan a
-homogeneizar los diferentes enfoques y nomenclaturas para poder sentar
-las bases de los esquemas numéricos implementados en el código
-computacional descripto en el
-capítulo [\[cap:implementacion\]](#cap:implementacion){reference-type="ref"
-reference="cap:implementacion"} de manera consistente. Para eso
-desarrollamos lógica y matemáticamente algunas ideas partiendo de
-definiciones básicas para arribar a expresiones algebraicas que
-describen el problema de ingeniería que queremos resolver. Por supuesto
-que las principales ecuaciones, resultados y conclusiones del capítulo
-son conocidos desde los albores de la física de reactores allá por
-mediados del siglo XX. Sin embargo, hemos vuelto a realizar algunos
-desarrollos con ciertos pasos matemáticos intermedios de forma tal que
-un profesional con conocimientos promedios de física de neutrones pueda
-seguir el hilo y entender las ideas que forman la base de esta tesis.
-Consideramos que la construcción de la
-figura [1.7](#fig:harmonics){reference-type="ref"
-reference="fig:harmonics"} que ilustra la utilización de armónicos
-esféricos para expandir el flujo angular o la derivación de la ley de
-Fick en la sección [1.4.3](#sec-fick){reference-type="ref"
-reference="sec-fick"} son ya de por sí resultados parciales de este
-trabajo que podrían llegar a tener algún tipo de interés para la
-comunidad académica.
+homogeneizar los diferentes enfoques y nomenclaturas existentes en la literature para poder sentar
+las bases de los esquemas numéricos implementados en el código de manera consistente.
+Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de
+definiciones básicas para arribar a expresiones integro-diferenciales que
+describen el problema de ingeniería que queremos resolver.
 
-Partiendo de ciertas suposiciones físicas, operamos matemáticamente
-utilizando lógica deductiva, álgebra y cálculo para obtener las
-ecuaciones que vamos a resolver numéricamente en la segunda parte del
-trabajo. En algunas ocasiones deberemos realizar ciertas aproximaciones
-matemáticas para obtener ecuaciones manejables. Dejamos el análisis de
-las implicaciones físicas de las aproximaciones realizadas para el final
-del capítulo.
+Está claro los desarrolos y  ecuaciones expuestos en este capítulo
+son conocidos desde los albores de la física de reactores allá por
+mediados del siglo XX.
+Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
+
+ i. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la base de esta tesis, y
+ ii. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
+
+
+\medskip
 
 Para modelar matemáticamente el comportamiento de reactores nucleares de
 fisión debemos primero poder caracterizar campos de neutrones
@@ -78,7 +64,7 @@ espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el
 problema para casos particulares de dominios de una y dos dimensiones.
 Para ello, vamos a suponer que [@lewis]
 
- #.  podemos considerar a los neutrones como puntos geométricos
+ #. podemos considerar a los neutrones como puntos geométricos
  #. los neutrones viajan en línea recta entre colisiones
  #. las interacciones neutrón-neutrón pueden ser despreciadas
  #. podemos considerar a las colisiones entre neutrones y núcleos como instantáneas
@@ -86,54 +72,44 @@ Para ello, vamos a suponer que [@lewis]
  #. conocemos las propiedades de los núcleos y la composición de los materiales y éstas no dependen del tiempo
  #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus   fluctuaciones estadísticas
 
-<figure id="fig:neutron">
-<div class="center">
-<img src="transporte/neutron" />
-</div>
-<figcaption><span id="fig:neutron" label="fig:neutron"></span>Un neutrón
-individual (bola celeste), en un cierto tiempo <span
-class="math inline"><em>t</em> ∈ ℝ</span> está caracterizado por la
-posición $\vec{x} \in \mathbb{R}^3$ que
-ocupa en el espacio, por la dirección <span
-class="math inline">$\omegaversor \in \mathbb{R}^2$</span> en la que
-viaja y por su energía cinética <span
-class="math inline"><em>E</em> ∈ ℝ</span>.</figcaption>
-</figure>
+ 
+![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor \in \mathbb{R}^2$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron}
 
-En la figura [1.1](#fig:neutron){reference-type="ref"
-reference="fig:neutron"} ilustramos un neutrón puntual que a un cierto
+
+En la @fig-neutron ilustramos un neutrón puntual que a un cierto
 tiempo $t$ está ubicado en una posición espacial $\vec{x}$ y se mueve en
 línea recta en una dirección $\omegaversor$ con una
 energía $E=1/2 \cdot m v^2$.
 
 ## Secciones eficaces
 
-::: definicion
-[]{#def:sigmat label="def:sigmat"} La *sección eficaz macroscópica
-total* $\Sigma_t$ de un medio es tal que
+::: {#def-sigmat}
+La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que
 
-$$\Sigma_t \cdot dx$$ es la probabilidad de que un neutrón tenga una
+$$\Sigma_t \cdot dx$$
+
+es la probabilidad de que un neutrón tenga una
 colisión con el núcleo de algún átomo del material por el que viaja una
 distancia $dx$ en línea recta. Es decir, la sección eficaz macroscópica
 es el número de colisiones esperadas por neutrón y por unidad de
-longitud lineal. Sus unidades son inversa de longitud, i.e. m$^{-1}$ ó
-cm$^{-1}$.
+longitud lineal. Sus unidades son inversa de longitud, i.e. m$^{-1}$ o cm$^{-1}$.
 :::
 
 Además de referirnos a la sección eficaz (ó XS por su terminología en
 inglés) total, podemos particularizar el concepto al tipo de
-reacción $k$, es decir, []{#def:sigmak
-label="def:sigmak"}$\Sigma_k \cdot dx$ es la probabilidad de que un
+reacción $k$, es decir, $\Sigma_k \cdot dx$ es la probabilidad de que un
 neutrón tenga una reacción de tipo $k$ en el intervalo $dx$. En nuestro
-caso particular, la reacción genérica $k$ puede ser particularizada a
+caso particular, la reacción genérica $k$ puede ser particularizada según el subíndice a
 
-  ----- -----------------------------------
-   $t$  total
-   $c$  captura radiativa
-   $f$  fisión
-   $a$  absorción ($\Sigma_c + \Sigma_f$)
-   $s$  dispersión (scattering)
-  ----- -----------------------------------
+\rowcolors{1}{black!10}{black!0}
+
+|  Subíndice  | Reacción
+|:-----------:|:--------------------------------------------------|
+      $t$     | total
+      $c$     | captura radiativa
+      $f$     | fisión
+      $a$     | absorción ($\Sigma_c + \Sigma_f$)
+      $s$     | dispersión ([scattering]{lang=en-US})
 
 Las secciones eficaces macroscópicas dependen de la energía del neutrón
 incidente y de las propiedades del medio que provee los núcleos blanco.
@@ -145,43 +121,34 @@ energía $E$, es decir $\Sigma_k = \Sigma_k(\vec{x}, E)$.
 
 Una forma de incorporar el concepto de sección eficaz macroscópica es
 pensar que ésta proviene del producto de una sección eficaz
-microscópica $\sigma_k$ y una densidad atómica $n$ del medio
+microscópica $\sigma_k$ (con unidades de área) y una densidad atómica $n$ (con unidades de inversa de volúmen) del medio
 
-$$\Sigma_k = \sigma_k \cdot n$$
+$$
+\Sigma_k [\text{cm}^{-1}] = \sigma_k [\text{cm}^2] \cdot n [\text{cm}^{-3}]
+$$
 
-<figure id="fig:xsmicro">
-<div class="center">
-<img src="transporte/xsmicro" />
-</div>
-<figcaption><span id="fig:xsmicro"
-label="fig:xsmicro"></span>Interpretación de la sección eficaz
-microscópica como el área asociada a un núcleo transversal a la
-dirección de viaje del neutrón incidente.</figcaption>
-</figure>
+![Interpretación de la sección eficaz microscópica como el área asociada a un núcleo transversal a la dirección de viaje del neutrón incidente.](xsmicro){#fig-xsmicro width=90%}
 
-<figure id="fig:sigmas">
-<div class="center">
-<img src="transporte/sigmas" />
-</div>
-<figcaption><span id="fig:sigmas" label="fig:sigmas"></span>Dependencia
-de la sección eficaz microscópica de absorción <span
-class="math inline"><em>σ</em><sub><em>a</em></sub></span> con respecto
-a la energía <span class="math inline"><em>E</em></span> del neutrón
-incidente para diferentes isótopos blanco.</figcaption>
-</figure>
+![Dependencia de la sección eficaz microscópica de absorción $\sigma_a$ con respecto a la energía $E$ del neutrón incidente para diferentes isótopos blanco.](sigmas){#fig-sigmas}
 
-La magnitud $\sigma_k$ tiene unidades de área (típicamente del orden de
-$10^{-24}~\text{cm}^2$, unidad que llamamos *barn*[^1]) y se interpreta
+
+
+La sección eficaz microscópica $\sigma_k$ tiene efectivamente unidades de área (típicamente del orden de
+$10^{-24}~\text{cm}^2$, unidad que llamamos
+[*barn*]{lang=en-US}^[Se dice que durante las primeras mediciones experimentales de
+    secciones eficaces los físicos americanos esperaban encontrar
+    resultados del orden de las áreas transversales asociadas a los
+    tamaños geométricos de los núcleos. Pero encontraron valores mucho
+    más grandes, por lo que decían a modo de broma [“this
+    cross section is as big as a barn.”]{lang=en-US}]) y se interpreta
 como el área asociada a un núcleo transversal a la dirección de viaje de
 un neutrón tal que si este neutrón pasara a través de dicha área, se
-llevaría a cabo una reacción de tipo $k$
-(figura [1.2](#fig:xsmicro){reference-type="ref"
-reference="fig:xsmicro"}). Las secciones eficaces microscópicas dependen
+llevaría a cabo una reacción de tipo $k$ (@fig-xsmicro).
+Las secciones eficaces microscópicas dependen
 no solamente de las propiedades nucleares de los núcleo blanco sino que
 también dependen fuertemente de la energía $E$ del neutrón incidente,
 llegando a cambiar varios órdenes de magnitud debido a efectos de
-resonancias como podemos observar en la
-figura [1.3](#fig:sigmas){reference-type="ref" reference="fig:sigmas"}.
+resonancias como podemos observar en la @fig-sigmas.
 Además, $\sigma_k$ depende de la temperatura $T$ del medio que define la
 forma en la cual los átomos se mueven por agitación térmica alrededor de
 su posición de equilibrio ya que se produce un efecto tipo Doppler entre
@@ -204,20 +171,15 @@ de hidrógeno o deuterio y los de oxígeno no están libres en la molécula
 de agua, que hacen que las secciones eficaces de el todo (i.e. de un
 conjunto de átomos enlazados covalentemente) no sean iguales a la suma
 algebraica de las partes y debamos calcular las secciones eficaces
-macroscópicas con una metodología más apropiada (ver
-sección [1.6.1](#sec-evaluacionxs){reference-type="ref"
-reference="sec-evaluacionxs"} y referencia [@methods]). Por otro lado,
+macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs y referencia [@methods]). Por otro lado,
 justamente en los reactores nucleares las reacciones que interesan son
 las que dan como resultado la transmutación de materiales por lo que
 continuamente la densidad atómica $n$ de todos los isótopos varía con el
 tiempo. En este trabajo, no vamos a tratar con la dependencia de las
 secciones eficaces con el tiempo explícitamente sino que llegado el
-caso, como discutimos en la
-sección [1.6](#sec-multiescala){reference-type="ref"
-reference="sec-multiescala"}, daremos la dependencia implícitamente a
+caso, como discutimos en la @sec-multiescala, daremos la dependencia implícitamente a
 través de otras propiedades intermedias tales como la evolución del
-quemado del combustible y/o la concentración de xenón 135 en la matriz
-de dióxido de uranio.
+quemado del combustible y/o la concentración de xenón 135 en las pastillas de de dióxido de uranio.
 
 A partir de este momento suponemos que conocemos las secciones eficaces
 macroscópicas en función del vector posición $\vec{x}$ para todos los
@@ -234,7 +196,7 @@ emitido en una nueva dirección $\omegaprimaversor$ con una nueva
 energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el
 concepto que sigue.
 
-::: definicion
+::: {#def-}
 []{#def:sigmasdif label="def:sigmasdif"} La *sección eficaz de
 scattering diferencial* $\Sigma_s$ tal que
 
@@ -464,7 +426,7 @@ para $\alpha E < E^\prime < E$, y cero para $E^{\prime} < \alpha E$
 ó $E^\prime > E$. Estas dos ideas nos permiten introducir los siguientes
 conceptos.
 
-::: definicion
+::: {#def-}
 Decimos que hay *scattering isotrópico* (a partir de ahora siempre nos
 vamos a referir al marco de referencia del reactor) cuando los
 coeficientes de la expansión de la sección eficaz diferencial de
@@ -538,7 +500,7 @@ $$\nu\Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow
 La distribución en energía de los nuetrones nacidos por fisión está dada
 por el espectro de fisión $\chi$, que definimos a continuación.
 
-::: definicion
+::: {#def-}
 []{#def:chi label="def:chi"} El *espectro de fisión* $\chi(E)$ es tal
 que
 
@@ -617,7 +579,7 @@ debemos proceder para problemas en una y en dos dimensiones.
 
 Comenzamos con las siguientes definiciones.
 
-::: definicion
+::: {#def-}
 []{#def:N label="def:N"} La *distribución de densidad de neutrones* $N$
 en un espacio de las fases de siete
 dimensiones $\vec{x} \in \mathbb{R}^3$, $\omegaversor \in \mathbb{R}^2$
@@ -632,7 +594,7 @@ magnitud $d\omegaversor$ alrededor de la dirección $\omegaversor$ con
 energías entre $E$ y $E+dE$ en el tiempo $t$.
 :::
 
-::: definicion
+::: {#def-}
 []{#def:flujoangular label="def:flujoangular"} El *flujo angular* $\psi$
 es el producto entre la velocidad y la distribución de densidad de los
 neutrones
@@ -667,7 +629,7 @@ dirección $\omegaversor$ del neutrón incidente debemos integrar esta
 cantidad sobre todos los posibles ángulos de incidencia. Para ello
 utilizamos el siguiente concepto.
 
-::: definicion
+::: {#def-}
 []{#def:flujoescalar label="def:flujoescalar"} El *flujo escalar* $\phi$
 es la integral del flujo angular sobre todas las posibles direcciones de
 viaje de los neutrones:
@@ -685,7 +647,7 @@ para la distribución del ritmo de reacciones totales por unidad de
 volúmen y de energía, que es lo que buscábamos al introducir las ideas
 de flujo escalar y flujo angular.
 
-::: definicion
+::: {#def-}
 []{#def:corriente label="def:corriente"} El *vector corriente* $\vec{J}$
 es la integral del producto entre el flujo angular y el versor de
 dirección de viaje de los neutrones $\omegaversor$ sobre todas las
@@ -1243,7 +1205,7 @@ que $\omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0$
 siendo $\hat{\vec{n}}(\vec{x})$ el vector normal externo a $U$ en el
 punto $\vec{x} \in \partial U$.
 
-::: definicion
+::: {#def-}
 []{#def:ccvacuum label="def:ccvacuum"} Llamamos *condición de contorno
 de vacío* a la situación en la cual todos los flujos angulares entrantes
 a $U$ son nulos:
@@ -1254,7 +1216,7 @@ conjunto $\Gamma_V \in \partial U$ como el lugar geométrico de todos los
 puntos $\vec{x}$ donde imponemos esta condición de contorno.
 :::
 
-::: definicion
+::: {#def-}
 []{#def:ccmirror label="def:ccmirror"} Llamamos *condición de contorno
 de reflexión o de simetría* cuando el flujo angular entrante en el
 punto $\vec{x} \in \partial U$ es igual al flujo angular saliente en la
@@ -1661,7 +1623,7 @@ la corriente $\vec{J}$ con el gradiente del flujo escalar $\phi$ como
 
 $$\vec{J}(\vec{x}, E, t) = -\frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x},E) \right] } \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]$$
 
-::: definicion
+::: {#def-}
 El *coeficiente de difusión* $D$ definido como
 
 $$D(\vec{x}, E) = \frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x},E) \right] }$$
@@ -1787,7 +1749,7 @@ J_n^-(\vec{x},E,t) & \approx \frac{1}{4} \phi(\vec{x}, E, t) + \frac{1}{2} D(\ve
 \end{aligned}$$ lo que nos da una expresión para definir las condiciones
 de contorno de la ecuación de difusión.
 
-::: definicion
+::: {#def-}
 []{#def:ccvacuumdif label="def:ccvacuumdif"} En forma análoga a la
 definición [\[def:ccvacuum\]](#def:ccvacuum){reference-type="ref"
 reference="def:ccvacuum"}, llamamos *condición de contorno de vacío* a
@@ -1804,7 +1766,7 @@ valor de una combinación lineal de la incógnita $\phi$ y de su derivada
 normal $\partial \phi/\partial n$.
 :::
 
-::: definicion
+::: {#def-}
 []{#def:ccmirrordif label="def:ccmirrordif"} En forma análoga a la
 definición [\[def:ccmirror\]](#def:ccmirror){reference-type="ref"
 reference="def:ccmirror"}, llamamos *condición de contorno de reflexión
@@ -1851,7 +1813,7 @@ ilustramos en la figura [1.9](#fig:cc){reference-type="ref"
 reference="fig:cc"}. Si $D(\vec{x}, E)$ es mucho menor que el tamaño
 característico del dominio $U$ entonces podemos aproximar $d \approx 0$.
 
-::: definicion
+::: {#def-}
 []{#def:ccnulldif label="def:ccnulldif"} Llamamos *condición de contorno
 de flujo nulo* cuando el flujo escalar $\phi$ se anula un
 punto $\vec{x} \in \partial U$:
@@ -2082,7 +2044,7 @@ $$\begin{gathered}
 La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente
 definición.
 
-::: definicion
+::: {#def-}
 Llamamos *factor de multiplicación efectivo* al número
 real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
 ecuaciones que modelan un medio multiplicativo sin fuentes externas. Al
@@ -2173,12 +2135,6 @@ secciones eficaces macroscópicas.
 
 $$R \cdot \mathbf{\phi} = \frac{1}{k_\text{eff}} F \cdot \mathbf{\phi}$$
 
-[^1]: Se dice que durante las primeras mediciones experimentales de
-    secciones eficaces los físicos americanos esperaban encontrar
-    resultados del orden de las áreas transversales asociadas a los
-    tamaños geométricos de los núcleos. Pero encontraron valores mucho
-    más grandes, por lo que decían a modo de broma "[t]{lang="en"}his
-    cross section is as big as a barn."
 
 [^2]: La definición particular de la expansión en polinomios de Legendre
     de la

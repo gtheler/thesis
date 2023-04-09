@@ -1,0 +1,30 @@
+load "style.ppl"
+
+#set xrange [0:100]
+set xrange [1e-4:2.5e7]
+set yrange [3e-7:5e8]
+
+set size ratio 0.5
+
+set xlabel "$E$ [eV]"
+set ylabel "$\sigma_a$ [barns = $10^{-24}$ cm$^{-2}$]"
+
+set logscale x
+set logscale y
+set grid
+
+set terminal pdf
+set output "sigmas.pdf"
+
+plot "./h1-n-g-h2.txt"   u ($1*1e6):2 w l color green   ti "",\
+     "./h1-n-g-h2.txt"   u ($1*1e6):2 w p color green   ps 0.75 pt 29 every 2*20  ti "$^1$H",\
+     "./h2-n-g-h3.txt"   u ($1*1e6):2 w l color blue    ti "" ,\
+     "./h2-n-g-h3.txt"   u ($1*1e6):2 w p color blue    ps 0.75 pt 14 every 2*23  ti "$^2$H",\
+     "./fe56-n-non.txt"  u ($1*1e6):2 w l color grey30  ti "",\
+     "./fe56-n-non.txt"  u ($1*1e6):2 w p color grey30  ps 0.75 pt 1  every 2*123  ti "$^{56}$Fe",\
+     "./u235-n-non.txt"  u ($1*1e6):2 w l color orange  ti "",\
+     "./u235-n-non.txt"  u ($1*1e6):2 w p color orange  ps 0.75 pt 15 every 2*173  ti "$^{235}$U",\
+     "./b10-n-non.txt"   u ($1*1e6):2 w l color brown   ti "",\
+     "./b10-n-non.txt"   u ($1*1e6):2 w p color brown   ps 0.75 pt 42 every 2*63  ti "$^{10}$B",\
+     "./xe135-n-tot.txt" u ($1*1e6):2 w l color magenta ti "",\
+     "./xe135-n-tot.txt" u ($1*1e6):2 w p color magenta ps 0.75 pt 28 every 2*103  ti "$^{135}$Xe"

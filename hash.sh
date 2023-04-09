@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-for i in git grep locale sed date m4; do
+for i in git date; do
  if [ -z "$(which ${i})" ]; then
   echo "error: ${i} not installed"
   exit 1
@@ -24,6 +24,12 @@ else
   dateedtf=${currentdateedtf}
 fi
 
+cat << EOF > _date.yml.local
+date: ${dateedtf}
+git_hash: ${dateedtf}--${hash}
+format:
+  pdf:
+    include-in-header: 
+      - text: \\cfoot{${dateedtf}--${hash}}
+EOF
 
-
-m4 "-Dgit_hash=${dateedtf}--${hash}" "-Dgit_date=${dateedtf}" quarto.yml > _quarto.yml

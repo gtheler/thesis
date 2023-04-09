@@ -3,10 +3,13 @@ lang: es-AR
 project:
   type: book
 
+metadata-files:
+  - _date.yml.local
+  
 book:
   title: "Resolviendo ecuaciones diferenciales en la nube: aplicación al transporte de neutrones"
   author: "Mg. Ing. Germán Theler"
-  date: git_date
+  date: 2023-04-09
   output-file: "phd-theler"
   chapters:
     - index.md
@@ -44,6 +47,7 @@ bibliography:
  - bibliografia/monografias.bib
  - bibliografia/congresos.bib
  - bibliografia/internacionales.bib
+ - bibliografia/nacionales.bib
 
 csl: ieee.csl
 license: "CC BY"
@@ -56,6 +60,7 @@ format:
     html-math-method: katex
   pdf:
     documentclass: scrbook
+    classoption: table
     pdf-engine: xelatex
     keep-tex: true
     default-image-extension: pdf
@@ -97,7 +102,6 @@ format:
           \usepackage{scrlayer-scrpage}
           %\lehead{\leftmark}
           %\rohead{\leftmark}
-          \cfoot{git_hash}
           \fecha{Diciembre 2023}
     include-before-body:
       - file: syntax-feenox.tex
