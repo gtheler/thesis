@@ -1,0 +1,18 @@
+MESH NAME sphere FILE_PATH sphere.msh
+MILONGA_PROBLEM SCHEME elements
+
+Y00(x,y,z)  := sqrt(1/(4*pi))
+
+Y1m(x,y,z)  := sqrt(3/(4*pi)) * y
+Y10(x,y,z)  := sqrt(3/(4*pi)) * z
+Y11(x,y,z)  := sqrt(3/(4*pi)) * x
+
+Y2mm(x,y,z) := sqrt(15/(4*pi)) * x*y
+Y2m(x,y,z)  := sqrt(15/(4*pi)) * y*z
+Y20(x,y,z)  := sqrt(5/(16*pi)) * (-x^2-y^2+2*z^2)
+Y21(x,y,z)   := sqrt(15/(4*pi)) * z*x
+Y22(x,y,z)  := sqrt(15/(16*pi)) * (x^2-y^2) 
+
+MESH_POST MESH sphere NODE_CENTERED FORMAT vtk   Y00 Y1m Y10 Y11 Y2mm Y2m Y20 Y21 Y22 FILE_PATH harmonics.vtk
+MESH_POST MESH sphere NODE_CENTERED FORMAT gmsh  Y00 Y1m Y10 Y11 Y2mm Y2m Y20 Y21 Y22 FILE_PATH harmonics.pos
+

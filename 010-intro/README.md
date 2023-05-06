@@ -48,9 +48,71 @@ El disparador de mi perfil en @sec-history.
 
 
 
-Motivación
+Motivación:
+no hay forma de que haya innovación en una organización rígida (CNEA, NASA, si me apurás INVAP).
+ANSYS quiso ir a la nube y no pudo: los obligan a usar outlook y no los obligan a usar windows pero es lo único a lo que IT le da soporte
+Tuvo que pagar 130MUSD por Onscale, una startup flexible de unas 40 personas.
 
-Lo que traigo/aporto
+Academia vs. startups: objetivos diferentes, focos diferentes. Una lástima porque hay un montón para aportar de cada lado.
+
+Para mí: la figura 3 de la página 42 del Stammler mostraba un límite técnico de la época, pero quedó como un límite psicológico. Stammler dice que las XS son "uniformes" es cada "mesh".
+
+
+citar tesis chaboncito
+
+TL;DR: mezcla de 
+
+ 1. transporte de neutrones (cap 3)
+ 2. métodos numéricos (cap 4)
+ 3. programación (cap 5)
+ 
+
+
+
+Lo que traigo/aporto:
+
+ * experiencia en programación basic desde 1991
+ * experiencia en HTML/javascript desde 1996
+ * experiencia en C desde 1997
+ * experiencia en Linux desde 1997
+ * tesis de grado en teoría de control aplicada a caos
+ * tesis de grado en análisis de inestabilidades no lineales
+ * experiencia en la industria nuclear 2009-2014
+    - CNA2
+      - licenciamiento
+    - CNA1
+      - seismic
+    - CNE
+      - secundario
+ * experiencia en creación de statups 2015-2016
+ * experiencia como consultor independiente (si no vendo no como, con max en el medio) 2017-2020
+ * experiencia como parte de una startup americana 2020-2021
+ * experiencia como parte de una organización grande luego de un M&A 2022-2023
+ 
+
+ * diferencias entre Fortran (todos) y C
+ * diferencias entre C y C++
+ * maestranza de simulación
+ * soft skills: team work, puntos de vista
+ * negocios
+   - PMI
+   - lean startups
+   - due dilligence
+   - scrum
+   - M&A
+ * marketing y ventas (vender para comer)
+
+GPL: charlas Stallman
+
+src/pdes
+
+MMS
+
+CI/CD
+
+unit testing
+doc as comments
+
 
 SRS/SDS: rationale
 
@@ -58,7 +120,13 @@ SRS/SDS: rationale
 cerrar el lazo Nacho/Chaco
 
 
-    
+cloud native != cloud enabled or cloud friendly
+
+
+
+ilustrar LE-10 vs aster/elmer/calculix e iaea3d pwr vs parcs
+
+
     
 Esta problemática es (o debería ser) de interés para la industria
 nuclear argentina, teniendo en cuenta que al sus tres centrales

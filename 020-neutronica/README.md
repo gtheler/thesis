@@ -299,7 +299,7 @@ muestra una malla de cálculo de $4 \times 4 \times 20$.
 ![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce}
 
 
-### Calcule un litro y obtenga dos (por el mismo precio)
+### Dos por uno en D$_2$O
 
 Durante la interacción con los consultores extranjeros en la etapa de
 evaluación de la inyección de boro en Atucha II hemos identificado que

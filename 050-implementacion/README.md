@@ -31,6 +31,17 @@ Discusión del lenguaje.
 
 Virtual methods vs. function pointers.
 
+no tenemos virtual methods en C, pero es turing complete
+tenemos
+
+ * punteros a funciones
+ * lenguajes de macro
+
+`autogen.sh` + entry points
+
+macros/wrappers para `gsl_cblas_dgemmv()` = `MatAtBA()`
+
+
 LTO. Macro para single-pde.
 
 ## Tipos de problemas en estado estacionario
