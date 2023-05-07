@@ -977,6 +977,7 @@ que es una ecuación integro-diferencial hiperbólica en derivadas parciales de 
 Los datos son:
 
  * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$
+ * El espectro de fisión\ $\Chi$ en función de la energía\ $E$
  * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto con la energía del neutron incidente $E^\prime$ como en la energía $E$ del neutrón saliente, y del coseno del ángulo de
 [scattering]{lang=en-US} $\mu = \omegaprimaversor \cdot \omegaversor$. Ésta es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu$. Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
  * La fuente independiente de neutrones opcional $s$ como función del espacio, la energía y la dirección  $\omegaversor$
@@ -1818,25 +1819,10 @@ La incógnita de la ecuación de difusión es el fujo escalar\ $\phi$ que no dep
 Los datos son:
 
  * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$
- * La distribución $\chi(E)$ es el espectro de fisión en función de la energía $E$
+ * El espectro de fisión\ $\Chi$ en función de la energía\ $E$
  * El coeficiente de difusión\ $D$ como función del espacio $\vec{x}$ y de la energía $E$
- * La fuente independiente de neutrones opcional $s$ como función del espacio, la energía y la dirección  $\omegaversor$
+ * La fuente independiente de neutrones $s$, que debe ser isotrópica
  * El parámetro constante $m$, que es la masa en reposo del neutrón.
-
-
-
-
-Las secciones eficaces $\Sigma_t$,
-y $\nu\Sigma_f$ son funciones conocidas del espacio $\vec{x}$ y la
-energía $E$, al igual que el coeficiente de difusión $D(\vec{x},E)$. La
-sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_{s_0}$ es el momento de
-orden cero de la expansión en polinomios de Legendre de la sección
-eficaz de [scattering]{lang=en-US} diferencial $\Sigma_s$ para dispersión desde la
-energía $E^\prime$ a la energía $E$, también conocida para
-todo $\vec{x}$. , $s_0$ es el momento de orden cero en la
-expansión de la fuente independiente en armónicos esféricos y $m$ es la
-masa en reposo del neutrón, todos parámetros que asumimos son conocidos.
-
 
 
 
