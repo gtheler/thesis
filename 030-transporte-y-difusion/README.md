@@ -1783,16 +1783,18 @@ La ley de Fick refleja, en forma aproximada, la conservación del momento de ord
 ### La ecuación de difusión
 
 Podemos combinar los dos resultados de las secciones anteriores
-(conservación de momentos de orden cero y uno) teniendo en cuenta las
-ecuaciones [\[eq:conservacion\]](#eq:conservacion){reference-type="eqref"
-reference="eq:conservacion"}, [\[eq:Qs\]](#eq:Qs){reference-type="eqref"
-reference="eq:Qs"}, [\[eq:Qf\]](#eq:Qf){reference-type="eqref"
-reference="eq:Qf"}, [\[eq:S\]](#eq:S){reference-type="eqref"
-reference="eq:S"} y [\[eq:fick\]](#eq:fick){reference-type="eqref"
-reference="eq:fick"} para obtener finalmente la celebrada ecuación de
-difusión de neutrones
+(conservación de momentos de orden cero y uno) teniendo en cuenta
 
-$$\begin{gathered}
+ * @eq:conservacion,
+ * @eq:Qs,
+ * @eq:Qf,
+ * @q:S, y
+ * @eq:fick
+
+para obtener finalmente la celebrada ecuación de difusión de neutrones
+
+$$
+\begin{gathered}
 \label{eq:difusion}
  \sqrt{\frac{m}{2E}} \frac{\partial}{\partial t} \Big[ \phi(\vec{x}, E, t) \Big]
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E, t) \right] \Big]
@@ -1801,18 +1803,37 @@ $$\begin{gathered}
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime +
 \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
 + s_0(\vec{x}, E, t)
-\end{gathered}$$ que es una ecuación de segundo orden sobre el espacio
-(los operadores divergencia y gradiente operan sólo sobre las
-coordenadas espaciales) y de primer orden sobre el tiempo para la
-incógnita $\phi(\vec{x}, E,t)$. Las secciones eficaces $\Sigma_t$,
+\end{gathered}
+$$
+que es una ecuación integro-diferencial elíptica en derivadas parciales de segundo orden sobre el espacio (los operadores divergencia y gradiente operan sólo sobre las coordenadas espaciales),( y de primer orden sobre el tiempo para la incógnita $\phi$ definida sobre
+
+ 1. el espacio $\vec{x}$,
+ 3. la energía $E$, y
+ 4. el tiempo $t$.
+
+::: {.remark}
+La incógnita de la ecuación de difusión es el fujo escalar\ $\phi$ que no depende de\ $\omegaversor$.
+:::
+
+Los datos son:
+
+ * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$
+ * La distribución $\chi(E)$ es el espectro de fisión en función de la energía $E$
+ * El coeficiente de difusión\ $D$ como función del espacio $\vec{x}$ y de la energía $E$
+ * La fuente independiente de neutrones opcional $s$ como función del espacio, la energía y la dirección  $\omegaversor$
+ * El parámetro constante $m$, que es la masa en reposo del neutrón.
+
+
+
+
+Las secciones eficaces $\Sigma_t$,
 y $\nu\Sigma_f$ son funciones conocidas del espacio $\vec{x}$ y la
 energía $E$, al igual que el coeficiente de difusión $D(\vec{x},E)$. La
 sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_{s_0}$ es el momento de
 orden cero de la expansión en polinomios de Legendre de la sección
 eficaz de [scattering]{lang=en-US} diferencial $\Sigma_s$ para dispersión desde la
 energía $E^\prime$ a la energía $E$, también conocida para
-todo $\vec{x}$. La distribución $\chi(E)$ es el espectro de fisión en
-función de la energía $E$, $s_0$ es el momento de orden cero en la
+todo $\vec{x}$. , $s_0$ es el momento de orden cero en la
 expansión de la fuente independiente en armónicos esféricos y $m$ es la
 masa en reposo del neutrón, todos parámetros que asumimos son conocidos.
 
