@@ -1786,11 +1786,11 @@ La ley de Fick refleja, en forma aproximada, la conservación del momento de ord
 Podemos combinar los dos resultados de las secciones anteriores
 (conservación de momentos de orden cero y uno) teniendo en cuenta
 
- * @eq:conservacion,
- * @eq:Qs,
- * @eq:Qf,
- * @q:S, y
- * @eq:fick
+ * @eq-conservacion,
+ * @eq-Qs,
+ * @eq-Qf,
+ * @eq-S, y
+ * @eq-fick
 
 para obtener finalmente la celebrada ecuación de difusión de neutrones
 
