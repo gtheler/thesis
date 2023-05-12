@@ -625,7 +625,7 @@ cierta fracción $\beta$ de todos los neutrones son producto del decaimiento ra
  b. de los hijos de los productos de fisión.
  
 En cualquier caso, en cálculos transitorios es necesario distinguir entre la
-fracción $1-\beta$ de neutrones instantáneos ([*prompt*]{lang=en-US})) que aparecen en
+fracción $1-\beta$ de neutrones instantáneos ([*prompt*]{lang=en-US}) que aparecen en
 el mismo momento de la fisión y la fracción $\beta$ de neutrones
 retardados que aparecen más adelante. Para ello dividimos a los
 neutrones retardados en $I$ grupos, les asignamos una fracción $\beta_i$
@@ -1073,8 +1073,6 @@ Y_2^{+2}(\hat{\Omega}_x,\hat{\Omega}_y,\hat{\Omega}_z)  &= \sqrt{\frac{15}{16\pi
 $$
 :::
 
-![Representación gráfica de los primeros nueve armónicos esféricos reales (@def-y00)](harmonics.png){#fig-harmonics width=100%}
-
 ::: {#thm-harmonic-orto}
 
 ## Ortonormalidad de los armónicos esféricos
@@ -1084,6 +1082,7 @@ Los armónicos esféricos reales son ortonormales, es decir
 \rowcolors{3}{black!10}{black!0}
 $$
  \int_{4\pi} Y_{\ell}^{m}(\omegaversor) \cdot Y_{\ell^\prime}^{m^\prime}(\omegaversor) \, d\omegaversor =
+\delta_{\ell \ell^{\prime}} \cdot \delta_{m m^{\prime}}
 \begin{cases}
 1 & \text{si $\ell=\ell^{\prime} \land m=m^{\prime}$} \\
 0 & \text{si $\ell\neq\ell^{\prime} \lor m\neq m^{\prime}$}
@@ -1110,6 +1109,8 @@ P_\ell(\omegaversor \cdot \omegaprimaversor) = \frac{4\pi}{2\ell + 1}
 \sum_{m=-\ell}^{\ell} Y_\ell^{m}(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor)
 $$
 :::
+
+![Representación gráfica de los primeros nueve armónicos esféricos reales (@def-y00)](harmonics.png){#fig-harmonics width=100%}
 
 
 Si en el @thm-harmonics hacemos $f$ igual al flujo angular $\psi$ entonces podemos escribirlo como una suma doble sobre $\ell$ y sobre $m$ del producto de un coeficiente que depende del espacio, de la energía y del tiempo (pero no de la dirección) por el armónico esférico de grado $\ell$ y orden $m$, que no depende ni del espacio ni de la energía ni del tiempo (pero sí de la dirección):
