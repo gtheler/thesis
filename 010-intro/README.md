@@ -102,6 +102,23 @@ Lo que traigo/aporto:
    - M&A
  * marketing y ventas (vender para comer)
 
+Fortran ok en 1954 para salir de assembly pero ya no
+C: perfecto! inlining, smart compilers
+C++: C con macros, a lo sumo C++20/23 templates, visitors, optional, cosas locas
+
+Trade-off entre object-oriented y data oriented
+
+ejemplo: Linux está en C, hand-written containers, monolithic but well written (high quality code)
+can be done if done right
+
+objetivo central: poder ver qué tan bien funciona difusión
+
+transient: pasar de G=2 a G=2+6 es un overkill
+pero de G=N(N+2) + 6 está bien
+
+
+
+ 
 GPL: charlas Stallman
 
 src/pdes

@@ -46,11 +46,7 @@ Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transpo
 
 \medskip
 
-Para modelar matemáticamente el comportamiento de reactores nucleares de
-fisión debemos primero poder caracterizar campos de neutrones
-arbitrarios a través de distribuciones matemáticas sobre un dominio
-espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el
-problema para casos particulares de dominios de una y dos dimensiones.
+Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.
 Para ello, vamos a suponer que [@lewis]
 
  #. podemos considerar a los neutrones como puntos geométricos
@@ -78,11 +74,7 @@ La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que
 $$
 \Sigma_t \cdot dx
 $$
-es la probabilidad de que un neutrón tenga una
-colisión con el núcleo de algún átomo del material por el que viaja una
-distancia $dx$ en línea recta. Es decir, la sección eficaz macroscópica
-es el número de colisiones esperadas por neutrón y por unidad de
-longitud lineal. Sus unidades son inversa de longitud, es decir m$^{-1}$ o cm$^{-1}$.
+es la probabilidad de que un neutrón tenga una colisión con el núcleo de algún átomo del material por el que viaja una distancia $dx$ en línea recta. Es decir, la sección eficaz macroscópica es el número de colisiones esperadas por neutrón y por unidad de longitud lineal. Sus unidades son inversa de longitud, es decir m$^{-1}$ o cm$^{-1}$.
 :::
 
 Además de referirnos a la sección eficaz (o XS por su terminología en
@@ -90,8 +82,6 @@ inglés) total, podemos particularizar el concepto al tipo de
 reacción $k$, es decir, $\Sigma_k \cdot dx$ es la probabilidad de que un
 neutrón tenga una reacción de tipo $k$ en el intervalo $dx$. En nuestro
 caso particular, la reacción genérica $k$ puede ser particularizada según el subíndice a
-
-\rowcolors{1}{black!10}{black!0}
 
 |  Subíndice  | Reacción
 |:-----------:|:--------------------------------------------------|
@@ -302,7 +292,6 @@ $$
 
 ## La delta de Kronecker
 
-\rowcolors{3}{black!0}{black!0}
 $$
 \delta_{\ell \ell^\prime} =
 \begin{cases}
@@ -381,7 +370,6 @@ $$
 
 Según el @thm-legendre-orto, todos los polinomios de Legendre de orden $\ell \geq 1$ son ortogonales con respecto a $P_0(\mu) = 1$, por lo que
 
-\rowcolors{3}{black!0}{black!0}
 $$
 \int_{-1}^{+1} P_\ell(\mu) \, d\mu
 \begin{cases}
@@ -422,7 +410,6 @@ través de las leyes clásicas de conservación de energía y momento
 lineal. Para la dependencia en ángulos de entrada y salida [@stammler]
 es
 
-\rowcolors{3}{black!0}{black!0}
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) =
 \begin{cases}
@@ -432,7 +419,6 @@ $$
 $$
 mientras que para la dependencia del coseno del ángulo de [scattering]{lang=en-US} [@lewis] es
 
-\rowcolors{3}{black!0}{black!0}
 $$\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) =
 \begin{cases}
  \displaystyle \Sigma_{s_t}(\vec{x}, E) \cdot \frac{\delta(\mu - \mu_0)}{2\pi(1-\alpha)E}  & \text{para}~\alpha E < E^\prime < E \\
@@ -462,14 +448,12 @@ $$
 $$
 por lo que
 
-\rowcolors{3}{black!0}{black!0}
 $$\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) =
 \frac{\Sigma_{s_t}(\vec{x},E)}{(1 - \alpha) E} \cdot \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \cdot P_\ell(\mu_0) \cdot P_\ell(\mu)
 $$
 
 Tomando los dos primeros términos, podemos aproximar
 
-\rowcolors{3}{black!0}{black!0}
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \approx
 \begin{cases}
@@ -661,7 +645,7 @@ La *distribución de densidad de neutrones* $N$
 en un espacio de las fases de siete
 dimensiones $\vec{x} \in \mathbb{R}^3$, $\omegaversor \in \mathbb{R}^2$,^[Si bien la
 dirección $\omegaversor = [ \Omega_x \, \Omega_y \, \Omega_z]^T$
-tiene tres componentes, sólo dos son independientes (por ejemplo las
+tiene tres componentes llamados *cosenos dirección*, sólo dos son independientes (por ejemplo las
  coordenadas angulares cenital $\theta$ y azimutal $\varphi$) ya que
  debe cumplirse que $\Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$.]
 $E \in \mathbb{R}$ y $t \in \mathbb{R}$ tal que
@@ -742,7 +726,7 @@ direcciones de viaje:
 
 $$
 \vec{J}(\vec{x},E,t) = \int_{4\pi} \left[ \psi(\vec{x}, \omegaversor, E, t) \cdot \omegaversor \right] \, d\omegaversor
-$$ {#eq-vectorcorriente}
+$$
 :::
 
 Debemos notar que es ésta una cantidad vectorial ya el integrando es un
@@ -852,7 +836,6 @@ $$
 $$
 donde notamos que el gradiente opera sólo sobre las componentes espaciales, es decir
 
-\rowcolors{6}{black!10}{black!0}
 $$
 \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] =
 \begin{bmatrix}
@@ -872,8 +855,7 @@ Pasamos ahora a estudiar la forma en la que se producen. Los neutrones pueden ap
 
 #### Fuentes por [scattering]{lang=en-US}
 
-Un neutrón que, viajando con una energía $E^\prime$ y una dirección $\omegaprimaversor$, sufre una colisión de [scattering]{lang=en-US} en el punto $\vec{x}$ y emerge con una energía $E$ y una dirección $\omegaversor$ es efectivamente una fuente de neutrones en $d\vec{x} \,  d\omegaversor \, dE \, dt$ debido a [scattering]{lang=en-US}. Esta
-fuente $q_s$ debe ser entonces igual al producto de la probabilidad por unidad de longitud de recorrido de neutrones que viajando en con una energía $E^\prime$ en una dirección $\omegaprimaversor$ colisionen con un núcleo blanco en el punto $\vec{x}$ y como resultado adquieren una dirección de viaje $\omegaversor$ y una energía $E$ (ver @sec-scattering) por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores
+Un neutrón que, viajando con una energía $E^\prime$ y una dirección $\omegaprimaversor$, sufre una colisión de [scattering]{lang=en-US} en el punto $\vec{x}$ y emerge con una energía $E$ y una dirección $\omegaversor$ es efectivamente una fuente de neutrones en $d\vec{x} \,  d\omegaversor \, dE \, dt$ debido a [scattering]{lang=en-US}. Esta fuente $q_s$ debe ser entonces igual al producto de la probabilidad por unidad de longitud de recorrido de neutrones que viajando en con una energía $E^\prime$ en una dirección $\omegaprimaversor$ colisionen con un núcleo blanco en el punto $\vec{x}$ y como resultado adquieren una dirección de viaje $\omegaversor$ y una energía $E$ (ver @sec-scattering) por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores
 de $\omegaprimaversor$ y de $E^\prime$.
 Es decir
 
@@ -903,17 +885,8 @@ calcular la fuente de fisión ligeramente diferente si estamos resolviendo probl
      ii. sólo con fuentes de fisión
 
 
-Sin pérdida de generalidad, para fijar ideas supongamos que desde el
-punto de vista de la fisión el problema es estacionario con fuentes independientes.
-La tasa de generación de neutrones debidas a fisión es el producto del
-número probable de nacimientos en $\vec{x}$ con energías entre $E$
-y $E+dE$ por unidad de longitud de recorrido de neutrones que viajando
-con dirección $\omegaversor$ y energía $E$ generan la fisión del núcleo
-pesado en el punto $\vec{x}$ debido a neutrones incidentes con dirección
-de viaje $\omegaprimaversor$ y energía incidente $E^\prime$,
-multiplicada por la cantidad de longitudes lineales
-viajadas, teniendo en cuenta todos los posibles valores
-de $\omegaprimaversor$ y de $E^\prime$:
+Sin pérdida de generalidad, para fijar ideas supongamos que desde el punto de vista de la fisión el problema es estacionario con fuentes independientes. La tasa de generación de neutrones debidas a fisión es el producto del número probable de nacimientos en $\vec{x}$ con energías entre $E$ y $E+dE$ por unidad de longitud de recorrido de neutrones que viajando con dirección $\omegaversor$ y energía $E$ generan la fisión del núcleo pesado en el punto $\vec{x}$ debido a neutrones incidentes con dirección de viaje $\omegaprimaversor$ y energía incidente $E^\prime$,
+multiplicada por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores de $\omegaprimaversor$ y de $E^\prime$:
 
 $$
 \begin{aligned}
@@ -987,7 +960,7 @@ $$ {#eq-transporteq}
 
 Desarrollando el término de fuente como suma de los tres términos antes mecionados y teniendo en
 cuenta que la relación entre velocidad y energía es la
-clásica $E=1/2 \cdot mv^2$, llegamos a la celebrada *ecuación de transporte de neutrones*
+clásica $E=1/2 \cdot mv^2$, llegamos a la famosa *ecuación de transporte de neutrones*
 
 $$
 \begin{gathered}
@@ -1006,12 +979,11 @@ que es una ecuación integro-diferencial hiperbólica en derivadas parciales de 
  3. la energía $E$, y
  4. el tiempo $t$.
  
-Los datos son:
+Los datos de entrada para la ecuación de transporte de neutrones son:
 
- * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$
- * El espectro de fisión\ $\Chi$ en función de la energía\ $E$
- * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto con la energía del neutron incidente $E^\prime$ como en la energía $E$ del neutrón saliente, y del coseno del ángulo de
-[scattering]{lang=en-US} $\mu = \omegaprimaversor \cdot \omegaversor$. Ésta dependencia es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu$. Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
+ * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$.
+ * El espectro de fisión\ $\Chi$ en función de la energía\ $E$.
+ * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto con la energía del neutron incidente $E^\prime$ como en la energía $E$ del neutrón saliente, y del coseno del ángulo de [scattering]{lang=en-US} $\mu = \omegaprimaversor \cdot \omegaversor$. Ésta dependencia es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu$. Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
  * La fuente independiente de neutrones opcional $s$ como función del espacio $\vec{x}$, la energía $E$ y la dirección  $\omegaversor$
  * El parámetro constante $m$, que es la masa en reposo del neutrón.
 
@@ -1079,7 +1051,6 @@ $$
 
 Los armónicos esféricos reales son ortonormales, es decir
 
-\rowcolors{3}{black!10}{black!0}
 $$
  \int_{4\pi} Y_{\ell}^{m}(\omegaversor) \cdot Y_{\ell^\prime}^{m^\prime}(\omegaversor) \, d\omegaversor =
 \delta_{\ell \ell^{\prime}} \cdot \delta_{m m^{\prime}}
@@ -1090,11 +1061,11 @@ $$
 $$
 :::
  
-::: {#cor-psiellm}
-Los coeficientes $\Psi_\ell^m$ son iguales a 
+::: {#cor-fellm}
+Los coeficientes $f_\ell^m$ son iguales a 
 
 $$
- \Psi_\ell^m (\vec{x}, E, t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \cdot Y_{\ell}^{m}(\omegaversor) \, d\omegaversor
+f_\ell^m (\vec{x}, E, t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \cdot Y_{\ell}^{m}(\omegaversor) \, d\omegaversor
 $$
 :::
 
@@ -1106,7 +1077,7 @@ Los armónicos esféricos se relacionan con los polinomios de Legendre como
 
 $$
 P_\ell(\omegaversor \cdot \omegaprimaversor) = \frac{4\pi}{2\ell + 1} 
-\sum_{m=-\ell}^{\ell} Y_\ell^{m}(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor)
+\sum_{m=-\ell}^{+\ell} Y_\ell^{m}(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor)
 $$
 :::
 
@@ -1116,7 +1087,7 @@ $$
 Si en el @thm-harmonics hacemos $f$ igual al flujo angular $\psi$ entonces podemos escribirlo como una suma doble sobre $\ell$ y sobre $m$ del producto de un coeficiente que depende del espacio, de la energía y del tiempo (pero no de la dirección) por el armónico esférico de grado $\ell$ y orden $m$, que no depende ni del espacio ni de la energía ni del tiempo (pero sí de la dirección):
 
 $$
-\psi(\vec{x}, \omegaversor, E, t) = \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m}\left(\omegaversor\right)
+\psi(\vec{x}, \omegaversor, E, t) = \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m}\left(\omegaversor\right)
 $$ {#eq-psiarmonicos}
  
 
@@ -1128,16 +1099,16 @@ q_s(\vec{x}, \omegaversor, E, t) =
 \bigintsss_{0}^\infty
 \sum_{\ell=0}^\infty
 \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} Y_\ell^{m}(\omegaversor) \int_{4\pi}
+\sum_{m=-\ell}^{+\ell} Y_\ell^{m}(\omegaversor) \int_{4\pi}
  Y_\ell^m(\omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor,E^\prime,t)\, d\omegaprimaversor \right] \, dE^{\prime}
 $$
 
-La última integral sobre $d\omegaprimaversor$ es justamente el coeficiente $\Psi_\ell^m$ de la expansión en armónicos esféricos del flujo angular $\psi$ dado por el @cor-psiellm. Luego
+La última integral sobre $d\omegaprimaversor$ es justamente el coeficiente $\Psi_\ell^m$ de la expansión en armónicos esféricos del flujo angular $\psi$ dado por el @cor-fellm. Luego
 
 $$
 q_s(\vec{x}, \omegaversor, E, t) =
 \bigintsss_{0}^{\infty} \sum_{\ell=0}^\infty  \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
 $${#eq-qs3}
 
 Esta @eq-qs3 refleja la forma en la que incide la fuente de [scattering]{lang=en-US} en el balance global de neutrones: el modo $\ell$ de la expansión en polinomios de Legendre de la sección diferencial $\Sigma_s$ de [scattering]{lang=en-US} contribuye sólo a través de los modos de grado $\ell$ de la expansión en armónicos esféricos del flujo angular $\psi$. En particular, para [scattering]{lang=en-US} isotrópico sólo el término para $\ell=0$ y $m=0$ contribuye a la fuente de [scattering]{lang=en-US} $q_s$.
@@ -1147,19 +1118,19 @@ con $\ell=1$ y $m=-1,0,+1$.
 \medskip
 
 Prestemos atención ahora al coeficiente $\Psi_0^0$.
-Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre $4\pi$ es igual al flujo angular $\phi$ (@def-flujoangular),
+Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre todas las direcciones es igual al flujo angular $\phi$ dividido $4\pi$ (@def-flujoangular),
 entonces
 
 $$
 \Psi_0^0(\vec{x}, E, t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E,t) \cdot Y_0^0(\omegaversor) \, d\omegaversor = \sqrt{\frac{1}{4\pi}} \cdot \phi(\vec{x}, E, t)
 $$
 
-De esta manera, podemos escribir explícitamente el primer término de la expansión del flujo angular $\psi$ dada por la @eq-psiarmonicos como
+De esta manera, podemos escribir la suma de la @eq-psiarmonicos con el primer término de la expansión del flujo angular $\psi$ escrito explícitamente como
 
 $$\begin{aligned}
-\psi(\vec{x}, \omegaversor, E, t) &= \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
-&=  \sqrt{\frac{1}{4\pi}} \cdot \phi(\vec{x}, E, t) \cdot  \sqrt{\frac{1}{4\pi}} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
-&= \frac{\phi(\vec{x}, E, t)}{4\pi} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor})
+\psi(\vec{x}, \omegaversor, E, t) &= \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
+&=  \sqrt{\frac{1}{4\pi}} \cdot \phi(\vec{x}, E, t) \cdot  \sqrt{\frac{1}{4\pi}} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
+&= \frac{\phi(\vec{x}, E, t)}{4\pi} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor})
 \end{aligned}$$
 
 Más aún, los coeficientes de grado $\ell=1$ son
@@ -1171,22 +1142,27 @@ $$
  \Psi_1^{1+}(\vec{x}, E, t) &= \int_{4\pi} \psi(\vec{x}, \omegaversor, E,t) \cdot \textstyle \sqrt{\frac{3}{4\pi}} \cdot \hat{\Omega}_x \, d\omegaversor = \sqrt{\frac{3}{4\pi}} \cdot J_x(\vec{x}, E, t) \\
 \end{aligned}
 $$
-donde en la última igualdad hemos empleado la @def-corriente del vector
-corriente
+donde en la última igualdad hemos empleado la @def-corriente del vector corriente
 
-\rowcolors{4}{black!0}{black!0}
 $$
-\vec{J} =
+\vec{J}(\vec{x},E,t) = \int_{4\pi} \left[ \psi(\vec{x}, \omegaversor, E, t) \cdot \omegaversor \right] \, d\omegaversor
+=
 \begin{bmatrix}
 J_x \\ J_y \\ J_z
 \end{bmatrix}
 $$
-y la @eq-jn. Luego podemos escribir también el segundo término correspondiente a $\ell=1$ de la expansión del flujo angular $\psi$ explícitamente como tres veces (sobre $4\pi$) el producto interno entre el vector corriente $\vec{J}$ y la dirección $\omegaversor$ de forma tal que
+y la @eq-jn.
+
+::: {.remark}
+El vector corriente $\vec{J}(\vec{x},E,t)$ depende del espacio, la energía y el tiempo pero *no* del ángulo $\omegaversor$.
+:::
+
+Podemos escribir también el segundo término correspondiente a $\ell=1$ de la expansión del flujo angular $\psi$ explícitamente como tres veces (sobre $4\pi$) el producto interno entre el vector corriente $\vec{J}(\vec{x},E,t)$ y la dirección $\omegaversor$ de forma tal que
 
 $$
 \begin{aligned}
-\psi(\vec{x}, \omegaversor, E, t) &= \frac{\phi(\vec{x}, E, t)}{4\pi} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
-&= \frac{1}{4\pi} \left[ \phi(\vec{x}, E, t) + 3 \cdot \left(\vec{J}(\vec{x}, E, t) \cdot \omegaversor \right) \right] + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor})
+\psi(\vec{x}, \omegaversor, E, t) &= \frac{\phi(\vec{x}, E, t)}{4\pi} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \\
+&= \frac{1}{4\pi} \left[ \phi(\vec{x}, E, t) + 3 \cdot \left(\vec{J}(\vec{x}, E, t) \cdot \omegaversor \right) \right] + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor})
 \end{aligned}
 $${#eq-psi1}
 
@@ -1195,7 +1171,7 @@ Como comprobación, verificamos que a partir de esta expresión podemos recupera
 $$
 \begin{aligned}
  \phi(\vec{x},E,t) &= \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor\\
-&= \frac{1}{4\pi} \bigintsss_{4\pi} \left[ \phi(\vec{x},E,t) + \left( 3\cdot \vec{J}(\vec{x},E,t) \cdot \omegaversor \right) + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \right] \, d\omegaversor
+&= \frac{1}{4\pi} \bigintsss_{4\pi} \left[ \phi(\vec{x},E,t) + \left( 3\cdot \vec{J}(\vec{x},E,t) \cdot \omegaversor \right) + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor}) \right] \, d\omegaversor
 \end{aligned}
 $$ {#eq-recuperacion-phi}
 
@@ -1204,9 +1180,8 @@ Por un lado, el segundo término $3 (\vec{J} \cdot \omegaversor)$ es simétrico
 ::::: {#thm-integrales-armonicas}
 La integral sobre la esfera unitaria del armónico esférico $Y_\ell^m$ de grado $\ell$ y orden $m$ es
 
-\rowcolors{4}{black!0}{black!0}
 $$
-\int_{4\pi} Y_\ell^m(\omegaversor) \, \d\omegaversor =
+\int_{4\pi} Y_\ell^m(\omegaversor) \, d\omegaversor =
 \begin{cases}
 \sqrt{4\pi} & \text{para $\ell=0 \land m=0$} \\
 0           & \text{de otra manera}
@@ -1226,25 +1201,43 @@ $$
 :::
 :::::
 
+::: {.remark}
 En virtud del @thm-integrales-armonicas, los términos de la sumatoria sobre $\ell \geq 2$ en la @eq-recuperacion-phi tampoco contribuyen a la integral por lo que
 
 $$
 \phi(\vec{x},E,t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor = 
 \frac{1}{4\pi} \int_{4\pi} \phi(\vec{x},E,t) \, d\omegaversor = \phi(\vec{x},E,t)
 $$
+:::
+
+::: {#thm-omega-i-j}
+La integral del producto de dos cosenos dirección individuales
+$$
+ \int_{4\pi} \hat{\Omega}_i \cdot \hat{\Omega}_j \, d\omegaversor = \frac{4\pi}{3} \cdot \delta_{ij}
+$$
+para $i=x,y,z$ y $j=x,y,z$.
+:::
+
+::: {#thm-omega-i-j-k}
+La integral del producto de una cantidad impar de cosenos es cero
+$$
+ \int_{4\pi} \hat{\Omega}_x^r \cdot \hat{\Omega}_y^s \cdot \hat{\Omega}_z^t \, d\omegaversor = 0 \quad \text{si $r$, $s$ ó $t$ es impar}
+$$
+:::
 
 
-Podemos demostrar que se recupera además el vector corriente a partir de la @def-corriente
+::::: {.remark}
+
+Podemos demostrar la @def-corriente se recupera además el vector corriente.
 
 ::: {.proof}
 En efecto,
 
-\rowcolors{4}{black!0}{black!0}
 $$
 \begin{aligned}
  \vec{J}(\vec{x},E,t) &= \int_{4\pi} \left[ \psi(\vec{x}, \omegaversor, E, t) \cdot \omegaversor \right] \, d\omegaversor\\
 &= \frac{1}{4\pi} \int_{4\pi} \Big\{ \phi(\vec{x}, E,t) \cdot \omegaversor + 3 \cdot \left[ \vec{J}(\vec{x},E,t) \cdot \omegaversor\right] \cdot \omegaversor \\
-& \quad\quad\quad\quad\quad\quad\quad + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot 
+& \quad\quad\quad\quad\quad\quad\quad + \sum_{\ell=2}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot 
 \left[ Y_{\ell}^{m}(\omegaversor) \cdot \omegaversor \right]
  \Big\} \, d\omegaversor
 \end{aligned}
@@ -1253,7 +1246,6 @@ $$ {#eq-recuperacion-j}
 El primer término $\phi \cdot \omegaversor$ se anula por ser impar.
 Pero además los factores $Y_\ell^m \cdot \omegaversor$ dentro de la sumatoria doble también se anulan porque cualquier armónico $Y_\ell^m$ con $\ell>1$ es ortogonal con respecto a los tres armónicos $Y_1^m$ de orden $\ell=1$, que a su vez son proporcionales a $\omegaversor$:
 
-\rowcolors{5}{black!0}{black!0}
 $$
 \begin{bmatrix}
 Y_1^{+1}(\omegaversor) \\
@@ -1291,16 +1283,21 @@ $$
 \end{aligned}
 $$
 
-Teniendo en cuenta que 
 
-$$
- \int_{4\pi} \hat{\Omega}_i \cdot \hat{\Omega}_j \, d\omegaversor = \frac{4\pi}{3} \cdot \delta_{ij}
-$$ {#eq-43pi}
-para $i=x,y,z$ y $j=x,y,z$, finalmente obtenemos en efecto
+Usando el @thm-omega-i-j,
 
 $$
 \begin{aligned}
-\vec{J}(\vec{x},E,t) &= \frac{3}{4\pi} \bigintsss_{4\pi}
+\vec{J}(\vec{x},E,t)
+&= \frac{3}{4\pi} \bigintsss_{4\pi}
+\begin{bmatrix}
+ J_x \cdot \frac{4\pi}{3} +  J_y \cdot 0 +  J_z \cdot 0 \\
+ J_x \cdot 0 +  J_y \cdot \frac{4\pi}{3} +  J_z \cdot 0 \\
+ J_x \cdot 0 +  J_y \cdot 0 + J_z \cdot \frac{4\pi}{3}
+\end{bmatrix}
+\, d\omegaversor \\
+&=
+\frac{3}{4\pi} \bigintsss_{4\pi}
 \begin{bmatrix}
  \frac{4\pi}{3} J_x \\
  \frac{4\pi}{3} J_y \\
@@ -1312,7 +1309,7 @@ $$
 $$
 que es lo que queríamos demostrar.
 :::
-
+:::::
 
 Volviendo a la evaluación del término de [scattering]{lang=en-US}, aprovechando el hecho de que la @eq-psi1 nos da una forma particular para el flujo angular en función de los dos modos $\ell=0$ y $\ell=1$, podemos calcular la fuente de [scattering]{lang=en-US} $q_s$ dada por la @eq-qs3 como
 
@@ -1322,7 +1319,7 @@ $$
 \frac{1}{4\pi} \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}, t) \, dE^\prime \\
 + \frac{3}{4\pi} \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \omegaversor\right) \, dE^\prime  \\
 + \sum_{\ell=2}^\infty \bigintsss_{0}^{\infty}   \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
 \end{gathered}
 $$ {#eq-qsfacil}
 que es una ecuación mucho más útil---desde el punto de vista computacional---que la @eq-qs, que da un expresión demasiado general y muy difícil de evaluar.
@@ -1367,28 +1364,48 @@ $${#eq-qfiso}
 Ni la @eq-qsiso ni la @eq-qfiso dependen de la dirección $\omegaversor$.
 :::
 
+### Ecuación de transporte linealmente anisotrópica en estado estacionario
+
+En esta tesis hacemos foco en el caso
+
+ 1. estacionario, y
+ 2. con scattering linealmente anisotrópico (a lo más)
+
+$$
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
+ + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
+\frac{1}{4\pi}
+\left\{ \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}) \, dE^\prime + 3 \cdot \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left[\vec{J}(\vec{x},E^{\prime}) \cdot \omegaversor \right] \, dE^\prime \right\} \\
++ \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime 
++ s(\vec{x}, \omegaversor, E)
+\end{gathered}
+$$ {#eq-transporte-linealmente-anisotropica}
+
+
+Si el scattering es isotrópico entonces $\Sigma_{s_1}=0$ y la segunda integral dentro del corchete se anula.
+
 ### Condiciones iniciales y de contorno {#sec-bctransporte}
 
-Como ya hemos mencionado en la @sec-ecuacion-transporte luego de introducir la @eq-transporte, la ecuación de transporte  es una ecuación integro-diferencial en derivadas parciales de primer orden sobre las coordenadas espaciales $\vec{x}$ en un cierto dominio espacial $U \in \mathbf{R}^3$ y una derivada temporal de primer orden sobre $t \in [0,\infty]$.
+Como ya hemos mencionado en la @sec-ecuacion-transporte luego de introducir la @eq-transporte, la ecuación de transporte es una ecuación integro-diferencial en derivadas parciales de primer orden sobre las coordenadas espaciales $\vec{x}$ en un cierto dominio espacial $U \in \mathbf{R}^3$ y una derivada temporal de primer orden sobre $t \in [0,\infty]$.
 Luego debemos dar
 
  1. un flujo escalar inicial $\psi(\vec{x},E,\omegaversor,t=0)$ sobre el dominio $U$ para todas las energías $E$ y para todas las direcciones $\omegaversor$, y
- 2. condiciones de contorno $\psi(\vec{x}=\partial U,E,\omegaversor=\omegaversor^{*},t)$ sobre la frontera $\partial U$ del dominio $U$ también para todas las energías $E$ y tiempos $t$ pero no para todas las direcciones $\omegaversor$ sino para un subconjunto $\omegaversor^{*} \in 4\pi$ ya que la ecuación es de primer orden. Esto es, para cada punto $\vec{x} \in \partial U$ sólo se debe fijar el flujo angular $\psi$ correspondiente a las direcciones $\omegaversor^{*}$ que _entren_ al dominio $U$, es decir tal que el producto interno $\omegaversor^{*} \cdot \hat{\vec{n}} < 0$, donde $\hat{\vec{n}}$ es el vector normal externo a la frontera $\partial U$ en el punto $\vec{x}$. En forma equivalente, se puede pensar como que el flujo angular $\psi$ puede estar fijado, para cada dirección, a lo más en un único punto del espacio ya que la ecuación es de primer grado. Si estuviese fijado en dos puntos, el problema matemático estaría mal definido, como ilustramos en la @fig-bc-1st-order.
+ 2. condiciones de contorno $\psi(\vec{x}=\partial U,E,\omegaversor=\omegaversor^{*},t)$ sobre la frontera $\partial U$ del dominio $U$ también para todas las energías $E$ y tiempos $t$ pero no para todas las direcciones $\omegaversor$ sino para un subconjunto $\omegaversor^{*}$ ya que la ecuación es de primer orden. Esto es, para cada punto $\vec{x} \in \partial U$ sólo se debe fijar el flujo angular $\psi$ correspondiente a las direcciones $\omegaversor^{*}$ que _entren_ al dominio $U$, es decir tal que el producto interno $\omegaversor^{*} \cdot \hat{\vec{n}} < 0$, donde $\hat{\vec{n}}$ es el vector normal externo a la frontera $\partial U$ en el punto $\vec{x}$. En forma equivalente, se puede pensar como que el flujo angular $\psi$ puede estar fijado, para cada dirección, a lo más en un único punto del espacio ya que la ecuación es de primer grado. Si estuviese fijado en dos puntos, el problema matemático estaría mal definido, como ilustramos en la @fig-bc-1st-order.
  
 ![Para una dirección $\omegaversor$ fija, la ecuación de transporte es una ecuación diferencial de primer orden sobre el espacio. Matemáticamente, esta ecuación puede tener una condición de contorno o bien en el punto $A$ o bien en el punto $B$, pero no en ambos. Físicamente, sólo tiene sentido que la condición esté sobre el punto $A$ ya que la dirección $\omegaversor$ entra al dominio $U$.](bc-1st-order){#fig-bc-1st-order width=50%}
  
 
 ::: {#def-ccvacuum}
 
-Llamamos *condición de contorno de vacío* a la situación en la cual todos los flujos angulares entrantes
-a $U$ son nulos:
+Llamamos *condición de contorno de vacío* a la situación en la cual todos los flujos angulares entrantes a $U$ son nulos:
 
 $$
-\psi(\vec{x}, \omegaversor, E, t) = 0 \quad\quad \forall \vec{x} \in \Gamma_V \in \partial U \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0
+\psi(\vec{x}, \omegaversor, E, t) = 0 \quad\quad \forall \vec{x} \in \Gamma_V \subset \partial U \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0
 $$
 
 Para cada dirección entrante $\omegaversor / \omegaversor \cdot \hat{\vec{n}} < 0$ definimos el
-conjunto $\Gamma_V \in \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
+conjunto $\Gamma_V \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
 :::
 
 ::: {#def-ccmirror}
@@ -1405,9 +1422,9 @@ con respecto a la normal exterior $\hat{\vec{n}}(\vec{x})$ (@fig-reflejado)
 
 $$
 \psi(\vec{x}, \omegaversor, E, t) =
-\psi\left[\vec{x}, \omegaversor - 2 \left( \omegaversor \cdot \hat{\vec{n}} \right) \hat{\vec{n}}, E, t\right]  \quad\quad \forall \vec{x} \in \Gamma_M \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0$$
+\psi\left[\vec{x}, \omegaversor - 2 \left( \omegaversor \cdot \hat{\vec{n}} \right) \hat{\vec{n}}, E, t\right]  \quad\quad \forall \vec{x} \in \Gamma_M \subset \partial U \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0$$
 
-Para cada dirección entrante $\omegaversor$ definimos el conjunto $\Gamma_M \in \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
+Para cada dirección entrante $\omegaversor$ definimos el conjunto $\Gamma_M \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
 :::
 
 ![La dirección reflejada $\omegaprimaversor$ de la dirección incidente con respecto a la normal exterior $\hat{\vec{n}}$ al dominio $U$ en el punto de la frontera $\vec{x} \in \partial U$. Se cumple que $\omegaversor \cdot \hat{\vec{n}} = -\omegaprimaversor \cdot \hat{\vec{n}}$.](reflejado){#fig-reflejado width=60%}
@@ -1423,13 +1440,13 @@ Si
 entonces es posible tener una _condición de contorno general_ de Dirichlet no homogénea
 
 $$
-\psi(\vec{x}, \omegaversor, E, t) = \psi_\Gamma(\vec{x}, \omegaversor, E, t) \neq 0 \quad\quad \forall \vec{x} \notin \left(\Gamma_V \cup \Gamma_M\right) \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0
+\psi(\vec{x}, \omegaversor, E, t) = \psi_\Gamma(\vec{x}, \omegaversor, E, t) \neq 0 \quad\quad \forall \vec{x} \in \Gamma_{I} \not\subset \left(\Gamma_V \cup \Gamma_M\right) \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0
 $$
 :::
 
-
+::: {.remark}
 Los problemas en los cuales la única fuente de neutrones proviene de fisiones no admiten condiciones de contorno inhomogéneas.
-
+:::
 
 ## Aproximación de difusión {#sec-difusion}
 
@@ -1442,7 +1459,7 @@ La ecuación de difusión de neutrones es una aproximación muy útil que permit
  
 En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas. La primera es una aproximación que, como mostramos, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
  
-### Conservación de neutrones
+### Momento de orden cero
 
 Comenzamos integrando la @eq-transporteq de transporte de neutrones sobre todas los direcciones $\omegaversor$ para obtener
 
@@ -1455,12 +1472,27 @@ $$
 \end{gathered}
 $${#eq-transporte-integrada}
 
-Utilizando la identidad de cálculo vectorial
+::: {#thm-div-inner}
+
+## Extensión de la regla del producto
+
+La divergencia del producto entre el vector $\omegaversor$ y el escalar $\psi$ es
 
 $$
-\text{div}\left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \text{grad} \left( \psi \right) + \psi \cdot \text{div} ( \omegaversor )
+\mathrm{div} \left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right) + \psi \cdot \mathrm{div} ( \omegaversor )
 $$
-y notando que $\text{div} ( \omegaversor ) = 0$ ya que el operador diferencial actúa sólo sobre las coordenadas espaciales, podemos evaluar el segundo término de la @eq-transporte-integrada como la divergencia de la integral sobre $\omegaversor$ del producto escalar entre la dirección $\omegaversor$ por el flujo angular $\psi$
+:::
+
+::: {#cor-div0}
+Como por la @eq-grad-solo-x el operador diferencial actúa sólo sobre las coordenadas espaciales, entonces $\text{div} ( \omegaversor ) = 0$. Luego
+
+$$
+\mathrm{div}\left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right)
+$$
+:::
+
+
+El segundo término de la @eq-transporte-integrada queda entonces como la divergencia de la integral sobre $\omegaversor$ del producto escalar entre la dirección $\omegaversor$ por el flujo angular $\psi$
 
 $$
 \begin{gathered}
@@ -1479,7 +1511,7 @@ $$
 \vec{J}(\vec{x},E,t) &= \int_{4\pi} \left[ \psi(\vec{x}, \omegaversor, E, t) \cdot \omegaversor \right] \, d\omegaversor
 \end{aligned}
 $$
-y definiendo una fuente de neutrones escalar que incluya [scattering]{lang=en-US}, fisiones y/o fuentes independientes
+y definiendo una fuente de neutrones escalar que incluya [scattering]{lang=en-US}, fisiones y/o fuentes independientes integrada sobre $4\pi$
 
 $$
  Q(\vec{x}, E, t) = \int_{4\pi} q(\vec{x}, \omegaversor, E, t) \, d\omegaversor
@@ -1494,10 +1526,11 @@ $$
 $${#eq-conservacion}
 
 ::: {.remark}
-Esta ecuación refleja la conservación del momento de orden cero del flujo angular $\psi$ de neutrones con respecto a las direcciones $\omegaversor$. Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación.
+La @eq-conservacion refleja la conservación del momento de orden cero del flujo angular $\psi$ de neutrones con respecto a las direcciones $\omegaversor$, es decir la conservación de neutrones totales.
+Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo.
 :::
 
-### Producciones
+#### Producciones
 
 El miembro derecho de la @eq-conservacion representa las producciones de neutrones integradas sobre todas las direcciones y es igual a la integral de las tres contribuciones individuales debidas a [scattering]{lang=en-US}, fisión y fuentes
 independientes:
@@ -1512,7 +1545,7 @@ $$
 \end{aligned}
 $$
 
-#### Fuente por [scattering]{lang=en-US}
+##### Fuente por [scattering]{lang=en-US}
 
 Para evaluar la contribución debida al [scattering]{lang=en-US} de neutrones podemos integrar la @eq-qsfacil sobre todas las direcciones emergentes $\omegaversor$:
 
@@ -1522,7 +1555,7 @@ $$
 \frac{1}{4\pi} \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}, t) \, dE^\prime \\
 + \frac{3}{4\pi} \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \omegaversor\right) \, dE^\prime  \\
 + \sum_{\ell=2}^\infty \bigintsss_{0}^{\infty}   \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime} \Bigg\} \, d\omegaversor
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime} \Bigg\} \, d\omegaversor
 \end{gathered}
 $$
 
@@ -1532,7 +1565,7 @@ $$
 Q_s(\vec{x}, E, t) = \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
 $${#eq-Qs}
 
-#### Fuente por fisión
+##### Fuente por fisión
 
 El término que representa la fuente por fisión es la integral sobre todas las posibles direcciones del término de fuentes de fisión $q_f$. Para el caso de la @eq-qfiso, tenemos
 
@@ -1543,7 +1576,7 @@ Q_f(\vec{x},E,t) &= \bigintsss_{4\pi} \left[ \frac{\chi(E)}{4\pi} \int_{0}^{\inf
 \end{aligned}
 $${#eq-Qf}
 
-#### Fuente independiente
+##### Fuente independiente
 
 La fuente independiente integrada es directamente la integral sobre $\omegaversor$
 de la fuente independiente angular $s(\vec{x}, \omegaversor, E, t)$:
@@ -1554,14 +1587,9 @@ $$
 $${#eq-S}
 es decir, el momento de orden cero de la distribución angular de la fuente $s$.
 
-### Ley de Fick {#sec-fick}
+### Momento de orden uno {#sec-fick}
 
-Como ya hemos mencionado, nuestro enfoque es antes que nada esencialmente matemático.
-Dejamos para el final del capítulo el análisis de las implicaciones físicas que tienen las aproximaciones matemáticas
-que introducimos en esta sección para arribar a los resultados y conclusiones expuestos.
-
-Comencemos recordando la @eq-transporteq, explicitando los términos de fuentes por
-[scattering]{lang=en-US} (@eq-qs3),
+Comencemos recordando la @eq-transporteq, explicitando los términos de fuentes por [scattering]{lang=en-US} (@eq-qs3),
 fisión (@eq-qf) y fuentes independientes:
 
 $$
@@ -1571,37 +1599,40 @@ $$
  + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t)
  = \\
 \bigintsss_{0}^{\infty} \sum_{\ell=0}^\infty \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
 \\
 + \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
 + s(\vec{x}, \omegaversor, E, t)
 \end{gathered}
-$${#eq-fick1}
+$${#eq-orden1}
 
-Multipliquemos esta ecuación escalar por el versor $\omegaversor$ e
-integremos sobre todas las posibles direcciones para obtener una
-ecuación vectorial de dimensión tres:
+Multipliquemos esta ecuación escalar por el versor $\omegaversor$ e integremos sobre todas las posibles direcciones para obtener una ecuación vectorial de dimensión tres:
 
 $$
 \begin{gathered}
-\int_{4\pi} \left( \frac{1}{v} \frac{\partial}{\partial t} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor
+\underbrace{\int_{4\pi} \left( \frac{1}{v} \frac{\partial}{\partial t} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor}_\text{derivada temporal}
  +
-\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor
+\underbrace{\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor}_\text{advección}
 \\
  +
-\int_{4\pi} \left( \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \cdot  \omegaversor \right) \, d\omegaversor
+\underbrace{\int_{4\pi} \left( \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \cdot  \omegaversor \right) \, d\omegaversor}_\text{absorción total}
  = 
 \\
-\bigintsss_{4\pi} \left( \int_{0}^{\infty} \sum_{\ell=0}^\infty  \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}  \cdot  \omegaversor \right) \, d\omegaversor
+\underbrace{\bigintsss_{4\pi} \left( \int_{0}^{\infty} \sum_{\ell=0}^\infty  \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}  \cdot  \omegaversor \right) \, d\omegaversor}_\text{scattering}
 \\
-+ \int_{4\pi} \left( \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime  \cdot  \omegaversor \right) \, d\omegaversor
-+ \int_{4\pi} \left( s(\vec{x}, \omegaversor, E, t)  \cdot  \omegaversor \right) \, d\omegaversor
++
+\underbrace{\int_{4\pi} \left( \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime  \cdot  \omegaversor \right) \, d\omegaversor}_\text{fisión}
++
+\underbrace{\int_{4\pi} \left( s(\vec{x}, \omegaversor, E, t)  \cdot  \omegaversor \right) \, d\omegaversor}_\text{fuentes independientes}
 \end{gathered}
 $${#eq-difusionporomega}
 
-Analicemos término a término esta expresión, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
-El primero corresponde a la derivada temporal de la corriente.
+Analicemos los seis términos de esta expresión un por uno, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
+
+#### Derivada temporal
+
+El primer término corresponde a la derivada temporal de la corriente.
 En efecto
 
 $$
@@ -1614,7 +1645,172 @@ $$
 $$ {#eq-difusion1}
 
 
-Dejemos para después el segundo término.
+#### Advección
+
+El término de advección parece el más sencillo pero de hecho es el más complicado.
+De hecho es tan complicado que necesitamos hacer la aproximación más importante de la formulación de difusión.
+Tenemos que suponer que los coeficientes $\Psi_\ell^m$ de la expansión del flujo angular $\psi$ en armónicos esféricos dado en la @eq-psi1 son cero para $\ell \geq 2$, es decir
+
+$$
+\psi(\vec{x}, \omegaversor, E, t) \simeq \frac{1}{4\pi} \left[ \phi(\vec{x}, E, t) + 3 \cdot \left(\vec{J}(\vec{x}, E, t) \cdot \omegaversor \right) \right]
+$$
+
+Con esta suposición, el término de advección queda, aproximadamente igual a
+
+$$
+\begin{gathered}
+\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq \\
+\frac{1}{4\pi} \cdot \left\{ \int_{4\pi} \left( \omegaversor \cdot \text{grad}\left(\phi\right) \right) \cdot \omegaversor \, d\omegaversor
++ 3 \cdot \int_{4\pi} \left[ \omegaversor \cdot \text{grad}\left( \vec{J} \cdot \omegaversor \right) \right] \cdot \omegaversor \, d\omegaversor \right\}
+\end{gathered}
+$$ {#eq-adveccion}
+
+La integral sobre el gradiente flujo escalar $\nabla \phi$ es
+
+$$
+\begin{aligned}
+\int_{4\pi} \left[\omegaversor \cdot \text{grad}\left(\phi\right) \right] \cdot \omegaversor \, d\omegaversor
+&=
+\bigintss_{4\pi} \left(
+\begin{bmatrix} \hat{\Omega}_x & \hat{\Omega}_y & \hat{\Omega}_z \end{bmatrix}
+\begin{bmatrix} \frac{\partial \phi}{\partial x} \\ \frac{\partial \phi}{\partial y} \\ \frac{\partial \phi}{\partial z} \end{bmatrix}  \right) \cdot
+\begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix} \, d\omegaversor
+\\
+&=
+\bigintss_{4\pi} \left(
+\hat{\Omega}_x \cdot \frac{\partial \phi}{\partial x} + \hat{\Omega}_y \cdot \frac{\partial \phi}{\partial y} + \hat{\Omega}_z \cdot \frac{\partial \phi}{\partial z} \right) \cdot
+\begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix} \, d\omegaversor
+\\
+&=
+\bigints_{4\pi}
+\begin{bmatrix}
+\hat{\Omega}_x \hat{\Omega}_x \cdot \frac{\partial \phi}{\partial x} + \hat{\Omega}_x \hat{\Omega}_y \cdot \frac{\partial \phi}{\partial y} + \hat{\Omega}_x \hat{\Omega}_z \cdot \frac{\partial \phi}{\partial z} \\
+\hat{\Omega}_y \hat{\Omega}_x \cdot \frac{\partial \phi}{\partial x} + \hat{\Omega}_y \hat{\Omega}_y \cdot \frac{\partial \phi}{\partial y} + \hat{\Omega}_y \hat{\Omega}_z \cdot \frac{\partial \phi}{\partial z} \\
+\hat{\Omega}_z \hat{\Omega}_x \cdot \frac{\partial \phi}{\partial x} + \hat{\Omega}_z \hat{\Omega}_y \cdot \frac{\partial \phi}{\partial y} + \hat{\Omega}_z \hat{\Omega}_z \cdot \frac{\partial \phi}{\partial z}
+\end{bmatrix}
+\, d\omegaversor
+\\
+&=
+\left(
+\bigintss_{4\pi} 
+\begin{bmatrix}
+\hat{\Omega}_x^2 & \hat{\Omega}_x \hat{\Omega}_y & \hat{\Omega}_x \hat{\Omega}_z \\
+\hat{\Omega}_y \hat{\Omega}_x & \hat{\Omega}_y^2 & \hat{\Omega}_y \hat{\Omega}_z \\
+\hat{\Omega}_z \hat{\Omega}_x & \hat{\Omega}_z \hat{\Omega}_y & \hat{\Omega}_z^2
+\end{bmatrix}
+\, d\omegaversor
+\right)
+\cdot
+\text{grad}\left[ \phi(\vec{x}, E, t) \right]
+\end{aligned}
+$$
+
+Recordando el @thm-omega-i-j, los elementos de la diagonal dan como resultado $4\pi/3$ mientras que el resto se anulan:
+
+$$
+\begin{aligned}
+\int_{4\pi} \left[\omegaversor \cdot \text{grad}\left(\phi\right) \right] \cdot \omegaversor \, d\omegaversor
+&=
+\frac{4\pi}{3}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix} \frac{\partial \phi}{\partial x} \\ \frac{\partial \phi}{\partial y} \\ \frac{\partial \phi}{\partial z} \end{bmatrix}
+\\
+&=
+\frac{4\pi}{3}
+\cdot
+\begin{bmatrix} \frac{\partial \phi}{\partial x} \\ \frac{\partial \phi}{\partial y} \\ \frac{\partial \phi}{\partial z} \end{bmatrix}
+= 4\pi \cdot \left[ \frac{1}{3} \cdot \text{grad}\left[ \phi(\vec{x}, E, t) \right] \right]
+\end{aligned}
+$$
+
+Por otro lado, el segundo término de la @eq-adveccion se anula. En efecto,
+
+
+$$
+\int_{4\pi} \left[ \omegaversor \cdot \text{grad}\left( \vec{J} \cdot \omegaversor \right) \right] \cdot \omegaversor \, d\omegaversor
+$$
+
+$$
+=
+\bigintss_{4\pi}
+\left\{
+\begin{bmatrix} \hat{\Omega}_x & \hat{\Omega}_y & \hat{\Omega}_z \end{bmatrix}
+\cdot
+\text{grad} \left( J_x \cdot \hat{\Omega}_x + J_y \cdot \hat{\Omega}_y + J_z \cdot \hat{\Omega}_z \right)
+\right\}
+\cdot
+\begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix}
+\, d\omegaversor 
+$$
+
+$$
+=
+\bigintss_{4\pi}
+\left\{
+\begin{bmatrix} \hat{\Omega}_x & \hat{\Omega}_y & \hat{\Omega}_z \end{bmatrix}
+\cdot
+\begin{bmatrix}
+\frac{\partial J}{\partial x} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_z \\
+\frac{\partial J}{\partial y} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_z \\
+\frac{\partial J}{\partial z} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_z
+\end{bmatrix}
+\right\}
+\cdot
+\begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix}
+\, d\omegaversor
+$$
+
+$$
+\begin{aligned}
+= \int_{4\pi}
+\Bigg( &
+\frac{\partial J}{\partial x} \cdot \hat{\Omega}_x^2 + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_y \hat{\Omega}_x + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_z \hat{\Omega}_x + \\
+&
+\frac{\partial J}{\partial y} \cdot \hat{\Omega}_x \hat{\Omega}_y + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_y^2 + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_z \hat{\Omega}_y + \\
+&
+\frac{\partial J}{\partial z} \cdot \hat{\Omega}_x \hat{\Omega}_z + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_y \hat{\Omega}_z + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_z^2
+\Bigg)
+\cdot
+\begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix}
+\, d\omegaversor
+\end{aligned}
+$$
+
+El integrando es el vector
+
+$$
+\begin{bmatrix}
+\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^3 + \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x^2 \hat{\Omega}_z  \right)  +
+\frac{\partial J}{\partial y} \left( \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_x \hat{\Omega}_z \hat{\Omega}_y \right) +
+\frac{\partial J}{\partial z} \left( \hat{\Omega}_x^2 \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_z^2 \right)
+\\
+\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z \right) +
+\frac{\partial J}{\partial y} \left( \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_y^3 + \hat{\Omega}_y^2 \hat{\Omega}_z \right) +
+\frac{\partial J}{\partial z} \left( \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_y^2 \hat{\Omega}_z + \hat{\Omega}_y \hat{\Omega}_z^2 \right)
+\\
+\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^2 \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_z^2 \right) +
+\frac{\partial J}{\partial y} \left( \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_y^2 \hat{\Omega}_z + \hat{\Omega}_y \hat{\Omega}_z^2 \right) +
+\frac{\partial J}{\partial z} \left( \hat{\Omega}_x \hat{\Omega}_z^2 + \hat{\Omega}_y \hat{\Omega}_z^2 + \hat{\Omega}_z^3 \right)
+\end{bmatrix}
+$$
+
+Todos los términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k la integral es igual a cero.
+Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente ansiotrópico como
+
+
+$$
+\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq  \frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
+$$ {#eq-difusion2}
+
+
+
+#### Absorción total
+
 El siguiente es el término de absorciones totales escrito en forma vectorial con respecto a la corriente
 
 $$
@@ -1625,7 +1821,9 @@ $$
 & =
 \Sigma_t(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 \end{aligned}
-$${#eq-difusion2}
+$${#eq-difusion3}
+
+#### [Scattering]{lang=en-US}
 
 El término de [scattering]{lang=en-US} parece complicado, pero en realidad ya lo hemos resuelto al derivar la ecuación @eq-recuperacion-j.
 En primer lugar, partamos de la ecuación @eq-qsfacil multiplicada por $\omegaversor$ e integrada
@@ -1635,7 +1833,7 @@ $$\begin{gathered}
 \bigintsss_{4\pi} \left[ \frac{1}{4\pi} \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}, t) \cdot \omegaversor  \, dE^\prime \right] \, d\omegaversor \\
 + \bigintsss_{4\pi} \left[ \frac{3}{4\pi} \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \omegaversor\right) \cdot \omegaversor\, dE^\prime \right] \, d\omegaversor  \\
 + \bigintsss_{4\pi}  \left\{ \sum_{\ell=2}^\infty \bigintsss_{0}^{\infty}   \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor) \cdot \omegaversor \right] \, dE^{\prime} \right\} \, d\omegaversor
+\sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor) \cdot \omegaversor \right] \, dE^{\prime} \right\} \, d\omegaversor
 \end{gathered}$$
 
 En forma similar al argumento planteado en la\ @sec-armonicos, el primer término se anula por ser
@@ -1660,25 +1858,25 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-Teniendo además en cuenta la @eq-43pi
-
-$$\tag{\ref{eq-43pi}}
- \int_{4\pi} \hat{\Omega}_i \cdot \hat{\Omega}_j \, d\omegaversor = \frac{4\pi}{3} \cdot \delta_{ij}
-$$
-el término de [scattering]{lang=en-US} toma la inocua forma de
+Teniendo además en cuenta el @thm-omega-i-j, el término de [scattering]{lang=en-US} toma la inocua forma de
 
 $$
  \int_0^\infty \Sigma_{s_1}(\vec{x},E^\prime \rightarrow E) \cdot \vec{J}(\vec{x}, E^\prime,t) \, dE^\prime
-$${#eq-difusion3}
+$${#eq-difusion4}
+
+#### Fisiones
 
 El siguiente es el término de fisiones, cuya integral se anula.
 En efecto,
 
 $$
 \bigintsss_{4\pi} \left( \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime  \cdot  \omegaversor \right) \, d\omegaversor = 0
-$$ {#eq-difusion4}
-ya que el integrando es una función impar de ${\omegaversor}$.
-En forma equivalente, en distribuciones angulares isotrópicas el único momento diferente de cero es el de orden $\ell=0$.
+$$ {#eq-difusion5}
+ya que el integrando es el producto de una factor que no depende del ángulo por el versor ${\omegaversor}$.
+En forma equivalente, estamos evaluando el momento de orden $\ell=1$ de una fuente de fisión.
+Dado que ésta es isotrópica, el único momento diferente de cero es el de orden $\ell=0$.
+
+#### Fuentes independientes
 
 El término de fuentes independientes es igual a un vector cuyas componentes son los tres coeficientes de la expansión de la fuente en armónicos esféricos sobre el ángulo $\omegaversor$:
 
@@ -1694,20 +1892,13 @@ s_1^{0}(\vec{x},E,t) \\
 & =
 \sqrt{\frac{3}{4\pi}} \cdot \vec{s}_1(\vec{x},E,t)
 \end{aligned}
-$$ {#eq-difusion5}
+$$ {#eq-difusion6}
 
 Si las fuentes independientes son isotrópicas en el centro de masa del reactor, los tres coeficientes son cero y la integral es nula.
 
-Es hora de analizar el término que involucra el gradiente, que hemos salteado antes y que parece sencillo pero es el más complicado de la @eq-difusionporomega. En efecto,
+### Ley de Fick
 
-Hacer bien las cuentas, hay que suponer que $\psi = \phi + 3J +$
-términos superiores.
-
-$$
-\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq  \frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
-$$ {#eq-difusion6}
-
-Estamos entonces en condiciones de reunir todos estos términos:
+Estamos entonces en condiciones de volver a reunir todos los términos de la @eq-difusionporomega que analizamos por separado
 
  * @eq-difusion1,
  * @eq-difusion2,
@@ -1716,53 +1907,58 @@ Estamos entonces en condiciones de reunir todos estos términos:
  * @eq-difusion5, y
  * @eq-difusion6
 
-y concluir que al multiplicar la @eq-fick1 por $\omegaversor$ e integrar en todas las
+y concluir que al multiplicar la @eq-orden1 por $\omegaversor$ e integrar en todas las
 posibles direcciones, obtenemos
 
 $$
 \begin{gathered}
-\frac{1}{v(E)} \frac{\partial}{\partial t}\Big[ \vec{J}(\vec{x}, E, t) \Big] + 
-\frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right] +
+\frac{1}{v(E)} \frac{\partial \vec{J}}{\partial t} + 
+\frac{1}{3} \cdot \text{grad} \big[ \phi(\vec{x}, E,t ) \big] +
 \Sigma_t(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 = \\
 \int_0^\infty \Sigma_{s_1}(\vec{x},E^\prime \rightarrow E) \cdot \vec{J}(\vec{x}, E^\prime,t) \, dE^\prime +
-\sqrt{\frac{3}{4\pi}} \cdot \vec{s}_1(\vec{x},E,t) \label{eq:fickinterm1}
+\sqrt{\frac{3}{4\pi}} \cdot \vec{s}_1(\vec{x},E,t)
 \end{gathered}
-$$
+$${#eq-fick1}
 
-A continuación vamos a hacer las siguientes tres suposiciones:
+Para arrivar finalmente a la ecuación de difusión necesitamos tres nuevas suposiciones:
 
-1.  que la fuente independiente es isotrópica por lo que los tres coeficientes\ $s_\ell^m$ de la\ @eq-difusion5 son nulos.
-
-2.  que
-
+ i. Que
+    
+    a. el problema sea estacionario, o
+    b. que
+ 
     $$
-    \frac{3}{v}  \frac{\partial}{\partial t}\Big[ \vec{J}(\vec{x}, E, t) \Big] \ll \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
+    \frac{3}{v}  \frac{\partial \vec{J}}{\partial t} \ll \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
     $$
-    lo que de hecho es cierto en el caso estacionario ya que\ $\partial \vec{J}/\partial t = 0$.
 
-3.  que
+ ii. Que
+ 
+     a. no haya fuentes independientes, o
+     b. que la fuente independiente sea isotrópica de forma tal que los tres coeficientes\ $s_\ell^m$ de la\ @eq-difusion5 sean iguales a cero.
 
-    $$
-    \int_0^\infty \Sigma_{s_1}(\vec{x}, E^\prime \rightarrow E) \cdot \vec{J}(\vec{x}, E^\prime, t) \, dE^\prime
-    \simeq
-    \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \cdot \vec{J}(\vec{x}, E, t) \, dE^\prime
-    $$ {#eq-suposicionscattering}
+ iii. Que
+ 
+      a. el scattering sea isotrópico (en el marco de referencia del reactor), o
+      b. que 
 
-    El miembro izquierdo representa el in-[scattering]{lang=en-US} de neutrones de
-    todas las energías mientras que el miembro derecho es el
-    out-[scattering]{lang=en-US} de neutrones de energía $E$ hacia todas las otras
-    energías $E^\prime$.
-    Si la absorción es pequeña, estas dos expresiones se deberían balancear aproximadamente.
-    Por otra parte, si el [scattering]{lang=en-US} es isotrópico entonces\ $\Sigma_{s1} = 0$ y las dos integrales son iguales a cero.
+         $$
+         \int_0^\infty \Sigma_{s_1}(\vec{x}, E^\prime \rightarrow E) \cdot \vec{J}(\vec{x}, E^\prime, t) \, dE^\prime
+         \simeq
+         \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \cdot \vec{J}(\vec{x}, E, t) \, dE^\prime
+         $$ {#eq-suposicionscattering}
 
-Volviendo a la @eq-fickinterm1, tenemos
+         El miembro izquierdo representa el in-[scattering]{lang=en-US} de neutrones de todas las energías mientras que el miembro derecho es el     out-[scattering]{lang=en-US} de neutrones de energía $E$ hacia todas las otras energías $E^\prime$.
+         Si la absorción es pequeña, estas dos expresiones se deberían balancear aproximadamente.
+
+
+Si al menos una de las dos condiciones a ó b de cada una de las tres suposiciones i, ii y iii son ciertas (o razonables), entonces volviendo a la @eq-fick1, tenemos 
 
 $$
 \begin{aligned}
 \frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right] +
 \Sigma_t(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
-& =
+& \simeq
 \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \cdot \vec{J}(\vec{x}, E, t) \, dE^\prime  \\
 & =
 \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \, dE^\prime \cdot \vec{J}(\vec{x}, E, t)  \\
@@ -1772,9 +1968,7 @@ $$
 \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 \end{aligned}
 $$
-donde en los últimos dos pasos hemos utilizado la @eq-mu0 y la sección eficaz *total* de
-[scattering]{lang=en-US} $\Sigma_s(\vec{x}, E)$. Con esta expresión podemos relacionar
-la corriente $\vec{J}$ con el gradiente del flujo escalar $\phi$ como
+donde en los últimos dos pasos hemos utilizado la @eq-mu0 y la sección eficaz *total* de [scattering]{lang=en-US} $\Sigma_s(\vec{x}, E)$. Con esta expresión podemos relacionar el vector corriente $\vec{J}$ con el gradiente del flujo escalar $\phi$ como
 
 $$\vec{J}(\vec{x}, E, t) = -\frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x},E) \right] } \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]$$
 
@@ -1786,17 +1980,11 @@ D(\vec{x}, E) = \frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot
 $$ {#eq-D}
 es tal que, si
 
-1.  la fuente independiente es isotrópica\ $\vec{s}_1(\vec{x}, E, t)=0$, y
-2.  la variación temporal de la corriente dividida la velocidad de los neutrones es despreciable frente al gradiente del flujo escalar\ $3/v  \cdot \partial \vec{J}/\partial t \ll \nabla \phi$, y
-3.  o bien
-
-    a. el in-[scattering]{lang=en-US} es similar al out-[scattering]{lang=en-US},
-    $\int \Sigma_{s_1}(E^\prime \rightarrow E) \cdot \vec{J}(E^\prime) \, dE^\prime
-    \simeq
-    \int \Sigma_{s_1}(E \rightarrow E^\prime) \cdot \vec{J}(E) \, dE^\prime$, o
-    b. el [scattering]{lang=en-US} es isotrópico en el centro de masa del reactor, y
-4.  el flujo angular es linealmente anisotrópico, $\psi \approx (\phi + 3\vec{J})/4\pi$
-
+ #. el flujo angular es linealmente anisotrópico $\psi \simeq (\phi + 3\vec{J})/4\pi$
+ #. el problema es estacionario o $3/v  \cdot \partial \vec{J}/\partial t \ll \nabla \phi$
+ #. no hay fuentes independientes o éstas son isotrópicas
+ #. el scattering es isotrópico o el in-[scattering]{lang=en-US} es similar al out-[scattering]{lang=en-US} $\int \Sigma_{s_1}(E^\prime \rightarrow E) \cdot \vec{J}(E^\prime) \, dE^\prime \simeq  \int \Sigma_{s_1}(E \rightarrow E^\prime) \cdot \vec{J}(E) \, dE^\prime$
+ 
 entonces se cumple la *Ley de Fick*
 
 $$
@@ -1810,10 +1998,13 @@ según la cual el vector corriente $\vec{J}$ es proporcional a menos el gradien
 La ley de Fick refleja, en forma aproximada, la conservación del momento de orden uno del flujo angular\ $\psi$.
 :::
 
+::: {.remark}
+Dado que las secciones eficaces macroscópicas tiene unidades de inversa de longitud (#def-sigmat), el coeficiente de difusión $D$ tiene unidades de longitud.
+:::
+
 ### La ecuación de difusión
 
-Podemos combinar los dos resultados de las secciones anteriores
-(conservación de momentos de orden cero y uno) teniendo en cuenta
+Podemos combinar los dos resultados de la conservación de momentos de orden cero y uno desarrollados en las secciones anteriores teniendo en cuenta las expresiones dadas por
 
  * @eq-conservacion,
  * @eq-Qs,
@@ -1821,7 +2012,7 @@ Podemos combinar los dos resultados de las secciones anteriores
  * @eq-S, y
  * @eq-fick
 
-para obtener finalmente la celebrada ecuación de difusión de neutrones
+para obtener finalmente la celebrada *ecuación de difusión de neutrones*
 
 $$
 \begin{gathered}
@@ -1835,7 +2026,7 @@ $$
 + s_0(\vec{x}, E, t)
 \end{gathered}
 $$
-que es una ecuación integro-diferencial elíptica en derivadas parciales de segundo orden sobre el espacio (los operadores divergencia y gradiente operan sólo sobre las coordenadas espaciales),( y de primer orden sobre el tiempo para la incógnita $\phi$ definida sobre
+que es una ecuación integro-diferencial elíptica en derivadas parciales de segundo orden sobre el espacio (los operadores divergencia y gradiente operan sólo sobre las coordenadas espaciales), y de primer orden sobre el tiempo para la incógnita $\phi$ definida sobre
 
  1. el espacio $\vec{x}$,
  3. la energía $E$, y
@@ -1845,12 +2036,12 @@ que es una ecuación integro-diferencial elíptica en derivadas parciales de seg
 La incógnita de la ecuación de difusión es el fujo escalar\ $\phi$ que no depende de\ $\omegaversor$.
 :::
 
-Los datos son:
+Los datos de entrada para la ecuación de difusión de neutrones son:
 
- * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$
- * El espectro de fisión\ $\Chi$ en función de la energía\ $E$
- * El coeficiente de difusión\ $D$ como función del espacio $\vec{x}$ y de la energía $E$
- * La fuente independiente de neutrones $s$, que debe ser isotrópica
+ * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$.
+ * El espectro de fisión $\chi$ en función de la energía $E$.
+ * El coeficiente de difusión\ $D$ como función del espacio $\vec{x}$ y de la energía $E$.
+ * La fuente independiente de neutrones $s$, que debe ser isotrópica.
  * El parámetro constante $m$, que es la masa en reposo del neutrón.
 
 
@@ -1858,305 +2049,218 @@ Los datos son:
 
 ### Condiciones de contorno {#sec-bcdifusion}
 
-La ecuación de difusión es elíptica sobre las coordenadas espaciales por
-lo que debemos especificar, además de las condiciones iniciales
-apropiadas en el caso transitorio, condiciones de contorno en toda la
-frontera $\partial U$ del dominio espacial. Tal como discutimos en la
-sección [1.3.5](#sec-bctransporte){reference-type="ref"
-reference="sec-bctransporte"}, éstas pueden ser
+La ecuación de difusión es elíptica sobre las coordenadas espaciales por lo que debemos especificar, además de las condiciones iniciales
+apropiadas en el caso transitorio, condiciones de contorno en toda la frontera $\partial U$ del dominio espacial.
+Para el caso de una ecuación elíptica, éstas pueden ser de tipo
 
-1.  de Dirichlet donde especificamos el valor del flujo escalar $\phi$
-    en $\Gamma_D \subset \partial U$;
+ a. Dirichlet donde especificamos el valor del flujo escalar $\phi$ en $\Gamma_D \subset \partial U$; o
+ b. Neumann donde fijamos el valor de la derivada normal $\partial \phi/\partial n$ en $\Gamma_N \subset \partial U$; o
+ c. Robin donde damos una combinación lineal del flujo y de la derivada normal en $\Gamma_R \subset \partial U$.
 
-2.  de Neumann donde fijamos el valor de la derivada
-    normal $\partial \phi/\partial n$ en $\Gamma_N \subset \partial U$;
-    o bien
+::: {.remark}
+ Debe cumplirse que $\Gamma_D \cap \Gamma_N \cap \Gamma_R = \emptyset$ y que $\Gamma_D \cup \Gamma_N \cup \Gamma_R = \partial U$.
+:::
 
-3.  de Robin donde damos una combinación lineal del flujo y de la
-    derivada normal en $\Gamma_R \subset \partial U$.
+Dada una superficie diferencial $dA$ cuya normal exterior es $\hat{\vec{n}}$,
+la tasa de neutrones entrante por unidad de área a través de dicha superficie $dA$ está dada por la @eq-jnegativa de la @def-corriente:
 
-Debe cumplirse que $\Gamma_D \cap \Gamma_N \cap \Gamma_R = \emptyset$ y
-que $\Gamma_D \cup \Gamma_N \cup \Gamma_R = \partial U$.
+$$\tag{\ref{eq-jnegativa}}
+\ J_n^-(\vec{x},E,t) = \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor
+$$
 
-Dada una superficie diferencial cuya normal exterior es $\hat{\vec{n}}$,
-tasa de neutrones entrante por unidad de área a través de dicha
-superficie está dada por la
-ecuación [\[eq:jnegativa\]](#eq:jnegativa){reference-type="eqref"
-reference="eq:jnegativa"} de la
-definición [\[def:corriente\]](#def:corriente){reference-type="ref"
-reference="def:corriente"}:
+Despreciando los términos para $\ell \geq 2$ de la expansión de la @eq-psi1 podemos estimar esta corriente como
 
-$$\tag{\ref{eq:jnegativa}}
-\ J_n^-(\vec{x},E,t) = \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor$$
-
-Despreciando los términos para $\ell \geq 2$ en la
-ecuación [\[eq:psi1\]](#eq:psi1){reference-type="eqref"
-reference="eq:psi1"}, podemos estimar esta corriente como
-
-$$\begin{aligned}
-J_n^-(\vec{x},E,t) & \approx \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \frac{1}{4\pi} \left [ \phi(\vec{x}, E, t) + 3 \, \vec{J}(\vec{x}, E, t) \cdot \omegaversor \right]  \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor
+$$
+\begin{aligned}
+J_n^-(\vec{x},E,t) & \simeq \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \frac{1}{4\pi} \left [ \phi(\vec{x}, E, t) + 3 \, \vec{J}(\vec{x}, E, t) \cdot \omegaversor \right] \cdot \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor
 \\
-& \approx \frac{1}{4\pi} \phi(\vec{x}, E, t) \int_{0}^{-1} \mu^\prime \cdot 2\pi\, d\mu^\prime + 
+& \simeq \frac{1}{4\pi} \phi(\vec{x}, E, t) \int_{0}^{-1} \mu^\prime \cdot 2\pi\, d\mu^\prime + 
 \frac{3}{4\pi}  \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \Big[ \vec{J}(\vec{x}, E, t) \cdot \omegaversor \Big] \cdot \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor \\
-& \approx \frac{1}{4\pi} \phi(\vec{x}, E, t) \cdot 2\pi \cdot \frac{1}{2} + \frac{3}{4\pi} \cdot \Big[ \vec{J}(\vec{x}, E, t) \cdot \hat{\vec{n}} \Big] \cdot \left(- \frac{2}{3} \pi \right)  \\
-& \approx \frac{1}{4} \phi(\vec{x}, E, t) - \frac{1}{2} \Big[ \vec{J}(\vec{x}, E, t) \cdot \hat{\vec{n}} \Big]
-\end{aligned}$$ donde hemos usado la
-ecuación [\[eq:43pi\]](#eq:43pi){reference-type="eqref"
-reference="eq:43pi"} sobre una semi-esfera unitaria para resolver la
-segunda integral del miembro derecho. A la luz de la ley de Fick dada
-por la ecuación [\[eq:fick\]](#eq:fick){reference-type="eqref"
-reference="eq:fick"}, podemos escribir
+& \simeq \frac{1}{4\pi} \phi(\vec{x}, E, t) \cdot 2\pi \cdot \frac{1}{2} + \frac{3}{4\pi} \cdot \Big[ \vec{J}(\vec{x}, E, t) \cdot \hat{\vec{n}} \Big] \cdot \left(- \frac{2}{3} \pi \right)  \\
+& \simeq \frac{1}{4} \phi(\vec{x}, E, t) - \frac{1}{2} \Big[ \vec{J}(\vec{x}, E, t) \cdot \hat{\vec{n}} \Big]
+\end{aligned}
+$$
+donde hemos usado el @thm-omega-i-j sobre una semi-esfera unitaria para resolver la segunda integral del miembro derecho.
+A la luz de la ley de Fick dada por la @def-fick, podemos escribir
 
-$$\begin{aligned}
-J_n^-(\vec{x},E,t) & \approx \frac{1}{4} \phi(\vec{x}, E, t) + \frac{1}{2} D(\vec{x}, E) \cdot \Big[ \text{grad} \big[ \phi(\vec{x}, E, t)\big]  \cdot \hat{\vec{n}} \Big] \\
-& \approx \frac{\phi(\vec{x}, E, t)}{4}  + \frac{D(\vec{x}, E)}{2}  \cdot \frac{\partial \phi}{\partial n}
-\end{aligned}$$ lo que nos da una expresión para definir las condiciones
-de contorno de la ecuación de difusión.
+$$
+\begin{aligned}
+J_n^-(\vec{x},E,t) & \simeq \frac{1}{4} \cdot \phi(\vec{x}, E, t) + \frac{1}{2} \cdot D(\vec{x}, E) \cdot \left\{ \text{grad} \big[ \phi(\vec{x}, E, t)\big]  \cdot \hat{\vec{n}} \right\} \\
+& \simeq \frac{\phi(\vec{x}, E, t)}{4}  + \frac{D(\vec{x}, E)}{2}  \cdot \frac{\partial \phi}{\partial n}
+\end{aligned}$$ lo que nos da una expresión para definir la condición de contorno de vacío para la ecuación de difusión.
 
-::: {#def-}
-[]{#def:ccvacuumdif label="def:ccvacuumdif"} En forma análoga a la
-definición [\[def:ccvacuum\]](#def:ccvacuum){reference-type="ref"
-reference="def:ccvacuum"}, llamamos *condición de contorno de vacío* a
-la situación en la cual la corriente entrante a través de una porción de
-la frontera $\partial U$ es cero, con lo que se debe cumplir:
+::: {#def-ccvacuum-dif}
+En forma análoga a la @def-ccvacuum, llamamos *condición de contorno de vacío* a la situación en la cual la corriente entrante a través de una porción de la frontera $\partial U$ es cero, con lo que se debe cumplir:
 
-$$\label{eq:ccvacuumdif}
-\phi(\vec{x}, E, t)  + 2 \cdot D(\vec{x}, E) \cdot \frac{\partial \phi}{\partial n} = 0$$
+$$
+\phi(\vec{x}, E, t)  + 2 \cdot D(\vec{x}, E) \cdot \frac{\partial \phi}{\partial n} = 0 \quad\quad \forall \vec{x} \in \Gamma_V \subset \partial U
+$$
 
-Definimos el conjunto $\Gamma_V \in \partial U$ como el lugar geométrico
-de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
-condición de contorno. Esta condición es de tipo Robin ya que se da el
-valor de una combinación lineal de la incógnita $\phi$ y de su derivada
+Definimos el conjunto $\Gamma_V \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
+condición de contorno. Esta condición es de tipo Robin ya que se da el valor de una combinación lineal de la incógnita $\phi$ y de su derivada
 normal $\partial \phi/\partial n$.
 :::
 
-::: {#def-}
-[]{#def:ccmirrordif label="def:ccmirrordif"} En forma análoga a la
-definición [\[def:ccmirror\]](#def:ccmirror){reference-type="ref"
-reference="def:ccmirror"}, llamamos *condición de contorno de reflexión
-o de simetría* cuando la corriente neta entrante en el
-punto $\vec{x} \in \partial U$ es igual a cero. En este caso, por la ley
-de Fick [\[eq:fick\]](#eq:fick){reference-type="eqref"
-reference="eq:fick"}, debe anularse la derivada normal del flujo escalar
-evaluada en $\vec{x}$:
+::: {#def-ccmirror-dif}
+En forma análoga a la @def-ccmirror, llamamos *condición de contorno de reflexión o de simetría* cuando la corriente neta entrante en el
+punto $\vec{x} \in \partial U$ es igual a cero.
+En este caso, por la ley de Fick debe anularse la derivada normal del flujo escalar evaluada en $\vec{x}$:
 
-$$\text{grad} \big[ \phi(\vec{x}, E, t)\big]  \cdot \hat{\vec{n}} = \frac{\partial \phi}{\partial n} = 0$$
+$$
+\text{grad} \big[ \phi(\vec{x}, E, t)\big]  \cdot \hat{\vec{n}} = \frac{\partial \phi}{\partial n} = 0
+\quad\quad \forall \vec{x} \in \Gamma_M \subset \partial U
+$$
 
-Esta es una condición de tipo Neumann. Definimos el
-conjunto $\Gamma_M \in \partial U$ como el lugar geométrico de todos los
-puntos $\vec{x} \in \partial U$ donde imponemos esta condición de
-contorno.
+Esta es una condición de tipo Neumann.
+Definimos el conjunto $\Gamma_M \in \subset U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta condición de contorno.
 :::
 
-Para el problema de difusión, a veces se suele utilizar una tercera
-condición de contorno basada en la idea que sigue. Si extrapolamos
-linealmente el flujo escalar $\phi$ una distancia $d$ en la dirección de
-la normal externa $\hat{\vec{n}}$ en la frontera $\partial U$ mediante
-una expansión de Taylor a primer orden, tenemos
+Para el problema de difusión, a veces se suele utilizar una tercera condición de contorno basada en la idea que sigue.
+Si extrapolamos linealmente el flujo escalar $\phi$ una distancia $d$ (que depende de la posición $\vec{x}$ y de la energía $E$) en la dirección de la normal externa $\hat{\vec{n}}$ en la frontera $\partial U$ mediante una expansión de Taylor a primer orden, tenemos
 
-$$\left. \phi \big(\vec{x} + d(\vec{x}, E) \cdot \hat{\vec{n}}, E, t \big) \right|_{\vec{x} \in \partial U} \approx \phi(\vec{x}, E, t) + \frac{\partial \phi}{\partial n} \cdot d(\vec{x}, E)$$
+$$
+\phi \big(\vec{x} + d(\vec{x}, E) \cdot \hat{\vec{n}}, E, t \big) \Big|_{\vec{x} \in \partial U} \approx \phi(\vec{x}, E, t) + \frac{\partial \phi}{\partial n} \cdot d(\vec{x}, E)
+$$
 
-<figure id="fig:cc">
-<div class="center">
-<img src="transporte/cc" />
-</div>
-<figcaption><span id="fig:cc" label="fig:cc"></span> El flujo
-escalar <span
-class="math inline"><em>ϕ</em>(<em>x⃗</em>,<em>E</em>,<em>t</em>)</span>
-extrapolado linealmente se anula a una distancia <span
-class="math inline"><em>d</em>(<em>x⃗</em>,<em>E</em>) = 2<em>D</em>(<em>x⃗</em>,<em>E</em>)</span>
-en una condición de contorno tipo vacío de la ecuación de
-difusión.</figcaption>
-</figure>
+Si se cumple la condición de contorno de vacío dada por la @def-ccvacuum-dif
 
-Si se cumple la condición de
-contorno [\[eq:ccvacuumdif\]](#eq:ccvacuumdif){reference-type="eqref"
-reference="eq:ccvacuumdif"}, entonces el flujo escalar extrapolado se
-anula en $\vec{x} + 2 \cdot D(\vec{x}, E) \cdot \hat{\vec{n}}$, como
-ilustramos en la figura [1.9](#fig:cc){reference-type="ref"
-reference="fig:cc"}. Si $D(\vec{x}, E)$ es mucho menor que el tamaño
-característico del dominio $U$ entonces podemos aproximar $d \approx 0$.
+$$
+\phi(\vec{x}, E, t)  + 2 \cdot D(\vec{x}, E) \cdot \frac{\partial \phi}{\partial n} = 0
+$$
+entonces el flujo escalar extrapolado se anula en el punto
 
-::: {#def-}
-[]{#def:ccnulldif label="def:ccnulldif"} Llamamos *condición de contorno
-de flujo nulo* cuando el flujo escalar $\phi$ se anula un
-punto $\vec{x} \in \partial U$:
+$$
+\vec{x}^* = \vec{x} + 2 \cdot D(\vec{x}, E) \cdot \hat{\vec{n}}
+$$
+como ilustramos en la @fig-cc.
 
-$$\phi(\vec{x}, E, t) = 0$$
+![El flujo escalar $\phi(\vec{x}, E,t)$ extrapolado linealmente se anula a una distancia $d(\vec{x},E)= 2D(\vec{x},E)$ en una condición de contorno tipo vacío de la ecuación de difusión.](cc){#fig-cc}
 
-Definimos el conjunto $\Gamma_N \in \partial U$ como el lugar geométrico
-de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
-condición de contorno. Matemáticamente esta condición es de tipo
-Dirichlet.
+
+Si el valor numérico del coeficiente de difusión $D(\vec{x}, E)$ (que tiene unidades de longitud) es mucho menor que el tamaño característico del dominio $U$ entonces podemos aproximar $d \approx 0$.
+
+::: {#def-cc-nulldif}
+Llamamos *condición de contorno de flujo nulo* cuando el flujo escalar $\phi$ se anula un punto $\vec{x} \in \partial U$:
+
+$$
+\phi(\vec{x}, E, t) = 0 \quad\quad \forall \vec{x} \in \Gamma_N \subset \partial U
+$$
+
+Definimos el conjunto $\Gamma_N \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
+condición de contorno. Matemáticamente esta condición es de tipo Dirichlet.
 :::
 
-La condición de contorno más general que podemos dar es una combinación
-lineal del flujo más su derivada normal en la frontera del dominio:
-
-$$a(\vec{x}) \cdot \phi(\vec{x},E,t) + b(\vec{x}) \cdot \frac{\partial \phi}{\partial n} = c(\vec{x})$$
-
-Debemos notar que $c(\vec{x})$ sólo puede ser diferente de cero si el
-término de fisión es nulo o si tanto el término de fisión como la fuente
-independiente no son nulos. Para dar una condición de reflectividad de
-un albedo $\beta(\vec{x}, E)$ debemos dar como condición de contorno
-
-$$\begin{cases}
- a(\vec{x}) &= 1 \\
- b(\vec{x}) &= \displaystyle - \frac{1}{2\cdot D(\vec{x},E)} \cdot \frac{1 - \beta(\vec{x}, E)}{1 + \beta(\vec{x},E)} \\
- c(\vec{x}) &= 0 \\
-\end{cases}$$
-
-### Validez de las suposiciones y aproximaciones
-
-Analicemos en esta sección qué implicaciones físicas tienen las
-suposiciones y aproximaciones matemáticas que hemos utilizado para
-arribar a la ecuación de
-difusión [\[eq:difusion\]](#eq:difusion){reference-type="eqref"
-reference="eq:difusion"}.
-
-aún cuando no se cumplan todas, todavía se puede obtener una relación
-entre el gradiente del flujo y la corriente
 
 ## Problemas de estado estacionario {#sec-problemas}
 
-Si bien hasta el momento hemos mantenido por completitud la dependencia
-temporal explícitamente en los flujos y corrientes, en este tesis
-estamos interesado principalmente en problemas de estado estacionario.
-Para ello, tenemos que anular los términos que involucren derivadas
-parciales con respecto al tiempo en las ecuaciones tanto de transporte
-como de difusión de neutrones. Esto cambia las propiedades matemáticas
-de las ecuaciones y por lo tanto la forma en la cual debemos
-resolverlas. Vamos a particularizar la ecuación de
-transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
-reference="eq:transporte"} y la de
-difusión [\[eq:difusion\]](#eq:difusion){reference-type="eqref"
-reference="eq:difusion"} para tres casos:
+Si bien hasta el momento hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis estamos interesados principalmente en problemas de estado estacionario.
+Para ello, tenemos que anular los términos que involucren derivadas parciales con respecto al tiempo en las ecuaciones tanto de transporte
+como de difusión de neutrones.
+Esto cambia las propiedades matemáticas de las ecuaciones y por lo tanto la forma en la cual debemos resolverlas.
+Vamos a particularizar la ecuación de transporte (@eq-transporte) y la de difusión (@eq-difusion) para tres casos:
 
--   Medio no multiplicativo con fuentes independientes;
+ #. Medio no multiplicativo con fuentes independientes,
+ #. Medio multiplicativo con fuentes independientes, y
+ #. Medio multiplicativo sin fuentes independientes.
 
--   Medio multiplicativo con fuentes independientes; y
-
--   Medio multiplicativo sin fuentes independientes.
-
-Debemos anular todos los términos de las derivadas temporales y eliminar
-todas las dependencias con respecto a la variable $t$. En cada caso
-discutimos las posibles condiciones de contorno necesarias para
-completar la formulación matemática.
+Para calcular el estao estacionario tenemos que anular todos los términos de las derivadas temporales y eliminar todas las dependencias con respecto a la variable $t$.
+En cada uno de los tres casos discutimos las posibles condiciones de contorno necesarias para completar la formulación matemática.
 
 ### Medio no multiplicativo con fuentes independientes
 
-Un medio no multiplicativo es aquel que no contiene núcleos capaces de
-fisionar. Cada neutrón que encontremos en el medio debe entonces
-provenir de una fuente externa $s$. Además de eliminar la derivada
-temporal y la dependencia con el tiempo, no tenemos en cuenta el término
-de fisión. Luego la ecuación de
-transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
-reference="eq:transporte"} queda
+Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
+Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
+Además de eliminar la derivada temporal y la dependencia con el tiempo, hacemos cero el término de fisión.
+Luego la ecuación de transporte queda
 
-$$\begin{gathered}
-\label{eq:transportenmfi}
+$$
+\begin{gathered}
 \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
  + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
 \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime
 + s(\vec{x}, \omegaversor, E)
-\end{gathered}$$ y la de
-difusión [\[eq:difusion\]](#eq:difusion){reference-type="eqref"
-reference="eq:difusion"}
+\end{gathered}
+$$ {#eq-transportenmfi}
+y la de difusión
 
-$$\begin{gathered}
-\label{eq:difusionnmfi}
+$$
+\begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
  = \\
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
 + s_0(\vec{x}, E)
-\end{gathered}$$
+\end{gathered}
+$$ {#eq-difusionnmfi}
 
-Para obtener soluciones de flujo no nula o bien la fuente no se debe
-anular idénticamente en el dominio o bien las condiciones de contorno
-deben ser no homogéneas. Si las secciones eficaces (incluyendo el
-coeficiente de difusión) dependen explícitamente de la
-posición $\vec{x}$ y no dependen del flujo $\psi$ o $\phi$, entonces
-ambas
-ecuaciones [\[eq:transportenmfi\]](#eq:transportenmfi){reference-type="eqref"
-reference="eq:transportenmfi"}
-y [\[eq:difusionnmfi\]](#eq:difusionnmfi){reference-type="eqref"
-reference="eq:difusionnmfi"} son lineales. Al reordenar términos y
-discretizar el problema
-(capítulo [\[cap:esquemas\]](#cap:esquemas){reference-type="ref"
-reference="cap:esquemas"}) obtendremos un sistema de ecuaciones
+Para obtener soluciones de flujo no nula,
+
+ a. la fuente no se debe anular idénticamente en el dominio, o
+ b. bien las condiciones de contorno deben ser no homogéneas.
+ 
+Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ y no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-transportenmfi como la @eq-difusionnmfi son lineales.
+En el capítulo siguiente vamos a reordenar términos y a discretizar el problema para obtener un sistema de ecuaciones
 algebraicas lineales que puede ser escrito en forma matricial como
 
-$$A \vec{u} = \vec{b}$$ donde $A \in \mathbb{R}^{n \times n}$ es una
-matriz cuadrada que contiene información sobre la discretización de los
-operadores diferenciales e integrales de la ecuación,
-$\vec{b} \in \mathbb{R}^n$ es un vector que contiene la versión
-discretizada de la fuente independiente $s$. La información sobre las
-condiciones de contorno pueden estar incluidas bien en $A$ o bien
-en $\vec{b}$, dependiendo del tipo de condición. Incluso las condiciones
-de tipo Robin tienen información tanto en $A$ como en $\vec{b}$. El
-vector $\vec{u} \in \mathbb{R}^n$ es la incógnita, que luego de resolver
-el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
+$$
+A \vec{u} = \vec{b}
+$$
+donde
+
+ * $A \in \mathbb{R}^{N \times N}$ es una matriz cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
+ * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
+ * $N$ es el tamaño del problema discretizado, que es el producto de 
+   1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos)
+   2. la cantidad de grupos de energía
+   3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
+
+La información sobre las condiciones de contorno pueden estar incluidas bien en $A$ o bien en $\vec{b}$, dependiendo del tipo de condición. Incluso las condiciones de tipo Robin tienen información tanto en $A$ como en $\vec{b}$.
+El vector $\vec{u} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$.
 
-ejemplo problema de la sección XXX
+**TODO** ejemplo problema de la sección XXX
 
-caso no lineal (manual de milonga)
+**TODO** caso no lineal, newton
 
 ### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
 
-Si además de contar con fuentes independientes de fisión el medio
-contiene material multiplicativo, entonces los neutrones pueden provenir
-tanto de las fuentes como de las fisiones. En este caso, tenemos que
-tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$
-es proporcional al flujo escalar en $\vec{x}$. En la
-sección [1.1.2](#sec-fision){reference-type="ref"
-reference="sec-fision"} indicamos que debemos utilizar expresiones
-diferentes para la fuente de fisión dependiendo de si estamos
-resolviendo un problema transitorio o estacionario. Si bien sólo una
-fracción $\beta$ de todos los netrones nacidos por fisión se generan en
-forma instantánea, en en estado estacionario debemos también sumar el
-resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el
-estado encontrado es un equilibrio instante a instante dado por
-los $\beta$ neutrones prompt y $(1-\beta)$ neutrones retardados que
-provienen de fisiones operando desde $t=-\infty$. La fuente de fisión
-para un medio multiplicativo con fuente independiente por unidad de
-ángulo sólido, recordando que la fisión es isotrópica, es
+Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir
+tanto de las fuentes como de las fisiones. En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$
+es proporcional al flujo escalar en $\vec{x}$.
+En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
+Si bien solamente una fracción $\beta$ de todos los netrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones prompt y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
+La fuente de fisión para un medio multiplicativo con fuente independiente por unidad de ángulo sólido, recordando que la fisión es isotrópica, es
 
-$$\label{eq:fisionconfuentes}
-q_s(\vec{x}, \omegaversor, E) = \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime$$
+$$
+q_s(\vec{x}, \omegaversor, E) = \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime
+$$ {#eq-fisionconfuentes}
 
-La expresión matemática de la ecuación de
-transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
-reference="eq:transporte"} para este caso es
+La expresión matemática de la ecuación de transporte para este caso es
 
-$$\begin{gathered}
-\label{eq:transportemmfi}
+$$
+\begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
  + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime \\
 + \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
 + s(\vec{x}, \omegaversor, E)
-\end{gathered}$$ y de la ecuación de
-difusión [\[eq:difusion\]](#eq:difusion){reference-type="eqref"
-reference="eq:difusion"} es
+\end{gathered}
+$$ {#eq-transportemmfi}
+y de la ecuación de difusión es
 
-$$\begin{gathered}
-\label{eq:difusionmmfi}
+$$
+\begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
  = \\
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
 \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
 + s_0(\vec{x}, E)
-\end{gathered}$$
+\end{gathered}
+$$ {#eq-difusionmmfi}
 
-El tipo de problema discretizado es esencialmente similar a medio no
-multiplicativo con fuentes de la sección anterior, sólo que ahora la
-matriz $A$ tiene información sobre las fuentes de fisión. Estos casos se
-encuentran al estudiar sistemas subcríticos como por ejemplo piletas de
-almacenamiento de combustibles gastados o procedimientos de puesta a
-crítico de reactores.
+El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $A$ tiene información sobre las fuentes de fisión.
+Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
 ### Medio multiplicativo sin fuentes independientes
 
