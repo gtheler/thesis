@@ -2163,14 +2163,15 @@ Vamos a particularizar la ecuación de transporte (@eq-transporte) y la de difus
  #. Medio multiplicativo con fuentes independientes, y
  #. Medio multiplicativo sin fuentes independientes.
 
-Para calcular el estao estacionario tenemos que anular todos los términos de las derivadas temporales y eliminar todas las dependencias con respecto a la variable $t$.
+Para calcular el estado estacionario tenemos que anular todos los términos de las derivadas temporales y eliminar todas las dependencias con respecto a la variable $t$.
 En cada uno de los tres casos discutimos las posibles condiciones de contorno necesarias para completar la formulación matemática.
 
 ### Medio no multiplicativo con fuentes independientes
 
 Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
 Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
-Además de eliminar la derivada temporal y la dependencia con el tiempo, hacemos cero el término de fisión.
+
+Para estudiar este tipo de casos, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión.
 Luego la ecuación de transporte queda
 
 $$
@@ -2193,40 +2194,67 @@ $$
 \end{gathered}
 $$ {#eq-difusionnmfi}
 
-Para obtener soluciones de flujo no nula,
+Para que la solución sea no nula,
 
  a. la fuente no se debe anular idénticamente en el dominio, o
  b. bien las condiciones de contorno deben ser no homogéneas.
  
-Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ y no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-transportenmfi como la @eq-difusionnmfi son lineales.
+Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-transportenmfi como la @eq-difusionnmfi son lineales.
 En el capítulo siguiente vamos a reordenar términos y a discretizar el problema para obtener un sistema de ecuaciones
 algebraicas lineales que puede ser escrito en forma matricial como
 
 $$
 A \vec{u} = \vec{b}
-$$
+$$ {#eq-Aub}
 donde
 
- * $A \in \mathbb{R}^{N \times N}$ es una matriz cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
+ * $\vec{u}$ es un vector de tamaño $N$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizados (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
+ * $A \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
  * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
  * $N$ es el tamaño del problema discretizado, que es el producto de 
    1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos)
    2. la cantidad de grupos de energía
    3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
 
-La información sobre las condiciones de contorno pueden estar incluidas bien en $A$ o bien en $\vec{b}$, dependiendo del tipo de condición. Incluso las condiciones de tipo Robin tienen información tanto en $A$ como en $\vec{b}$.
+La información sobre...
+
+ * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $A$.
+ * las fuentes independientes y las condiciones de contorno de Neumann no homogéneas están incluidas en el vector $\vec{b}$.
+ * el resto de las condiciones de contorno está repartida entre $A$ y $\vec{b}$.
+ 
 El vector $\vec{u} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
-de $\vec{x}$, $E$ y eventualmente $\omegaversor$.
+de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretizacón espacial. En esta tesis utilizamos elementos finitos para discretizar los operadores diferenciales espaciales y el método de ordenadas discretas para evaluar la dependencia del flujo angular $\psi$ con la dirección $\omegaversor$.
 
-**TODO** ejemplo problema de la sección XXX
+**TODO** ejemplos de problemas del @cap-resultados
 
-**TODO** caso no lineal, newton
+Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez depende de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
+La versión discretizada puede escribir en forma genérica como
+
+$$
+\vec{F}(\vec{u}) = 0
+$$
+para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$. 
+Este tipo de problemas usualmente se resuelven con esquemas tipo Newton, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}] $\vec{u}_0$
+
+$$
+\vec{u}_{k+1} = \vec{u}_k - A(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
+$$
+para $k=0,1,\dots$, donde $A$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $A$ del problema lineal de la @eq-Aub.
+
+Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $A^{-1}$.
+En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
+
+ 1. Resolver $A(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
+ 2. Actualizar $\vec{u}_{k+1} \leftarrow \vec{u}_k + \Delta \vec{u}_k$
+
+Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
+
 
 ### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
 
 Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir
-tanto de las fuentes como de las fisiones. En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$
-es proporcional al flujo escalar en $\vec{x}$.
+tanto de las fuentes como de las fisiones.
+En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar en $\vec{x}$.
 En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
 Si bien solamente una fracción $\beta$ de todos los netrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones prompt y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
 La fuente de fisión para un medio multiplicativo con fuente independiente por unidad de ángulo sólido, recordando que la fisión es isotrópica, es
@@ -2259,142 +2287,126 @@ $$
 \end{gathered}
 $$ {#eq-difusionmmfi}
 
-El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $A$ tiene información sobre las fuentes de fisión.
+El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $A$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\vec{u}$.
 Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
 ### Medio multiplicativo sin fuentes independientes
 
-se puede escribir @stammler
+En ausencia de fuentes independientes, tanto la ecuación de transporte como la de difusión se pueden escribir genéricamente como @stammler
 
 $$
-\frac{\partial \phi}{\partial t} = L(\phi)
+\frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
+$$ {#eq-psi-L}
+donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador de primer orden en el espacio para transporte y de segundo orden para difusión. Esta formulación tiene infinitas soluciones homogéneas de la forma
+
 $$
+\varphi(\vec{x},\omegaversor, E,t) = \varphi(\vec{x},\omegaversor, E) \cdot e^{\alpha \cdot t}
+$$
+que al insertarlas en la @eq-psi-L definen un problema de autovalores
 
-esto tiene solución exponencial, lo metemos ahí y nos quedan los modos $\alpha$
-con $\alpha< 0$ y $\alpha > 0$.
-Es mejor $k_\text{eff}$ haciendo $\nu \rightarrow \nu/k_\text{eff}$.
+$$
+\mathcal{L}\left[\varphi(\vec{x},\omegaversor, E)\right] = \alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E)
+$$ {#eq-psi-L}
+donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
 
-En el caso en que todos los neutrones provengan de fisiones y no existan
-fuentes independientes, en principio deberíamos anular las fuentes $s$
-y $s_0$ de las
-ecuaciones [\[eq:transportemmfi\]](#eq:transportemmfi){reference-type="eqref"
-reference="eq:transportemmfi"}
-y [\[eq:difusionmmfi\]](#eq:difusionmmfi){reference-type="eqref"
-reference="eq:difusionmmfi"}, respectivamente. Sin embargo esta
-operación dejaría un problema matemático mal condicionado. En efecto,
-sin fuentes externas la ecuación a resolver (sea transporte o difusión)
-es homogénea. La probabilidad de que dada una geometría y un conjunto de
-secciones eficaces macroscópicas (i.e. un modelo matemático de un
-reactor) la ecuación arroje un flujo no trivial balanceando exactamente
-todos los términos de la ecuación (i.e. que el reactor esté exactamente
-crítico) es cero. Para tener una solución matemática (y físicamente)
-razonable, debemos agregar al menos un parámetro real que permita
-ajustar uno o más términos en forma continua. Por ejemplo podríamos
-escribir las secciones eficaces en función de un parámetro geométrico
-(la posición de una barra de control) y/o físico (la concentración media
-de boro en el moderador).
+La solución general de la ecuación @eq-psi-L es 
 
-Hay un parámetro real que además de permitir encontrar una solución no
-trivial para cualquier conjunto físicamente razonable de geometrías y
-secciones eficaces, nos da una idea de qué tan lejos se encuentra el
-modelo de la criticidad. El procedimiento consiste en dividir el término
-de fisiones por un número real $k_\text{eff}$, para obtener
+$$
+\varphi(\vec{x},\omegaversor, E,t) = \sum_{n=0}^\infty C_n \cdot \varphi_n(\vec{x},\omegaversor,E) \cdot \exp(\alpha_n \cdot t)
+$$
+donde los coeficientes $C_n$ son tales que satisfagan las condiciones iniciales y de contorno.
 
-$$\begin{gathered}
-\label{eq:transportemm}
+Si ordenamos los autovalores $\alpha_n$ de forma tal que $\text{Re}(\alpha_n) \ge \text{Re}(\alpha_{n+1})$ entonces para tiempos $t\gg 1$ todos los términos para $n \neq 0$ serán despreciables frente al término de $\varphi_0$.
+El signo de $\alpha_0$ determina si la población neutrónica
+
+ a. disminuye con el tiempo ($\alpha_0 < 0$),
+ b. permanece constante ($alpha_0 = 0$), o
+ c. aumenta con el tiempo ($\alpha_0 > 0$).
+ 
+La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es, justamente, cero.
+
+Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
+Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
+
+ a. geométrico (por ejemplo la posición de una barra de control), o
+ b. físico (por ejemplo la concentración media de boro en el moderador).
+ 
+De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0$ y haya una solución de estado estacionario.
+
+Hay un parámetro real que además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y
+secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
+El procedimiento consiste en dividir la sección eficaz de fisión $\nu\Sigma_f$ por un número real $k_\text{eff}$, para obtener la ecuación de transporte como
+
+$$
+\begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
  + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime \\
 + \frac{1}{k_\text{eff}} \cdot \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
-\end{gathered}$$ y la de
-difusión [\[eq:difusion\]](#eq:difusion){reference-type="eqref"
-reference="eq:difusion"} como
+\end{gathered}
+$$ {#eq-transportemm}
+y la de difusión como
 
 $$\begin{gathered}
-\label{eq:difusionmm}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
  = \\
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
 \frac{1}{k_\text{eff}} \cdot \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-\end{gathered}$$
+\end{gathered}
+$$ {#eq-difusionmm}
 
-La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente
-definición.
+La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definición.
 
-::: {#def-}
-Llamamos *factor de multiplicación efectivo* al número
-real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
-ecuaciones que modelan un medio multiplicativo sin fuentes externas. Al
-nuevo medio al cual se le han dividido sus fuentes de fisión
-por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
-Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya
-que hubo que disminuir sus fisiones para encontrar una solución no
-trivial, y viceversa. El flujo solución de las ecuaciones es el flujo
-del reactor crítico asociado en $k$ y no del original, ya que si el
-original no estaba crítico entonces éste no tiene solución estacionaria.
+::: {#def-keff}
+Llamamos *factor de multiplicación efectivo* al número real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
+ecuaciones que modelan un medio multiplicativo sin fuentes externas.
+Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
+Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
+trivial, y viceversa.
+El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
 :::
 
-En este caso, al no haber fuentes independientes sólo quedan términos
-homogéneos. Sin embargo, ahora habrá algunos términos multiplicados por
-le coeficiente $1/k_\text{eff}$ y otros no. Si las secciones eficaces
-dependen sólo de la posición $\vec{x}$ en forma explícita y no a través
-del flujo, entonces el problema es lineal y al separar en ambos miembros
-estos dos tipos de términos obtendremos una formulación discretizada de
-la forma
+En este caso, al no haber fuentes independientes sólo quedan términos homogéneos.
+Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
+Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
 
-$$A \vec{u} = \lambda B \vec{u}$$ conformando un problema de autovalores
-generalizado, donde el autovalor $\lambda$ dará una idea de la
-criticidad del reactor y el autovector $\vec{u}$ la distribución de
-flujo del reactor crítico asociado en $k$. Si $B$ contiene los términos
-de fisión entonces $\lambda = 1/k_\text{eff}$ y si $A$ es la que
-contiene los términos de fisión, entonces $\lambda = k_\text{eff}$. En
-general, para matrices de $n \times n$ habrá $n$ pares
-autovalor-autovector. Más aún, tanto el autovalor como los elementos del
-autovector son en general complejos. Sin embargo se puede
-probar [@henry] había una demostración del caso discretizado?
-chaboncito? que, para el caso $\lambda=1/k_\text{eff}$
-($\lambda=k_\text{eff}$),
+$$
+A \vec{u} = \lambda B \vec{u}
+$$
+conformando un problema de autovalores generalizado, donde el autovalor $\lambda$ dará una idea de la criticidad del reactor y el autovector $\vec{u}$ la distribución de flujo del reactor crítico asociado en $k$.
+Si $B$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si $A$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
 
-1.  hay un único autovalor positivo real que es mayor (menor) en
-    magnitud que el resto de los autovalores,
+En general, para matrices de $N \times N$ habrá $N$ pares autovalor-autovector.
+Más aún, tanto el autovalor $\lambda_n$ como los elementos del autovector $\vec{u}_n$ en general serán complejos.
+Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}$ ($\lambda=k_\text{eff}$),
 
-2.  todos los elementos del autovector correspondiente a dicho autovalor
-    son reales y tienen el mismo signo, y
+ #. hay un único autovalor positivo real que es mayor (menor) en magnitud que el resto de los autovalores,
+ #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
+ #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
 
-3.  todos los otros autovectores o bien tienen al menos un elemento
-    igual a cero o tienen elementos que difieren en su signo
+Debemos notar que éste un problema matemáticamente homogéneo.
+Esta característica define dos propiedades importantes:
 
-Debemos notar que éste un problema matemáticamente homogéneo. Esta
-característica define dos propiedades importantes. La primera es que el
-autovector (es decir el flujo) está definido a menos de una constante
-multiplicativa y es independiente del factor de
-multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos
-normalizar el flujo de alguna manera. Usualmente se define la potencia
+ 1. El autovector (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
+multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia
 térmica total $P$ del reactor y normalizamos el flujo de forma tal que
+    
+    $$
+    P = \int_{V} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
+    $$
+    donde $e\Sigma_f$ es el producto de la energía liberada en una fisión individual por la sección eficaz de fisión.
+    Debemos remarcar que si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
+    Si $P$ es la potencia térmica total, entonces $e\Sigma_f$ debe tener en cuenta todas las contribuciones, incluyendo aquellas debidas a efectos retardados de los productos de fisión.
 
-$$P = \int_{V} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}$$
-donde $e\Sigma_f$ es el producto de la energía liberada en una fisión
-individual por la sección eficaz de fisión. Debemos remarcar que si $P$
-es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir
-sólo las contribuciones energéticas de los productos de fisión
-instantáneos. Si $P$ es la potencia términca total, entonces $e\Sigma_f$
-debe tener en cuenta todas las contribuciones, incluyendo aquellas
-debidas a efectos retardados de los productos de fisión.
+ 2. La segunda propiedad es que las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o
+corrientes diferentes de cero. 
 
-La segunda propiedad es que las condiciones de contorno también deben
-ser homogéneas. Es decir, no es posible fijar valores de flujo o
-corrientes diferentes de cero. De todas formas, las condiciones de
-contorno definidas con nombre y apellido en las
-secciones [1.3.5](#sec-bctransporte){reference-type="ref"
-reference="sec-bctransporte"}
- [1.4.5](#sec-bcdifusion){reference-type="ref"
-reference="sec-bcdifusion"} son homogéneas por lo que aplican
-perfectamente para los medios multiplicativos sin fuentes externas.
-
-no linealidades, ya no es cierto que el flujo es cualquier cosa
+**TODO** no linealidades, ya no es cierto que el flujo es cualquier cosa
 
 ## Esquema de solución multiescala {#sec-multiescala}
+
+**TODO**
 
 Si bien la ecuación de
 transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
