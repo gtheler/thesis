@@ -48,6 +48,7 @@ bibliography:
  - bibliografia/congresos.bib
  - bibliografia/internacionales.bib
  - bibliografia/nacionales.bib
+ - bibliografia/informes.bib
 
 csl: ieee.csl
 license: "CC BY"

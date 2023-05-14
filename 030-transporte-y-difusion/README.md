@@ -17,24 +17,21 @@ had been different from what they are by a factor of two.
 \end{chapterquote}
 ```
 
-
 ```{=latex}
 \newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
 \newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
 ```
 
-```{=html}
-<script>
-// katex.renderToString("\newcommand{\omegaversor}{\hat{\symbf{\Omega}}}")
-katex.renderToString("\\newcommand{\\omegaprimaversor}{\\hat{\\mathbf{\Omega}}^\prime}")
-whenAvailable("katex", function(t) {
-    // Put your macros below, key will be replaced by the corresponding macro
-    katex.__defineMacro("\\omegaversor", "\\hat{\\mathbf{\\Omega}}");
-});
-
-
-</script>
-```
+::: {.only-in-format .html}
+\newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
+\newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
+\newcommand{\bigint}{\int}
+\newcommand{\bigints}{\int}
+\newcommand{\bigintss}{\int}
+\newcommand{\bigintsss}{\int}
+\newcommand{\hfil}{~}
+\newcommand{\hfill}{~}
+:::
 
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\mat}[1]{\mathsf{#1}}
@@ -2263,7 +2260,7 @@ La fuente de fisión para un medio multiplicativo con fuente independiente por u
 
 $$
 q_s(\vec{x}, \omegaversor, E) = \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime
-$$ {#eq-fisionconfuentes}
+$$ 
 
 La expresión matemática de la ecuación de transporte para este caso es
 
@@ -2275,7 +2272,7 @@ $$
 + \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
 + s(\vec{x}, \omegaversor, E)
 \end{gathered}
-$$ {#eq-transportemmfi}
+$$
 y de la ecuación de difusión es
 
 $$
@@ -2287,7 +2284,7 @@ $$
 \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
 + s_0(\vec{x}, E)
 \end{gathered}
-$$ {#eq-difusionmmfi}
+$$
 
 El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $A$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\vec{u}$.
 Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
@@ -2308,7 +2305,7 @@ que al insertarlas en la @eq-psi-L definen un problema de autovalores
 
 $$
 \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E)\right] = \alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E)
-$$ {#eq-psi-L}
+$$
 donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
 
 La solución general de la ecuación @eq-psi-L es 
@@ -2346,7 +2343,7 @@ $$
  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime \\
 + \frac{1}{k_\text{eff}} \cdot \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
 \end{gathered}
-$$ {#eq-transportemm}
+$$
 y la de difusión como
 
 $$\begin{gathered}
@@ -2356,7 +2353,7 @@ $$\begin{gathered}
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
 \frac{1}{k_\text{eff}} \cdot \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
 \end{gathered}
-$$ {#eq-difusionmm}
+$$
 
 La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definición.
 
@@ -2390,7 +2387,7 @@ Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}
 Debemos notar el problema de la @eq-eigen es matemáticamente homogéneo.
 Esta característica define dos propiedades importantes:
 
- 1. El autovector $\u$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
+ 1. El autovector $\vec{u}$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
 multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia
 térmica total $P$ del reactor y se normaliza el flujo de forma tal que
     
@@ -2407,7 +2404,7 @@ Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirect
 
 $$
 A(\vec{u}) \cdot \vec{u} = \lambda B(\vec{u}) \cdot \vec{u}
-$$ {#eq-eigen}
+$$
 
 Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}), no son aplicables.
 
@@ -2429,7 +2426,7 @@ La ecuación de transporte @eq-transporte describe completamente la interacció
 Los coeficientes tanto de la ecuación de transporte como de la ecuación de difusión son las secciones eficaces macroscópicas de los materiales presentes en el dominio $U$, que en principio son el producto de la sección eficaz microscópica por la densidad volumétrica de cada uno de los isótopos que component dichos materiales.
 
 Un neutrón nacido por fisión tiene una energía de aproximadamente 2 MeV, y cuando llega al equilibrio térmico con el medio puede alcanzar una energía de 0.02 eV. Esto es, la variable independiente $E$ usualmente abarca ocho órdenes de magnitud.
-Recordando la @fig:xs, las secciones eficaces microscópicas pueden cambiar cinco o incluso seis órdenes de magnitude en este rango de energías, abarcando resonancias extremadamente difíciles de modelar matemáticamente.
+Recordando la @fig-sigmas, las secciones eficaces microscópicas pueden cambiar cinco o incluso seis órdenes de magnitude en este rango de energías, abarcando resonancias extremadamente difíciles de modelar matemáticamente.
 
 Estas variaciones hace que sea prácticamente imposible resolver directamente la ecuación de transporte para obtener la dependencia del flujo angular $\psi$ con el espacio, la dirección, la energía y eventualmente el tiempo sobre el dominio $U$ a partir de las secciones eficaces microscópicas y de las concentraciones volumétricas de los isótopos.
 En la práctica se recurre a un esquema multi-escala, donde primero se evalúan y procesan las secciones eficaces microscópicas experimentales. Luego se evalúan celdas típicas de los componentes de los reactores nucleares (elementos combustibles, barras de control, etc.) para obtener secciones eficaces condensadas que finalmente son los coeficientes de la ecuación de transporte (o difusión) utilizada para realizar un cálculo a nivel de núcleo.^[En el sentido del inglés [*core*]{lang=en-US}.]
@@ -2437,14 +2434,14 @@ En la práctica se recurre a un esquema multi-escala, donde primero se evalúan 
 
 ### Evaluación y procesamiento de secciones eficaces {#sec-evaluacionxs}
 
-@nacho
+Este nivel de cálculo es el punto central de la tesis @nacho.
 
 ### Cálculo a nivel celda {#sec-celda}
 
-@chaco
+Este nivel de cálculo es el punto central de la tesis @chaco.
 
 ### Cálculo a nivel núcleo
 
-Este el punto central de esta tesis, especialmente en los capítulos @sec-esquemas y @sec-resultados.
+Este nivel de cálculo es el punto central de esta tesis, especialmente en el @sec-esquemas y en el @sec-resultados.
 
 

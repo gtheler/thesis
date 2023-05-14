@@ -8,7 +8,7 @@ This Software Design Specifications (SDS) document applies to an imaginary Softw
 
 
 ```{.include shift-heading-level-by=1}
-110-sds/sds.md
+sds.md
 ```
 
 :::::::

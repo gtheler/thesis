@@ -1,10 +1,15 @@
-build:
+pdf:
 	./hash.sh
 	quarto render --to pdf
 
+html:
+	./hash.sh
+	quarto render --to html
+
+	
 clean:
 	rm -rf _book
 
-.PHONY: build clean
+.PHONY: pdf clean
 
-all: build
+all: pdf
