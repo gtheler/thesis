@@ -17,12 +17,27 @@ had been different from what they are by a factor of two.
 \end{chapterquote}
 ```
 
+
 ```{=latex}
-% los vectores son en bold, no con una flecha maraca arriba
-\renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
-% las matrices son asi
-\renewcommand{\mat}[1]{\ensuremath\mathsf{#1}}
+\newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
+\newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
 ```
+
+```{=html}
+<script>
+// katex.renderToString("\newcommand{\omegaversor}{\hat{\symbf{\Omega}}}")
+katex.renderToString("\\newcommand{\\omegaprimaversor}{\\hat{\\mathbf{\Omega}}^\prime}")
+whenAvailable("katex", function(t) {
+    // Put your macros below, key will be replaced by the corresponding macro
+    katex.__defineMacro("\\omegaversor", "\\hat{\\mathbf{\\Omega}}");
+});
+
+
+</script>
+```
+
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathsf{#1}}
 
 En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
@@ -32,7 +47,8 @@ objetivos:
  b. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
  c. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
-No buscamos explicar los fundamentos físicos de los modelos matemáticos ni realizar una introducción para el lector lego. Para estos casos referimos a las referencias [@enief-2013-cpl; @monografia] escritas por el autor de esta tesis y a la literatura clásica de física de reactores [@henry; @lamarsh; @duderstadt; @glasstone; @lewis; @stammler].
+No buscamos explicar los fundamentos físicos de los modelos matemáticos ni realizar una introducción para el lector lego.
+Para estos casos referimos a las referencias [@enief-2013-cpl; @monografia] escritas por el autor de esta tesis y a la literatura clásica de física de reactores [@henry; @lamarsh; @duderstadt; @glasstone; @lewis; @stammler].
 Si bien gran parte del material aquí expuesto ha sido tomado de estas referencias, hay algunos desarrollos matemáticos propios que ayudan a homogeneizar los diferentes enfoques y nomenclaturas existentes en la literature para poder sentar las bases de los esquemas numéricos implementados en el código de manera consistente.
 Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de definiciones básicas para arribar a expresiones integro-diferenciales que describen el problema de ingeniería que queremos resolver.
 
@@ -47,7 +63,10 @@ Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transpo
 \medskip
 
 Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.
-Para ello, vamos a suponer que [@lewis]
+Para ello, vamos a suponer que [@lewis] 
+```{=latex}
+\label{siete}
+```
 
  #. podemos considerar a los neutrones como puntos geométricos
  #. los neutrones viajan en línea recta entre colisiones
@@ -58,7 +77,7 @@ Para ello, vamos a suponer que [@lewis]
  #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus   fluctuaciones estadísticas
 
  
-![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor \in \mathbb{R}^2$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron}
+![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor \in \mathbb{R}^2$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron width=75%}
 
 
 En la @fig-neutron ilustramos un neutrón puntual que a un cierto
@@ -601,41 +620,25 @@ $$ {#eq-nusigmaf}
 
 \medskip
 
-Durante la operación de un reactor, no todos los neutrones provenientes
-de la fisión aparecen en el mismo instante en el que se produce. Una
-cierta fracción $\beta$ de todos los neutrones son producto del decaimiento radioactivo de
+Durante la operación de un reactor, no todos los neutrones provenientes de la fisión aparecen en el mismo instante en el que se produce.
+Una cierta fracción $\beta$ de todos los neutrones son producto del decaimiento radioactivo de
 
  a. los productos de fisión, o
  b. de los hijos de los productos de fisión.
  
-En cualquier caso, en cálculos transitorios es necesario distinguir entre la
-fracción $1-\beta$ de neutrones instantáneos ([*prompt*]{lang=en-US}) que aparecen en
-el mismo momento de la fisión y la fracción $\beta$ de neutrones
-retardados que aparecen más adelante. Para ello dividimos a los
-neutrones retardados en $I$ grupos, les asignamos una fracción $\beta_i$
-y una constante de tiempo $\lambda_i$, para $i=1,\dots,N$ y definimos un
-mecanismo de aparición exponencial para cada uno de ellos.
+En cualquier caso, en cálculos transitorios es necesario distinguir entre la fracción $1-\beta$ de neutrones instantáneos^[En el sentido del inglés ([*prompt*]{lang=en-US})) que aparecen en el mismo momento de la fisión y la fracción $\beta$ de neutrones retardados que aparecen más adelante.
+Para ello dividimos a los neutrones retardados en $I$ grupos, les asignamos una fracción $\beta_i$ y una constante de tiempo $\lambda_i$, para $i=1,\dots,N$ y definimos un mecanismo de aparición exponencial para cada uno de ellos.
 
-En cálculos estacionarios no es necesario realizar esta división entre
-neutrones instantáneos y retardados ya que eventualmente todos los
-neutrones estarán contribuyendo a la reactividad neta del reactor. En el
-caso particular en el que no haya una fuente externa de neutrones sino
-que todas las fuentes se deban a fisiones la probabilidad de que el
+Como discutimos en la @sec-problemas-steady-state, en cálculos estacionarios no es necesario realizar esta división entre neutrones instantáneos y retardados ya que eventualmente todos los neutrones estarán contribuyendo a la reactividad neta del reactor.
+En el caso particular en el que no haya una fuente externa de neutrones sino que todas las fuentes se deban a fisiones la probabilidad de que el
 reactor esté exactamente crítico es cero.
-Para poder realizar cálculos estacionarios y
-además tener una idea de la distancia a la criticidad debemos recurrir a
-un reactor crítico asociado, cuya forma más usual es el *reactor crítico
-asociado en $k$*. En este caso, dividimos las fuentes de fisión se
-artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser
-una incógnita del problema y cuya diferencia con la unidad da una idea
-de la distancia a la criticidad del reactor original.
+Para poder realizar cálculos estacionarios y además tener una idea de la distancia a la criticidad debemos recurrir a un reactor crítico asociado, cuya forma más usual es el *reactor crítico asociado en $k$* introducido más adelante en la @def-keff.
+En este caso, dividimos las fuentes de fisión se artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser una incógnita del problema y cuya diferencia con la unidad da una idea de la distancia a la criticidad del reactor original.
 
 ## Flujos y ritmos de reacción
 
-El problema central del cálculo de reactores es la determinación de la
-distribución espacial y temporal de los neutrones dentro del núcleo de
-un rector nuclear. En esta sección desarrollamos la matemática para el
-caso de $\vec{x} \in \mathbb{R}^3$. En casos particulares aclaramos cómo
+El problema central del cálculo de reactores es la determinación de la distribución espacial y temporal de los neutrones dentro del núcleo de
+un rector nuclear. En esta sección desarrollamos la matemática para el caso de $\vec{x} \in \mathbb{R}^3$. En casos particulares aclaramos cómo
 debemos proceder para problemas en una y en dos dimensiones.
 
 Comenzamos con las siguientes definiciones.
@@ -2016,7 +2019,6 @@ para obtener finalmente la celebrada *ecuación de difusión de neutrones*
 
 $$
 \begin{gathered}
-\label{eq:difusion}
  \sqrt{\frac{m}{2E}} \frac{\partial}{\partial t} \Big[ \phi(\vec{x}, E, t) \Big]
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E, t) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E, t)
@@ -2025,7 +2027,7 @@ $$
 \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
 + s_0(\vec{x}, E, t)
 \end{gathered}
-$$
+$${#eq-difusion}
 que es una ecuación integro-diferencial elíptica en derivadas parciales de segundo orden sobre el espacio (los operadores divergencia y gradiente operan sólo sobre las coordenadas espaciales), y de primer orden sobre el tiempo para la incógnita $\phi$ definida sobre
 
  1. el espacio $\vec{x}$,
@@ -2081,7 +2083,7 @@ J_n^-(\vec{x},E,t) & \simeq \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \frac{1}
 \end{aligned}
 $$
 donde hemos usado el @thm-omega-i-j sobre una semi-esfera unitaria para resolver la segunda integral del miembro derecho.
-A la luz de la ley de Fick dada por la @def-fick, podemos escribir
+A la luz de la ley de Fick dada por la @def-D, podemos escribir
 
 $$
 \begin{aligned}
@@ -2151,9 +2153,9 @@ condición de contorno. Matemáticamente esta condición es de tipo Dirichlet.
 :::
 
 
-## Problemas de estado estacionario {#sec-problemas}
+## Problemas de estado estacionario {#sec-problemas-steady-state}
 
-Si bien hasta el momento hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis estamos interesados principalmente en problemas de estado estacionario.
+Si bien hasta el momento hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
 Para ello, tenemos que anular los términos que involucren derivadas parciales con respecto al tiempo en las ecuaciones tanto de transporte
 como de difusión de neutrones.
 Esto cambia las propiedades matemáticas de las ecuaciones y por lo tanto la forma en la cual debemos resolverlas.
@@ -2196,8 +2198,8 @@ $$ {#eq-difusionnmfi}
 
 Para que la solución sea no nula,
 
- a. la fuente no se debe anular idénticamente en el dominio, o
- b. bien las condiciones de contorno deben ser no homogéneas.
+ a. la fuente no se debe anular idénticamente en el dominio, y/o
+ b. las condiciones de contorno deben ser no homogéneas.
  
 Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-transportenmfi como la @eq-difusionnmfi son lineales.
 En el capítulo siguiente vamos a reordenar términos y a discretizar el problema para obtener un sistema de ecuaciones
@@ -2225,7 +2227,7 @@ La información sobre...
 El vector $\vec{u} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretizacón espacial. En esta tesis utilizamos elementos finitos para discretizar los operadores diferenciales espaciales y el método de ordenadas discretas para evaluar la dependencia del flujo angular $\psi$ con la dirección $\omegaversor$.
 
-**TODO** ejemplos de problemas del @cap-resultados
+**TODO** ejemplos de problemas del @sec-resultados
 
 Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez depende de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
 La versión discretizada puede escribir en forma genérica como
@@ -2234,12 +2236,12 @@ $$
 \vec{F}(\vec{u}) = 0
 $$
 para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$. 
-Este tipo de problemas usualmente se resuelven con esquemas tipo Newton, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}] $\vec{u}_0$
+Este tipo de problemas usualmente se resuelven con esquemas tipo Newton @petsc-user-ref, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}] $\vec{u}_0$
 
 $$
 \vec{u}_{k+1} = \vec{u}_k - A(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
 $$
-para $k=0,1,\dots$, donde $A$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $A$ del problema lineal de la @eq-Aub.
+para los pasos $k=0,1,\dots$, donde $A$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $A$ del problema lineal de la @eq-Aub.
 
 Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $A^{-1}$.
 En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
@@ -2297,7 +2299,7 @@ En ausencia de fuentes independientes, tanto la ecuación de transporte como la 
 $$
 \frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
 $$ {#eq-psi-L}
-donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador de primer orden en el espacio para transporte y de segundo orden para difusión. Esta formulación tiene infinitas soluciones homogéneas de la forma
+donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión. Esta formulación tiene infinitas soluciones de la forma
 
 $$
 \varphi(\vec{x},\omegaversor, E,t) = \varphi(\vec{x},\omegaversor, E) \cdot e^{\alpha \cdot t}
@@ -2320,7 +2322,7 @@ Si ordenamos los autovalores $\alpha_n$ de forma tal que $\text{Re}(\alpha_n) 
 El signo de $\alpha_0$ determina si la población neutrónica
 
  a. disminuye con el tiempo ($\alpha_0 < 0$),
- b. permanece constante ($alpha_0 = 0$), o
+ b. permanece constante ($\alpha_0 = 0$), o
  c. aumenta con el tiempo ($\alpha_0 > 0$).
  
 La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es, justamente, cero.
@@ -2373,7 +2375,7 @@ Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}
 
 $$
 A \vec{u} = \lambda B \vec{u}
-$$
+$$ {#eq-eigen}
 conformando un problema de autovalores generalizado, donde el autovalor $\lambda$ dará una idea de la criticidad del reactor y el autovector $\vec{u}$ la distribución de flujo del reactor crítico asociado en $k$.
 Si $B$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si $A$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
 
@@ -2385,48 +2387,64 @@ Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}
  #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
  #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
 
-Debemos notar que éste un problema matemáticamente homogéneo.
+Debemos notar el problema de la @eq-eigen es matemáticamente homogéneo.
 Esta característica define dos propiedades importantes:
 
- 1. El autovector (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
+ 1. El autovector $\u$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
 multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia
-térmica total $P$ del reactor y normalizamos el flujo de forma tal que
+térmica total $P$ del reactor y se normaliza el flujo de forma tal que
     
     $$
     P = \int_{V} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
     $$
-    donde $e\Sigma_f$ es el producto de la energía liberada en una fisión individual por la sección eficaz de fisión.
-    Debemos remarcar que si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
+    donde $e\Sigma_f$ es el producto entre la la energía liberada en una fisión individual y la sección eficaz macroscópica de fisión.
+    Si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
     Si $P$ es la potencia térmica total, entonces $e\Sigma_f$ debe tener en cuenta todas las contribuciones, incluyendo aquellas debidas a efectos retardados de los productos de fisión.
 
- 2. La segunda propiedad es que las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o
-corrientes diferentes de cero. 
+ 2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
 
-**TODO** no linealidades, ya no es cierto que el flujo es cualquier cosa
+Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
 
-## Esquema de solución multiescala {#sec-multiescala}
+$$
+A(\vec{u}) \cdot \vec{u} = \lambda B(\vec{u}) \cdot \vec{u}
+$$ {#eq-eigen}
 
-**TODO**
+Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}), no son aplicables.
 
-Si bien la ecuación de
-transporte [\[eq:transporte\]](#eq:transporte){reference-type="eqref"
-reference="eq:transporte"} describe completamente la interacción de
-neutrones con la materia, los cambios en las secciones eficaces con la
-energía de los neutrones
-(figura [\[fig:xs\]](#fig:xs){reference-type="ref" reference="fig:xs"})
-Los coeficientes de la ecuación de transporte son esencialmente las
-secciones eficaces macroscópicas.
+En el caso no lineal resolvemos iterativamente
+
+$$
+A(\vec{u}_k) \cdot \vec{u}_{k+1} = \lambda_{k+1}~ B(\vec{u}_k) \cdot \vec{u}_{k+1}
+$$ {#eq-eigen-it}
+a partir de una solución inicial $\vec{u}_0$.
+En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $A$ y $B$ con $\vec{u}$ y no hay niguna constante multiplicativa arbitraria.
+
+## Esquema de solución multi-escala {#sec-multiescala}
+
+La ecuación de transporte @eq-transporte describe completamente la interacción de neutrones con la materia y es exacta mientras
+ 
+ a. la población neutrónica sea lo suficientemente grande como para que podamos asumir que el flujo angular $\psi$ es determinista, y
+ a. se cumplan las siete suposiciones listadas al comienzo del capítulo[ (página~\pageref{siete})]{=latex}.
+
+Los coeficientes tanto de la ecuación de transporte como de la ecuación de difusión son las secciones eficaces macroscópicas de los materiales presentes en el dominio $U$, que en principio son el producto de la sección eficaz microscópica por la densidad volumétrica de cada uno de los isótopos que component dichos materiales.
+
+Un neutrón nacido por fisión tiene una energía de aproximadamente 2 MeV, y cuando llega al equilibrio térmico con el medio puede alcanzar una energía de 0.02 eV. Esto es, la variable independiente $E$ usualmente abarca ocho órdenes de magnitud.
+Recordando la @fig:xs, las secciones eficaces microscópicas pueden cambiar cinco o incluso seis órdenes de magnitude en este rango de energías, abarcando resonancias extremadamente difíciles de modelar matemáticamente.
+
+Estas variaciones hace que sea prácticamente imposible resolver directamente la ecuación de transporte para obtener la dependencia del flujo angular $\psi$ con el espacio, la dirección, la energía y eventualmente el tiempo sobre el dominio $U$ a partir de las secciones eficaces microscópicas y de las concentraciones volumétricas de los isótopos.
+En la práctica se recurre a un esquema multi-escala, donde primero se evalúan y procesan las secciones eficaces microscópicas experimentales. Luego se evalúan celdas típicas de los componentes de los reactores nucleares (elementos combustibles, barras de control, etc.) para obtener secciones eficaces condensadas que finalmente son los coeficientes de la ecuación de transporte (o difusión) utilizada para realizar un cálculo a nivel de núcleo.^[En el sentido del inglés [*core*]{lang=en-US}.]
+ 
 
 ### Evaluación y procesamiento de secciones eficaces {#sec-evaluacionxs}
 
+@nacho
+
 ### Cálculo a nivel celda {#sec-celda}
+
+@chaco
 
 ### Cálculo a nivel núcleo
 
-$$R \cdot \mathbf{\phi} = \frac{1}{k_\text{eff}} F \cdot \mathbf{\phi}$$
-
-
-
-
+Este el punto central de esta tesis, especialmente en los capítulos @sec-esquemas y @sec-resultados.
 
 
