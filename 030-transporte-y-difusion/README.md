@@ -20,6 +20,8 @@ had been different from what they are by a factor of two.
 ```{=latex}
 \newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
 \newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
+% \newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
+% \newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
 ```
 
 ::: {.only-in-format .html}
@@ -40,41 +42,41 @@ En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
 objetivos:
 
- a. fijar las ideas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones neutrónica discretizadas derivadas en el @sec-esquemas,
- b. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
- c. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
+ 1. fijar las ideas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones neutrónica discretizadas derivadas en el @sec-esquemas,
+ 2. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
+ 3. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
 No buscamos explicar los fundamentos físicos de los modelos matemáticos ni realizar una introducción para el lector lego.
 Para estos casos referimos a las referencias [@enief-2013-cpl; @monografia] escritas por el autor de esta tesis y a la literatura clásica de física de reactores [@henry; @lamarsh; @duderstadt; @glasstone; @lewis; @stammler].
-Si bien gran parte del material aquí expuesto ha sido tomado de estas referencias, hay algunos desarrollos matemáticos propios que ayudan a homogeneizar los diferentes enfoques y nomenclaturas existentes en la literature para poder sentar las bases de los esquemas numéricos implementados en el código de manera consistente.
+Si bien gran parte del material aquí expuesto ha sido tomado de estas referencias, hay algunos desarrollos matemáticos propios que ayudan a homogeneizar los diferentes enfoques y nomenclaturas existentes en los libros de texto para poder sentar las bases de los esquemas numéricos implementados en el código de manera consistente.
 Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de definiciones básicas para arribar a expresiones integro-diferenciales que describen el problema de ingeniería que queremos resolver.
 
 Está claro los desarrolos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por
 mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
- i. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la base de esta tesis, y
- ii. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
+ a. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la propuesta central de esta tesis explicada en la\ @sec-propuesta, y
+ b. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
 
 
 \medskip
 
-Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U$ de tres dimensiones. Más adelante veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.
+Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U \in \mathbb{R}^3$ de tres dimensiones.^[Llegado el caso veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.]
 Para ello, vamos a suponer que [@lewis] 
 ```{=latex}
 \label{siete}
 ```
 
- #. podemos considerar a los neutrones como puntos geométricos
- #. los neutrones viajan en línea recta entre colisiones
- #. las interacciones neutrón-neutrón pueden ser despreciadas
- #. podemos considerar a las colisiones entre neutrones y núcleos como instantáneas
- #. las propiedades de los materiales son isotrópicas
- #. conocemos las propiedades de los núcleos y la composición de los materiales y éstas no dependen del tiempo
- #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus   fluctuaciones estadísticas
+ #. podemos considerar a los neutrones como puntos geométricos,
+ #. los neutrones viajan en línea recta entre colisiones,
+ #. las interacciones neutrón-neutrón pueden ser despreciadas,
+ #. podemos considerar a las colisiones entre neutrones y núcleos como instantáneas,
+ #. las propiedades de los materiales son isotrópicas,
+ #. conocemos las propiedades de los núcleos y la composición de los materiales y éstas no dependen del tiempo, y
+ #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus fluctuaciones estadísticas
 
  
-![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor \in \mathbb{R}^2$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron width=75%}
+![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z]$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron width=75%}
 
 
 En la @fig-neutron ilustramos un neutrón puntual que a un cierto
@@ -1921,7 +1923,7 @@ $$
 \end{gathered}
 $${#eq-fick1}
 
-Para arrivar finalmente a la ecuación de difusión necesitamos tres nuevas suposiciones:
+Para arribar finalmente a la ecuación de difusión necesitamos tres nuevas suposiciones:
 
  i. Que
     

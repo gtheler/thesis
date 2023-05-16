@@ -495,7 +495,7 @@ Sin embargo, esta metodología presenta al menos tres inconvenientes:
 
 Aún cuando es posible que los resultados de ingeniería obtenidos sean suficientemente exactos y precisos, no es posible determinar cuantitativamente dicha exactitud y precisión si no se dispone de un método objetivamente más exacto y preciso contra el cual poder comparar los resultados.
 
-## Las propuestas de esta tesis
+## Las propuestas de esta tesis {#sec-propuestas}
 
 La motivación fundamental de esta tesis parte del tercer punto de la sección anterior y luego continúa subiendo hacia los otros dos puntos, encadenando varias ideas en un mismo hilo conductor: desarrollar una herramienta objetivamente más precisa para poder verificar la precisión y exactitud de las aproximaciones involucradas en cálculos de transitorios neutrónicos a nivel de núcleo.
 
