@@ -55,7 +55,7 @@ Está claro los desarrolos y ecuaciones expuestos en este capítulo son conocido
 mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
- a. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la propuesta central de esta tesis explicada en la\ @sec-propuesta, y
+ a. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la propuesta central de esta tesis explicada en la\ @sec-propuestas, y
  b. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
 
 

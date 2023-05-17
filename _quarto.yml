@@ -103,7 +103,6 @@ format:
           \usepackage{scrlayer-scrpage}
           %\lehead{\leftmark}
           %\rohead{\leftmark}
-          \fecha{Diciembre 2023}
     include-before-body:
       - file: syntax-feenox.tex
       - file: syntax.tex

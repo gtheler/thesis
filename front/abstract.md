@@ -23,6 +23,10 @@ Keywords
 :   {{< meta keywords >}}
 
 
+Revision
+
+:   {{< meta git_hash >}}
+
 :::
 
 

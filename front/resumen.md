@@ -18,6 +18,11 @@ Palabras clave
 
 :   {{< meta palabras_clave >}}
 
+Revisión
+
+:   {{< meta git_hash >}}
+
+
 
 \vspace{1.5cm plus 0.5cm minus 0.5cm}
 
