@@ -17,13 +17,6 @@ had been different from what they are by a factor of two.
 \end{chapterquote}
 ```
 
-```{=latex}
-\newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
-\newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
-% \newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
-% \newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
-```
-
 ::: {.only-in-format .html}
 \newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
 \newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
@@ -37,6 +30,15 @@ had been different from what they are by a factor of two.
 
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\mat}[1]{\mathsf{#1}}
+
+```{=latex}
+% \newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
+% \newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
+
+% \newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
+% \newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
+```
+
 
 En este capítulo introducimos las ecuaciones que modelan el transporte
 de neutrones en el núcleo de un reactor nuclear con los siguientes
