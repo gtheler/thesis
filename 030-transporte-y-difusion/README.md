@@ -17,9 +17,13 @@ had been different from what they are by a factor of two.
 \end{chapterquote}
 ```
 
+\newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
+\newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathsf{#1}}
+
 ::: {.only-in-format .html}
-\newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
-\newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
+<!-- \renewcommand{\symbf}{\mathbf} -->
 \newcommand{\bigint}{\int}
 \newcommand{\bigints}{\int}
 \newcommand{\bigintss}{\int}
@@ -27,17 +31,6 @@ had been different from what they are by a factor of two.
 \newcommand{\hfil}{~}
 \newcommand{\hfill}{~}
 :::
-
-\renewcommand{\vec}[1]{\mathbf{#1}}
-\newcommand{\mat}[1]{\mathsf{#1}}
-
-```{=latex}
-% \newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
-% \newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
-
-% \newcommand{\omegaversor}{\hat{\mathbf{\Omega}}}
-% \newcommand{\omegaprimaversor}{\hat{\mathbf{\Omega}}^\prime}
-```
 
 
 En este capítulo introducimos las ecuaciones que modelan el transporte
@@ -69,16 +62,18 @@ Para ello, vamos a suponer que [@lewis]
 \label{siete}
 ```
 
- #. podemos considerar a los neutrones como puntos geométricos,
+ #. los neutrones son partículas clásicas, es decir, podemos conocer tanto su posición como su momento con precisión arbitraria independientemente del principio de Heisenberg,
  #. los neutrones viajan en línea recta entre colisiones,
- #. las interacciones neutrón-neutrón pueden ser despreciadas,
- #. podemos considerar a las colisiones entre neutrones y núcleos como instantáneas,
- #. las propiedades de los materiales son isotrópicas,
- #. conocemos las propiedades de los núcleos y la composición de los materiales y éstas no dependen del tiempo, y
- #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus fluctuaciones estadísticas
+ #. no existen interacciones neutrón-neutrón,
+ #. la colisión entre un neutrón incidente y un núcleo blanco es instantáneas,
+ #. las propiedades de los materiales son 
+    a. continuas en la posición, es decir, la densidad en un diferencial de volumen es uniforme aún cuando sepamos que los materiales están compuestos por átomos individuales, e
+    b. isotrópicas, es decir, no hay ninguna dirección preferencial,
+ #. las propiedades de los núcleos y la composición isotópica de los materiales no dependen del tiempo, y
+ #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus fluctuaciones estadísticas.
 
  
-![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z]$ en la que viaja y por su energía cinética $E\in\mathbb{R}$](neutron){#fig-neutron width=75%}
+![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z]$ en la que viaja y por su energía cinética $E\in\mathbb{R}$. Asumimos que podemos conocer al mismo tiempo la posición $\vec{x}$ y su velocidad $v\cdot \omegaversor$ con precisión arbitraria independientemente del principio de Heisenberg.](neutron){#fig-neutron width=75%}
 
 
 En la @fig-neutron ilustramos un neutrón puntual que a un cierto
@@ -92,15 +87,14 @@ energía $E=1/2 \cdot m v^2$.
 La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que
 
 $$
-\Sigma_t \cdot dx
+\Sigma_t \cdot ds
 $$
-es la probabilidad de que un neutrón tenga una colisión con el núcleo de algún átomo del material por el que viaja una distancia $dx$ en línea recta. Es decir, la sección eficaz macroscópica es el número de colisiones esperadas por neutrón y por unidad de longitud lineal. Sus unidades son inversa de longitud, es decir m$^{-1}$ o cm$^{-1}$.
+es la probabilidad de que un neutrón tenga una colisión con el núcleo de algún átomo del material por el que viaja a lo largo de una distancia $ds$ en línea recta. Es decir, la sección eficaz macroscópica es el número de colisiones esperadas por neutrón y por unidad de longitud lineal. Sus unidades son inversa de longitud, es decir m$^{-1}$ o cm$^{-1}$.
 :::
 
-Además de referirnos a la sección eficaz (o XS por su terminología en
-inglés) total, podemos particularizar el concepto al tipo de
-reacción $k$, es decir, $\Sigma_k \cdot dx$ es la probabilidad de que un
-neutrón tenga una reacción de tipo $k$ en el intervalo $dx$. En nuestro
+Además de referirnos a la sección eficaz^[En inglés es [*cross section*]{lang=en-US}] total, podemos particularizar el concepto al tipo de
+reacción $k$, es decir, $\Sigma_k \cdot ds$ es la probabilidad de que un
+neutrón tenga una reacción de tipo $k$ en el intervalo $ds$. En nuestro
 caso particular, la reacción genérica $k$ puede ser particularizada según el subíndice a
 
 |  Subíndice  | Reacción
@@ -111,13 +105,10 @@ caso particular, la reacción genérica $k$ puede ser particularizada según el
       $a$     | absorción ($\Sigma_c + \Sigma_f$)
       $s$     | dispersión ([scattering]{lang=en-US})
 
-Las secciones eficaces macroscópicas dependen de la energía del neutrón
-incidente y de las propiedades del medio que provee los núcleos blanco.
-Como éstas dependen del espacio (usualmente a través de otras
-propiedades intermedias como por ejemplo temperaturas, densidades o
-concentraciones de impurezas), en general las secciones eficaces
-macroscópicas son funciones tanto del espacio $\vec{x}$ como de la
-energía $E$, es decir $\Sigma_k = \Sigma_k(\vec{x}, E)$.
+Las secciones eficaces macroscópicas dependen de la energía $E$ del neutrón incidente y de las propiedades del medio que provee los núcleos blanco.
+Como éstas dependen del espacio (usualmente a través de otras propiedades intermedias como por ejemplo temperaturas, densidades o concentraciones de impurezas), en general las secciones eficaces macroscópicas son funciones tanto del espacio $\vec{x}$ como de la energía $E$, es decir $\Sigma_k = \Sigma_k(\vec{x}, E)$.
+En este trabajo no consideramos una dependencia explícita con el tiempo $t$.
+
 
 Una forma de incorporar el concepto de sección eficaz macroscópica es
 pensar que ésta proviene del producto de una sección eficaz
@@ -145,7 +136,7 @@ como el área asociada a un núcleo transversal a la dirección de viaje de
 un neutrón tal que si este neutrón pasara a través de dicha área, se
 llevaría a cabo una reacción de tipo $k$ (@fig-xsmicro).
 Las secciones eficaces microscópicas dependen
-no solamente de las propiedades nucleares de los núcleo blanco sino que
+no solamente de las propiedades nucleares de los núcleos blanco sino que
 también dependen fuertemente de la energía $E$ del neutrón incidente,
 llegando a cambiar varios órdenes de magnitud debido a efectos de
 resonancias como podemos observar en la @fig-sigmas.
@@ -173,8 +164,8 @@ de hidrógeno o deuterio y los de oxígeno no están libres en la molécula
 de agua, que hacen que las secciones eficaces de el todo (i.e. de un
 conjunto de átomos enlazados covalentemente) no sean iguales a la suma
 algebraica de las partes y debamos calcular las secciones eficaces
-macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs y referencia [@methods]). Por otro lado,
-justamente en los reactores nucleares las reacciones que interesan son
+macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs).
+Por otro lado, justamente en los reactores nucleares las reacciones que interesan son
 las que dan como resultado la transmutación de materiales por lo que
 continuamente la densidad atómica $n$ de todos los isótopos varía con el
 tiempo. En este trabajo, no vamos a tratar con la dependencia de las
@@ -183,20 +174,18 @@ caso, como discutimos en la @sec-multiescala, daremos la dependencia implícita
 través de otras propiedades intermedias tales como la evolución del
 quemado del combustible y/o la concentración de xenón 135 en las pastillas de de dióxido de uranio.
 
-A partir de este momento suponemos que conocemos las secciones eficaces
-macroscópicas en función del vector posición $\vec{x}$ para todos los
-problemas que planteamos.
+::: {.remark}
+Si bien la sección eficaz de un material que es combinación de otros no es la combinación lineal de los componentes,
+es cierto que las sumas de secciones eficaces correspondientes a reacciones parciales dan como resultado la sección eficaz de la reacción total. Por ejemplo, $\Sigma_a = \Sigma_c + \Sigma_f$ y $\Sigma_t = \Sigma_a + \Sigma_s$.
+:::
+
+A partir de este momento suponemos que conocemos las secciones eficaces macroscópicas en función del vector posición $\vec{x}$ para todos los
+problemas que planteamos y que éstas no dependen del tiempo $t$.
 
 ### Dispersión de neutrones {#sec-scattering}
 
-Cuando un neutrón que viaja en una cierta dirección $\omegaversor$ con
-una energía $E$ colisiona con un núcleo blanco en una reacción de
-dispersión o [*scattering*]{lang=en-US},^[El término español “dispersión” como traducción del concepto de “[scattering]{lang=en-US}” no es muy feliz. A partir este punto, durante el resto de esta tesis usamos solamente la palabra [*scattering*]{lang=en-US} para referirnos a este concepto.] tanto el neutrón como el núcleo blanco
-intercambian energía. En este caso podemos pensar que luego de la
-colisión, el neutrón incidente se ha transformado en otro neutrón
-emitido en una nueva dirección $\omegaprimaversor$ con una nueva
-energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el
-concepto que sigue.
+Cuando un neutrón que viaja en una cierta dirección $\omegaversor$ con una energía $E$ colisiona con un núcleo blanco en una reacción de
+dispersión o [*scattering*]{lang=en-US},^[El término español “dispersión” como traducción del concepto de “[scattering]{lang=en-US}” no es muy feliz. A partir este punto, durante el resto de esta tesis usamos solamente la palabra [*scattering*]{lang=en-US} para referirnos a este concepto.] tanto el neutrón como el núcleo blanco intercambian energía. En este caso podemos pensar que luego de la colisión, el neutrón incidente se ha transformado en otro neutrón emitido en una nueva dirección $\omegaprimaversor$ con una nueva energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el concepto que sigue.
 
 ::: {#def-sigmasdif}
 La *sección eficaz de [scattering]{lang=en-US} diferencial* $\Sigma_s$ tal que
@@ -204,67 +193,33 @@ La *sección eficaz de [scattering]{lang=en-US} diferencial* $\Sigma_s$ tal que
 $$
 \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime
 $$
-es la probabilidad por unidad de longitud lineal que un neutrón de
-energía $E$ viajando en la dirección $\omegaversor$ sea dispersado hacia
-un intervalo de energía entre $E^\prime$ y $E^\prime + dE^\prime$ y a un
-cono $d\omegaprimaversor$ alrededor de la dirección $\omegaprimaversor$.
+es la probabilidad por unidad de longitud lineal que un neutrón de energía $E$ viajando en la dirección $\omegaversor$ sea dispersado hacia un intervalo de energía entre $E^\prime$ y $E^\prime + dE^\prime$ y a un cono $d\omegaprimaversor$ alrededor de la dirección $\omegaprimaversor$.
 :::
 
-Utilizando argumentos de simetría, podemos demostrar que la sección
-eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto
-interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente
-de $\omegaversor$ y de $\omegaprimaversor$ (@fig-omegamu).
-Entonces podemos escribir la dependencia
-como $\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$
-o como $\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime)$, siempre y
-cuando tengamos en cuenta que
-
-$$
-\int_{4\pi} \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor = 
-\int_{-1}^{+1} \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \, d\mu
-$$
-lo que implica que
-
-$$
-\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = 2\pi \cdot \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
-$$ {#eq-sigmas-mu-omega}
-
-Este abuso de notación es histórico y susceptible de provocar confusiones. Al escribir la probabilidad de scattering de $\omegaversor$
-hacia $\omegaprimaversor$ sólo en función del producto interno $\mu$ estamos teniendo en cuenta todas las posibles direcciones de salida
-tales que $\mu  = \omegaversor \cdot \omegaprimaversor$. Como podemos observar en la @fig-omegamu, esto es $2\pi$ veces la probabilidad de que el neutrón sea dispersado en la dirección $\omegaprimaversor$ solamente.
-En los párrafos siguientes explícitamente diferenciamos uno de otro caso.
+Utilizando argumentos de simetría, podemos demostrar que la sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente de $\omegaversor$ y de $\omegaprimaversor$ (@fig-omegamu).
 
 ![Debido a la simetría azimutal, el [scattering]{lang=en-US} no depende de las direcciones $\omegaversor$ y de $\omegaprimaversor$ en forma separada sino que depende del coseno del ángulo entre ellas $\mu = \omegaversor \cdot \omegaprimaversor$.](omegamu-nice){#fig-omegamu width=60%}
 
-En general podemos separar a la sección eficaz diferencial en una sección eficaz total $\Sigma_{s_t}$ y en una probabilidad de distribución angular y energética $f_s$ tal que
+En general podemos separar a la sección eficaz diferencial (@def-sigmasdif) en una sección eficaz total $\Sigma_{s_t}$ y en una probabilidad de distribución angular y energética $\xi_s$ tal que
 
 $$
- \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \Sigma_{s_t}(\vec{x}, E) \cdot f_s(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
-$$ {#eq-sigmastomega}
-o bien
-
-$$
- \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \Sigma_{s_t}(\vec{x}, E) \cdot f_s(\mu, E \rightarrow E^\prime)
+ \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \Sigma_{s_t}(\vec{x}, E) \cdot \xi_s(\mu, E \rightarrow E^\prime)
 $$ {#eq-sigmastmu}
+donde $\Sigma_{s_t}$ es la sección eficaz macroscópica *total* de [scattering]{lang=en-US}, que da la probabilidad por unidad de longitud de que un neutrón incidente de energía $E$ inicie un proceso de [scattering]{lang=en-US} y la función $\xi_s$ describe la distribución de neutrones emergentes.
 
-En ambos casos, $\Sigma_{s_t}$ es la sección eficaz macroscópica *total* de [scattering]{lang=en-US}, que da la probabilidad por unidad de longitud de que un neutrón de energía $E$ inicie un proceso de [scattering]{lang=en-US}.
-La función $f_s$ describe la distribución de neutrones emergentes. Podemos integrar ambos miembros de las @eq-sigmastomega y @eq-sigmastmu con respecto a $E^\prime$, y a $\omegaprimaversor$ y a $\mu$ respectivamente, y despejar $\Sigma_{s_t}$ para obtener su definición
+Podemos integrar ambos miembros de ls @eq-sigmastmu con respecto a $E^\prime$ y a $\mu$, y despejar $\Sigma_{s_t}$ para obtener su definición
 
 $$
 \Sigma_{s_t}(\vec{x}, E) =
-\frac{\displaystyle \int_{0}^\infty \int_{4\pi} \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime}
-{\displaystyle \int_{0}^\infty \int_{4\pi} f_s(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime} 
-=
 \frac{\displaystyle \int_{0}^\infty \int_{-1}^{+1} \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \, d\mu \, dE^\prime}
-{\displaystyle \int_{0}^\infty \int_{-1}^{+1} f_s(\mu, E \rightarrow E^\prime) \, d\mu \, dE^\prime}
+{\displaystyle \int_{0}^\infty \int_{-1}^{+1} \xi_s(\mu, E \rightarrow E^\prime) \, d\mu \, dE^\prime}
 $$
 
-El denominador es igual a la cantidad de partículas emitidas luego de la reacción, que para el caso del [scattering]{lang=en-US} es igual a uno. Luego
+El denominador tiene que ser igual a uno ya que en la reacción de [scattering]{lang=en-US} el neutrón dispersado tiene que tener alguna dirección $\mu$ y alguna energía $E^\prime$.
+Luego
 
 $$
  \Sigma_{s_t}(\vec{x}, E) =
- \int_{0}^\infty \int_{4\pi} \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime
- =
  \int_{0}^\infty \int_{-1}^{+1} \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \, d\mu \, dE^\prime
 $$ {#eq-sigmast}
 
@@ -344,8 +299,9 @@ $$
 
 
 
-Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ (en realidad de $f_s$ con $\mu$) en la @eq-sigmastomega y/o con $\omegaversor \rightarrow \omegaprimaversor$ en la @eq-sigmastmu es recurrir a una expansión en polinomios de Legendre.
-En efecto, para dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmastmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable, por lo que podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a las mismas ecuaciones finales, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el @sec-implementacion. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. Por ejemplo, la referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendremu.]
+Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ (en realidad de $\xi_s$ con $\mu$) en la @eq-sigmastomega es recurrir a una expansión en polinomios de Legendre.
+En efecto, para una cierta posición $\vec{x}$ y dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmastmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable.
+Entonces que podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a las mismas ecuaciones finales, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el @sec-implementacion. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. Por ejemplo, la referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendremu.]
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\mu)
@@ -357,23 +313,8 @@ $$
 \int_{-1}^{+1} \Sigma_s(\vec{x}, \mu, E\rightarrow E^\prime) \cdot P_\ell(\mu) \, d\mu
 $$ {#eq-coeflegendremu} 
 
-Recordando el abuso de notación de la @eq-sigmas-mu-omega, para la dependencia con $\omegaversor \rightarrow \omegaprimaversor$ tenemos
 
-$$
-\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{4\pi} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\omegaversor \cdot \omegaprimaversor)
-$$ {#eq-sigmalegendreomega}
-
-$$
-\Sigma_{s_\ell}(\vec{x}, E\rightarrow E^{\prime}) =
-2\pi \int_{4\pi} \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E\rightarrow E^\prime) \cdot P_\ell(\omegaversor \cdot \omegaprimaversor) \, d\omegaprimaversor
-$$ {#eq-coeflegendreomega}
-
-
-
-
-
-
-::: {#cor-sigma-s-t}
+::::: {#cor-sigma-s-t}
 La sección eficaz de [scattering]{lang=en-US} total $\Sigma_{s_t}$ sólo depende de $\Sigma_{s_0}$.
 
 ::: {.proof}
@@ -398,7 +339,7 @@ $$
 \end{cases}
 $$
 
-Luego
+Luego la única contribución a la suma infinita diferente de cero es la correspondiente a $\ell=0$
 
 $$
  \Sigma_{s_t}(\vec{x}, E) = 
@@ -407,28 +348,46 @@ $$
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E \rightarrow E^{\prime}) dE^\prime
 $$ {#eq-sigmastys0}
 :::
-:::
+:::::
 
 
-Para fijar ideas, supongamos que tenemos [scattering]{lang=en-US} isotrópico en el
-marco de referencia del laboratorio.^[Como ya dijimos, esta nomenclatura es puramente académica. Una expresión más apropiada según la potencial aplicación industrial de los conceptos desarrollados en esta tesis sería "marco de referencia de *la central nuclear*".]
-Entonces $\Sigma_s$ no dependede $\mu$ y el único término diferente de cero en la @eq-sigmalegendreomega es $\Sigma_{s_0}$ que contiene información sólo sobre el cambio de energía del neutrón con respecto a las condiciones de incidencia:
+Recordando que $\mu = \omegaversor \cdot \omegaprimaversor$, debe cumplirse que
 
 $$
-\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{4\pi} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\omegaversor \cdot \omegaprimaversor)  
-= 
+\int_{4\pi} \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor
+=
+\int_{-1}^{+1} \Sigma_s(\vec{x},\mu, E \rightarrow E^\prime) \, d\mu
+$$ {#eq-isotropico1}
+
+Si tenemos [scattering]{lang=en-US} isotrópico en el marco de referencia del laboratorio,^[Como ya dijimos, esta nomenclatura es puramente académica. Una expresión más apropiada según la potencial aplicación industrial de los conceptos desarrollados en esta tesis sería "marco de referencia de *la central nuclear*".] entonces
+
+ a. el integrando del miembro izquierdo de la @eq-isotropico1 no depende de $\omegaprimaversor$ y puede salir fuera de la integral, y
+ b. $\Sigma_s(\vec{x},\mu, E \rightarrow E^\prime)$ no depende de $\mu$ y el único coeficiente $\Sigma_{s_\ell}$ diferente de cero es el correspondiente a $\ell=0$ con lo que
+
+$$
+\int_{-1}^{+1} \Sigma_s(\vec{x},\mu, E \rightarrow E^\prime) \, d\mu
+=
+\int_{-1}^{+1} \frac{1}{2} \cdot  \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \, d\mu
+=
+\Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
+$$ {#eq-isotropico2}
+
+Reemplazando la @eq-isotropico2 en la @eq-isotropico1 y sacando $\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$ fuera de la integral tenemos
+
+$$
+\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot 4\pi = \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
+$$
+con lo que la sección eficaz diferencial (@def-sigmasdif) para [scattering]{lang=en-US} isotrópico en el sistema del reactor es 
+
+
+$$
+\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
+=
 \frac{1}{4\pi} \cdot \Sigma_{s_0}(\vec{x}, E\rightarrow E^\prime)
 $$ {#eq-sigmas0}
 
-Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e
-isotrópico en el marco de referencia del centro de masa del sistema
-compuesto por el neutrón incidente y el núcleo blanco (condición que se
-da si el blanco está fijo en el marco de referencia del reactor sin
-posibilidad de moverse por efectos térmicos), entonces a cada energía de
-salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a
-través de las leyes clásicas de conservación de energía y momento
-lineal. Para la dependencia en ángulos de entrada y salida [@stammler]
-es
+Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco (condición que se da si el blanco está fijo en el marco de referencia del reactor sin posibilidad de moverse por efectos térmicos), entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
+Siguiendo el desarrollo de la referencia [@stammler], la sección eficaz diferencial es
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) =
@@ -437,31 +396,24 @@ $$
 \hfill 0 \hfil & \text{de otra manera}
 \end{cases}
 $$
-mientras que para la dependencia del coseno del ángulo de [scattering]{lang=en-US} [@lewis] es
-
-$$\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) =
-\begin{cases}
- \displaystyle \Sigma_{s_t}(\vec{x}, E) \cdot \frac{\delta(\mu - \mu_0)}{2\pi(1-\alpha)E}  & \text{para}~\alpha E < E^\prime < E \\
-\hfill 0 \hfil & \text{de otra manera}
-\end{cases}
-$$
 donde ahora $\delta(x)$ es la distribución delta de Dirac (no confundir con la $\delta$ de Kronecker de la @def-kronecker) y
 
 $$
-\begin{aligned}
- \alpha(A) &= \frac{(A-1)^2}{(A+1)^2} \\
- \mu_0(A,E,E^\prime) &= \frac{1}{2} \left[ (A+1)\sqrt{\frac{E^\prime}{E}} - (A-1) \sqrt{\frac{E}{E^\prime}} \right]
-\end{aligned}
+ \alpha(A) = \frac{(A-1)^2}{(A+1)^2}
 $$
-siendo $A$ es el número de masa del núcleo blanco.
-Llamamos a la magnitud $\mu_0$ coseno medio de la dispersión. Esta
-nomenclatura $\mu_0$ es general pero la expresión matemática es
-particular para el caso de [scattering]{lang=en-US} elástico e isotrópico en el marco
-de referencia del centro de masa. En la @eq-mu0 generalizamos la definición para cualquier tipo de
-[scattering]{lang=en-US}.
 
-La expresión para el $\ell$-ésimo coeficiente de la expansión en
-polinomios de Legendre para $\alpha E < E^\prime < E$ según la @eq-coeflegendremu es
+$$
+\mu_0(A,E,E^\prime) = \frac{1}{2} \left[ (A+1)\sqrt{\frac{E^\prime}{E}} - (A-1) \sqrt{\frac{E}{E^\prime}} \right]
+$$ {#eq-mu0-isotropico-com}
+siendo $A$ es el número de masa del núcleo blanco.
+Llamamos a la magnitud $\mu_0$ coseno medio de [scattering]{lang=en-US}.
+
+::: {.remark}
+Esta nomenclatura para $\mu_0$ es general pero la expresión matemática dada por la @eq-mu0-isotropico-com es particular para el caso de [scattering]{lang=en-US} elástico e isotrópico en el marco de referencia del centro de masa.
+En la @eq-mu0 generalizamos la definición para cualquier tipo de [scattering]{lang=en-US}.
+:::
+
+La expresión para el $\ell$-ésimo coeficiente de la expansión en polinomios de Legendre para $\alpha E < E^\prime < E$ según la @eq-coeflegendremu es
 
 $$
 \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^\prime) = \frac{\Sigma_{s_t}(\vec{x}, E)}{(1-\alpha) E} \int_{-1}^{+1} \delta(\mu - \mu_0) \cdot P_\ell(\mu) \, d\mu = \frac{\Sigma_{s_t}(\vec{x}, E) }{(1-\alpha) E} \cdot P_\ell(\mu_0)
@@ -472,7 +424,7 @@ $$\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) =
 \frac{\Sigma_{s_t}(\vec{x},E)}{(1 - \alpha) E} \cdot \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \cdot P_\ell(\mu_0) \cdot P_\ell(\mu)
 $$
 
-Tomando los dos primeros términos, podemos aproximar
+Tomando los dos primeros términos y recordando que $P_1(\mu) = \mu$, podemos aproximar
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \approx
@@ -521,7 +473,7 @@ $$ {#eq-scatteringanisotropico}
 :::
 
 ::: {#def-coseno-medio}
-Definimos el *coseno medio de la dispersión* $\mu_0$ para una ley de dispersión general como
+Definimos el *coseno medio del ángulo de [scattering]{lang=en-US}* $\mu_0$ para una ley de dispersión general como
 
 $$
  \mu_0(\vec{x}, E) =
@@ -533,52 +485,41 @@ $$
 $$ {#eq-mu0}
 :::
 
-En el caso de [scattering]{lang=en-US} general, i.e. no necesariamente isotrópico en
-algún marco de referencia y no necesarimente elástico, debemos conocer o
-bien la dependencia explícita de $\Sigma_s$
-con $\omegaversor \cdot \omegaprimaversor$ (que puede ser aproximada
-mediante evaluaciones discretas) o bien una cierta cantidad de
-coeficientes $\Sigma_{s_\ell}$ de su desarrollo en polinomios de
-Legendre sobre $\mu$. En esta tesis trabajamos a lo más con [scattering]{lang=en-US}
-linealmente anisotrópico, es decir, la sección eficaz diferencial de
-[scattering]{lang=en-US} está dada por la @eq-scatteringanisotropico y suponemos que conocemos
-tanto $\Sigma_{s_0}$ como $\Sigma_{s_1}$ en función del espacio y de los grupos de energías discretizados
-antes de resolver la ecuación de transporte a nivel de núcleo (ver @sec-multiescala).
+En el caso de [scattering]{lang=en-US} general, i.e. no necesariamente isotrópico en algún marco de referencia y no necesarimente elástico, debemos conocer entonces
+
+ a. la dependencia explícita de $\Sigma_s$ con $\omegaversor \cdot \omegaprimaversor$ (que puede ser aproximada
+mediante evaluaciones discretas), o
+ b. una cierta cantidad de coeficientes $\Sigma_{s_\ell}$ de su desarrollo en polinomios de Legendre sobre $\mu$.
+ 
+En esta tesis trabajamos a lo más con [scattering]{lang=en-US} linealmente anisotrópico.
+Esto es, suponemos que la sección eficaz diferencial de [scattering]{lang=en-US} está dada por la @eq-scatteringanisotropico y suponemos que conocemos tanto $\Sigma_{s_0}$ como $\Sigma_{s_1}$ en función del espacio y de los grupos de energías discretizados antes de resolver la ecuación de transporte a nivel de núcleo (ver @sec-multiescala).
 
 ### Fisión de neutrones {#sec-fision}
 
-Cuando un núcleo pesado se fisiona en dos núcleos más pequeños, ya sea
-debido a una fisión espontánea o a una fisión inducida por la absorción
-de un neutrón, se liberan además de los productos de fisión propiamente
-dichos y radiación $\gamma$ debida al reacomodamiento de los niveles
-energéticos de los nucleones que intervienen en la reacción, entre dos y
-tres neutrones. Llamamos $\nu(\vec{x}, E)$ a la cantidad promedio de
-neutrones liberados por cada fisión.
-El valor numérico de $2 < \nu < 3$ depende de la
-energía $E$ del neutrón incidente y de la composición del material
-combustible el punto $\vec{x}$.
+Cuando un núcleo pesado se fisiona en dos núcleos más pequeños, ya sea debido a una fisión espontánea o a una fisión inducida por la absorción
+de un neutrón, se liberan además de los productos de fisión propiamente dichos y radiación $\gamma$ debida al reacomodamiento de los niveles
+energéticos de los nucleones que intervienen en la reacción, entre dos y tres neutrones.
+Llamamos $\nu(\vec{x}, E)$ a la cantidad promedio de neutrones liberados por cada fisión.
+El valor numérico de $2 < \nu < 3$ depende de la energía $E$ del neutrón incidente y de la composición del material combustible el punto $\vec{x}$.
 
-Como ahora se emite más de un neutrón, utilizamos la
-nomenclatura $\nu\Sigma_f$ para indicar, en el sentido de la @eq-sigmastomega
-de la sección anterior, la sección eficaz
-diferencial como un producto de una sección eficaz total y una
-distribución angular
+Tal como hicimos en la sección @sec-scattering, separamos la probabilidad $\Sigma_f$ de que un neutrón incidente de energía $E$ produzca una fisión unidad de longitud de viaje colisionando con un núcleo blanco en la posición $\vec{x}$ en una sección eficaz total $\Sigma_{f_t}$ y una distribución $\xi_f$ en ángulo y energía cada uno de los neutrones nacidos por la fisión
 
 $$
-\nu\Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \nu\Sigma_{f_t}(\vec{x}, E) \cdot f_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
+\Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
+=
+\Sigma_{f_t}(\vec{x}, E) \cdot \xi_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
 $$
 
 La distribución en energía de los neutrones nacidos por fisión está dada
 por el espectro de fisión $\chi$, que definimos a continuación.
 
 ::: {#def-chi}
-El *espectro de fisión* $\chi(E)$ es talque
+El *espectro de fisión* $\chi(E)$ es tal que
 
 $$
 \chi(E) \, dE
 $$
-es la probabilidad de que un neutrón nacido en una
-fisión lo haga con una energía dentro del intervalo $[E,E+dE]$.
+es la probabilidad de que un neutrón nacido en una fisión lo haga con una energía dentro del intervalo $[E,E+dE]$.
 El espectro de fisión está normalizado de forma tal que
 
 $$
@@ -586,40 +527,39 @@ $$
 $$ {#eq-chinorm}
 :::
 
-Los neutrones de fisión nacen isotrópicamente en el marco de referencia
-del reactor independientemente de la energía $E$ del neutrón incidente
-que la provocó (decimos que los neutrones de fisión no tienen *memoria*)
-y además la energía $E^\prime$ con la que emergen tampoco depende de la
-energía del $E$ neutrón incidente. Luego $f_f$ no depende ni
-de $\omegaversor$ ni de $\omegaprimaversor$ y podemos separar la
-función $f_t$ en una cierta dependencia de $E$ multiplicada
-por $\chi(E^\prime)$
+Experimentalmente se encuentra que los neutrones de fisión nacen isotrópicamente en el marco de referencia del reactor independientemente de la energía $E$ del neutrón incidente que la provocó.
+Además, la energía $E^\prime$ con la que emergen tampoco depende de la energía del $E$ neutrón incidente.
+Luego $\xi_f$ no depende ni de $\omegaversor$ ni de $\omegaprimaversor$ y podemos separarla en una cierta dependencia de $\Xi(E)$ que da la probabilidad de generar una fisión, multiplicada por el espectro de fisión $\chi(E^\prime)$:
 
 $$
-f_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = A(E) \cdot \chi(E^\prime)
+\xi_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \Xi(E) \cdot \chi(E^\prime)
 $$
 
-Como la integral de $f_f$ sobre todas las posibles energías $E^\prime$ y
-ángulos $\omegaprimaversor$ debe ser igual a la cantidad $\nu$ de
-neutrones emitidos entonces
+Como cada neutrón nacido por fisión tiene que tener alguna dirección de vuelo $\omegaprimaversor$ y alguna energía $E^\prime$, entonces la integral de $\xi_f$ sobre todas las posibles energías $E^\prime$ y ángulos $\omegaprimaversor$ debe ser igual a uno.
+Entonces
 
 $$
-\nu(E) = \int_0^\infty \int_{4\pi} f_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime =
-A(E) \cdot \int_0^\infty \int_{4\pi} \chi(E^\prime) \, d\omegaprimaversor \, dE^\prime
+\int_0^\infty \int_{4\pi} \xi_f(\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime =
+\Xi(E) \cdot \int_0^\infty \int_{4\pi} \chi(E^\prime) \, d\omegaprimaversor \, dE^\prime = 1
 $$
 
 Teniendo en cuenta la normalización de $\chi$ dada por la @eq-chinorm, resulta
 
 $$
-A(E) = \frac{\nu(E)}{4\pi}
+\Xi(E) = \frac{1}{4\pi}
 $$
 por lo que
 
 $$
-\nu\Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \frac{\chi(E^\prime)}{4\pi} \cdot \nu\Sigma_{f_t}(\vec{x}, E)
+\Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \frac{\chi(E^\prime)}{4\pi} \cdot \Sigma_{f_t}(\vec{x}, E)
 $$ {#eq-nusigmaf}
 
-\medskip
+
+::: {.remark}
+
+Dado que [en la página~\pageref{siete}]{=latex} hemos supuesto que la población neutrónica es igual al valor medio de la distribución naturalmente estocástica de los neutrones, desde el punto de vista del desarrollo matemático cada neutrón que produce una fisión genera exactamente $\nu(\vec{x},E)$ neutrones de fisión. Como la dependencia de $\nu$ es la misma que la de sección eficaz total de fisión $\Sigma_{f_t}$ entonces englobamos el producto $\nu\cdot\Sigma_f$ como una única función $\nu\Sigma_f(\vec{x},E)$.
+:::
+
 
 Durante la operación de un reactor, no todos los neutrones provenientes de la fisión aparecen en el mismo instante en el que se produce.
 Una cierta fracción $\beta$ de todos los neutrones son producto del decaimiento radioactivo de
@@ -627,10 +567,10 @@ Una cierta fracción $\beta$ de todos los neutrones son producto del decaimient
  a. los productos de fisión, o
  b. de los hijos de los productos de fisión.
  
-En cualquier caso, en cálculos transitorios es necesario distinguir entre la fracción $1-\beta$ de neutrones instantáneos^[En el sentido del inglés ([*prompt*]{lang=en-US})) que aparecen en el mismo momento de la fisión y la fracción $\beta$ de neutrones retardados que aparecen más adelante.
+En cualquier caso, en cálculos transitorios es necesario distinguir entre la fracción $1-\beta$ de neutrones instantáneos^[En el sentido del inglés ([*prompt*]{lang=en-US}).] que aparecen en el mismo momento de la fisión y la fracción $\beta$ de neutrones retardados que aparecen más adelante.
 Para ello dividimos a los neutrones retardados en $I$ grupos, les asignamos una fracción $\beta_i$ y una constante de tiempo $\lambda_i$, para $i=1,\dots,N$ y definimos un mecanismo de aparición exponencial para cada uno de ellos.
 
-Como discutimos en la @sec-problemas-steady-state, en cálculos estacionarios no es necesario realizar esta división entre neutrones instantáneos y retardados ya que eventualmente todos los neutrones estarán contribuyendo a la reactividad neta del reactor.
+Como discutimos más adelante en la @sec-problemas-steady-state, en cálculos estacionarios no es necesario realizar esta división entre neutrones instantáneos y retardados ya que eventualmente todos los neutrones estarán contribuyendo a la reactividad neta del reactor.
 En el caso particular en el que no haya una fuente externa de neutrones sino que todas las fuentes se deban a fisiones la probabilidad de que el
 reactor esté exactamente crítico es cero.
 Para poder realizar cálculos estacionarios y además tener una idea de la distancia a la criticidad debemos recurrir a un reactor crítico asociado, cuya forma más usual es el *reactor crítico asociado en $k$* introducido más adelante en la @def-keff.
@@ -642,28 +582,14 @@ El problema central del cálculo de reactores es la determinación de la distrib
 un rector nuclear. En esta sección desarrollamos la matemática para el caso de $\vec{x} \in \mathbb{R}^3$. En casos particulares aclaramos cómo
 debemos proceder para problemas en una y en dos dimensiones.
 
-Comenzamos con las siguientes definiciones.
-
 ::: {#def-N}
-La *distribución de densidad de neutrones* $N$
-en un espacio de las fases de siete
-dimensiones $\vec{x} \in \mathbb{R}^3$, $\omegaversor \in \mathbb{R}^2$,^[Si bien la
-dirección $\omegaversor = [ \Omega_x \, \Omega_y \, \Omega_z]^T$
-tiene tres componentes llamados *cosenos dirección*, sólo dos son independientes (por ejemplo las
- coordenadas angulares cenital $\theta$ y azimutal $\varphi$) ya que
- debe cumplirse que $\Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$.]
-$E \in \mathbb{R}$ y $t \in \mathbb{R}$ tal que
+La *distribución de densidad de neutrones* $N$ en un espacio de las fases de siete dimensiones $\vec{x} \in \mathbb{R}^3$, $\omegaversor \in \mathbb{R}^2$,^[Si bien la dirección $\omegaversor = [ \Omega_x \, \Omega_y \, \Omega_z]^T$ tiene tres componentes llamados *cosenos dirección*, sólo dos son independientes (por ejemplo las  coordenadas angulares cenital $\theta$ y azimutal $\varphi$) ya que  debe cumplirse que $\Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$.] $E \in \mathbb{R}$ y $t \in \mathbb{R}$ tal que
 
 $$
 N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE
 $$
 
-es el número de neutrones (en el sentido de la media estadística dada la
-naturaleza estocástica del comportamiento de los neutrones) en un
-elemento volumétrico $d^3\vec{x}$ ubicado alrededor del punto $\vec{x}$
-del espacio viajando en el cono de direcciones de
-magnitud $d\omegaversor$ alrededor de la dirección $\omegaversor$ con
-energías entre $E$ y $E+dE$ en el tiempo $t$.
+es el número de neutrones (en el sentido de la media estadística dada la naturaleza probabilística del comportamiento de los neutrones) en un elemento volumétrico $d^3\vec{x}$ ubicado alrededor del punto $\vec{x}$ del espacio viajando en el cono de direcciones de magnitud $d\omegaversor$ alrededor de la dirección $\omegaversor$ con energías entre $E$ y $E+dE$ en el tiempo $t$.^[Como ya hemos mencionado, ignoramos el principio de Heisenberg.]
 :::
 
 ::: {#def-flujoangular}
@@ -675,76 +601,66 @@ $$
 &= \sqrt{\frac{2E}{m}} \cdot N(\vec{x}, \omegaversor, E, t) 
 \end{aligned}
 $$ {#eq-flujoangular}
-donde $v(E)$ es la velocidad clásica correspondiente a un neutrón de masa $m$ cuya energía cinética es $E$.
+donde $v(E)$ es la velocidad clásica correspondiente a un neutrón de masa $m$ cuya energía cinética es $E = 1/2 \cdot mv^2$.
 ::: 
 
-Esta magnitud es más útil para evaluar ritmos de colisiones y reacciones
-que la densidad de neutrones $N$. En efecto, como $v \cdot dt$ es la
-distancia que viaja un neutrón de velocidad $v$, entonces
+Esta magnitud es más útil para evaluar ritmos de colisiones y reacciones que la densidad de neutrones $N$.
+En efecto, como $v \cdot dt$ es la distancia lineal $ds$ que viaja un neutrón de velocidad $v$, entonces
 
 $$
 \psi(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE \, dt = v(E) \cdot N(\vec{x}, \omegaversor, E, t) \, dt \,\,\, d^3\vec{x} \, d\omegaversor \, dE
 $$
-es el número total de longitudes lineales que los neutrones han viajado
-en la dirección $\omegaversor$ con energía $E$ que estaban en el
-tiempo $t$ en la posición $\vec{x}$. Como además $\Sigma_k \cdot dx$ es
-la probabilidad de que un nuetrón tenga una reacción de tipo $k$ en el
-intervalo $dx$ (#def-sigma), entonces la expresión
+es el número total de longitudes lineales que los neutrones han viajado sobre un cono $d\omegaversor$ alrededor de la dirección $\omegaversor$ con energía en el intervalo $[E, E+dE]$ que estaban en un intervalo de tiempo $[t,t+dt]$ en un diferencial de volumen $d^3\vec{x}$ en la posición $\vec{x}$.
+Como además $\Sigma_k \cdot ds$ es la probabilidad de que un neutrón tenga una reacción de tipo $k$ durante la distancia lineal de vuelo $ds$ (@def-sigmat), entonces la expresión
 
 $$
-\Sigma_k(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE
+\Sigma_k(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE \, dt
 $$
-es el número de reacciones de tipo $k$ en el diferencial de volumen de
-fases $d^3\vec{x} \, d\omegaversor \, dE$ debido a neutrones de
-energía $E$ viajando en la dirección $\omegaversor$ en el
-punto $\vec{x}$ del espacio en el instante $t$.
-Para obtener el número
-total de reacciones de todos los neutrones independientemente de la
-dirección $\omegaversor$ del neutrón incidente debemos integrar esta
-cantidad sobre todos los posibles ángulos de incidencia. Para ello
-utilizamos el siguiente concepto.
+es el número de reacciones de tipo $k$ en el diferencial de volumen de fases $d^3\vec{x} \, d\omegaversor \, dE \, dt$.
+
+Para obtener el número total de reacciones de todos los neutrones independientemente de la dirección $\omegaversor$ del neutrón incidente debemos integrar esta cantidad sobre todos los posibles ángulos de incidencia. Para ello utilizamos el concepto que sigue.
 
 ::: {#def-flujoescalar}
-El *flujo escalar* $\phi$ es la integral del flujo angular sobre todas las posibles direcciones de
-viaje de los neutrones:
+El *flujo escalar* $\phi$ es la integral del flujo angular sobre todas las posibles direcciones de viaje de los neutrones:
 
 $$
 \phi(\vec{x}, E, t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor
 $$ {#eq-flujoescalar}
 :::
 
-Con esta nomenclatura, el ritmo $R_k$ de reacciones de tipo $k$
-en $d^3\vec{x}\,dE$ es
+Con esta nomenclatura, el ritmo $R_k$ de reacciones de tipo $k$ por unidad de tiempo en $d^3\vec{x}\,dE$ es
 
-$$R_k (\vec{x}, E, t) \, d^3\vec{x} \, dE = \Sigma_k(\vec{x}, E) \cdot \phi(\vec{x}, E, t) \, d^3\vec{x} \, dE$$
-con lo que el producto $R_t = \Sigma_t \phi$ da una expresión simple
-para la distribución del ritmo de reacciones totales por unidad de
-volúmen y de energía, que es lo que buscábamos al introducir las ideas
-de flujo escalar y flujo angular.
+$$
+R_k (\vec{x}, E, t) \, d^3\vec{x} \, dE = \Sigma_k(\vec{x}, E) \cdot \phi(\vec{x}, E, t) \, d^3\vec{x} \, dE
+$$
+con lo que el producto $R_t = \Sigma_t \phi$ da una expresión simple para la distribución del ritmo de reacciones totales por unidad de
+volúmen y de energía, que es lo que buscábamos al introducir las ideas de flujo angular $\psi$ y de flujo escalar $\phi$.
 
 ::: {#def-corriente}
-El *vector corriente* $\vec{J}$
-es la integral del producto entre el flujo angular y el versor de
-dirección de viaje de los neutrones $\omegaversor$ sobre todas las
-direcciones de viaje:
+El *vector corriente* $\vec{J}$ es la integral del producto entre el flujo angular y el versor de dirección de viaje de los neutrones $\omegaversor$ sobre todas las direcciones de viaje:
 
 $$
 \vec{J}(\vec{x},E,t) = \int_{4\pi} \left[ \psi(\vec{x}, \omegaversor, E, t) \cdot \omegaversor \right] \, d\omegaversor
 $$
 :::
 
-Debemos notar que es ésta una cantidad vectorial ya el integrando es un
-vector cuya magnitud es igual al flujo angular y cuya dirección es la
-del versor $\omegaversor$ sobre el cual estamos integrando. El producto
-escalar entre el vector corriente $\vec{J}$ y un cierto versor
-espacial $\hat{\vec{n}}$
+::: {.remark}
+La corriente es una cantidad vectorial ya que el integrando es un vector cuya magnitud es igual al flujo angular y cuya dirección es la
+del versor $\omegaversor$ sobre el cual estamos integrando.
+:::
+
+
+::: {.remark}
+El producto escalar entre el vector corriente $\vec{J}$ y un cierto versor espacial $\hat{\vec{n}}$
 
 $$
  J_n(\vec{x}, E, t) = \hat{\vec{n}} \cdot \vec{J}(\vec{x}, E, t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \cdot \left( \omegaversor \cdot \hat{\vec{n}} \right) \, d\omegaversor
 $$ {#eq-jn}
-da el número neto de neutrones que cruzan un área unitaria perpendicular
-a $\hat{\vec{n}}$ en la dirección positiva (@fig-normal}. Este número neto es la resta
-de dos contribuciones
+es ahora un escalar que da el número neto de neutrones que cruzan un área unitaria perpendicular a $\hat{\vec{n}}$ en la dirección positiva (@fig-normal).
+:::
+
+::: {.remark}
+La cantidad $J_n$ es la resta de dos contribuciones
 
 $$
 J_n(\vec{x}, E, t) = J_n^+(\vec{x}, E, t) - J_n^-(\vec{x}, E, t)
@@ -753,12 +669,13 @@ donde
 
 $$
 \begin{aligned}
- J_n^+(\vec{x},E,t) &= \int_{\omegaversor \cdot \hat{\vec{n}} > 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor \\
-\ J_n^-(\vec{x},E,t) &= \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor
+ J_n^+(\vec{x},E,t) &= + \int_{\omegaversor \cdot \hat{\vec{n}} > 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor \\
+ J_n^-(\vec{x},E,t) &= - \int_{\omegaversor \cdot \hat{\vec{n}} < 0} \psi(\vec{x}, \omegaversor, E, t) \left(\omegaversor \cdot \hat{\vec{n}}\right) d\omegaversor
 \end{aligned}
 $$ {#eq-jnegativa}
+:::
 
-![Interpretación del producto del vector corriente con el vector normal a una superficie como el número neto de neutrones que cruzan un área unitaria.](normal){#fig-normal width=50%}
+![Interpretación del producto del vector corriente $\vec{J}$ con el vector normal $\hat{\vec{n}}$ a una superficie como el número neto de neutrones que cruzan un área unitaria.](normal){#fig-normal width=50%}
 
 ## Transporte de neutrones
 
@@ -1531,7 +1448,7 @@ $${#eq-conservacion}
 
 ::: {.remark}
 La @eq-conservacion refleja la conservación del momento de orden cero del flujo angular $\psi$ de neutrones con respecto a las direcciones $\omegaversor$, es decir la conservación de neutrones totales.
-Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo.
+Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo [en la página~\pageref{siete}]{=latex}.
 :::
 
 #### Producciones
@@ -2207,23 +2124,23 @@ En el capítulo siguiente vamos a reordenar términos y a discretizar el problem
 algebraicas lineales que puede ser escrito en forma matricial como
 
 $$
-A \vec{u} = \vec{b}
+\mat{A} \vec{u} = \vec{b}
 $$ {#eq-Aub}
 donde
 
  * $\vec{u}$ es un vector de tamaño $N$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizados (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
- * $A \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
+ * $\mat{A} \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
  * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
  * $N$ es el tamaño del problema discretizado, que es el producto de 
    1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos)
    2. la cantidad de grupos de energía
    3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
 
-La información sobre...
+La información sobre...´
 
- * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $A$.
+ * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $\mat{A}$.
  * las fuentes independientes y las condiciones de contorno de Neumann no homogéneas están incluidas en el vector $\vec{b}$.
- * el resto de las condiciones de contorno está repartida entre $A$ y $\vec{b}$.
+ * el resto de las condiciones de contorno está repartida entre $\mat{A}$ y $\vec{b}$.
  
 El vector $\vec{u} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretizacón espacial. En esta tesis utilizamos elementos finitos para discretizar los operadores diferenciales espaciales y el método de ordenadas discretas para evaluar la dependencia del flujo angular $\psi$ con la dirección $\omegaversor$.
@@ -2240,14 +2157,14 @@ para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}
 Este tipo de problemas usualmente se resuelven con esquemas tipo Newton @petsc-user-ref, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}] $\vec{u}_0$
 
 $$
-\vec{u}_{k+1} = \vec{u}_k - A(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
+\vec{u}_{k+1} = \vec{u}_k - \mat{A}(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
 $$
-para los pasos $k=0,1,\dots$, donde $A$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $A$ del problema lineal de la @eq-Aub.
+para los pasos $k=0,1,\dots$, donde $\mat{A}$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $\mat{A}$ del problema lineal de la @eq-Aub.
 
-Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $A^{-1}$.
+Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{A}^{-1}$.
 En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
 
- 1. Resolver $A(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
+ 1. Resolver $\mat{A}(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
  2. Actualizar $\vec{u}_{k+1} \leftarrow \vec{u}_k + \Delta \vec{u}_k$
 
 Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
@@ -2259,7 +2176,7 @@ Si además de contar con fuentes independientes de fisión el medio contiene mat
 tanto de las fuentes como de las fisiones.
 En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar en $\vec{x}$.
 En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
-Si bien solamente una fracción $\beta$ de todos los netrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones prompt y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
+Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
 La fuente de fisión para un medio multiplicativo con fuente independiente por unidad de ángulo sólido, recordando que la fisión es isotrópica, es
 
 $$
@@ -2290,7 +2207,7 @@ $$
 \end{gathered}
 $$
 
-El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $A$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\vec{u}$.
+El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\vec{u}$.
 Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
 ### Medio multiplicativo sin fuentes independientes
@@ -2375,10 +2292,10 @@ Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1
 Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
 
 $$
-A \vec{u} = \lambda B \vec{u}
+\mat{A} \vec{u} = \lambda \mat{B} \vec{u}
 $$ {#eq-eigen}
 conformando un problema de autovalores generalizado, donde el autovalor $\lambda$ dará una idea de la criticidad del reactor y el autovector $\vec{u}$ la distribución de flujo del reactor crítico asociado en $k$.
-Si $B$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si $A$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
+Si $\mat{B}$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si ${A}$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
 
 En general, para matrices de $N \times N$ habrá $N$ pares autovalor-autovector.
 Más aún, tanto el autovalor $\lambda_n$ como los elementos del autovector $\vec{u}_n$ en general serán complejos.
@@ -2407,18 +2324,18 @@ térmica total $P$ del reactor y se normaliza el flujo de forma tal que
 Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
 
 $$
-A(\vec{u}) \cdot \vec{u} = \lambda B(\vec{u}) \cdot \vec{u}
+\mat{A}(\vec{u}) \cdot \vec{u} = \lambda \mat{B}(\vec{u}) \cdot \vec{u}
 $$
 
-Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}), no son aplicables.
+Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}$), no son aplicables.
 
 En el caso no lineal resolvemos iterativamente
 
 $$
-A(\vec{u}_k) \cdot \vec{u}_{k+1} = \lambda_{k+1}~ B(\vec{u}_k) \cdot \vec{u}_{k+1}
+\mat{A}(\vec{u}_k) \cdot \vec{u}_{k+1} = \lambda_{k+1}~\mat{B}(\vec{u}_k) \cdot \vec{u}_{k+1}
 $$ {#eq-eigen-it}
 a partir de una solución inicial $\vec{u}_0$.
-En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $A$ y $B$ con $\vec{u}$ y no hay niguna constante multiplicativa arbitraria.
+En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\vec{u}$ y no hay niguna constante multiplicativa arbitraria.
 
 ## Esquema de solución multi-escala {#sec-multiescala}
 
