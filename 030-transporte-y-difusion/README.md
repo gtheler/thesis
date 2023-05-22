@@ -688,61 +688,90 @@ Habiendo introducido los conceptos básicos de “contabilidad” de neutrones, 
 
 ### Operador de transporte
 
-Consideremos un volumen finito $V\in \mathbb{R}^3$ arbitrario fijo en el
-espacio y consideremos ahora otro
-volumen $V^{\prime}(t)\in \mathbb{R}^3$ que se mueve en una
-dirección $\omegaversor$ con una velocidad $v(E)$ correspondiente a una energía $E = 1/2 \cdot m v^2$ de un neutrón de masa $m$, de tal manera que en el instante $t$ ambos volúmenes coinciden. En ese momento, la cantidad de neutrones con dirección $\omegaversor$ en torno al cono definido por $d\omegaversor$ y con energías entre $E$ y $E+dE$ en el volumen $V \equiv V^{\prime}(t)$ es
+Consideremos un volumen finito $U\in \mathbb{R}^3$ arbitrario fijo en el espacio y consideremos ahora otro volumen $U^{\prime}(t)\in \mathbb{R}^3$ que se mueve en una dirección fija $\omegaversor$ con una velocidad constante $v(E)$ correspondiente a una energía $E = 1/2 \cdot m v^2$ de un neutrón de masa $m$, de tal manera que en el instante $t$ ambos volúmenes coincidan. En ese momento, la cantidad de neutrones con dirección $\omegaversor$ en torno al cono definido por $d\omegaversor$ y con energías entre $E$ y $E+dE$ en el volumen $U \equiv U^{\prime}(t)$ es
 
 $$
- N_V(\omegaversor, E, t) \, d\omegaversor \, dE = \left[ \int_{V \equiv V^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right] \, d\omegaversor \, dE
+ N_U(\omegaversor, E, t) \, d\omegaversor \, dE = \left[ \int_{U \equiv U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right] \, d\omegaversor \, dE
 $$ {#eq-nv}
 
-Dado que la posición del dominio de integración cambia con el tiempo, la
-derivada total de esta magnitud con respecto al tiempo es la suma de una
-derivada parcial y una derivada material:
+Dado que la posición del dominio de integración cambia con el tiempo, la derivada total de esta magnitud con respecto al tiempo es la suma de una derivada parcial y una derivada material:
 
 $$
- \frac{dN_V}{dt} = \frac{\partial N_V}{\partial t} +
-\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{V^{\prime}(t+\Delta t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  - \int_{V^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right]
+ \frac{dN_U}{dt} = \frac{\partial N_U}{\partial t} +
+\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{U^{\prime}(t+\Delta t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  - \int_{U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right]
 $$ {#eq-integral_dos_dominios}
 
 Notamos que
 
 $$
-\lim_{\Delta t \rightarrow 0} V^{\prime}(t+\Delta t) = V^{\prime}(t) + v(E) \omegaversor \cdot \Delta t
+\lim_{\Delta t \rightarrow 0} U^{\prime}(t+\Delta t) = U^{\prime}(t) + v(E) \cdot \omegaversor \cdot \Delta t
 $$
-para cada punto $\vec{x} \in V^{\prime}(t)$. Además, como ni $v(E)$
-ni $\hat{\Omega}_i$ para $i=x,y,z$ dependen de $\vec{x}$, entonces
-
-$$
-\frac{\partial}{\partial x_i} \Big[ x_i + v(E) \, \hat{\Omega}_i \cdot \Delta t \Big] = 1
-$$
-y podemos hacer un cambio de coordenadas unitario en la @eq-integral_dos_dominios para que el dominio de integración
-de la primera integral coincida entonces con el de la segunda y obtener así
-
-$$\frac{dN_V}{dt} =  \frac{\partial N_V}{\partial t} +
-\int_{V^{\prime}(t)} \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ N(\vec{x} + v(E)\omegaversor \cdot \Delta t, \omegaversor, E, t) - N(\vec{x}, \omegaversor, E, t) \right]  \, d^3\vec{x}$$
-
-El término entre corchetes es igual a $v(E)$ veces la derivada
-espacial de la función $N(\vec{x}, \omegaversor, E, t)$ en la
-dirección $\omegaversor$. Entonces resulta
+para cada punto $\vec{x} \in U^{\prime}(t)$. Además, como ni $v(E)$ ni $\hat{\Omega}_i$ dependen de $\vec{x}$ ya que la velocidad es constante y la dirección está fija, entonces el cambio de coordendas
 
 $$
-\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ N(\vec{x} + v(E)\omegaversor \cdot \Delta t, \omegaversor, E) - N(\vec{x}, \omegaversor, E)\right] \, d^3\vec{x}  = v(E) \left\{ \omegaversor \cdot \text{grad} \left[N(\vec{x}, \omegaversor, E)\right] \right\}
+\vec{x}^\prime = \vec{x} + v(E) \cdot \omegaversor \cdot \Delta t
 $$
 
-
-Como $V^{\prime}(t) \equiv V$ entonces podemos escribir la derivada total
-de la cantidad de neutrones en $V$ con respecto al tiempo como
+es unitario ya que
 
 $$
-\frac{dN_V}{dt} = \frac{\partial N_V}{\partial t} + v(E) \left\{ \int_{V} \omegaversor \cdot \text{grad} \left[ N(\vec{x}, \omegaversor, E, t) \right]  d^3\vec{x} \right\}
+\begin{aligned}
+\frac{\partial}{\partial x} \Big[ x + v(E) \, \hat{\Omega}_x \cdot \Delta t \Big] &= 1 \\
+\frac{\partial}{\partial y} \Big[ y + v(E) \, \hat{\Omega}_y \cdot \Delta t \Big] &= 1 \\
+\frac{\partial}{\partial z} \Big[ z + v(E) \, \hat{\Omega}_z \cdot \Delta t \Big] &= 1
+\end{aligned}
+$$
+y entonces podemos hacer que el dominio de integración de ambas integrales de la @eq-integral_dos_dominios coincidan haciendo
+
+$$
+\begin{aligned}
+ \frac{dN_U}{dt} &=
+ \frac{\partial N_U}{\partial t} +
+\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{U^{\prime}(t)} N(\vec{x}^\prime, \omegaversor, E, t) \, d^3\vec{x}  - \int_{U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right] \\
+&=
+ \frac{\partial N_U}{\partial t} +
+\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{U^{\prime}(t)} N(\vec{x} + v(E) \cdot \omegaversor \cdot \Delta t, \omegaversor, E, t) - N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right] \\
+\end{aligned}
 $$
 
-Teniendo en cuenta la @eq-nv
+El segundo término del miembro derecho es igual a $v(E)$ veces la derivada espacial direccional de la función $N(\vec{x}, \omegaversor, E, t)$ en la dirección $\omegaversor$.
+En efecto, para $\omegaversor$, $E$ y $t$ fijos,
 
 $$
- N_V(\omegaversor, E, t) = \int_{V \equiv V^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}
+\begin{gathered}
+\lim_{\Delta t \rightarrow 0}
+N(x + v\cdot\Omega_x\cdot \Delta t, y + v\cdot\Omega_y\cdot \Delta t, z + v\cdot\Omega_y\cdot \Delta t) 
+= \\
+\lim_{\Delta t \rightarrow 0}
+N(x,y,z) +
+\frac{\partial N}{\partial x} \cdot v \cdot \Omega_x \cdot \Delta t +
+\frac{\partial N}{\partial y} \cdot v \cdot \Omega_y \cdot \Delta t +
+\frac{\partial N}{\partial z} \cdot v \cdot \Omega_z \cdot \Delta t
+\end{gathered}
+$$
+
+Reordenando términos y diviendo por $\Delta t$
+
+$$
+\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} 
+\left[
+N(\vec{x} + v \cdot \omegaversor \cdot \Delta t) 
+-
+N(\vec{x})
+\right] =
+\text{grad}\left[N(\vec{x})\right] \cdot v \cdot \omegaversor
+$$
+
+Como $U^{\prime}(t) \equiv U$ entonces podemos escribir la derivada total de la cantidad de neutrones en $U$ con respecto al tiempo como
+
+$$
+\frac{dN_U}{dt} = \frac{\partial N_U}{\partial t} + \int_{U} \omegaversor \cdot v(E) \cdot \text{grad} \left[ N(\vec{x}, \omegaversor, E, t) \right]  d^3\vec{x}
+$$
+
+Teniendo en cuenta la @eq-nv,
+
+$$
+N_U(\omegaversor, E, t) = \int_{U \equiv U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}
 $$
 y la @def-flujoangular de flujo angular $\psi$
 
@@ -753,9 +782,9 @@ $$
 tenemos
 
 $$
-\frac{d}{dt} \int_{V} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  = \int_{V} \left\{ \frac{1}{v(E)} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \right\}  d^3\vec{x}
+\frac{d}{dt} \int_{U} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  = \int_{U} \left\{ \frac{1}{v(E)} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \right\}  d^3\vec{x}
 $$
-donde notamos que el gradiente opera sólo sobre las componentes espaciales, es decir
+donde notamos que el operador gradiente se aplica sólo sobre las componentes espaciales, es decir
 
 $$
 \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] =
@@ -765,6 +794,10 @@ $$
  \displaystyle \frac{\partial \psi}{\partial z} \\
 \end{bmatrix}
 $$ {#eq-grad-solo-x}
+
+### Operador de absorciones
+
+TODO
 
 ### Operador de producciones
 
@@ -781,10 +814,10 @@ de $\omegaprimaversor$ y de $E^\prime$.
 Es decir
 
 $$
-\int_V
+\int_U
 q_s(\vec{x}, \omegaversor, E, t)
 \, d^3\vec{x} = 
-\int_V
+\int_U
  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime
 \, d^3\vec{x}
 $$ {#eq-qs}
@@ -811,14 +844,14 @@ multiplicada por la cantidad de longitudes lineales viajadas, teniendo en cuenta
 
 $$
 \begin{aligned}
-\int_V
+\int_U
 q_f(\vec{x}, \omegaversor, E, t)
 \, d^3\vec{x} &= 
-\int_V
+\int_U
 \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime
 \, d^3\vec{x} \\
  &= 
-\int_V
+\int_U
 \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
 \, d^3\vec{x}
 \end{aligned}
@@ -830,7 +863,7 @@ Por último, para no perder generalidad tenemos que tener en cuenta las
 fuentes externas de neutrones, es decir aquellas que no provienen de la
 fisión de materiales presentes en el núcleo sino de otras fuentes
 totalmente independientes como por ejemplo una fuente de americio-berilio.
-Matemáticamente, las modelamos como la integral sobre el volumen $V$ de
+Matemáticamente, las modelamos como la integral sobre el volumen $U$ de
 una función conocida $s(\vec{x}, \omegaversor, E, t)$ del espacio, la
 dirección, la energía y el tiempo que representa la cantidad de
 neutrones emitidos con energía $E$ en el punto $\vec{x}$ con
@@ -839,7 +872,7 @@ dirección $\omegaversor$ en el instante $t$.
 ### La ecuación de transporte {#sec-ecuacion-transporte}
 
 La conservación de neutrones implica que la derivada temporal total de cualquier magnitud relacionada a la distribución espacial de neutrones debe ser igual a la diferencia entre la tasa de producciones y la tasa de desapariciones.
-El ritmo de aparición de neutrones en un diferencial de volumen $dV = d^3\vec{x}$ con energías entre $E$ y $E+dE$ en un cono $d\omegaversor$ alrededor de la dirección $\omegaversor$ es la suma de las fuentes por [scattering]{lang=en-US}, por fisión y por fuentes externas:
+El ritmo de aparición de neutrones en un diferencial de volumen $dU = d^3\vec{x}$ con energías entre $E$ y $E+dE$ en un cono $d\omegaversor$ alrededor de la dirección $\omegaversor$ es la suma de las fuentes por [scattering]{lang=en-US}, por fisión y por fuentes externas:
 
 $$
 q(\vec{x}, \omegaversor, E, t)  \, dE \, d\omegaversor \, d^3\vec{x}
@@ -847,7 +880,7 @@ q(\vec{x}, \omegaversor, E, t)  \, dE \, d\omegaversor \, d^3\vec{x}
 \left [q_s(\vec{x}, \omegaversor, E, t) + q_f(\vec{x}, \omegaversor, E, t) + s(\vec{x}, \omegaversor, E, t) \right]  \, dE \, d\omegaversor \, d^3\vec{x}
 $$
 
-El ritmo con el que desaparecen los neutrones de energía $E$ viajando en la dirección $\omegaversor$ en el diferencial de volumen $dV = d^3\vec{x}$ es
+El ritmo con el que desaparecen los neutrones de energía $E$ viajando en la dirección $\omegaversor$ en el diferencial de volumen $dU = d^3\vec{x}$ es
 
 $$
 R_t(\vec{x}, \omegaversor, E, t)  \, dE \, d\omegaversor \, d^3\vec{x}
@@ -2313,7 +2346,7 @@ multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normaliz
 térmica total $P$ del reactor y se normaliza el flujo de forma tal que
     
     $$
-    P = \int_{V} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
+    P = \int_{U} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
     $$
     donde $e\Sigma_f$ es el producto entre la la energía liberada en una fisión individual y la sección eficaz macroscópica de fisión.
     Si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
