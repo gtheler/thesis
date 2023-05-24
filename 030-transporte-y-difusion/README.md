@@ -73,7 +73,7 @@ Para ello, vamos a suponer que [@lewis]
  #. es suficiente que consideremos sólo el valor medio de la distribución de densidad espacial de neutrones y no sus fluctuaciones estadísticas.
 
  
-![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z]$ en la que viaja y por su energía cinética $E\in\mathbb{R}$. Asumimos que podemos conocer al mismo tiempo la posición $\vec{x}$ y su velocidad $v\cdot \omegaversor$ con precisión arbitraria independientemente del principio de Heisenberg.](neutron){#fig-neutron width=75%}
+![Un neutrón individual (bola celeste, como todo el mundo sabe), en un cierto tiempo $t \in \mathbb{R}$ está caracterizado por la posición $\vec{x}\in \mathbb{R}^3$ que ocupa en el espacio, por la dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z]$ en la que viaja y por su energía cinética $E\in\mathbb{R}$. Asumimos que podemos conocer al mismo tiempo la posición $\vec{x}$ y su velocidad $v\cdot \omegaversor$ con precisión arbitraria independientemente del principio de Heisenberg.](neutron){#fig-neutron width=65%}
 
 
 En la @fig-neutron ilustramos un neutrón puntual que a un cierto
@@ -118,7 +118,7 @@ $$
 \Sigma_k [\text{cm}^{-1}] = \sigma_k [\text{cm}^2] \cdot n [\text{cm}^{-3}]
 $$
 
-![Interpretación de la sección eficaz microscópica como el área asociada a un núcleo transversal a la dirección de viaje del neutrón incidente.](xsmicro){#fig-xsmicro width=90%}
+![Interpretación de la sección eficaz microscópica como el área asociada a un núcleo transversal a la dirección de viaje del neutrón incidente.](xsmicro){#fig-xsmicro width=80%}
 
 ![Dependencia de la sección eficaz microscópica de absorción $\sigma_a$ con respecto a la energía $E$ del neutrón incidente para diferentes isótopos blanco.](sigmas){#fig-sigmas}
 
@@ -552,12 +552,12 @@ por lo que
 
 $$
 \Sigma_f(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) = \frac{\chi(E^\prime)}{4\pi} \cdot \Sigma_{f_t}(\vec{x}, E)
-$$ {#eq-nusigmaf}
+$$ {#eq-chisigmaf}
 
 
 ::: {.remark}
 
-Dado que [en la página~\pageref{siete}]{=latex} hemos supuesto que la población neutrónica es igual al valor medio de la distribución naturalmente estocástica de los neutrones, desde el punto de vista del desarrollo matemático cada neutrón que produce una fisión genera exactamente $\nu(\vec{x},E)$ neutrones de fisión. Como la dependencia de $\nu$ es la misma que la de sección eficaz total de fisión $\Sigma_{f_t}$ entonces englobamos el producto $\nu\cdot\Sigma_f$ como una única función $\nu\Sigma_f(\vec{x},E)$.
+Dado que `en la página~\pageref{siete}`{=latex} hemos supuesto que la población neutrónica es igual al valor medio de la distribución naturalmente estocástica de los neutrones, desde el punto de vista del desarrollo matemático cada neutrón que produce una fisión genera exactamente $\nu(\vec{x},E)$ neutrones de fisión. Como la dependencia de $\nu$ es la misma que la de sección eficaz total de fisión $\Sigma_{f_t}$ entonces englobamos el producto $\nu\cdot\Sigma_f$ como una única función $\nu\Sigma_f(\vec{x},E)$.
 :::
 
 
@@ -605,18 +605,24 @@ donde $v(E)$ es la velocidad clásica correspondiente a un neutrón de masa $m
 ::: 
 
 Esta magnitud es más útil para evaluar ritmos de colisiones y reacciones que la densidad de neutrones $N$.
-En efecto, como $v \cdot dt$ es la distancia lineal $ds$ que viaja un neutrón de velocidad $v$, entonces
+
+::: {#cor-distancialineal}
+Como $v \cdot dt$ es la distancia lineal $ds$ que viaja un neutrón de velocidad $v$, entonces
 
 $$
 \psi(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE \, dt = v(E) \cdot N(\vec{x}, \omegaversor, E, t) \, dt \,\,\, d^3\vec{x} \, d\omegaversor \, dE
 $$
 es el número total de longitudes lineales que los neutrones han viajado sobre un cono $d\omegaversor$ alrededor de la dirección $\omegaversor$ con energía en el intervalo $[E, E+dE]$ que estaban en un intervalo de tiempo $[t,t+dt]$ en un diferencial de volumen $d^3\vec{x}$ en la posición $\vec{x}$.
-Como además $\Sigma_k \cdot ds$ es la probabilidad de que un neutrón tenga una reacción de tipo $k$ durante la distancia lineal de vuelo $ds$ (@def-sigmat), entonces la expresión
+:::
+
+::: {#cor-ritmoreaccion}
+La probabilidad de que un neutrón tenga una reacción de tipo $k$ durante la distancia lineal de vuelo $ds$, según la @def-sigmat, es $\Sigma_k \cdot ds$. Entonces la expresión
 
 $$
 \Sigma_k(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE \, dt
 $$
 es el número de reacciones de tipo $k$ en el diferencial de volumen de fases $d^3\vec{x} \, d\omegaversor \, dE \, dt$.
+:::
 
 Para obtener el número total de reacciones de todos los neutrones independientemente de la dirección $\omegaversor$ del neutrón incidente debemos integrar esta cantidad sobre todos los posibles ángulos de incidencia. Para ello utilizamos el concepto que sigue.
 
@@ -628,13 +634,16 @@ $$
 $$ {#eq-flujoescalar}
 :::
 
-Con esta nomenclatura, el ritmo $R_k$ de reacciones de tipo $k$ por unidad de tiempo en $d^3\vec{x}\,dE$ es
+
+::: {#cor-ritmo-de-reaccion}
+Con estas definiciones, el ritmo $R_k$ de reacciones de tipo $k$ por unidad de tiempo en $d^3\vec{x}\,dE$ es
 
 $$
 R_k (\vec{x}, E, t) \, d^3\vec{x} \, dE = \Sigma_k(\vec{x}, E) \cdot \phi(\vec{x}, E, t) \, d^3\vec{x} \, dE
-$$
+$$ {#eq-ritmo-de-reaccion}
 con lo que el producto $R_t = \Sigma_t \phi$ da una expresión simple para la distribución del ritmo de reacciones totales por unidad de
 volúmen y de energía, que es lo que buscábamos al introducir las ideas de flujo angular $\psi$ y de flujo escalar $\phi$.
+:::
 
 ::: {#def-corriente}
 El *vector corriente* $\vec{J}$ es la integral del producto entre el flujo angular y el versor de dirección de viaje de los neutrones $\omegaversor$ sobre todas las direcciones de viaje:
@@ -795,43 +804,60 @@ $$
 \end{bmatrix}
 $$ {#eq-grad-solo-x}
 
-### Operador de absorciones
+### Operador de desapariciones {#sec-desapariciones}
 
-TODO
+Cuando un neutrón reacciona con un núcleo blanco, el neutrón incidente puede...
+
+ a. ser dispersado, 
+ b. generar una fisión, o
+ c. ser absorbido por el núcleo blanco.
+
+En los últimos dos casos, el neutrón incidente realmente “desaparece” físicamente. En el caso b, vuelven a nacer $\nu(E)$ neutrones nuevos: una fracción $(1-\beta)$ instantáneamente y $\beta$ en forma retardada durante la cadena de decaimiento de los productos de fisión.
+En el último caso, el neutrón incidente nunca desaparece sino que cambia su energía y su dirección de vuelo.
+De todas maneras, conceptualmente es posible pensar que aún en un proceso de [scattering]{lang=en-US} el neutrón incidente de energía $E$ y dirección $\omegaversor$ desaparece y se emite exactamente un neutrón nuevo con una energía $E^\prime$ y una dirección $\omegaprimaversor$ según la ley de [scattering]{lang=en-US} dada por la sección eficaz diferencial $\Sigma_s(\vec{x},\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$. 
+
+Con esta idea, cualquier reacción nuclear genera una desaparición del neutrón incidente al mismo tiempo que los casos a y b producen nuevos neutrones.
+Recordando el @cor-ritmo-de-reaccion, la tasa o el ritmo de reacciones de cualquier tipo por unidad de volumen y unidad de tiempo es el producto de la sección eficaz total $\Sigma_t(\vec{x},E)$ por el flujo escalar $\phi(\vec{x},E,t)$. Integrando sobre el dominio $U$, obtenemos la tasa de desaparición de neutrones por unidad de tiempo en $U$:
+
+$$
+\int_U \Sigma_t(\vec{x},E) \cdot \phi(\vec{x},E,t) \, d^3\vec{x}
+=
+\int_U \Sigma_t(\vec{x},E) \cdot \int_{4\pi} \psi(\vec{x},\omegaversor,E,t) \, d\omegaversor \, d^3\vec{x}
+$$
+
 
 ### Operador de producciones
 
-Pasamos ahora a estudiar la forma en la que se producen. Los neutrones pueden aparecer en un diferencial de espacio de las fases $d\vec{x} \, d\omegaversor \, dE \, dt$ debido a uno de los siguiente tres mecanismos, que analizamos en las secciones que siguen:
+Pasamos ahora a estudiar las posibles maneras en las que pueden aparecer neutrones.
+En un diferencial de espacio de las fases $d^3\vec{x} \, d\omegaversor \, dE \, dt$, éstos pueden aparecer debido a uno de los siguiente tres mecanismos, que analizamos en las secciones que siguen:
 
- * [scattering]{lang=en-US},
- * fisión, o
- * fuentes externas.
+ 1. [scattering]{lang=en-US},
+ 2. fisión, o
+ 3. fuentes externas.
 
 #### Fuentes por [scattering]{lang=en-US}
 
-Un neutrón que, viajando con una energía $E^\prime$ y una dirección $\omegaprimaversor$, sufre una colisión de [scattering]{lang=en-US} en el punto $\vec{x}$ y emerge con una energía $E$ y una dirección $\omegaversor$ es efectivamente una fuente de neutrones en $d\vec{x} \,  d\omegaversor \, dE \, dt$ debido a [scattering]{lang=en-US}. Esta fuente $q_s$ debe ser entonces igual al producto de la probabilidad por unidad de longitud de recorrido de neutrones que viajando en con una energía $E^\prime$ en una dirección $\omegaprimaversor$ colisionen con un núcleo blanco en el punto $\vec{x}$ y como resultado adquieren una dirección de viaje $\omegaversor$ y una energía $E$ (ver @sec-scattering) por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores
-de $\omegaprimaversor$ y de $E^\prime$.
-Es decir
+A la luz de la discusión de la @sec-desapariciones podemos decir que un neutrón que viajando con una energía $E$ y una dirección $\omegaversor$ sufre una colisión de [scattering]{lang=en-US} en el punto $\vec{x}$ es absorbido por el núcleo blanco. Al mismo tiempo, emerge como un nuevo neutrón con una energía $E^\prime$ y una dirección $\omegaprimaversor$.
+Esta fuente $q_s$ debe ser entonces igual al producto de la probabilidad por unidad de longitud de recorrido de neutrones que viajando en con una energía $E$ en una dirección $\omegaversor$ colisionen con un núcleo blanco en el punto $\vec{x}$ y como resultado adquieren una dirección de viaje $\omegaprimaversor$ y una energía $E^\prime$ (recordar los conceptos introducidos en la @sec-scattering) por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores de $\omegaversor$ y de $E$.
+Es decir, teniendo en cuenta la @def-sigmasdif y el @cor-distancialineal, la fuente de neutrones debida [scattering]{lang=en-US} que da como resultado neutrones de energías $E^\prime$ y direcciones $\omegaprimaversor$ es
 
 $$
-\int_U
-q_s(\vec{x}, \omegaversor, E, t)
-\, d^3\vec{x} = 
-\int_U
+q_s(\vec{x}, \omegaprimaversor, E^\prime, t) =
+\int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaversor  \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor \, dE
+$$
+
+Dado que en general estamos interesados en el ritmo en los que los neutrones _nacen_ con energía $E$ y dirección $\omegaversor$ en el dominio, podemos invertir las variables primadas para obtener la expresión de la fuente de neutrones debidas a [scattering]{lang=en-US} por unidad de volumen y de tiempo
+
+$$
+q_s(\vec{x}, \omegaversor, E, t) = 
  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime
-\, d^3\vec{x}
 $$ {#eq-qs}
 
-Debemos notar que en esta ecuación hemos invertido el índice de las
-variables primadas con respecto a la @sec-scattering, inversión que mantenemos a lo largo de
-esta sección.
+
 
 #### Fuentes por fisiones
 
-Los neutrones que nacen por fisiones de núcleos de materiales
-combustibles en el punto $\vec{x}$ lo hacen isotrópicamente y con una
-cierta distribución energética $\chi(E)$. Como también discutimos en la @sec-fision, debemos
-calcular la fuente de fisión ligeramente diferente si estamos resolviendo problemas
+Ya hemos discutido brevemente en la @sec-fision (y lo haremos más en detalle en la @sec-problemas-steady-state), debemos calcular la fuente de fisión ligeramente diferente si estamos resolviendo problemas
 
  a. transitorios
  b. estacionarios
@@ -839,35 +865,27 @@ calcular la fuente de fisión ligeramente diferente si estamos resolviendo probl
      ii. sólo con fuentes de fisión
 
 
-Sin pérdida de generalidad, para fijar ideas supongamos que desde el punto de vista de la fisión el problema es estacionario con fuentes independientes. La tasa de generación de neutrones debidas a fisión es el producto del número probable de nacimientos en $\vec{x}$ con energías entre $E$ y $E+dE$ por unidad de longitud de recorrido de neutrones que viajando con dirección $\omegaversor$ y energía $E$ generan la fisión del núcleo pesado en el punto $\vec{x}$ debido a neutrones incidentes con dirección de viaje $\omegaprimaversor$ y energía incidente $E^\prime$,
-multiplicada por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores de $\omegaprimaversor$ y de $E^\prime$:
+Sin pérdida de generalidad, para fijar ideas supongamos que desde el punto de vista de la fisión el problema es estacionario tanto con fuentes por fisión como con fuentes independientes.
+De manera análoga a la fuente por [scattering]{lang=en-US}, la tasa de generación de neutrones debidas a fisión debido a un neutrón incidente con una dirección $\omegaversor$ y una energía $E$ es el producto del número probable de nacimientos $\nu(E)$ multiplicada por la probabilidad de que dicho neutrón incidente genere una fisión en el punto $\vec{x}$ por unidad de longitud de recorrido multiplicada por la cantidad de longitudes lineales viajadas, teniendo en cuenta todos los posibles valores de direcciones $\omegaversor$ y energías $E$ incidentes:
 
 $$
-\begin{aligned}
-\int_U
+q_f(\vec{x}, \omegaprimaversor, E^\prime, t)
+= 
+\nu(E) \cdot \int_{0}^{\infty} \int_{4\pi} \Sigma_f(\vec{x}, \omegaversor  \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor \, dE
+$$
+
+Recordando la ecuación @eq-chisigmaf, invirtiendo las variables primadas y escribiendo el producto $\nu(E)\cdot\Sigma_{f_t}(\vec{x},E)$ como una única función $\nu\Sigma_f(\vec{x}.E)$, tenemos
+
+$$
 q_f(\vec{x}, \omegaversor, E, t)
-\, d^3\vec{x} &= 
-\int_U
+= 
 \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime
-\, d^3\vec{x} \\
- &= 
-\int_U
-\frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime, t) \, dE^\prime
-\, d^3\vec{x}
-\end{aligned}
 $$ {#eq-qf}
 
 #### Fuentes independientes
 
-Por último, para no perder generalidad tenemos que tener en cuenta las
-fuentes externas de neutrones, es decir aquellas que no provienen de la
-fisión de materiales presentes en el núcleo sino de otras fuentes
-totalmente independientes como por ejemplo una fuente de americio-berilio.
-Matemáticamente, las modelamos como la integral sobre el volumen $U$ de
-una función conocida $s(\vec{x}, \omegaversor, E, t)$ del espacio, la
-dirección, la energía y el tiempo que representa la cantidad de
-neutrones emitidos con energía $E$ en el punto $\vec{x}$ con
-dirección $\omegaversor$ en el instante $t$.
+Por último, para no perder generalidad tenemos que tener en cuenta las fuentes externas de neutrones, es decir aquellas que no provienen de la fisión de materiales presentes en el núcleo sino de otras fuentes totalmente independientes como por ejemplo una fuente de americio-berilio.
+Matemáticamente, las modelamos como la integral sobre el volumen $U$ de una función conocida $s(\vec{x}, \omegaversor, E, t)$ del espacio, la dirección, la energía y el tiempo que representa la cantidad de neutrones emitidos con energía $E$ en el punto $\vec{x}$ con dirección $\omegaversor$ en el instante $t$.
 
 ### La ecuación de transporte {#sec-ecuacion-transporte}
 
@@ -1481,7 +1499,7 @@ $${#eq-conservacion}
 
 ::: {.remark}
 La @eq-conservacion refleja la conservación del momento de orden cero del flujo angular $\psi$ de neutrones con respecto a las direcciones $\omegaversor$, es decir la conservación de neutrones totales.
-Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo [en la página~\pageref{siete}]{=latex}.
+Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo `en la página~\pageref{siete}`{=latex}.
 :::
 
 #### Producciones
@@ -2169,7 +2187,7 @@ donde
    2. la cantidad de grupos de energía
    3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
 
-La información sobre...´
+La información sobre...
 
  * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $\mat{A}$.
  * las fuentes independientes y las condiciones de contorno de Neumann no homogéneas están incluidas en el vector $\vec{b}$.
@@ -2375,7 +2393,7 @@ En este caso el flujo está completamente determinado por la dependencia (explí
 La ecuación de transporte @eq-transporte describe completamente la interacción de neutrones con la materia y es exacta mientras
  
  a. la población neutrónica sea lo suficientemente grande como para que podamos asumir que el flujo angular $\psi$ es determinista, y
- a. se cumplan las siete suposiciones listadas al comienzo del capítulo[ (página~\pageref{siete})]{=latex}.
+ a. se cumplan las siete suposiciones listadas al comienzo del capítulo` (página~\pageref{siete})`{=latex}.
 
 Los coeficientes tanto de la ecuación de transporte como de la ecuación de difusión son las secciones eficaces macroscópicas de los materiales presentes en el dominio $U$, que en principio son el producto de la sección eficaz microscópica por la densidad volumétrica de cada uno de los isótopos que component dichos materiales.
 
