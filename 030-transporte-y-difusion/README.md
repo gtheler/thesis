@@ -24,12 +24,12 @@ had been different from what they are by a factor of two.
 
 ::: {.only-in-format .html}
 <!-- \renewcommand{\symbf}{\mathbf} -->
-\newcommand{\bigint}{\int}
-\newcommand{\bigints}{\int}
-\newcommand{\bigintss}{\int}
-\newcommand{\bigintsss}{\int}
-\newcommand{\hfil}{~}
-\newcommand{\hfill}{~}
+<!-- \newcommand{\bigint}{\int} -->
+<!-- \newcommand{\bigints}{\int} -->
+<!-- \newcommand{\bigintss}{\int} -->
+<!-- \newcommand{\bigintsss}{\int} -->
+<!-- \newcommand{\hfil}{~} -->
+<!-- \newcommand{\hfill}{~} -->
 :::
 
 
@@ -204,10 +204,10 @@ En general podemos separar a la sección eficaz diferencial (@def-sigmasdif) en 
 
 $$
  \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \Sigma_{s_t}(\vec{x}, E) \cdot \xi_s(\mu, E \rightarrow E^\prime)
-$$ {#eq-sigmastmu}
+$$ {#eq-sigmasmu}
 donde $\Sigma_{s_t}$ es la sección eficaz macroscópica *total* de [scattering]{lang=en-US}, que da la probabilidad por unidad de longitud de que un neutrón incidente de energía $E$ inicie un proceso de [scattering]{lang=en-US} y la función $\xi_s$ describe la distribución de neutrones emergentes.
 
-Podemos integrar ambos miembros de ls @eq-sigmastmu con respecto a $E^\prime$ y a $\mu$, y despejar $\Sigma_{s_t}$ para obtener su definición
+Podemos integrar ambos miembros de ls @eq-sigmasmu con respecto a $E^\prime$ y a $\mu$, y despejar $\Sigma_{s_t}$ para obtener su definición
 
 $$
 \Sigma_{s_t}(\vec{x}, E) =
@@ -299,26 +299,26 @@ $$
 
 
 
-Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ (en realidad de $\xi_s$ con $\mu$) en la @eq-sigmastomega es recurrir a una expansión en polinomios de Legendre.
-En efecto, para una cierta posición $\vec{x}$ y dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmastmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable.
-Entonces que podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a las mismas ecuaciones finales, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el @sec-implementacion. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. Por ejemplo, la referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendremu.]
+Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ en la @eq-sigmasmu es recurrir a una expansión en polinomios de Legendre.
+En efecto, para una cierta posición $\vec{x}$ y dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmasmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable.
+Entonces podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). En particular, aparece para que en la @eq-sigmastys0 ambos miembros tengan coeficientes unitaros. Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a expresiones finales igualmente válidas, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el @sec-implementacion. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. La referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendre.]
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\mu)
-$$ {#eq-sigmalegendremu}
+$$ {#eq-sigmas-legendre}
 donde los coeficientes son
 
 $$
 \Sigma_{s_\ell}(\vec{x}, E\rightarrow E^{\prime}) =
 \int_{-1}^{+1} \Sigma_s(\vec{x}, \mu, E\rightarrow E^\prime) \cdot P_\ell(\mu) \, d\mu
-$$ {#eq-coeflegendremu} 
+$$ {#eq-coeflegendre} 
 
 
 ::::: {#cor-sigma-s-t}
 La sección eficaz de [scattering]{lang=en-US} total $\Sigma_{s_t}$ sólo depende de $\Sigma_{s_0}$.
 
 ::: {.proof}
-Reemplazando la expansión dada por la @eq-sigmalegendremu en la @eq-sigmast tenemos
+Reemplazando la expansión dada por la @eq-sigmas-legendre en la @eq-sigmast tenemos
 
 $$
 \begin{aligned}
@@ -367,7 +367,7 @@ Si tenemos [scattering]{lang=en-US} isotrópico en el marco de referencia del la
 $$
 \int_{-1}^{+1} \Sigma_s(\vec{x},\mu, E \rightarrow E^\prime) \, d\mu
 =
-\int_{-1}^{+1} \frac{1}{2} \cdot  \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \, d\mu
+\int_{-1}^{+1} \frac{2\cdot 0 + 1}{2} \cdot  \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \, d\mu
 =
 \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
 $$ {#eq-isotropico2}
@@ -377,7 +377,7 @@ Reemplazando la @eq-isotropico2 en la @eq-isotropico1 y sacando $\Sigma_s(\ve
 $$
 \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot 4\pi = \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
 $$
-con lo que la sección eficaz diferencial (@def-sigmasdif) para [scattering]{lang=en-US} isotrópico en el sistema del reactor es 
+con lo que la sección eficaz diferencial (@def-sigmasdif) para [scattering]{lang=en-US} isotrópico en el sistema del reactor es igual al coeficiente $\Sigma_{s_0}$ dividido $4\pi$
 
 
 $$
@@ -385,6 +385,29 @@ $$
 =
 \frac{1}{4\pi} \cdot \Sigma_{s_0}(\vec{x}, E\rightarrow E^\prime)
 $$ {#eq-sigmas0}
+
+::: {.remark}
+Según el punto b y la @eq-sigmas-legendre,
+
+$$
+\begin{aligned}
+\Sigma_s(\vec{x},\mu, E \rightarrow E^\prime) &= \frac{2\cdot 0 + 1}{2}\cdot  \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \cdot P_0(\mu) \\
+&= \frac{1}{2} \cdot \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
+\end{aligned}
+$$
+
+Comparando este resultado con la @eq-sigmas0 llegamos a la conclusión que
+
+$$
+\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)
+=
+\frac{1}{2\pi} \cdot \Sigma_s(\vec{x},\mu, E \rightarrow E^\prime)
+$$ {#eq-sigmas-from-omega-to-mu}
+
+Este resultado se explica ya que dado un ángulo $\omegaversor$ fijo, para cada posible valor de $\mu$ hay $2\pi$ posibles valores de $\omegaprimaversor$ que pueden dar como resultado el mismo coseno.
+:::
+
+\medskip
 
 Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco (condición que se da si el blanco está fijo en el marco de referencia del reactor sin posibilidad de moverse por efectos térmicos), entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
 Siguiendo el desarrollo de la referencia [@stammler], la sección eficaz diferencial es
@@ -413,7 +436,7 @@ Esta nomenclatura para $\mu_0$ es general pero la expresión matemática dada p
 En la @eq-mu0 generalizamos la definición para cualquier tipo de [scattering]{lang=en-US}.
 :::
 
-La expresión para el $\ell$-ésimo coeficiente de la expansión en polinomios de Legendre para $\alpha E < E^\prime < E$ según la @eq-coeflegendremu es
+La expresión para el $\ell$-ésimo coeficiente de la expansión en polinomios de Legendre para $\alpha E < E^\prime < E$ según la @eq-coeflegendre es
 
 $$
 \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^\prime) = \frac{\Sigma_{s_t}(\vec{x}, E)}{(1-\alpha) E} \int_{-1}^{+1} \delta(\mu - \mu_0) \cdot P_\ell(\mu) \, d\mu = \frac{\Sigma_{s_t}(\vec{x}, E) }{(1-\alpha) E} \cdot P_\ell(\mu_0)
@@ -487,7 +510,7 @@ $$ {#eq-mu0}
 
 En el caso de [scattering]{lang=en-US} general, i.e. no necesariamente isotrópico en algún marco de referencia y no necesarimente elástico, debemos conocer entonces
 
- a. la dependencia explícita de $\Sigma_s$ con $\omegaversor \cdot \omegaprimaversor$ (que puede ser aproximada
+ a. la dependencia explícita de $\Sigma_s$ con $\omegaversor \rightarrow \omegaprimaversor$ (que puede ser aproximada
 mediante evaluaciones discretas), o
  b. una cierta cantidad de coeficientes $\Sigma_{s_\ell}$ de su desarrollo en polinomios de Legendre sobre $\mu$.
  
@@ -642,7 +665,7 @@ $$
 R_k (\vec{x}, E, t) \, d^3\vec{x} \, dE = \Sigma_k(\vec{x}, E) \cdot \phi(\vec{x}, E, t) \, d^3\vec{x} \, dE
 $$ {#eq-ritmo-de-reaccion}
 con lo que el producto $R_t = \Sigma_t \phi$ da una expresión simple para la distribución del ritmo de reacciones totales por unidad de
-volúmen y de energía, que es lo que buscábamos al introducir las ideas de flujo angular $\psi$ y de flujo escalar $\phi$.
+volúmen y de energía.
 :::
 
 ::: {#def-corriente}
@@ -793,7 +816,15 @@ tenemos
 $$
 \frac{d}{dt} \int_{U} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  = \int_{U} \left\{ \frac{1}{v(E)} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \right\}  d^3\vec{x}
 $$
-donde notamos que el operador gradiente se aplica sólo sobre las componentes espaciales, es decir
+
+Como el dominio $U$ es arbitrario, entonces
+
+$$
+\frac{dN}{dt} = \frac{1}{v(E)} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right]
+$$ {#eq-dNdt}
+
+::: {.remark}
+El operador gradiente se aplica sólo sobre las componentes espaciales, es decir
 
 $$
 \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] =
@@ -803,6 +834,7 @@ $$
  \displaystyle \frac{\partial \psi}{\partial z} \\
 \end{bmatrix}
 $$ {#eq-grad-solo-x}
+:::
 
 ### Operador de desapariciones {#sec-desapariciones}
 
@@ -814,22 +846,23 @@ Cuando un neutrón reacciona con un núcleo blanco, el neutrón incidente puede.
 
 En los últimos dos casos, el neutrón incidente realmente “desaparece” físicamente. En el caso b, vuelven a nacer $\nu(E)$ neutrones nuevos: una fracción $(1-\beta)$ instantáneamente y $\beta$ en forma retardada durante la cadena de decaimiento de los productos de fisión.
 En el último caso, el neutrón incidente nunca desaparece sino que cambia su energía y su dirección de vuelo.
-De todas maneras, conceptualmente es posible pensar que aún en un proceso de [scattering]{lang=en-US} el neutrón incidente de energía $E$ y dirección $\omegaversor$ desaparece y se emite exactamente un neutrón nuevo con una energía $E^\prime$ y una dirección $\omegaprimaversor$ según la ley de [scattering]{lang=en-US} dada por la sección eficaz diferencial $\Sigma_s(\vec{x},\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$. 
+De todas maneras, conceptualmente es posible pensar que aún en un proceso de [scattering]{lang=en-US} el neutrón incidente de energía $E$ y dirección $\omegaversor$ desaparece y se emite exactamente un neutrón nuevo con una energía $E^\prime$ y una dirección $\omegaprimaversor$ según la ley de [scattering]{lang=en-US} de la sección eficaz diferencial $\Sigma_s(\vec{x},\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$ dada por la @def-sigmasdif.
 
 Con esta idea, cualquier reacción nuclear genera una desaparición del neutrón incidente al mismo tiempo que los casos a y b producen nuevos neutrones.
-Recordando el @cor-ritmo-de-reaccion, la tasa o el ritmo de reacciones de cualquier tipo por unidad de volumen y unidad de tiempo es el producto de la sección eficaz total $\Sigma_t(\vec{x},E)$ por el flujo escalar $\phi(\vec{x},E,t)$. Integrando sobre el dominio $U$, obtenemos la tasa de desaparición de neutrones por unidad de tiempo en $U$:
+Recordando el @cor-ritmo-de-reaccion, la tasa o el ritmo de reacciones de cualquier tipo por unidad de volumen y unidad de tiempo es el producto de la sección eficaz total $\Sigma_t(\vec{x},E)$ por el flujo escalar $\phi(\vec{x},E,t)$.
+Entonces la tasa de desaparición de neutrones por unidad de volumen y de tiempo es
 
 $$
-\int_U \Sigma_t(\vec{x},E) \cdot \phi(\vec{x},E,t) \, d^3\vec{x}
+\Sigma_t(\vec{x},E) \cdot \phi(\vec{x},E,t) \, d^3\vec{x}
 =
-\int_U \Sigma_t(\vec{x},E) \cdot \int_{4\pi} \psi(\vec{x},\omegaversor,E,t) \, d\omegaversor \, d^3\vec{x}
-$$
+\Sigma_t(\vec{x},E) \cdot \int_{4\pi} \psi(\vec{x},\omegaversor,E,t) \, d\omegaversor \, d^3\vec{x}
+$$ {#eq-desapariciones}
 
 
 ### Operador de producciones
 
 Pasamos ahora a estudiar las posibles maneras en las que pueden aparecer neutrones.
-En un diferencial de espacio de las fases $d^3\vec{x} \, d\omegaversor \, dE \, dt$, éstos pueden aparecer debido a uno de los siguiente tres mecanismos, que analizamos en las secciones que siguen:
+Éstos pueden aparecer debido a uno de los siguiente tres mecanismos, que analizamos en las secciones que siguen:
 
  1. [scattering]{lang=en-US},
  2. fisión, o
@@ -885,54 +918,28 @@ $$ {#eq-qf}
 #### Fuentes independientes
 
 Por último, para no perder generalidad tenemos que tener en cuenta las fuentes externas de neutrones, es decir aquellas que no provienen de la fisión de materiales presentes en el núcleo sino de otras fuentes totalmente independientes como por ejemplo una fuente de americio-berilio.
-Matemáticamente, las modelamos como la integral sobre el volumen $U$ de una función conocida $s(\vec{x}, \omegaversor, E, t)$ del espacio, la dirección, la energía y el tiempo que representa la cantidad de neutrones emitidos con energía $E$ en el punto $\vec{x}$ con dirección $\omegaversor$ en el instante $t$.
+Matemáticamente, las modelamos como la integral sobre el volumen $U$ de una función arbitraria
+
+$$
+s(\vec{x}, \omegaversor, E, t)
+$$ {#eq-s}
+
+
+del espacio, la dirección, la energía y el tiempo que representa la cantidad de neutrones emitidos con energía $E$ en el punto $\vec{x}$ con dirección $\omegaversor$ en el instante $t$.
 
 ### La ecuación de transporte {#sec-ecuacion-transporte}
 
-La conservación de neutrones implica que la derivada temporal total de cualquier magnitud relacionada a la distribución espacial de neutrones debe ser igual a la diferencia entre la tasa de producciones y la tasa de desapariciones.
-El ritmo de aparición de neutrones en un diferencial de volumen $dU = d^3\vec{x}$ con energías entre $E$ y $E+dE$ en un cono $d\omegaversor$ alrededor de la dirección $\omegaversor$ es la suma de las fuentes por [scattering]{lang=en-US}, por fisión y por fuentes externas:
-
-$$
-q(\vec{x}, \omegaversor, E, t)  \, dE \, d\omegaversor \, d^3\vec{x}
- =
-\left [q_s(\vec{x}, \omegaversor, E, t) + q_f(\vec{x}, \omegaversor, E, t) + s(\vec{x}, \omegaversor, E, t) \right]  \, dE \, d\omegaversor \, d^3\vec{x}
-$$
-
-El ritmo con el que desaparecen los neutrones de energía $E$ viajando en la dirección $\omegaversor$ en el diferencial de volumen $dU = d^3\vec{x}$ es
-
-$$
-R_t(\vec{x}, \omegaversor, E, t)  \, dE \, d\omegaversor \, d^3\vec{x}
- =
-\Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \, dE \, d\omegaversor \, d^3\vec{x}
-$$
-por lo que
+La conservación de neutrones implica que la derivada temporal total de la población de neutrones en la posición $\vec{x}$ viajando en la dirección $\omegaversor$ con una energía $E$ debe ser igual a la diferencia entre la tasa de producciones y la Igualando la derivada total de la @eq-dNdt a la diferencia entre la suma de las tres fuentes de las [@eq-qs,@eq-qf,@eq-s] y  la tasa de desapariciones @eq-desapariciones, tenemos
 
 $$
 \begin{gathered}
-\left\{ \frac{1}{v} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \right\}  \, dE \, d\omegaversor \, d^3\vec{x} = \\
-q(\vec{x}, E, \omegaversor, t) \, dE \, d\omegaversor \, d^3\vec{x} -
-\Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) \, dE \, d\omegaversor \, d^3\vec{x}
+\frac{1}{v} \frac{\partial \psi}{\partial t} + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right]   = \\
+q_s(\vec{x}, \omegaversor, E, t) + q_f(\vec{x},\omegaversor, E, t) + s(\vec{x}, \omegaversor, E, t) - 
+\Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t) 
 \end{gathered}
-$$
-
-Como tanto
-
- a. el diferencial de volumen $d^3\vec{x}$,
- b. la energía $E$, y
- c. la dirección $\omegaversor$
-
-son arbitrarios, la igualdad debe cumplirse punto a punto. Luego
-
-$$
- \frac{1}{v} \frac{\partial}{\partial t} \left[ \psi(\vec{x}, \omegaversor, E, t) \right]
- + \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E, t)
- = q(\vec{x}, \omegaversor, E, t)
 $$ {#eq-transporteq}
 
-Desarrollando el término de fuente como suma de los tres términos antes mecionados y teniendo en
-cuenta que la relación entre velocidad y energía es la
-clásica $E=1/2 \cdot mv^2$, llegamos a la famosa *ecuación de transporte de neutrones*
+Escribiendo explícitamente los dos términos de fuente por [scattering]{lang=en-US} y fisión, pasando el término negativo de desapariciones al miembro izquierdo y teniendo en cuenta que la relación entre velocidad y energía es la clásica $E=1/2 \cdot mv^2$, llegamos a la famosa *ecuación de transporte de neutrones*
 
 $$
 \begin{gathered}
@@ -944,35 +951,71 @@ $$
 + s(\vec{x}, \omegaversor, E, t)
 \end{gathered}
 $$ {#eq-transporte}
-que es una ecuación integro-diferencial hiperbólica en derivadas parciales de primer orden tanto sobre el espacio (notar que el operador gradiente opera sólo sobre las coordenadas espaciales según la @eq-grad-solo-x) como sobre el tiempo para la incógnita $\psi$ sobre un dominio multidimensional que incluye
+que es una ecuación integro-diferencial hiperbólica en derivadas parciales de primer orden tanto sobre el espacio (notar que el operador gradiente opera sólo sobre las coordenadas espaciales $\vec{x}$ según la @eq-grad-solo-x) como sobre el tiempo para la incógnita $\psi$ sobre un espacio de fases multidimensional que incluye
 
- 1. el espacio $\vec{x}$,
- 2. la dirección $\omegaversor$,
- 3. la energía $E$, y
- 4. el tiempo $t$.
+ 1. un dominio espacial $U \in \mathbb{R}^3 / \vec{x} \in U$,
+ 2. el versor dirección $\omegaversor = [\Omega_x, \Omega_y, \Omega_z] / \Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$,
+ 3. la energía $E \in (0,\infty)$, y
+ 4. el tiempo $t \in [0,\infty)$.
  
-Los datos de entrada para la ecuación de transporte de neutrones son:
+Los datos necesarios para resolver la ecuación de transporte de neutrones son:
 
- * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$.
- * El espectro de fisión\ $\Chi$ en función de la energía\ $E$.
- * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto con la energía del neutron incidente $E^\prime$ como en la energía $E$ del neutrón saliente, y del coseno del ángulo de [scattering]{lang=en-US} $\mu = \omegaprimaversor \cdot \omegaversor$. Ésta dependencia es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu$. Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
- * La fuente independiente de neutrones opcional $s$ como función del espacio $\vec{x}$, la energía $E$ y la dirección  $\omegaversor$
- * El parámetro constante $m$, que es la masa en reposo del neutrón.
+ * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E^\prime$ del neutrón incidente.
+ * El espectro de fisión\ $\chi$ en función de la energía\ $E$ del neutrón emitido, en caso de que $\nu\Sigma_f \neq 0$.
+ * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto de la energía $E^\prime$ del neutrón incidente como de la energía $E$ del neutrón saliente, y del ángulo de [scattering]{lang=en-US} entre la dirección entrante $\omegaprimaversor$ y la dirección saliente $\omegaversor$.
+   - Esta dependencia es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu = \omegaprimaversor \cdot \omegaversor$.
+   - Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
+ * La fuente independiente de neutrones $s$ como función del espacio $\vec{x}$, la energía $E$ y de la dirección $\omegaversor$.
+   - Si no hay fuentes externas, este término es cero.
+ * El parámetro constante $m$, que es la masa en reposo del neutrón
+   - Este parámetro es sólo necesario en cálculos transitorios. Los cálculos estacionarios son independientes de $m$.
 
 ### Armónicos esféricos y polinomios de Legendre {#sec-armonicos}
 
-Prestemos atención al término de fuente por [scattering]{lang=en-US} dado por la @eq-qs.
-Dado que hemos supuesto que la dependencia angular de la sección eficaz diferencial de [scattering]{lang=en-US}
-está definida por los coeficientes del desarrollo en polinomios de Legendre $\Sigma_{s_\ell}$ introducidos en la @eq-sigmalegendreomega, entonces escribimos las fuentes de [scattering]{lang=en-US} $q_s$ como
+Prestemos atención al término de fuente por [scattering]{lang=en-US} dado por la @eq-qs
+
+$$ \tag{\ref{eq-qs}}
+q_s(\vec{x}, \omegaversor, E, t) = 
+ \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime
+$$
+y  supongamos que conocemos los coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre de la sección eficaz diferencial de [scattering]{lang=en-US} sobre el coseno $\mu = \omegaversor \cdot \omegaprimaversor$ del ángulo de dispersión según la @eq-sigmas-legendre
+
+$$ \tag{\ref{eq-sigmas-legendre}}
+\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\mu)
+$$
+
+
+Para poder usar estos coeficientes en la fuente de la @eq-qs debemos recordar el resultado de la @eq-sigmas-from-omega-to-mu, ya que para cada $\mu$ hay $2\pi$ posibles ángulos $\omegaprimaversor$:
 
 $$
-q_s(\vec{x}, \omegaversor, E, t) =
+\begin{aligned}
+\Sigma_s(\vec{x},\omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E) &=
+\frac{1}{2\pi} \cdot 
+\Sigma_s(\vec{x},\mu,E^\prime \rightarrow E) \\
+&=
+\frac{1}{2\pi} \cdot \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \cdot \Sigma_{s_\ell}(\vec{x},E^\prime \rightarrow E) \cdot P_\ell(\mu)
+\end{aligned}
+$$
+
+Ahora sí podemos reemplazar esta expansión de $\Sigma_s(\vec{x},\omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E)$ en la fuente de la @eq-qs,
+
+$$
+\begin{aligned}
+q_s(\vec{x}, \omegaversor, E, t) &=
+ \bigintsss_{0}^{\infty} \left[ \int_{4\pi} \frac{1}{2\pi} \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \cdot \Sigma_{s_\ell}(\vec{x},E^\prime \rightarrow E) \cdot P_\ell(\mu) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \right] dE^\prime\\
+& = 
+\bigintsss_{0}^{\infty}
  \sum_{\ell=0}^{\infty} \frac{ 2\ell + 1}{4\pi} \cdot
-\int_{0}^{\infty} \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) \int_{4\pi} P_\ell(\omegaversor \cdot \omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime,t)\, d\omegaprimaversor \right] \, dE^{\prime}
+ \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) \int_{4\pi} P_\ell(\omegaversor \cdot \omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime,t)\, d\omegaprimaversor \right] \, dE^{\prime}
+\end{aligned}
 $${#eq-qs1}
 
-Si bien esta expresión ya es suficiente para evaluar el término de [scattering]{lang=en-US} cuando tenemos su desarrollo de Legendre, podemos ahondar un poco más en la estructura de la ecuación de transporte desarrollando en
-una base apropiada el flujo angular $\psi$, de la misma manera en la que desarrollamos $\Sigma_s$ en una serie de polinomios de Legendre sobre el parámetro $\mu = \omegaversor \cdot \omegaprimaversor$.
+Si bien esta expresión ya es suficiente para evaluar el término de [scattering]{lang=en-US} cuando tenemos su desarrollo de Legendre, podemos
+
+ 1. ahondar un poco más en la estructura de la ecuación de transporte, y
+ 2. obtener una expresión computacionalmente más eficiente
+ 
+expandiendo en una base apropiada el flujo angular $\psi$, de la misma manera en la que desarrollamos $\Sigma_s$ en una serie de polinomios de Legendre sobre el parámetro $\mu$.
 
 Para ello, notamos que $\psi$ depende angularmente de un versor dirección $\omegaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, \hat{\Omega}_z]^T$ (u $\omegaprimaversor$ en el caso de la @eq-qs1).
 Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que toman un único argumento escalar $\mu$) sino la generada^[Del inglés [*span*]{lang=en-US}.] por los armónicos esféricos reales, ilustrados en la @fig-harmonics.
@@ -980,7 +1023,7 @@ Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que
 
 ::: {#thm-harmonics}
 
-## Expansión en armónicos esféricos
+## Expansión en armónicos esféricos reales
 
 Cualquier función $f(\hat{\Omega}_x, \hat{\Omega}_y, \hat{\Omega}_z)$ de cuadrado integrable con
 
@@ -998,7 +1041,7 @@ $$
 :::
 
 ::: {#def-y00}
-Los primeros armónicos esféricos (@fig-harmonics) son
+Los primeros armónicos esféricos reales (@fig-harmonics) son
 
 $$
 \begin{aligned}
@@ -1019,7 +1062,7 @@ $$
 
 ::: {#thm-harmonic-orto}
 
-## Ortonormalidad de los armónicos esféricos
+## Ortonormalidad de los armónicos esféricos reales
 
 Los armónicos esféricos reales son ortonormales, es decir
 
@@ -1048,34 +1091,47 @@ $$
 Los armónicos esféricos se relacionan con los polinomios de Legendre como
 
 $$
-P_\ell(\omegaversor \cdot \omegaprimaversor) = \frac{4\pi}{2\ell + 1} 
-\sum_{m=-\ell}^{+\ell} Y_\ell^{m}(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor)
+P_\ell(\omegaversor \cdot \omegaprimaversor) =
+\frac{4\pi}{2\ell + 1} \sum_{m=-\ell}^{+\ell} Y_\ell^{m}(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor)
 $$
 :::
 
 ![Representación gráfica de los primeros nueve armónicos esféricos reales (@def-y00)](harmonics.png){#fig-harmonics width=100%}
 
 
-Si en el @thm-harmonics hacemos $f$ igual al flujo angular $\psi$ entonces podemos escribirlo como una suma doble sobre $\ell$ y sobre $m$ del producto de un coeficiente que depende del espacio, de la energía y del tiempo (pero no de la dirección) por el armónico esférico de grado $\ell$ y orden $m$, que no depende ni del espacio ni de la energía ni del tiempo (pero sí de la dirección):
+::: {.remark}
+Para $\ell = 0$ tenemos $P_0(\mu) = 1$ e $Y_0^0(\omegaversor) = \sqrt{1/4\pi}$. En efecto,
+
+$$
+P_0(\mu) = 1 = \frac{4\pi}{2\cdot 0 + 1} \cdot \sqrt{\frac{1}{4\pi}} \cdot \sqrt{\frac{1}{4\pi}} = 1
+$$
+:::
+
+Si en el @thm-harmonics hacemos $f$ igual al flujo angular $\psi$ entonces podemos escribirlo como una suma doble sobre $\ell$ y sobre $m$ del producto de un coeficiente que depende del espacio $\vec{x}$, de la energía $E$ y del tiempo $t$ (pero no de la dirección $\omegaversor$) por el armónico esférico de grado $\ell$ y orden $m$, que no depende ni del espacio $\vec{x}$ ni de la energía $E$ ni del tiempo $t$ (pero sí de la dirección $\omegaversor$):
 
 $$
 \psi(\vec{x}, \omegaversor, E, t) = \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m}\left(\omegaversor\right)
 $$ {#eq-psiarmonicos}
  
 
-Volvamos entonces al término de [scattering]{lang=en-US} $q_s$ dado por la @eq-qs1 y reemplacemos $P_\ell(\omegaversor \cdot \omegaprimaversor)$ en la integral sobre $\omegaprimaversor$ por el @thm-adicion:
-
+Volvamos entonces al término de [scattering]{lang=en-US} $q_s$ dado por la @eq-qs1 y reemplacemos $P_\ell(\omegaversor \cdot \omegaprimaversor)$ en la integral sobre $\omegaprimaversor$ por el @thm-adicion:
 
 $$
-q_s(\vec{x}, \omegaversor, E, t) = 
+\begin{gathered}
+q_s(\vec{x}, \omegaversor, E, t) = \\
+\bigintsss_{0}^{\infty}
+ \sum_{\ell=0}^{\infty} \frac{ 2\ell + 1}{4\pi}
+ \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) \int_{4\pi} \frac{4\pi}{2\ell + 1} \sum_{m=-\ell}^{+\ell} Y_\ell^m(\omegaversor) \cdot Y_\ell^m(\omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime,t)\, d\omegaprimaversor \right] dE^{\prime} \\
+=
 \bigintsss_{0}^\infty
 \sum_{\ell=0}^\infty
 \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
 \sum_{m=-\ell}^{+\ell} Y_\ell^{m}(\omegaversor) \int_{4\pi}
- Y_\ell^m(\omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor,E^\prime,t)\, d\omegaprimaversor \right] \, dE^{\prime}
+ Y_\ell^m(\omegaprimaversor) \cdot \psi(\vec{x}, \omegaprimaversor,E^\prime,t)\, d\omegaprimaversor \right] dE^{\prime}
+\end{gathered}
 $$
 
-La última integral sobre $d\omegaprimaversor$ es justamente el coeficiente $\Psi_\ell^m$ de la expansión en armónicos esféricos del flujo angular $\psi$ dado por el @cor-fellm. Luego
+La integral sobre $d\omegaprimaversor$ dentro del corchete es justamente el coeficiente $\Psi_\ell^m$ de la expansión en armónicos esféricos del flujo angular $\psi$ dado por el @cor-fellm. Luego
 
 $$
 q_s(\vec{x}, \omegaversor, E, t) =
@@ -1084,13 +1140,13 @@ q_s(\vec{x}, \omegaversor, E, t) =
 $${#eq-qs3}
 
 Esta @eq-qs3 refleja la forma en la que incide la fuente de [scattering]{lang=en-US} en el balance global de neutrones: el modo $\ell$ de la expansión en polinomios de Legendre de la sección diferencial $\Sigma_s$ de [scattering]{lang=en-US} contribuye sólo a través de los modos de grado $\ell$ de la expansión en armónicos esféricos del flujo angular $\psi$. En particular, para [scattering]{lang=en-US} isotrópico sólo el término para $\ell=0$ y $m=0$ contribuye a la fuente de [scattering]{lang=en-US} $q_s$.
-De la misma manera, para [scattering]{lang=en-US} linealmente anisotrópico además sólo contribuyen los términos
+De la misma manera, para [scattering]{lang=en-US} linealmente anisotrópico además sólo contribuyen los tres términos
 con $\ell=1$ y $m=-1,0,+1$.
 
 \medskip
 
 Prestemos atención ahora al coeficiente $\Psi_0^0$.
-Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre todas las direcciones es igual al flujo angular $\phi$ dividido $4\pi$ (@def-flujoangular),
+Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre todas las direcciones es igual al flujo angular (@def-flujoescalar),
 entonces
 
 $$
@@ -1105,7 +1161,7 @@ $$\begin{aligned}
 &= \frac{\phi(\vec{x}, E, t)}{4\pi} + \sum_{\ell=1}^{\infty} \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E, t) \cdot Y_{\ell}^{m} ({\omegaversor})
 \end{aligned}$$
 
-Más aún, los coeficientes de grado $\ell=1$ son
+Más aún, según la @def-y00, los coeficientes de grado $\ell=1$ son
 
 $$
 \begin{aligned}
@@ -1126,10 +1182,10 @@ $$
 y la @eq-jn.
 
 ::: {.remark}
-El vector corriente $\vec{J}(\vec{x},E,t)$ depende del espacio, la energía y el tiempo pero *no* del ángulo $\omegaversor$.
+El vector corriente $\vec{J}(\vec{x},E,t)$ depende del espacio $\vec{x}$, la energía $E$ y el tiempo $t$ pero *no* del ángulo $\omegaversor$.
 :::
 
-Podemos escribir también el segundo término correspondiente a $\ell=1$ de la expansión del flujo angular $\psi$ explícitamente como tres veces (sobre $4\pi$) el producto interno entre el vector corriente $\vec{J}(\vec{x},E,t)$ y la dirección $\omegaversor$ de forma tal que
+Podemos escribir también los tres términos correspondiente a $\ell=1$ de la expansión del flujo angular $\psi$ explícitamente como tres veces (sobre $4\pi$) el producto interno entre el vector corriente $\vec{J}(\vec{x},E,t)$ y la dirección $\omegaversor$ de forma tal que
 
 $$
 \begin{aligned}
@@ -1147,7 +1203,21 @@ $$
 \end{aligned}
 $$ {#eq-recuperacion-phi}
 
-Por un lado, el segundo término $3 (\vec{J} \cdot \omegaversor)$ es simétrico con respecto a la variable de integración $\omegaversor$ por lo que no contribuye a la integral sobre $4\pi$. Para analizar los siguientes términos para $\ell \geq 2$ necesitamos tener en cuenta el siguiente teorema.
+Por un lado, la integral del segundo término $3 (\vec{J} \cdot \omegaversor)$ sobre $d\omegaversor$ es cero.
+En efecto,
+
+$$
+\int_{4\pi} 3 \cdot \vec{J}(\vec{x},E,t) \cdot \omegaversor \, d\omegaversor
+=
+3\cdot \vec{J}(\vec{x},E,t) \cdot \int_{4\pi} \omegaversor \, d\omegaversor
+=
+3\cdot \vec{J}(\vec{x},E,t) \bigintss_{4\pi} 
+\begin{bmatrix} \Omega_x \\ \Omega_y \\ \Omega_z \end{bmatrix} \, d\omegaversor
+= 0
+$$
+
+
+Para analizar los siguientes términos para $\ell \geq 2$ necesitamos tener en cuenta el siguiente teorema.
 
 ::::: {#thm-integrales-armonicas}
 La integral sobre la esfera unitaria del armónico esférico $Y_\ell^m$ de grado $\ell$ y orden $m$ es
@@ -1173,14 +1243,14 @@ $$
 :::
 :::::
 
-::: {.remark}
+
 En virtud del @thm-integrales-armonicas, los términos de la sumatoria sobre $\ell \geq 2$ en la @eq-recuperacion-phi tampoco contribuyen a la integral por lo que
 
 $$
 \phi(\vec{x},E,t) = \int_{4\pi} \psi(\vec{x}, \omegaversor, E, t) \, d\omegaversor = 
 \frac{1}{4\pi} \int_{4\pi} \phi(\vec{x},E,t) \, d\omegaversor = \phi(\vec{x},E,t)
 $$
-:::
+
 
 ::: {#thm-omega-i-j}
 La integral del producto de dos cosenos dirección individuales
@@ -1198,9 +1268,7 @@ $$
 :::
 
 
-::::: {.remark}
-
-Podemos demostrar la @def-corriente se recupera además el vector corriente.
+Podemos demostrar entonces que con la @def-corriente recuperamos además el vector corriente.
 
 ::: {.proof}
 En efecto,
@@ -1215,7 +1283,7 @@ $$
 \end{aligned}
 $$ {#eq-recuperacion-j}
 
-El primer término $\phi \cdot \omegaversor$ se anula por ser impar.
+El primer término $\phi \cdot \omegaversor$ se anula porque por un lado $\phi$ no depende de $\omegaversor$ y por otro, como ya demostramos, $\int_{4\pi} \omegaversor\,d\omegaversor = 0$.
 Pero además los factores $Y_\ell^m \cdot \omegaversor$ dentro de la sumatoria doble también se anulan porque cualquier armónico $Y_\ell^m$ con $\ell>1$ es ortogonal con respecto a los tres armónicos $Y_1^m$ de orden $\ell=1$, que a su vez son proporcionales a $\omegaversor$:
 
 $$
@@ -1295,7 +1363,8 @@ $$
 \end{gathered}
 $$ {#eq-qsfacil}
 que es una ecuación mucho más útil---desde el punto de vista computacional---que la @eq-qs, que da un expresión demasiado general y muy difícil de evaluar.
-Este hecho es especialmente importante si podemos despreciar los términos para $\ell>1$ y suponer a lo más [scattering]{lang=en-US} linealmente anisotrópico (@def-scattering-linealmente-anisotropico)
+Esto es especialmente importante si podemos despreciar los términos para $\ell>1$ y suponer a lo más [scattering]{lang=en-US} linealmente anisotrópico (@def-scattering-linealmente-anisotropico).
+En este caso entonces
 
 $$
 \begin{gathered}
@@ -1341,8 +1410,10 @@ Ni la @eq-qsiso ni la @eq-qfiso dependen de la dirección $\omegaversor$.
 En esta tesis hacemos foco en el caso
 
  1. estacionario, y
- 2. con scattering linealmente anisotrópico (a lo más)
+ 2. con [scattering]{lang=en-US} linealmente anisotrópico (a lo más)
 
+En estas condiciones, la ecuación de transporte queda
+ 
 $$
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
