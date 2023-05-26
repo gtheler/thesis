@@ -1349,7 +1349,7 @@ $$
 $$
 que es lo que queríamos demostrar.
 :::
-:::::
+
 
 Volviendo a la evaluación del término de [scattering]{lang=en-US}, aprovechando el hecho de que la @eq-psi1 nos da una forma particular para el flujo angular en función de los dos modos $\ell=0$ y $\ell=1$, podemos calcular la fuente de [scattering]{lang=en-US} $q_s$ dada por la @eq-qs3 como
 
@@ -1430,13 +1430,13 @@ Si el scattering es isotrópico entonces $\Sigma_{s_1}=0$ y la segunda integral
 
 ### Condiciones iniciales y de contorno {#sec-bctransporte}
 
-Como ya hemos mencionado en la @sec-ecuacion-transporte luego de introducir la @eq-transporte, la ecuación de transporte es una ecuación integro-diferencial en derivadas parciales de primer orden sobre las coordenadas espaciales $\vec{x}$ en un cierto dominio espacial $U \in \mathbf{R}^3$ y una derivada temporal de primer orden sobre $t \in [0,\infty]$.
+Como ya hemos mencionado en la @sec-ecuacion-transporte luego de introducir la @eq-transporte, la ecuación de transporte es una ecuación integro-diferencial en derivadas parciales de primer orden sobre las coordenadas espaciales $\vec{x}$ en un cierto dominio espacial $U \in \mathbb{R}^3$ y una derivada temporal de primer orden sobre $t \in [0,\infty]$.
 Luego debemos dar
 
- 1. un flujo escalar inicial $\psi(\vec{x},E,\omegaversor,t=0)$ sobre el dominio $U$ para todas las energías $E$ y para todas las direcciones $\omegaversor$, y
+ 1. un flujo escalar inicial $\psi(\vec{x},E,\omegaversor,t=0)$ para $\vec{x}\in U$ para todas las energías $E$ y para todas las direcciones $\omegaversor$, y
  2. condiciones de contorno $\psi(\vec{x}=\partial U,E,\omegaversor=\omegaversor^{*},t)$ sobre la frontera $\partial U$ del dominio $U$ también para todas las energías $E$ y tiempos $t$ pero no para todas las direcciones $\omegaversor$ sino para un subconjunto $\omegaversor^{*}$ ya que la ecuación es de primer orden. Esto es, para cada punto $\vec{x} \in \partial U$ sólo se debe fijar el flujo angular $\psi$ correspondiente a las direcciones $\omegaversor^{*}$ que _entren_ al dominio $U$, es decir tal que el producto interno $\omegaversor^{*} \cdot \hat{\vec{n}} < 0$, donde $\hat{\vec{n}}$ es el vector normal externo a la frontera $\partial U$ en el punto $\vec{x}$. En forma equivalente, se puede pensar como que el flujo angular $\psi$ puede estar fijado, para cada dirección, a lo más en un único punto del espacio ya que la ecuación es de primer grado. Si estuviese fijado en dos puntos, el problema matemático estaría mal definido, como ilustramos en la @fig-bc-1st-order.
  
-![Para una dirección $\omegaversor$ fija, la ecuación de transporte es una ecuación diferencial de primer orden sobre el espacio. Matemáticamente, esta ecuación puede tener una condición de contorno o bien en el punto $A$ o bien en el punto $B$, pero no en ambos. Físicamente, sólo tiene sentido que la condición esté sobre el punto $A$ ya que la dirección $\omegaversor$ entra al dominio $U$.](bc-1st-order){#fig-bc-1st-order width=50%}
+![Para una dirección $\omegaversor$ fija, la ecuación de transporte es una ecuación diferencial de primer orden sobre el espacio. Matemáticamente, esta ecuación puede tener una única condición de contorno o bien en el punto $A$ o bien en el punto $B$, pero no en ambos. Físicamente, sólo tiene sentido que la condición esté sobre el punto $A$ ya que la dirección $\omegaversor$ entra al dominio $U$.](bc-1st-order){#fig-bc-1st-order width=50%}
  
 
 ::: {#def-ccvacuum}
@@ -1467,7 +1467,7 @@ $$
 \psi(\vec{x}, \omegaversor, E, t) =
 \psi\left[\vec{x}, \omegaversor - 2 \left( \omegaversor \cdot \hat{\vec{n}} \right) \hat{\vec{n}}, E, t\right]  \quad\quad \forall \vec{x} \in \Gamma_M \subset \partial U \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0$$
 
-Para cada dirección entrante $\omegaversor$ definimos el conjunto $\Gamma_M \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
+Definimos el conjunto $\Gamma_M \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
 :::
 
 ![La dirección reflejada $\omegaprimaversor$ de la dirección incidente con respecto a la normal exterior $\hat{\vec{n}}$ al dominio $U$ en el punto de la frontera $\vec{x} \in \partial U$. Se cumple que $\omegaversor \cdot \hat{\vec{n}} = -\omegaprimaversor \cdot \hat{\vec{n}}$.](reflejado){#fig-reflejado width=60%}
@@ -1485,6 +1485,8 @@ entonces es posible tener una _condición de contorno general_ de Dirichlet no h
 $$
 \psi(\vec{x}, \omegaversor, E, t) = \psi_\Gamma(\vec{x}, \omegaversor, E, t) \neq 0 \quad\quad \forall \vec{x} \in \Gamma_{I} \not\subset \left(\Gamma_V \cup \Gamma_M\right) \land \omegaversor \cdot \hat{\vec{n}}(\vec{x}) < 0
 $$
+
+Definimos el conjunto $\Gamma_I \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x}$ donde imponemos esta condición de contorno.
 :::
 
 ::: {.remark}
@@ -1498,9 +1500,9 @@ La ecuación de difusión de neutrones es una aproximación muy útil que permit
  a. obtener soluciones analíticas aproximadas en algunas geometrías simples, y
  b. transformar una ecuación diferencial hiperbólica de primer orden en una elíptica de segundo orden sin dependencia angular explícita, simplificando sensiblemente las soluciones numéricas debido a que
     i. la ecuación de difusión discretizada presenta mucho menos grados de libertad que otras formulaciones, tales como ordenadas discretas, y
-    ii. la discretización numérica del operador elíptico deviene en matrices simétricas y definidas positivas que permiten la aplicación de algoritmos de resolución muy eficientes, tales como los métodos multi-grid.
+    ii. la discretización numérica del operador elíptico deviene en matrices simétricas y definidas positivas que permiten la aplicación de algoritmos de resolución muy eficientes, tales como los métodos multi-grid @nachogatech.
  
-En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas. La primera es una aproximación que, como mostramos, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
+En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas, si damos por cierto las siete suposiciones` de la página~\pageref{siete}`{=latex}. La primera es una aproximación que, como mostramos en esta sección, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
  
 ### Momento de orden cero
 
@@ -1517,7 +1519,7 @@ $${#eq-transporte-integrada}
 
 ::: {#thm-div-inner}
 
-## Extensión de la regla del producto
+## Extensión de la regla de la derivada del producto
 
 La divergencia del producto entre el vector $\omegaversor$ y el escalar $\psi$ es
 
@@ -1570,7 +1572,7 @@ $${#eq-conservacion}
 
 ::: {.remark}
 La @eq-conservacion refleja la conservación del momento de orden cero del flujo angular $\psi$ de neutrones con respecto a las direcciones $\omegaversor$, es decir la conservación de neutrones totales.
-Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es exacta y no involucra ninguna aproximación, más allá de las siete suposiciones hechas en el comienzo del capítulo `en la página~\pageref{siete}`{=latex}.
+Dado que proviene de integrar la ecuación de transporte sobre todas las direcciones posible, es tan exacta como la propia ecuación de transporte.
 :::
 
 #### Producciones
@@ -1632,7 +1634,7 @@ es decir, el momento de orden cero de la distribución angular de la fuente $s$
 
 ### Momento de orden uno {#sec-fick}
 
-Comencemos recordando la @eq-transporteq, explicitando los términos de fuentes por [scattering]{lang=en-US} (@eq-qs3),
+Comencemos esta sección recordando la @eq-transporteq, explicitando los términos de fuentes por [scattering]{lang=en-US} (@eq-qs3),
 fisión (@eq-qf) y fuentes independientes:
 
 $$
@@ -1690,8 +1692,8 @@ $$ {#eq-difusion1}
 
 #### Advección
 
-El término de advección parece el más sencillo pero de hecho es el más complicado.
-De hecho es tan complicado que necesitamos hacer la aproximación más importante de la formulación de difusión.
+El término de advección parece el más sencillo pero de hecho es el más difícil de analizar.
+Es más, es tan complicado que es aquí donde necesitamos hacer la aproximación más importante de la formulación de difusión.
 Tenemos que suponer que los coeficientes $\Psi_\ell^m$ de la expansión del flujo angular $\psi$ en armónicos esféricos dado en la @eq-psi1 son cero para $\ell \geq 2$, es decir
 
 $$
@@ -1842,14 +1844,21 @@ $$
 \end{bmatrix}
 $$
 
-Todos los términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k la integral es igual a cero.
+Todos los términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k su integral sobre $4\pi$ es igual a cero.
 Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente ansiotrópico como
 
 
 $$
-\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq  \frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
+\int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq  \frac{1}{3} \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
 $$ {#eq-difusion2}
 
+::: {.remark lang=en-US}
+If one keeps the higher terms in the Legendre polynomial expansion of $\psi$, there then then results, as can be shown by an easy calculation, the exact expression [@beckurts, p. 88] 
+
+$$
+J = - \frac{1}{3 \left( \Sigma_{tr} + \Sigma_a \right)} \frac{d}{dx} \left[ \phi(x) \left(1 + 2 \frac{\psi_2(x)}{\phi(x)} \right)  \right] 
+$$
+:::
 
 
 #### Absorción total
@@ -1879,8 +1888,8 @@ $$\begin{gathered}
 \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor) \cdot \omegaversor \right] \, dE^{\prime} \right\} \, d\omegaversor
 \end{gathered}$$
 
-En forma similar al argumento planteado en la\ @sec-armonicos, el primer término se anula por ser
-impar. Los términos de la sumatoria para $\ell \geq 2$ también se anulan por la propiedad
+En forma similar al argumento planteado en la @eq-recuperacion-phi, el primer término se anula.
+Los términos de la sumatoria para $\ell \geq 2$ también se anulan por la propiedad
 de ortogonalidad de los armónicos esféricos (@thm-harmonic-orto) y la @eq-omegapropy que indica que $\omegaversor$ es proporcional a $Y_1^m(\omegaversor)$.
 Entonces el término de [scattering]{lang=en-US} queda
 
@@ -1941,7 +1950,7 @@ Si las fuentes independientes son isotrópicas en el centro de masa del reactor,
 
 ### Ley de Fick
 
-Estamos entonces en condiciones de volver a reunir todos los términos de la @eq-difusionporomega que analizamos por separado
+Estamos entonces en condiciones de volver a reunir los seis términos de la @eq-difusionporomega que analizamos por separado
 
  * @eq-difusion1,
  * @eq-difusion2,
@@ -1969,6 +1978,7 @@ Para arribar finalmente a la ecuación de difusión necesitamos tres nuevas supo
  i. Que
     
     a. el problema sea estacionario, o
+    
     b. que
  
     $$
@@ -1978,6 +1988,7 @@ Para arribar finalmente a la ecuación de difusión necesitamos tres nuevas supo
  ii. Que
  
      a. no haya fuentes independientes, o
+     
      b. que la fuente independiente sea isotrópica de forma tal que los tres coeficientes\ $s_\ell^m$ de la\ @eq-difusion5 sean iguales a cero.
 
  iii. Que
@@ -1999,7 +2010,7 @@ Si al menos una de las dos condiciones a ó b de cada una de las tres suposicion
 
 $$
 \begin{aligned}
-\frac{1}{3}  \, \text{grad} \left[ \phi(\vec{x}, E,t ) \right] +
+\frac{1}{3}  \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right] +
 \Sigma_t(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 & \simeq
 \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \cdot \vec{J}(\vec{x}, E, t) \, dE^\prime  \\
@@ -2008,18 +2019,19 @@ $$
 & =
 \mu_0(\vec{x}, E) \int_0^\infty \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \, dE^\prime \cdot \vec{J}(\vec{x}, E, t)  \\
 & =
-\mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
+\mu_0(\vec{x}, E) \cdot \Sigma_{s_t}(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 \end{aligned}
 $$
-donde en los últimos dos pasos hemos utilizado la @eq-mu0 y la sección eficaz *total* de [scattering]{lang=en-US} $\Sigma_s(\vec{x}, E)$. Con esta expresión podemos relacionar el vector corriente $\vec{J}$ con el gradiente del flujo escalar $\phi$ como
+donde en los últimos dos pasos hemos utilizado la @def-coseno-medio y la sección eficaz *total* de [scattering]{lang=en-US} $\Sigma_s(\vec{x}, E)$ de la @eq-sigmast evaluada en función del coeficiente $\Sigma_{s_0}$ según la @eq-sigmastys0.
+Con esta expresión podemos relacionar el vector corriente $\vec{J}$ con el gradiente del flujo escalar $\phi$ como
 
-$$\vec{J}(\vec{x}, E, t) = -\frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x},E) \right] } \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]$$
+$$\vec{J}(\vec{x}, E, t) = -\frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_{s_t}(\vec{x},E) \right] } \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]$$
 
 ::: {#def-D}
 El *coeficiente de difusión* $D$ definido como
 
 $$
-D(\vec{x}, E) = \frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_s(\vec{x},E) \right]}
+D(\vec{x}, E) = \frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot \Sigma_{s_t}(\vec{x},E) \right]}
 $$ {#eq-D}
 es tal que, si
 
@@ -2038,11 +2050,11 @@ según la cual el vector corriente $\vec{J}$ es proporcional a menos el gradien
 :::
 
 ::: {.remark}
-La ley de Fick refleja, en forma aproximada, la conservación del momento de orden uno del flujo angular\ $\psi$.
+La ley de Fick refleja, en forma aproximada, la conservación del momento de orden uno del flujo angular\ $\psi$ con respecto a todas las direcciones de vuelo $\omegaversor$.
 :::
 
 ::: {.remark}
-Dado que las secciones eficaces macroscópicas tiene unidades de inversa de longitud (#def-sigmat), el coeficiente de difusión $D$ tiene unidades de longitud.
+Dado que las secciones eficaces macroscópicas tienen unidades de inversa de longitud (@def-sigmat), el coeficiente de difusión $D$ tiene unidades de longitud.
 :::
 
 ### La ecuación de difusión
@@ -2153,15 +2165,15 @@ $$
 \quad\quad \forall \vec{x} \in \Gamma_M \subset \partial U
 $$
 
-Esta es una condición de tipo Neumann.
-Definimos el conjunto $\Gamma_M \in \subset U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta condición de contorno.
+Esta es una condición de tipo Neumann homogénea.
+Definimos el conjunto $\Gamma_M \subset U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta condición de contorno.
 :::
 
 Para el problema de difusión, a veces se suele utilizar una tercera condición de contorno basada en la idea que sigue.
-Si extrapolamos linealmente el flujo escalar $\phi$ una distancia $d$ (que depende de la posición $\vec{x}$ y de la energía $E$) en la dirección de la normal externa $\hat{\vec{n}}$ en la frontera $\partial U$ mediante una expansión de Taylor a primer orden, tenemos
+Si extrapolamos linealmente el flujo escalar $\phi$ una distancia $\zeta$ (que depende de la posición $\vec{x}$ y de la energía $E$) en la dirección de la normal externa $\hat{\vec{n}}$ en la frontera $\partial U$ mediante una expansión de Taylor a primer orden, tenemos
 
 $$
-\phi \big(\vec{x} + d(\vec{x}, E) \cdot \hat{\vec{n}}, E, t \big) \Big|_{\vec{x} \in \partial U} \approx \phi(\vec{x}, E, t) + \frac{\partial \phi}{\partial n} \cdot d(\vec{x}, E)
+\phi \big(\vec{x} + \zeta(\vec{x}, E) \cdot \hat{\vec{n}}, E, t \big) \Big|_{\vec{x} \in \partial U} \approx \phi(\vec{x}, E, t) + \frac{\partial \phi}{\partial n} \cdot \zeta(\vec{x}, E)
 $$
 
 Si se cumple la condición de contorno de vacío dada por la @def-ccvacuum-dif
@@ -2176,10 +2188,10 @@ $$
 $$
 como ilustramos en la @fig-cc.
 
-![El flujo escalar $\phi(\vec{x}, E,t)$ extrapolado linealmente se anula a una distancia $d(\vec{x},E)= 2D(\vec{x},E)$ en una condición de contorno tipo vacío de la ecuación de difusión.](cc){#fig-cc}
+![El flujo escalar $\phi(\vec{x}, E,t)$ extrapolado linealmente se anula a una distancia $\zeta(\vec{x},E)= 2D(\vec{x},E)$ en una condición de contorno tipo vacío de la ecuación de difusión.](cc){#fig-cc}
 
 
-Si el valor numérico del coeficiente de difusión $D(\vec{x}, E)$ (que tiene unidades de longitud) es mucho menor que el tamaño característico del dominio $U$ entonces podemos aproximar $d \approx 0$.
+Si el valor numérico del coeficiente de difusión $D(\vec{x}, E)$ (que tiene unidades de longitud) es mucho menor que el tamaño característico del dominio $U$ entonces podemos aproximar $\zeta \approx 0$.
 
 ::: {#def-cc-nulldif}
 Llamamos *condición de contorno de flujo nulo* cuando el flujo escalar $\phi$ se anula un punto $\vec{x} \in \partial U$:
@@ -2188,16 +2200,14 @@ $$
 \phi(\vec{x}, E, t) = 0 \quad\quad \forall \vec{x} \in \Gamma_N \subset \partial U
 $$
 
-Definimos el conjunto $\Gamma_N \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
-condición de contorno. Matemáticamente esta condición es de tipo Dirichlet.
+Definimos el conjunto $\Gamma_N \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta condición de contorno. Matemáticamente esta condición es de tipo Dirichlet homogénea.
 :::
 
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
 Si bien hasta el momento hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
-Para ello, tenemos que anular los términos que involucren derivadas parciales con respecto al tiempo en las ecuaciones tanto de transporte
-como de difusión de neutrones.
+Para ello, tenemos que anular los términos que involucren derivadas parciales con respecto al tiempo en las ecuaciones tanto de transporte como de difusión de neutrones.
 Esto cambia las propiedades matemáticas de las ecuaciones y por lo tanto la forma en la cual debemos resolverlas.
 Vamos a particularizar la ecuación de transporte (@eq-transporte) y la de difusión (@eq-difusion) para tres casos:
 
@@ -2246,16 +2256,16 @@ En el capítulo siguiente vamos a reordenar términos y a discretizar el problem
 algebraicas lineales que puede ser escrito en forma matricial como
 
 $$
-\mat{A} \vec{u} = \vec{b}
+\mat{A} \cdot \vec{u} = \vec{b}
 $$ {#eq-Aub}
 donde
 
- * $\vec{u}$ es un vector de tamaño $N$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizados (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
- * $\mat{A} \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
+ * $\vec{u}$ es un vector de tamaño $N \in \mathbb{N}$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizados (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
+ * $\mat{A} \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}.] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
  * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
  * $N$ es el tamaño del problema discretizado, que es el producto de 
-   1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos)
-   2. la cantidad de grupos de energía
+   1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
+   2. la cantidad de grupos de energía, y
    3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
 
 La información sobre...
@@ -2269,24 +2279,24 @@ de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio 
 
 **TODO** ejemplos de problemas del @sec-resultados
 
-Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez depende de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
+Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez puede depender de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
 La versión discretizada puede escribir en forma genérica como
 
 $$
 \vec{F}(\vec{u}) = 0
 $$
 para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$. 
-Este tipo de problemas usualmente se resuelven con esquemas tipo Newton @petsc-user-ref, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}] $\vec{u}_0$
+Estos problemas usualmente se resuelven con esquemas tipo Newton @petsc-user-ref, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\vec{u}_0$
 
 $$
-\vec{u}_{k+1} = \vec{u}_k - \mat{A}(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
+\vec{u}_{k+1} = \vec{u}_k - \mat{J}(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
 $$
-para los pasos $k=0,1,\dots$, donde $\mat{A}$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $\mat{A}$ del problema lineal de la @eq-Aub.
+para los pasos $k=0,1,\dots$, donde $\mat{J}$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $\mat{A}$ del problema lineal de la @eq-Aub.
 
-Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{A}^{-1}$.
+Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{A}^{-1}$ o $\mat{J}^{-1}$.
 En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
 
- 1. Resolver $\mat{A}(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
+ 1. Resolver $\mat{J}(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
  2. Actualizar $\vec{u}_{k+1} \leftarrow \vec{u}_k + \Delta \vec{u}_k$
 
 Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
@@ -2294,9 +2304,8 @@ Es por eso que  la formulación discreta de la @eq-Aub es central tanto para pr
 
 ### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
 
-Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir
-tanto de las fuentes como de las fisiones.
-En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar en $\vec{x}$.
+Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir tanto de las fuentes independientes como de las fisiones.
+En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar $\phi(\vec{x})$.
 En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
 Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
 La fuente de fisión para un medio multiplicativo con fuente independiente por unidad de ángulo sólido, recordando que la fisión es isotrópica, es
@@ -2339,7 +2348,8 @@ En ausencia de fuentes independientes, tanto la ecuación de transporte como la 
 $$
 \frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
 $$ {#eq-psi-L}
-donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión. Esta formulación tiene infinitas soluciones de la forma
+donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión.
+Esta formulación tiene infinitas soluciones de la forma
 
 $$
 \varphi(\vec{x},\omegaversor, E,t) = \varphi(\vec{x},\omegaversor, E) \cdot e^{\alpha \cdot t}
@@ -2351,7 +2361,7 @@ $$
 $$
 donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
 
-La solución general de la ecuación @eq-psi-L es 
+La solución general de la @eq-psi-L es 
 
 $$
 \varphi(\vec{x},\omegaversor, E,t) = \sum_{n=0}^\infty C_n \cdot \varphi_n(\vec{x},\omegaversor,E) \cdot \exp(\alpha_n \cdot t)
@@ -2365,19 +2375,17 @@ El signo de $\alpha_0$ determina si la población neutrónica
  b. permanece constante ($\alpha_0 = 0$), o
  c. aumenta con el tiempo ($\alpha_0 > 0$).
  
-La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es, justamente, cero.
-
+La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es cero.
 Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
 Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
 
  a. geométrico (por ejemplo la posición de una barra de control), o
  b. físico (por ejemplo la concentración media de boro en el moderador).
  
-De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0$ y haya una solución de estado estacionario.
+De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 = 0$ y haya una solución de estado estacionario.
 
-Hay un parámetro real que además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y
-secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
-El procedimiento consiste en dividir la sección eficaz de fisión $\nu\Sigma_f$ por un número real $k_\text{eff}$, para obtener la ecuación de transporte como
+Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
+El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de transporte como
 
 $$
 \begin{gathered}
@@ -2409,7 +2417,7 @@ trivial, y viceversa.
 El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
 :::
 
-En este caso, al no haber fuentes independientes sólo quedan términos homogéneos.
+Al no haber fuentes independientes, todos los términos están multiplicados por la incógnita y la ecuación es homogénea.
 Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
 Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
 
@@ -2427,7 +2435,7 @@ Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}
  #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
  #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
 
-Debemos notar el problema de la @eq-eigen es matemáticamente homogéneo.
+Tanto el problema continuo como el discretizado en la  @eq-eigen son matemáticamente homogéneos.
 Esta característica define dos propiedades importantes:
 
  1. El autovector $\vec{u}$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
@@ -2443,7 +2451,7 @@ térmica total $P$ del reactor y se normaliza el flujo de forma tal que
 
  2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
 
-Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
+Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo neutrónico (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
 
 $$
 \mat{A}(\vec{u}) \cdot \vec{u} = \lambda \mat{B}(\vec{u}) \cdot \vec{u}
