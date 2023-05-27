@@ -1,51 +1,16 @@
 # Introducción {#sec-introduccion}
 
-```{=latex}
-\begin{chapterquote}
-```
-“El Contra” le pregunta a un invitado DT:  
---- Supongamos que van 48 del segundo tiempo y su equipo está atacando.
-¿Qué prefiere? ¿Que le den un córner o un lateral?  
---- ¿Qué pregunta es esa? Un córner, porque tengo chance de llegar al área.  
---- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana
-entrenamos laterales con sandías. Cuando llega el domingo,  
-[lo mira a Antonio Carrizo] ¿sabés hasta donde tiramos la pelota?
-
-\smallskip
-
-_Juan Carlos Calabró, 1993_
-```{=latex}
-\end{chapterquote}
-```
-
-::: {.chapterquote}
-> “El Contra” le pregunta a un invitado DT:  
-> --- Supongamos que van 48 del segundo tiempo y su equipo está atacando.
-> ¿Qué prefiere? ¿Que le den un córner o un lateral?  
-> --- ¿Qué pregunta es esa? Un córner, porque tengo chance de llegar al área.  
-> --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana
-> entrenamos laterales con sandías. Cuando llega el domingo,  
-> [lo mira a Antonio Carrizo] ¿sabés hasta donde tiramos la pelota?
-> 
-> \smallskip
-> 
-> _Juan Carlos Calabró, 1993_
+::::: {lang=en-US}
+::: {.chapterquote data-latex=""}
+> | “El Contra” le pregunta a un invitado DT:
+> | --- Supongamos que van 48’ del segundo tiempo y su equipo está atacando. ¿Qué prefiere? ¿Que le den un córner o un lateral?
+> | --- ¿Qué pregunta es esa? Un córner, porque tengo una chance de llegar al área.
+> | --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana entrenamos laterales con sandías. Cuando llega el domingo, [lo mira a Antonio Carrizo] ¿sabés hasta donde tiramos la pelota?
+> |
+> | *Juan Carlos Calabró, 1993*
 :::
+:::::
 
-
-::: {.only-in-format .html}
-> “El Contra” le pregunta a un invitado DT:  
-> --- Supongamos que van 48 del segundo tiempo y su equipo está atacando.
-> ¿Qué prefiere? ¿Que le den un córner o un lateral?  
-> --- ¿Qué pregunta es esa? Un córner, porque tengo chance de llegar al área.  
-> --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana
-> entrenamos laterales con sandías. Cuando llega el domingo,  
-> [lo mira a Antonio Carrizo] ¿sabés hasta donde tiramos la pelota?
-> 
-> \smallskip
-> 
-> _Juan Carlos Calabró, 1993_
-:::
 
 Suele suceder que cuando un profesional se pasa unos cuantos años
 trabajando en un cierto problema, comienza a dar por sentadas muchas de

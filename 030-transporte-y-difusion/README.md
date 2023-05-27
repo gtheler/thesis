@@ -1,43 +1,38 @@
-# Transporte y difusión de neutrones {#sec-transporte-difusion}
-
-```{=latex}
-\begin{chapterquote}
-```
-::: {lang=en-US}
-In an enterprise such as the development nuclear physics  
-the difference between ideas, hopes, suggestions and theoretical  
-calculations, and solid numbers based on measurement, is paramount.  
-All the committees, the politicking and the plans would have come  
-to naught if a few unpredictable nuclear cross sections  
-had been different from what they are by a factor of two.
-:::
-
-*Emilio Segré*
-```{=latex}
-\end{chapterquote}
-```
-
 \newcommand{\omegaversor}{\hat{\symbf{\Omega}}}
 \newcommand{\omegaprimaversor}{\hat{\symbf{\Omega}}^\prime}
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\mat}[1]{\mathsf{#1}}
 
-::: {.only-in-format .html}
-<!-- \renewcommand{\symbf}{\mathbf} -->
-<!-- \newcommand{\bigint}{\int} -->
-<!-- \newcommand{\bigints}{\int} -->
-<!-- \newcommand{\bigintss}{\int} -->
-<!-- \newcommand{\bigintsss}{\int} -->
-<!-- \newcommand{\hfil}{~} -->
-<!-- \newcommand{\hfill}{~} -->
+::: {.not-in-format .latex}
+<!--
+\renewcommand{\symbf}{\mathbf}
+\newcommand{\bigint}{\int}
+\newcommand{\bigintss}{\int}
+\newcommand{\bigints}{\int}
+\newcommand{\bigintsss}{\int}
+\newcommand{\hfil}{~}
+\newcommand{\hfill}{~} 
+-->
 :::
 
+# Transporte y difusión de neutrones {#sec-transporte-difusion}
 
-En este capítulo introducimos las ecuaciones que modelan el transporte
-de neutrones en el núcleo de un reactor nuclear con los siguientes
-objetivos:
+::::: {lang=en-US}
+::: {.chapterquote data-latex=""}
+> | In an enterprise such as the development nuclear physics
+> | the difference between ideas, hopes, suggestions and theoretical
+> | calculations, and solid numbers based on measurement, is paramount.
+> | All the committees, the politicking and the plans would have come
+> | to naught if a few unpredictable nuclear cross sections
+> | had been different from what they are by a factor of two.
+> |
+> | *Emilio Segré*
+:::
+:::::
 
- 1. fijar las ideas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones neutrónica discretizadas derivadas en el @sec-esquemas,
+En este capítulo introducimos las ecuaciones que modelan el transporte de neutrones en el núcleo de un reactor nuclear con los siguientes objetivos:
+
+ 1. fijar la matemática de las ecuaciones continuas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones de neutrónica discretizadas derivadas en el @sec-esquemas,
  2. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
  3. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
@@ -1418,15 +1413,17 @@ $$
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
  + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\frac{1}{4\pi}
-\left\{ \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}) \, dE^\prime + 3 \cdot \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left[\vec{J}(\vec{x},E^{\prime}) \cdot \omegaversor \right] \, dE^\prime \right\} \\
+\frac{1}{4\pi} \cdot 
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
+\frac{3 \cdot \omegaversor}{4\pi} \cdot
+\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
 + \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime 
 + s(\vec{x}, \omegaversor, E)
 \end{gathered}
 $$ {#eq-transporte-linealmente-anisotropica}
 
 
-Si el scattering es isotrópico entonces $\Sigma_{s_1}=0$ y la segunda integral dentro del corchete se anula.
+Si el scattering es isotrópico entonces $\Sigma_{s_1}=0$ y el segundo término del miembro derecho se anula.
 
 ### Condiciones iniciales y de contorno {#sec-bctransporte}
 
@@ -1845,7 +1842,7 @@ $$
 $$
 
 Todos los términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k su integral sobre $4\pi$ es igual a cero.
-Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente ansiotrópico como
+Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente anisotrópico como
 
 
 $$
@@ -2098,7 +2095,20 @@ Los datos de entrada para la ecuación de difusión de neutrones son:
  * La fuente independiente de neutrones $s$, que debe ser isotrópica.
  * El parámetro constante $m$, que es la masa en reposo del neutrón.
 
+::: {.remark}
+En estado estacionario, la ecuación de difusión de neutrones es
 
+$$
+\begin{gathered}
+ - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
+ + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
+ = \\
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
+\chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
++ s_0(\vec{x}, E)
+\end{gathered}
+$${#eq-difusion-ss}
+:::
 
 
 ### Condiciones de contorno {#sec-bcdifusion}
@@ -2204,268 +2214,7 @@ Definimos el conjunto $\Gamma_N \subset \partial U$ como el lugar geométrico d
 :::
 
 
-## Problemas de estado estacionario {#sec-problemas-steady-state}
 
-Si bien hasta el momento hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
-Para ello, tenemos que anular los términos que involucren derivadas parciales con respecto al tiempo en las ecuaciones tanto de transporte como de difusión de neutrones.
-Esto cambia las propiedades matemáticas de las ecuaciones y por lo tanto la forma en la cual debemos resolverlas.
-Vamos a particularizar la ecuación de transporte (@eq-transporte) y la de difusión (@eq-difusion) para tres casos:
-
- #. Medio no multiplicativo con fuentes independientes,
- #. Medio multiplicativo con fuentes independientes, y
- #. Medio multiplicativo sin fuentes independientes.
-
-Para calcular el estado estacionario tenemos que anular todos los términos de las derivadas temporales y eliminar todas las dependencias con respecto a la variable $t$.
-En cada uno de los tres casos discutimos las posibles condiciones de contorno necesarias para completar la formulación matemática.
-
-### Medio no multiplicativo con fuentes independientes
-
-Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
-Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
-
-Para estudiar este tipo de casos, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión.
-Luego la ecuación de transporte queda
-
-$$
-\begin{gathered}
-\omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime
-+ s(\vec{x}, \omegaversor, E)
-\end{gathered}
-$$ {#eq-transportenmfi}
-y la de difusión
-
-$$
-\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-+ s_0(\vec{x}, E)
-\end{gathered}
-$$ {#eq-difusionnmfi}
-
-Para que la solución sea no nula,
-
- a. la fuente no se debe anular idénticamente en el dominio, y/o
- b. las condiciones de contorno deben ser no homogéneas.
- 
-Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-transportenmfi como la @eq-difusionnmfi son lineales.
-En el capítulo siguiente vamos a reordenar términos y a discretizar el problema para obtener un sistema de ecuaciones
-algebraicas lineales que puede ser escrito en forma matricial como
-
-$$
-\mat{A} \cdot \vec{u} = \vec{b}
-$$ {#eq-Aub}
-donde
-
- * $\vec{u}$ es un vector de tamaño $N \in \mathbb{N}$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizados (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
- * $\mat{A} \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}.] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
- * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
- * $N$ es el tamaño del problema discretizado, que es el producto de 
-   1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
-   2. la cantidad de grupos de energía, y
-   3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
-
-La información sobre...
-
- * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $\mat{A}$.
- * las fuentes independientes y las condiciones de contorno de Neumann no homogéneas están incluidas en el vector $\vec{b}$.
- * el resto de las condiciones de contorno está repartida entre $\mat{A}$ y $\vec{b}$.
- 
-El vector $\vec{u} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
-de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretizacón espacial. En esta tesis utilizamos elementos finitos para discretizar los operadores diferenciales espaciales y el método de ordenadas discretas para evaluar la dependencia del flujo angular $\psi$ con la dirección $\omegaversor$.
-
-**TODO** ejemplos de problemas del @sec-resultados
-
-Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez puede depender de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
-La versión discretizada puede escribir en forma genérica como
-
-$$
-\vec{F}(\vec{u}) = 0
-$$
-para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$. 
-Estos problemas usualmente se resuelven con esquemas tipo Newton @petsc-user-ref, donde la incógnita $\vec{u}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\vec{u}_0$
-
-$$
-\vec{u}_{k+1} = \vec{u}_k - \mat{J}(\vec{x}_k)^{-1} \cdot \vec{F}(\vec{u}_k)
-$$
-para los pasos $k=0,1,\dots$, donde $\mat{J}$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $\mat{A}$ del problema lineal de la @eq-Aub.
-
-Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{A}^{-1}$ o $\mat{J}^{-1}$.
-En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
-
- 1. Resolver $\mat{J}(\vec{u}_k) \cdot \Delta \vec{u}_k = -\vec{F}(\vec{u}_k)$
- 2. Actualizar $\vec{u}_{k+1} \leftarrow \vec{u}_k + \Delta \vec{u}_k$
-
-Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
-
-
-### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
-
-Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir tanto de las fuentes independientes como de las fisiones.
-En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar $\phi(\vec{x})$.
-En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
-Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde $t=-\infty$.
-La fuente de fisión para un medio multiplicativo con fuente independiente por unidad de ángulo sólido, recordando que la fisión es isotrópica, es
-
-$$
-q_s(\vec{x}, \omegaversor, E) = \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime
-$$ 
-
-La expresión matemática de la ecuación de transporte para este caso es
-
-$$
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
- \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime \\
-+ \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
-+ s(\vec{x}, \omegaversor, E)
-\end{gathered}
-$$
-y de la ecuación de difusión es
-
-$$
-\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
-\chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-+ s_0(\vec{x}, E)
-\end{gathered}
-$$
-
-El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\vec{u}$.
-Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
-
-### Medio multiplicativo sin fuentes independientes
-
-En ausencia de fuentes independientes, tanto la ecuación de transporte como la de difusión se pueden escribir genéricamente como @stammler
-
-$$
-\frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
-$$ {#eq-psi-L}
-donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión.
-Esta formulación tiene infinitas soluciones de la forma
-
-$$
-\varphi(\vec{x},\omegaversor, E,t) = \varphi(\vec{x},\omegaversor, E) \cdot e^{\alpha \cdot t}
-$$
-que al insertarlas en la @eq-psi-L definen un problema de autovalores
-
-$$
-\mathcal{L}\left[\varphi(\vec{x},\omegaversor, E)\right] = \alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E)
-$$
-donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
-
-La solución general de la @eq-psi-L es 
-
-$$
-\varphi(\vec{x},\omegaversor, E,t) = \sum_{n=0}^\infty C_n \cdot \varphi_n(\vec{x},\omegaversor,E) \cdot \exp(\alpha_n \cdot t)
-$$
-donde los coeficientes $C_n$ son tales que satisfagan las condiciones iniciales y de contorno.
-
-Si ordenamos los autovalores $\alpha_n$ de forma tal que $\text{Re}(\alpha_n) \ge \text{Re}(\alpha_{n+1})$ entonces para tiempos $t\gg 1$ todos los términos para $n \neq 0$ serán despreciables frente al término de $\varphi_0$.
-El signo de $\alpha_0$ determina si la población neutrónica
-
- a. disminuye con el tiempo ($\alpha_0 < 0$),
- b. permanece constante ($\alpha_0 = 0$), o
- c. aumenta con el tiempo ($\alpha_0 > 0$).
- 
-La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es cero.
-Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
-Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
-
- a. geométrico (por ejemplo la posición de una barra de control), o
- b. físico (por ejemplo la concentración media de boro en el moderador).
- 
-De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 = 0$ y haya una solución de estado estacionario.
-
-Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
-El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de transporte como
-
-$$
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
- \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime \\
-+ \frac{1}{k_\text{eff}} \cdot \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, d\omegaprimaversor \, dE^\prime 
-\end{gathered}
-$$
-y la de difusión como
-
-$$\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
-\frac{1}{k_\text{eff}} \cdot \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-\end{gathered}
-$$
-
-La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definición.
-
-::: {#def-keff}
-Llamamos *factor de multiplicación efectivo* al número real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
-ecuaciones que modelan un medio multiplicativo sin fuentes externas.
-Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
-Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
-trivial, y viceversa.
-El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
-:::
-
-Al no haber fuentes independientes, todos los términos están multiplicados por la incógnita y la ecuación es homogénea.
-Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
-Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
-
-$$
-\mat{A} \vec{u} = \lambda \mat{B} \vec{u}
-$$ {#eq-eigen}
-conformando un problema de autovalores generalizado, donde el autovalor $\lambda$ dará una idea de la criticidad del reactor y el autovector $\vec{u}$ la distribución de flujo del reactor crítico asociado en $k$.
-Si $\mat{B}$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si ${A}$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
-
-En general, para matrices de $N \times N$ habrá $N$ pares autovalor-autovector.
-Más aún, tanto el autovalor $\lambda_n$ como los elementos del autovector $\vec{u}_n$ en general serán complejos.
-Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}$ ($\lambda=k_\text{eff}$),
-
- #. hay un único autovalor positivo real que es mayor (menor) en magnitud que el resto de los autovalores,
- #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
- #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
-
-Tanto el problema continuo como el discretizado en la  @eq-eigen son matemáticamente homogéneos.
-Esta característica define dos propiedades importantes:
-
- 1. El autovector $\vec{u}$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
-multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia
-térmica total $P$ del reactor y se normaliza el flujo de forma tal que
-    
-    $$
-    P = \int_{U} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
-    $$
-    donde $e\Sigma_f$ es el producto entre la la energía liberada en una fisión individual y la sección eficaz macroscópica de fisión.
-    Si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
-    Si $P$ es la potencia térmica total, entonces $e\Sigma_f$ debe tener en cuenta todas las contribuciones, incluyendo aquellas debidas a efectos retardados de los productos de fisión.
-
- 2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
-
-Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo neutrónico (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
-
-$$
-\mat{A}(\vec{u}) \cdot \vec{u} = \lambda \mat{B}(\vec{u}) \cdot \vec{u}
-$$
-
-Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}$), no son aplicables.
-
-En el caso no lineal resolvemos iterativamente
-
-$$
-\mat{A}(\vec{u}_k) \cdot \vec{u}_{k+1} = \lambda_{k+1}~\mat{B}(\vec{u}_k) \cdot \vec{u}_{k+1}
-$$ {#eq-eigen-it}
-a partir de una solución inicial $\vec{u}_0$.
-En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\vec{u}$ y no hay niguna constante multiplicativa arbitraria.
 
 ## Esquema de solución multi-escala {#sec-multiescala}
 

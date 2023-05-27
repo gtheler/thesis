@@ -1,26 +1,17 @@
 # Neutrónica de núcleo en un PHWR {#sec-neutronica-phwr}
 
-```{=latex}
-\begin{chapterquote}
-```
-
-::: {lang=en-US}
-It was the best of times, it was the worst of times,  
-it was the age of wisdom, it was the age of foolishness,  
-it was the epoch of belief, it was the epoch of incredulity...
-
-\medskip
-
-*Charles Dickens, A Tale of Two Cities, 1859*
+::::: {lang=en-US}
+::: {.chapterquote data-latex=""}
+> | It was the best of times,
+> | it was the worst of times,
+> | it was the age of wisdom,
+> | it was the age of foolishness,
+> | it was the epoch of belief,
+> | it was the epoch of incredulity...
+> |
+> | *Charles Dickens, A Tale of Two Cities, 1859*
 :::
-
-```{=latex}
-\end{chapterquote}
-```
-
-
-
-
+:::::
 
 
 ## Historia de dos reactores
