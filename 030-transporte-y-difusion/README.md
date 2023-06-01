@@ -188,7 +188,7 @@ La *sección eficaz de [scattering]{lang=en-US} diferencial* $\Sigma_s$ tal que
 $$
 \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \, d\omegaprimaversor \, dE^\prime
 $$
-es la probabilidad por unidad de longitud lineal que un neutrón de energía $E$ viajando en la dirección $\omegaversor$ sea dispersado hacia un intervalo de energía entre $E^\prime$ y $E^\prime + dE^\prime$ y a un cono $d\omegaprimaversor$ alrededor de la dirección $\omegaprimaversor$.
+es la probabilidad por unidad de longitud lineal que un neutrón de energía $E$ viajando en la dirección $\omegaversor$ sea dispersado hacia un intervalo de energía entre $E^\prime$ y $E^\prime + dE^\prime$ y a un cono $d\omegaprimaversor$ alrededor de la dirección $\omegaprimaversor$. Sus unidades son inversa de longitud por inversa de ángulo sólido por inversa de energía.
 :::
 
 Utilizando argumentos de simetría, podemos demostrar que la sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente de $\omegaversor$ y de $\omegaprimaversor$ (@fig-omegamu).

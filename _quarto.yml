@@ -54,6 +54,12 @@ csl: ieee.csl
 license: "CC BY"
 appendix-style: plain
 
+crossref:
+  sec-prefix: sección
+  fig-prefix: figura
+  tbl-prefix: tabla
+  eq-prefix: ecuación
+
 format:
   html:
     default-image-extension: svg

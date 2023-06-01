@@ -41,7 +41,7 @@ $$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
 \end{gathered}
 $$ 
 
-sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}] por seis escalares independientes:
+sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por seis escalares independientes:
 
  * tres para el espacio $\vec{x}$,
  * dos para la dirección $\omegaversor$ y
@@ -64,7 +64,7 @@ Dejamos la extensión a volúmenes finitos y su comparación con elementos como 
  
 ## Métodos numéricos 
  
-En forma general, la @eq-difusion-ss y la @eq-transporte-linealmente-anisotropica que derivamos en el capítulo anterior a partir de primeros principios están expresadas en una formulación fuerte y exacta
+En forma general, las ecuaciones [-@eq-difusion-ss] y [-@eq-transporte-linealmente-anisotropica] que derivamos en el capítulo anterior a partir de primeros principios están expresadas en una formulación fuerte y exacta
 
 $$
 \mathcal{F}(\varphi, \Sigma) = 0
@@ -72,7 +72,7 @@ $$
 denotando con
   
  * $\varphi$ el flujo incógnita ($\psi$ o $\phi$) “exacto”^[En el sentido matemático de satisfacer exactamente la ecuación diferencial. El análisis de la exactitud física queda fuera del alcance de esta tesis.] que depende continuamente de $\vec{x}$, $E$ y $\omegaversor$,
- * $\Sigma$ todos los datos de entrada con sus dependencias continuas de $\vec{x}$, $E$ y $\omegaversor$,
+ * $\Sigma$ todos los datos de entrada, incluyendo el dominio espacial continuo $U$ y las secciones eficaces con sus dependencias continuas de $\vec{x}$, $E$ y $\omegaversor$,
  * $\mathcal{F}$ un operador integral sobre $E^\prime$ y $\omegaprimaversor$ y diferencial sobre $\vec{x}$, $\Omega$ 
  
 Esencialmente, en este capítulo aplicamos métodos numéricos @quarteroni para obtener una formulación débil y aproximada
@@ -83,7 +83,7 @@ $$
 donde ahora
 
  * $\varphi_N$ es una aproximación discreta de tamaño $N$ del flujo incógnita,
- * $\Sigma_N$ es una aproximación de los datos de entrada
+ * $\Sigma_N$ es una aproximación de los datos de entrada, incluyendo una discretización $U_N$ del dominio espacial
  * $\mathcal{F}_N$ es un operador discreto de tamaño $N$
  
 El tamaño $N$ del operador discreto $\mathcal{F}_N$ es el producto de
@@ -105,7 +105,8 @@ para alguna norma apropiada $||\cdot||$.
 :::
 
 La convergencia y, más aún, el orden de convergencia es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de la norma con $1/N$ tiene que coincidir con el orden del método numérico. **TODO** cross-reference a MMS en el capítulo 6.
-De todas maneras, demostrar que un método numérico genérico es convergente no es sencillo y ni siquiera posible en la mayoría de los casos. En forma equivalente, se utilizan los conceptos de consistencia y estabilidad definidos a continuación.
+De todas maneras, demostrar que un método numérico genérico es convergente no es sencillo y ni siquiera posible en la mayoría de los casos.
+En forma equivalente, se prueban los conceptos de consistencia y estabilidad definidos a continuación y luego se utiliza el teorema de equivalencia.
 
 ::: {#def-consistencia}
 ## Consistencia
@@ -118,6 +119,13 @@ $$
 $$
 
 Es decir, si el operador discreto $\mathcal{F}_N$ tiende al operador continuo $\mathcal{F}$ para $N\rightarrow \infty$.
+Más aún, si
+
+$$
+\mathcal{F}_N(\varphi, \Sigma) =
+\left[ \mathcal{F}_N(\varphi, \Sigma) - \mathcal{F}(\varphi, \Sigma) \right] = 0 \quad \forall N \geq 1
+$$
+entonces decimos que el método numérico es _fuertemente_^[Del inglés [*strongly*].] o _completamente_^[Del inglés [*fully*].] consistente.
 :::
 
 
@@ -141,9 +149,10 @@ La consistencia es relativamente sencilla de demostrar. La estabilidad es un poc
 Finalmente, la convergencia queda demostrada a partir del siguiente resultado.
 
 ::: {#thm-lax}
-## Lax-Richtmyer
+##  de equivalencia de Lax-Richtmyer
 
 Si un método numérico es consistente, entonces es convergente si y sólo si es estable.
+Más aún, cualesquiera dos propiedades implica la tercera.
 :::
 
 
@@ -158,7 +167,7 @@ Suponiendo que disponemos de varios métodos numéricos que nos permitan calcula
  2. los recursos computacionales necesarios para obtener $\varphi_N$, medidos en
  
      a. tiempo total de CPU,
-     b. tiempo de pared^[En el sentido del inglés [*wall time*]{lang=en-US}.], que es igual al del punto a en serie pero debería ser menor en cálculos en paralelo, y
+     b. tiempo de pared,^[En el sentido del inglés [*wall time*]{lang=en-US}.] que es igual al del punto a en serie pero debería ser menor en cálculos en paralelo, y
      c. memoria RAM.
     
  3. los recursos humanos necesarios para 
@@ -174,7 +183,7 @@ Por ejemplo, dado un cierto problema de análisis de reactores a nivel de núcle
  
 Por otro lado, el punto 2 abarca
 
- * ¿Es más eficiente discretizar el espacio con una formulación precisa como Galerkin que da lugar a matrices no simétricas con pocos grados de libertad o utlizar una formulación menos precisa como cuadrados mínimos que da lugar a matrices simétricas con muchos grados de libertad?
+ * ¿Es más eficiente discretizar el espacio con una formulación precisa como Galerkin que da lugar a matrices no simétricas con pocos grados de libertad o conviene utilizar una formulación menos precisa como cuadrados mínimos que da lugar a matrices simétricas pero empleando más incógnitas espaciales?
  * ¿Es preferible usar métodos directos que son robustos pero poco escalables o métodos iterativos que son escalables pero sensibles a perturbaciones?
 
 La determinación del valor de $N$ necesario para contar con una cierta exactitud apropiada para cada método numérico no es trivial e involucra estudios paramátricos para obtener $\varphi_N$ vs. $N$. Este proceso puede necesitar barrer valores de $N$ suficientemente grandes para los cuales haya discontinuidades en la evaluación. Por ejemplo, si se debe pasar de una sola computadora a más de una por limitaciones de recursos (usualmente memoria RAM) o si se debe pasar de una infra-estructura *on-premise* a una basada en la nube.
@@ -252,7 +261,7 @@ Para que la solución sea no trivial,
  a. la fuente no se debe anular idénticamente en el dominio, y/o
  b. las condiciones de contorno deben ser no homogéneas.
  
-Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-difusionnmfi como la @eq-transportenmfi son lineales.
+Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-difusionnmfi como la [-@eq-transportenmfi] son lineales.
 En las secciones siguientes discretizamos el problema para obtener un sistema de ecuaciones algebraicas lineales que puede ser escrito en forma matricial como
 
 $$
@@ -454,7 +463,7 @@ Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}
  #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
  #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
 
-Tanto el problema continuo como el discretizado en la  @eq-eigen son matemáticamente homogéneos.
+Tanto el problema continuo como el discretizado en la @eq-eigen son matemáticamente homogéneos.
 Esta característica define dos propiedades importantes:
 
  1. El autovector $\symbf{\varphi}$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
@@ -482,7 +491,7 @@ En el caso no lineal resolvemos iterativamente
 
 $$
 \mat{A}(\symbf{\varphi}_k) \cdot \symbf{\varphi}_{k+1} = \lambda_{k+1} \cdot \mat{B}(\symbf{\varphi}_k) \cdot \symbf{\varphi}_{k+1}
-$$ {#eq-eigen-it}
+$$
 a partir de una solución inicial $\symbf{\varphi}_0$.
 En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\symbf{\varphi}$ y no hay ninguna constante multiplicativa arbitraria.
 
@@ -515,6 +524,18 @@ $$
 $$
 :::
 
+::: {#def-Jg}
+El vector corriente $\vec{J}_g$  del grupo $g$ es
+
+$$
+\vec{J}_g(\vec{x}) =
+\int_{E_g}^{E_{g-1}} \vec{J}(\vec{x},E) \, dE =
+\int_{E_g}^{E_{g-1}} \int_{4\pi} \psi(\vec{x}, \omegaversor, E) \cdot \omegaversor \, d\omegaversor \, dE =
+\int_{4\pi} \psi_g(\vec{x}, \omegaversor) \cdot \omegaversor \, d\omegaversor =
+$$
+:::
+
+
 ::: {.remark}
 Los flujos $\psi(\vec{x}, \omegaversor, E)$ y $\psi_g(\vec{x}, \omegaversor)$ no tienen las mismas unidades.
 La primera magnitud tiene unidades de inversa de área por inversa de ángulo sólido por inversa de energía por inversa de tiempo (por ejemplo $\text{cm}^{-2} \cdot \text{eV}^{-1} \cdot \text{s}^{-1}$), mientras que la segunda es un flujo integrado por lo que sus unidades son inversa de área por inversa de ángulo sólido por inversa de tiempo (por ejemplo $\text{cm}^{-2} \cdot \text{s}^{-1}$).
@@ -528,8 +549,15 @@ Los tres objetivos de discretizar la energía en $G$ grupos son
  3. re-escribir las ecuaciones de difusión y transporte en función de los flujos de grupo.
  
  
-Para fijar ideas, prestemos atención al término de absorción total de la ecuación de difusión $\Sigma_t \cdot \phi$, e integrémoslo entre $E_g$ y $E_{g-1}$.
-Quisiéramos que esta integral sea igual al producto entre el flujo escalar $\phi_g$ del grupo $g$ y el valor medio de la sección eficaz total $\Sigma_{tg}$ en el grupo $g$:
+Para ilustrar la idea, prestemos atención al término de absorción total de la ecuación de transporte $\Sigma_t \cdot \psi$.
+La idea es integrarlo con respecto a $E4 entre $E_g$ y $E_{g-1}$ y escribirlo como el producto de una sección eficaz total asociada al grupo $g$ por el flujo angular $\psi_g$ de la @def-psig:
+
+$$
+\int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) \, dE =
+\Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)
+$$ {#eq-sigmatg-psig}
+
+De la misma manera, para la ecuación de difusión quisiéramos que 
 
 $$
 \int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE =
@@ -541,20 +569,20 @@ Según la @def-psig, la sección eficaz total $\Sigma_{t g}$ media en el grupo
 $$
 \Sigma_{t g}(\vec{x}) =
 \frac{\displaystyle \int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE}{\displaystyle \int_{E_g}^{E_{g-1}} \phi(\vec{x}, E) \, dE}
-$$ {#eq-sigmatg}
+$$ 
 con lo que no hemos ganado nada ya que llegamos a una condición tautológica donde el parámetro que necesitamos para no tener que conocer la dependencia explícita del flujo con la energía depende justamente de dicha dependencia.
-Sin embargo, y es ésta una de las ideas centrales del cálculo y análisis de reactores, podemos suponer que el cálculo de celda (@sec-celda}) es capaz de proveernos las secciones eficaz macroscópicas multigrupo para el reactor que estamos modelando de forma tal que, desde el punto de vista del cálculo de núcleo, $\Sigma_{t g}$ y todas las demás secciones eficaces son distribuciones conocidas del espacio $\vec{x}$.
+Sin embargo, y es ésta una de las ideas centrales del cálculo y análisis de reactores, podemos suponer que el cálculo de celda (@sec-celda) es capaz de proveernos las secciones eficaz macroscópicas multigrupo para el reactor que estamos modelando de forma tal que, desde el punto de vista del cálculo de núcleo, $\Sigma_{t g}$ y todas las demás secciones eficaces son distribuciones conocidas del espacio $\vec{x}$.
 
 Para analizar la sección eficaz de $\nu$-fisiones, integremos el término de fisión de la ecuación de transporte entre las energías $E_{g-1}$ y $E_g$ e igualémoslo a una sumatoria de productos $\nu\Sigma_{fg^\prime} \cdot \phi_{g^\prime}$^[Podríamos haber integrado la ecuación de difusión, en cuyo caso no tendríamos el denominador $4\pi$ en ambos miembros. En cualquier caso, el resultado sería el mismo.]
 
 
 $$
 \int_{E_{g-1}}^{E_g} \frac{\chi(E)}{4\pi} \cdot
-\int_0^\infty \nu\Sigma_f(\vec{x},E^\prime) \cdot \psi(\vec{x}, E^\prime) \, dE^\prime \, dE
+\int_0^\infty \nu\Sigma_f(\vec{x},E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime \, dE
 =
 \frac{\chi_g}{4\pi} \cdot
 \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-$$
+$$ {#eq-nusigmaf-phig}
 
 entonces
 
@@ -564,19 +592,18 @@ $$ {#eq-chig}
 y
 
 $$
-\nu\Sigma_{f g}(\vec{x}) = \frac{\displaystyle \int_{E_g}^{E_{g-1}} \nu\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE}{\displaystyle \int_{E_g}^{E_{g-1}} \phi(\vec{x}, E) \, dE}
-$$ {#eq-nusigmafg}
+\nu\Sigma_{f g}(\vec{x}) = \frac{\displaystyle \int_{E^\prime_g}^{E^\prime_{g-1}} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime}{\displaystyle \int_{E^\prime_g}^{E^\prime_{g-1}} \phi(\vec{x}, E^\prime) \, dE^\prime}
+$$ 
 
 
-Para el término de [scattering]{lang=en-US} isotrópico, tenemos
+Para el término de [scattering]{lang=en-US} isotrópico, requerimos que
 
 $$
 \int_{E_{g-1}}^{E_g} \frac{1}{4\pi} \cdot 
 \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x},E^\prime) \, dE^\prime \, dE
 =
-\frac{1}{4\pi} \cdot
-\sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-$$
+\frac{1}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
+$$ {#eq-sigmas0-phig}
 entonces
 
 $$
@@ -584,139 +611,204 @@ $$
 \frac{\displaystyle \int_{E_{g-1}}^{E_g} \int_{E^\prime_{g-1}}^{E^\prime_g} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x},E^\prime) \,dE}{\displaystyle \int_{E^\prime_{g-1}}^{E^\prime_g} \phi(\vec{x},E^\prime) \, dE^\prime}
 $$
 
--------------------------
+::: {.remark}
+Necesitamos una doble integral sobre $E$ y sobre $E^\prime$ porque $\Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)$ es una sección eficaz diferencial y tiene unidades de inversa de longitud por inversa de ángulo sólido por inversa de energía.
+:::
 
-
-Para el caso del término de [scattering]{lang=en-US}, la sección eficaz diferencial desde el ángulo $\omegaprimaversor$ hacia el ángulo $\omegaversor$ y desde el grupo de energía $g^\prime$ hacia el grupo $g$ es
+Un análisis similar para el término de [scattering]{lang=en-US} linealmente anisotrópico
 
 $$
-\Sigma_{s g^\prime \rightarrow g}(\vec{x}, \omegaprimaversor \rightarrow \omegaversor) =
-\frac{\displaystyle \int_{E_g}^{E_{g-1}} \int_{E^\prime_{g^\prime}}^{E^\prime_{g^\prime -1}}
-\Sigma_{s}(\vec{x}, \omegaprimaversor \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime) \, dE^\prime \, dE }
-{\displaystyle \int_{E_g}^{E_{g-1}} \int_{E^\prime_{g^\prime}}^{E^\prime_{g^\prime -1}} \psi(\vec{x}, \omegaprimaversor, E^\prime) \, dE^\prime \, dE}
-$$ {#eq-sigmasggprima}
+\int_{E_{g-1}}^{E_g} \frac{3 \cdot \omegaversor}{4\pi} \cdot 
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \vec{J}(\vec{x},E^\prime) \, dE^\prime \, dE
+=
+\frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \vec{J}_{g^\prime}(\vec{x})
+$$ {#eq-sigmas1-Jg}
+arrojaría la necesidad de pesar la sección eficaz diferencial con la corriente $\vec{J}$ en lugar de con el flujo escalar $\phi$, dejando una expresión sin sentido matemático como
 
-Tomemos entonces el caso de medio multiplicativo con fuente de la @sec-multiplicativoconfuente e integremos la ecuación de
-transporte @eq-transportemmfi sobre la energía $E$ en el grupo $g$, es
-decir en el intervalo $E_g < E < E_{g-1}$:
+$$
+\Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) =
+\frac{\displaystyle \int_{E_{g-1}}^{E_g} \int_{E^\prime_{g-1}}^{E^\prime_g} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \vec{J}(\vec{x},E^\prime) \,dE}{\displaystyle \int_{E^\prime_{g-1}}^{E^\prime_g} \vec{J}(\vec{x},E^\prime) \, dE^\prime}
+$$
+a menos que tanto numerador como denominador tengan sus elementos proporcionales entre sí y la división se tome como elemento a elemento.
+Usualmente se desprecia la diferencia entre corriente y flujo y podemos utilizar el flujo para pesar el término de [scattering]{lang=en-US} anisotrópico:
 
-$$\begin{gathered}
- \int_{E_g}^{E_{g-1}} \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right] \, dE
- + \int_{E_g}^{E_{g-1}}  \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) \, dE = \\
- \int_{E_g}^{E_{g-1}}  \int_{0}^{\infty} \int_{4\pi} \Sigma_s(\vec{x}, \boldsymbol{\hat{\Omega}^\prime} \rightarrow \omegaversor, E^\prime \rightarrow E) \cdot \psi(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}, E^\prime) \, d\boldsymbol{\hat{\Omega}^\prime} \, dE^\prime \, dE \\
-+ \int_{E_g}^{E_{g-1}}  \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}, E^\prime) \, d\boldsymbol{\hat{\Omega}^\prime} \, dE^\prime \, dE
-+ \int_{E_g}^{E_{g-1}}  s(\vec{x}, \omegaversor, E) \, dE
-\end{gathered}$$
+$$
+\Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \approx
+\frac{\displaystyle \int_{E_{g-1}}^{E_g} \int_{E^\prime_{g-1}}^{E^\prime_g} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x},E^\prime) \,dE}{\displaystyle \int_{E^\prime_{g-1}}^{E^\prime_g} \phi(\vec{x},E^\prime) \, dE^\prime}
+$$
 
-Utilizando la
-definición [\[def:flujogrupo\]](#def:flujogrupo){reference-type="ref"
-reference="def:flujogrupo"} y reemplazando las
-ecuaciones [\[eq:sigmatg\]](#eq:sigmatg){reference-type="eqref"
-reference="eq:sigmatg"},
-[\[eq:nusigmafg\]](#eq:nusigmafg){reference-type="eqref"
-reference="eq:nusigmafg"}
-y [\[eq:sigmasggprima\]](#eq:sigmasggprima){reference-type="eqref"
-reference="eq:sigmasggprima"}, obtenemos a las $G$ ecuaciones de
-transporte multigrupo
 
-$$\begin{gathered}
-\label{eq:transportemultigrupo}
- \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor) = \\
- \sum_{g^\prime=1}^G \int_{4\pi} \Sigma_{sg^\prime \rightarrow g}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime} \rightarrow \omegaversor) \cdot \psi_{g^\prime}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}) \, d\boldsymbol{\hat{\Omega}^\prime} \\
-+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G \int_{4\pi} \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \psi_{g^\prime}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}) \, d\boldsymbol{\hat{\Omega}^\prime}
+
+Integremos ahora la ecuación de transporte @eq-transporte-linealmente-anisotropica con respecto a $E$ entre $E_g$ y $E_{g-1}$:
+
+$$
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \int_{E_g}^{E_{g-1}} \psi(\vec{x}, \omegaversor, E) \, dE \right]  +
+ \int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) \, dE = \\
+ \int_{E_g}^{E_{g-1}} \frac{1}{4\pi} \cdot \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}) \, dE^\prime + \\
+ \int_{E_g}^{E_{g-1}} \frac{3 \cdot \omegaversor}{4\pi} \cdot \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \vec{J}(\vec{x}, E^{\prime}) \, dE^\prime + \\
+ \int_{E_g}^{E_{g-1}} \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime \, dE +
+ \int_{E_g}^{E_{g-1}} s(\vec{x}, \omegaversor, E) \, dE
+\end{gathered}
+$$
+
+Teniendo en cuenta 
+
+ * @def-psig
+ * @def-phig
+ * @def-Jg
+ * @eq-sigmatg-psig
+ * @eq-nusigmaf-phig
+ * @eq-chig
+ * @eq-sigmas0-phig
+ * @eq-sigmas1-Jg
+
+obtenemos las $G$ ecuaciones de transporte multigrupo
+
+$$
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]  +
+ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor) = 
+ \frac{1}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x}) + \\
+ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \vec{J}_{g^\prime}(\vec{x}) + 
+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
 + s_g(\vec{x}, \omegaversor)
-\end{gathered}$$ donde hemos definido implícitamente
+\end{gathered}
+$$ {#eq-transportemultigrupo}
+para las incógnitas $\psi_g(\vec{x}, \omegaversor)$ para $g=1,\dots,G$, donde hemos definido la fuente independiente del grupo $g$ como
 
-$$\begin{aligned}
-\chi_g &= \int_{E_g}^{E_{g-1}} \chi(E) \, dE\\
-s_g(\vec{x}, \omegaversor) &= \int_{E_g}^{E_{g-1}} s(\vec{x}, \omegaversor, E) \, dE
-\end{aligned}$$
+$$
+s_g(\vec{x}, \omegaversor) = \int_{E_g}^{E_{g-1}} s(\vec{x}, \omegaversor, E) \, dE
+$$
 
-Podemos generalizar la expansión en polinomios de Legendre del kernel de
-[scattering]{lang=en-US} multigrupo basándonos en la expansión doble diferencial
-introducida en la
-ecuación [\[eq:sigmalegendreomega\]](#eq:sigmalegendreomega){reference-type="eqref"
-reference="eq:sigmalegendreomega"} como
 
-$$\label{eq:sigmasgprimeglegendre}
- \Sigma_{sg^\prime \rightarrow g}(\vec{x}, \omegaprimaversor\rightarrow \omegaversor) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{4\pi} \cdot \Sigma_{s_\ell g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell(\omegaversor \cdot \omegaprimaversor)$$
-donde los coeficientes son
+Procediendo de forma análoga para la ecuación de difusión @eq-difusion-ss, primero integrándola con respecto a $E$ entre $E_{g-1}$ y $E_g$ y luego teniendo en cuenta las definiciones de flujos de grupo, podemos obtener la ecuación de difusión multigrupo
 
-$$\label{eq:sigmasgprimegcoef}
- \Sigma_{s_\ell g^\prime \rightarrow g}(\vec{x}) =
- 2\pi \int_{4\pi} \Sigma_{s g^\prime \rightarrow g}(\vec{x}, \omegaprimaversor \rightarrow \omegaversor) \cdot P_\ell(\omegaversor \cdot \omegaprimaversor) \, d\omegaprimaversor$$
-
-Análogamente a la obtención de la ecuación de transporte
-multigrupo [\[eq:transportemultigrupo\]](#eq:transportemultigrupo){reference-type="eqref"
-reference="eq:transportemultigrupo"}, podemos integrar la ecuación de
-difusión [\[eq:difusionmmfi\]](#eq:difusionmmfi){reference-type="eqref"
-reference="eq:difusionmmfi"} sobre la energía en el
-intervalo $E_g < E < E_{g-1}$ para obtener la ecuación de difusión
-multigrupo:
-
-$$\begin{gathered}
-\label{eq:difusionmultigrupo}
+$$
+\begin{gathered}
  - \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]
  + \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x})
  = \\
 \sum_{g^\prime = 1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) +
 \chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})+ s_{0g}(\vec{x})
-\end{gathered}$$
+\end{gathered}
+$$ {#eq-difusionmultigrupo}
+donde las incógnitas son $\phi_g(\vec{x})$ para $g=1,\dots,G$, donde ahora las fuentes independentes son
 
-Matemáticamente, la aproximación multigrupo es equivalente a discretizar
-el dominio de la energía con un esquema de volúmenes finitos con la
-salvedad de que no hay operadores diferenciales con respecto a la
-variable $E$.
+$$
+s_{0g}(\vec{x}) = \int_{E_g}^{E_{g-1}} s_0(\vec{x}, E) \, dE
+$$
 
-comentarios sobre el coeficiente de difusión
+
+
+
+::: {.remark}
+El coeficiente de difusión $D_g$ del grupo $g$ proviene de calcular las secciones eficaces $\Sigma_{tg}$, $\Sigma_{st}$ y el coseno medio de [scattering]{lang=en-US} $\mu_{0g}$ del grupo $g$ y reemplazar la @def-D por
+
+$$
+D_g(\vec{x}) = \frac{1}{3 \left[ \Sigma_{tg}(\vec{x}) - \mu_{0g}(\vec{x}) \cdot \Sigma_{s_t g}(\vec{x}) \right]}
+$$ {#eq-D}
+:::
+
+::: {.remark}
+Matemáticamente, la aproximación multigrupo es equivalente a discretizar el dominio de la energía con un esquema de volúmenes finitos con la salvedad de que no hay operadores diferenciales con respecto a la variable $E$ sino que el acople entre volúmenes se realiza en forma algebraica. Dicho acople no es necesariamente entre primeros vecinos solamente sino que es arbitrario.
+:::
+
+
+::: {.remark}
+Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica, la consistencia es fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
+:::
 
 ## Discretización en ángulo {#sec-sn}
 
-Para discretizar la dependencia espacial de la ecuación de transporte
-multigrupo [\[eq:transportemultigrupo\]](#eq:transportemultigrupo){reference-type="eqref"
-reference="eq:transportemultigrupo"} aplicamos el método de ordenadas
-discretas o S$_N$ que también podemos ver como una mezcla de dos métodos
-tradicionales. Por un lado, un esquema de volúmenes finitos con la
-particularidad que los volúmenes de control pertenecen a la esfera
-unitaria y tienen ubicaciones y áreas particulares según sea el
-orden $N$ de la aproximación. Y por otro lado un método de colocación
-con deltas de Dirac como pesos.
+Para discretizar la dependencia espacial de la ecuación de transporte multigrupo [-@eq-transportemultigrupo] aplicamos el método de ordenadas discretas o S$_N$, discutido en la literatura tradicional de física de reactores.
+También podemos ver este método de discretización como una mezcla de dos métodos tradicionales. **TODO**
+Por un lado, un esquema de volúmenes finitos con acople algebraico con la particularidad extra que los volúmenes de control pertenecen a la esfera unitaria y cada uno de ellos tiene asociada una dirección particular $\Sigma_n$ y un peso $\omega_n$ asociada a una fracción del área unitaria $4\pi$ según sea el orden $N$ de la aproximación $S_N$.
 
-Comenzamos notando que la integral de cierta función escalar $f$ que
-depende de la variable angular $\omegaversor$ sobre todas las
-direcciones puede ser aproximada como $4\pi$ veces la suma de un
-conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m=1$
-multiplicados por la función $f$ evaluada en $M$
-direcciones $\omegaversor_m$. En efecto,
 
-$$\begin{aligned}
- \int_{4\pi} f(\omegaversor) \, d\omegaversor &=
-\sum_{m=1}^M \int_{\Omega_m} f(\omegaversor) \, d\omegaversor
-= \sum_{m=1}^M \frac{\int_{\Omega_m} f(\omegaversor) \, d\omegaversor}{\int_{\Omega_m} d\omegaversor} \cdot \int_{\Omega_m} d\omegaversor \nonumber \\
-&= \sum_{m=1}^M \langle f(\omegaversor) \rangle_m \cdot \Delta \Omega_m
-= 4\pi  \sum_{m=1}^M w_m \cdot \langle f(\omegaversor) \rangle_m \nonumber \\
-&\simeq 4\pi  \sum_{m=1}^M w_m \cdot f(\omegaversor_m) = 4\pi \sum_{m=1}^M w_m \cdot f_m \label{eq:cuadratura}
-\end{aligned}$$ donde hemos notado que $\sum \Delta \Omega_m = 4\pi$ y
-denotamos con un subíndice $m$ (¡otro más!) la evaluación de la
-función $f$ en $\omegaversor_m$.
+::::: {#thm-cuadratura}
 
-::: definicion
-El flujo angular $\psi_{mg}$ del grupo $g$ en la ordenada discreta $m$
-es igual al flujo angular $\psi_g$ del grupo $g$ (definido
-en [\[def:flujogrupo\]](#def:flujogrupo){reference-type="ref"
-reference="def:flujogrupo"}) evaluado en la dirección $\omegaversor_m$:
+## de cuadratura sobre la esfera unitaria
 
-$$\psi_{mg}(\vec{x}) = \psi_{g}(\vec{x}, \omegaversor_m)$$
+La integral de una función escalar $f(\omegaversor)$ de cuadrado integrable sobre todas las direcciones $\omegaversor$ es igual a $4\pi$ veces la suma de un conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m = 1$ mutiplicados por $M$ valores medios $\left\langle f(\omegaversor)\right\rangle_m$ asociados a $M$ direcciones $\omegaversor_m$ donde cada una de las cuales tiene asociado una porción $\Delta \omegaversor_m$ de la esfuera unitaria tal que su unión es $4\pi$ y su intersección es cero:
 
-Esta vez $\psi_{mg}$ sí tiene la mismas unidades que $\psi_{g}$. Notamos
-que que el flujo escalar $\phi_g$ del grupo $g$ es aproximadamente igual
-a
+$$
+\int_{4\pi} f(\omegaversor) \, d\omegaversor = 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
+$$
 
-$$\label{eq:phig_4pi_psimg}
-\phi_g(\vec{x}) = \int_{4\pi} \psi_g(\vec{x}, \omegaversor) \, d\omegaversor 
-\simeq 4\pi \sum_{m=1}^M w_m \cdot \psi_{mg}(\vec{x})$$
+El peso $\omega_m$ es
+
+$$
+\omega_m = \frac{1}{4\pi} \cdot \int_{\Delta \omegaversor_m} d\omegaversor =
+\frac{\Delta \omegaversor_m}{4\pi}
+$$
+
+::: {.proof}
+Comenzamos escribiendo la integral sobre $4\pi$ como una suma para $m=1,\dots,M$
+
+$$
+ \int_{4\pi} f(\omegaversor) \, d\omegaversor = \sum_{m=1}^M \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor
+$$
+
+Multiplicamos y dividimos por $\int_{\Delta \omegaversor_m} d\omegaversor = 4\pi \cdot \omega_m$
+
+$$
+\sum_{m=1}^M \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor
+= \sum_{m=1}^M \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor} \cdot \int_{\Delta \omegaversor_m} d\omegaversor
+= \sum_{m=1}^M \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor} \cdot 4\pi \, \omega_m
+$$
+
+
+Si llamamos
+
+$$
+\left\langle f(\omegaversor)\right\rangle_m = \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+$$
+entonces se sigue la tesis del teorema.
 :::
+:::::
+
+
+::: {#def-psi-mg}
+El flujo angular $\psi_{mg}$ del grupo $g$ asociado a la ordenada discreta $m$ es igual al valor medio del flujo angular $\psi_g$ del grupo $g$ (definido en la @def-psig) alrededor de la dirección $\omegaversor_m$:
+
+$$
+\psi_{mg}(\vec{x}) = \left\langle \psi(\vec{x}\omegaversor)\right\rangle_m = \frac{ \displaystyle \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+=
+\frac{1}{\Delta \omegaversor_m} \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor
+=
+\frac{1}{4\pi \cdot \omega_m} \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor
+$$
+:::
+
+::: {.remark}
+Esta vez $\psi_{mg}$ sí tiene la mismas unidades que $\psi_{g}$.
+:::
+
+::: {#cor-phig-sum-psimg}
+El flujo escalar $\phi_g$ del grupo $g$ es igual a
+
+$$
+\phi_g(\vec{x}) = \int_{4\pi} \psi_g(\vec{x}, \omegaversor) \, d\omegaversor =
+4\pi \sum_{m=1}^M w_m \cdot \psi_{mg}(\vec{x})
+$$
+:::
+
+Re-escribamos entonces la @eq-transportemultigrupo de transporte multigrupo
+$$\tag{\ref{eq-transportemultigrupo}}
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]  +
+ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor) = 
+ \frac{1}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x}) + \\
+ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \vec{J}_{g^\prime}(\vec{x}) + 
+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
++ s_g(\vec{x}, \omegaversor)
+\end{gathered}
+$$
+en función de los flujos $\psi_{mg}$.
+
+Recordemos una vez más la @eq-xxx
+
 
 Tomemos primero la integral de la segunda sumatoria del miembro derecho
 de la
