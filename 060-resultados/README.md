@@ -46,6 +46,7 @@ comparar con onedim?
 ## Slab a dos zonas, efecto de dilución de XSs
 
 ## El reactor cubo-esfera
+## Verificacion con MMS {#sec-mms}
 
 ## PHWR de siete canales y tres barras de control inclinadas
 

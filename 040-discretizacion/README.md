@@ -12,7 +12,9 @@
 :::
 :::::
 
-Las formulaciones de los modelos matemáticos del transporte y difusión de neutrones en estado estacionario desarrollados en el capítulo anterior arrojan expresiones integro-diferenciales para la ecuación de difusión
+En el capitulo anterior hemos arribado a formulaciones matemáticas que modelan los procesos fisicos de transporte y difusion de neutrones en estado estacionario mediante ecuaciones integro-diferenciales.
+Bajo las suposiciones que explicitamos al comienzo del @sec-transporte-difusion y asumiendo que las secciones eficaces macroscopicas son funciones del espacio y de la energia conocidas, estas ecuaciones son _exactas_.
+Para la ecuacion de difusion, que es de segundo orden pero m\'as sencilla de resolver, llegamos a
 
 $$ \tag{\ref{eq-difusion-ss}}
 \begin{gathered}
@@ -26,7 +28,7 @@ $$ \tag{\ref{eq-difusion-ss}}
 $$
 
 
-y para la ligeramente más compleja ecuación de transporte linealmente anisotrópica
+y para la ligeramente más compleja ecuación de transporte linealmente anisotrópica obtuvimos
 
 $$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
 \begin{gathered}
@@ -49,8 +51,10 @@ sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por sei
 
  
 El objetivo de este capítulo es transformar estas dos ecuaciones diferenciales en derivadas parciales en sistemas de ecuaciones algebraicas de tamaño finito de forma tal que las podamos resolver con una herramienta computacional, cuya implementación describimos en el @sec-implementacion.
-Comenzamos primero introduciendo algunas propiedades matemáticas de los métodos numéricos y discutiendo cuestiones a tener en cuenta para analizarlos desde el punto de vista del gerenciamiento de proyectos de ingeniería.
-Luego pasamos revista a los tres casos de problemas de estado estacionario que resolvemos en esta tesis según el medio se multiplicativo o no y según haya fuentes externas o no.
+Este proceso involucra inherentemente aproximaciones relacionadas a la discretizacion de la energia\ $E$, la direccion\ $\omegaversor$ y el espacio\ $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numericamente seran solamente aproximaciones a las soluciones matematicas reales.
+Segun discutimos en la @sec-metodos-numericos, estas aproximaciones seran mejores a medida que aumentemos la cantidad de entidades discretas. Pero al mismo tiempo aumentan los recursos y costos de ingenieria asociados.
+
+Comenzamos primero entonces introduciendo algunas propiedades matemáticas de los métodos numéricos y discutiendo cuestiones a tener en cuenta para analizarlos desde el punto de vista del gerenciamiento de proyectos de ingeniería.
 
 Pasamos luego a la discretización de las ecuaciones propiamente dicha.
 Primeramente discretizamos la dependencia en energía aplicando la idea de grupos de energías para obtener las llamadas “ecuaciones multigrupo”.
@@ -61,8 +65,10 @@ El grueso del capítulo lo dedicamos a la discretización espacial de ambas ecua
 En la referencia @monografia se muestra, para la ecuación de difusión, una derivación similar a la formulación propuesta en elementos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
 Dejamos la extensión a volúmenes finitos y su comparación con elementos como trabajos futuros.
 
- 
-## Métodos numéricos 
+Finalmente analizamos la forma matricial/vectorial de los tres casos de problemas de estado estacionario que resolvemos en esta tesis según el medio se multiplicativo o no y según haya fuentes externas o no.
+
+
+## Métodos numéricos {#sec-metodos-numericos}
  
 En forma general, las ecuaciones [-@eq-difusion-ss] y [-@eq-transporte-linealmente-anisotropica] que derivamos en el capítulo anterior a partir de primeros principios están expresadas en una formulación fuerte y exacta
 
@@ -79,7 +85,7 @@ Esencialmente, en este capítulo aplicamos métodos numéricos @quarteroni para 
 
 $$
 \mathcal{F}_N(\varphi_N, \Sigma_N) = 0
-$$
+$$ {#eq-generica-numerica}
 donde ahora
 
  * $\varphi_N$ es una aproximación discreta de tamaño $N$ del flujo incógnita,
@@ -102,9 +108,16 @@ $$
 \lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0
 $$
 para alguna norma apropiada $||\cdot||$.
+Por ejemplo, para la norma\ $L_2$:
+
+$$
+\lim_{N\rightarrow \infty} \sqrt{\int_U \int_{4\pi} \int_{0}^{\infty} 
+\left[ \varphi(\vec{x},\omegaversor,E) - \varphi_N(\vec{x},\omegaversor,E) \right]^2
+\, dE \, d\omegaversor \, d^3\vec{x} }  = 0
+$$
 :::
 
-La convergencia y, más aún, el orden de convergencia es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de la norma con $1/N$ tiene que coincidir con el orden del método numérico. **TODO** cross-reference a MMS en el capítulo 6.
+La convergencia y, más aún, el orden con el cual el error\ $|| \varphi - \varphi_N ||$ converge a cero es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de este error con $1/N$ tiene que coincidir con el orden del método numérico (ver\ @sec-mms).
 De todas maneras, demostrar que un método numérico genérico es convergente no es sencillo y ni siquiera posible en la mayoría de los casos.
 En forma equivalente, se prueban los conceptos de consistencia y estabilidad definidos a continuación y luego se utiliza el teorema de equivalencia.
 
@@ -125,7 +138,7 @@ $$
 \mathcal{F}_N(\varphi, \Sigma) =
 \left[ \mathcal{F}_N(\varphi, \Sigma) - \mathcal{F}(\varphi, \Sigma) \right] = 0 \quad \forall N \geq 1
 $$
-entonces decimos que el método numérico es _fuertemente_^[Del inglés [*strongly*].] o _completamente_^[Del inglés [*fully*].] consistente.
+entonces decimos que el método numérico es _fuertemente_^[Del inglés [*strongly*]{lang=en-US}.] o _completamente_^[Del inglés [*fully*]{lang=en-US}.] consistente.
 :::
 
 
@@ -207,293 +220,15 @@ Finalmente, como en cualquier evaluación, intervienen situaciones particulares 
 Está claro que el análisis de todas estas combinaciones están fuera del alcance de esta tesis.
 De todas maneras, la herramienta computacional cuya implementación describimos en detalle en el @sec-implementacion permite evaluar todos estos aspectos y muchos otros ya que, en forma resumida
 
- 1. Es cloud native.
+ 1. Esta disenado para ser ejecutado nativamente en la nube.^[Del ingles [*cloud native*]{lang=en-US} como contrapartida a  [*cloud friendly*]{lang=en-US} o [*cloud enabled*]{lang=en-US}.]
  2. Permite discretizar el dominio espacial utilizando mallas no estructuradas.
- 3. Puede correr en paralelo en una cantidad arbitraria de computadore.
+ 3. Puede correr en paralelo en una cantidad arbitraria de computadoras.^[Del ingles [*hosts*]{lang=en-US}.]
 
 
 
 
 
 
-## Problemas de estado estacionario {#sec-problemas-steady-state}
-
-Si bien en el @sec-transporte-difusion hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
-Al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
-
- #. Medio no multiplicativo con fuentes independientes,
- #. Medio multiplicativo con fuentes independientes, y
- #. Medio multiplicativo sin fuentes independientes.
-
-### Medio no multiplicativo con fuentes independientes
-
-Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
-Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
-Para estudiar este tipo de problemas, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión.
-Luego la ecuación de difusión queda
-
-$$
-\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-+ s_0(\vec{x}, E)
-\end{gathered}
-$$ {#eq-difusionnmfi}
-y la de transporte
-
-$$ 
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\frac{1}{4\pi} \cdot 
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
-\frac{3 \cdot \omegaversor}{4\pi} \cdot
-\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime
-+ s(\vec{x}, \omegaversor, E)
-\end{gathered}
-$$ {#eq-transportenmfi}
-
-
-Para que la solución sea no trivial,
-
- a. la fuente no se debe anular idénticamente en el dominio, y/o
- b. las condiciones de contorno deben ser no homogéneas.
- 
-Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-difusionnmfi como la [-@eq-transportenmfi] son lineales.
-En las secciones siguientes discretizamos el problema para obtener un sistema de ecuaciones algebraicas lineales que puede ser escrito en forma matricial como
-
-$$
-\mat{A} \cdot \symbf{\varphi} = \vec{b}
-$$ {#eq-Aub}
-donde
-
- * $\symbf{\varphi}$ es un vector de tamaño $N \in \mathbb{N}$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizado (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
- * $\mat{A} \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}.] cuadrada que contiene información sobre la discretización de los operadores diferenciales e integrales de la ecuación,
- * $\vec{b} \in \mathbb{R}^N$ es un vector que contiene la versión discretizada de la fuente independiente $s$
- * $N$ es el tamaño del problema discretizado, que es el producto de 
-   1. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
-   2. la cantidad de grupos de energía, y
-   3. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas)
-
-La información sobre...
-
- * los operadores integro-diferenciales de las ecuaciones a resolver está incluida en la matrix $\mat{A}$.
- * las fuentes independientes y las condiciones de contorno de Neumann no homogéneas están incluidas en el vector $\vec{b}$.
- * el resto de las condiciones de contorno está repartida entre $\mat{A}$ y $\vec{b}$.
- 
-El vector $\symbf{\varphi} \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
-de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretizacón espacial.
-Como ya mencionamos, en esta tesis utilizamos
-
- * el método multi-grupo de energías para discretizar $E$ y $E^\prime$,
- * el método de ordenadas discretas para discretizar $\omegaversor$ y $\omegaprimaversor$, y
- * el método de elementos finitos para discretizar el espacio $\vec{x}$.
-
-**TODO** ejemplos de problemas del @sec-resultados
-
-Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez puede depender de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
-La versión discretizada se puede escribir en forma genérica como
-
-$$
-\vec{F}(\symbf{\varphi}) = 0
-$$
-para alguna función vectorial $\vec{F} : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$. 
-La forma más eficiente de resolver estos problemas es utilizar variaciones del esquema de Newton @petsc-user-ref, donde la incógnita $\symbf{\varphi}$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\symbf{\varphi}_0$
-
-$$
-\symbf{\varphi}_{k+1} = \symbf{\varphi}_k - \mat{J}(\vec{x}_k)^{-1} \cdot \vec{F}(\symbf{\varphi}_k)
-$$
-para los pasos $k=0,1,\dots$, donde $\mat{J}$ es la matrix jacobiana de la función $\vec{F}$, que usualmente es igual a la matriz $\mat{A}$ del problema lineal de la @eq-Aub.
-
-Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{A}^{-1}$ o $\mat{J}^{-1}$.
-En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
-
- 1. Resolver $\mat{J}(\symbf{\varphi}_k) \cdot \Delta \symbf{\varphi}_k = -\vec{F}(\symbf{\varphi}_k)$
- 2. Actualizar $\symbf{\varphi}_{k+1} \leftarrow \symbf{\varphi}_k + \Delta \symbf{\varphi}_k$
-
-Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
-
-
-### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
-
-Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir tanto de las fuentes independientes como de las fisiones.
-En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar $\phi(\vec{x})$.
-En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
-Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde un tiempo $t=-\infty$.
-
-En este caso, las ecuaciones apropiadas son las que ya hemos reproducido al comienzo del capítulo:
-
-$$ \tag{\ref{eq-difusion}}
-\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
-\chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-+ s_0(\vec{x}, E)
-\end{gathered}
-$$
-
-y
-
-$$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\frac{1}{4\pi} \cdot 
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
-\frac{3 \cdot \omegaversor}{4\pi} \cdot
-\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
-+ \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime 
-+ s(\vec{x}, \omegaversor, E)
-\end{gathered}
-$$ 
-
-
-El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}$.
-Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
-
-### Medio multiplicativo sin fuentes independientes
-
-En ausencia de fuentes independientes, tanto la ecuación de transporte como la de difusión se pueden escribir genéricamente como @stammler
-
-$$
-\frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
-$$ {#eq-psi-L}
-donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador lineal homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión.
-Esta formulación tiene infinitas soluciones de la forma
-
-$$
-\varphi(\vec{x},\omegaversor, E,t) = \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n \cdot t}
-$$
-que al insertarlas en la @eq-psi-L definen un problema de autovalores ya que
-
-$$
-\begin{aligned}
-\frac{\partial}{\partial t} \left[ \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n \cdot t} \right] 
-&=
-\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t} \right] \\
-\alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t}
-&=
-\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t} \right] \\
-\alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E)
-&=
-\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E)\right]
-\end{aligned}
-$$
-donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
-
-La solución general de la @eq-psi-L es entonces
-
-$$
-\varphi(\vec{x},\omegaversor, E,t) = \sum_{n=0}^\infty C_n \cdot \varphi_n(\vec{x},\omegaversor,E) \cdot \exp(\alpha_n \cdot t)
-$$
-donde los coeficientes $C_n$ son tales que satisfagan las condiciones iniciales y de contorno.
-
-Si ordenamos los autovalores $\alpha_n$ de forma tal que $\text{Re}(\alpha_n) \ge \text{Re}(\alpha_{n+1})$ entonces para tiempos $t\gg 1$ todos los términos para $n \neq 0$ serán despreciables frente al término de $\varphi_0$.
-El signo de $\alpha_0$ determina si la población neutrónica
-
- a. disminuye con el tiempo ($\alpha_0 < 0$),
- b. permanece constante ($\alpha_0 = 0$), o
- c. aumenta con el tiempo ($\alpha_0 > 0$).
- 
-La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es cero.
-Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
-Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
-
- a. geométrico (por ejemplo la posición de una barra de control), o
- b. físico (por ejemplo la concentración media de boro en el moderador).
- 
-De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 = 0$ y haya una solución de estado estacionario.
-
-Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
-El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de difusión como
-
-$$\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
-\frac{1}{k_\text{eff}} \cdot \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-\end{gathered}
-$$
-y la de transporte como
-
-$$
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\frac{1}{4\pi} \cdot 
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
-\frac{3 \cdot \omegaversor}{4\pi} \cdot
-\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
-+ \frac{1}{k_\text{eff}} \cdot \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime
-\end{gathered}
-$$ 
-
-
-La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definición.
-
-::: {#def-keff}
-Llamamos *factor de multiplicación efectivo* al número real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
-ecuaciones que modelan un medio multiplicativo sin fuentes externas.
-Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
-Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
-trivial, y viceversa.
-El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
-:::
-
-Al no haber fuentes independientes, todos los términos están multiplicados por la incógnita y la ecuación es homogénea.
-Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
-Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
-
-$$
-\mat{A} \cdot \symbf{\varphi} = \lambda \cdot \mat{B} \cdot \symbf{\varphi}
-$$ {#eq-eigen}
-conformando un problema de autovalores generalizado, donde el autovalor $\lambda$ dará una idea de la criticidad del reactor y el autovector $\symbf{\varphi}$ la distribución de flujo del reactor crítico asociado en $k$.
-Si $\mat{B}$ contiene los términos de fisión entonces $\lambda = 1/k_\text{eff}$ y si $\mat{A}$ es la que contiene los términos de fisión, entonces $\lambda = k_\text{eff}$.
-
-En general, para matrices de $N \times N$ habrá $N$ pares autovalor-autovector.
-Más aún, tanto el autovalor $\lambda_n$ como los elementos del autovector $\symbf{\varphi}_n$ en general serán complejos.
-Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_\text{eff}$ ($\lambda=k_\text{eff}$),
-
- #. hay un único autovalor positivo real que es mayor (menor) en magnitud que el resto de los autovalores,
- #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
- #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
-
-Tanto el problema continuo como el discretizado en la @eq-eigen son matemáticamente homogéneos.
-Esta característica define dos propiedades importantes:
-
- 1. El autovector $\symbf{\varphi}$ (es decir el flujo) está definido a menos de una constante multiplicativa y es independiente del factor de
-multiplicación $k_\text{eff}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia
-térmica total $P$ del reactor y se normaliza el flujo de forma tal que
-    
-    $$
-    P = \int_{U} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
-    $$
-    donde $e\Sigma_f$ es el producto entre la la energía liberada en una fisión individual y la sección eficaz macroscópica de fisión.
-    Si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
-    Si $P$ es la potencia térmica total, entonces $e\Sigma_f$ debe tener en cuenta todas las contribuciones, incluyendo aquellas debidas a efectos retardados de los productos de fisión.
-
- 2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
-
-Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo neutrónico (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma
-
-$$
-\mat{A}(\symbf{\varphi}) \cdot \symbf{\varphi} = \lambda \cdot \mat{B}(\symbf{\varphi}) \cdot \symbf{\varphi}
-$$
-
-Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo $k_\text{eff}$), no son aplicables.
-
-En el caso no lineal resolvemos iterativamente
-
-$$
-\mat{A}(\symbf{\varphi}_k) \cdot \symbf{\varphi}_{k+1} = \lambda_{k+1} \cdot \mat{B}(\symbf{\varphi}_k) \cdot \symbf{\varphi}_{k+1}
-$$
-a partir de una solución inicial $\symbf{\varphi}_0$.
-En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\symbf{\varphi}$ y no hay ninguna constante multiplicativa arbitraria.
 
 
 ## Discretización en energía {#sec-multigrupo}
@@ -716,14 +451,15 @@ Matemáticamente, la aproximación multigrupo es equivalente a discretizar el do
 
 
 ::: {.remark}
-Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica, la consistencia es fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
+Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica y deliberamente tautologica, la consistencia es teoricamente fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
+En la practica, la consistencia depende del calculo a nivel de celda de la\ @sec-celda.
 :::
 
 ## Discretización en ángulo {#sec-sn}
 
-Para discretizar la dependencia espacial de la ecuación de transporte multigrupo [-@eq-transportemultigrupo] aplicamos el método de ordenadas discretas o S$_N$, discutido en la literatura tradicional de física de reactores.
-También podemos ver este método de discretización como una mezcla de dos métodos tradicionales. **TODO**
-Por un lado, un esquema de volúmenes finitos con acople algebraico con la particularidad extra que los volúmenes de control pertenecen a la esfera unitaria y cada uno de ellos tiene asociada una dirección particular $\Sigma_n$ y un peso $\omega_n$ asociada a una fracción del área unitaria $4\pi$ según sea el orden $N$ de la aproximación $S_N$.
+Para discretizar la dependencia espacial de la ecuación de transporte multigrupo [-@eq-transportemultigrupo] aplicamos el método de ordenadas discretas o S$_N$, discutido en la literatura tradicional de física de reactores pero derivado al integrar las ecuaciones multigrupo continuas en\ $\omegaversor$ sobre volumenes de control finitos como si fuese un esquema numerico basado en el metodo de volumenes finitos.
+De hecho los volumenes finitos son areas\ $\Delta \omegaversor_m$ discretas de la esfera unitaria donde cada una de ellas tiene asociada una dirección particular $\omegaversor_m$ y un peso $w_m$ asociado a una fracción de total de área unitaria $4\pi$ según sea el orden $N$ de la aproximación $S_N$.
+Nuevamente el acople entre volumenes de control es algebraico y no necesariamente a primeros vecinos.
 
 
 ::::: {#thm-cuadratura}
@@ -736,10 +472,10 @@ $$
 \int_{4\pi} f(\omegaversor) \, d\omegaversor = 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
 $$
 
-El peso $\omega_m$ es
+El peso $w_m$ es
 
 $$
-\omega_m = \frac{1}{4\pi} \cdot \int_{\Delta \omegaversor_m} d\omegaversor =
+w_m = \frac{1}{4\pi} \cdot \int_{\Delta \omegaversor_m} d\omegaversor =
 \frac{\Delta \omegaversor_m}{4\pi}
 $$
 
@@ -750,19 +486,19 @@ $$
  \int_{4\pi} f(\omegaversor) \, d\omegaversor = \sum_{m=1}^M \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor
 $$
 
-Multiplicamos y dividimos por $\int_{\Delta \omegaversor_m} d\omegaversor = 4\pi \cdot \omega_m$
+Multiplicamos y dividimos por $\int_{\Delta \omegaversor_m} d\omegaversor = 4\pi \cdot w_m$
 
 $$
 \sum_{m=1}^M \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor
 = \sum_{m=1}^M \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor} \cdot \int_{\Delta \omegaversor_m} d\omegaversor
-= \sum_{m=1}^M \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor} \cdot 4\pi \, \omega_m
+= \sum_{m=1}^M \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor} \cdot 4\pi \, w_m
 $$
 
 
-Si llamamos
+Si llamamos\ $\left\langle f(\omegaversor)\right\rangle_{\omegaversor_m}$ al valor medio de\ $f$ en\ $\Delta \omegaversor_m$
 
 $$
-\left\langle f(\omegaversor)\right\rangle_m = \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+\left\langle f(\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
 $$
 entonces se sigue la tesis del teorema.
 :::
@@ -773,11 +509,16 @@ entonces se sigue la tesis del teorema.
 El flujo angular $\psi_{mg}$ del grupo $g$ asociado a la ordenada discreta $m$ es igual al valor medio del flujo angular $\psi_g$ del grupo $g$ (definido en la @def-psig) alrededor de la dirección $\omegaversor_m$:
 
 $$
-\psi_{mg}(\vec{x}) = \left\langle \psi(\vec{x}\omegaversor)\right\rangle_m = \frac{ \displaystyle \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+\psi_{mg}(\vec{x}) = \left\langle \psi_g(\vec{x},\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} \psi_g(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+$$
+por lo que
+
+$$
+\int_{\Delta \omegaversor_m} \psi_g(\vec{x},\omegaversor) \, d\omegaversor
 =
-\frac{1}{\Delta \omegaversor_m} \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor
+\psi_{mg}(\vec{x}) \cdot \Delta \omegaversor_m 
 =
-\frac{1}{4\pi \cdot \omega_m} \int_{\Delta \omegaversor_m} \psi(\vec{x},\omegaversor) \, d\omegaversor
+4\pi \cdot w_m \cdot \psi_{mg}(\vec{x})
 $$
 :::
 
@@ -794,7 +535,7 @@ $$
 $$
 :::
 
-Re-escribamos entonces la @eq-transportemultigrupo de transporte multigrupo
+Re-escribamos primero la @eq-transportemultigrupo de transporte multigrupo
 $$\tag{\ref{eq-transportemultigrupo}}
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]  +
@@ -805,137 +546,230 @@ $$\tag{\ref{eq-transportemultigrupo}}
 + s_g(\vec{x}, \omegaversor)
 \end{gathered}
 $$
-en función de los flujos $\psi_{mg}$.
 
-Recordemos una vez más la @eq-xxx
+en función de los flujos angulares $\psi_{mg}$ usando la\ @def-psi-mg y explicitando el termino de la corriente como la integral del producto $\psi_{g^\prime} \cdot \omegaversor$ segun la\ @def-Jg
 
-
-Tomemos primero la integral de la segunda sumatoria del miembro derecho
-de la
-ecuación [\[eq:transportemultigrupo\]](#eq:transportemultigrupo){reference-type="eqref"
-reference="eq:transportemultigrupo"}, i.e. el término de fisión, por ser
-más sencilla de aproximar. En efecto, reemplacemos la integral por una
-sumatoria sobre $M$ flujos discretos $\psi_{m^\prime g^\prime}$
-evaluados en $\boldsymbol{\hat{\Omega}^\prime}$ y pesados con un cierto
-peso $w_{m^\prime}$ asociado a cada una $M$ direcciones, en principio
-arbitrarias:
-
-$$\int_{4\pi} \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \psi_{g^\prime}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}) \, d\boldsymbol{\hat{\Omega}^\prime}
-\simeq 4\pi \cdot \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})$$
-
-Para evaluar el término de [scattering]{lang=en-US} hacemos lo mismo que para el
-término de fisión, teniendo en cuenta que la variable a discretizar
-es $\boldsymbol{\hat{\Omega}^\prime}$, que es sobre la cual integramos.
-Dejamos sin discretizar---por ahora---la
-variable $\boldsymbol{\hat{\Omega}}$) para obtener esta vez
-
-$$\begin{aligned}
-\int_{4\pi} \Sigma_{sg^\prime \rightarrow g}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime} \rightarrow \omegaversor) \cdot \psi_{g^\prime}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}) \, d\boldsymbol{\hat{\Omega}^\prime}
-& \simeq 4\pi  \sum_{m^\prime=1}^M w_{m^\prime} \cdot \Sigma_{sg^\prime \rightarrow g}(\vec{x}, \boldsymbol{\hat{\Omega}^\prime}_{m^\prime} \rightarrow \omegaversor) \cdot \psi_{m^\prime g^\prime}(\vec{x})
-\end{aligned}$$
-
-Expandiendo la sección eficaz de scattering multigrupo en polinomios de
-Legendre utilizando la
-ecuación [\[eq:sigmasgprimeglegendre\]](#eq:sigmasgprimeglegendre){reference-type="eqref"
-reference="eq:sigmasgprimeglegendre"}, tenemos una aproximación de la
-ecuación de transporte
-
-$$\begin{gathered}
-\label{eq:transporteapprox}
- \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor) = \\
- \sum_{g^\prime=1}^G 4\pi  \sum_{m^\prime=1}^M w_{m^\prime} \cdot 
-\left[  \sum_{\ell=0}^\infty \frac{2\ell+1}{4\pi} \cdot \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell (\omegaversor \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \right]
-\cdot \psi_{m^\prime g^\prime}(\vec{x}) 
- \\
-+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G 4\pi \cdot \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
+$$
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right]  +
+ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor) = \\
+ \frac{1}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x}) \cdot 4\pi \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) + \\
+ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor) \cdot \omegaversor \, d\omegaversor +\\
+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x})\cdot 4\pi \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
 + s_g(\vec{x}, \omegaversor)
-\end{gathered}$$
+\end{gathered}
+$$
 
-Esta ecuación está discretizada en $\omegaprimaversor$ con un esquema
-basado en volúmenes finitos sin operadores diferenciales sobre la
-variable discretizada, pero aun es continua en $\omegaversor$. Para
-discretizar esta variable, requerimos que la
-ecuación [\[eq:transporteapprox\]](#eq:transporteapprox){reference-type="eqref"
-reference="eq:transporteapprox"} se cumpla para las $M$
-direcciones---aún arbitrarias. Es decir, la ecuación de transporte
-multigrupo discretizada en ángulo según el método de ordenadas
-discretas S$_N$ es el sistema de $M \times G$ ecuaciones
+Ahora cancelamos los factores\ $4\pi$, integramos todos los terminos con respecto a\ $\omegaversor$ sobre\ $\Delta \omegaversor_m$ y los analizamos uno por uno:
 
-$$\begin{gathered}
-\label{eq:transportesngeneral}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \\
-  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot
-\left[  \sum_{\ell=0}^\infty (2\ell+1) \cdot \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \right]
- \cdot \psi_{m^\prime g^\prime}(\vec{x}) \\
-+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
-+ s_{mg}(\vec{x})
-\end{gathered}$$ para $g=1,\dots,G$ y $m=1,\dots,M$. El hecho de
-requerir que la ecuación
-continua [\[eq:transporteapprox\]](#eq:transporteapprox){reference-type="eqref"
-reference="eq:transporteapprox"} se satisfaga en un número finito de
-puntos discretos es equivalente a aplicar un esquema de diferencias
-finitas. Tal como en el caso de la aproximación multigrupo, y la
-discretización sobre $\omegaprimaversor$, no hay operadores
-diferenciales actuando sobre la variable $\omegaversor$.
+$$
+\begin{gathered}
+ \underbrace{\int_{\omegaversor_m} \left\{ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right] \right\} \, d\omegaversor}_\text{advección} +
+ \underbrace{\int_{\omegaversor_m} \left\{ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor}_\text{absorción total} = \\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{scattering isotropico} + \\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right\} \, d\omegaversor}_\text{scattering linealmente anisotropico} +\\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \chi_g \cdot \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{fision} +
+ \underbrace{\int_{\omegaversor_m} \left\{ s_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor  }_\text{fuentes independientes}
+\end{gathered}
+$$ {#eq-trasporte-integrado-omegam}
 
-Si el scattering es isotrópico, podemos simplificar el término de
-scattering en la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"} para obtener
+Comencemos por el termino de adveccion, revirtiendo el\ @thm-div-inner
 
-$$\begin{gathered}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = 
- \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot \Sigma_{s_0 \, g^\prime \rightarrow g}(\vec{x}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \\
-+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
-+ s_{mg}(\vec{x})
-\end{gathered}$$
+$$
+\begin{aligned}
+\int_{\omegaversor_m} \left\{ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right] \right\} \, d\omegaversor
+&=
+\int_{\omegaversor_m}  \text{div} \left[ \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \right] \, d\omegaversor
+\\
+&=
+\text{div} \left[ \int_{\omegaversor_m} \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \, d\omegaversor \right]
+\end{aligned}
+$$
 
-Si el scattering es linealmente anisotrópico, debemos agregar el término
-correspondiente a $\ell=1$:
+Prestemos atencion a la integral. Supongamos que el flujo angular es constante a trozos^[Del ingles [*piecewise constant*]{lang=en-US}.] dentro de cada area\ $\Delta \omegaversor_m$. Entonces este valor constante es igual al valor medio de\ $\psi$ en\ $\Delta \omegaversor_m$
 
-$$\begin{gathered}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \\
- \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot \left[ \Sigma_{s_0 \, g^\prime \rightarrow g}(\vec{x}) + 3 \cdot \Sigma_{s_1 \, g^\prime \rightarrow g}(\vec{x}) \cdot \left( \boldsymbol{\hat{\Omega}^\prime}_{m^\prime} \cdot \omegaversor_m \right) \right] \cdot \psi_{m^\prime g^\prime}(\vec{x}) \\
-+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
-+ s_{mg}(\vec{x})
-\end{gathered}$$
+$$
+\psi_g(\vec{x}, \omegaversor) = \left\langle \psi_g(\vec{x}, \omegaversor) \right\rangle_{\omegaversor_m} = \psi_{mg}(\vec{x})
+\quad \text{si $\omegaversor \in \Delta \omegaversor_m$}
+$$
 
-Recordando la
-ecuación [\[eq:qsfacil\]](#eq:qsfacil){reference-type="eqref"
-reference="eq:qsfacil"}
+En estas condiciones, $\psi$ puede salir de la integral
 
-$$\begin{gathered}
- q_s(\vec{x}, \omegaversor, E) =
-\frac{1}{4\pi} \int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \phi(\vec{x}, E^{\prime}, t) \, dE^\prime \\
-+ \frac{3}{4\pi} \int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \left(\vec{J}(\vec{x},E^{\prime},t) \cdot \boldsymbol{\hat\Omega}\right) \, dE^\prime  \\
-+ \sum_{\ell=2}^\infty \bigintsss_{0}^{\infty}   \left[ \Sigma_{s_\ell}(\vec{x}, E^{\prime} \rightarrow E) 
-\sum_{m=-\ell}^{\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
-\end{gathered}$$ y en virtud de la
-ecuación [\[eq:phig_4pi_psimg\]](#eq:phig_4pi_psimg){reference-type="eqref"
-reference="eq:phig_4pi_psimg"} también podemos escribir el término de
-scattering $q_s\,mg$ en función del flujo escalar $\phi$ y de la
-corriente $\vec{J}$ como
+$$
+\int_{\omegaversor_m} \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \, d\omegaversor
+\approx
+\psi_{mg}(\vec{x}) \cdot \int_{\omegaversor_m} \omegaversor \, d\omegaversor
+$$
 
-$$q_{s \, mg} =
-\frac{1}{4\pi} \left[ \sum_{g^\prime=1}^{G} \Sigma_{s_0 \, g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-+ 3 \cdot \Sigma_{s_1 \, g^\prime \rightarrow g}(\vec{x}) \cdot \left( \vec{J}_{g^\prime}(\vec{x}) \cdot \boldsymbol{\hat\Omega}_m  \right) \right]$$
-y la ecuación de transporte multigrupo en ordenadas discretas para
-scattering linealmente anisitrópico en función de ambos flujos $\phi$
-y $\psi$ y de la corriente $\vec{J}$ como
+::: {#def-mean-omega}
+Llamamos\ $\omegaversor_m$ a la direccion que resulta ser el valor medio\ $\left\langle \omegaversor \right\rangle_{\omegaversor_m}$ de todas las direcciones integradas en el area\ $\Delta \omegaversor_m$ sobre la esfera unitaria, es decir
 
-$$\begin{gathered}
-\label{eq:transporte_mgx}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \nonumber \\
- \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M \Sigma_{s_0 \, g^\prime \rightarrow g}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-+ 3 \cdot \Sigma_{s_1 \, g^\prime \rightarrow g}(\vec{x}) \cdot \left( \vec{J}_{g^\prime}(\vec{x}) \cdot \boldsymbol{\hat\Omega}_m  \right) \nonumber \\
-+ \frac{\chi_g}{4\pi} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-+ s_{mg}(\vec{x})
-\end{gathered}$$
+$$
+\omegaversor_m = \left\langle \omegaversor \right\rangle_{\omegaversor_m} =
+\frac{ \displaystyle \int_{\Delta \omegaversor_m} \omegaversor \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+$$
+por lo que
+
+$$
+\int_{\Delta \omegaversor_m} \omegaversor \, d\omegaversor
+=
+\omegaversor_m \cdot \Delta \omegaversor_m 
+$$
+:::
+
+Con esta\ @def-mean-omega, la integral queda
+
+$$
+\int_{\omegaversor_m} \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \, d\omegaversor
+\approx
+\omegaversor_m \cdot \psi_{mg}(\vec{x}) \cdot  \Delta \omegaversor_m 
+$$ {#eq-int-psi-omega}
+
+y podemos volver a aplicar el\ @thm-div-inner para escribir el termino de adveccion como
+
+$$
+\begin{aligned}
+\text{div} \left[ \int_{\omegaversor_m} \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \, d\omegaversor \right]
+& \approx
+\text{div} \left[ \omegaversor_m \cdot \psi_{mg}(\vec{x}) \cdot  \Delta \omegaversor_m  \right] \\
+& \approx
+\omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]  \cdot \Delta \omegaversor_m \\
+\end{aligned}
+$$ {#eq-sn-adveccion}
+
+Pasemos ahora al termino de absorciones totales de la\ @{eq-trasporte-integrado-omegam}.
+La seccion eficaz no depende de\ $\omegaversor$ por lo que puede salir fuera de la integral
+
+$$
+\int_{\omegaversor_m} \left\{ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor = \Sigma_{t g}(\vec{x}) \cdot
+\int_{\omegaversor_m} \psi_g(\vec{x}, \omegaversor) \, d\omegaversor
+$$
+
+Por la\ @def-psi-mg la ultima integral es\ $\psi_{mg} \cdot \Delta \omegaversor_m$
+
+$$
+\int_{\omegaversor_m} \left[ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right] \, d\omegaversor = \left[ \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \right] \cdot \Delta \omegaversor_m
+$$ {#eq-sn-absorciones}
+
+El termino de scattering isotropico queda
+
+$$
+\bigintsss_{\omegaversor_m} \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d\omegaversor
+=
+\left[ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m
+$$ {#eq-sn-scattering-isotropico}
+ya que el integrando no depende de\ $\omegaversor$.
+
+El integrando del termino de scattering linealmente anisotrópico si depende de\ $\omegaversor$.
+
+$$
+\bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
+$$
+
+Primero notamos que la integral sobre\ $\omegaversor_{m^\prime}$ ya la hemos resuelto (en forma aproximada) en la\ @eq-int-psi-omega, y es\ $\omegaversor_{m^\prime} \psi_{m^\prime g^\prime} \Delta\omegaversor_{m^\prime}$. A su vez, $\Delta\omegaversor_{m^\prime} = 4\pi w_{m^\prime}$:
+
+$$
+\begin{gathered}
+\bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} 4\pi \cdot w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \cdot \omegaversor_{m^\prime} \right] \, d\omegaversor
+= \\
+3 \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \cdot \omegaversor_{m^\prime} \int_{\omegaversor_m} \omegaversor \, d\omegaversor
+\end{gathered}
+$$
+
+Una vez mas, la integral sobre\ $\omegaversor_m$ ya la hemos resuelto (exactamente) en la\ @def-mean-omega, y es igual a\ $\omegaversor_m \cdot \Delta \omegaversor_m$. Entonces el termino de scattering linealmente anisotropico es aproximadamente
+
+$$
+\begin{gathered}
+\bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
+\approx \\
+\left[ 3 \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot  \Delta \omegaversor_m
+\end{gathered}
+$$ {#eq-sn-scattering-anisotropico}
+
+El termino de fisiones es similar al de scattering isotropico en el sentido de que el integrando no depende de\ $\omegaversor$ entonces su integral sobre\ $\Delta \omegaversor_m$ es directamente
+
+$$
+\bigintsss_{\omegaversor_m} \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d\omegaversor
+=
+\left[ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m
+$$ {#eq-sn-fisiones}
+
+Para completar el analisis de la\ @eq-trasporte-integrado-omegam, en el termino de las fuentes independentes usamos el concepto de valor medio
+
+$$
+\int_{\omegaversor_m} s_g(\vec{x}, \omegaversor) \, d\omegaversor
+=
+\left\langle s_g(\vec{x}, \omegaversor)  \right\rangle_{\omegaversor_m} \cdot \Delta \omegaversor
+$$
+
+::: {#def-s-mg}
+En forma analoga a la\ @def-psi-mg, definimos a la fuente independiente del grupo\ $g$ en la direccion\ $m$ como
+
+$$
+s_{mg}(\vec{x}) = \left\langle s(\vec{x},\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} s_g(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
+$$
+:::
+
+El termino de fuentes independentes es entonces
+
+$$
+\int_{\omegaversor_m} s_g(\vec{x}, \omegaversor) \, d\omegaversor
+=
+s_{mg}(\vec{x}) \cdot \Delta \omegaversor_m
+$$ {#eq-sn-fuentes}
+
+Juntemos ahora las ecuaciones
+
+ * [-@eq-sn-adveccion]
+ * [-@eq-sn-absorciones]
+ * [-@eq-sn-scattering-isotropico]
+ * [-@eq-sn-scattering-anisotropico]
+ * [-@eq-sn-fisiones]
+ * [-@eq-sn-fuentes]
+ 
+para re-escribir la\ @eq-trasporte-integrado-omegam como
+
+$$
+\begin{gathered}
+\left[ \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right] \right]  \cdot \Delta \omegaversor_m +
+\left[ \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \right] \cdot \Delta \omegaversor_m = \\
+\left[ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m + \\
+\left[ 3 \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot  \Delta \omegaversor_m + \\
+\left[ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m + 
+s_{mg}(\vec{x}) \cdot \Delta \omegaversor_m
+\end{gathered}
+$$
+
+Dividiendo ambos miembros por\ $\Delta \omegaversor$ obtenemos las $MG$ ecuaciones diferenciales de transporte en\ $G$ grupos de energias y\ $M$ direcciones angulares, segun la discretizacion angular llamada "ordenadas discretas"
+
+$$
+\begin{gathered}
+ \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]  +
+ \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = 
+ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})  + \\
+ 3  \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \sum_{m^\prime=1} w_{m^\prime} \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \psi_{m^\prime g^\prime}(\vec{x}) + 
+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x})   \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x}) + 
+s_{mg}(\vec{x})
+\end{gathered}
+$$ {#eq-transporte-sn}
+
+::: {.remark}
+El unico operador diferencial que aparece en la\ @eq-transporte-sn es el gradiente espacial del flujo angular\ $\psi_{mg}$ del grupo\ $g$ en la direccion\ $m$.
+:::
+
+::: {.remark}
+Todos los operadores integrales que estaban presentes en la\ @eq-transporte-linealmente-anisotropica han sido reemplazados por sumatorias finitas.
+:::
+
+:::  {.remark}
+La unica aproximacion numerica que tuvimos que hacer para obtener la\ @eq-transporte-sn a partir de la @eq-transportemultigrupo fue suponer que el flujo angular\ $\psi_g$ era uniforme a trozos en cada segmento de area\ $\Delta \omegaversor_m$ en los terminos de
+
+ a. absorciones totales (@eq-sn-absorciones), y
+ b. scattering linealmente anisotropico (@eq-sn-scattering-anisotropico).
+ 
+Esta suposicion es usual en los esquemas basados en el metodo de volumenes finitos.
+El esquema numerico es consistente ya que en el limite\ $\Delta \omegaversor_m \rightarrow d\omegaversor_m$ la suposicion es exacta y el operador discretizado coincide con el operador continuo.
+:::
 
 ### Conjuntos de cuadraturas en tres dimensiones {#sec-cuadraturas}
 
@@ -1265,11 +1099,11 @@ que en una dimensión
 
 $$\label{eq:1dgauss}
  \int_{4\pi} f(\omegaversor) \, d\omegaversor = 2\pi \int_{-1}^{1} f(\hat{\Omega}_x) \, d\hat{\Omega}_x \simeq 
-2\pi \sum_{m=1}^N \omega_m \cdot f_m =
-4\pi \sum_{m=1}^N \frac{\omega_m}{2} \cdot f_m =
+2\pi \sum_{m=1}^N w_m \cdot f_m =
+4\pi \sum_{m=1}^N \frac{w_m}{2} \cdot f_m =
 4\pi \sum_{m=1}^N w_m \cdot f_m$$
 
-Si los puntos $\hat{\Omega}_{xm}$ y los pesos $\omega_m=2\cdot w_m$ son
+Si los puntos $\hat{\Omega}_{xm}$ y los pesos $w_m=2\cdot w_m$ son
 los asociados a la integración de Gauss y $f(\hat{\Omega}_x)$ es un
 polinomio de orden $2N-1$ o menos, entonces la integración es exacta
 (ver @sec-gauss) y la
@@ -1280,7 +1114,7 @@ de la cuadratura de Gauss.
 
 ::: center
 ::: {#tab:gauss1d}
-           $m$                  $\hat{\Omega}_{mx}$                   $\omega_m = 2 \cdot w_m$
+           $m$                  $\hat{\Omega}_{mx}$                   $w_m = 2 \cdot w_m$
   ------- ----- ---------------------------------------------------- --------------------------
    S$_2$    1                   $\sqrt{\frac{1}{3}}$                             1
    S$_4$    1    $\sqrt{\frac{3}{7}-\frac{2}{7}\sqrt{\frac{6}{5}}}$         0.6521451549
@@ -1296,7 +1130,7 @@ de la cuadratura de Gauss.
   : Conjuntos de cuadratura para problemas unidimensionales. Las
   direcciones $\hat{\Omega}_{mx}$ coinciden con las abscisas de la
   cuadratura de Gauss. Los pesos $w_m$ de ordenadas discretas son la
-  mitad de los pesos $\omega_m$ de la cuadratura de Gauss. Las
+  mitad de los pesos $w_m$ de la cuadratura de Gauss. Las
   direcciones $m=N/2+1,\dots,N$ no se muestran pero se obtienen
   como $\hat{\Omega}_{N/2+m \, x} = -\hat{\Omega}_{mx}$
   y $w_{N/2+m} = w_m$.
@@ -1683,3 +1517,277 @@ figuras de dmplex?
 
 ### Ordenadas discretas
 
+## Problemas de estado estacionario {#sec-problemas-steady-state}
+
+Si bien en el @sec-transporte-difusion hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
+Al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
+
+ #. Medio no multiplicativo con fuentes independientes,
+ #. Medio multiplicativo con fuentes independientes, y
+ #. Medio multiplicativo sin fuentes independientes.
+
+### Medio no multiplicativo con fuentes independientes
+
+Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
+Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
+Para estudiar este tipo de problemas, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión.
+Luego la ecuación de difusión queda
+
+$$
+\begin{gathered}
+ - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
+ + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
+ = \\
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
++ s_0(\vec{x}, E)
+\end{gathered}
+$$ {#eq-difusionnmfi}
+y la de transporte
+
+$$ 
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
+ + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
+\frac{1}{4\pi} \cdot 
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
+\frac{3 \cdot \omegaversor}{4\pi} \cdot
+\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime
++ s(\vec{x}, \omegaversor, E)
+\end{gathered}
+$$ {#eq-transportenmfi}
+
+
+Para que la solución sea no trivial,
+
+ a. la fuente no se debe anular idénticamente en el dominio, y/o
+ b. las condiciones de contorno deben ser no homogéneas.
+ 
+Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-difusionnmfi como la [-@eq-transportenmfi] son lineales.
+En las secciones siguientes discretizamos el problema para obtener un sistema de ecuaciones algebraicas lineales que puede ser escrito en forma matricial como
+
+$$
+\mat{A}_N(\Sigma_N) \cdot \symbf{\varphi}_N = \vec{b}_N(\Sigma_N)
+$$ {#eq-Aub}
+donde
+
+ * $\symbf{\varphi}_N$ es un vector de tamaño $N \in \mathbb{N}$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizado (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
+ * $\mat{A}_N(\Sigma_N) \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}.] cuadrada que contiene información sobre
+   a. las secciones eficaces macroscópicas, es decir los coeficientes de la ecuacion que estamos resolviendo, y
+   b. la discretización de los operadores diferenciales e integrales,
+ * $\vec{b}_N(\Sigma_N) \in \mathbb{R}^N$ es un vector que contiene
+   a. la versión discretizada de la fuente independiente $s$, y/o
+   b. las condiciones de contorno no homogéneas
+ * $N$ es el tamaño del problema discretizado, que es el producto de 
+   a. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
+   b. la cantidad de grupos de energía, y
+   c. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas).
+
+ 
+El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
+de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretización espacial.
+Como ya mencionamos, en esta tesis utilizamos
+
+ * el método multi-grupo de energías para discretizar $E$ y $E^\prime$,
+ * el método de ordenadas discretas para discretizar $\omegaversor$ y $\omegaprimaversor$, y
+ * el método de elementos finitos para discretizar el espacio $\vec{x}$.
+
+**TODO** ejemplos de problemas del @sec-resultados
+
+Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez puede depender de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
+En este caso, tenemos que volver a escribir la versión discretizada en forma genérica\ [-@eq-generica-numerica]
+
+$$ \tag{\ref{eq-generica-numerica}}
+\mathcal{F}_N(\symbf{\varphi}_N, \Sigma_N) = 0
+$$
+para alguna función vectorial $\mathcal{F}_N : [\mathbb{R}^{N} \times \mathbb{R}^{N^\prime}] \rightarrow \mathbb{R}^{N}$.^[El tamaño\ $N^\prime$ de la información relacionada con los datos de entrada\ $\Sigma_N$ no tiene por que ser igual al tamaño\ $N$ del vector solución.]
+La forma más eficiente de resolver estos problemas es utilizar variaciones del esquema de Newton @petsc-user-ref, donde la incógnita $\symbf{\varphi}_N$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\symbf{\varphi}_{N0}$
+
+$$
+\symbf{\varphi}_{Nk+1} = \symbf{\varphi}_{Nk} - \mat{J}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})^{-1} \cdot \mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})
+$$
+para los pasos $k=0,1,\dots$, donde $\mat{J}_N$ es la matrix jacobiana de la función $\mathcal{F}_N$.
+Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente\ $\mat{J}_N^{-1}$.
+En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
+
+ 1. Resolver $\mat{J}(\symbf{\varphi}_{Nk}, \Sigma_{Nk}) \cdot \Delta \symbf{\varphi}_{Nk} = -\mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})$
+ 2. Actualizar $\symbf{\varphi}_{Nk+1} \leftarrow \symbf{\varphi}_{Nk} + \Delta \symbf{\varphi}_{Nk}$
+
+Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
+
+
+### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
+
+Si además de contar con fuentes independientes de fisión el medio contiene material multiplicativo, entonces los neutrones pueden provenir tanto de las fuentes independientes como de las fisiones.
+En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar $\phi(\vec{x})$.
+En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
+Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde un tiempo $t=-\infty$.
+
+En este caso, las ecuaciones apropiadas son las que ya hemos reproducido al comienzo del capítulo:
+
+$$ \tag{\ref{eq-difusion}}
+\begin{gathered}
+ - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
+ + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
+ = \\
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
+\chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
++ s_0(\vec{x}, E)
+\end{gathered}
+$$
+
+y
+
+$$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
+ + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
+\frac{1}{4\pi} \cdot 
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
+\frac{3 \cdot \omegaversor}{4\pi} \cdot
+\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
++ \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime 
++ s(\vec{x}, \omegaversor, E)
+\end{gathered}
+$$ 
+
+
+El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}_N(\Sigma_N)$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}_N$.
+Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
+
+### Medio multiplicativo sin fuentes independientes
+
+En ausencia de fuentes independientes, las ecuación de transporte y difusión continuas se pueden escribir genéricamente como @stammler
+
+$$
+\frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
+$$ {#eq-psi-L}
+donde $\varphi = \psi$ para transporte y $\varphi = \phi$ para difusión (sin dependencia de $\omegaversor$), y $\mathcal{L}$ es un operador lineal homogéneo de primer orden en el espacio para transporte y de segundo orden para difusión.
+Esta formulación tiene infinitas soluciones de la forma
+
+$$
+\varphi(\vec{x},\omegaversor, E,t) = \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n \cdot t}
+$$
+que al insertarlas en la @eq-psi-L definen un problema de autovalores ya que
+
+$$
+\begin{aligned}
+\frac{\partial}{\partial t} \left[ \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n \cdot t} \right] 
+&=
+\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t} \right] \\
+\alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t}
+&=
+\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E) \cdot e^{\alpha_n\cdot t} \right] \\
+\alpha_n \cdot \varphi_n(\vec{x},\omegaversor, E)
+&=
+\mathcal{L}\left[\varphi_n(\vec{x},\omegaversor, E)\right]
+\end{aligned}
+$$
+donde ni $\alpha_n$ ni $\varphi_n$ dependen del tiempo $t$.
+
+La solución general de la @eq-psi-L es entonces
+
+$$
+\varphi(\vec{x},\omegaversor, E,t) = \sum_{n=0}^\infty C_n \cdot \varphi_n(\vec{x},\omegaversor,E) \cdot \exp(\alpha_n \cdot t)
+$$
+donde los coeficientes $C_n$ son tales que satisfagan las condiciones iniciales y de contorno.
+
+Si ordenamos los autovalores $\alpha_n$ de forma tal que $\text{Re}(\alpha_n) \ge \text{Re}(\alpha_{n+1})$ entonces para tiempos $t\gg 1$ todos los términos para $n \neq 0$ serán despreciables frente al término de $\varphi_0$.
+El signo de $\alpha_0$ determina si la población neutrónica
+
+ a. disminuye con el tiempo ($\alpha_0 < 0$),
+ b. permanece constante ($\alpha_0 = 0$), o
+ c. aumenta con el tiempo ($\alpha_0 > 0$).
+ 
+La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es cero.
+Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
+Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
+
+ a. geométrico (por ejemplo la posición de una barra de control), o
+ b. físico (por ejemplo la concentración media de boro en el moderador).
+ 
+De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 = 0$ y haya una solución de estado estacionario.
+
+Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
+El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de difusión como
+
+$$\begin{gathered}
+ - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
+ + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
+ = \\
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
+\frac{1}{k_\text{eff}} \cdot \chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
+\end{gathered}
+$$
+y la de transporte como
+
+$$
+\begin{gathered}
+ \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
+ + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
+\frac{1}{4\pi} \cdot 
+\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
+\frac{3 \cdot \omegaversor}{4\pi} \cdot
+\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
++ \frac{1}{k_\text{eff}} \cdot \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime
+\end{gathered}
+$$ 
+
+
+La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definición.
+
+::: {#def-keff}
+Llamamos *factor de multiplicación efectivo* al número real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
+ecuaciones que modelan un medio multiplicativo sin fuentes externas.
+Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
+Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
+trivial, y viceversa.
+El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
+:::
+
+Al no haber fuentes independientes, todos los términos están multiplicados por la incógnita y la ecuación es homogénea.
+Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
+Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
+
+$$
+\mat{A}_N(\Sigma_N) \cdot \symbf{\varphi}_N = \lambda_N \cdot \mat{B}(\Sigma_N) \cdot \symbf{\varphi}_N
+$$ {#eq-eigen}
+conformando un problema de autovalores generalizado, donde el autovalor $\lambda_N$ dará una idea aproximada de la criticidad del reactor y el autovector $\symbf{\varphi}_N$ la distribución de flujo del reactor crítico asociado en $k$.
+Si $\mat{B}(\Sigma_N)$ contiene los términos de fisión entonces $\lambda_N = 1/k_{\text{eff}N}$ y si $\mat{A}_N(\Sigma_N)$ es la que contiene los términos de fisión, entonces $\lambda = k_{\text{eff}N}$.
+
+En general, para matrices de $N \times N$ habrá $N$ pares autovalor-autovector.
+Más aún, tanto el autovalor $\lambda_n$ como los elementos del autovector $\symbf{\varphi}_n$ en general serán complejos.
+Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_{\text{eff}N}$ ($\lambda=k_{\text{eff}N}$),
+
+ #. hay un único autovalor positivo real que es mayor (menor) en magnitud que el resto de los autovalores,
+ #. todos los elementos del autovector correspondiente a dicho autovalor son reales y tienen el mismo signo, y
+ #. todos los otros autovectores o bien tienen al menos un elemento igual a cero o tienen elementos que difieren en su signo
+
+Tanto el problema continuo como el discretizado en la @eq-eigen son matemáticamente homogéneos.
+Esta característica define dos propiedades importantes:
+
+ 1. El autovector $\symbf{\varphi}_N$ (es decir el flujo neutronico) está definido a menos de una constante multiplicativa y es independiente del factor de multiplicación $k_{\text{eff}N}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia térmica total $P$ del reactor y se normaliza el flujo de forma tal que
+    
+    $$
+    P = \int_{U} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
+    $$
+    donde $e\Sigma_f$ es el producto entre la la energía liberada en una fisión individual y la sección eficaz macroscópica de fisión.
+    Si $P$ es la potencia térmica instantánea, entonces $e\Sigma_f$ debe incluir sólo las contribuciones energéticas de los productos de fisión instantáneos.
+    Si $P$ es la potencia térmica total, entonces $e\Sigma_f$ debe tener en cuenta todas las contribuciones, incluyendo aquellas debidas a efectos retardados de los productos de fisión.
+
+ 2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
+
+Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo neutrónico (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma no lineal
+
+$$
+\mat{A}_N(\symbf{\varphi}_N,\Sigma_N) \cdot \symbf{\varphi}_N = \lambda_N \cdot \mat{B}(\symbf{\varphi}_N,\Sigma_N) \cdot \symbf{\varphi}_N
+$$
+
+Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda_N$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector\ $\symbf{\varphi}_N$ (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo), no son aplicables.
+
+En el caso no lineal resolvemos iterativamente
+
+$$
+\mat{A}(\symbf{\varphi}_{Nk},\Sigma_{Nk}) \cdot \symbf{\varphi}_{Nk+1} = \lambda_{Nk+1} \cdot \mat{B}(\symbf{\varphi}_{Nk},\Sigma_{Nk}) \cdot \symbf{\varphi}_{Nk+1}
+$$
+a partir de una solución inicial $\symbf{\varphi}_{N0}$.
+En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\symbf{\varphi}_N$ y no hay ninguna constante multiplicativa arbitraria.

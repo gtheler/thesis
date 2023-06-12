@@ -22,7 +22,7 @@ book:
     - 050-implementacion/README.md
     - 060-resultados/README.md
     - 090-conclusiones/README.md
-    - bibliografia/referencias.md
+    - bibliografia/README.md
 
   appendices:
     - 100-srs/README.md
@@ -59,6 +59,9 @@ crossref:
   fig-prefix: figura
   tbl-prefix: tabla
   eq-prefix: ecuación
+  thm-prefix: teorema
+  cor-prefix: corolario
+  def-prefix: definición
 
 format:
   html:
