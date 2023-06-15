@@ -12,9 +12,9 @@
 :::
 :::::
 
-En el capitulo anterior hemos arribado a formulaciones matemáticas que modelan los procesos fisicos de transporte y difusion de neutrones en estado estacionario mediante ecuaciones integro-diferenciales.
-Bajo las suposiciones que explicitamos al comienzo del @sec-transporte-difusion y asumiendo que las secciones eficaces macroscopicas son funciones del espacio y de la energia conocidas, estas ecuaciones son _exactas_.
-Para la ecuacion de difusion, que es de segundo orden pero m\'as sencilla de resolver, llegamos a
+En el capitulo anterior hemos arribado a formulaciones matemáticas que modelan los procesos físicos de transporte y difusión de neutrones en estado estacionario mediante ecuaciones integro-diferenciales.
+Bajo las suposiciones que explicitamos al comienzo del @sec-transporte-difusion y asumiendo que las secciones eficaces macroscópicas son funciones del espacio y de la energía conocidas, estas ecuaciones son _exactas_.
+Para la ecuación de difusión, que es de segundo orden pero más sencilla de resolver, llegamos a
 
 $$ \tag{\ref{eq-difusion-ss}}
 \begin{gathered}
@@ -51,19 +51,18 @@ sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por sei
 
  
 El objetivo de este capítulo es transformar estas dos ecuaciones diferenciales en derivadas parciales en sistemas de ecuaciones algebraicas de tamaño finito de forma tal que las podamos resolver con una herramienta computacional, cuya implementación describimos en el @sec-implementacion.
-Este proceso involucra inherentemente aproximaciones relacionadas a la discretizacion de la energia\ $E$, la direccion\ $\omegaversor$ y el espacio\ $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numericamente seran solamente aproximaciones a las soluciones matematicas reales.
-Segun discutimos en la @sec-metodos-numericos, estas aproximaciones seran mejores a medida que aumentemos la cantidad de entidades discretas. Pero al mismo tiempo aumentan los recursos y costos de ingenieria asociados.
+Este proceso involucra inherentemente aproximaciones relacionadas a la discretización de la energía\ $E$, la dirección\ $\omegaversor$ y el espacio\ $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numéricamente serán solamente aproximaciones a las soluciones matemáticas reales.
+Según discutimos en la @sec-metodos-numericos, estas aproximaciones serán mejores a medida que aumentemos la cantidad de entidades discretas. Pero al mismo tiempo aumentan los recursos y costos de ingeniería asociados.
 
 Comenzamos primero entonces introduciendo algunas propiedades matemáticas de los métodos numéricos y discutiendo cuestiones a tener en cuenta para analizarlos desde el punto de vista del gerenciamiento de proyectos de ingeniería.
-
 Pasamos luego a la discretización de las ecuaciones propiamente dicha.
-Primeramente discretizamos la dependencia en energía aplicando la idea de grupos de energías para obtener las llamadas “ecuaciones multigrupo”.
+Primeramente discretizamos la dependencia en energía aplicando la idea de grupos discretos de energías para obtener las llamadas “ecuaciones multigrupo”.
 Continuamos luego por la dependencia angular de la ecuación de transporte aplicando el método de ordenadas discretas S$_N$.
-Esencialmente la idea es transformar las integrales sobre $E^\prime$ y sobre $\omegaprimaversor$ en las dos ecuaciones de arriba por sumatorias finitas.
+Esencialmente la idea es transformar las integrales sobre $E^\prime$ y sobre $\omegaprimaversor$ en las dos ecuaciones [-@eq-difusion-ss] y [-eq-transporte-linealmente-anisotropica] del principio del capítulo por sumatorias finitas.
 
 El grueso del capítulo lo dedicamos a la discretización espacial de ambas ecuaciones, que es el aporte principal de esta tesis al problema de la resolución de las ecuaciones de transporte de neutrones a nivel de núcleo utilizando mallas no estructuradas y técnicas de descomposición de dominio para permitir la resolución de problemas de tamaño arbitrario.
-En la referencia @monografia se muestra, para la ecuación de difusión, una derivación similar a la formulación propuesta en elementos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
-Dejamos la extensión a volúmenes finitos y su comparación con elementos como trabajos futuros.
+En la referencia @monografia se muestra, para la ecuación de difusión, una derivación similar a la formulación propuesta en esta tesis basada en elementos finitos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
+Dejamos la extensión a volúmenes finitos y su comparación con otros esquemas como trabajos futuros.
 
 Finalmente analizamos la forma matricial/vectorial de los tres casos de problemas de estado estacionario que resolvemos en esta tesis según el medio se multiplicativo o no y según haya fuentes externas o no.
 
@@ -79,7 +78,7 @@ denotando con
   
  * $\varphi$ el flujo incógnita ($\psi$ o $\phi$) “exacto”^[En el sentido matemático de satisfacer exactamente la ecuación diferencial. El análisis de la exactitud física queda fuera del alcance de esta tesis.] que depende continuamente de $\vec{x}$, $E$ y $\omegaversor$,
  * $\Sigma$ todos los datos de entrada, incluyendo el dominio espacial continuo $U$ y las secciones eficaces con sus dependencias continuas de $\vec{x}$, $E$ y $\omegaversor$,
- * $\mathcal{F}$ un operador integral sobre $E^\prime$ y $\omegaprimaversor$ y diferencial sobre $\vec{x}$, $\Omega$ 
+ * $\mathcal{F}$ un operador integral sobre $E^\prime$ y $\omegaprimaversor$ y diferencial sobre $\vec{x}$
  
 Esencialmente, en este capítulo aplicamos métodos numéricos @quarteroni para obtener una formulación débil y aproximada
 
@@ -94,9 +93,9 @@ donde ahora
  
 El tamaño $N$ del operador discreto $\mathcal{F}_N$ es el producto de
 
- 1. la cantidad de incógnitas espaciales,
- 2. la cantidad de grupos de energías, y
- 3. la cantidad de direcciones de vuelo discretas.
+ a. la cantidad $G$ de grupos de energías (@sec-multigrupo),
+ b. la cantidad $M$ de direcciones de vuelo discretas (@sec-sn), y
+ c. la cantidad $J$ de incógnitas espaciales (@sec-discretizacion_espacial).
  
 
 ::: {#def-convergencia}
@@ -179,32 +178,36 @@ Suponiendo que disponemos de varios métodos numéricos que nos permitan calcula
  1. la exactitud de la solución $\varphi_N$ obtenida
  2. los recursos computacionales necesarios para obtener $\varphi_N$, medidos en
  
-     a. tiempo total de CPU,
-     b. tiempo de pared,^[En el sentido del inglés [*wall time*]{lang=en-US}.] que es igual al del punto a en serie pero debería ser menor en cálculos en paralelo, y
-     c. memoria RAM.
+     a. tiempo total de procesamiento (CPU, GPU y/o APU)
+     b. tiempo de pared,^[En el sentido del inglés [*wall time*]{lang=en-US}.] que es igual al del punto a en serie pero debería ser menor en cálculos en paralelo,
+     c. memoria RAM,
+     d. necesidades de almacenamiento, etc.
     
  3. los recursos humanos necesarios para 
  
-     a. preparar $\Sigma_N$ (pre-procesar), y
-     b. analizar $\varphi_N$ (post-procesar).
+     a. preparar $\Sigma_N$ (pre-procesar),
+     b. analizar $\varphi_N$ (post-procesar), y
+     c. llegar a conclusiones útiles.
+     
+    
      
 Si bien con esta taxonomía parecería que comparar métodos numéricos no debería ser muy difícil, hay detalles que deben ser tenidos en cuenta y que de hecho complican la evaluación.
 Por ejemplo, dado un cierto problema de análisis de reactores a nivel de núcleo, el punto 1 incluye las siguiente preguntas:
 
  * ¿Es necesario resolver la ecuación de transporte o la ecuación de difusión es suficiente?
- * ¿Cuántas direcciones discretas hay que resolver para obtener una exactitud apropiada?
+ * ¿Cuántas direcciones discretas hay que tener en cuenta para obtener una exactitud apropiada?
  
-Por otro lado, el punto 2 abarca
+Por otro lado, el punto 2 abarca cuestiones como
 
- * ¿Es más eficiente discretizar el espacio con una formulación precisa como Galerkin que da lugar a matrices no simétricas con pocos grados de libertad o conviene utilizar una formulación menos precisa como cuadrados mínimos que da lugar a matrices simétricas pero empleando más incógnitas espaciales?
+ * ¿Es más eficiente discretizar el espacio con una formulación precisa como Galerkin que da lugar a matrices no simétricas usando pocos grados de libertad o conviene utilizar una formulación menos precisa como cuadrados mínimos que da lugar a matrices simétricas pero empleando más incógnitas espaciales?
  * ¿Es preferible usar métodos directos que son robustos pero poco escalables o métodos iterativos que son escalables pero sensibles a perturbaciones?
 
-La determinación del valor de $N$ necesario para contar con una cierta exactitud apropiada para cada método numérico no es trivial e involucra estudios paramátricos para obtener $\varphi_N$ vs. $N$. Este proceso puede necesitar barrer valores de $N$ suficientemente grandes para los cuales haya discontinuidades en la evaluación. Por ejemplo, si se debe pasar de una sola computadora a más de una por limitaciones de recursos (usualmente memoria RAM) o si se debe pasar de una infra-estructura *on-premise* a una basada en la nube.
+La determinación del valor de $N$ necesario para contar con una cierta exactitud apropiada para cada método numérico no es trivial e involucra estudios paramétricos para obtener $\varphi_N$ vs. $N$. Este proceso puede necesitar barrer valores de $N$ suficientemente grandes para los cuales haya discontinuidades en la evaluación. Por ejemplo, si se debe pasar de una sola computadora a más de una por limitaciones de recursos (usualmente memoria RAM) o si se debe pasar de una infra-estructura *on-premise* a una basada en la nube en un eventual caso donde se necesiten más nodos ([*hosts*]{lang=en-US}) de cálculo que los disponibles.
  
-Finalmente, como en cualquier evaluación, intervienen situaciones particulares más blandas relacionadas al gerenciamiento de proyectos y a la tensión del triángulo alcance-costos-tiempo, como por ejemplo:
+Finalmente, como en cualquier evaluación técnico-económica, intervienen situaciones particulares más blandas relacionadas al gerenciamiento de proyectos y a la tensión de los tres vértices del triángulo alcance-costos-tiempo, como por ejemplo:
 
  * ¿Se necesitan resultados precisos (caros y lentos) o resultados aproximados (baratos y rápidos) son suficientes?
- * ¿Se prioriza disminuir los costos o se prioriza tener resultados en poco tiempo (e.g. Proyecto Manhattan)?
+ * ¿Se prioriza disminuir los costos (como en la mayoría de los proyectos de ingeniería) o se prioriza tener resultados en poco tiempo (e.g. Proyecto Manhattan @making)?
  * ¿Cómo dependen los tiempos y los costos de la infra-estructura de los recursos computacionales? 
    - Si es *on-premise*:
      * amortización de hardware
@@ -215,16 +218,21 @@ Finalmente, como en cualquier evaluación, intervienen situaciones particulares 
    - Si es *cloud*: 
      * alquiler de instancias
      * suscripciones a servicios
+     * orquestación
  * ¿Cómo son los costos asociados a la capacitación de los ingenieros que tienen que obtener $\varphi$ con cada método numérico?
 
 Está claro que el análisis de todas estas combinaciones están fuera del alcance de esta tesis.
 De todas maneras, la herramienta computacional cuya implementación describimos en detalle en el @sec-implementacion permite evaluar todos estos aspectos y muchos otros ya que, en forma resumida
 
- 1. Esta disenado para ser ejecutado nativamente en la nube.^[Del ingles [*cloud native*]{lang=en-US} como contrapartida a  [*cloud friendly*]{lang=en-US} o [*cloud enabled*]{lang=en-US}.]
- 2. Permite discretizar el dominio espacial utilizando mallas no estructuradas.
- 3. Puede correr en paralelo en una cantidad arbitraria de computadoras.^[Del ingles [*hosts*]{lang=en-US}.]
+ 1. Está diseñado para ser ejecutado nativamente en la nube.^[Del inglés [*cloud native*]{lang=en-US} como contrapartida a  [*cloud friendly*]{lang=en-US} o [*cloud enabled*]{lang=en-US}.]
+ 2. Permite discretizar el dominio espacial utilizando mallas no estructuradas.^[Del inglés [*unstructured grids*]{lang=en-US}.]
+ 3. Puede correr en paralelo en una cantidad arbitraria de computadoras.^[Del inglés [*hosts*]{lang=en-US}.]
 
+En particular, permite a los ingenieros nucleares comparar las soluciones obtenidas con las formulaciones $S_N$ de difusión al resolver un mismo problema de tamaño arbitrario.
+De esta forma, es posible justificar ante gerencias superiores o entes regulatorios la factibilidad (o no) de encarar un proyecto para analizar un reactor nuclear con la ecuación de difusión utilizando
 
+ a. datos objetivos, y
+ b. juicio de ingeniería.
 
 
 
@@ -236,9 +244,12 @@ De todas maneras, la herramienta computacional cuya implementación describimos 
 Vamos a discretizar el dominio de la energía $E \in \mathbb{R}$ utilizando el concepto clásico de física de reactores de *grupos de energías*, que llevado a conceptos más generales de matemática discreta es equivalente a integrar sobre volúmenes (intervalos en $\mathbb{R}$) de control y utilizar el valor medio sobre cada volumen como el valor discretizado.
 
 En efecto, tomemos el intervalo de energías $[0,E_0]$ donde $E_0$ es la mayor energía esperada de un neutrón individual.
-Como ilustramos en la @fig-multigroup, dividamos dicho intervalo en $G$ grupos (volúmenes) no necesariamente iguales cada uno definido por energías de corte $0=E_G < E_{G-1} < \dots < E_2 < E_1 < E_0$, de forma tal que el grupo $g$ es el intervalo $[E_g,E_{g-1}]$.
-Notamos que con esta notación, el grupo número uno siempre es el de mayor energía.
+Como ilustramos en la @fig-multigroup, dividamos dicho intervalo en $G$ grupos (volúmenes) no necesariamente iguales, cada uno definido por energías de corte $0=E_G < E_{G-1} < \dots < E_2 < E_1 < E_0$, de forma tal que el grupo $g$ es el intervalo $[E_g,E_{g-1}]$.
+
+::: {.remark}
+Con esta notación, el grupo número uno siempre es el de mayor energía.
 A medida que un neutrón va perdiendo energía, va aumentando el número de su grupo de energía.
+:::~
 
 ![Discretización del dominio energético en grupos (volúmenes) de energía. Tomamos la mayor energía esperada $E_0$ y dividimos el intervalo $[0,E_0]$ en $G$ grupos, no necesariamente iguales. El grupo uno es el de mayor energía.](multigroup-energy){#fig-multigroup width=95%}
 
@@ -279,13 +290,13 @@ La misma idea aplica a $\phi(\vec{x}, E)$ y a $\phi_g(\vec{x})$.
 
 Los tres objetivos de discretizar la energía en $G$ grupos son
 
- 1. transformar la dependencia continua del flujo angular $\psi(\vec{x}, \omegaversor, E)$ en $G$ funciones $\psi_g(\vec{x},\omegaversor)$ y del flujo escalar $\phi(\vec{x}, E)$ en $G$ funciones $\phi_g(\vec{x})$,
+ 1. transformar la dependencia continua del flujo angular $\psi(\vec{x}, \omegaversor, E)$ con la energía $E$ en $G$ funciones $\psi_g(\vec{x},\omegaversor)$ y del flujo escalar $\phi(\vec{x}, E)$ en $G$ funciones $\phi_g(\vec{x})$,
  2. reemplazar las integrales sobre la variable continua $E^\prime$ por sumatorias finitas sobre el índice $g^\prime$, y
- 3. re-escribir las ecuaciones de difusión y transporte en función de los flujos de grupo.
+ 3. re-escribir las ecuaciones de difusión y transporte en función de los flujos de grupo ($\psi_g(\vec{x},\omegaversor)$ en transporte y $\phi_g(\vec{x})$ en difusión)
  
  
 Para ilustrar la idea, prestemos atención al término de absorción total de la ecuación de transporte $\Sigma_t \cdot \psi$.
-La idea es integrarlo con respecto a $E4 entre $E_g$ y $E_{g-1}$ y escribirlo como el producto de una sección eficaz total asociada al grupo $g$ por el flujo angular $\psi_g$ de la @def-psig:
+El objetivo es integrarlo con respecto a $E$ entre $E_g$ y $E_{g-1}$ y escribirlo como el producto de una sección eficaz total asociada al grupo $g$ por el flujo angular $\psi_g$ de la @def-psig:
 
 $$
 \int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) \, dE =
@@ -306,7 +317,7 @@ $$
 \frac{\displaystyle \int_{E_g}^{E_{g-1}} \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE}{\displaystyle \int_{E_g}^{E_{g-1}} \phi(\vec{x}, E) \, dE}
 $$ 
 con lo que no hemos ganado nada ya que llegamos a una condición tautológica donde el parámetro que necesitamos para no tener que conocer la dependencia explícita del flujo con la energía depende justamente de dicha dependencia.
-Sin embargo, y es ésta una de las ideas centrales del cálculo y análisis de reactores, podemos suponer que el cálculo de celda (@sec-celda) es capaz de proveernos las secciones eficaz macroscópicas multigrupo para el reactor que estamos modelando de forma tal que, desde el punto de vista del cálculo de núcleo, $\Sigma_{t g}$ y todas las demás secciones eficaces son distribuciones conocidas del espacio $\vec{x}$.
+Sin embargo ---y es ésta una de las ideas centrales del cálculo y análisis de reactores--- podemos suponer que el cálculo de celda (@sec-celda) es capaz de proveernos las secciones eficaz macroscópicas multigrupo para el reactor que estamos modelando de forma tal que, desde el punto de vista del cálculo de núcleo, $\Sigma_{t g}$ y todas las demás secciones eficaces macroscópicas son distribuciones conocidas del espacio $\vec{x}$.
 
 Para analizar la sección eficaz de $\nu$-fisiones, integremos el término de fisión de la ecuación de transporte entre las energías $E_{g-1}$ y $E_g$ e igualémoslo a una sumatoria de productos $\nu\Sigma_{fg^\prime} \cdot \phi_{g^\prime}$^[Podríamos haber integrado la ecuación de difusión, en cuyo caso no tendríamos el denominador $4\pi$ en ambos miembros. En cualquier caso, el resultado sería el mismo.]
 
@@ -387,16 +398,36 @@ $$
 \end{gathered}
 $$
 
-Teniendo en cuenta 
+::: {#def-s-g}
+Definimos la fuente de neutrones independientes del grupo $g$ como
 
- * @def-psig
- * @def-phig
- * @def-Jg
- * @eq-sigmatg-psig
- * @eq-nusigmaf-phig
- * @eq-chig
- * @eq-sigmas0-phig
- * @eq-sigmas1-Jg
+$$
+s_g(\vec{x}, \omegaversor) = \int_{E_g}^{E_{g-1}} s(\vec{x}, \omegaversor, E) \, dE
+$$
+:::
+
+::: {#def-s0-g}
+Definimos el momento de orden cero de las fuentes independentes del grupo $g$ como
+
+$$
+s_{0g}(\vec{x}) = \int_{E_g}^{E_{g-1}} s_0(\vec{x}, E) \, dE
+$$
+:::
+
+Teniendo en cuenta las definiciones
+
+ * [-@def-psig]
+ * [-@def-phig]
+ * [-@def-Jg]
+ * [-@def-s-g]
+ 
+y las ecuaciones
+
+ * [-@eq-sigmatg-psig]
+ * [-@eq-nusigmaf-phig]
+ * [-@eq-chig]
+ * [-@eq-sigmas0-phig]
+ * [-@eq-sigmas1-Jg]
 
 obtenemos las $G$ ecuaciones de transporte multigrupo
 
@@ -410,14 +441,16 @@ $$
 + s_g(\vec{x}, \omegaversor)
 \end{gathered}
 $$ {#eq-transportemultigrupo}
-para las incógnitas $\psi_g(\vec{x}, \omegaversor)$ para $g=1,\dots,G$, donde hemos definido la fuente independiente del grupo $g$ como
-
-$$
-s_g(\vec{x}, \omegaversor) = \int_{E_g}^{E_{g-1}} s(\vec{x}, \omegaversor, E) \, dE
-$$
+donde las incógnitas son $\psi_g(\vec{x}, \omegaversor)$ para $g=1,\dots,G$
 
 
-Procediendo de forma análoga para la ecuación de difusión @eq-difusion-ss, primero integrándola con respecto a $E$ entre $E_{g-1}$ y $E_g$ y luego teniendo en cuenta las definiciones de flujos de grupo, podemos obtener la ecuación de difusión multigrupo
+Procediendo de forma análoga para la ecuación de difusión @eq-difusion-ss, primero integrándola con respecto a $E$ entre $E_{g-1}$ y $E_g$ y luego teniendo en cuenta las definiciones
+
+ * [-@def-psig]
+ * [-@def-phig]
+ * [-@def-s0-g]
+ 
+podemos obtener la ecuación de difusión multigrupo
 
 $$
 \begin{gathered}
@@ -428,12 +461,7 @@ $$
 \chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})+ s_{0g}(\vec{x})
 \end{gathered}
 $$ {#eq-difusionmultigrupo}
-donde las incógnitas son $\phi_g(\vec{x})$ para $g=1,\dots,G$, donde ahora las fuentes independentes son
-
-$$
-s_{0g}(\vec{x}) = \int_{E_g}^{E_{g-1}} s_0(\vec{x}, E) \, dE
-$$
-
+donde ahora las incógnitas son $\phi_g(\vec{x})$ para $g=1,\dots,G$, 
 
 
 
@@ -446,13 +474,14 @@ $$ {#eq-D}
 :::
 
 ::: {.remark}
-Matemáticamente, la aproximación multigrupo es equivalente a discretizar el dominio de la energía con un esquema de volúmenes finitos con la salvedad de que no hay operadores diferenciales con respecto a la variable $E$ sino que el acople entre volúmenes se realiza en forma algebraica. Dicho acople no es necesariamente entre primeros vecinos solamente sino que es arbitrario.
+Matemáticamente, la aproximación multigrupo es equivalente a discretizar el dominio de la energía con un esquema de volúmenes finitos con la salvedad de que no hay operadores diferenciales con respecto a la variable $E$ sino que el acople entre volúmenes se realiza en forma algebraica. Dicho acople no es necesariamente entre primeros vecinos solamente sino que es arbitrario, i.e. un neutrón puede pasar del grupo 1 al $G$, o viceversa, o de un grupo arbitrario $g^\prime$ a otro grupo $g$.
 :::
 
 
 ::: {.remark}
-Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica y deliberamente tautologica, la consistencia es teoricamente fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
-En la practica, la consistencia depende del calculo a nivel de celda de la\ @sec-celda.
+Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica y deliberamente tautológica, la consistencia es teóricamente fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
+De hecho las ecuaciones multigrupo se basan solamente en _definiciones_.
+En la práctica, la consistencia depende del cálculo a nivel de celda de la\ @sec-celda.
 :::
 
 ## Discretización en ángulo {#sec-sn}
@@ -1791,3 +1820,7 @@ $$
 $$
 a partir de una solución inicial $\symbf{\varphi}_{N0}$.
 En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\symbf{\varphi}_N$ y no hay ninguna constante multiplicativa arbitraria.
+
+
+
+Terminada la explicación del _cómo_ ([how]{lang=en-US}), pasemos entonces al _qué_ ([what]{lang=en-US}).

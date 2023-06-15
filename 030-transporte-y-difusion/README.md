@@ -32,23 +32,25 @@
 
 En este capítulo introducimos las ecuaciones que modelan el transporte de neutrones en el núcleo de un reactor nuclear con los siguientes objetivos:
 
- 1. fijar la matemática de las ecuaciones continuas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones de neutrónica discretizadas derivadas en el @sec-esquemas,
- 2. declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados, y
- 3. definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
+ 1. Fijar la matemática de las ecuaciones continuas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones de neutrónica discretizadas derivadas en el @sec-esquemas.
+ 2. Declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados.
+ 3. Definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
 No buscamos explicar los fundamentos físicos de los modelos matemáticos ni realizar una introducción para el lector lego.
 Para estos casos referimos a las referencias [@enief-2013-cpl; @monografia] escritas por el autor de esta tesis y a la literatura clásica de física de reactores [@henry; @lamarsh; @duderstadt; @glasstone; @lewis; @stammler].
 Si bien gran parte del material aquí expuesto ha sido tomado de estas referencias, hay algunos desarrollos matemáticos propios que ayudan a homogeneizar los diferentes enfoques y nomenclaturas existentes en los libros de texto para poder sentar las bases de los esquemas numéricos implementados en el código de manera consistente.
 Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de definiciones básicas para arribar a expresiones integro-diferenciales que describen el problema de ingeniería que queremos resolver.
 
-Está claro los desarrolos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por
-mediados del siglo XX.
+Está claro los desarrollos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
  a. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la propuesta central de esta tesis explicada en la\ @sec-propuestas, y
  b. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
 
-
+---
+comment: es una especie de diario de Marco Aurelio para mí mismo
+...
+ 
 \medskip
 
 Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U \in \mathbb{R}^3$ de tres dimensiones.^[Llegado el caso veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.]
@@ -79,7 +81,7 @@ energía $E=1/2 \cdot m v^2$.
 ## Secciones eficaces
 
 ::: {#def-sigmat}
-La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que
+La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que el producto
 
 $$
 \Sigma_t \cdot ds
@@ -87,9 +89,9 @@ $$
 es la probabilidad de que un neutrón tenga una colisión con el núcleo de algún átomo del material por el que viaja a lo largo de una distancia $ds$ en línea recta. Es decir, la sección eficaz macroscópica es el número de colisiones esperadas por neutrón y por unidad de longitud lineal. Sus unidades son inversa de longitud, es decir m$^{-1}$ o cm$^{-1}$.
 :::
 
-Además de referirnos a la sección eficaz^[En inglés es [*cross section*]{lang=en-US}] total, podemos particularizar el concepto al tipo de
+Además de referirnos a la sección eficaz^[En inglés es [*cross section*]{lang=en-US}.] total, podemos particularizar el concepto al tipo de
 reacción $k$, es decir, $\Sigma_k \cdot ds$ es la probabilidad de que un
-neutrón tenga una reacción de tipo $k$ en el intervalo $ds$. En nuestro
+neutrón tenga una reacción de tipo $k$ en el intervalo espacial de longitud $ds$. En nuestro
 caso particular, la reacción genérica $k$ puede ser particularizada según el subíndice a
 
 |  Subíndice  | Reacción
@@ -152,30 +154,18 @@ $$
 \Sigma_k = n \cdot \sigma_k = n \Big( p(\vec{x}), T(\vec{x}) \Big) \cdot \sigma_k \Big(E, T(\vec{x}) \Big) = \Sigma_k (\vec{x}, E)
 $$
 
-Las ideas presentadas son válidas para un único isótopo libre de
-cualquier influencia externa. En los reactores nucleares reales, por un
-lado existen efectos no lineales como por ejemplo el hecho de los átomos
-de hidrógeno o deuterio y los de oxígeno no están libres en la molécula
-de agua, que hacen que las secciones eficaces de el todo (i.e. de un
-conjunto de átomos enlazados covalentemente) no sean iguales a la suma
-algebraica de las partes y debamos calcular las secciones eficaces
-macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs).
-Por otro lado, justamente en los reactores nucleares las reacciones que interesan son
-las que dan como resultado la transmutación de materiales por lo que
-continuamente la densidad atómica $n$ de todos los isótopos varía con el
-tiempo. En este trabajo, no vamos a tratar con la dependencia de las
-secciones eficaces con el tiempo explícitamente sino que llegado el
-caso, como discutimos en la @sec-multiescala, daremos la dependencia implícitamente a
-través de otras propiedades intermedias tales como la evolución del
-quemado del combustible y/o la concentración de xenón 135 en las pastillas de de dióxido de uranio.
+Las ideas presentadas son válidas para un único isótopo libre de cualquier influencia externa.
+En los reactores nucleares reales, por un lado existen efectos no lineales como por ejemplo el hecho de los átomos de hidrógeno o deuterio y los de oxígeno no están libres en la molécula de agua.
+Esto hace que las secciones eficaces de el todo (i.e. de un conjunto de átomos enlazados covalentemente) no sean iguales a la suma algebraica de las partes y debamos calcular las secciones eficaces macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs).
+Por otro lado, justamente en los reactores nucleares las reacciones que interesan son las que dan como resultado la transmutación de materiales por lo que continuamente la densidad atómica $n$ de todos los isótopos varía con el
+tiempo. En este trabajo, no vamos a tratar con la dependencia de las secciones eficaces con el tiempo explícitamente sino que llegado el caso, como discutimos en la @sec-multiescala, daremos la dependencia implícitamente a través de otras propiedades intermedias tales como la evolución del quemado del combustible y/o la concentración de xenón 135 en las pastillas de de dióxido de uranio en forma cuasi-estática.
 
 ::: {.remark}
 Si bien la sección eficaz de un material que es combinación de otros no es la combinación lineal de los componentes,
 es cierto que las sumas de secciones eficaces correspondientes a reacciones parciales dan como resultado la sección eficaz de la reacción total. Por ejemplo, $\Sigma_a = \Sigma_c + \Sigma_f$ y $\Sigma_t = \Sigma_a + \Sigma_s$.
 :::
 
-A partir de este momento suponemos que conocemos las secciones eficaces macroscópicas en función del vector posición $\vec{x}$ para todos los
-problemas que planteamos y que éstas no dependen del tiempo $t$.
+A partir de este momento suponemos que conocemos las secciones eficaces macroscópicas en función del vector posición $\vec{x}$ y de la energía $E$ para todos los problemas que planteamos, y que además éstas no dependen del tiempo $t$.
 
 ### Dispersión de neutrones {#sec-scattering}
 
@@ -191,7 +181,7 @@ $$
 es la probabilidad por unidad de longitud lineal que un neutrón de energía $E$ viajando en la dirección $\omegaversor$ sea dispersado hacia un intervalo de energía entre $E^\prime$ y $E^\prime + dE^\prime$ y a un cono $d\omegaprimaversor$ alrededor de la dirección $\omegaprimaversor$. Sus unidades son inversa de longitud por inversa de ángulo sólido por inversa de energía.
 :::
 
-Utilizando argumentos de simetría, podemos demostrar que la sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente de $\omegaversor$ y de $\omegaprimaversor$ (@fig-omegamu).
+Utilizando argumentos de simetría, podemos mostrar que la sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente de $\omegaversor$ y de $\omegaprimaversor$. En la @fig-omegamu ilustramos la idea.
 
 ![Debido a la simetría azimutal, el [scattering]{lang=en-US} no depende de las direcciones $\omegaversor$ y de $\omegaprimaversor$ en forma separada sino que depende del coseno del ángulo entre ellas $\mu = \omegaversor \cdot \omegaprimaversor$.](omegamu-nice){#fig-omegamu width=60%}
 
@@ -202,7 +192,7 @@ $$
 $$ {#eq-sigmasmu}
 donde $\Sigma_{s_t}$ es la sección eficaz macroscópica *total* de [scattering]{lang=en-US}, que da la probabilidad por unidad de longitud de que un neutrón incidente de energía $E$ inicie un proceso de [scattering]{lang=en-US} y la función $\xi_s$ describe la distribución de neutrones emergentes.
 
-Podemos integrar ambos miembros de ls @eq-sigmasmu con respecto a $E^\prime$ y a $\mu$, y despejar $\Sigma_{s_t}$ para obtener su definición
+Podemos integrar ambos miembros de la @eq-sigmasmu con respecto a $E^\prime$ y a $\mu$, y despejar $\Sigma_{s_t}$ para obtener su definición
 
 $$
 \Sigma_{s_t}(\vec{x}, E) =
@@ -367,7 +357,7 @@ $$
 \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
 $$ {#eq-isotropico2}
 
-Reemplazando la @eq-isotropico2 en la @eq-isotropico1 y sacando $\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$ fuera de la integral tenemos
+Reemplazando la @eq-isotropico2 en la [-@eq-isotropico1] y sacando $\Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$ fuera de la integral tenemos
 
 $$
 \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot 4\pi = \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
@@ -442,7 +432,7 @@ $$\Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) =
 \frac{\Sigma_{s_t}(\vec{x},E)}{(1 - \alpha) E} \cdot \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \cdot P_\ell(\mu_0) \cdot P_\ell(\mu)
 $$
 
-Tomando los dos primeros términos y recordando que $P_1(\mu) = \mu$, podemos aproximar
+Tomando solamente los dos primeros términos y recordando que $P_1(\mu) = \mu$, podemos aproximar
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) \approx
@@ -585,14 +575,14 @@ Una cierta fracción $\beta$ de todos los neutrones son producto del decaimient
  a. los productos de fisión, o
  b. de los hijos de los productos de fisión.
  
-En cualquier caso, en cálculos transitorios es necesario distinguir entre la fracción $1-\beta$ de neutrones instantáneos^[En el sentido del inglés ([*prompt*]{lang=en-US}).] que aparecen en el mismo momento de la fisión y la fracción $\beta$ de neutrones retardados que aparecen más adelante.
+En cualquier caso, en cálculos transitorios es necesario distinguir entre la fracción $1-\beta$ de neutrones instantáneos^[En el sentido del inglés [*prompt*]{lang=en-US}.] que aparecen en el mismo momento de la fisión y la fracción $\beta$ de neutrones retardados que aparecen más adelante.
 Para ello dividimos a los neutrones retardados en $I$ grupos, les asignamos una fracción $\beta_i$ y una constante de tiempo $\lambda_i$, para $i=1,\dots,N$ y definimos un mecanismo de aparición exponencial para cada uno de ellos.
 
 Como discutimos más adelante en la @sec-problemas-steady-state, en cálculos estacionarios no es necesario realizar esta división entre neutrones instantáneos y retardados ya que eventualmente todos los neutrones estarán contribuyendo a la reactividad neta del reactor.
 En el caso particular en el que no haya una fuente externa de neutrones sino que todas las fuentes se deban a fisiones la probabilidad de que el
 reactor esté exactamente crítico es cero.
 Para poder realizar cálculos estacionarios y además tener una idea de la distancia a la criticidad debemos recurrir a un reactor crítico asociado, cuya forma más usual es el *reactor crítico asociado en $k$* introducido más adelante en la @def-keff.
-En este caso, dividimos las fuentes de fisión se artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser una incógnita del problema y cuya diferencia con la unidad da una idea de la distancia a la criticidad del reactor original.
+En este caso, dividimos las fuentes de fisión se artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser una incógnita del problema y cuya diferencia relativa con respecto a la unidad da una idea de la distancia a la criticidad del reactor original.
 
 ## Flujos y ritmos de reacción
 
@@ -748,7 +738,7 @@ $$
 \frac{\partial}{\partial z} \Big[ z + v(E) \, \hat{\Omega}_z \cdot \Delta t \Big] &= 1
 \end{aligned}
 $$
-y entonces podemos hacer que el dominio de integración de ambas integrales de la @eq-integral_dos_dominios coincidan haciendo
+y entonces podemos hacer que el dominio de integración de ambas integrales de la @eq-integral_dos_dominios coincidan escribiendo
 
 $$
 \begin{aligned}
@@ -835,7 +825,7 @@ $$ {#eq-grad-solo-x}
 
 Cuando un neutrón reacciona con un núcleo blanco, el neutrón incidente puede...
 
- a. ser dispersado, 
+ a. ser dispersado, o
  b. generar una fisión, o
  c. ser absorbido por el núcleo blanco.
 
@@ -992,7 +982,7 @@ $$
 \end{aligned}
 $$
 
-Ahora sí podemos reemplazar esta expansión de $\Sigma_s(\vec{x},\omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E)$ en la fuente de la @eq-qs,
+Ahora sí podemos reemplazar esta expansión de $\Sigma_s(\vec{x},\omegaprimaversor  \rightarrow \omegaversor, E^\prime \rightarrow E)$ en el término de fuentes de la @eq-qs,
 
 $$
 \begin{aligned}
@@ -1013,7 +1003,7 @@ Si bien esta expresión ya es suficiente para evaluar el término de [scattering
 expandiendo en una base apropiada el flujo angular $\psi$, de la misma manera en la que desarrollamos $\Sigma_s$ en una serie de polinomios de Legendre sobre el parámetro $\mu$.
 
 Para ello, notamos que $\psi$ depende angularmente de un versor dirección $\omegaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, \hat{\Omega}_z]^T$ (u $\omegaprimaversor$ en el caso de la @eq-qs1).
-Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que toman un único argumento escalar $\mu$) sino la generada^[Del inglés [*span*]{lang=en-US}.] por los armónicos esféricos reales, ilustrados en la @fig-harmonics.
+Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que toman un único argumento escalar $\mu$) sino la generada^[Del inglés [*spanned*]{lang=en-US}.] por los armónicos esféricos reales, ilustrados en la @fig-harmonics.
 
 
 ::: {#thm-harmonics}
@@ -1499,11 +1489,11 @@ La ecuación de difusión de neutrones es una aproximación muy útil que permit
     i. la ecuación de difusión discretizada presenta mucho menos grados de libertad que otras formulaciones, tales como ordenadas discretas, y
     ii. la discretización numérica del operador elíptico deviene en matrices simétricas y definidas positivas que permiten la aplicación de algoritmos de resolución muy eficientes, tales como los métodos multi-grid @nachogatech.
  
-En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas, si damos por cierto las siete suposiciones` de la página~\pageref{siete}`{=latex}. La primera es una aproximación que, como mostramos en esta sección, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
+En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas, si damos por cierto las siete suposiciones` de la página~\pageref{siete}`{=latex}. La primera es una aproximación que, como mostramos en esta sección, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente negativo por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
  
 ### Momento de orden cero
 
-Comenzamos integrando la @eq-transporteq de transporte de neutrones sobre todas los direcciones $\omegaversor$ para obtener
+Comenzamos integrando la ecuación de transporte de neutrones [-@eq-transporteq] sobre todas los direcciones $\omegaversor$ para obtener
 
 $$
 \begin{gathered}
@@ -1556,7 +1546,11 @@ $$
 y definiendo una fuente de neutrones escalar que incluya [scattering]{lang=en-US}, fisiones y/o fuentes independientes integrada sobre $4\pi$
 
 $$
- Q(\vec{x}, E, t) = \int_{4\pi} q(\vec{x}, \omegaversor, E, t) \, d\omegaversor
+ Q(\vec{x}, E, t)
+=
+\int_{4\pi} q_s(\vec{x}, \omegaversor, E, t) \, d\omegaversor
+ + \int_{4\pi} q_f(\vec{x}, \omegaversor, E, t) \, d\omegaversor
+ + \int_{4\pi} s(\vec{x}, \omegaversor, E, t) \, d\omegaversor
 $$
 podemos escribir
 
@@ -1579,8 +1573,8 @@ independientes:
 
 $$
 \begin{aligned}
- Q(\vec{x}, E, t) &= \int_{4\pi} q(\vec{x}, \omegaversor, E, t) \, d\omegaversor \\
-&= \int_{4\pi} q_s(\vec{x}, \omegaversor, E, t) \, d\omegaversor
+ Q(\vec{x}, E, t) &=
+   \int_{4\pi} q_s(\vec{x}, \omegaversor, E, t) \, d\omegaversor
  + \int_{4\pi} q_f(\vec{x}, \omegaversor, E, t) \, d\omegaversor
  + \int_{4\pi} s(\vec{x}, \omegaversor, E, t) \, d\omegaversor \\
 &= Q_s(\vec{x}, E, t) + Q_f(\vec{x}, E, t) + S(\vec{x}, E, t)
@@ -1670,7 +1664,7 @@ $$
 \end{gathered}
 $${#eq-difusionporomega}
 
-Analicemos los seis términos de esta expresión un por uno, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
+Analicemos en las seis subsecciones que siguen los términos de esta expresión un por uno, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
 
 #### Derivada temporal
 
@@ -1697,7 +1691,7 @@ $$
 \psi(\vec{x}, \omegaversor, E, t) \simeq \frac{1}{4\pi} \left[ \phi(\vec{x}, E, t) + 3 \cdot \left(\vec{J}(\vec{x}, E, t) \cdot \omegaversor \right) \right]
 $$
 
-Con esta suposición, el término de advección queda, aproximadamente igual a
+Con esta suposición, el término de advección queda aproximadamente igual a
 
 $$
 \begin{gathered}
@@ -1797,9 +1791,9 @@ $$
 \begin{bmatrix} \hat{\Omega}_x & \hat{\Omega}_y & \hat{\Omega}_z \end{bmatrix}
 \cdot
 \begin{bmatrix}
-\frac{\partial J}{\partial x} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_z \\
-\frac{\partial J}{\partial y} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_z \\
-\frac{\partial J}{\partial z} \cdot \hat{\Omega}_x + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_y + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_z
+\frac{\partial J_x}{\partial x} \cdot \hat{\Omega}_x + \frac{\partial J_y}{\partial x} \cdot \hat{\Omega}_y + \frac{\partial J_z}{\partial x} \cdot \hat{\Omega}_z \\
+\frac{\partial J_x}{\partial y} \cdot \hat{\Omega}_x + \frac{\partial J_y}{\partial y} \cdot \hat{\Omega}_y + \frac{\partial J_z}{\partial y} \cdot \hat{\Omega}_z \\
+\frac{\partial J_x}{\partial z} \cdot \hat{\Omega}_x + \frac{\partial J_y}{\partial z} \cdot \hat{\Omega}_y + \frac{\partial J_z}{\partial z} \cdot \hat{\Omega}_z
 \end{bmatrix}
 \right\}
 \cdot
@@ -1811,11 +1805,11 @@ $$
 \begin{aligned}
 = \int_{4\pi}
 \Bigg( &
-\frac{\partial J}{\partial x} \cdot \hat{\Omega}_x^2 + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_y \hat{\Omega}_x + \frac{\partial J}{\partial x} \cdot \hat{\Omega}_z \hat{\Omega}_x + \\
+\frac{\partial J_x}{\partial x} \cdot \hat{\Omega}_x^2 + \frac{\partial J_y}{\partial x} \cdot \hat{\Omega}_y \hat{\Omega}_x + \frac{\partial J_z}{\partial x} \cdot \hat{\Omega}_z \hat{\Omega}_x + \\
 &
-\frac{\partial J}{\partial y} \cdot \hat{\Omega}_x \hat{\Omega}_y + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_y^2 + \frac{\partial J}{\partial y} \cdot \hat{\Omega}_z \hat{\Omega}_y + \\
+\frac{\partial J_x}{\partial y} \cdot \hat{\Omega}_x \hat{\Omega}_y + \frac{\partial J_y}{\partial y} \cdot \hat{\Omega}_y^2 + \frac{\partial J_z}{\partial y} \cdot \hat{\Omega}_z \hat{\Omega}_y + \\
 &
-\frac{\partial J}{\partial z} \cdot \hat{\Omega}_x \hat{\Omega}_z + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_y \hat{\Omega}_z + \frac{\partial J}{\partial z} \cdot \hat{\Omega}_z^2
+\frac{\partial J_x}{\partial z} \cdot \hat{\Omega}_x \hat{\Omega}_z + \frac{\partial J_y}{\partial z} \cdot \hat{\Omega}_y \hat{\Omega}_z + \frac{\partial J_z}{\partial z} \cdot \hat{\Omega}_z^2
 \Bigg)
 \cdot
 \begin{bmatrix} \hat{\Omega}_x \\ \hat{\Omega}_y \\ \hat{\Omega}_z \end{bmatrix}
@@ -1823,25 +1817,63 @@ $$
 \end{aligned}
 $$
 
-El integrando es el vector
+El integrando es un vector $\vec{v} \in \mathbb{R}^3$ cuyos tres elementos son
 
 $$
-\begin{bmatrix}
-\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^3 + \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x^2 \hat{\Omega}_z  \right)  +
-\frac{\partial J}{\partial y} \left( \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_x \hat{\Omega}_z \hat{\Omega}_y \right) +
-\frac{\partial J}{\partial z} \left( \hat{\Omega}_x^2 \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_z^2 \right)
-\\
-\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^2 \hat{\Omega}_y + \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z \right) +
-\frac{\partial J}{\partial y} \left( \hat{\Omega}_x \hat{\Omega}_y^2 + \hat{\Omega}_y^3 + \hat{\Omega}_y^2 \hat{\Omega}_z \right) +
-\frac{\partial J}{\partial z} \left( \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_y^2 \hat{\Omega}_z + \hat{\Omega}_y \hat{\Omega}_z^2 \right)
-\\
-\frac{\partial J}{\partial x} \left( \hat{\Omega}_x^2 \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_x \hat{\Omega}_z^2 \right) +
-\frac{\partial J}{\partial y} \left( \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z + \hat{\Omega}_y^2 \hat{\Omega}_z + \hat{\Omega}_y \hat{\Omega}_z^2 \right) +
-\frac{\partial J}{\partial z} \left( \hat{\Omega}_x \hat{\Omega}_z^2 + \hat{\Omega}_y \hat{\Omega}_z^2 + \hat{\Omega}_z^3 \right)
-\end{bmatrix}
+\begin{aligned}
+v_1 =&
+\frac{\partial J_x}{\partial x} \cdot \hat{\Omega}_x^3 +
+\frac{\partial J_y}{\partial x} \cdot \hat{\Omega}_y \hat{\Omega}_x^2 +
+\frac{\partial J_z}{\partial x} \cdot \hat{\Omega}_z \hat{\Omega}_x^2 +
+\\ &
+\frac{\partial J_x}{\partial y} \cdot \hat{\Omega}_x^2 \hat{\Omega}_y +
+\frac{\partial J_y}{\partial y} \cdot \hat{\Omega}_y^2 \hat{\Omega}_x +
+\frac{\partial J_z}{\partial y} \cdot \hat{\Omega}_z \hat{\Omega}_y \hat{\Omega}_x +
+\\ &
+\frac{\partial J_x}{\partial z} \cdot \hat{\Omega}_x^2 \hat{\Omega}_z +
+\frac{\partial J_y}{\partial z} \cdot \hat{\Omega}_y \hat{\Omega}_z \hat{\Omega}_x +
+\frac{\partial J_z}{\partial z} \cdot \hat{\Omega}_z^2 \hat{\Omega}_x
+\end{aligned}
 $$
 
-Todos los términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k su integral sobre $4\pi$ es igual a cero.
+
+$$
+\begin{aligned}
+v_2 =&
+\frac{\partial J_x}{\partial x} \cdot \hat{\Omega}_x^2 \hat{\Omega}_y +
+\frac{\partial J_y}{\partial x} \cdot \hat{\Omega}_y^2 \hat{\Omega}_x +
+\frac{\partial J_z}{\partial x} \cdot \hat{\Omega}_z \hat{\Omega}_x \hat{\Omega}_y +
+\\ &
+\frac{\partial J_x}{\partial y} \cdot \hat{\Omega}_x \hat{\Omega}_y^2 +
+\frac{\partial J_y}{\partial y} \cdot \hat{\Omega}_y^3 +
+\frac{\partial J_z}{\partial y} \cdot \hat{\Omega}_z \hat{\Omega}_y^2 + 
+\\ &
+\frac{\partial J_x}{\partial z} \cdot \hat{\Omega}_x \hat{\Omega}_z \hat{\Omega}_y +
+\frac{\partial J_y}{\partial z} \cdot \hat{\Omega}_y^2 \hat{\Omega}_z +
+\frac{\partial J_z}{\partial z} \cdot \hat{\Omega}_z^2 \hat{\Omega}_y
+\end{aligned}
+$$
+
+y
+
+$$
+\begin{aligned}
+v_3 =&
+\frac{\partial J_x}{\partial x} \cdot \hat{\Omega}_x^2 \hat{\Omega}_z +
+\frac{\partial J_y}{\partial x} \cdot \hat{\Omega}_y \hat{\Omega}_x \hat{\Omega}_z +
+\frac{\partial J_z}{\partial x} \cdot \hat{\Omega}_z^2 \hat{\Omega}_x +
+\\ &
+\frac{\partial J_x}{\partial y} \cdot \hat{\Omega}_x \hat{\Omega}_y \hat{\Omega}_z +
+\frac{\partial J_y}{\partial y} \cdot \hat{\Omega}_y^2 \hat{\Omega}_z +
+\frac{\partial J_z}{\partial y} \cdot \hat{\Omega}_z^2 \hat{\Omega}_y + 
+\\ &
+\frac{\partial J_x}{\partial z} \cdot \hat{\Omega}_x \hat{\Omega}_z^2  +
+\frac{\partial J_y}{\partial z} \cdot \hat{\Omega}_y \hat{\Omega}_z^2 +
+\frac{\partial J_z}{\partial z} \cdot \hat{\Omega}_z^3
+\end{aligned}
+$$
+
+Los veintisiete términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k su integral sobre $4\pi$ es igual a cero.
 Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente anisotrópico como
 
 
@@ -1927,7 +1959,7 @@ Dado que ésta es isotrópica, el único momento diferente de cero es el de orde
 
 #### Fuentes independientes
 
-El término de fuentes independientes es igual a un vector cuyas componentes son los tres coeficientes de la expansión de la fuente en armónicos esféricos sobre el ángulo $\omegaversor$:
+El término de fuentes independientes es igual a un vector cuyas componentes son los tres coeficientes correspondientes a $\ell=1$ en la expansión en armónicos esféricos sobre el ángulo $\omegaversor$ de la fuente $s$:
 
 $$\begin{aligned}
 \int_{4\pi} s(\vec{x}, \omegaversor, E, t)  \cdot  \omegaversor \, d\omegaversor
@@ -1943,18 +1975,18 @@ s_1^{0}(\vec{x},E,t) \\
 \end{aligned}
 $$ {#eq-difusion6}
 
-Si las fuentes independientes son isotrópicas en el centro de masa del reactor, los tres coeficientes son cero y la integral es nula.
+Si las fuentes independientes son isotrópicas en el marco de referencia del reactor, los tres coeficientes son cero y la integral es nula.
 
 ### Ley de Fick
 
-Estamos entonces en condiciones de volver a reunir los seis términos de la @eq-difusionporomega que analizamos por separado
+Estamos entonces en condiciones de volver a reunir los seis términos de la @eq-difusionporomega que analizamos por separado en las ecuaciones
 
- * @eq-difusion1,
- * @eq-difusion2,
- * @eq-difusion3,
- * @eq-difusion4,
- * @eq-difusion5, y
- * @eq-difusion6
+ * [-@eq-difusion1],
+ * [-@eq-difusion2],
+ * [-@eq-difusion3],
+ * [-@eq-difusion4],
+ * [-@eq-difusion5], y
+ * [-@eq-difusion6]
 
 y concluir que al multiplicar la @eq-orden1 por $\omegaversor$ e integrar en todas las
 posibles direcciones, obtenemos
@@ -2011,11 +2043,11 @@ $$
 \Sigma_t(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 & \simeq
 \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \cdot \vec{J}(\vec{x}, E, t) \, dE^\prime  \\
-& =
+& \simeq
 \int_0^\infty \Sigma_{s_1}(\vec{x}, E \rightarrow E^\prime) \, dE^\prime \cdot \vec{J}(\vec{x}, E, t)  \\
-& =
+& \simeq
 \mu_0(\vec{x}, E) \int_0^\infty \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime) \, dE^\prime \cdot \vec{J}(\vec{x}, E, t)  \\
-& =
+& \simeq
 \mu_0(\vec{x}, E) \cdot \Sigma_{s_t}(\vec{x}, E) \cdot \vec{J}(\vec{x}, E, t)
 \end{aligned}
 $$
@@ -2056,13 +2088,13 @@ Dado que las secciones eficaces macroscópicas tienen unidades de inversa de lon
 
 ### La ecuación de difusión
 
-Podemos combinar los dos resultados de la conservación de momentos de orden cero y uno desarrollados en las secciones anteriores teniendo en cuenta las expresiones dadas por
+Podemos combinar los dos resultados de la conservación de momentos de orden cero y uno desarrollados en las secciones anteriores teniendo en cuenta las expresiones dadas por las ecuaciones
 
- * @eq-conservacion,
- * @eq-Qs,
- * @eq-Qf,
- * @eq-S, y
- * @eq-fick
+ * [-@eq-conservacion],
+ * [-@eq-Qs],
+ * [-@eq-Qf],
+ * [-@eq-S], y
+ * [-@eq-fick]
 
 para obtener finalmente la celebrada *ecuación de difusión de neutrones*
 

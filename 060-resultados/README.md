@@ -43,7 +43,7 @@ comparar con onedim?
 
 ## Benchmarks de criticidad desnudos
 
-## Slab a dos zonas, efecto de dilución de XSs
+## Slab a dos zonas, efecto de dilución de XSs {#sec-prob-dilucion}
 
 ## El reactor cubo-esfera
 ## Verificacion con MMS {#sec-mms}

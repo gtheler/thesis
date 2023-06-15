@@ -12,6 +12,19 @@
 :::::
 
 
+
+
+
+why: 1 & 2
+
+how: 3 & 4
+
+what: 5 & 6
+
+
+
+
+
 Suele suceder que cuando un profesional se pasa unos cuantos años
 trabajando en un cierto problema, comienza a dar por sentadas muchas de
 situaciones que el resto de las personas no tiene por qué siquiera
@@ -59,7 +72,15 @@ TL;DR: mezcla de
  3. programación (cap 5)
  
 
+El SDS/SRS es único
+citar presentación de Ashish en PETSc2023
 
+ * Scalable cloud-native thermo-mechanical solvers using PETSc, 
+Ashish Patel, Jeremy Theler, Francesc Levrero-Florencio, Nabil Abboud, Mohammad Sarraf Joshaghani, Scott McClennan
+Ansys, Inc.
+
+ 
+ 
 
 Lo que traigo/aporto:
 
@@ -120,7 +141,8 @@ MMS
 CI/CD
 
 unit testing
-doc as comments
+
+doc in markdown as comments -> pandoc, pdf, mobile-friendly html
 
 
 SRS/SDS: rationale
@@ -130,6 +152,8 @@ cerrar el lazo Nacho/Chaco
 
 
 cloud native != cloud enabled or cloud friendly
+
+**más énfasis**! API, ver presentación Don, pervasive
 
 
 
@@ -198,16 +222,6 @@ reactividad por efecto Doppler en el combustible [@doppler2013] y luego
 los resultados indiquen que los códigos de cálculo utilizados durante
 años no habían tenido en cuenta correctamente las resonancia de
 absorción en la periferia de las pastillas.
-
-
-
-
-why: 1 & 2
-
-how: 3 & 4
-
-what: 5 & 6
-
 
 
 

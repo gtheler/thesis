@@ -6,5 +6,6 @@ _book
 *.log
 *.toc
 phd-theler.tex
+phd-theler*.pdf
 
 /_*.local

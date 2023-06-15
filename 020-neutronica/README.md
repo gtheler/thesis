@@ -16,9 +16,9 @@
 
 ## Historia de dos reactores
 
-El reactor de la Central Nuclear Atucha I fue puesto en condición crítica el 13 de enero de 1974, constituyendo así la primera planta de generación nucleoeléctrica instalada en América Latina. Es un reactor térmico de 357 MWe brutos, moderado por agua pesada con canales combustibles verticales refrigerados también por agua pesada a la misma presión que el moderador pero a diferente temperatura. Debido a que el combustible es uranio natural, la poca reactividad en exceso hace que el reactor deba tener un recambio de combustible continuo. Para ello existe una máquina de recambio que opera sobre verticalmente la tapa superior del reactor extrayendo elementos combustibles gastados e introduciendo frescos a un ritmo aproximado de uno por día. El resto del tiempo la máquina opera haciendo un mezclado^[En el sentido del inglés [_shuffling_]{lang=en-US}.] para homogeneizar el quemado de los combustibles y optimizar el quemado de extracción final. Dado que la parte superior del recipiente de presión debe quedar libre para que trabaje la máquina de recambio, los mecanismos de control de reactividad tanto primarios (las barras de control) como secundarios (sistema de inyección de boro de emergencia) deben entrar el núcleo en forma oblicua a los canales combustibles, configurando un diseño esencialmente único en el mundo.
+El reactor de la Central Nuclear Atucha I fue puesto en condición crítica el 13 de enero de 1974, constituyendo así la primera planta de generación nucleoeléctrica instalada en América Latina. Es un reactor térmico de 357 MWe brutos, moderado por agua pesada con canales combustibles verticales refrigerados también por agua pesada a la misma presión que el moderador pero a diferente temperatura. Debido a que el combustible es uranio natural, la poca reactividad en exceso hace que el reactor deba tener un recambio de combustible continuo. Para ello existe una máquina de recambio que opera verticalmente sobre la tapa superior del reactor extrayendo elementos combustibles gastados e introduciendo frescos a un ritmo aproximado de uno por día. El resto del tiempo la máquina opera haciendo un mezclado^[En el sentido del inglés [_shuffling_]{lang=en-US}.] para homogeneizar el quemado de los combustibles y optimizar el quemado de extracción final. Dado que la parte superior del recipiente de presión debe quedar libre para que trabaje la máquina de recambio, los mecanismos de control de reactividad tanto primarios (las barras de control) como secundarios (sistema de inyección de boro de emergencia) deben entrar el núcleo en forma oblicua a los canales combustibles, configurando un diseño esencialmente único en el mundo.
 
-Atucha II tiene un diseño similar aunque más del doble de potencia, 745 MWe brutos. Debido a una combinación de causas que quedan fuera del alcance de cualquier análisis, el contrato de construcción se firmó en 1980 pero la obra no se terminó hasta 2014. Detalles más detalles menos, el diseño del reactor es similar al de Atucha I (@fig-rpv).
+Atucha II tiene un diseño similar aunque genera más del doble de potencia, 745 MWe brutos. Debido a una combinación de causas que quedan fuera del alcance de cualquier análisis, el contrato de construcción se firmó en 1980 pero la obra no se terminó hasta 2014. Detalles más detalles menos, el diseño del reactor es similar al de Atucha I (@fig-rpv).
 
 ::: {#fig-rpv layout="[50,50]" layout-valign="bottom"}
 
@@ -66,7 +66,7 @@ condiciones ante de emprender un viaje más o menos largo ya que existe
 una probabilidad $p_1$ no nula de que se nos pinche una cubierta en el camino.
 ¿Pero por qué decimos *la* rueda de auxilio y no *las* ruedas de auxilio?
 ¿Acaso la probabilidad $p_2 \approx p_1^2$ de pinchar no una sino *dos* cubiertas no es también diferente de cero al fin y al cabo?
-Sí, claro, pero esa probabilidad $p_2 < p_1$ es tan pequeña que no vale la pena el
+Sí, claro, pero esa probabilidad $p_2 \ll 1$ es tan pequeña que no vale la pena el
 esfuerzo y el costo que implica llevar dos ruedas de auxilio en nuestro
 automóvil. Llegado el caso, llamamos a la grúa. En el diseño de
 centrales nucleares usamos un razonamiento similar: para todos los
@@ -75,7 +75,7 @@ eventos cuyas probabilidades $p_i$ de ocurrencia sea significativas
 (accidentes fuera de la base de diseño), preparamos soluciones de contingencia.
 
 En general, los reactores nucleares de potencia necesitan más de un
-único mecanismo de extinción de las reacciones de fisión. El primero son
+único mecanismo de extinción de las reacciones de fisión. El primero consiste en
 las mismas barras de control, que son insertadas rápidamente dentro del
 núcleo para absorber neutrones y no permitir que las fisiones se
 auto-sostengan en el tiempo. Si bien la probabilidad de que este
@@ -177,11 +177,11 @@ elemento combustible está compuesto por un arreglo de barras
 individuales (37 en Atucha, 36 en CANDU) que contienen las pastillas de
 dióxido de uranio recubiertas por un [cladding]{lang=en-US} de [zircalloy]{lang=en-US}.
 
-En este tipo de reactores la parada rápida del reactor se realiza
-mediante la inserción de las barras de control por gravedad. El segundo
-sistema de extinción consiste en la inyección rápida de una solución
-líquida absorbente de neutrones en el tanque del moderador. En
-particular, para el caso de Atucha I y II se emplea ácido deuterobórico
+En los reactores de agua pesada la parada rápida del reactor se realiza
+mediante la inserción de las barras de control por gravedad tal como en los reactores de agua liviana.
+Pero el segundo sistema de extinción consiste en la inyección rápida de una solución
+líquida absorbente de neutrones en el tanque del moderador, que es un componente único de este tipo de reactores.
+En particular, para el caso de Atucha I y II se emplea ácido deuterobórico
 con boro enriquecido en su isótopo diez.
 
 
@@ -212,15 +212,19 @@ En él se involucra a un código de planta, a
 un modelo de la lógica de control y protección del reactor y a un código
 de cinética espacial capaz de incorporar distribuciones
 espacio-temporales de propiedades, en particular concentración de boro
-en el moderador, calculadas a partir de técnicas tipo CFD.
+en el moderador, calculadas a partir de técnicas de dinámica computacional de fluidos^[Del inglés [*Computational fluid dynamics*]{lang=en-US}.], conocidas por sus siglas como CFD.
 
 ### Gloriosa la discretitud del alfabeto
 
-El punto principal de esta tesis es que las herramientas de neutrónica de núcleo al final del día lo que hacen es utilizar computadores digitales para resolver ecuaciones diferenciales en derivadas parciales. Para ello es necesario discretizar el dominio espacial de la ecuación diferencial en derivadas parciales para obtener una cantidad finita de ecuaciones diferenciales ordinarias. La forma de discretizar el dominio depende de la formulación espacial discretizada, es decir diferencias, volúmenes o elementos finitos.
+El punto principal de esta tesis es que las herramientas de neutrónica de núcleo al final del día lo que hacen es utilizar computadores digitales para resolver ecuaciones diferenciales en derivadas parciales. Para ello es necesario discretizar el dominio espacial de la ecuación diferencial en derivadas parciales para obtener una cantidad finita de ecuaciones diferenciales ordinarias. La forma de discretizar el dominio depende de la formulación espacial discretizada. Los tres esquemas más comunes son
+
+ 1. diferencias finitas (FDM)
+ 2. volúmenes finitos (FVM)
+ 3. elementos finitos (FEM)
 
 Dado un dominio espacial continuo (@fig-dominio-continuo), esencialmente se puede proceder de dos maneras diferentes.
 O bien se superpone una grilla cartesiana (@fig-dominio-continuo-estructurado) y luego se ajusta el dominio a la grilla para obtener una malla estructurada (@fig-dominio-estructurado).
-O bien se aplican técnicas de mallado no estructurado para obtener una malla que permita representar la geometría original con mucha mayor precisión (@fig-dominio-no-estructurado).
+O bien se aplican técnicas de mallado no estructurado para obtener una malla que permita representar la geometría original con mucha mayor precisión para la misma cantidad de entidades discretas (@fig-dominio-no-estructurado).
 
 
 ::: {#fig-dominio layout="[45,-10,45]"}
@@ -236,9 +240,9 @@ O bien se aplican técnicas de mallado no estructurado para obtener una malla qu
 Discretizaciones estructurada y no estructurada de un dominio espacial arbitrario.
 :::
 
-La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas.
+La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic grap*]{lang=en-US}.] (DAG).
 
-La mayoría de las herramientas de neutrónica a nivel de núcleo utilizan mallas estructuradas.
+La mayoría de las herramientas de neutrónica a nivel de núcleo utilizadas en la industria nuclear mundial soportan solamente mallas estructuradas.
 Definitivamente todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
 Por lo tanto, cuando hablemos de neutrónica en lo que resta del capítulo solamente aparecerán mallas estructuradas hasta que discutamos las propuesta de esta tesis de doctorado.
 
@@ -285,9 +289,9 @@ muestra una malla de cálculo de $4 \times 4 \times 20$.
 ![Efecto de dilución geométrica de secciones eficaces. Una pequeña gota de absorbente al ser diluida en el volumen de una celda mucho mayor utilizando sólo relaciones geométricas resulta en secciones eficaces homogeneizadas excesivamente absorbentes. Un absorbente negro del 5% del volumen de una celda transforma la celda completa en un absorbente casi negro.](gota){#fig-gota}
 
 
-![Cálculo fluidodinámico de la evolución temporal de la pluma de boro en el tanque del moderador de Atucha I realizada por ingenieros de NA-SA con técnicas CFD sobre una malla no estructurada de aproximadamente 4.5 millones de celdas~\cite{enief-2014-cpl}. Se pueden observar los huecos en la distribución espacial generados por la presencia de los canales.](cfd.png){#fig-cfd}
+![Cálculo fluidodinámico de la evolución temporal de la pluma de boro en el tanque del moderador de Atucha I realizada por ingenieros de NA-SA con técnicas CFD sobre una malla no estructurada de aproximadamente 4.5 millones de celdas @enief-2014-cpl. Se pueden observar los huecos en la distribución espacial generados por la presencia de los canales.](cfd.png){#fig-cfd}
 
-![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce}
+![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce width=65%}
 
 
 ### Dos por uno en D$_2$O
@@ -296,7 +300,7 @@ Durante la interacción con los consultores extranjeros en la etapa de
 evaluación de la inyección de boro en Atucha II hemos identificado que
 una discretización espacial gruesa tiende a sobrestimar la reactividad
 negativa introducida de forma inaceptable debido al efecto de dilución
-de secciones eficaces que repasamos a continuación. En efecto,
+de secciones eficaces que repasamos a continuación (ver @sec-prob-dilucion). En efecto,
 consideremos una pequeña gota de ácido deuterobórico con una gran
 concentración de boro, digamos 2000 partes por millón, que en algún
 instante se encuentra dentro de una de las celdas sobre las cuales se
@@ -430,11 +434,17 @@ Si bien estas hipótesis pueden ser relajadas y aún así poder suponer que
 la corriente neta de neutrones es proporcional al gradiente del flujo
 escalar, esto deja de ser cierto en presencia de materiales muy
 absorbentes. Este hecho es especialmente importante cuando hay
-interfases materiales en donde se dan grandes discontinuidades en las
+interfaces entre materiales en donde se dan grandes discontinuidades en las
 secciones eficaces, que es justamente el objetivo de la evaluación del
 segundo sistema de extinción: el avance de una pluma de un absorbente
 neutrónico (ácido deuterobórico enriquecido en boro-10) a a través de un
 medio difusivo (el agua pesada contenida en el tanque del moderador).
+
+En el @sec-transporte-difusion derivamos primeramente la ecuación de transporte de neutrones a partir de la conservación de neutrones. Luego derivamos la ecuación de difusión a partir de la de transporte y mostramos detalladamente las razones matemáticas de las aproximaciones necesarias para llegar a la ley de Fick para neutrones.
+Pero este enfoque solamente involucra aproximaciones del orden de "el cociente $a/b \ll 1$" o "despreciando términos de orden superior" sin tener parámetros numéricos para su evaluación.
+La implicancia física de estas suposiciones y aproximaciones solamente puede ser evaluada resolviendo un mismo problema con las dos ecuaciones y evaluando la diferencia obtenida en las soluciones. Este es justamente uno de los aportes de esta tesis de doctorado.
+
+\medskip
 
 La condensación y homogeneización de secciones eficaces que realiza el
 código de celda tiende a reducir las variaciones espaciales propias de
@@ -454,13 +464,13 @@ cometido.
 
 El enfoque propuesto para evaluar la efectividad del segundo sistema de apagado de un reactor tipo Atucha involucra los siguientes pasos:
 
- 1. realizar un cálculo tipo CFD para obtener la distribución espacio-temporal de concentración de ácido deuterobórico sobre una malla detallada teniendo en cuenta la geometría del tanque del moderador, de los canales combustibles, tubos guía de barras de control y lanzas de inyección de boro.
+ 1. Realizar un cálculo tipo CFD para obtener la distribución espacio-temporal de concentración de ácido deuterobórico sobre una malla detallada teniendo en cuenta la geometría del tanque del moderador, de los canales combustibles, tubos guía de barras de control y lanzas de inyección de boro.
  
- 2. convertir dicha distribución a una malla estructurada para que esa información pueda ser tenida en cuenta por las herramientas neutrónicas disponibles
+ 2. Convertir dicha distribución a una malla estructurada para que esa información pueda ser tenida en cuenta por las herramientas neutrónicas disponibles.
  
- 3. calcular la dependencia de las secciones eficaces macroscópicas del moderador en función de la concentración de boro compatibles con la aproximación de difusión
+ 3. Calcular la dependencia de las secciones eficaces macroscópicas del moderador en función de la concentración de boro compatibles con la aproximación de difusión.
  
- 4. realizar un cálculo de difusión de neutrones a nivel de núcleo tomando la información obtenida en los puntos 2 y 3 como entrada
+ 4. Realizar un cálculo de difusión de neutrones a nivel de núcleo tomando la información obtenida en los puntos 2 y 3 como entrada.
 
 Tanto la metodología como los estudios propiamente dichos han sido aprobados por la Autoridad Regulatoria Nuclear y,
 de hecho, es en varios aspectos técnicos superior al implementado por expertos internacionales para Atucha II.
@@ -488,19 +498,20 @@ Aún cuando es posible que los resultados de ingeniería obtenidos sean suficien
 
 ## Las propuestas de esta tesis {#sec-propuestas}
 
-La motivación fundamental de esta tesis parte del tercer punto de la sección anterior y luego continúa subiendo hacia los otros dos puntos, encadenando varias ideas en un mismo hilo conductor: desarrollar una herramienta objetivamente más precisa para poder verificar la precisión y exactitud de las aproximaciones involucradas en cálculos de transitorios neutrónicos a nivel de núcleo.
+La motivación fundamental de esta tesis parte del tercer punto de la sección anterior y luego continúa subiendo hacia los otros dos puntos, encadenando varias ideas en un mismo hilo conductor: desarrollar una herramienta objetivamente más precisa para poder verificar la precisión y exactitud de las aproximaciones involucradas en cálculos neutrónicos a nivel de núcleo.
 
 
 
-Esencialmente, se trata de indicar que en lugar de resolver la ecuación de difusión a nivel de núcleo sería más preciso utilizar otro tipo de formulación numérica de la ecuación de transporte de neutrones tal como el método de ordenadas discretas, también conocido como $S_N$.
+Está claro que resolver una formulación de la ecuación de transporte basada en el método de ordenadas discretas $S_N$ arroja resultados más precisos que la ecuación de difusión.
 Ahora bien, el principal problema de $S_N$ es que el tamaño del problema discretizado escala como el producto de
 
- a. la cantidad de incógnitas espaciales, es decir el número de nodos o celdas de la malla,
- b. la cantidad de grupos de energía,
- c. la cantidad $N \cdot (N+2)$ de direcciones de vuelo de los neutrones en la formulación $S_N$
+ a. la cantidad de grupos de energía (@sec-multigrupo),
+ b. la cantidad $N \cdot (N+2)$ de direcciones de vuelo de los neutrones en la formulación $S_N$ (@sec-sn),
+ c. la cantidad de incógnitas espaciales, es decir el número de nodos o celdas de la malla espacial (@sec-discretizacion_espacial),
 
-A su vez, los recursos computacionales necesarios para resolver el problema, esencialmente tiempo de procesador y memoria, escalan con una velocidad más que lineal con el producto de los tres puntos mencionados, usualmente entre $O(n \log n)$ y $O(n^2)$. Esto hace que para casos con mallas de interés de ingeniería sea imposible emplear una única computadora digital para resolver el problema ya aún cuando el tiempo de procesamiento pueda ser arbitrariamente grande, la escala de la memoria requerida no permitiría la flexibilidad suficiente para realizar los estudios de convergencia de malla, de energía y de direcciones necesarios para estudiar la verificación tanto de la herramienta de transporte por $S_N$ en sí como de la comparación con formulaciones más simplificadas basadas en difusión. Es necesario entonces diseñar un esquema numérico de resolución de ecuaciones diferenciales que pueda escalar con el tamaño del problema a resolver.
-Para ello, el esquema debe ser paralelizable, flexible y extensible.
+A su vez, los recursos computacionales necesarios para resolver el problema, esencialmente tiempo de procesador y memoria, escalan con una velocidad más que lineal con el producto de los tres puntos mencionados, usualmente entre $O(n \log n)$ y $O(n^2)$. Esto hace que para casos con mallas de interés de ingeniería sea imposible emplear una única computadora digital para resolver el problema.
+En efecto, aún cuando un tiempo de procesamiento arbitrariamente grande pueda ser aceptado desde un punto de vista de gerenciamiento de proyectos, la escala de la memoria requerida no permitiría la flexibilidad suficiente para realizar los estudios de convergencia de malla, de energía y de direcciones necesarios para estudiar la verificación tanto de la herramienta de transporte por $S_N$ en sí como de la comparación con formulaciones más simplificadas basadas en difusión. Es necesario entonces diseñar un esquema numérico de resolución de ecuaciones diferenciales que pueda escalar con el tamaño del problema a resolver. Es decir, la memoria le impone un límite técnico al proyecto.
+Para ello, la herramienta computacional utilizada en el proyecto debe ser paralelizable, flexible y extensible.
 
 $$
 \text{difusión} \rightarrow \text{muy simplificado} \Rightarrow S_N \rightarrow \text{escala muy rápido} \Rightarrow \text{esquema}
@@ -511,12 +522,11 @@ $$
 \end{cases}
 $$
 
+Paralelizable
 
-
-
- i. Paralelizable de forma que el problema se pueda resolver con un cierto número de computadoras digitales trabajando en conjunto de forma tal que los recursos computacionales (esencialmente la memoria) sean suficientes para que cada una pueda tratar una parte del problema.
+:   de forma que el problema se pueda resolver con un cierto número de computadoras digitales trabajando en conjunto de forma tal que los recursos computacionales (esencialmente la memoria) sean suficientes para que cada una de estas computadoras pueda tratar una parte del problema.
  
-    Una condición necesaria para poder implementar este tipo de paralelización es poder dividir el dominio espacial de forma tal de minimizar la cantidad de información que deben compartir cada una de las computadoras con el resto. Esto implica resolver un problema de descomposición de dominio (DDM) que involucra teoría de grafos, lo que a su vez necesita la topología explícita de la malla.
+    Una condición necesaria para poder implementar este tipo de paralelización es poder dividir el dominio espacial de forma tal de minimizar la cantidad de información que deben compartir cada una de las computadoras con el resto. Esto implica resolver un problema de descomposición de dominio (DDM) que involucra teoría de grafos (DAG), lo que a su vez necesita la topología explícita de la malla.
     
     Este requerimiento concuerda con la necesidad de utilizar mallas no estructuradas para poder modelar geometrías complejas en reactores PHWR, a saber
 
@@ -532,15 +542,24 @@ $$
      * facilitar la resolución de problemas tipo benchmark en geometrías cilíndricas o esféricas
      * resolver problemas abstractos tales como dominios con forma de conejo o una transición entre un cubo y una esfera
    
- ii. Flexible en el número de computadoras a utilizar dependiendo del tamaño del problema. 
+Flexible
 
-     Un problema de tamaño arbitrario en principio requeriría una cantidad también arbitraria de computadoras para ser resuelto.
-     Una herramienta computacional diseñada para correr en un clúster de cálculo de tamaño fijo no cumpliría esta condición, por lo que debe ser posible explotar la oferta de servidores públicos en la nube. Luego la herramienta computacional debe ser diseñada desde el comienzo para operar en la nube (i.e. [cloud-first]{lang=en-US}) en lugar hacer que sea posible su ejecución en la nube (i.e. [cloud-friendly]{lang=en-US}). Hay sutiles pero importantes diferencias entre estos dos conceptos.
+:   en el número de computadoras a utilizar dependiendo del tamaño del problema y en la forma de definir tanto la entrada como la salida de datos, haciendo especial énfasis en la necesidad de trabajar en entornos de nube pública.
+
+    Un problema de tamaño arbitrario en principio requeriría una cantidad también arbitraria de computadoras para ser resuelto.
+    Una herramienta computacional diseñada para correr en un clúster de cálculo de tamaño fijo no cumpliría esta condición, por lo que debe ser posible explotar la oferta de servidores públicos en la nube. Luego la herramienta computacional debe ser diseñada desde el comienzo para operar en la nube (i.e. [cloud-first]{lang=en-US}) en lugar hacer que sea posible su ejecución en la nube (i.e. [cloud-friendly]{lang=en-US}). Hay sutiles pero importantes diferencias entre estos dos conceptos, discutidos en el @sec-implementacion, tales como
+    
+     * necesidad de proveer una interfaz pública tipo API REST
+     * capacidad de definir, lanzar y post-procesar cálculos con interfaces web
+     * posibilidad de reportar el estado del cálculo y, eventualmente, errores en forma remota
  
- iii. Extensible para poder modificar o agregar modelos matemáticos que eventualmente ayuden a mejorar la calidad, precisión y exactitud de los resultados obtenidos.
+
+Extensible
+
+:   para poder modificar o agregar modelos matemáticos que eventualmente ayuden a mejorar la calidad, precisión y exactitud de los resultados obtenidos.
  
-      Está claro que teniendo acceso al código fuente de una herramienta computacional, en principio siempre es posible modificar y/o agregar nuevas formulaciones y/o modelos matemáticos. Sin embargo, eso no quiere decir que si no se tienen en cuenta posibles mecanismos de extensión de forma tal que el esfuerzo necesario para lograr extender la funcionalidad sea razonable, la herramienta en cuestión sea extensible. 
-      Más aún, bajo el espíritu académico de un trabajo de doctorado, la herramienta debe calificar como software libre de forma tal de que cualquier investigador o profesional pueda modificarla y/o extenderla para poder resolver problemas planteados como ecuaciones diferenciales parciales de la mejor manera posible.
+    Está claro que teniendo acceso al código fuente de una herramienta computacional, en principio siempre es posible modificar y/o agregar nuevas formulaciones y/o modelos matemáticos. Sin embargo, el concepto de extensibilidad implica que se hayan tenido en cuenta posibles mecanismos de extensión en el diseño de la arquitectura del código de forma tal que el esfuerzo necesario para lograr extender la funcionalidad sea razonable. 
+    Más aún, bajo el espíritu académico de un trabajo de doctorado, la herramienta debe calificar como _software libre_ en el concepto de la Free Software Foundation de forma tal de que cualquier investigador o profesional pueda modificarla y/o extenderla para poder resolver problemas planteados como ecuaciones diferenciales parciales de la mejor manera posible.
       
 
       
@@ -548,17 +567,32 @@ $$
 La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga estas tres condiciones.
 Es por eso que:
 
- 1. los esquemas numéricos desarrollados a lo largo del @sec-esquemas para resolver las ecuaciones de transporte y difusión de neutrones introducidas en el @sec-transporte-difusion se basan en formulaciones basadas en elementos finitos, que son intrínsecamente compatibles con mallas no estructuradas. 
+---
+comment: poner referencias al SDS en los bullets
+...
+
+ 1. Los esquemas numéricos desarrollados a lo largo del @sec-esquemas para resolver las ecuaciones de transporte y difusión de neutrones introducidas en el @sec-transporte-difusion se basan en formulaciones basadas en elementos finitos, que son intrínsecamente compatibles con mallas no estructuradas. 
  
- 2. tal como discutimos en el @sec-introduccion, el primer requerimiento de la herramienta computacional desarrollada es que sea [cloud first]{lang=en-US}. Los [@sec-sds; @sec-srs] describen los requerimientos y las especificaciones desde el punto de vista de desarrollo de software. En resumen, la herramienta...
+ 2. Tal como discutimos en el @sec-introduccion, el primer requerimiento de la herramienta computacional desarrollada es que sea [cloud first]{lang=en-US}. Los apéndices [-@sec-sds] y [-@sec-srs] describen los requerimientos y las especificaciones desde el punto de vista de desarrollo de software. En resumen, la herramienta...
  
-    * es libre y abierta, distribuida bajo licencia GPLv3+.
-    * sigue la filosofía de programación Unix.
-    * lee uno o más archivos de entrada de texto plano que definen completamente la entrada y escribe cero o más archivos de salida con los resultados solicitados.
+    * es libre ([free as in freedom]{lang=en-US} @faif) y abierta ([open source]{lang=en-US}), distribuida bajo licencia GPLv3+.
+    * sigue la filosofía de programación Unix @raymond. Estrictamente hablando es un filtro de Unix que funciona como una función de transferencia entre
+      a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
+      b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
+      
+      ```
+                                        +------------+
+       malla   (*.msh)  }               |            |             { terminal
+       datos   (*.dat)  } entrada ----> |   FeenoX   |----> salida { archivos de datos
+       entrada (*.fee)  }               |            |             { post (vtk/msh)
+                                        +------------+
+      ```
+      
+    * no escribe (y muy probablemente ni siquiera calcule) un resultado si éste no se pide explícitamente como una salida.
     * los archivos de entrada deben...
+       - reproducir la estructura de la definición del problema a resolver que haría un profesional humano.
        - ser simples para problemas simples.
        - ser parecidos para problemas parecidos.
-       - reproducir la estructura de la definición del problema a resolver que haría un profesional humano.
        - separar la definición del problema continuo a resolver de la discretización espacial particular utilizada para resolverlo.
        - permitir una dependencia espacial no trivial de las propiedades de los materiales, por ejemplo
           * quemado
@@ -576,14 +610,52 @@ Es por eso que:
           * los sistemas de control de versiones distribuidos como Git
           * lenguajes de expansión de macros como M4
           * interfaces gráficas de usuario, especialmente basadas en web
-    * no escribe (y muy probablemente ni siquiera calcula) un resultado si éste no se pide explícitamente en el archivo de entrada
  
- 3. el @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también contiene:
+ 3. El @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también contiene:
 
-    * ecuación de Laplace/Poisson
-    * conducción de calor
-    * elasticidad lineal
-    * análisis modal
+     * ecuación de Laplace/Poisson (tanto estado estacionario como transitorio)
+     * conducción de calor (tanto estado estacionario como transitorio, incluyendo conductividad no lineal dependiente de la temperatura)
+     * elasticidad lineal (sólo estado estacionario)
+     * análisis modal
+
+    La resolución de todas estas ecuaciones en derivadas parciales siguen la misma metodología con respecto al manejo de
+    
+     * mallas no estructuradas
+     * expresiones algebraicas
+     * propiedades de materiales
+     * condiciones de contorno
+     * resolución de sistemas de ecuaciones
+       - lineales
+       - no lineales
+       - transitorias
+       - de autovalores
+     * escritura de resultados
+       - generación de archivos de post-procesamiento (VTK, Gmsh)
+       - evaluación de distribuciones en puntos arbitrarios del dominio
+       - cálculo de escalares a partir de distribuciones
+          - integrales sobre el espacio
+          - cálculo de extremos y valores medios
+    
+    que es provista por el [framework]{lang=en-US} de matemática general de la herramienta.
+    Cada ecuación diferencial particular a resolver debe ser "provista" como un subdirectorio dentro de `src/pdes` conteniendo ciertas funciones en C capaces de generar las matrices y vectores elementales de la formulación de la ecuación diferencial según el método de elementos finitos.
 
 Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas tres características.
-Terminada la explicación del _por qué_, pasemos entonces al _cómo_.
+El @sec-sds contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
+El @sec-srs contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. Aún quedan muchos aspectos por investigar e implementar, como por ejemplo
+
+ * Esquemas espaciales basados en volúmenes finitos
+ * Formulación de elementos finitos tipo Galerkin discontinuos
+ * Otros esquemas de discretización débiles como mínimos cuadrados en lugar de Galerkin
+ * Otras formulaciones neutrónicas
+   - $P_L$
+   - Even parity
+   - Probabilidad de colisiones
+ * Capacidad de refinamiento de malla automático^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
+ * Transitorios neutrónicos
+ * Acople con otros códigos de cálculo a través de memoria compartida
+ * Medición y optimización de performance computacional
+ * Optimización de utilización de comunicación MPI
+ * Integración de GUIs basados en web
+ * Integración con APIs tipo REST para control remoto
+
+Terminada la explicación del _por qué_ ([why]{lang=en-US}) pasemos entonces al _cómo_ ([how]{lang=en-US}).
