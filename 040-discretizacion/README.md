@@ -51,7 +51,7 @@ sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por sei
 
  
 El objetivo de este capítulo es transformar estas dos ecuaciones diferenciales en derivadas parciales en sistemas de ecuaciones algebraicas de tamaño finito de forma tal que las podamos resolver con una herramienta computacional, cuya implementación describimos en el @sec-implementacion.
-Este proceso involucra inherentemente aproximaciones relacionadas a la discretización de la energía\ $E$, la dirección\ $\omegaversor$ y el espacio\ $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numéricamente serán solamente aproximaciones a las soluciones matemáticas reales.
+Este proceso involucra inherentemente aproximaciones relacionadas a la discretización de la energía $E$, la dirección $\omegaversor$ y el espacio $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numéricamente serán solamente aproximaciones a las soluciones matemáticas reales.
 Según discutimos en la @sec-metodos-numericos, estas aproximaciones serán mejores a medida que aumentemos la cantidad de entidades discretas. Pero al mismo tiempo aumentan los recursos y costos de ingeniería asociados.
 
 Comenzamos primero entonces introduciendo algunas propiedades matemáticas de los métodos numéricos y discutiendo cuestiones a tener en cuenta para analizarlos desde el punto de vista del gerenciamiento de proyectos de ingeniería.
@@ -107,7 +107,7 @@ $$
 \lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0
 $$
 para alguna norma apropiada $||\cdot||$.
-Por ejemplo, para la norma\ $L_2$:
+Por ejemplo, para la norma $L_2$:
 
 $$
 \lim_{N\rightarrow \infty} \sqrt{\int_U \int_{4\pi} \int_{0}^{\infty} 
@@ -116,7 +116,7 @@ $$
 $$
 :::
 
-La convergencia y, más aún, el orden con el cual el error\ $|| \varphi - \varphi_N ||$ converge a cero es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de este error con $1/N$ tiene que coincidir con el orden del método numérico (ver\ @sec-mms).
+La convergencia y, más aún, el orden con el cual el error $|| \varphi - \varphi_N ||$ converge a cero es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de este error con $1/N$ tiene que coincidir con el orden del método numérico (ver\ @sec-mms).
 De todas maneras, demostrar que un método numérico genérico es convergente no es sencillo y ni siquiera posible en la mayoría de los casos.
 En forma equivalente, se prueban los conceptos de consistencia y estabilidad definidos a continuación y luego se utiliza el teorema de equivalencia.
 
@@ -479,23 +479,30 @@ Matemáticamente, la aproximación multigrupo es equivalente a discretizar el do
 
 
 ::: {.remark}
-Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica y deliberamente tautológica, la consistencia es teóricamente fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
+Dado que en las ecuaciones multigrupo [-@eq-transportemultigrupo] y [-@eq-difusionmultigrupo] la discretización es estrictamente algebraica y deliberadamente tautológica, la consistencia es teóricamente fuerte ya que el operador discretizado coincide con el operador continuo incluso para un único grupo de energías $G=1$.
 De hecho las ecuaciones multigrupo se basan solamente en _definiciones_.
 En la práctica, la consistencia depende del cálculo a nivel de celda de la\ @sec-celda.
 :::
 
 ## Discretización en ángulo {#sec-sn}
 
-Para discretizar la dependencia espacial de la ecuación de transporte multigrupo [-@eq-transportemultigrupo] aplicamos el método de ordenadas discretas o S$_N$, discutido en la literatura tradicional de física de reactores pero derivado al integrar las ecuaciones multigrupo continuas en\ $\omegaversor$ sobre volumenes de control finitos como si fuese un esquema numerico basado en el metodo de volumenes finitos.
-De hecho los volumenes finitos son areas\ $\Delta \omegaversor_m$ discretas de la esfera unitaria donde cada una de ellas tiene asociada una dirección particular $\omegaversor_m$ y un peso $w_m$ asociado a una fracción de total de área unitaria $4\pi$ según sea el orden $N$ de la aproximación $S_N$.
-Nuevamente el acople entre volumenes de control es algebraico y no necesariamente a primeros vecinos.
+Para discretizar la dependencia espacial de la ecuación de transporte multigrupo [-@eq-transportemultigrupo] aplicamos el método de ordenadas discretas o S$_N$, discutido en la literatura tradicional de física de reactores.
+En esta tesis lo derivamos al integrar las ecuaciones multigrupo continuas en $\omegaversor$ sobre volúmenes de control finitos como si fuese un esquema numérico basado en el método de volúmenes finitos.
+De hecho, en este caso, los volúmenes finitos son áreas $\Delta \omegaversor_m$ discretas de la esfera unitaria donde cada una de ellas tiene asociadas
+
+ 1. un peso $w_m$
+ 2. una dirección particular $\omegaversor_m$, y
+ 3. una fracción de total de área unitaria $\Delta \omegaversor_m/4\pi$
+
+para $m=1,\dots,M$. 
+Nuevamente el acople entre volúmenes de control es algebraico y no necesariamente a primeros vecinos.
 
 
 ::::: {#thm-cuadratura}
 
 ## de cuadratura sobre la esfera unitaria
 
-La integral de una función escalar $f(\omegaversor)$ de cuadrado integrable sobre todas las direcciones $\omegaversor$ es igual a $4\pi$ veces la suma de un conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m = 1$ mutiplicados por $M$ valores medios $\left\langle f(\omegaversor)\right\rangle_m$ asociados a $M$ direcciones $\omegaversor_m$ donde cada una de las cuales tiene asociado una porción $\Delta \omegaversor_m$ de la esfuera unitaria tal que su unión es $4\pi$ y su intersección es cero:
+La integral de una función escalar $f(\omegaversor)$ de cuadrado integrable sobre todas las direcciones $\omegaversor$ es igual a $4\pi$ veces la suma de un conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m = 1$, mutiplicados por $M$ valores medios $\left\langle f(\omegaversor)\right\rangle_m$ asociados a $M$ direcciones $\omegaversor_m$ donde cada una de las cuales tiene asociada también una porción $\Delta \omegaversor_m$ de la esfera unitaria tal que su unión es $4\pi$ y su intersección es cero:
 
 $$
 \int_{4\pi} f(\omegaversor) \, d\omegaversor = 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
@@ -524,7 +531,7 @@ $$
 $$
 
 
-Si llamamos\ $\left\langle f(\omegaversor)\right\rangle_{\omegaversor_m}$ al valor medio de\ $f$ en\ $\Delta \omegaversor_m$
+Si llamamos $\left\langle f(\omegaversor)\right\rangle_{\omegaversor_m}$ al valor medio de $f$ en $\Delta \omegaversor_m$
 
 $$
 \left\langle f(\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} f(\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
@@ -540,7 +547,14 @@ El flujo angular $\psi_{mg}$ del grupo $g$ asociado a la ordenada discreta $m
 $$
 \psi_{mg}(\vec{x}) = \left\langle \psi_g(\vec{x},\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} \psi_g(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
 $$
-por lo que
+:::
+
+::: {.remark}
+Esta vez $\psi_{mg}$ sí tiene la mismas unidades que $\psi_{g}$.
+:::
+
+::: {#cor-int-psi-g}
+La integral del flujo escalar sobre la porción $\Delta \omegaversor_m$ de la esfera unitaria es $4\pi$ veces el producto $w_m \cdot \psi_{mg}$:
 
 $$
 \int_{\Delta \omegaversor_m} \psi_g(\vec{x},\omegaversor) \, d\omegaversor
@@ -551,9 +565,6 @@ $$
 $$
 :::
 
-::: {.remark}
-Esta vez $\psi_{mg}$ sí tiene la mismas unidades que $\psi_{g}$.
-:::
 
 ::: {#cor-phig-sum-psimg}
 El flujo escalar $\phi_g$ del grupo $g$ es igual a
@@ -576,7 +587,7 @@ $$\tag{\ref{eq-transportemultigrupo}}
 \end{gathered}
 $$
 
-en función de los flujos angulares $\psi_{mg}$ usando la\ @def-psi-mg y explicitando el termino de la corriente como la integral del producto $\psi_{g^\prime} \cdot \omegaversor$ segun la\ @def-Jg
+en función de los flujos angulares $\psi_{mg}$ usando la\ @def-psi-mg y explicitando el termino de la corriente como la integral del producto $\psi_{g^\prime} \cdot \omegaversor$ según la\ @def-Jg
 
 $$
 \begin{gathered}
@@ -589,20 +600,20 @@ $$
 \end{gathered}
 $$
 
-Ahora cancelamos los factores\ $4\pi$, integramos todos los terminos con respecto a\ $\omegaversor$ sobre\ $\Delta \omegaversor_m$ y los analizamos uno por uno:
+Ahora cancelamos los factores $4\pi$ en los términos de [scattering]{lang=en-US} lineal y fisión, integramos todos los términos con respecto a $\omegaversor$ sobre $\Delta \omegaversor_m$ y los analizamos uno por uno:
 
 $$
 \begin{gathered}
  \underbrace{\int_{\omegaversor_m} \left\{ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right] \right\} \, d\omegaversor}_\text{advección} +
  \underbrace{\int_{\omegaversor_m} \left\{ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor}_\text{absorción total} = \\
- \underbrace{\bigintsss_{\omegaversor_m} \left\{ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{scattering isotropico} + \\
- \underbrace{\bigintsss_{\omegaversor_m} \left\{ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right\} \, d\omegaversor}_\text{scattering linealmente anisotropico} +\\
- \underbrace{\bigintsss_{\omegaversor_m} \left\{ \chi_g \cdot \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{fision} +
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{scattering isotrópico} + \\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right\} \, d\omegaversor}_\text{scattering linealmente anisotrópico} +\\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \chi_g \cdot \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{fisión} +
  \underbrace{\int_{\omegaversor_m} \left\{ s_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor  }_\text{fuentes independientes}
 \end{gathered}
 $$ {#eq-trasporte-integrado-omegam}
 
-Comencemos por el termino de adveccion, revirtiendo el\ @thm-div-inner
+Comencemos por el termino de advección, revirtiendo el\ @thm-div-inner
 
 $$
 \begin{aligned}
@@ -615,7 +626,7 @@ $$
 \end{aligned}
 $$
 
-Prestemos atencion a la integral. Supongamos que el flujo angular es constante a trozos^[Del ingles [*piecewise constant*]{lang=en-US}.] dentro de cada area\ $\Delta \omegaversor_m$. Entonces este valor constante es igual al valor medio de\ $\psi$ en\ $\Delta \omegaversor_m$
+Prestemos atención a la integral. Supongamos que el flujo angular es constante a trozos^[Del ingles [*piecewise constant*]{lang=en-US}.] dentro de cada área $\Delta \omegaversor_m$. Entonces este valor constante es igual al valor medio de $\psi$ en $\Delta \omegaversor_m$
 
 $$
 \psi_g(\vec{x}, \omegaversor) = \left\langle \psi_g(\vec{x}, \omegaversor) \right\rangle_{\omegaversor_m} = \psi_{mg}(\vec{x})
@@ -631,13 +642,16 @@ $$
 $$
 
 ::: {#def-mean-omega}
-Llamamos\ $\omegaversor_m$ a la direccion que resulta ser el valor medio\ $\left\langle \omegaversor \right\rangle_{\omegaversor_m}$ de todas las direcciones integradas en el area\ $\Delta \omegaversor_m$ sobre la esfera unitaria, es decir
+Llamamos $\omegaversor_m$ a la direccion que resulta ser el valor medio $\left\langle \omegaversor \right\rangle_{\omegaversor_m}$ de todas las direcciones integradas en el area $\Delta \omegaversor_m$ sobre la esfera unitaria, es decir
 
 $$
 \omegaversor_m = \left\langle \omegaversor \right\rangle_{\omegaversor_m} =
 \frac{ \displaystyle \int_{\Delta \omegaversor_m} \omegaversor \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
 $$
-por lo que
+:::
+
+::: {#cor-int-omega}
+La integral del versor $\omegaversor$ sobre la fracción $\Delta \omegaversor_m$ de la esfera unitaria es igual al producto de $\omegaversor_m$ por $\Delta \omegaversor_m$:
 
 $$
 \int_{\Delta \omegaversor_m} \omegaversor \, d\omegaversor
@@ -646,15 +660,20 @@ $$
 $$
 :::
 
-Con esta\ @def-mean-omega, la integral queda
+::: {#cor-int-psig-omega}
+
+La integral del producto del versor $\omegaversor$ con el flujo angular del grupo $g$ sobre $\Delta \omegaversor_m$ es aproximadamente igual al producto $\psi_{mg} \cdot \Delta \omegaversor_m$:
 
 $$
 \int_{\omegaversor_m} \omegaversor \cdot \psi_g(\vec{x}, \omegaversor) \, d\omegaversor
 \approx
 \omegaversor_m \cdot \psi_{mg}(\vec{x}) \cdot  \Delta \omegaversor_m 
-$$ {#eq-int-psi-omega}
+$$
+:::
 
-y podemos volver a aplicar el\ @thm-div-inner para escribir el termino de adveccion como
+
+
+Podemos volver a aplicar el\ @thm-div-inner para escribir el término de advección como
 
 $$
 \begin{aligned}
@@ -666,36 +685,37 @@ $$
 \end{aligned}
 $$ {#eq-sn-adveccion}
 
-Pasemos ahora al termino de absorciones totales de la\ @{eq-trasporte-integrado-omegam}.
-La seccion eficaz no depende de\ $\omegaversor$ por lo que puede salir fuera de la integral
+Pasemos ahora al término de absorciones totales de la\ @{eq-trasporte-integrado-omegam}.
+La sección eficaz no depende de $\omegaversor$ por lo que puede salir fuera de la integral
 
 $$
 \int_{\omegaversor_m} \left\{ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor = \Sigma_{t g}(\vec{x}) \cdot
 \int_{\omegaversor_m} \psi_g(\vec{x}, \omegaversor) \, d\omegaversor
 $$
 
-Por la\ @def-psi-mg la ultima integral es\ $\psi_{mg} \cdot \Delta \omegaversor_m$
+
+Por el\ @cor-int-psi-g la última integral es $\psi_{mg} \cdot \Delta \omegaversor_m$, entonces
 
 $$
 \int_{\omegaversor_m} \left[ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right] \, d\omegaversor = \left[ \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \right] \cdot \Delta \omegaversor_m
 $$ {#eq-sn-absorciones}
 
-El termino de scattering isotropico queda
+El término de [scattering]{lang=en-US} isotrópico queda
 
 $$
 \bigintsss_{\omegaversor_m} \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d\omegaversor
 =
 \left[ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m
 $$ {#eq-sn-scattering-isotropico}
-ya que el integrando no depende de\ $\omegaversor$.
+ya que el integrando no depende de $\omegaversor$.
 
-El integrando del termino de scattering linealmente anisotrópico si depende de\ $\omegaversor$.
+El integrando del término de [scattering]{lang=en-US} linealmente anisotrópico sí depende de $\omegaversor$.
 
 $$
 \bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
 $$
 
-Primero notamos que la integral sobre\ $\omegaversor_{m^\prime}$ ya la hemos resuelto (en forma aproximada) en la\ @eq-int-psi-omega, y es\ $\omegaversor_{m^\prime} \psi_{m^\prime g^\prime} \Delta\omegaversor_{m^\prime}$. A su vez, $\Delta\omegaversor_{m^\prime} = 4\pi w_{m^\prime}$:
+Primero notamos que el @cor-int-psig-omega nos indica, de manera aproximada, el resultado de la integral sobre $\omegaversor_{m^\prime}$: $\omegaversor_{m^\prime} \psi_{m^\prime g^\prime} \Delta\omegaversor_{m^\prime}$. A su vez, $\Delta\omegaversor_{m^\prime} = 4\pi w_{m^\prime}$, por lo que
 
 $$
 \begin{gathered}
@@ -705,8 +725,7 @@ $$
 \end{gathered}
 $$
 
-Una vez mas, la integral sobre\ $\omegaversor_m$ ya la hemos resuelto (exactamente) en la\ @def-mean-omega, y es igual a\ $\omegaversor_m \cdot \Delta \omegaversor_m$. Entonces el termino de scattering linealmente anisotropico es aproximadamente
-
+Una vez mas, la integral sobre $\omegaversor_m$ ya la hemos resuelto (exactamente) en el\ @cor-int-omega, y es igual a $\omegaversor_m \cdot \Delta \omegaversor_m$. Entonces el término de [scattering]{lang=en-US} linealmente anisotrópico es aproximadamente igual a
 $$
 \begin{gathered}
 \bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
@@ -715,7 +734,7 @@ $$
 \end{gathered}
 $$ {#eq-sn-scattering-anisotropico}
 
-El termino de fisiones es similar al de scattering isotropico en el sentido de que el integrando no depende de\ $\omegaversor$ entonces su integral sobre\ $\Delta \omegaversor_m$ es directamente
+El término de fisiones es similar al de [scattering]{lang=en-US} isotrópico en el sentido de que el integrando no depende de $\omegaversor$ entonces su integral sobre $\Delta \omegaversor_m$ es directamente
 
 $$
 \bigintsss_{\omegaversor_m} \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d\omegaversor
@@ -723,7 +742,7 @@ $$
 \left[ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right] \cdot \Delta \omegaversor_m
 $$ {#eq-sn-fisiones}
 
-Para completar el analisis de la\ @eq-trasporte-integrado-omegam, en el termino de las fuentes independentes usamos el concepto de valor medio
+Para completar el análisis de la\ @eq-trasporte-integrado-omegam, en el término de las fuentes independientes usamos el concepto de valor medio
 
 $$
 \int_{\omegaversor_m} s_g(\vec{x}, \omegaversor) \, d\omegaversor
@@ -732,14 +751,14 @@ $$
 $$
 
 ::: {#def-s-mg}
-En forma analoga a la\ @def-psi-mg, definimos a la fuente independiente del grupo\ $g$ en la direccion\ $m$ como
+En forma análoga a la\ @def-psi-mg, definimos a la fuente independiente del grupo $g$ en la dirección $m$ como
 
 $$
 s_{mg}(\vec{x}) = \left\langle s(\vec{x},\omegaversor)\right\rangle_{\omegaversor_m} = \frac{ \displaystyle \int_{\Delta \omegaversor_m} s_g(\vec{x},\omegaversor) \, d\omegaversor}{ \displaystyle \int_{\Delta \omegaversor_m} d\omegaversor}
 $$
 :::
 
-El termino de fuentes independentes es entonces
+El término de fuentes independientes es entonces
 
 $$
 \int_{\omegaversor_m} s_g(\vec{x}, \omegaversor) \, d\omegaversor
@@ -749,12 +768,12 @@ $$ {#eq-sn-fuentes}
 
 Juntemos ahora las ecuaciones
 
- * [-@eq-sn-adveccion]
- * [-@eq-sn-absorciones]
- * [-@eq-sn-scattering-isotropico]
- * [-@eq-sn-scattering-anisotropico]
- * [-@eq-sn-fisiones]
- * [-@eq-sn-fuentes]
+ * [-@eq-sn-adveccion] (advección)
+ * [-@eq-sn-absorciones] (absorciones)
+ * [-@eq-sn-scattering-isotropico] ([scattering]{lang=en-US} isotrópico)
+ * [-@eq-sn-scattering-anisotropico] ([scattering]{lang=en-US} linealmente anisotrópico)
+ * [-@eq-sn-fisiones] (fisiones)
+ * [-@eq-sn-fuentes] (fuentes independentes)
  
 para re-escribir la\ @eq-trasporte-integrado-omegam como
 
@@ -769,7 +788,7 @@ s_{mg}(\vec{x}) \cdot \Delta \omegaversor_m
 \end{gathered}
 $$
 
-Dividiendo ambos miembros por\ $\Delta \omegaversor$ obtenemos las $MG$ ecuaciones diferenciales de transporte en\ $G$ grupos de energias y\ $M$ direcciones angulares, segun la discretizacion angular llamada "ordenadas discretas"
+Dividiendo ambos miembros por $\Delta \omegaversor$ obtenemos las $MG$ ecuaciones diferenciales de transporte en $G$ grupos de energías y $M$ direcciones angulares, según la discretización angular denominada en la literatura "ordenadas discretas"
 
 $$
 \begin{gathered}
@@ -783,7 +802,7 @@ s_{mg}(\vec{x})
 $$ {#eq-transporte-sn}
 
 ::: {.remark}
-El unico operador diferencial que aparece en la\ @eq-transporte-sn es el gradiente espacial del flujo angular\ $\psi_{mg}$ del grupo\ $g$ en la direccion\ $m$.
+El único operador diferencial que aparece en la\ @eq-transporte-sn es el gradiente espacial del flujo angular $\psi_{mg}$ del grupo $g$ en la dirección $m$ en el término de advección.
 :::
 
 ::: {.remark}
@@ -791,13 +810,18 @@ Todos los operadores integrales que estaban presentes en la\ @eq-transporte-line
 :::
 
 :::  {.remark}
-La unica aproximacion numerica que tuvimos que hacer para obtener la\ @eq-transporte-sn a partir de la @eq-transportemultigrupo fue suponer que el flujo angular\ $\psi_g$ era uniforme a trozos en cada segmento de area\ $\Delta \omegaversor_m$ en los terminos de
+La única aproximación numérica que tuvimos que hacer para obtener la\ @eq-transporte-sn a partir de la @eq-transportemultigrupo fue suponer que el flujo angular $\psi_g$ es uniforme a trozos en cada segmento de área $\Delta \omegaversor_m$ en los términos de
 
  a. absorciones totales (@eq-sn-absorciones), y
- b. scattering linealmente anisotropico (@eq-sn-scattering-anisotropico).
+ b. scattering linealmente anisotrópico (@eq-sn-scattering-anisotropico).
  
-Esta suposicion es usual en los esquemas basados en el metodo de volumenes finitos.
-El esquema numerico es consistente ya que en el limite\ $\Delta \omegaversor_m \rightarrow d\omegaversor_m$ la suposicion es exacta y el operador discretizado coincide con el operador continuo.
+Por ejemplo, la @fig-constant-per-fraction ilustra un caso en el que cada octante de la esfera unitaria está dividido en tres áreas iguales, dando lugar a $M = 3 \times 8 = 24$ direcciones. En cada una de las áreas mostradas, asumimos que el flujo angular $\psi(\vec{x},\omegaversor)$ es uniformemente igual a $\psi_{mg}(\vec{x})$, siendo $\vec{x}$ en este caso la posición del centro de la esfera unidad. Esta suposición es usual en los esquemas basados en el método de volúmenes finitos.
+:::
+
+![Una partición de la esfera unidad en 24 fracciones de área, todas iguales entre sí. La suposición central de la derivación del método $S_N$ realizado en esta tesis es que en cada una de éstas áreas el flujo angular es constante. Se muestra sólo el primero de los ocho octantes.](constant-per-fraction.png){#fig-constant-per-fraction}
+
+::: {.remark}
+El esquema numérico es consistente ya que en el límite $\Delta \omegaversor_m \rightarrow d\omegaversor_m$ la suposición es exacta y el operador discretizado coincide con el operador continuo.
 :::
 
 ### Conjuntos de cuadraturas en tres dimensiones {#sec-cuadraturas}
@@ -1628,14 +1652,14 @@ En este caso, tenemos que volver a escribir la versión discretizada en forma ge
 $$ \tag{\ref{eq-generica-numerica}}
 \mathcal{F}_N(\symbf{\varphi}_N, \Sigma_N) = 0
 $$
-para alguna función vectorial $\mathcal{F}_N : [\mathbb{R}^{N} \times \mathbb{R}^{N^\prime}] \rightarrow \mathbb{R}^{N}$.^[El tamaño\ $N^\prime$ de la información relacionada con los datos de entrada\ $\Sigma_N$ no tiene por que ser igual al tamaño\ $N$ del vector solución.]
+para alguna función vectorial $\mathcal{F}_N : [\mathbb{R}^{N} \times \mathbb{R}^{N^\prime}] \rightarrow \mathbb{R}^{N}$.^[El tamaño $N^\prime$ de la información relacionada con los datos de entrada $\Sigma_N$ no tiene por que ser igual al tamaño $N$ del vector solución.]
 La forma más eficiente de resolver estos problemas es utilizar variaciones del esquema de Newton @petsc-user-ref, donde la incógnita $\symbf{\varphi}_N$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\symbf{\varphi}_{N0}$
 
 $$
 \symbf{\varphi}_{Nk+1} = \symbf{\varphi}_{Nk} - \mat{J}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})^{-1} \cdot \mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})
 $$
 para los pasos $k=0,1,\dots$, donde $\mat{J}_N$ es la matrix jacobiana de la función $\mathcal{F}_N$.
-Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente\ $\mat{J}_N^{-1}$.
+Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{J}_N^{-1}$.
 En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
 
  1. Resolver $\mat{J}(\symbf{\varphi}_{Nk}, \Sigma_{Nk}) \cdot \Delta \symbf{\varphi}_{Nk} = -\mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})$
@@ -1811,7 +1835,7 @@ $$
 \mat{A}_N(\symbf{\varphi}_N,\Sigma_N) \cdot \symbf{\varphi}_N = \lambda_N \cdot \mat{B}(\symbf{\varphi}_N,\Sigma_N) \cdot \symbf{\varphi}_N
 $$
 
-Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda_N$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector\ $\symbf{\varphi}_N$ (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo), no son aplicables.
+Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda_N$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector $\symbf{\varphi}_N$ (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo), no son aplicables.
 
 En el caso no lineal resolvemos iterativamente
 
