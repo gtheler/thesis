@@ -1190,385 +1190,204 @@ de la cuadratura de Gauss.
 :::
 :::
 
-## Formulaciones de ecuaciones en derivadas parciales
+## Discretización en espacio
 
-Antes de comenzar a discutir las discretizaciones espaciales tanto de la
-ecuación de transporte multigrupo con ordenadas discretas como de la
-ecuación de difusión multigrupo, introducimos las ideas de formulaciones
-fuertes, integrales y débiles sobre las que se basan los esquemas de
-discretización numérica basados en diferencias finitas, en volúmenes
-finitos y en elementos finitos respectivamente. De esta forma, además,
-resumimos las ecuaciones en derivadas parciales con respecto a las
-coordenadas espaciales que debemos resolver para obtener la distribución
-de flujo neutrónico de estado estacionario en un reactor nuclear.
 
-### Formulaciones fuertes {#sec-fuertes}
+Tenemos por un lado las $G$ ecuaciones de difusión multigrupo
 
-La formulación fuerte de un problema de derivadas parciales consiste en
-escribir directamente las ecuaciones diferenciales y sus condiciones de
-contorno. Más específicamente:
-
-::: definicion
-Decimos que un problema en derivadas parciales está escrito en su
-formulación fuerte cuando en el sistema de ecuaciones diferenciales y
-sus condiciones de contorno el orden de las derivadas es igual al orden
-del problema. Es decir, en la formulación fuerte no hay operadores
-integrales que no son esenciales para la definición del problema.
-:::
-
-Hasta este momento, en esta tesis hemos escrito ecuaciones diferenciales
-que son la formulación fuerte tanto del problema de transporte como del
-problema de difusión de neutrones. Si bien matemáticamente el desarrollo
-fue lógico y correcto, hay salvedades que tenemos que notar. Por
-ejemplo, el término de fugas de la ecuación de difusión de neutrones
-multigrupo [\[eq:difusionmultigrupo\]](#eq:difusionmultigrupo){reference-type="eqref"
-reference="eq:difusionmultigrupo"} es
-
-$$- \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]$$
-
-Si el coeficiente de difusión $D_g$ presenta una discontinuidad
-en $\vec{x}$, por ejemplo debido a que hay una interfaz entre dos
-materiales diferentes, entonces este término no está definido y no puede
-ser evaluado. Este es uno de los varios inconvenientes que tiene esta
-formulación a la hora de utilizarla para resolver numéricamente los
-problemas planteados en esta tesis.
-
-#### Operador de Laplace escalar
-
-#### Ordenadas discretas
-
-La formulación fuerte del problema de transporte de neutrones
-discretizado en energía mediante el método multigrupo y en ángulo
-mediante ordenadas discretas es la ecuación
-diferencial [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"}
-
-$$\begin{gathered}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \\
-  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot
-\left[  \sum_{\ell=0}^\infty (2\ell+1) \cdot \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \right]
- \cdot \psi_{m^\prime g^\prime}(\vec{x}) \\
-+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
-+ s_{mg}(\vec{x})
-\end{gathered}$$ sobre el dominio espacial $U \in \mathbb{R}^n$
-($n=1,2,3$) para el grupo de energía $g=1,\dots,G$ y para la
-dirección $m=1,\dots,M$ con las condiciones de contorno de Dirichlet
-discutidas en la
-sección @sec-bctransporte:
-
-$$\label{eq:transportesncc}
-\psi_{mg}^{ij} =
- \begin{cases}
-  \psi_{mg}(\vec{x}) = 0 
-&\quad\quad \forall \vec{x} \in \Gamma_V \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
-  \psi_{mg}(\vec{x}) = \psi_{mg^\prime} \quad / \quad \omegaversor_{g^\prime} = \omegaversor_m - 2 \left( \omegaversor_m \cdot \hat{\vec{n}} \right) \hat{\vec{n}}
-&\quad\quad \forall \vec{x} \in \Gamma_M \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
-  \psi_{mg}(\vec{x}) = f_{mg}(\vec{x})
-&\quad\quad \forall \vec{x} \notin \Gamma_V \bigcup \Gamma_M \wedge \omegaversor_m \cdot \hat{\vec{n}}(\vec{x}) < 0 \\
- \end{cases}$$
-
-Si el término de fuentes independientes $s_{mg}$ en la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"} es nulo, entonces las condiciones de
-contorno deben ser homogénes, es
-decir $\Gamma_V \bigcup \Gamma_M = \partial U$ (recordar las
-deficiones [\[def:ccvacuum\]](#def:ccvacuum){reference-type="ref"
-reference="def:ccvacuum"}
-y [\[def:ccmirror\]](#def:ccmirror){reference-type="ref"
-reference="def:ccmirror"}). Además debemos incluir el factor de
-multiplicación efectivo $k_\text{eff}$ dividiendo al término de fisiones
-de la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"}:
-
-$$\begin{gathered}
-\label{eq:transportesnkeff}
- \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]
- + \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) = \\
-  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot
-\left[  \sum_{\ell=0}^\infty (2\ell+1) \cdot \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \right]
- \cdot \psi_{m^\prime g^\prime}(\vec{x}) \\
-+ \frac{\chi_g}{k_\text{eff}} \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x})
-\end{gathered}$$
-
-#### Difusión de neutrones
-
-La formulación fuerte del problema de difusión de neutrones discretizado
-en energía mediante el método multigrupo es la
-ecuación [\[eq:difusionmultigrupo\]](#eq:difusionmultigrupo){reference-type="eqref"
-reference="eq:difusionmultigrupo"}
-
-$$\begin{gathered}
+$$\tag{\ref{eq-difusionmultigrupo}}
+\begin{gathered}
  - \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]
  + \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x})
  = \\
 \sum_{g^\prime = 1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) +
-\chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})+ s_{0_g}(\vec{x})
-\end{gathered}$$ sobre el dominio espacial $U \in \mathbb{R}^n$
-($n=1,2,3$) para el grupo de energía $g=1,\dots,G$ con las condiciones
-de contorno discutidas en la
-sección @sec-bcdifusion:
+\chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})+ s_{0g}(\vec{x})
+\end{gathered}
+$$
+y las $MG$ ecuaciones de transporte $S_N$ multigrupo
 
-$$\label{eq:difusioncc}
- \begin{cases}
-  \phi_g(\vec{x}) = 0 
-&\quad\quad \forall \vec{x} \in \Gamma_N \\
-  \displaystyle \frac{\partial \phi_g}{\partial n} = 0
-&\quad\quad \forall \vec{x} \in \Gamma_M \\
-  \phi_g(\vec{x}) + 2\cdot D_g(\vec{x}) \cdot \displaystyle \frac{\partial \phi_g}{\partial n} = 0
-&\quad\quad \forall \vec{x} \in \Gamma_V \\
-  a_g(\vec{x} \cdot \phi_g(\vec{x}) + b_g(\vec{x}) \cdot \displaystyle \frac{\partial \phi_g}{\partial n} = c_g(\vec{x}
-&\quad\quad \forall \vec{x} \notin \Gamma_N \bigcup \Gamma_M \bigcup \Gamma_V \\
- \end{cases}$$
+$$\tag{\ref{eq-transporte-sn}}
+\begin{gathered}
+ \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]  +
+ \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) =
+ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})  + \\
+ 3  \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \sum_{m^\prime=1} w_{m^\prime} \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \psi_{m^\prime g^\prime}(\vec{x}) +
+ \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x})   \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x}) +
+s_{mg}(\vec{x})
+\end{gathered}
+$$
+en las que las incógnitas $\phi_g$ y $\psi_{mg}$ dependen solamente del espacio $\vec{x}$.
+En esta sección empleamos el método de elementos finitos para discretizar la variable independiente espacial y obtener finalmente un sistema de ecuaciones algebraicas que nos permita resolver neutrónica a nivel de núcleo en forma numérica.
 
-Nuevamente, si el término de fuentes independientes $s_{0g}$ es nulo
-entonces las condiciones de contorno deben ser homogéneas,
-i.e. $\Gamma_N \bigcup \Gamma_M \bigcup \Gamma_V = \partial U$
-(definiciones [\[def:ccvacuumdif\]](#def:ccvacuumdif){reference-type="ref"
-reference="def:ccvacuumdif"},
-[\[def:ccmirrordif\]](#def:ccmirrordif){reference-type="ref"
-reference="def:ccmirrordif"}
-y [\[def:ccnulldif\]](#def:ccnulldif){reference-type="ref"
-reference="def:ccnulldif"}). Además debemos dividir el término de
-fuentes por el factor de multiplicación efectivo $k_\text{eff}$:
+Existe una gran cantidad de teoría matemática detrás del método de elementos finitos para resolver ecuaciones diferenciales a partir de formulaciones débiles o variacionales.
+Esencialmente el grueso de la literatura teórica se centra en probar
 
-$$\begin{gathered}
-\label{eq:difusionmultigrupokeff}
- - \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]
- + \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x})
- = \\
-\sum_{g^\prime = 1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) +
-\frac{\chi_g}{k_\text{eff}} \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})
-\end{gathered}$$
+ 1. que la formulación débil (@def-formulacion-debil) de una ecuación diferencial es formalmente correcta con respecto a derivabilidad e integrabilidad en el sentido de distribuciones sobre espacios de Hilbert,
+ 2. que soluciones continuas pero no necesariamente diferenciables en a lo más un sub-espacio de medida cero tienen sentido matemático, y
+ 3. que el esquema numérico es consistente, estable y convergente.
 
-### Formulaciones integrales {#sec-integrales}
+Tal como en el @sec-transporte-difusion esencialmente repetimos teoría matemática ya conocida a partir de diferentes fuente pero amalgamada de forma tal de unificar nomenclaturas y criterios, por cuestiones de consistencia vamos a mostrar algunos resultados y a derivar con algún cierto nivel de detalle razonable el problema de aproximación de Galerkin a partir de la formulación débil.
+Dejamos la derivación completa incluyendo la teoría de análisis funcional necesaria para demostrar completamente todos los resultados del método de elementos finitos en las referencias @brennerscott y @quarteroni.
+En la monografía @monografia escrita durante el plan de formación de este doctorado se muestra una derivación de la formulación en elementos finitos de la ecuación de difusión multigrupo de forma menos formal pero más intuitiva. Incluso se comparan los resultados numéricos obtenidos con dicha formulación con los obtenidos con una formulación basada en volúmenes finitos @bookevol.
 
-Dado que las ecuaciones de la sección anterior se cumplen punto a punto,
-podemos operar lógica y matemáticamente sobre ellas para obtener otras
-formulaciones más adecuadas para ser atacadas por esquemas de
-discretización espacial. Las formulaciones integrales son la base de los
-métodos basdos en volúmenes finitos y consisten en integrar las
-ecuaciones sobre volúmenes de control.
+Comenzamos ilustrando su aplicación a un operador elíptico escalar, en particular a la ecuación de conducción de calor semánticamente similar al problema de Poisson.
+Para este caso introducimos las ideas básicas de la  formulación variacional, de la aproximación de Galerkin y de la discretización por elementos finitos.
+Luego en la @sec-difusion-multigrupo-fem aplicamos estas ideas a las ecuaciones de difusión multigrupo, que también son elípticas pero el problema deja de ser un escalar en cada nodo espacial y su operador no es simétrico para $G>1$.
+Finalmente en la @sec-sn-multigrupo-fem hacemos lo mismo para transporte por $S_N$ multigrupo. En este caso la incógnita también tiene varios grados de libertad en cada nodo espacial y además el operador es parabólico de primer orden y la formulación numérica requiere de un término de estabilización.
 
-#### Operador de Laplace escalar
-
-#### Ordenadas discretas
-
-Tomemos la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"} e integrémosla en un cierto
-volumen $V \subset U \subset \mathbb{R}^n$:
-
-$$\begin{gathered}
- \int_V \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right] \, d^n\vec{x}
- +
- \int_V \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} = \\
- \bigintsss_V \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M w_{m^\prime} \cdot
-\left[  \sum_{\ell=0}^\infty (2\ell+1) \cdot \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \right]
- \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x} \\
-+
- \int_V \chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \sum_{m^\prime=1}^M w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x}
-+
- \int_V s_{mg}(\vec{x}) \, d^n\vec{x}
-\end{gathered}$$
-
-Dado que $\omegaversor_m$ no depende de $\vec{x}$, podemos evaluar el
-primer término como
-
-$$\begin{aligned}
- \int_V \omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right] \, d^n\vec{x} &=
- \int_V \text{div} \left[ \omegaversor_m \cdot \psi_{mg}(\vec{x}) \right] \, d^n\vec{x} \\
-&=
- \int_S \left[ \omegaversor_m \cdot \psi_{mg}(\vec{x}) \right] \cdot \hat{\vec{n}}(\vec{x}) \, d^{n-1}\vec{x} \\
-&=
- \int_S \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
-\end{aligned}$$ donde hemos utilizado el teorema de la divergencia, $S$
-es la superficie del volúmen $V$ y $\hat{\vec{n}}$ es el versor normal a
-la superficie $S$ en el punto $\vec{x}$ orientado hacia la dirección
-exterior al volumen $V$. Es justamente esta operación, que reduce en uno
-el orden del operador diferencia, la que hace que la formulación
-integral sea de utilidad para la discretización espacial. De hecho en el
-caso de la ecuación de transporte, este operador diferencial se
-transforma en algebraico. En cualquier caso, la formulación integral de
-la ecuación de transporte con ordenadas discretas es
-
-$$\begin{gathered}
-\label{eq:transportesnintegral}
- \int_S \psi_{mg}(\vec{x}) \cdot \left[ \omegaversor_m \cdot \hat{\vec{n}}(\vec{x})\right]  \, d^{n-1}\vec{x}
- +
- \int_V \Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x}) \, d^n\vec{x} = \\
- \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot  \sum_{\ell=0}^\infty 
-\int_V \Sigma_{s_\ell \,g^\prime \rightarrow g}(\vec{x}) \cdot (2\ell+1) \cdot P_\ell (\omegaversor_m \cdot \boldsymbol{\hat{\Omega}^\prime}_{m^\prime}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x} \\
-+
- \chi_g  \sum_{g^\prime=1}^G \sum_{m^\prime=1}^M  w_{m^\prime} \cdot \int_V \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \psi_{m^\prime g^\prime}(\vec{x}) \, d^n\vec{x}
-+
- \int_V s_{mg}(\vec{x}) \, d^n\vec{x}
-\end{gathered}$$ sobre el dominio espacial $U \in \mathbb{R}^n$
-($n=1,2,3$) para el grupo de energía $g=1,\dots,G$ con las mismas
-condiciones de contorno de la formulación fuerte de la
-ecuación [\[eq:transportesncc\]](#eq:transportesncc){reference-type="eqref"
-reference="eq:transportesncc"}. Debemos notar que un conjunto de
-funciones solución $\psi_{mg}$ que satisfaga la formulación débil
-entonces también va a satisfacer la formulación integral. Sin embargo,
-podemos encontrar otro conjunto de funciones solución $\psi_{mg}^\prime$
-que satisfaga la formulación integral pero que no satisfaga la
-formulación débil. De hecho, justamente las soluciones encontradas con
-el método de volúmenes finitos satisfacen la formulación integral pero
-no la formulación débil para volúmenes de control $V$ de tamaño finito.
-
-#### Difusión de neutrones
-
-Procediendo en forma análoga, integramos la formulación
-fuerte [\[eq:difusionmultigrupo\]](#eq:difusionmultigrupo){reference-type="eqref"
-reference="eq:difusionmultigrupo"} sobre un volúmen de
-control $V \subset U \subset \mathbb{R}^n$:
-
-$$\begin{gathered}
- - \int_V \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big] \, d^n \vec{x}
- + \int_V \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x}) \, d^n \vec{x}
- = \\
- \int_V \sum_{g^\prime = 1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
-+
- \int_V \chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
- +
-\int_V s_{0_g}(\vec{x}) \, d^n \vec{x}
-\end{gathered}$$ sobre el dominio espacial $U \in \mathbb{R}^n$
-($n=1,2,3$) para el grupo de energía $g=1,\dots,G$. Aplicando nuevamente
-el teorema de la divergencia al primer término, tenemos
-
-$$\int_V \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big] \, d^n \vec{x} =
-\int_S D_g(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi_g(\vec{x}) \right] \cdot \hat{\vec{n}}(\vec{x}) \Big] \, d^{n-1} \vec{x}$$
-donde nuevamente $S$ es la superficie del volúmen $V$ y $\hat{\vec{n}}$
-es el versor normal exterior a la superficie $S$. De esta manera hemos
-reducido el orden de la ecuación de dos a uno para obtener la
-formulación integral como
-
-$$\begin{gathered}
-\label{eq:difusionintegral}
- - \int_S D_g(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi_g(\vec{x}) \right] \cdot \hat{\vec{n}}(\vec{x}) \Big] \, d^{n-1} \vec{x}
- + \int_V \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x}) \, d^n \vec{x}
- = \\
- \sum_{g^\prime = 1}^G \int_V \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
-+
- \chi_g \sum_{g^\prime = 1}^G \int_V  \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x}) \, d^n \vec{x}
- +
-\int_V s_{0_g}(\vec{x}) \, d^n \vec{x}
-\end{gathered}$$ con las condiciones de contorno descriptas en la
-ecuación [\[eq:difusioncc\]](#eq:difusioncc){reference-type="eqref"
-reference="eq:difusioncc"}.
-
-### Formulaciones débiles {#sec-debiles}
-
-TO BE DONE
-
-#### Operador de Laplace escalar
-
-
-#### Ordenadas discretas
-
-TO BE DONE
-
-#### Difusión
-
-TO BE DONE
-
-## Discretización espacial por elementos finitos {#sec-discretizacion_espacial}
-
-
-### Operador de Laplace escalar
-
-
-El objetivo de la discretización espacial es obtener a partir de
-ecuaciones que sólo dependen de la coordenada espacial $\vec{x}$ un
-sistema de ecuaciones algebraicas cuyas incógnitas sean los valores que
-toma el flujo ($\psi$ angular para transporte y escalar $\phi$ para
-difusión) en una cierta cantidad $T$ finita de puntos del espacio: el
-centro de las celdas para volúmenes finitos y los nodos para elementos
-finitos, como mostramos a continuación. Para simplificar la notación,
-utilizamos el concepto de *vector incógnita*.
-
-::: definicion
-Sea $\boldsymbol{\xi} \in \mathbb{R}^{TGM}$ un vector cuyos elementos
-son los flujos incógnita $\psi_{mg}^t$ para las $m=1,\dots,M$
-direcciones discretas, los $g=1,\dots,G$ grupos de energía evaluado en
-los $t=1,\dots,T$ puntos $\vec{x}_t$ del espacio, ordenados de alguna
-cierta manera. Para el caso de difusión tomamos $M=1$
-y $\psi_{1g}^t = \phi_{g}^t$. Llamamos a $\boldsymbol{\xi}$ el *vector
-incógnita*.
+::: {.remark}
+El diablo está en los detalles. En particular, en las condiciones de contorno.
 :::
 
-Si las secciones eficaces sólo dependen de la posición $\vec{x}$ y no
-del nivel de flujo de neutrones, entonces la ecuación de transporte---y
-por lo tanto también la de difusión---es lineal sobre el flujo. Como
-demostramos en lo que resta del capítulo, resulta entonces que la
-formulación del problema discretizado puede ser escrita en forma
-matricial.
+### Ecuación de Poisson
 
-::: definicion
-Sean $R$ y $F$ son matrices de tamaño $TGM \times TGM$ y $\vec{S}$ un
-vector de tamaño $IGM$. Llamamos *matriz de remoción* a $R$, *matriz de
-fisión* a $F$ y *vector de fuentes* a $\vec{S}$. Los elementos de estos
-objetos dependen de la formulación (ordenadas discretas o difusión) y
-del esquema de discretización espacial (volúmenes o elementos finitos).
+Comencemos resolviendo la ecuación escalar elíptica sobre un dominio espacial $U$ in R^3$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ and $\Gamma_D \cap \Gamma_N = \emptyset$:
+
+$$
+\begin{cases}
+\text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\} = f(\vec{x}) & \forall\vec{x} \in U \\
+u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \frac{\partial u}{\partial n} = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+\end{cases}
+$$ {#eq-poisson-fuerte}
+donde $\partial u/\partial n$ es la derivada en la dirección normal externa en el punto $\vec{x}$.
+
+#### Formulaciones fuertes y débiles
+
+::: {#def-formulacion-fuerte}
+
+## formulación fuerte
+
+Llamamos a la ecuación diferencial propiamente dicha junto a sus condiciones de contorno, tal como la @eq-poisson-fuerte, la _formulación fuerte_ del problema.
 :::
 
-Tenemos entonces dos casos que conducen a problemas matemáticos
-diferentes. El primero consiste en aquellos problemas en los que la
-fuente independiente $s$ es diferente de cero en el dominio
-(multiplicativo o no), o bien en los que las condiciones de contorno son
-no homogéneas (por ejemplo debido a una corriente entrante no nula). El
-segundo es el caso de fuente independiente idénticamente nula y
-condiciones de contorno homogéneas en presencia de un medio
-multiplicativo. Este caso recibe el nombre de *cálculo de criticidad*,
-donde además de una distribución espacial de flujo obtenemos un escalar
-que indica qué tan lejos de la criticidad está la geometría propuesta.
-En este trabajo utilizamos el concepto de *reactor crítico asociado
-en $k$* [@duderstadt; @henry] en el cual dividimos a los términos de
-fisión por un escalar $k_\text{eff}$. Matemáticamente, veremos más
-adelante en este capítulo que podemos escribir
+::: {.remark}
+En la formulación fuerte, todas las funciones deben ser derivables hasta el orden apropiado según dónde aparezca cada una. Por ejemplo, en la @eq-poisson-fuerte, $u(\vec{x})$ debe ser derivable una vez y el producto $k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]$ debe ser derivable dos veces.
+Este requerimiento usualmente es demasiado restrictivo en aplicaciones físicas.
+Por ejemplo, la formulación fuerte del problema de conducción de calor no está bien definida en las interfaces entre materiales con diferentes conductividades\ $k(\vec{x})$.
+:::
 
--   Problema con fuente independiente no nula o con condiciones de
-    contorno no homogéneas:
+Multipliquemos ambos miembros de la ecuación diferencial por una función $v(\vec{x})$:
 
-    $$\begin{aligned}
-     R \cdot \boldsymbol{\xi} = F \cdot \boldsymbol{\xi} + \vec{S} \\
-     (R-F) \cdot \boldsymbol{\xi} = \vec{S} \\
-    \end{aligned}$$
+$$
+ v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\} =
+ v(\vec{x}) \cdot f(\vec{x})
+$$
 
--   Problema sin fuente independiente con condiciones de contorno
-    homogéneas:
+Esta función $v(\vec{x})$ puede ser arbitraria, pero requerimos que se anule en $\Gamma_D$.
+Es decir, pedimos que $u(\vec{x})$ y $v(\vec{x})$ satisfagan las mismas condiciones de contorno de Dirichlet (aunque no necesariamente las de Neumann).
 
-    $$\begin{aligned}
-     R \cdot \boldsymbol{\xi} = \frac{1}{k_\text{eff}} F \cdot \boldsymbol{\xi} \\
-     k_\text{eff} \cdot R \cdot \boldsymbol{\xi} = F \cdot \boldsymbol{\xi} \\
-    \end{aligned}$$
+Ahora integramos sobre el dominio $U$
+
+$$
+\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x}
+=
+\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^3\vec{x}
+$$
+
+Aplicando la fórmula de Green
+**TODO**
+
+$$
+\begin{aligned}
+\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x} &=
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
+- \int_{\partial U} \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x} \\
+&=
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x} \\
+&\quad\quad
+- \int_{\Gamma_D} k(\vec{x}) \cdot \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x}
+- \int_{\Gamma_N} k(\vec{x}) \cdot \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x}
+\end{aligned}
+$$
+
+Pero $v(\vec{x}) = 0$ en $\Gamma_D$ y $k(\vec{x}) \cdot \frac{\partial u}{\partial n} = p(\vec{x})$ en $\Gamma_N$. Luego
+
+$$
+\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x} =
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
+- \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \,d^2\vec{x}
+$$
+por lo que
+
+$$
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
+=
+\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^3\vec{x}
++ \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \,d^2\vec{x}
+$$ {#eq-poisson-debil}
+
+::: {#def-formulacion-debil}
+
+## formulación débil
+
+Llamamos a la expresión que resulta de
+
+ 1. multiplicar ambos miembros de la ecuación diferencial por una función arbitraria llamada "de prueba",
+ 2. integrar sobre el dominio espacial,
+ 3. aplicar fórmulas de cálculo vectorial, y
+ 4. reemplazar las condiciones de contorno en las integrales de superficie
+
+junto con los requerimientos que deben satisfacer tanto la función incógnita como la función de prueba, tal como la @eq-poisson-debil, la _formulación débil_ o _variacional_ del problema.
+Estrictamente hablando, la formulación débil de una ecuación diferencial es
+
+$$
+\text{encontrar~} u(\vec{x}) \in V: \quad
+\mathcal{a} \left[u(\vec{x}), v(\vec{x})\right] = \mathcal{F}\left[v(\vec{x})\right]
+\quad  \forall v(\vec{x}) \in V
+$$
+donde $V$ es un espacio funcional apropiado en el cual sus miembros se anulan en $\Gamma_D$ y los operadores $\mathcal{a}(u,v) : V \times V \rightarrow \mathbb{R}$ y $\mathcal{F}(v) : V \rightarrow \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
+Para la formulación de la @eq-poisson-debil, es
+
+$$
+\mathcal{a}(u,v) = \int_U \nabla v \cdot k(\vec{x}) \cdot \nabla u \, d^3 \vec{x}
+$$
+y
+$$
+\mathcal{F}(v) = \int_U f(\vec{x}) \cdot v(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \, d^2 \vec{x}
+$$
+:::
 
 
-cuatro figuras: un cuadrado uniforme, un cuadrado con deltas x e y no
-uniformes, un circulo con cosas radiales y un paralelogramo o algo curvo
-con elementos que se van curvando. El último es estructurado pero
-conviene tratarlo como no estructurado.
-
-lo mismo no estructurado pero sobre algo que no sea un cuadrado (un
-cuadrado con un pedazo redondo?): es una generalización, el estrucutrado
-está contenido en el no estructurado.
-
-ilustrar el efecto staircase, cuando realmente los elementos
-combustibles son cuadrados zafa, pero el reflector radial siempre es
-cilíndrico.
-
-Definición de nodo: lo que tiene dimensión cero Definición de celda: lo
-que tiene dimensión igual a la del problema
-
-Todo lo demás, incluyendo nodos y celdas son elementos.
-
-figuras de dmplex?
 
 
-### Ecuación de difusión de neutrones
 
-### Ordenadas discretas
+::: {.remark}
+En la formulación débil la derivabilidad es más laxa que en la formulación fuerte.
+De ahí su nombre: las funciones deben cumplir requerimientos más débiles.
+Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmuas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u(\vec{x})$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-eq-poisson-debil] sólo involucra el gradiente.
+De hecho, ni siquiera hace falta que las funcioens sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Sobolev y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
+:::
+
+::: {.remark}
+El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{F}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v(\vec{x})$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
+:::
+
+::: {.remark}
+La formulación fuerte incluye las condiciones de contorno en su enunciado.
+Las condiciones de Neumann aparecen naturalmente en los términos de superficie luego de aplicar las fórmulas de Green y las condiciones de Dirichlet están esencialmente en el espacio vectorial $V$ donde se busca la solución $u(\vec{x})$. Las primeras se llaman _naturales_ y las segundas _esenciales_.
+:::
+
+::::: {#thm-equivalencia-fuerte-debil}
+El problema débil es equivalente al fuerte en el sentido de distribuciones, es decir, ambas formulaciones coinciden excepto en a lo más un sub-conjunto de $U$ de medida cero.
+
+::: {.proof}
+Ver sección 3.3.2 de @quarteroni y/o teoremas 0.1.4 de @scott
+:::
+:::::
+
+
+#### Aproximación de Galerkin
+
+#### Elementos finitos
+
+
+
+### Difusión multigrupo {#sec-difusion-multigrupo-fem}
+
+
+### Ordenadas discertas multigrupo {#sec-sn-multigrupo-fem}
+
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
