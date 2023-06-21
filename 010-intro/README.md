@@ -160,6 +160,13 @@ cloud native != cloud enabled or cloud friendly
 ilustrar LE-10 vs aster/elmer/calculix e iaea3d pwr vs parcs
 
 
+Paralelización @intro-parallel
+
+ 1. shared memory -> openmp
+ 2. openmpi
+ 3. GPU
+
+
     
 Esta problemática es (o debería ser) de interés para la industria
 nuclear argentina, teniendo en cuenta que al sus tres centrales

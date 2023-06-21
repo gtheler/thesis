@@ -507,7 +507,7 @@ Ahora bien, el principal problema de $S_N$ es que el tamaño del problema discre
 
  a. la cantidad de grupos de energía (@sec-multigrupo),
  b. la cantidad $N \cdot (N+2)$ de direcciones de vuelo de los neutrones en la formulación $S_N$ (@sec-sn),
- c. la cantidad de incógnitas espaciales, es decir el número de nodos o celdas de la malla espacial (@sec-discretizacion_espacial),
+ c. la cantidad de incógnitas espaciales, es decir el número de nodos o celdas de la malla espacial (@sec-discretizacion-espacial),
 
 A su vez, los recursos computacionales necesarios para resolver el problema, esencialmente tiempo de procesador y memoria, escalan con una velocidad más que lineal con el producto de los tres puntos mencionados, usualmente entre $O(n \log n)$ y $O(n^2)$. Esto hace que para casos con mallas de interés de ingeniería sea imposible emplear una única computadora digital para resolver el problema.
 En efecto, aún cuando un tiempo de procesamiento arbitrariamente grande pueda ser aceptado desde un punto de vista de gerenciamiento de proyectos, la escala de la memoria requerida no permitiría la flexibilidad suficiente para realizar los estudios de convergencia de malla, de energía y de direcciones necesarios para estudiar la verificación tanto de la herramienta de transporte por $S_N$ en sí como de la comparación con formulaciones más simplificadas basadas en difusión. Es necesario entonces diseñar un esquema numérico de resolución de ecuaciones diferenciales que pueda escalar con el tamaño del problema a resolver. Es decir, la memoria le impone un límite técnico al proyecto.

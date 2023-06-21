@@ -3,12 +3,9 @@
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
-> | Para una inteligencia que conociera en un momento dado
-> | todas las fuerzas que actúan en la naturaleza y la situación de
-> | los seres de que se compone [...] nada le sería incierto y
-> | tanto el futuro como el pasado estarían presentes ante su vista.
+> | Boundary conditions tend to make the theory of PDEs difficult.
 > |
-> | _Pierre de Simon Laplace, Teoría Analítica de las Probabilidades, 1812_
+> | _Jürgen Jost, Partial Differential Equations, 2013_
 :::
 :::::
 
@@ -95,7 +92,7 @@ El tamaño $N$ del operador discreto $\mathcal{F}_N$ es el producto de
 
  a. la cantidad $G$ de grupos de energías (@sec-multigrupo),
  b. la cantidad $M$ de direcciones de vuelo discretas (@sec-sn), y
- c. la cantidad $J$ de incógnitas espaciales (@sec-discretizacion_espacial).
+ c. la cantidad $J$ de incógnitas espaciales (@sec-discretizacion-espacial).
  
 
 ::: {#def-convergencia}
@@ -818,7 +815,7 @@ La única aproximación numérica que tuvimos que hacer para obtener la\ @eq-tra
 Por ejemplo, la @fig-constant-per-fraction ilustra un caso en el que cada octante de la esfera unitaria está dividido en tres áreas iguales, dando lugar a $M = 3 \times 8 = 24$ direcciones. En cada una de las áreas mostradas, asumimos que el flujo angular $\psi(\vec{x},\omegaversor)$ es uniformemente igual a $\psi_{mg}(\vec{x})$, siendo $\vec{x}$ en este caso la posición del centro de la esfera unidad. Esta suposición es usual en los esquemas basados en el método de volúmenes finitos.
 :::
 
-![Una partición de la esfera unidad en 24 fracciones de área, todas iguales entre sí. La suposición central de la derivación del método $S_N$ realizado en esta tesis es que en cada una de éstas áreas el flujo angular es constante. Se muestra sólo el primero de los ocho octantes.](constant-per-fraction.png){#fig-constant-per-fraction}
+![Una partición de la esfera unidad en 24 fracciones de área, todas iguales entre sí. La suposición central de la derivación del método $S_N$ realizado en esta tesis es que en cada una de éstas áreas el flujo angular es constante. Se muestra sólo el primero de los ocho octantes.](constant-per-fraction.png){#fig-constant-per-fraction width=50%}
 
 ::: {.remark}
 El esquema numérico es consistente ya que en el límite $\Delta \omegaversor_m \rightarrow d\omegaversor_m$ la suposición es exacta y el operador discretizado coincide con el operador continuo.
@@ -1230,85 +1227,179 @@ Tal como en el @sec-transporte-difusion esencialmente repetimos teoría matemá
 Dejamos la derivación completa incluyendo la teoría de análisis funcional necesaria para demostrar completamente todos los resultados del método de elementos finitos en las referencias @brennerscott y @quarteroni.
 En la monografía @monografia escrita durante el plan de formación de este doctorado se muestra una derivación de la formulación en elementos finitos de la ecuación de difusión multigrupo de forma menos formal pero más intuitiva. Incluso se comparan los resultados numéricos obtenidos con dicha formulación con los obtenidos con una formulación basada en volúmenes finitos @bookevol.
 
-Comenzamos ilustrando su aplicación a un operador elíptico escalar, en particular a la ecuación de conducción de calor semánticamente similar al problema de Poisson.
+::: {.remark}
+Si se pudiera intercambiar en toda la literatura la palabra "elementos" por "volúmenes" (¿tal vez con `sed` siguiendo la filosofía del @sec-unix?) nadie notaría la diferencia. Ver @historia-fem y sus doscientas ochenta referencias para la historia detrás del "método de elementos finitos".
+:::
+
+
+Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de conducción de calor semánticamente similar al problema de Poisson.
 Para este caso introducimos las ideas básicas de la  formulación variacional, de la aproximación de Galerkin y de la discretización por elementos finitos.
 Luego en la @sec-difusion-multigrupo-fem aplicamos estas ideas a las ecuaciones de difusión multigrupo, que también son elípticas pero el problema deja de ser un escalar en cada nodo espacial y su operador no es simétrico para $G>1$.
 Finalmente en la @sec-sn-multigrupo-fem hacemos lo mismo para transporte por $S_N$ multigrupo. En este caso la incógnita también tiene varios grados de libertad en cada nodo espacial y además el operador es parabólico de primer orden y la formulación numérica requiere de un término de estabilización.
 
 ::: {.remark}
-El diablo está en los detalles. En particular, en las condiciones de contorno.
+El diablo está en los detalles. En particular, tal como indicamos en la cita del comienzo del capítulo, en las condiciones de contorno @pdes.
 :::
 
 ### Ecuación de Poisson
 
-Comencemos resolviendo la ecuación escalar elíptica sobre un dominio espacial $U$ in R^3$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ and $\Gamma_D \cap \Gamma_N = \emptyset$:
+Comencemos resolviendo la siguiente ecuación escalar elíptica sobre un dominio espacial $U \in \mathbb{R}^3$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$:
+
 
 $$
 \begin{cases}
-\text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\} = f(\vec{x}) & \forall\vec{x} \in U \\
+-\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
 u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
-k(\vec{x}) \cdot \frac{\partial u}{\partial n} = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-poisson-fuerte}
-donde $\partial u/\partial n$ es la derivada en la dirección normal externa en el punto $\vec{x}$.
+donde $\hat{\vec{n}}$ es la normal externa a la frontera $\partial U$ en el punto $\vec{x}$.
 
 #### Formulaciones fuertes y débiles
 
 ::: {#def-formulacion-fuerte}
 
-## formulación fuerte
+## Formulación fuerte
 
 Llamamos a la ecuación diferencial propiamente dicha junto a sus condiciones de contorno, tal como la @eq-poisson-fuerte, la _formulación fuerte_ del problema.
 :::
 
 ::: {.remark}
-En la formulación fuerte, todas las funciones deben ser derivables hasta el orden apropiado según dónde aparezca cada una. Por ejemplo, en la @eq-poisson-fuerte, $u(\vec{x})$ debe ser derivable una vez y el producto $k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]$ debe ser derivable dos veces.
+En la formulación fuerte, todas las funciones deben ser derivables hasta el orden apropiado según dónde aparezca cada una. Por ejemplo, en la @eq-poisson-fuerte, $u$ debe ser derivable una vez y el producto $k \nabla u$ debe ser derivable dos veces.
 Este requerimiento usualmente es demasiado restrictivo en aplicaciones físicas.
-Por ejemplo, la formulación fuerte del problema de conducción de calor no está bien definida en las interfaces entre materiales con diferentes conductividades\ $k(\vec{x})$.
+Por ejemplo, la formulación fuerte del problema de conducción de calor no está bien definida en las interfaces entre materiales con diferentes conductividades $k$ a cada lado de la interfaz.
 :::
 
-Multipliquemos ambos miembros de la ecuación diferencial por una función $v(\vec{x})$:
+Multipliquemos ambos miembros de la ecuación diferencial por una cierta función $v(\vec{x})$ que llamamos "de prueba":
 
 $$
- v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\} =
+ -v(\vec{x}) \cdot \text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] =
  v(\vec{x}) \cdot f(\vec{x})
+$$ {#eq-strong-by-u}
+
+Esta función de prueba $v(\vec{x})$ puede ser arbitraria, pero requerimos que se anule en $\Gamma_D$.
+Es decir, pedimos que $u(\vec{x})$ y $v(\vec{x})$ satisfagan las mismas condiciones de contorno de Dirichlet homogéneas (aunque no necesariamente las de Neumann).
+
+::::: {#thm-divergencia}
+
+## de la divergencia
+
+En un dominio conexo $U \in \mathbb{R}^3$, la integral de volumen sobre $U$ de la divergencia de una función vectorial continua $\vec{F}(\vec{x}) : U \mapsto \mathbb{R}^3$ es igual a la integral de superficie del producto interno entre $\vec{F}$ y la normal externa $\hat{\vec{n}}$ a la frontera $\partial U$:
+
+$$
+\int_U \mathrm{div} \left[ \vec{F}(\vec{x}) \right] \, d^3\vec{x} =
+\int_{\partial U} \vec{F}(\vec{x}) \cdot \hat{\vec{n}} \, d^2\vec{x}
 $$
 
-Esta función $v(\vec{x})$ puede ser arbitraria, pero requerimos que se anule en $\Gamma_D$.
-Es decir, pedimos que $u(\vec{x})$ y $v(\vec{x})$ satisfagan las mismas condiciones de contorno de Dirichlet (aunque no necesariamente las de Neumann).
+::: {.proof}
+Cualquier libro de Análisis II.
+:::
+:::::
 
-Ahora integramos sobre el dominio $U$
+::::: {#cor-green}
+
+## fórmula de Green
+
+En un dominio conexo $U \in \mathbb{R}^3$, sean $u(\vec{x})$, $v(\vec{x})$ y $k(\vec{x})$ funciones continuas $U \mapsto \mathbb{R}$. Entonces
 
 $$
-\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x}
+\begin{aligned}
+\int_U v(\vec{x}) \cdot \mathrm{div} \Big[ k(\vec{x}) \cdot \mathrm{grad} \left[ u(\vec{x}) \right] \Big]  \,d^3\vec{x} =&
+-\int_U \mathrm{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \mathrm{grad} \left[ v(\vec{x}) \right] \, d^3\vec{x} 
+\\
+& \quad\quad + \int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\end{aligned}
+$$
+siendo $\hat{\vec{n}}$ la normal exterior a la frontera $\partial U$ en el punto $\vec{x}$.
+
+::: {.proof}
+Recordando el @thm-div-inner que dice que
+
+$$
+\text{div} \big[ a \cdot \vec{b} \big ] = a \cdot \text{div} \left[\vec{b}\right] + \vec{b} \cdot \text{grad}\left[a\right]
+$$
+entonces para $a = v$ y $\vec{b} = k \nabla u$
+
+$$
+\text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] =
+v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] +
+k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right]
+$$
+
+Integrando sobre el volumen $U$
+
+$$
+\begin{aligned}
+\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} =&
+\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} \\
+&\quad +
+\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^3\vec{x}
+\end{aligned}
+$$
+
+
+Haciendo $\vec{F}(\vec{x}) = v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right]$ en el @thm-divergencia tenemos
+
+$$
+\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} =
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+$$ 
+
+
+Igualando los miembros derechos de las últimas dos expresiones
+
+$$
+\begin{aligned}
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x} =&
+\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} \\
+&\quad +
+\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^3\vec{x}
+\end{aligned}
+$$
+
+Reordenando los términos, llegamos a la tesis.
+:::
+:::::
+
+Como $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$, entonces podemos escribir la integral de superficie sobre la frontera $\partial U$ como suma de dos integrales con el mismo integrando, una sobre $\Gamma_D$ y otra sobre $\Gamma_N$:
+
+$$
+\begin{aligned}
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+=&
+\int_{\Gamma_D} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x} \\
+&\quad +
+\int_{\Gamma_N} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\end{aligned}
+$$
+
+Pero
+
+$$
+v(\vec{x}) = 0 \quad \forall \vec{x} \in \Gamma_D
+$$
+y
+$$
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) \quad \forall \vec{x} \in \Gamma_N
+$$
+por lo que
+
+$$
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+ =
+\int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \,d^2\vec{x}
+$$
+
+
+Volvamos a la @eq-strong-by-u e integremos ambos miembros sobre el dominio $U$
+
+$$
+-\int_U v(\vec{x}) \cdot \text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big]  \,d^3\vec{x}
 =
 \int_U v(\vec{x}) \cdot f(\vec{x}) \,d^3\vec{x}
 $$
 
-Aplicando la fórmula de Green
-**TODO**
-
-$$
-\begin{aligned}
-\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x} &=
-\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
-- \int_{\partial U} \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x} \\
-&=
-\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x} \\
-&\quad\quad
-- \int_{\Gamma_D} k(\vec{x}) \cdot \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x}
-- \int_{\Gamma_N} k(\vec{x}) \cdot \frac{\partial u}{\partial n} \cdot v(\vec{x}) \,d^2\vec{x}
-\end{aligned}
-$$
-
-Pero $v(\vec{x}) = 0$ en $\Gamma_D$ y $k(\vec{x}) \cdot \frac{\partial u}{\partial n} = p(\vec{x})$ en $\Gamma_N$. Luego
-
-$$
-\int_U v(\vec{x}) \cdot \text{div} \left\{ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \right\}  \,d^3\vec{x} =
-\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
-- \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \,d^2\vec{x}
-$$
-por lo que
+Ahora usemos la fórmula de Green y el hecho de que $v(\vec{x})$ se anula en $\Gamma_D$ para obtener
 
 $$
 \int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
@@ -1333,18 +1424,17 @@ Estrictamente hablando, la formulación débil de una ecuación diferencial es
 
 $$
 \text{encontrar~} u(\vec{x}) \in V: \quad
-\mathcal{a} \left[u(\vec{x}), v(\vec{x})\right] = \mathcal{F}\left[v(\vec{x})\right]
+\mathcal{a} \Big(u(\vec{x}), v(\vec{x})\Big) = \mathcal{H} \Big(v(\vec{x})\Big)
 \quad  \forall v(\vec{x}) \in V
 $$
-donde $V$ es un espacio funcional apropiado en el cual sus miembros se anulan en $\Gamma_D$ y los operadores $\mathcal{a}(u,v) : V \times V \rightarrow \mathbb{R}$ y $\mathcal{F}(v) : V \rightarrow \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
+donde $V$ es un espacio funcional apropiado en el cual sus miembros se anulan en $\Gamma_D$ y los operadores $\mathcal{a}(u,v) : V \times V \mapsto \mathbb{R}$ y $\mathcal{H}(v) : V \mapsto \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
 Para la formulación de la @eq-poisson-debil, es
 
 $$
-\mathcal{a}(u,v) = \int_U \nabla v \cdot k(\vec{x}) \cdot \nabla u \, d^3 \vec{x}
-$$
-y
-$$
-\mathcal{F}(v) = \int_U f(\vec{x}) \cdot v(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \, d^2 \vec{x}
+\begin{aligned}
+\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ v(\vec{x}) \Big] \, d^3 \vec{x} \\
+\mathcal{H}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
+\end{aligned}
 $$
 :::
 
@@ -1356,11 +1446,18 @@ $$
 En la formulación débil la derivabilidad es más laxa que en la formulación fuerte.
 De ahí su nombre: las funciones deben cumplir requerimientos más débiles.
 Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmuas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u(\vec{x})$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-eq-poisson-debil] sólo involucra el gradiente.
-De hecho, ni siquiera hace falta que las funcioens sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Sobolev y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
+De hecho, ni siquiera hace falta que las funcioens sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Lebesgue y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
+En efecto, la formulación débil del problema de conducción de calor con conductividad discontinua en interfaces materiales está bien definida. Por un lado las interfaces materiales son un sub-espacio de medida nula y por otro la conductividad $k(\vec{x})$ no tiene aplicado ningún operador diferencial sino que es integrado (en el sentido de Lebesgue) sobre el dominio espacial $U$.
 :::
 
 ::: {.remark}
-El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{F}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v(\vec{x})$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
+La formulación débil de la ecuación de conducción de calor derivada en la @eq-poisson-debil incluye la posiblidad de que la conductividad $k(\vec{x})$ pueda depender del espacio e incluso ser discontinua en interfaces materiales. 
+En la mayoría de los libros sobre ecuaciones en derivadas parciales [pdes,applied-pdes], en la "ecuación de calor" no se incluye explícitamente la conductividad $k(\vec{x})$ (eventualmente el coeficiente de difusión $D(\vec{x})$) del gradiente de la incógnita dentro del operador divergencia y se reemplaza la divergencia del gradiente por el laplaciano.
+Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la temperatura $k(T)$. **TODO** link a SDS.
+:::
+
+::: {.remark}
+El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{H}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v(\vec{x})$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
 :::
 
 ::: {.remark}
@@ -1372,10 +1469,12 @@ Las condiciones de Neumann aparecen naturalmente en los términos de superficie 
 El problema débil es equivalente al fuerte en el sentido de distribuciones, es decir, ambas formulaciones coinciden excepto en a lo más un sub-conjunto de $U$ de medida cero.
 
 ::: {.proof}
-Ver sección 3.3.2 de @quarteroni y/o teoremas 0.1.4 de @scott
+Sección 3.3.2 de @quarteroni y/o teorema 0.1.4 de @brennerscott.
 :::
 :::::
 
+
+**TODO** BCs no homogéneas
 
 #### Aproximación de Galerkin
 
@@ -1386,7 +1485,7 @@ Ver sección 3.3.2 de @quarteroni y/o teoremas 0.1.4 de @scott
 ### Difusión multigrupo {#sec-difusion-multigrupo-fem}
 
 
-### Ordenadas discertas multigrupo {#sec-sn-multigrupo-fem}
+### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
@@ -1471,7 +1570,7 @@ En este caso, tenemos que volver a escribir la versión discretizada en forma ge
 $$ \tag{\ref{eq-generica-numerica}}
 \mathcal{F}_N(\symbf{\varphi}_N, \Sigma_N) = 0
 $$
-para alguna función vectorial $\mathcal{F}_N : [\mathbb{R}^{N} \times \mathbb{R}^{N^\prime}] \rightarrow \mathbb{R}^{N}$.^[El tamaño $N^\prime$ de la información relacionada con los datos de entrada $\Sigma_N$ no tiene por que ser igual al tamaño $N$ del vector solución.]
+para alguna función vectorial $\mathcal{F}_N : [\mathbb{R}^{N} \times \mathbb{R}^{N^\prime}] \mapsto \mathbb{R}^{N}$.^[El tamaño $N^\prime$ de la información relacionada con los datos de entrada $\Sigma_N$ no tiene por que ser igual al tamaño $N$ del vector solución.]
 La forma más eficiente de resolver estos problemas es utilizar variaciones del esquema de Newton @petsc-user-ref, donde la incógnita $\symbf{\varphi}_N$ se obtiene iterando a partir de una solución inicial^[El término correcto es [*initial guess*]{lang=en-US}.] $\symbf{\varphi}_{N0}$
 
 $$

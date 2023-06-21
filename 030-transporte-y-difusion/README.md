@@ -81,6 +81,9 @@ energía $E=1/2 \cdot m v^2$.
 ## Secciones eficaces
 
 ::: {#def-sigmat}
+
+## sección eficaz macroscópica total
+
 La *sección eficaz macroscópica total* $\Sigma_t$ de un medio es tal que el producto
 
 $$
@@ -173,6 +176,9 @@ Cuando un neutrón que viaja en una cierta dirección $\omegaversor$ con una en
 dispersión o [*scattering*]{lang=en-US},^[El término español “dispersión” como traducción del concepto de “[scattering]{lang=en-US}” no es muy feliz. A partir este punto, durante el resto de esta tesis usamos solamente la palabra [*scattering*]{lang=en-US} para referirnos a este concepto.] tanto el neutrón como el núcleo blanco intercambian energía. En este caso podemos pensar que luego de la colisión, el neutrón incidente se ha transformado en otro neutrón emitido en una nueva dirección $\omegaprimaversor$ con una nueva energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el concepto que sigue.
 
 ::: {#def-sigmasdif}
+
+## sección eficaz de [scattering]{lang=en-US} diferencial
+
 La *sección eficaz de [scattering]{lang=en-US} diferencial* $\Sigma_s$ tal que
 
 $$
@@ -214,7 +220,7 @@ $$ {#eq-sigmast}
 
 ::: {#thm-legendre}
 
-## Expansión en polinomios de Legendre
+## expansión en polinomios de Legendre
 
 Cualquier función $f(\mu) : \mu \in [-1,+1] \rightarrow \mathbb{R}^1$ de cuadrado integrable puede ser escrita como la suma infinita de un coeficiente $f_\ell$ por el _polinomio de Legendre_ $P_{\ell}(\mu)$ de grado $\ell \geq 0$
 
@@ -250,7 +256,7 @@ $$
 
 ::: {#def-kronecker}
 
-## La delta de Kronecker
+## la delta de Kronecker
 
 $$
 \delta_{\ell \ell^\prime} =
@@ -264,7 +270,7 @@ $$
 
 ::: {#thm-legendre-orto}
 
-## Ortogonalidad de los polinomios de Legendre
+## ortogonalidad de los polinomios de Legendre
 
 Los polinomios de Legendre son ortogonales. Más aún, 
 
@@ -446,7 +452,7 @@ Estas dos ideas nos permiten introducir los siguientes conceptos.
 
 ::: {#def-scattering-isotropico}
 
-## Scattering isotrópico
+## scattering isotrópico
 
 Decimos que hay *[scattering]{lang=en-US} isotrópico* (a partir de ahora siempre nos
 vamos a referir al marco de referencia del reactor) cuando los
@@ -464,7 +470,7 @@ $$
 
 ::: {#def-scattering-linealmente-anisotropico}
 
-## Scattering linealmente anisotrópico
+## scattering linealmente anisotrópico
 
 Si además de $\Sigma_{s_0}$ resulta que el único otro coeficiente diferente de cero es $\Sigma_{s_1}$
 correspondiente a $\ell=1$ entonces decimos que el [scattering]{lang=en-US} es *linealmente anisotrópico*, y la
@@ -481,6 +487,9 @@ $$ {#eq-scatteringanisotropico}
 :::
 
 ::: {#def-coseno-medio}
+
+## coseno medio
+
 Definimos el *coseno medio del ángulo de [scattering]{lang=en-US}* $\mu_0$ para una ley de dispersión general como
 
 $$
@@ -522,6 +531,9 @@ La distribución en energía de los neutrones nacidos por fisión está dada
 por el espectro de fisión $\chi$, que definimos a continuación.
 
 ::: {#def-chi}
+
+## espectro de fisión
+
 El *espectro de fisión* $\chi(E)$ es tal que
 
 $$
@@ -591,6 +603,9 @@ un rector nuclear. En esta sección desarrollamos la matemática para el caso de
 debemos proceder para problemas en una y en dos dimensiones.
 
 ::: {#def-N}
+
+## densidad de neutrones
+
 La *distribución de densidad de neutrones* $N$ en un espacio de las fases de siete dimensiones $\vec{x} \in \mathbb{R}^3$, $\omegaversor \in \mathbb{R}^2$,^[Si bien la dirección $\omegaversor = [ \Omega_x \, \Omega_y \, \Omega_z]^T$ tiene tres componentes llamados *cosenos dirección*, sólo dos son independientes (por ejemplo las  coordenadas angulares cenital $\theta$ y azimutal $\varphi$) ya que  debe cumplirse que $\Omega_x^2 + \Omega_y^2 + \Omega_z^2 = 1$.] $E \in \mathbb{R}$ y $t \in \mathbb{R}$ tal que
 
 $$
@@ -601,6 +616,9 @@ es el número de neutrones (en el sentido de la media estadística dada la natur
 :::
 
 ::: {#def-flujoangular}
+
+## flujo angular
+
 El *flujo angular* $\psi$ es el producto entre la velocidad $v$ y la distribución de densidad $N$ de los neutrones
 
 $$
@@ -635,6 +653,9 @@ es el número de reacciones de tipo $k$ en el diferencial de volumen de fases 
 Para obtener el número total de reacciones de todos los neutrones independientemente de la dirección $\omegaversor$ del neutrón incidente debemos integrar esta cantidad sobre todos los posibles ángulos de incidencia. Para ello utilizamos el concepto que sigue.
 
 ::: {#def-flujoescalar}
+
+## flujo escalar
+
 El *flujo escalar* $\phi$ es la integral del flujo angular sobre todas las posibles direcciones de viaje de los neutrones:
 
 $$
@@ -654,6 +675,9 @@ volúmen y de energía.
 :::
 
 ::: {#def-corriente}
+
+## corriente
+
 El *vector corriente* $\vec{J}$ es la integral del producto entre el flujo angular y el versor de dirección de viaje de los neutrones $\omegaversor$ sobre todas las direcciones de viaje:
 
 $$
@@ -1008,7 +1032,7 @@ Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que
 
 ::: {#thm-harmonics}
 
-## Expansión en armónicos esféricos reales
+## expansión en armónicos esféricos reales
 
 Cualquier función $f(\hat{\Omega}_x, \hat{\Omega}_y, \hat{\Omega}_z)$ de cuadrado integrable con
 
@@ -1047,7 +1071,7 @@ $$
 
 ::: {#thm-harmonic-orto}
 
-## Ortonormalidad de los armónicos esféricos reales
+## ortonormalidad de los armónicos esféricos reales
 
 Los armónicos esféricos reales son ortonormales, es decir
 
@@ -1428,6 +1452,8 @@ Luego debemos dar
 
 ::: {#def-ccvacuum}
 
+## condición de contorno de vacío
+
 Llamamos *condición de contorno de vacío* a la situación en la cual todos los flujos angulares entrantes a $U$ son nulos:
 
 $$
@@ -1439,6 +1465,8 @@ conjunto $\Gamma_V \subset \partial U$ como el lugar geométrico de todos los p
 :::
 
 ::: {#def-ccmirror}
+
+## condición de contorno de espejo
 
 Llamamos *condición de contorno de reflexión o de simetría o tipo espejo* cuando el flujo angular entrante en el
 punto $\vec{x} \in \partial U$ es igual al flujo angular saliente en la dirección reflejada
@@ -1506,17 +1534,23 @@ $${#eq-transporte-integrada}
 
 ::: {#thm-div-inner}
 
-## Extensión de la regla de la derivada del producto
+## extensión de la regla de la derivada del producto
 
-La divergencia del producto entre el vector $\omegaversor$ y el escalar $\psi$ es
+La divergencia del producto entre el escalar $a(\vec{x})$ y el vector $\vec{b(\vec{x})}$ es
 
 $$
-\mathrm{div} \left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right) + \psi \cdot \mathrm{div} ( \omegaversor )
+\mathrm{div} \big[ a(\vec{x}) \cdot \vec{b}(\vec{x}) \big ] = a(\vec{x}) \cdot \mathrm{div} \left[\vec{b}(\vec{x})\right] + \vec{b}(\vec{x}) \cdot \mathrm{grad}\left[a(\vec{x})\right]
 $$
 :::
 
 ::: {#cor-div0}
-Como por la @eq-grad-solo-x el operador diferencial actúa sólo sobre las coordenadas espaciales, entonces $\text{div} ( \omegaversor ) = 0$. Luego
+Para $a=\psi$ y $\vec{b} =\omegaversor$ y el escalar $\psi$,
+
+$$
+\mathrm{div} \left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right) + \psi \cdot \mathrm{div} ( \omegaversor )
+$$
+
+Por la @eq-grad-solo-x el operador diferencial actúa sólo sobre las coordenadas espaciales, entonces $\text{div} ( \omegaversor ) = 0$. Luego
 
 $$
 \mathrm{div}\left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right)
