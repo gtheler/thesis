@@ -1,6 +1,7 @@
 /.quarto/
 _date.yml.local
 _book
+math.md
 *.html
 *.aux
 *.log

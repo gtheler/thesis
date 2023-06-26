@@ -24,6 +24,7 @@ if [ -z "$(git status --porcelain)" ]; then
   dateedtf=${headdateedtf}
 else
   dateedtf=${currentdateedtf}
+  hash="${hash}+dirty"
 fi
 
 cat << EOF > _date.yml.local

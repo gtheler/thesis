@@ -5,7 +5,7 @@
 ::: {.chapterquote data-latex=""}
 > | Boundary conditions tend to make the theory of PDEs difficult.
 > |
-> | _Jürgen Jost, Partial Differential Equations, 2013_
+> | _Jürgen Jost, Partial Differential Equations, 2013_ @pdes
 :::
 :::::
 
@@ -1187,7 +1187,7 @@ de la cuadratura de Gauss.
 :::
 :::
 
-## Discretización en espacio
+## Discretización en espacio {#sec-discretizacion-espacial}
 
 
 Tenemos por un lado las $G$ ecuaciones de difusión multigrupo
@@ -1237,9 +1237,6 @@ Para este caso introducimos las ideas básicas de la  formulación variacional, 
 Luego en la @sec-difusion-multigrupo-fem aplicamos estas ideas a las ecuaciones de difusión multigrupo, que también son elípticas pero el problema deja de ser un escalar en cada nodo espacial y su operador no es simétrico para $G>1$.
 Finalmente en la @sec-sn-multigrupo-fem hacemos lo mismo para transporte por $S_N$ multigrupo. En este caso la incógnita también tiene varios grados de libertad en cada nodo espacial y además el operador es parabólico de primer orden y la formulación numérica requiere de un término de estabilización.
 
-::: {.remark}
-El diablo está en los detalles. En particular, tal como indicamos en la cita del comienzo del capítulo, en las condiciones de contorno @pdes.
-:::
 
 ### Ecuación de Poisson
 
@@ -1424,18 +1421,23 @@ Estrictamente hablando, la formulación débil de una ecuación diferencial es
 
 $$
 \text{encontrar~} u(\vec{x}) \in V: \quad
-\mathcal{a} \Big(u(\vec{x}), v(\vec{x})\Big) = \mathcal{H} \Big(v(\vec{x})\Big)
+\mathcal{a} \Big(u(\vec{x}), v(\vec{x})\Big) = \mathcal{B} \Big(v(\vec{x})\Big)
 \quad  \forall v(\vec{x}) \in V
 $$
-donde $V$ es un espacio funcional apropiado en el cual sus miembros se anulan en $\Gamma_D$ y los operadores $\mathcal{a}(u,v) : V \times V \mapsto \mathbb{R}$ y $\mathcal{H}(v) : V \mapsto \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
+donde $V$ es el un espacio funcional apropiado, por ejemplo el $H^1_0$ de las funciones cuyo gradiente es de cuadrado integrable en el dominio $U$ y que se anulan en $\Gamma_D$
+
+$$
+V = H^1_0 (U) = \left\{ v \in H^1_0 (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = 0 \forall \vec{x} \in \Gamma_D  \right\}
+$$
+y los operadores $\mathcal{a}(u,v) : V \times V \mapsto \mathbb{R}$ y $\mathcal{B}(v) : V \mapsto \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
 Para la formulación de la @eq-poisson-debil, es
 
 $$
 \begin{aligned}
-\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ v(\vec{x}) \Big] \, d^3 \vec{x} \\
-\mathcal{H}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
+\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x} \\
+\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
 \end{aligned}
-$$
+$$ {#eq-a-B-poisson}
 :::
 
 
@@ -1445,19 +1447,20 @@ $$
 ::: {.remark}
 En la formulación débil la derivabilidad es más laxa que en la formulación fuerte.
 De ahí su nombre: las funciones deben cumplir requerimientos más débiles.
-Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmuas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u(\vec{x})$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-eq-poisson-debil] sólo involucra el gradiente.
-De hecho, ni siquiera hace falta que las funcioens sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Lebesgue y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
+Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmuas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u(\vec{x})$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-@eq-poisson-debil] sólo involucra el gradiente.
+De hecho, ni siquiera hace falta que las funciones sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Lebesgue y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
 En efecto, la formulación débil del problema de conducción de calor con conductividad discontinua en interfaces materiales está bien definida. Por un lado las interfaces materiales son un sub-espacio de medida nula y por otro la conductividad $k(\vec{x})$ no tiene aplicado ningún operador diferencial sino que es integrado (en el sentido de Lebesgue) sobre el dominio espacial $U$.
 :::
 
 ::: {.remark}
 La formulación débil de la ecuación de conducción de calor derivada en la @eq-poisson-debil incluye la posiblidad de que la conductividad $k(\vec{x})$ pueda depender del espacio e incluso ser discontinua en interfaces materiales. 
-En la mayoría de los libros sobre ecuaciones en derivadas parciales [pdes,applied-pdes], en la "ecuación de calor" no se incluye explícitamente la conductividad $k(\vec{x})$ (eventualmente el coeficiente de difusión $D(\vec{x})$) del gradiente de la incógnita dentro del operador divergencia y se reemplaza la divergencia del gradiente por el laplaciano.
-Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la temperatura $k(T)$. **TODO** link a SDS.
+Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la temperatura $k(T)$.
+
+**TODO** link a SDS.
 :::
 
 ::: {.remark}
-El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{H}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v(\vec{x})$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
+El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{B}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v(\vec{x})$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
 :::
 
 ::: {.remark}
@@ -1469,24 +1472,462 @@ Las condiciones de Neumann aparecen naturalmente en los términos de superficie 
 El problema débil es equivalente al fuerte en el sentido de distribuciones, es decir, ambas formulaciones coinciden excepto en a lo más un sub-conjunto de $U$ de medida cero.
 
 ::: {.proof}
-Sección 3.3.2 de @quarteroni y/o teorema 0.1.4 de @brennerscott.
+Sección 3.3.2 de @quarteroni, teorema 0.1.4 de @brennerscott y/o sección 1.4 de @hughes.
+:::
+:::::
+
+::: {#def-H-lineal}
+
+## funcional lineal
+
+Un funcional $\mathcal{B}(v)$ es lineal si
+
+$$
+\mathcal{B}(\alpha \cdot v_1 + \beta \cdot v_2) = \alpha \cdot  \mathcal{B}(v_1) + \beta \cdot \mathcal{B}(v_2)
+$$
+
+:::
+
+::: {#def-a-bilineal}
+
+## operador bilineal
+
+Un operador $\mathcal{a}(v,u)$ es bilineal si
+
+$$
+\mathcal{a}(\alpha \cdot v_1 + \beta \cdot v_2, u) = \alpha \cdot \mathcal{a}(v_1,u) + \beta \cdot \mathcal{a}(v_2,u)
+$$
+y
+$$
+\mathcal{a}(v, \alpha \cdot u_1 + \beta \cdot u_2) = \alpha \cdot \mathcal{a}(v,u_1) + \beta \cdot \mathcal{a}(v,u_2)
+$$
+:::
+
+::: {#def-a-simetrico}
+
+## operador simétrico
+
+Un operador $\mathcal{a}(v,u)$ es simétrico si
+
+$$
+\mathcal{a}(v,u) = \mathcal{a}(u,v)
+$$
+:::
+
+
+::: {#def-a-simetrico}
+
+## operador coercivo
+
+Un operador $\mathcal{a}(v,u)$ es coercivo si existe una constante $\alpha >0$ tal que
+
+$$
+\mathcal{a}(v,v) \geq \alpha \cdot || v ||^2_V
+$$
+:::
+
+::: {#thm-existencia-y-unicidad}
+
+## de Lax-Milgram
+
+Dada una formulación fuerte
+
+$$
+\text{encontrar~} u \in V: \quad
+\mathcal{a} (u, v) = \mathcal{B} (v)
+\quad  \forall v \in V
+$$
+siendo
+
+ a. $V$ un espacio de Hilbert subespacio de $H^1(U)$,
+ b. $\mathcal{a}$ un operador continuo, bilineal y coercivo de $V \times V \mapsto \mathbb{R}$, y
+ c. $\mathcal{B}$ un funcional continuo y lineal
+ 
+entonces la solución $u$ existe y es única.
+:::
+
+#### Condiciones de contorno de Dirichlet no homogéneas
+
+
+Hasta ahora las condiciones de contorno de Dirichlet han sido iguales a cero, ya que al pedir que tanto la incógnita $u$ como las funciones de prueba $v$ pertenezcan a $H^1_0$ podemos
+
+ 1. satisfacer las condicones esenciales sobre $u$
+ 2. anular el término de superficie sobre $\Gamma_D$ de la fórmula de Green
+ 
+Si el problema a resolver tiene una condición de contorno no homogénea, digamos
+
+$$
+\begin{cases}
+-\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
+u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+\end{cases}
+$$
+entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que
+
+$$
+H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x}) \forall \vec{x} \in \Gamma_D  \right\}
+$$
+
+Este planteo, además de ser poco elegante al romper la simetría entre $u$ y $v$, tiene un problema insalvable: $H^1_g$ es un conjunto^[Técnicamente es un [_affine manifold_]{lang=en-US}.] pero no un espacio ya que la suma de dos funciones $u_1 \in H^1_g$ y $u_2 \in H^1_g$ no están en $H^1_g$ sino en $H^1_{2g}$.
+Esto hace que no podamos escribir fácilmente a la incógnita $u$ como una combinacion lineal de una base, que es lo primero que hacemos en la @sec-galerkin.
+
+Una alternativa es considerar una función continua $u_g \in H^1_g$ y escribir
+
+$$
+u_h(\vec{x}) = u(\vec{x}) - u_g(\vec{x})
+$$ {#eq-uh-u-ug}
+donde $u_h \in H^1_0$, es decir, se anula en $\Gamma_D$.
+Entonces ahora podemos escribir el problema
+
+$$
+\text{encontrar~} u \in V: \quad
+\mathcal{a} \left(u, v\right) = \mathcal{B} \left(v\right)
+\quad  \forall v \in V
+$$
+como
+
+$$
+\text{encontrar~} u_h \in V: \quad
+\mathcal{a} \left(u_h+u_g, v\right) = \mathcal{B} \left(v\right)
+\quad  \forall v \in V
+$$
+
+Si el operador $\mathcal{a}$ es bilineal, entonces el problema equivalente es
+
+$$
+\text{encontrar~} u_h \in V: \quad
+\mathcal{a} \left(u_h, v\right) = \mathcal{B} \left(v\right) - \mathcal{a} \left(u_g, v\right)
+\quad  \forall v \in V
+$$
+donde ahora tanto la incógnita parcial $u_h$ como las funciones de prueba $b$ pertenecen a $V = H^1_0$.
+Podemos obtener la incógnita original $u$ a partir de la @eq-uh-u-ug como
+
+$$
+u(\vec{x}) = u_h(\vec{x}) + u_g(\vec{x})
+$$
+
+::: {.remark}
+Si bien este procedimiento es matemáticamente correcto, no parece sencillo encontrar una función $u_g \in H^1_g$ apropiada para una condición de contorno arbitraria $g(\vec{x})$.
+En la @sec-fem mostramos en un espacio vectorial de dimensión finita el procedimiento es más sencillo.
+En el capítulo siguiente mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
+:::
+
+**TODO**: condiciones de Robin
+
+
+#### Aproximación de Galerkin {#sec-galerkin}
+
+Usando las ideas desarrolladas en la sección anterior, podemos definir una discretización espacial muy fácilmente como sigue.
+
+::: {#def-galerkin}
+
+## problema de Galerkin
+
+Sea $V_N$ un subespacio de $V = H^1_0(U)$ de dimensión finita $N$.
+Llamamos _problema de Galerkin_ a
+
+$$
+\text{encontrar~} u_N \in V_N: \quad
+\mathcal{a} (u_N, v_N) = \mathcal{B} (v_N)
+\quad  \forall v_N \in V_N
+$$
+:::
+
+
+Como $V_N$ es un espacio vectorial de dimensión $N$ entonces podemos encontrar $N$ funciones $h_i(\vec{x})$ que formen una base de $V_N$
+
+$$
+V_N = \text{span}\Big\{ h_1(\vec{x}), h_2(\vec{x}), \dots, h_N(\vec{x})\Big\}
+$$
+
+Como $v_N \in V_N$ entonces puede ser escrita como una combinación lineal de las $N$ funciones $h_i(\vec{x})$
+
+$$
+v_N(\vec{x}) = \sum_{i=1}^N v_i \cdot h_i(\vec{x})
+$$
+
+Para $\mathcal{a}$ bilineal y $\mathcal{B}$ lineal,
+
+$$
+\begin{aligned}
+0 &= \mathcal{a} \Big(u_N(\vec{x}), v_N(\vec{x})\Big) - \mathcal{B} \Big(v_N(\vec{x})\Big)\\
+0 &= \mathcal{a} \left(u_N(\vec{x}), \sum_{i=1}^N v_i \cdot h_i\left(\vec{x}\right)\right) - \mathcal{B} \left(\sum_{i=1}^N v_i \cdot h_i\left(\vec{x}\right)\right) \\
+0 &= \sum_{i=1}^N v_i \cdot \left[ \mathcal{a} \Big(u_N(\vec{x}), h_i\left(\vec{x}\right)\Big) - \mathcal{B} \left(h_i\left(\vec{x}\right)\right) \right] \\
+\end{aligned}
+$$
+
+Como esta igualdad tiene que cumplirse $\forall v_N \in V_N$ entonces cada corchete debe anularse independientemente de $v_i$, lo que implica que
+
+$$
+\mathcal{a} \Big(u_N(\vec{x}), h_i\left(\vec{x}\right)\Big) = \mathcal{B} \Big(h_i\left(\vec{x}\right)\Big)
+\quad \text{para $i=1,\dots,N$}
+$$
+
+De la misma manera, $u_N \in V_N$ por lo que $u_N(\vec{x}) = \sum_{j=1}^N u_j \cdot h_j(\vec{x})$ entonces
+
+$$
+\begin{aligned}
+\mathcal{a} \Big(\sum_{j=1}^N u_j \cdot h_j(\vec{x}), h_i\left(\vec{x}\right)\Big) &= \mathcal{B} \Big(h_i\left(\vec{x}\right)\Big) \\
+\sum_{j=1}^N \mathcal{a} \Big(h_i(\vec{x}), h_j\left(\vec{x}\right)\Big) \cdot u_j  &= \mathcal{B} \Big(h_i\left(\vec{x}\right)\Big)
+\quad \text{para $i=1,\dots,N$} 
+\end{aligned}
+$$
+que podemos escribir en forma matricial como
+
+$$
+\mat{A} \cdot \vec{u} = \vec{b}
+$$
+siendo
+
+$$
+\mat{A} =
+\begin{bmatrix}
+\mathcal{a}(h_1,h_1) & \mathcal{a}(h_1,h_2) & \cdots & \mathcal{a}(h_1,h_j) & \cdots & \mathcal{a}(h_1,h_N) \\
+\mathcal{a}(h_2,h_1) & \mathcal{a}(h_2,h_2) & \cdots & \mathcal{a}(h_2,h_j) & \cdots & \mathcal{a}(h_2,h_N) \\
+\vdots               & \vdots               & \ddots & \vdots               & \ddots & \vdots \\
+\mathcal{a}(h_i,h_1) & \mathcal{a}(h_i,h_2) & \cdots & \mathcal{a}(h_i,h_j) & \cdots & \mathcal{a}(h_i,h_N) \\
+\vdots               & \vdots               & \ddots & \vdots               & \ddots & \vdots \\
+\mathcal{a}(h_N,h_1) & \mathcal{a}(h_N,h_2) & \cdots & \mathcal{a}(h_i,h_j) & \cdots & \mathcal{a}(h_N,h_N) \\
+\end{bmatrix}
+$$
+
+
+$$
+\vec{u} = 
+\begin{bmatrix}
+u_1 \\
+u_2 \\
+\vdots \\
+u_i \\
+\vdots \\
+u_N \\
+\end{bmatrix}
+\quad\quad\quad\quad
+\vec{b} = 
+\begin{bmatrix}
+\mathcal{B}(h_1) \\
+\mathcal{B}(h_2) \\
+\vdots \\
+\mathcal{B}(h_i) \\
+\vdots \\
+\mathcal{B}(h_N) \\
+\end{bmatrix}
+$$
+
+::: {#cor-A-simetria}
+Si el operador $\mathcal{a}$ es simétrico entonces la matriz $\mat{A}$ también es simétrica.
+:::
+
+::::: {#thm-A-spd}
+Si el operador $\mathcal{a}$ es bilineal y coercivo entonces la matriz $\mat{A}$ es definida positiva.
+
+::: {.proof}
+
+$$
+\begin{aligned}
+\vec{v}^T \cdot \mat{A} \cdot \vec{v}
+&= \sum_{i=1}^N \sum_{j=1}^N v_i \mathcal{a}(h_i, h_j) \cdot v_j \\
+&= \sum_{i=1}^N \sum_{j=1}^N \mathcal{a}(v_i \cdot h_i, v_j \cdot h_j) \\
+&= \mathcal{a} \left( \sum_{i=1}^N v_i \cdot h_i, \sum_{j=1}^N v_j \cdot h_j\right) \\
+&= \mathcal{a}(v_N, v_N) \geq \alpha\cdot ||v_N||^2 \geq 0
+\end{aligned}
+$$
+para $\alpha > 0$. La igualdad se cumple sólo si $||v_N|| = 0$.
+:::
+:::::
+
+::::: {#thm-galerkin-existencia-y-unicidad}
+
+## existencia y unicidad
+
+Si el operador $\mathcal{a}$ es bilineal y coercivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
+
+::: {.proof}
+Como por el @thm-A-spd la única solución de $\mat{A} \cdot \vec{u} = 0$ es $\vec{u} = 0$ entonces la matriz $\mat{A}$ es invertible y $\mat{A} \cdot \vec{u} = \vec{b}$ tiene solución única.
 :::
 :::::
 
 
-**TODO** BCs no homogéneas
+::::: {#thm-galerkin-estabilidad}
 
-#### Aproximación de Galerkin
+## estabilidad
 
-#### Elementos finitos
+El método de Galerkin es estable con respecto a $N$.
+
+::: {.proof}
+Sección 4.2.2 de @quarteroni.
+:::
+:::::
 
 
+::::: {#thm-galerkin-convergencia}
+
+## convergencia
+
+El método de Galerkin es fuertemente consistente, es decir
+
+$$
+\mathcal{a}(u - u_N, v_N) = 0 \quad \forall v_N \in V_N
+$$
+
+::: {.proof}
+Como $u_N$ es una solución del problema de Galerkin entonces
+
+$$
+\mathcal{a}(u_N, v_N) = \mathcal{B}(v_N) \quad \forall v_N \in V_N
+$$
+
+Dado que $V_N \subset V$ entonces la solución continua $u \in V$ tamibén lo satisface
+
+$$
+\mathcal{a}(u, v_N) = \mathcal{B}(v_N) \quad \forall v_N \in V_N
+$$
+
+Restando miembro a miembro
+
+$$
+\mathcal{a}(u_N, v_N) - \mathcal{a}(u, v_N) = 0
+$$
+:::
+:::::
+
+::: {.remark}
+El error $u - u_N$ cometido por la aproximación de Galerkin es ortogonal al subespacio $V_N$ en la norma
+
+$$
+||v||_{\mathcal{a}} = \sqrt{\mathcal{a}(v,v)}
+$$
+Es decir, la solución aproximada $u_N$ es
+
+ 1. La proyección ortogonal de la solución exacta $u$ en el subespacio $V_N$.
+ 2. La solución que minimiza la distancia $||u -u_N||_{\mathcal{a}}$.
+:::
+
+::: {#cor-galerkin-convergencia}
+Si $V_N \rightarrow V$ para $N \rightarrow \infty$ entonces el método de Galerkin converge a la solución real $u$.
+:::
+
+**TODO** explicar
+
+strong = weak $\approx$ galerkin = A u = b
+
+
+#### Elementos finitos {#sec-fem}
+
+Tomemos un dominio $U\in \mathbb{R}^3$ y consideremos $N$ puntos $\vec{x}_i \in U$.
+Estos puntos $\vec{x}_i$ para $i=1,\dots,N$ pueden incluir a la frontera $\Gamma_N$ pero no a $\Gamma_D$.
+Supongamos que existen $N$ funciones $h_i(\vec{x})$ que cumplen
+
+$$
+\begin{cases}
+h_i(\vec{x}_j) = \delta_{ij} \\
+h_i(\vec{x}) = 0 \quad \forall \vec{x} \in \Gamma_D
+\end{cases}
+$$
+
+Sea $V_N$ es espacio vectorial generado por estas $N$ funciones $h_i(\vec{x})$.
+Los coeficientes $v_i$ de la expansión de una cierta función $v(\vec{x}) \in V_N$^[A partir de ahora no usamos más el subíndice $N$ para indicar que $v_N \in V_N$ como contrapartida de $v\in V$.]
+
+$$
+v(\vec{x}) = \sum_{i=1}^N v_i \cdot h_j(\vec{x})
+$$
+son iguales a la función $v$ evaluada en $\vec{x}_i$.
+Podemos escribir esta expansión en forma matricial como
+
+$$
+v(\vec{x}) = \mat{H}(\vec{x}) \cdot \vec{v} = \vec{v}^T \cdot \mat{H}^T(\vec{x})
+$$
+con
+
+$$
+\mat{H}(\vec{x}) =
+\begin{bmatrix}
+h_1(\vec{x}) & h_2(\vec{x}) & \cdots & h_i(\vec{x}) & \cdots h_N(\vec{x})
+\end{bmatrix}
+$$
+y
+$$
+\vec{v} = 
+\begin{bmatrix}
+v_1 \\
+v_2 \\
+\vdots \\
+v_i \\
+\vdots \\
+v_N \\
+\end{bmatrix}
+$$
+
+De la misma forma, el gradiente $\nabla v$ es
+
+$$
+\text{grad} \Big[ v(\vec{x}) \Big] =
+\begin{bmatrix}
+\displaystyle\frac{\partial v}{\partial x} \\
+\displaystyle\frac{\partial v}{\partial y} \\
+\displaystyle\frac{\partial v}{\partial z}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\displaystyle\sum_{i=1}^N v_i \frac{\partial h_i}{\partial x} \\
+\displaystyle\sum_{i=1}^N v_i \frac{\partial h_i}{\partial y} \\
+\displaystyle\sum_{i=1}^N v_i \frac{\partial h_i}{\partial z}
+\end{bmatrix}
+=
+\mat{B}(\vec{x}) \cdot \vec{v}
+=
+\vec{v}^T \cdot \mat{B}^T(\vec{x})
+$$
+
+Recordando la forma particular del operador $\mathcal{a}$ y del funcional $\mathcal{B}$ para el problema generalizado de Poisson de la @eq-a-B-poisson
+
+$$
+\begin{aligned}
+\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x} \\ 
+&= \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^3\vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^3\vec{x} \right] \cdot \vec{u} \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x} \\
+&= \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
++ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \\
+&= \vec{v}^T \cdot \left[ \int_{U} \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
++ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x} \right]
+\end{aligned}
+$$
+
+Como $\mathcal{a}(u,v) = \mathcal{B}(v) \quad \forall v \in V_N$ entonces llegamos otra vez a
+
+$$
+\mat{A} \cdot \vec{u} = \vec{b}
+$$
+donde ahora tenemos una representación explícita particular para $\mat{A} \in \mathbb{R}^{N \times N}$ y $\vec{u} \in \mathbb{R}^N$ como
+
+$$
+\begin{aligned}
+\mat{A} &= \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^3\vec{x} \\
+\vec{b} &= \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
++ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x}
+\end{aligned}
+$$
+
+El método de elementos finitos propone una forma sistemática de construir estos dos objetos de tamaño $N$ a partir de explotar la topología de los $N$ puntos $\vec{x}_i$ considerados al principio de la sección.
+
+**TODO**: generalizar a $N + N_D$
 
 ### Difusión multigrupo {#sec-difusion-multigrupo-fem}
 
+Odio euismod lacinia at quis. Auctor urna nunc id cursus metus. Dui ut ornare lectus sit amet est placerat in. Ornare aenean euismod elementum nisi quis eleifend quam. Viverra suspendisse potenti nullam ac. Sed felis eget velit aliquet sagittis id consectetur purus. Lectus sit amet est placerat in egestas. Feugiat in fermentum posuere urna nec. Ultrices tincidunt arcu non sodales neque sodales ut etiam sit. Varius quam quisque id diam vel quam. Fermentum leo vel orci porta. Integer vitae justo eget magna.
+
+Luctus accumsan tortor posuere ac ut consequat semper. Tristique magna sit amet purus gravida quis blandit turpis. Platea dictumst quisque sagittis purus sit amet volutpat. Sagittis eu volutpat odio facilisis mauris sit. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ut lectus arcu bibendum at varius vel pharetra vel. Ornare suspendisse sed nisi lacus sed viverra tellus in. Velit laoreet id donec ultrices tincidunt arcu non sodales. Vel eros donec ac odio. Enim praesent elementum facilisis leo vel fringilla. Mi sit amet mauris commodo quis imperdiet massa. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Sit amet aliquam id diam maecenas. Nulla porttitor massa id neque aliquam vestibulum. Convallis posuere morbi leo urna molestie at elementum.
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
+Ultricies lacus sed turpis tincidunt id. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Tortor consequat id porta nibh. Eu lobortis elementum nibh tellus molestie nunc non. Facilisis gravida neque convallis a cras semper auctor neque vitae. Nisl purus in mollis nunc sed id semper risus in. Mattis nunc sed blandit libero. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Faucibus purus in massa tempor nec. Arcu odio ut sem nulla pharetra diam sit. Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Vitae semper quis lectus nulla at volutpat diam. Gravida arcu ac tortor dignissim convallis. Est velit egestas dui id ornare arcu odio. Odio facilisis mauris sit amet massa vitae. Nibh cras pulvinar mattis nunc sed blandit libero volutpat.
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 

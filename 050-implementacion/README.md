@@ -21,6 +21,8 @@ centrarme en PDEs, no tanto en cloud
 
 sí en virtual methods y eso, un directorio por PDEs
 
+error handling: check returned values, do not raise exceptions
+
 ## [FeenoX, a cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool]{lang=en-US}
 
 ### Arquitectura del código fuente

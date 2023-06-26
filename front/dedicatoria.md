@@ -4,7 +4,8 @@
 \hspace{\fill}\parbox{10cm}{\begin{flushright}
 ```
 
-_A mis increíbles hijos Tomás y Máximo._
+| _A mis increíbles hijos Tomás y Máximo._
+| _A mi compañera de montaña rusa Natalia_
 
 \medskip
 
