@@ -1,0 +1,4 @@
+# first create a dummy function over the mesh
+READ_MESH dominio.msh
+WRITE_MESH dominio-dummy-function.msh NAME h 0
+

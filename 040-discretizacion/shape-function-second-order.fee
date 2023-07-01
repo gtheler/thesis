@@ -1,0 +1,7 @@
+# read back the function so we can have the vectors available
+READ_MESH dominio2-dummy-function.msh DIM 2 READ_FUNCTION h
+
+# set one of the nodes to one
+DEFAULT_ARGUMENT_VALUE 1 25
+vec_h[$1] = 1
+WRITE_MESH shape-function-second-order-$1.msh h
