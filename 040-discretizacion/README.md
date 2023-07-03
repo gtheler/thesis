@@ -1214,7 +1214,7 @@ s_{mg}(\vec{x})
 \end{gathered}
 $$
 en las que las incógnitas $\phi_g$ y $\psi_{mg}$ dependen solamente del espacio $\vec{x}$.
-En esta sección empleamos el método de elementos finitos para discretizar la variable independiente espacial y obtener finalmente un sistema de ecuaciones algebraicas que nos permita resolver neutrónica a nivel de núcleo en forma numérica.
+En esta sección empleamos el método de elementos finitos para discretizar la variable independiente espacial y obtener finalmente un sistema de ecuaciones algebraicas que nos permita resolver neutrónica a nivel de núcleo en forma numérica con una (o más) computadora digital.
 
 Existe una gran cantidad de teoría matemática detrás del método de elementos finitos para resolver ecuaciones diferenciales a partir de formulaciones débiles o variacionales.
 Esencialmente el grueso de la literatura teórica se centra en probar
@@ -1228,14 +1228,14 @@ Dejamos la derivación completa incluyendo la teoría de análisis funcional nec
 En la monografía @monografia escrita durante el plan de formación de este doctorado se muestra una derivación de la formulación en elementos finitos de la ecuación de difusión multigrupo de forma menos formal pero más intuitiva. Incluso se comparan los resultados numéricos obtenidos con dicha formulación con los obtenidos con una formulación basada en volúmenes finitos @bookevol.
 
 ::: {#prp-fem-fvm}
-Si se pudiera intercambiar en toda la literatura la palabra "elementos" por "volúmenes" (¿tal vez con `sed` siguiendo la filosofía del @sec-unix?) nadie notaría la diferencia. Ver @historia-fem y sus doscientas ochenta referencias para la historia detrás del "método de elementos finitos".
+Si se pudiera intercambiar en toda la literatura existente (y en las clases y conferencias académicas) la palabra "elementos" por "volúmenes" (¿tal vez con `sed` siguiendo la filosofía del @sec-unix?) nadie notaría la diferencia. Ver la referencia @historia-fem y sus doscientas ochenta referencias para la historia detrás del "método de elementos finitos".
 :::
 
 
 Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de Poisson generalizada.
 Para este caso introducimos las ideas básicas de
 
- i. la  formulación débil o variacional (@sec-poisson},
+ i. la  formulación débil o variacional (@sec-poisson),
  ii. de la aproximación de Galerkin (@sec-galerkin), y
  iii. de la discretización por elementos finitos (@sec-fem).
  
@@ -1247,7 +1247,7 @@ Finalmente en la @sec-sn-multigrupo-fem hacemos lo mismo para transporte por $
 
 Comencemos resolviendo la siguiente ecuación escalar elíptica sobre un dominio espacial $U \in \mathbb{R}^3$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
 
-![Un cierto dominio espacial $U$ (bi-dimensional para simplificar la representación gráfica), con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet y otra parte $\Gamma_N$ con condiciones de Neumann.](dominio-pelado){#fig-dominio-pelado width=75%}
+![Un cierto dominio espacial $U$ (bi-dimensional para simplificar la representación gráfica), con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cyan) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
 
 $$
 \begin{cases}
@@ -1263,9 +1263,9 @@ donde $\hat{\vec{n}}$ es la normal externa a la frontera $\partial U$ en el pun
 
 ::: {#def-formulacion-fuerte}
 
-## Formulación fuerte
+## formulación fuerte
 
-Llamamos a la ecuación diferencial propiamente dicha junto a sus condiciones de contorno, tal como las escribimos en la @eq-poisson-fuerte, la _formulación fuerte_ del problema.
+Llamamos a la ecuación diferencial propiamente dicha junto con sus condiciones de contorno, tal como las escribimos en la @eq-poisson-fuerte, la _formulación fuerte_ del problema.
 :::
 
 ::: {.remark}
@@ -1317,7 +1317,7 @@ $$
 siendo $\hat{\vec{n}}$ la normal exterior a la frontera $\partial U$ en el punto $\vec{x}$.
 
 ::: {.proof}
-Recordando el @thm-div-inner que dice que
+Recordando el @thm-div-inner de la generalización de la derivada de un producto que dice que
 
 $$
 \text{div} \big[ a \cdot \vec{b} \big ] = a \cdot \text{div} \left[\vec{b}\right] + \vec{b} \cdot \text{grad}\left[a\right]
@@ -1377,16 +1377,20 @@ $$
 \end{aligned}
 $$
 
-Pero habíamos pedido que $v(\vec{x})$ se anule en $\Gamma_D$
+Pero 
 
-$$
-v(\vec{x}) = 0 \quad \forall \vec{x} \in \Gamma_D
-$$
-y además la condición de contorno de Neumann indica que
+ i. habíamos pedido que $v(\vec{x})$ se anule en $\Gamma_D$
 
-$$
-k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) \quad \forall \vec{x} \in \Gamma_N
-$$
+    $$
+    v(\vec{x}) = 0 \quad \forall \vec{x} \in \Gamma_D
+    $$
+
+ ii. la condición de contorno de Neumann indica que
+
+     $$
+     k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) \quad \forall \vec{x} \in \Gamma_N
+     $$
+
 por lo que
 
 $$
@@ -1424,7 +1428,7 @@ Llamamos a la expresión que resulta de
  3. aplicar fórmulas de cálculo vectorial, y
  4. reemplazar la condición de contorno de Neumann en las integrales de superficie
 
-junto con los requerimientos que deben satisfacer tanto la función incógnita como la función de prueba, tal como la @eq-poisson-debil, la _formulación débil_ o _variacional_ del problema.
+tal como la @eq-poisson-debil, junto con los requerimientos que deben satisfacer tanto la función incógnita como la función de prueba, la _formulación débil_ o _variacional_ del problema.
 Estrictamente hablando, la formulación débil de una ecuación diferencial es
 
 $$
@@ -1455,7 +1459,7 @@ $$ {#eq-a-B-poisson}
 ::: {.remark}
 En la formulación débil la derivabilidad es más laxa que en la formulación fuerte.
 De ahí su nombre: las funciones deben cumplir requerimientos más débiles.
-Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmuas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-@eq-poisson-debil] sólo involucra el gradiente.
+Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmulas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-@eq-poisson-debil] sólo involucra el gradiente.
 De hecho, ni siquiera hace falta que las funciones sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Lebesgue y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
 En efecto, la formulación débil del problema de conducción de calor con conductividad discontinua en interfaces materiales está bien definida. Por un lado las interfaces materiales son un sub-espacio de medida nula y por otro la conductividad $k(\vec{x})$ no tiene aplicado ningún operador diferencial sino que es integrado (en el sentido de Lebesgue) sobre el dominio espacial $U$.
 :::
@@ -1527,7 +1531,7 @@ $$
 
 ## operador coercivo
 
-Un operador $\mathcal{a}(v,u) V \times V \mapsto \mathbb{R}$ es coercivo si existe una constante $\alpha >0$ tal que
+Un operador $\mathcal{a}(v,u) : V \times V \mapsto \mathbb{R}$ es coercivo si existe una constante $\alpha >0$ tal que
 
 $$
 \mathcal{a}(v,v) \geq \alpha \cdot || v ||^2_V
@@ -1543,20 +1547,27 @@ $$
 es una norma.
 :::
 
-::: {#thm-poisson-coercivo}
+::::: {#thm-poisson-coercivo}
 El operador
 
 $$
 \mathcal{a}(u,v) = \int_U \mathrm{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \mathrm{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x}
 $$
 es coercivo si $k(\vec{x}) > 0 \forall \vec{x} \in U$.
+
+::: {.proof}
+Sección xxx @quarteroni
 :::
+:::::
+
+
+
 
 ::::: {#thm-existencia-y-unicidad}
 
 ## de Lax-Milgram
 
-Dada una formulación fuerte
+Dada una formulación débil
 
 $$
 \text{encontrar~} u \in V: \quad
@@ -1572,7 +1583,7 @@ siendo
 entonces la solución $u$ existe y es única.
 
 ::: {.proof}
-[@quarteroni,@brennerscott]
+Sección xxx de [@quarteroni] o sección de @brennerscott
 :::
 
 
@@ -1591,14 +1602,14 @@ Si el problema a resolver tiene una condición de contorno no homogénea, digamo
 $$
 \begin{cases}
 -\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
-u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
-k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+\hfill u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
+\hfill k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-no-homogeneo}
 entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que
 
 $$
-H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x}) \forall \vec{x} \in \Gamma_D  \right\}
+H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x})~\forall \vec{x} \in \Gamma_D  \right\}
 $$
 
 Este planteo, además de ser poco elegante al romper la simetría entre $u$ y $v$, tiene un problema insalvable: $H^1_g$ es un conjunto^[Técnicamente es un [_affine manifold_]{lang=en-US}.] pero no un espacio ya que la suma de dos funciones $u_1 \in H^1_g$ y $u_2 \in H^1_g$ no están en $H^1_g$ sino en $H^1_{2g}$.
@@ -1610,7 +1621,7 @@ $$
 u_h(\vec{x}) = u(\vec{x}) - u_g(\vec{x})
 $$ {#eq-uh-u-ug}
 donde $u_h \in H^1_0$, es decir, se anula en $\Gamma_D$ (el subíndice $h$ quiere decir "homogénea").
-Entonces ahora podemos escribir el problema
+Si el operador $\mathcal{a}$ es bilineal, entonces podemos escribir el problema
 
 $$
 \text{encontrar~} u \in V: \quad
@@ -1621,18 +1632,10 @@ como
 
 $$
 \text{encontrar~} u_h \in V: \quad
-\mathcal{a} \left(u_h+u_g, v\right) = \mathcal{B} \left(v\right)
-\quad  \forall v \in V
-$$
-
-Si el operador $\mathcal{a}$ es bilineal, entonces el problema equivalente es
-
-$$
-\text{encontrar~} u_h \in V: \quad
 \mathcal{a} \left(u_h, v\right) = \mathcal{B} \left(v\right) - \mathcal{a} \left(u_g, v\right)
 \quad  \forall v \in V
 $$
-donde ahora tanto la incógnita parcial $u_h$ como las funciones de prueba $b$ pertenecen a $V = H^1_0$ y todos los datos del problema están en el miembro derecho de la igualdad.
+donde ahora tanto la incógnita parcial $u_h$ como las funciones de prueba $v$ pertenecen a $V = H^1_0$ y todos los datos del problema están en el miembro derecho de la igualdad.
 Podemos obtener la incógnita original $u$ a partir de la @eq-uh-u-ug como
 
 $$
@@ -1645,7 +1648,7 @@ $$
 ```
 Si bien este procedimiento es matemáticamente correcto, no parece sencillo encontrar una función $u_g \in H^1_g$ apropiada para una condición de contorno arbitraria $g(\vec{x})$.
 En la @sec-fem mostramos en un espacio vectorial de dimensión finita el procedimiento es más sencillo.
-En el capítulo siguiente mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
+En el @sec-implementacion que sigue mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
 :::
 
 **TODO**: condiciones de Robin
@@ -1676,11 +1679,11 @@ $$
 V_N = \text{span}\Big\{ h_1(\vec{x}), h_2(\vec{x}), \dots, h_N(\vec{x})\Big\}
 $$
 
-Como $v_N \in V_N$ entonces puede ser escrita como una combinación lineal de las $N$ funciones $h_i(\vec{x})$
+En efecto, $v_N \in V_N$ puede ser escrita como una combinación lineal de las $N$ funciones $h_i(\vec{x})$
 
 $$
 v_N(\vec{x}) = \sum_{i=1}^N v_i \cdot h_i(\vec{x})
-$$ 
+$$ {#eq-vn-expansion}
 
 Para $\mathcal{a}$ bilineal y $\mathcal{B}$ lineal,
 
@@ -1688,7 +1691,7 @@ $$
 \begin{aligned}
 0 &= \mathcal{a} \Big(u_N(\vec{x}), v_N(\vec{x})\Big) - \mathcal{B} \Big(v_N(\vec{x})\Big)\\
 0 &= \mathcal{a} \left(u_N(\vec{x}), \sum_{i=1}^N v_i \cdot h_i\left(\vec{x}\right)\right) - \mathcal{B} \left(\sum_{i=1}^N v_i \cdot h_i\left(\vec{x}\right)\right) \\
-0 &= \sum_{i=1}^N v_i \cdot \left[ \mathcal{a} \Big(u_N(\vec{x}), h_i\left(\vec{x}\right)\Big) - \mathcal{B} \left(h_i\left(\vec{x}\right)\right) \right] \\
+0 &= \sum_{i=1}^N v_i \cdot \left[ \mathcal{a} \Big(u_N(\vec{x}), h_i\left(\vec{x}\right)\Big) - \mathcal{B} \Big(h_i\left(\vec{x}\right)\Big) \right] \\
 \end{aligned}
 $$
 
@@ -1712,7 +1715,7 @@ que podemos escribir en forma matricial como
 
 $$
 \mat{A} \cdot \vec{u} = \vec{b}
-$$
+$$ {#eq-Au}
 siendo
 
 $$
@@ -1769,7 +1772,10 @@ $$
 \end{aligned}
 $$
 para $\alpha > 0$.
-Dado que  $||v_N||_V$ es una norma la igualdad se cumple si y sólo si $||v_N||_V = 0$, lo que implica que todos los elementos de $v$ son nulos.
+Dado que  $||v_N||_V$ es una norma, la igualdad se cumple si y sólo si $||v_N||_V = 0$, lo que implica que todos los elementos de $v$ son nulos.
+
+**TODO** demostración alternativa de @hughes
+
 :::
 :::::
 
@@ -1780,7 +1786,7 @@ Dado que  $||v_N||_V$ es una norma la igualdad se cumple si y sólo si $||v_N|
 Si el operador $\mathcal{a}$ es bilineal y coercivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
 
 ::: {.proof}
-Por el @thm-A-spd la matriz $\mat{A}$ es definida positiva. Luego es invertible y $\mat{A} \cdot \vec{u} = \vec{b}$ tiene solución única.
+Por el @thm-A-spd la matriz $\mat{A}$ es definida positiva. Luego es invertible y la @eq-Au $\mat{A} \cdot \vec{u} = \vec{b}$ tiene solución única.
 :::
 :::::
 
@@ -1797,9 +1803,9 @@ Sección 4.2.2 de @quarteroni.
 :::::
 
 
-::::: {#thm-galerkin-convergencia}
+::::: {#thm-galerkin-consistencia}
 
-## convergencia
+## consistencia
 
 El método de Galerkin es fuertemente consistente, es decir
 
@@ -1842,11 +1848,14 @@ Es decir, la solución aproximada $u_N$ es
 :::
 
 ::: {#cor-galerkin-convergencia}
+
+## convergencia
+
 Si $V_N \rightarrow V$ para $N \rightarrow \infty$ entonces el método de Galerkin converge a la solución real $u$.
 :::
 
 ::: {.remark}
-En esta @sec-poisson, hemos comenzando con la formulación fuerte de la ecuación diferencial y hemos llegado a un sistema lineal de ecuaciones algebraicas, pasando por la formulación débil y por la aproximación de Galerkin:
+En esta @sec-poisson hemos comenzando con la formulación fuerte de la ecuación diferencial (@eq-poisson-fuerte) y hemos llegado a un sistema lineal de ecuaciones algebraica (@eq-Au), pasando por la formulación débil (@def-formulacion-debil) y por la aproximación de Galerkin (@def-galerkin):
 
 $$
 \text{formulación fuerte} \quad \equiv \quad
@@ -1865,7 +1874,7 @@ La aproximación entre la formulación débil y el problema de Galerkin es la id
 Tomemos un dominio $U\in \mathbb{R}^3$ (o en $\mathbb{R}^2$ para simplificar la representación gráfica, tal como hicimos en la @fig-dominio-pelado) y consideremos $J$ puntos $\vec{x}_j \in U$.
 Estos puntos $\vec{x}_i$ para $j=1,\dots,J$ incluyen la frontera $\Gamma_N$ con condiciones de contorno de Neumann pero no incluyen a $\Gamma_D$ con condiciones de Dirichlet.
 Por ejemplo, en la @fig-dominio-solo-nodos tenemos $J=32$.
-Supongamos que existen $J$ funciones $h_j(\vec{x})$ "de forma"^[En la gran mayoría de la literatura de elementos finitos las funciones de forman se llaman $N(\vec{x})$. Como este símbolo no nos parece apropiado para una función del espacio, seguimos la nomenclatura de Bathe @bathe (que fue director de doctorado del Dr. Dvorkin que a su vez organizó el departamento de cálculo de la UBA donde este doctorando cursó la materia de elementos finitos) que utiliza $h$ para las funciones de forma.] que cumplen simultáneamente
+Supongamos que existen $J$ funciones $h_j(\vec{x})$ "de forma"^[En la gran mayoría de la literatura de elementos finitos las funciones de forman se llaman $N(\vec{x})$. Como este símbolo no nos parece apropiado para una función del espacio, seguimos la nomenclatura de Bathe @bathe (que fue director de doctorado del Dr. Dvorkin que a su vez organizó el departamento de cálculo de la UBA donde este doctorando cursó la materia de elementos finitos) que utiliza la nomenclatura $h(\vec{x})$ para las funciones de forma.] que cumplen simultáneamente
 
 $$
 \begin{cases}
@@ -1877,8 +1886,8 @@ $$ {#eq-forma-delta-0}
 
 ![El dominio espacial $U$ de la @fig-dominio con $J=32$ puntos ubicados en la frontera $\Gamma_N$ ($j=1,\dots,13$) y en el interior ($j=14,\dots,32$). La frontera $\Gamma_D$ con condiciones de contorno de Dirichlet no tiene ningún punto.](dominio-solo-nodos){#fig-dominio-solo-nodos width=75%}
 
-Sea $V_J$ el espacio vectorial de dimensión $J$ generado por estas $J$ funciones $h_j(\vec{x})$.
-Una función $v(\vec{x}) \in V_J$ puede ser escrita como una combinación lineal de los elementos de la base
+Sea $V_J$ el espacio vectorial de dimensión $J$ generado por estas $J$ funciones de forma $h_j(\vec{x})$.
+Como ya hicimos en la @eq-vn-expansion, escribimos a una cierta función $v(\vec{x}) \in V_J$ como una combinación lineal de los elementos de la base
 
 $$
 v(\vec{x}) = \sum_{j=1}^J v_j \cdot h_j(\vec{x})
@@ -1921,9 +1930,9 @@ $$
 \end{bmatrix}
 =
 \begin{bmatrix}
-\displaystyle \sum_{j=1}^J v_j \frac{\partial h_j}{\partial x} \\
-\displaystyle \sum_{j=1}^J v_j \frac{\partial h_j}{\partial y} \\
-\displaystyle \sum_{j=1}^J v_j \frac{\partial h_j}{\partial z}
+\displaystyle \sum_{j=1}^J v_j \cdot \frac{\partial h_j}{\partial x} \\
+\displaystyle \sum_{j=1}^J v_j \cdot \frac{\partial h_j}{\partial y} \\
+\displaystyle \sum_{j=1}^J v_j \cdot \frac{\partial h_j}{\partial z}
 \end{bmatrix}
 =
 \mat{B}(\vec{x}) \cdot \vec{v}
@@ -1941,7 +1950,7 @@ $$
 \end{bmatrix}
 $$
 
-Recordando la forma particular del operador $\mathcal{a}$ y del funcional $\mathcal{B}$ para el problema generalizado de Poisson de la @eq-a-B-poisson
+Reemplazando la forma particular del operador $\mathcal{a}$ y del funcional $\mathcal{B}$ para el problema generalizado de Poisson de la @eq-a-B-poisson, tenemos
 
 $$
 \begin{aligned}
@@ -1955,7 +1964,7 @@ $$
 \begin{aligned}
 \mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x} \\
 &= \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
-+ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \\
++ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x} \\
 &= \vec{v}^T \cdot \left[ \int_{U} \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
 + \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x} \right]
 \end{aligned}
@@ -1966,7 +1975,7 @@ Como $\mathcal{a}(u,v) = \mathcal{B}(v) \quad \forall v \in V_J$ entonces llegam
 $$
 \mat{A} \cdot \vec{u} = \vec{b}
 $$
-donde ahora tenemos una representación explícita particular para $\mat{A} \in \mathbb{R}^{N \times N}$ y $\vec{u} \in \mathbb{R}^N$ como
+donde ahora tenemos una representación explícita particular para $\mat{A} \in \mathbb{R}^{J \times J}$ y $\vec{u} \in \mathbb{R}^J$ como
 
 $$
 \begin{aligned}
@@ -1988,29 +1997,29 @@ Una vez más, tal como hemos dicho en la observación sobre la construcción de 
 
 Justamente, el método de elementos finitos propone una forma sistemática para atacar estos dos puntos a partir de explotar la topología de los $J$ puntos $\vec{x}_j$ de la @fig-dominio-solo-nodos.
 El hecho de no haber incluido puntos sobre la frontera $\Gamma_D$ en el conjunto de $J$ funciones de forma de alguna manera rompe el sistematismo necesario para aplicar el método.
-Lo primero que tenemos que hacer es incluir puntos sobre la frontera $\Gamma_D$.
+Lo primero que tenemos que hacer entonces es incluir puntos sobre la frontera $\Gamma_D$.
 Digamos que hay $J_D$ puntos sobre $\Gamma_D$. Entonces agregamos $J_D$ funciones de forma para $j=J+1,\dots,J+J_D$ a las cuales les pedimos 
 
 $$
-h_j(\vec{x}_i) = \delta_{ji} \quad \text{para $j=J+1,\dots,J+J_D$ e $i=1,\dots,J+J_D$}\\
+h_j(\vec{x}_i) = \delta_{ji} \quad \text{para \quad $j=J+1,\dots,J+J_D$ \quad e \quad $i=1,\dots,J+J_D$}\\
 $$
 
-Es decir, que estas nuevas funciones de forma se anulen en los demás puntos pero no necesitamos que se anulen en la frontera como le pedíamos a las primeras funciones de forma "originales" para $j \leq J$.
+Es decir, que estas nuevas funciones de forma se anulen en los demás $J+J_D-1$ puntos pero no necesitamos que se anulen en la frontera como le pedíamos a las primeras funciones de forma "originales" para $j \leq J$.
 Como las funciones de forma originales cumplen las condiciones de la @eq-forma-delta-0, es decir sí se anulan en
 
- a. todos los nodos diferentes de $j$ y
+ a. todos los nodos diferentes de $j$, y
  b. en todos los puntos $\vec{x} \in \Gamma_D$
  
 entonces también cumplen
 
 $$
-h_j(\vec{x}_i) = \delta_{ji} \quad \text{para $j=1,\dots,J$ e $i=1,\dots,J+J_D$}\\
+h_j(\vec{x}_i) = \delta_{ji} \quad \text{para \quad $j=1,\dots,J$ \quad e \quad $i=1,\dots,J+J_D$}\\
 $$
 
 Luego
 
 $$
-h_j(\vec{x}_i) = \delta_{ji} \quad \text{para $j=1,\dots,J+J_D$ e $i=1,\dots,J+J_D$}\\
+h_j(\vec{x}_i) = \delta_{ji} \quad \text{para \quad $j=1,\dots,J+J_D$ \quad e \quad $i=1,\dots,J+J_D$}\\
 $$
 y recuperamos una parte la sistematicidad requerida para aplicar el método de elementos finitos.
 Para recuperar la otra parte re-escribimos la @eq-v-vjhj poniendo coeficientes iguales a cero en las funciones de forma sobre $\Gamma_D$
@@ -2024,7 +2033,7 @@ que, en forma matricial, queda
 $$
 v(\vec{x}) = \tilde{\mat{H}}(\vec{x}) \cdot \tilde{\vec{v}} = \tilde{\vec{v}}^T \cdot \tilde{\mat{H}}^T(\vec{x})
 $$
-donde ahora los objetos tildados son objetos "extendidos" incluyendo los puntos sobre $\Gamma_D$ como
+donde ahora los objetos tildados son objetos "extendidos" incluyendo los $J_D$ puntos sobre $\Gamma_D$ como
 
 $$
 \tilde{\mat{H}}(\vec{x}) =
@@ -2034,7 +2043,7 @@ h_1(\vec{x}) & h_2(\vec{x}) & \cdots & h_j(\vec{x}) & \cdots & h_J(\vec{x}) & h_
 $$
 y
 $$
-\vec{v} = 
+\tilde{\vec{v}} = 
 \begin{bmatrix}
 v_1 \\
 v_2 \\
@@ -2053,7 +2062,7 @@ De la misma manera extendemos la matriz $\mat{B}(\vec{x})$ como
 
 
 $$
-\mat{B}(\vec{x}) =
+\tilde{\mat{B}}(\vec{x}) =
 \begin{bmatrix}
 \displaystyle \frac{\partial h_1}{\partial x} & \displaystyle \frac{\partial h_2}{\partial x} & \cdots & \displaystyle \frac{\partial h_j}{\partial x} & \cdots & \displaystyle \frac{\partial h_J}{\partial x} & \displaystyle \frac{\partial h_{J+1}}{\partial x} & \cdots & \displaystyle \frac{\partial h_{J+J_D}}{\partial x} \\
 \displaystyle \frac{\partial h_1}{\partial y} & \displaystyle \frac{\partial h_2}{\partial y} & \cdots & \displaystyle \frac{\partial h_j}{\partial y} & \cdots & \displaystyle \frac{\partial h_J}{\partial y} & \displaystyle \frac{\partial h_{J+1}}{\partial y} & \cdots & \displaystyle \frac{\partial h_{J+J_D}}{\partial y} \\
@@ -2096,7 +2105,7 @@ $$
 \vec{0}
 \end{bmatrix}
 \quad
-\vec{c} =
+\tilde{\vec{b}} =
 \begin{bmatrix}
 \vec{b} \\
 \vec{e}
@@ -2135,10 +2144,15 @@ $$
 \mat{D} \cdot \vec{u} + \mat{E} \cdot \vec{0} \\
 \end{bmatrix}
 &=
-\vec{v}^T \cdot \vec{b} + \vec{0}^T \cdot \vec{e}\\
+\begin{bmatrix} \vec{v}^T & \vec{0}^T \end{bmatrix}
+\begin{bmatrix}
+\vec{b} \\
+\vec{e}
+\end{bmatrix}
+\\
 \vec{v}^T \cdot \mat{A} \cdot \vec{u} + \vec{0}^T \cdot \mat{D} \cdot \vec{u}
 &=
-\vec{v}^T \cdot \vec{b}\\
+\vec{v}^T \cdot \vec{b} + \vec{0}^T \cdot \vec{e}\\
 \vec{v}^T \cdot \mat{A} \cdot \vec{u}
 &=
 \vec{v}^T \cdot \vec{b}\\
@@ -2165,14 +2179,14 @@ $$
 \mat{0} & \mat{I} \\
 \end{bmatrix}
 \quad
-\vec{c} =
+\vec{f} =
 \begin{bmatrix}
 \vec{b} \\
 \vec{0} \\
 \end{bmatrix}
 $$
-
-Entonces el vector $\symbf{\varphi}$ tal que $\mat{K} \cdot \symbf{\varphi} = \vec{c}$ es igual a
+tales que $\mat{A} \cdot \vec{u} = \vec{b}$, donde $\mat{I}$ es la matriz identidad de tamaño $J_D \times J_D$.
+Entonces el vector $\symbf{\varphi}$ tal que $\mat{K} \cdot \symbf{\varphi} = \vec{f}$ es igual a
 
 $$
 \symbf{\varphi}
@@ -2182,7 +2196,6 @@ $$
 \vec{0} \\
 \end{bmatrix}
 $$
-tal que $\mat{A} \cdot \vec{u} = \vec{b}$.
 
 ::: {.proof}
 Sea $\symbf{\varphi} = \begin{bmatrix} \symbf{\varphi}_1 & \symbf{\varphi}_2 \end{bmatrix}^T$.
@@ -2225,20 +2238,20 @@ $$
 $$
 sin distinguir entre nodos en $U$, en $\Gamma_N$ o en $\Gamma_D$,
 entonces podemos obtener la matriz $\mat{K}$ reemplazando las filas correspondientes a $i=J+1,\dots,J+J_D$ por todos ceros, excepto un uno (o cualquier valor $\alpha \neq 0$) en la diagonal.
-Al mismo tiempo, hay que reemplazar los elementos del vector $\vec{c}$ 
+Al mismo tiempo, hay que reemplazar los elementos del vector $\vec{f}$ 
 
 $$
-c_i = \mathcal{B}\Big(h_i(\vec{x})\Big)
-\quad \text{para $i=1,\dots,J+J_D$}
+f_j = \mathcal{B}\Big(h_j(\vec{x})\Big)
+\quad \text{para $J=1,\dots,J+J_D$}
 $$
-para $i > J$ por $c_i=0$.
+para $j > J$ por $f_j=0$.
 
 
 ::: {#def-rigidez}
 
 ## matriz de rigidez
 
-La matriz $\mat{K}$ de tamaño igual a la cantidad total $J+J_D$ de nodos tal que $\mat{K} \cdot \symbf{\varphi} = \vec{c}$ se llama (usualmente) _matriz de rigidez_.
+La matriz cuadrada $\mat{K}$ de tamaño igual a la cantidad total $J+J_D$ de nodos tal que $\mat{K} \cdot \symbf{\varphi} = \vec{f}$ se llama (usualmente) _matriz de rigidez_.
 :::
 
 ::::: {#thm-K-no-singular}
@@ -2258,23 +2271,28 @@ $$
 Luego su determinante es
 
 $$
-\det{\mat{K}} = \det{\mat{A}} \cdot \det{\mat{I}} = \det{\mat{A}} \neq 0
+\det{(\mat{K})} = \det{(\mat{A})} \cdot \det{(\mat{I})} = \det{(\mat{A})} \neq 0
 $$
 ya que $\mat{A}$ es definida positiva por el @thm-A-spd.
 :::
 :::::
 
 ::: {.remark}
+Aún cuando la matriz $\mat{A}$ sea simétrica, la matriz de rigidez $\mat{K}$ no lo es.
+Sin embargo, es posible realizar el procedimiento de reemplazar filas por ceros excepto en la diagonal agregando operaciones extra de reemplazo de columans por ceros excepto en la diagonal mientras al mismo tiempo se realizan operaciones equivalentes sobre el vector $\vec{f}$ del miembro derecho de forma tal de obtener un sistema de ecuaciones equivalente donde la matriz sea simétrica. Estos detalles forman parte de la implementación computacional y no de la teoría detrás del método numérico.
+:::
+
+::: {.remark}
 El procedimiento propuesto para obtener la matriz de rigidez no es el único.
-Otra formas de incorporar las condiciones de Dirichlet a la matriz de rigidez incluyen
+Otra formas de incorporar las condiciones de Dirichlet a la matriz de rigidez incluyen @felippa
 
  1. Eliminación directa
  2. Método de penalidad
  3. Multiplicadores de Lagrange
  
-De todas maneras, este procedimiento es
+De todas maneras, este procedimiento...
 
- a. computacionalmente eficiente (especialmente si se elige la constante $\alpha \neq 0$ que se pone en la diagonal de las filas de Dirichlet en forma apropiada), y
+ a. es computacionalmente eficiente (especialmente si se elige la constante $\alpha \neq 0$ que se pone en la diagonal de las filas de Dirichlet en forma apropiada y se mantiene la simetría de la matriz del sistema de ecuaciones), y
  b. permite incorporar condiciones de contorno de Dirichlet no homogéneas de una forma muy natural como mostramos a continuación.
 :::
 
@@ -2284,16 +2302,16 @@ $$
 u(\vec{x}) = g(\vec{x}) \quad \forall \vec{x} \in \Gamma_D
 $$
 
-La forma que introducimos para resolver el problema continuo fue considerar $u_g \in H_g^1$, escribir $u_h = u - u_g$ y encontrar $u_h \in V$ tal que
+La forma que introdujimos para resolver el problema continuo fue considerar $u_g \in H_g^1$, escribir $u_h = u - u_g$ y encontrar $u_h \in V$ tal que
 
 $$
 \mathcal{a}(u_h,v) = \mathcal{B}(v) - \mathcal{a}(u_g,v) \quad \forall v \in V
 $$
 
-Ahora vamos a volver a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bilinealidad de $a$
+Ahora volvemos a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bilinealidad de $a$
 
 $$
-\mathcal{a}(u_h+u_g,v) = \mathcal{a}(u) = \mathcal{B}(v)
+\mathcal{a}(u_h+u_g,v) = \mathcal{a}(u,v) = \mathcal{B}(v)
 $$
 
 Escribimos la parte homogénea $u_h$ como
@@ -2302,7 +2320,7 @@ $$
 u_h(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot 0
 = \tilde{\mat{H}} \cdot \begin{bmatrix} \vec{u} \\ \vec{0} \end{bmatrix}
 $$
-la función auxiliar $u_g$ como
+la función auxiliar $u_g$ que satisface la condición de Dirichlet como
 
 $$
 u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot 0 + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
@@ -2314,7 +2332,7 @@ $$
 u(\vec{x}) = u_h(\vec{x}) + u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
 = \tilde{\mat{H}} \cdot \tilde{\vec{u}}
 $$
-donde
+donde ahora $\vec{u}$ se extiende como
 
 $$
 \tilde{\vec{u}} =
@@ -2406,13 +2424,13 @@ $$
 \mat{0} & \mat{I} \\
 \end{bmatrix}
 \quad
-\vec{c} =
+\vec{f} =
 \begin{bmatrix}
 \vec{b} \\
 \vec{g} \\
 \end{bmatrix}
 $$
-tales que se satisface la @eq-discretizado-nh, entonces el vector $\symbf{\varphi}$ tal que $\mat{K} \cdot \symbf{\varphi} = \vec{c}$ es igual a
+tales que se satisface la @eq-discretizado-nh, entonces el vector $\symbf{\varphi}$ tal que $\mat{K} \cdot \symbf{\varphi} = \vec{f}$ es igual a
 
 $$
 \symbf{\varphi}

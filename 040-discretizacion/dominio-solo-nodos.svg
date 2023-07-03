@@ -27,11 +27,11 @@
      inkscape:document-units="pt"
      showgrid="false"
      inkscape:zoom="0.6047941"
-     inkscape:cx="1121.8694"
-     inkscape:cy="638.23374"
+     inkscape:cx="1059.0381"
+     inkscape:cy="639.88719"
      inkscape:window-width="1920"
-     inkscape:window-height="1051"
-     inkscape:window-x="1920"
+     inkscape:window-height="1015"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2667" />
@@ -344,7 +344,7 @@ CreationDate: Wed Jun 28 11:56:22 2023
      dy="0"
      font-family="Helvetica"
      id="text2563"
-     style="fill:#ff0000;fill-opacity:1">1</text>
+     style="fill:#ff0000;fill-opacity:1;font-size:36px">1</text>
   <text
      fill="#ff00ff"
      x="875.08801"
@@ -353,7 +353,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2565">3</text>
+     id="text2565"
+     style="font-size:36px">3</text>
   <text
      fill="#ff00ff"
      x="875.08801"
@@ -362,7 +363,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2567">3</text>
+     id="text2567"
+     style="font-size:36px">3</text>
   <text
      fill="#ff00ff"
      x="1054.64"
@@ -371,7 +373,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2569">4</text>
+     id="text2569"
+     style="font-size:36px">4</text>
   <text
      fill="#ff00ff"
      x="1054.64"
@@ -380,7 +383,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2571">4</text>
+     id="text2571"
+     style="font-size:36px">4</text>
   <text
      fill="#ff00ff"
      x="1202.47"
@@ -389,7 +393,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2573">5</text>
+     id="text2573"
+     style="font-size:36px">5</text>
   <text
      fill="#ff00ff"
      x="1202.47"
@@ -398,7 +403,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2575">5</text>
+     id="text2575"
+     style="font-size:36px">5</text>
   <text
      fill="#ff00ff"
      x="1303.1899"
@@ -407,7 +413,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2577">6</text>
+     id="text2577"
+     style="font-size:36px">6</text>
   <text
      fill="#ff00ff"
      x="1303.1899"
@@ -416,7 +423,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2579">6</text>
+     id="text2579"
+     style="font-size:36px">6</text>
   <text
      fill="#ff00ff"
      x="1310.73"
@@ -425,7 +433,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2581">7</text>
+     id="text2581"
+     style="font-size:36px">7</text>
   <text
      fill="#ff00ff"
      x="1310.73"
@@ -434,7 +443,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2583">7</text>
+     id="text2583"
+     style="font-size:36px">7</text>
   <text
      fill="#ff00ff"
      x="1175.21"
@@ -443,7 +453,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2585">8</text>
+     id="text2585"
+     style="font-size:36px">8</text>
   <text
      fill="#ff00ff"
      x="1175.21"
@@ -452,7 +463,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2587">8</text>
+     id="text2587"
+     style="font-size:36px">8</text>
   <text
      fill="#ff00ff"
      x="1013.49"
@@ -461,7 +473,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2589">9</text>
+     id="text2589"
+     style="font-size:36px">9</text>
   <text
      fill="#ff00ff"
      x="1013.49"
@@ -470,7 +483,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2591">9</text>
+     id="text2591"
+     style="font-size:36px">9</text>
   <text
      fill="#ff00ff"
      x="837.62299"
@@ -479,7 +493,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2593">10</text>
+     id="text2593"
+     style="font-size:36px">10</text>
   <text
      fill="#ff00ff"
      x="837.62299"
@@ -488,7 +503,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2595">10</text>
+     id="text2595"
+     style="font-size:36px">10</text>
   <text
      fill="#ff00ff"
      x="678.20502"
@@ -497,7 +513,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2597">11</text>
+     id="text2597"
+     style="font-size:36px">11</text>
   <text
      fill="#ff00ff"
      x="678.20502"
@@ -506,7 +523,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2599">11</text>
+     id="text2599"
+     style="font-size:36px">11</text>
   <text
      fill="#ff00ff"
      x="499.98901"
@@ -515,7 +533,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2601">12</text>
+     id="text2601"
+     style="font-size:36px">12</text>
   <text
      fill="#ff00ff"
      x="499.98901"
@@ -524,7 +543,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2603">12</text>
+     id="text2603"
+     style="font-size:36px">12</text>
   <text
      fill="#ff00ff"
      x="338.92801"
@@ -533,7 +553,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2605">13</text>
+     id="text2605"
+     style="font-size:36px">13</text>
   <text
      fill="#ff00ff"
      x="338.92801"
@@ -542,7 +563,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2607">13</text>
+     id="text2607"
+     style="font-size:36px">13</text>
   <text
      fill="#ff00ff"
      x="317.552"
@@ -552,7 +574,7 @@ CreationDate: Wed Jun 28 11:56:22 2023
      dy="0"
      font-family="Helvetica"
      id="text2609"
-     style="fill:#ff0000;fill-opacity:1">2</text>
+     style="fill:#ff0000;fill-opacity:1;font-size:36px">2</text>
   <text
      fill="#ff00ff"
      x="317.552"
@@ -562,7 +584,7 @@ CreationDate: Wed Jun 28 11:56:22 2023
      dy="0"
      font-family="Helvetica"
      id="text2611"
-     style="fill:#ff0000;fill-opacity:1">2</text>
+     style="fill:#ff0000;fill-opacity:1;font-size:36px">2</text>
   <text
      fill="#ff00ff"
      x="690.47601"
@@ -572,7 +594,7 @@ CreationDate: Wed Jun 28 11:56:22 2023
      dy="0"
      font-family="Helvetica"
      id="text2625"
-     style="fill:#ff0000;fill-opacity:1">1</text>
+     style="fill:#ff0000;fill-opacity:1;font-size:36px">1</text>
   <text
      fill="#5a5a5a"
      x="988.52698"
@@ -581,7 +603,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2627">14</text>
+     id="text2627"
+     style="font-size:36px">14</text>
   <text
      fill="#5a5a5a"
      x="801.02899"
@@ -590,7 +613,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2629">15</text>
+     id="text2629"
+     style="font-size:36px">15</text>
   <text
      fill="#5a5a5a"
      x="1056.79"
@@ -599,7 +623,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2631">16</text>
+     id="text2631"
+     style="font-size:36px">16</text>
   <text
      fill="#5a5a5a"
      x="931.60101"
@@ -608,7 +633,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2633">17</text>
+     id="text2633"
+     style="font-size:36px">17</text>
   <text
      fill="#5a5a5a"
      x="643.70398"
@@ -617,7 +643,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2635">18</text>
+     id="text2635"
+     style="font-size:36px">18</text>
   <text
      fill="#5a5a5a"
      x="455.33801"
@@ -626,7 +653,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2637">19</text>
+     id="text2637"
+     style="font-size:36px">19</text>
   <text
      fill="#5a5a5a"
      x="923.53198"
@@ -635,7 +663,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2639">20</text>
+     id="text2639"
+     style="font-size:36px">20</text>
   <text
      fill="#5a5a5a"
      x="1125.71"
@@ -644,7 +673,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2641">21</text>
+     id="text2641"
+     style="font-size:36px">21</text>
   <text
      fill="#5a5a5a"
      x="565.76202"
@@ -653,7 +683,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2643">22</text>
+     id="text2643"
+     style="font-size:36px">22</text>
   <text
      fill="#5a5a5a"
      x="717.26001"
@@ -662,7 +693,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2645">23</text>
+     id="text2645"
+     style="font-size:36px">23</text>
   <text
      fill="#5a5a5a"
      x="612.92798"
@@ -671,7 +703,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2647">24</text>
+     id="text2647"
+     style="font-size:36px">24</text>
   <text
      fill="#5a5a5a"
      x="793.33301"
@@ -680,7 +713,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2649">25</text>
+     id="text2649"
+     style="font-size:36px">25</text>
   <text
      fill="#5a5a5a"
      x="877.03302"
@@ -689,7 +723,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2651">26</text>
+     id="text2651"
+     style="font-size:36px">26</text>
   <text
      fill="#5a5a5a"
      x="786.716"
@@ -698,7 +733,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2653">27</text>
+     id="text2653"
+     style="font-size:36px">27</text>
   <text
      fill="#5a5a5a"
      x="523.50598"
@@ -707,7 +743,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2655">28</text>
+     id="text2655"
+     style="font-size:36px">28</text>
   <text
      fill="#5a5a5a"
      x="1024.46"
@@ -716,7 +753,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2657">29</text>
+     id="text2657"
+     style="font-size:36px">29</text>
   <text
      fill="#5a5a5a"
      x="1166.02"
@@ -725,7 +763,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2659">30</text>
+     id="text2659"
+     style="font-size:36px">30</text>
   <text
      fill="#5a5a5a"
      x="435.51401"
@@ -734,7 +773,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2661">31</text>
+     id="text2661"
+     style="font-size:36px">31</text>
   <text
      fill="#5a5a5a"
      x="1067.0601"
@@ -743,7 +783,8 @@ CreationDate: Wed Jun 28 11:56:22 2023
      text-anchor="start"
      dy="0"
      font-family="Helvetica"
-     id="text2663">32</text>
+     id="text2663"
+     style="font-size:36px">32</text>
   <g
      ns2:version="1.8.2"
      ns2:texconverter="xelatex"
