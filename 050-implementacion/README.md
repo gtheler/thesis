@@ -25,6 +25,11 @@ error handling: check returned values, do not raise exceptions
 
 ## [FeenoX, a cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool]{lang=en-US}
 
+Third-system effect.
+Como Unix^[A principios de 1960 llegaron a desarrollar un sistema operativo que funcionaba bien, así que decidieron encarar MULTICS. Como terminó siendo una monstruosidad, empezaron UNIX que es lo que quedó bien.]
+y C^[A fines de 1960 llegaron a desarrollar un un lenguaje de programación A que funcionaba bien, así que decidieron encarar B. Como terminó siendo una monstruosidad, empezaron C que es lo que quedó bien.], FeenoX es un "efecto de tercer sistema"^[Del inglés [_third-system effect_]{lang=en-US}].
+
+
 ### Arquitectura del código fuente
 
 PETSc: TS, SNES, KSP, PC

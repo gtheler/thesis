@@ -1,5 +1,9 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
+```include
+math.md
+```
+
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
@@ -1983,7 +1987,7 @@ $$
 \vec{b} &= \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
 + \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x}
 \end{aligned}
-$$
+$$ {#eq-A-b-poisson}
 
 Una vez más, tal como hemos dicho en la observación sobre la construcción de la función $u_g$ necesaria para satisfacer condiciones de contorno de Dirichlet no homogéneas `de la página~\pageref{remark-ug}`{=latex}, estas últimas dos expresiones son correctas. Pero no parece sencillo
 
@@ -1992,9 +1996,24 @@ Una vez más, tal como hemos dicho en la observación sobre la construcción de 
 ```
 
 
- 1. encontrar las $J$ funciones de forma $h_j(\vec{x})$ adecuadas que cumplan las condiciones [-@eq-forma-delta-0], ni
+ 1. encontrar las $J$ funciones de forma $h_j(\vec{x})$ adecuadas que cumplan las condiciones [-@eq-forma-delta-0] (como por ejemplo las ilustradas en la @fig-shape-function-first-order), ni
  2. calcular las integrales para obtener la matriz $\mat{A} \in \mathbb{R}^{J \times J}$ y el vector $\vec{b} \in \mathbb{R}^J$.
 
+::: {#fig-shape-function-first-order layout="[45,-5,45]"}
+
+![$h_{24}(\vec{x})$](shape-function-first-order-24.png){#fig-shape-function-first-order-24}
+
+![$h_{25}(\vec{x})$](shape-function-first-order-25.png){#fig-shape-function-first-order-25}
+
+![$h_{21}(\vec{x})$](shape-function-first-order-21.png){#fig-shape-function-first-order-21}
+
+![$h_8(\vec{x})$](shape-function-first-order-8.png){#fig-shape-function-first-order-8}
+
+Funciones de forma de primer orden apropiadas para diferentes puntos de la @fig-dominio-solo-nodos.
+Una de las preguntas centrales que el método de elementos finitos responde es ¿cómo encontrarlas?
+:::
+
+ 
 Justamente, el método de elementos finitos propone una forma sistemática para atacar estos dos puntos a partir de explotar la topología de los $J$ puntos $\vec{x}_j$ de la @fig-dominio-solo-nodos.
 El hecho de no haber incluido puntos sobre la frontera $\Gamma_D$ en el conjunto de $J$ funciones de forma de alguna manera rompe el sistematismo necesario para aplicar el método.
 Lo primero que tenemos que hacer entonces es incluir puntos sobre la frontera $\Gamma_D$.
@@ -2040,7 +2059,7 @@ $$
 \begin{bmatrix}
 h_1(\vec{x}) & h_2(\vec{x}) & \cdots & h_j(\vec{x}) & \cdots & h_J(\vec{x}) & h_{J+1}(\vec{x}) & \cdots & h_{J+J_D}(\vec{x})
 \end{bmatrix}
-$$
+$$ {#eq-H-ext}
 y
 $$
 \tilde{\vec{v}} = 
@@ -2068,7 +2087,7 @@ $$
 \displaystyle \frac{\partial h_1}{\partial y} & \displaystyle \frac{\partial h_2}{\partial y} & \cdots & \displaystyle \frac{\partial h_j}{\partial y} & \cdots & \displaystyle \frac{\partial h_J}{\partial y} & \displaystyle \frac{\partial h_{J+1}}{\partial y} & \cdots & \displaystyle \frac{\partial h_{J+J_D}}{\partial y} \\
 \displaystyle \frac{\partial h_1}{\partial z} & \displaystyle \frac{\partial h_2}{\partial z} & \cdots & \displaystyle \frac{\partial h_j}{\partial z} & \cdots & \displaystyle \frac{\partial h_J}{\partial z} & \displaystyle \frac{\partial h_{J+1}}{\partial z} & \cdots & \displaystyle \frac{\partial h_{J+J_D}}{\partial z} \\
 \end{bmatrix}
-$$
+$$ {#eq-B-ext}
 
 Repitiendo todos los pasos, el método de Galerkin requiere que
 
@@ -2492,11 +2511,10 @@ $$
 no es irrelevante como lo era para el caso $g(\vec{x})=0$.
 :::
 
--------------------
 
 Estamos entonces en condiciones resolver el primero de los dos puntos `de la página~\pageref{dos}`{=latex}: ¿cómo encontramos $J+J_D$ funciones de forma apropiadas?
 Para ello, consideramos la topología subyacente en los $J+J_D$ puntos.
-Consideremos la @fig-dominio-nodos-elementos, que muestra no sólo los $J_D$ puntos sobre $\Gamma_D$ sino los triángulos que forman los $J+J_D$ puntos.
+Tomemos la @fig-dominio-nodos-elementos, que muestra no sólo los $J_D$ puntos sobre $\Gamma_D$ sino los triángulos que forman los $J+J_D$ puntos.
 
 ![El dominio espacial $U$ de la @fig-dominio-solo-nodos con $J_D=3$ puntos extra en la frontera $\Gamma_D$ para  $j=33,34,35$. Además, se muestran los triángulos que conectan los puntos entre sí y que cubren el dominio $U$.](dominio-nodos-elementos){#fig-dominio-nodos-elementos width=75%}
 
@@ -2535,17 +2553,378 @@ Pero la solución al problema de Galerkin no es simplemente un conjunto de coefi
 
 ::: {#cor-suma-a-no}
 Para que sea posible recuperar exactamente una función constante $v(\vec{x})= \text{cte} \in U$ a partir de valores nodales constantes $v_j = \text{cte}$ las funciones de forma deben sumar uno $\forall \vec{x} \in U$.
+En resumen, las funciones de forma deben cumplir
+
+$$
+\begin{cases}
+h_j(\vec{x}_i) = \delta_{ij} &\quad \text{para \quad $j=1,\dots,J+J_D$ \quad e \quad $i=1,\dots,J+J_D$} \\
+\displaystyle \sum_{j=1}^{J+J_D} h_j(\vec{x}) = 1  &\quad \forall \vec{x} \in U ~\text{(incluyendo la frontera $\partial U$)}
+\end{cases}
+$$ {#eq-condiciones-h}
 :::
 
-Consideremos el triángulo canónico en un plano bidimensional de coordenadas $\xi$ y $\eta$ cuyos vértices son
+Si los elementos son apropiados, la integral sobre el dominio $U$ es aproximadamente igual a la suma de las integrales sobre cada uno de los $I$ elementos $e_1$, $e_2$, ..., $e_I$ en los que lo dividimos. De hecho, los elementos son "apropiados" justamente si a medida que dividimos el dominio en más y más elementos cada vez de menor tamaño (lo que implica que $J \rightarrow \infty$), entonces
+
+$$
+\lim_{I \rightarrow \infty} \sum_{i=1}^I \int_{e_i} f(\vec{x}) \, d^3\vec{x} = \int_{U} f(\vec{x}) \, d^3\vec{x}
+$$
+para cualquier función $f(\vec{x}) : U \mapsto \mathbb{R}$ integrable.
+
+La idea básica del método de elementos finitos (al menos para problemas lineales) es justamente concentrarse en escribir las integrales que definen la matriz de rigidez y el vector del miembro derecho en cada uno de los elementos $e_i$ para luego "ensamblar" estos objetos globales a partir de las contribuciones elementales.
+Justamente, este proceso de enfocarse en los elementos es muy eficiente desde del punto de vista computacional ya que se presta perfectamente para ser realizado en forma paralela como mostramos en el @sec-implementacion.
+
+Para fijar ideas, supongamos por un momento que tenemos un elemento triangular en el plano $x$-$y$ cuyos vértices son
 
 $$
 \begin{aligned}
-\vec{\xi}_1 = \begin{bmatrix}0 0\end{bmatrix} \\
-\vec{\xi}_2 = \begin{bmatrix}1 0\end{bmatrix} \\
-\vec{\xi}_3 = \begin{bmatrix}0 1\end{bmatrix} \\
+\vec{x}_1 &= \begin{bmatrix}0 & 0\end{bmatrix} \\
+\vec{x}_2 &= \begin{bmatrix}1 & 0\end{bmatrix} \\
+\vec{x}_3 &= \begin{bmatrix}0 & 1\end{bmatrix} \\
 \end{aligned}
 $$
+
+**TODO** figura
+
+Consideremos las funciones
+
+$$
+\begin{aligned}
+h_1(\vec{x}) &= 1 - x - y \\
+h_2(\vec{x}) &= x \\
+h_3(\vec{x}) &= y \\
+\end{aligned}
+$$
+
+Si el triángulo fuese el dominio $U$ y quisiéramos resolver una ecuación diferencial en derivadas parciales discretizándolo con los tres nodos $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3$ entonces estas funciones de forma cumplirían los requerimientos de la @eq-condiciones-h.
+Recordando las ecuaciones [-@eq-H-ext] y [-@eq-B-ext]
+
+$$
+\begin{aligned}
+\tilde{\mat{H}}(\vec{x}) &= \begin{bmatrix} 1-x-y & x & y \end{bmatrix} \\
+\tilde{\mat{B}}(\vec{x}) &= \begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1\end{bmatrix}
+\end{aligned}
+$$
+
+Usando las expresiones de la @eq-A-b-poisson, podemos calcular explícitamente la matriz aumentada $\tilde{\mat{A}}$ como^[Mantenemos la notación $d^3\vec{x}$ para indicar integración sobre el seno del elemento, aún cuando el ejemplo particular sea bi-dimensional.]
+
+$$
+\tilde{\mat{A}} = \bigintss_e
+\begin{bmatrix}
+-1 & -1 \\
++1 & 0 \\
+0 & +1 \\
+\end{bmatrix}
+ \cdot k(\vec{x}) \cdot 
+\begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1 \end{bmatrix}
+\, d^3\vec{x} \\
+=
+\begin{bmatrix}
+   2  & -1  & -1  \\
+  -1  &  1  &  0  \\
+  -1  &  0  &  1  \\
+\end{bmatrix}
+\cdot
+\int_e f(\vec{x}) \, d^3\vec{x}
+$$
+donde $e$ se refiere al elemento triangular. Si $f(\vec{x})=1$, entonces la integral es el área del triángulo que es $1/2$.
+Lo importante del ejemplo es que la matriz de rigidez elemental
+
+ 1. es cuadrada,
+ 2. para un problema escalar como la ecuación de Poisson su tamaño es igual al número de nodos del elemento, y
+ 3. conocidas las funciones de forma del elemento, se puede calcular fácilmente primero derivando las $h_j$ con respecto a las variables espaciales y luego integrando la misma expresión de la matriz extendida global sobre el elemento.
+ 
+En este caso en particular, dado que las funciones de forma son lineales con respecto a las variables espaciales entonces la matriz $\mat{B}(\vec{x})$ es uniforme y puede salir fuera de la integral.
+Para otras topologías de elementos (por ejemplo cuadrángulos) o para elementos de órdenes superiores (en los que se agregan nodos sobre los lados o sobre el seno del elemento), las funciones de forma tendrán una dependencia más compleja y sus derivadas dependerán de $\vec{x}$ por lo que efectivamente habrá que integrar el producto $\mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x})$ sobre el triángulo.
+Si bien en general es posible utilizar cualquier método de cuadratura numérica (incluyendo métodos adaptivos), la forma usual de calcular estas integrales es utilizando el método de integración de Gauss que consiste en disponer de una cantidad pre-fijada $Q$ de pares de pesos $\omega_q$ y puntos espaciales $\vec{x}_q$ tales que
+
+$$
+\int_e \vec{F}(\vec{x}) \, d^3 \vec{x} \approx \sum_{q=1}^Q \omega_q \cdot \vec{F}(\vec{x}_q)
+$$
+ 
+Está claro que los elementos triangulares de la @fig-dominio-solo-nodos no coinciden con el triángulo canónico de vértices $[0,0]$, $[1,0]$ y $[0,1]$.
+Pero lo que podemos hacer es suponer que este elemento canónico $e_c$, cuya matriz elemental ya sabemos calcular, vive en un plano bidimensional $\xi$-$\eta$. Si pudiésemos encontrar, para cada elemento $e_i$ del dominio, una transformación biyectiva entre las coordenadas reales $x$-$y$ y las coordenadas canónicas $\xi$-$\eta$ entonces podríamos calcular por un lado las integrales utilizando el jacobiano $\mat{J}$ de la transformación $\vec{x} \mapsto \symbf{\xi}$
+
+$$
+\int_{e_i} f(\vec{x}) \, d^3\vec{x} = \int_{e_c} f(\symbf{\xi}) \cdot | \det{(\mat{J})} | \, d^3\symbf{\xi}
+$$
+y por otro las derivadas con respecto a las coordenadas originales $x$-$y$ que aparezcan en los integrandos utilizando la regla de la cadena
+
+$$
+\begin{aligned}
+\frac{\partial f}{\partial x} &= \frac{\partial f}{\partial \xi} \cdot \frac{\partial \xi}{\partial x} + \frac{\partial f}{\partial \eta} \cdot \frac{\partial \eta}{\partial x} \\
+\frac{\partial f}{\partial y} &= \frac{\partial f}{\partial \xi} \cdot \frac{\partial \xi}{\partial y} + \frac{\partial f}{\partial \eta} \cdot \frac{\partial \eta}{\partial y} \\
+\end{aligned}
+$$
+
+Para ello consideremos la siguiente transformación inversa de $\symbf{\xi}$ a $\vec{x}$
+
+$$
+\begin{aligned}
+x &= h_1(\symbf{\xi}) \cdot x_1 + h_2(\symbf{\xi}) \cdot x_2 + h_3(\symbf{\xi}) \cdot x_3 = \sum_{j=1}^3 h_j(\symbf{\xi}) \cdot x_j \\
+y &= h_1(\symbf{\xi}) \cdot y_1 + h_2(\symbf{\xi}) \cdot y_2 + h_3(\symbf{\xi}) \cdot y_3 = \sum_{j=1}^3 h_j(\symbf{\xi}) \cdot y_j \\
+\end{aligned}
+$$
+donde $x_j$ e $y_j$ son las coordenadas del nodo $j$-ésimo del elemento (triángulo) $e_i$.
+Es decir, la transformación (inversa) propuesta consiste en interpolar las coordenadas reales continuas $\vec{x}$ a partir de las coordenadas reales $\vec{x}_j$ de los nodos del elemento real $e_i$ usando las funciones de forma del elemento canónico $e_c$.
+Las derivadas parciales de $x$ e $y$ con respecto a $\xi$ y $\eta$ son
+
+$$
+\begin{aligned}
+\frac{\partial x}{\partial \xi}  &= \sum_{j=1}^3 \frac{\partial h_j}{\partial \xi}  \cdot x_j \\
+\frac{\partial x}{\partial \eta} &= \sum_{j=1}^3 \frac{\partial h_j}{\partial \eta} \cdot x_j \\
+\frac{\partial y}{\partial \xi}  &= \sum_{j=1}^3 \frac{\partial h_j}{\partial \xi}  \cdot y_j \\
+\frac{\partial y}{\partial \eta} &= \sum_{j=1}^3 \frac{\partial h_j}{\partial \eta} \cdot y_j \\
+\end{aligned}
+$$ {#eq-dxdxi}
+
+
+Los diferenciales $dx$ y $dy$ se relacionan con los diferenciales $d\xi$ y $d\eta$ como 
+
+$$
+\begin{aligned}
+dx &= \frac{\partial x}{\partial \xi} \cdot d\xi + \frac{\partial x}{\partial \eta} \cdot d\eta \\
+dy &= \frac{\partial y}{\partial \xi} \cdot d\xi + \frac{\partial y}{\partial \eta} \cdot d\eta \\
+\end{aligned}
+$$
+que en forma matricial podemos escribir como
+
+$$
+\begin{bmatrix}
+dx \\
+dy
+\end{bmatrix}
+=
+\begin{bmatrix}
+\displaystyle \frac{\partial x}{\partial \xi} & \displaystyle \frac{\partial x}{\partial \eta} \\
+\displaystyle \frac{\partial y}{\partial \xi} & \displaystyle \frac{\partial y}{\partial \eta}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+d\xi \\
+d\eta
+\end{bmatrix}
+=
+\mat{J} \cdot
+\begin{bmatrix}
+d\xi \\
+d\eta
+\end{bmatrix}
+$$
+
+De la misma manera,
+
+$$
+\begin{bmatrix}
+d\xi \\
+d\eta
+\end{bmatrix}
+=
+\begin{bmatrix}
+\displaystyle \frac{\partial \xi}{\partial x}  & \displaystyle \frac{\partial \xi}{\partial y} \\
+\displaystyle \frac{\partial \eta}{\partial x} & \displaystyle \frac{\partial \eta}{\partial y}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+dx \\
+dy
+\end{bmatrix}
+$$
+
+Como
+
+$$
+\begin{bmatrix}
+\displaystyle \frac{\partial x}{\partial \xi} & \displaystyle \frac{\partial x}{\partial \eta} \\
+\displaystyle \frac{\partial y}{\partial \xi} & \displaystyle \frac{\partial y}{\partial \eta}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\displaystyle \frac{\partial \xi}{\partial x}  & \displaystyle \frac{\partial \xi}{\partial y} \\
+\displaystyle \frac{\partial \eta}{\partial x} & \displaystyle \frac{\partial \eta}{\partial y}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+\end{bmatrix}
+$$
+entonces
+
+$$
+\mat{J} = 
+\begin{bmatrix}
+\displaystyle \frac{\partial x}{\partial \xi} & \displaystyle \frac{\partial x}{\partial \eta} \\
+\displaystyle \frac{\partial y}{\partial \xi} & \displaystyle \frac{\partial y}{\partial \eta}
+\end{bmatrix}
+\quad
+\mat{J}^{-1} = 
+\begin{bmatrix}
+\displaystyle \frac{\partial \xi}{\partial x}  & \displaystyle \frac{\partial \xi}{\partial y} \\
+\displaystyle \frac{\partial \eta}{\partial x} & \displaystyle \frac{\partial \eta}{\partial y}
+\end{bmatrix}
+$$
+
+::: {#thm-biyectiva}
+Para que una transformación $\vec{x} \mapsto \symbf{\xi}$ sea biyectiva, es decir haya una correspondencia uno a uno entre $\vec{x}$ y $\symbf{\xi}$, el determinante del jacobiano $\mat{J}$ debe mantener su signo en el dominio de definición de la transformación.
+:::
+
+::: {#cor-detJ}
+Si la transformación $\vec{x} \mapsto \symbf{\xi}$ es biyectiva, $\det{(\mat{J})} \neq 0$ y $\mat{J}$ tiene inversa.
+:::
+
+::: {.remark}
+Los elementos del jacobiano $\mat{J}$ están dados explícitamente por las ecuaciones [-@eq-dxdxi].
+En algún sentido, $\mat{J}$ es "fácil" ya que las funciones de forma $h_j(\symbf{\xi})$ tienen una dependencia sencilla con $\symbf{\xi}$.
+Por otro lado, los elementos de $\mat{J}^{-1}$ no están disponibles directamente ya que, en general, no tenemos una expresión explícita de $\symbf{\xi}(\vec{x})$ a partir de la cual calcular las derivadas parciales.
+Para poder evaluar las derivadas parciales de $\xi$ y $\eta$ con respecto a $x$ e $y$ se deben armar la matriz jacobiana $\mat{J} \in \mathbb{R}^{2 \times 2}$ a partir de las ecuaciones [-@eq-dxdxi], calcular su inversa $\mat{J}^{-1}$ y luego extraer sus elementos uno a uno.
+:::
+
+::: {.remark}
+Si el problema es tri-dimensional, entonces el elemento canónico $e_c$ es el tetrahedro cuyos cuatro vértices tienen coordenadas $[0,0,0]$, $[1,0,0]$, $[0,1,0]$ y $[0,0,1]$. Las funciones de forma son
+
+$$
+\begin{aligned}
+h_1(\xi,\eta,\zeta) &= 1 - \xi - \eta - \zeta \\
+h_2(\xi,\eta,\zeta) &= \xi\\
+h_3(\xi,\eta,\zeta) &= \eta\\
+h_4(\xi,\eta,\zeta) &= \zeta \\
+\end{aligned}
+$$
+la transformación $\symbf{\xi} \mapsto \vec{x}$ es
+
+$$
+\begin{aligned}
+x &= \sum_{j=1}^4 h_j(\symbf{\xi}) \cdot x_j \\
+y &= \sum_{j=1}^4 h_j(\symbf{\xi}) \cdot y_j \\
+z &= \sum_{j=1}^4 h_j(\symbf{\xi}) \cdot z_j \\
+\end{aligned}
+$$
+
+y el jacobiano $\mat{J} \in \mathbb{R}^{3 \times 3}$ y su inversa son
+
+$$
+\mat{J} = 
+\begin{bmatrix}
+\displaystyle \frac{\partial x}{\partial \xi} & \displaystyle \frac{\partial x}{\partial \eta} & \displaystyle \frac{\partial x}{\partial \zeta} \\
+\displaystyle \frac{\partial y}{\partial \xi} & \displaystyle \frac{\partial y}{\partial \eta} & \displaystyle \frac{\partial y}{\partial \zeta} \\
+\displaystyle \frac{\partial z}{\partial \xi} & \displaystyle \frac{\partial z}{\partial \eta} & \displaystyle \frac{\partial z}{\partial \zeta} 
+\end{bmatrix}
+\quad
+\mat{J}^{-1} = 
+\begin{bmatrix}
+\displaystyle \frac{\partial \xi}{\partial x}   & \displaystyle \frac{\partial \xi}{\partial y}   & \displaystyle \frac{\partial \xi}{\partial z}   \\
+\displaystyle \frac{\partial \eta}{\partial x}  & \displaystyle \frac{\partial \eta}{\partial y}  & \displaystyle \frac{\partial \eta}{\partial z}  \\
+\displaystyle \frac{\partial \zeta}{\partial x} & \displaystyle \frac{\partial \zeta}{\partial y} & \displaystyle \frac{\partial \zeta}{\partial z}
+\end{bmatrix}
+$$
+:::
+
+
+::: {.remark}
+Además de triángulos (tetrahedros) se podrían utilizar elementos cuadrangulares (hexahédricos), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$.
+:::
+
+::: {.remark}
+En tres dimensiones también existen elementos prismáticos y piramidales.
+:::
+
+::: {.remark}
+Elementos de orden superior.
+En el **TODO** se muestran los tipos de elementos, la numeración de los nodos y las funciones de forma de los elementos canónicos soportados por la herramienta desarrollada.
+:::
+
+
+Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discretizado $U$, una vez que conocemos
+
+ 1. la topología del elemento $e_i$
+     - triángulo o cuadrángulo para $D=2$
+     - tetrahedro, hexahedro, prisma o pirámide para $D=3$
+ 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz $\mat{H}_c$^[Llamamos matriz a $H_c$ aunque parezca un vector porque para ecuaciones no escalares con $G > 1$ grados de libertad por nodo, el objeto $H_c$ es efectivamente una matriz de $G$ filas y $J$ columnas.]
+ 
+    $$
+    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
+    $$
+    
+ 3. las $JD$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz $\mat{B}_c$
+ 
+    $$
+    \mat{B}_c(\symbf{\xi}) =
+    \begin{bmatrix}
+    \frac{\partial h_1}{\partial \xi}   & \frac{\partial h_2}{\partial \xi}   & \cdots & \frac{\partial h_J}{\partial \xi} \\
+    \frac{\partial h_1}{\partial \eta}  & \frac{\partial h_2}{\partial \eta}  & \cdots & \frac{\partial h_J}{\partial \eta} \\
+    \frac{\partial h_1}{\partial \zeta} & \frac{\partial h_2}{\partial \zeta} & \cdots & \frac{\partial h_J}{\partial \zeta}
+    \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+    $$
+ 
+ 4. el conjunto de $Q$ pares de pesos y ubicaciones de puntos de Gauss $(\omega_q, \symbf{\xi}_q)$ del elemento canónico $e_c$
+ 5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$
+ 
+    $$
+    \mat{C}_i =
+    \begin{bmatrix}
+    x_1 & y_1 & z_1  \\
+    x_2 & y_2 & z_2  \\
+    \vdots & \vdots & \vdots  \\
+    x_J & y_J & z_J  \\
+    \end{bmatrix} \quad \in \mathbb{R}^{J \times D}
+    $$
+    
+    que permite evaluar el jacobiano $\mat{J}(\symbf{\xi})$ como
+    
+    $$
+    \mat{J}(\symbf{\xi}) = \mat{B}_c(\symbf{\xi}) \cdot \mat{C}_i
+    $$
+    
+    y las coordenadas reales $\vec{x}_q$ de los $Q$ puntos de Gauss
+    
+    $$
+    \begin{aligned}
+    x_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
+    y_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
+    z_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
+    \end{aligned}
+    $$
+    
+    necesarias para evaluar $k(\vec{x})$ y $f(\vec{x})$ dentro del integrando.
+
+entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J \times J}$ de rigidez elemental correspondiente a la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es una de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
+
+$$
+\begin{aligned}
+\mat{K}_i &= \int_{e_i} \mat{B}(\vec{x})^T \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x} \\
+&= \int_{e_c} \mat{B}(\symbf{\xi})^T \cdot k(\symbf{\xi}) \cdot \mat{B}(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^D\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q \cdot \mat{B}(\symbf{\xi}_q)^T \cdot k(\symbf{\xi}_q) \cdot \mat{B}(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| \\
+&\approx
+\sum_{q=1}^Q \omega_q \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T k(\symbf{\xi}_q) \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| \\
+\end{aligned}
+$$
+
+y la componente volumétrica del vector elemental $\vec{b}_i$ como
+
+$$
+\begin{aligned}
+\vec{b}_i &= \int_{e_i} \mat{H}(\vec{x})^T \cdot f(\vec{x}) \, d^D\vec{x} \\
+&= \int_{e_c} \mat{H}(\symbf{\xi})^T \cdot f(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^D\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q \cdot \mat{H}(\symbf{\xi}_q)^T \cdot f(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| 
+\end{aligned}
+$$
+
+Para evaluar las contribuciones de las condiciones de contorno naturales, debemos integrar sobre elementos en la frontera $\partial U$ del dominio $U$.
+Esto es, para $D=2$ debemos integrar sobre elementos tipo segmento que están sobre el plano $x$-$y$ (pero no necesariamente sobre la recta real).
+Para $D=3$ debemos integrar sobre elementos triangulares o cuadrangulares que están en el espacio $x$-$y$-$z$ (pero no necesariamente sobre el plano $x$-$y$).
+Hay varias formas de atacar este problema.
+En esta tesis proponemos introducir una transformación intermedia desde las coordenadas $\vec{x} \in \mathbb{R}^D$ hacia un sistema de coordenadas $\vec{r} \in \mathbb{R}^{D-1}$, para luego sí transformar las coordenadas $\vec{r}$ a $\symbf{\xi}$ y realizar la integración.
+Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un triángulo arbitrario cuyas coordenadas son $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3 \in \mathbb{R}^3$ entonces primero encontramos una (de las infinitas) transformaciones continuas $\vec{x} \mathbb{R}^3 \mapsto \vec{r} \mathbb{R}^2$ para luego transformar $\vec{r} \in \mathbb{R}^2 \mapsto \symbf{\xi} \in \mathbb{R}^2$ y poder usar las matrices del elemento triangular canónico.
+
+
+
+
+
+
+
+
 
 
 
