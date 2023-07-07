@@ -1193,8 +1193,7 @@ de la cuadratura de Gauss.
 
 ## Discretización en espacio {#sec-discretizacion-espacial}
 
-
-Tenemos por un lado las $G$ ecuaciones de difusión multigrupo
+Hasta el momento, tenemos por un lado las $G$ ecuaciones de difusión multigrupo
 
 $$\tag{\ref{eq-difusionmultigrupo}}
 \begin{gathered}
@@ -1243,15 +1242,15 @@ Para este caso introducimos las ideas básicas de
  ii. de la aproximación de Galerkin (@sec-galerkin), y
  iii. de la discretización por elementos finitos (@sec-fem).
  
-Luego en la @sec-difusion-multigrupo-fem aplicamos estas ideas a las ecuaciones de difusión multigrupo, que también son elípticas pero el problema deja de ser un escalar en cada nodo espacial y su operador no es simétrico para $G>1$.
+Luego en la @sec-difusion-multigrupo-fem aplicamos estas ideas para obtener las versiones completamente discretizadas de las ecuaciones de difusión multigrupo, que también son elípticas pero el problema deja de ser un escalar en cada nodo espacial y su operador no es simétrico para $G>1$.
 Finalmente en la @sec-sn-multigrupo-fem hacemos lo mismo para transporte por $S_N$ multigrupo. En este caso la incógnita también tiene varios grados de libertad en cada nodo espacial y además el operador es parabólico de primer orden y la formulación numérica requiere de un término de estabilización.
 
 
 ### Ecuación de Poisson generalizada {#sec-poisson}
 
-Comencemos resolviendo la siguiente ecuación escalar elíptica sobre un dominio espacial $U \in \mathbb{R}^3$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
+Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada sobre un dominio espacial $D$-dimensional $U \in \mathbb{R}^D$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
 
-![Un cierto dominio espacial $U$ (bi-dimensional para simplificar la representación gráfica), con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cyan) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
+![Un cierto dominio espacial $U \in \mathbb{R}^2$ (bi-dimensional para simplificar la representación gráfica), con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cyan) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
 
 $$
 \begin{cases}
@@ -1292,11 +1291,11 @@ Es decir, por ahora pedimos que $u(\vec{x})$ y $v(\vec{x})$ satisfagan las mism
 
 ## de la divergencia
 
-En un dominio conexo $U \in \mathbb{R}^3$, la integral de volumen sobre $U$ de la divergencia de una función vectorial continua $\vec{F}(\vec{x}) : U \mapsto \mathbb{R}^3$ es igual a la integral de superficie del producto interno entre $\vec{F}$ y la normal externa $\hat{\vec{n}}$ a la frontera $\partial U$:
+En un dominio conexo $U \in \mathbb{R}^D$, la integral de volumen sobre $U$ de la divergencia de una función vectorial continua $\vec{F}(\vec{x}) : U \mapsto \mathbb{R}^D$ es igual a la integral de superficie del producto interno entre $\vec{F}$ y la normal externa $\hat{\vec{n}}$ a la frontera $\partial U$:
 
 $$
-\int_U \mathrm{div} \left[ \vec{F}(\vec{x}) \right] \, d^3\vec{x} =
-\int_{\partial U} \vec{F}(\vec{x}) \cdot \hat{\vec{n}} \, d^2\vec{x}
+\int_U \mathrm{div} \left[ \vec{F}(\vec{x}) \right] \, d^D\vec{x} =
+\int_{\partial U} \vec{F}(\vec{x}) \cdot \hat{\vec{n}} \, d^{D-1}\vec{x}
 $$
 
 ::: {.proof}
@@ -1308,14 +1307,14 @@ Cualquier libro de Análisis II.
 
 ## fórmula de Green
 
-En un dominio conexo $U \in \mathbb{R}^3$, sean $u(\vec{x})$, $v(\vec{x})$ y $k(\vec{x})$ funciones continuas $U \mapsto \mathbb{R}$. Entonces
+En un dominio conexo $U \in \mathbb{R}^D$, sean $u(\vec{x})$, $v(\vec{x})$ y $k(\vec{x})$ funciones continuas $U \mapsto \mathbb{R}$. Entonces
 
 $$
 \begin{aligned}
-\int_U v(\vec{x}) \cdot \mathrm{div} \Big[ k(\vec{x}) \cdot \mathrm{grad} \left[ u(\vec{x}) \right] \Big]  \,d^3\vec{x} =&
--\int_U \mathrm{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \mathrm{grad} \left[ u(\vec{x}) \right] \, d^3\vec{x} 
+\int_U v(\vec{x}) \cdot \mathrm{div} \Big[ k(\vec{x}) \cdot \mathrm{grad} \left[ u(\vec{x}) \right] \Big]  \,d^D\vec{x} =&
+-\int_U \mathrm{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \mathrm{grad} \left[ u(\vec{x}) \right] \, d^D\vec{x} 
 \\
-& \quad\quad + \int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+& \quad\quad + \int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x}
 \end{aligned}
 $$
 siendo $\hat{\vec{n}}$ la normal exterior a la frontera $\partial U$ en el punto $\vec{x}$.
@@ -1334,14 +1333,14 @@ v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\r
 k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right]
 $$
 
-Integrando sobre el volumen $U$
+Integrando sobre el volumen $U$^[Llamamos volumen al dominio de dimensión $D$ y superficie a la frontera de dimensión $D-1$.]
 
 $$
 \begin{aligned}
-\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} =&
-\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} \\
+\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^D\vec{x} =&
+\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^D\vec{x} \\
 &\quad +
-\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^3\vec{x}
+\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^D\vec{x}
 \end{aligned}
 $$
 
@@ -1349,8 +1348,8 @@ $$
 Haciendo $\vec{F}(\vec{x}) = v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right]$ en el @thm-divergencia tenemos
 
 $$
-\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} =
-\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\int_U \text{div} \Big[ v(\vec{x}) \cdot k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^D\vec{x} =
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x}
 $$ 
 
 
@@ -1358,10 +1357,10 @@ Igualando los miembros derechos de las últimas dos expresiones
 
 $$
 \begin{aligned}
-\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x} =&
-\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^3\vec{x} \\
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \text{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x} =&
+\int_U v(\vec{x}) \cdot \text{div}\Big[ k(\vec{x}) \cdot \text{grad}\left[ u(\vec{x})\right] \Big] \, d^D\vec{x} \\
 &\quad +
-\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^3\vec{x}
+\int_U k(\vec{x}) \cdot \text{grad}\left[u(\vec{x})\right] \cdot \text{grad}\left[v(\vec{x})\right] \, d^D\vec{x}
 \end{aligned}
 $$
 
@@ -1373,11 +1372,11 @@ Como $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyse
 
 $$
 \begin{aligned}
-\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x}
 =&
-\int_{\Gamma_D} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x} \\
+\int_{\Gamma_D} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x} \\
 &\quad +
-\int_{\Gamma_N} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\int_{\Gamma_N} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x}
 \end{aligned}
 $$
 
@@ -1398,27 +1397,27 @@ Pero
 por lo que
 
 $$
-\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^2\vec{x}
+\int_{\partial U} v(\vec{x}) \cdot \left[ k(\vec{x}) \cdot \Big( \mathrm{grad}\left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big) \right] \, d^{D-1}\vec{x}
  =
-\int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \,d^2\vec{x}
+\int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \,d^{D-1}\vec{x}
 $$
 
 
 Volvamos a la @eq-strong-by-u e integremos ambos miembros sobre el dominio $U$
 
 $$
--\int_U v(\vec{x}) \cdot \text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big]  \,d^3\vec{x}
+-\int_U v(\vec{x}) \cdot \text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big]  \,d^D\vec{x}
 =
-\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^3\vec{x}
+\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^D\vec{x}
 $$
 
 Ahora usemos la fórmula de Green y el hecho de que $v(\vec{x})$ se anula en $\Gamma_D$ para obtener
 
 $$
-\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^3\vec{x}
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right]  \,d^D\vec{x}
 =
-\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^3\vec{x}
-+ \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \,d^2\vec{x}
+\int_U v(\vec{x}) \cdot f(\vec{x}) \,d^D\vec{x}
++ \int_{\Gamma_N} p(\vec{x}) \cdot v(\vec{x}) \,d^{D-1}\vec{x}
 $$ {#eq-poisson-debil}
 
 ::: {#def-formulacion-debil}
@@ -1440,18 +1439,18 @@ $$
 \mathcal{a} \Big(u(\vec{x}), v(\vec{x})\Big) = \mathcal{B} \Big(v(\vec{x})\Big)
 \quad  \forall v(\vec{x}) \in V
 $$
-donde $V$ es el un espacio funcional apropiado, por ejemplo el $H^1_0(U)$ de las funciones $U \mapsto \mathbb{R}$ cuyo gradiente es de cuadrado integrable (el superíndice uno) en el dominio $U$ y que se anulan en $\Gamma_D$ (el subíndice cero)
+donde $V$ es un espacio funcional apropiado, por ejemplo el $H^1_0(U)$ de las funciones $U \in \mathbb{R}^D \mapsto \mathbb{R}$ cuyo gradiente es de cuadrado integrable (el superíndice uno) en el dominio $U$ y que se anulan en $\Gamma_D$ (el subíndice cero)
 
 $$
-V = H^1_0 (U) = \left\{ v \in H^1_0 (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = 0 \forall \vec{x} \in \Gamma_D  \right\}
+V = H^1_0 (U) = \left\{ v \in H^1_0 (U) : \int_U \left( \nabla v \right)^{D} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = 0 \forall \vec{x} \in \Gamma_D  \right\}
 $$
 y los operadores $\mathcal{a}(u,v) : V \times V \mapsto \mathbb{R}$ y $\mathcal{B}(v) : V \mapsto \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
 En particular, para el problema generalizado de Poisson de la formulación de la @eq-poisson-debil, es
 
 $$
 \begin{aligned}
-\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x} \\
-\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
+\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^D \vec{x} \\
+\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^D \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x}
 \end{aligned}
 $$ {#eq-a-B-poisson}
 :::
@@ -1555,7 +1554,7 @@ es una norma.
 El operador
 
 $$
-\mathcal{a}(u,v) = \int_U \mathrm{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \mathrm{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x}
+\mathcal{a}(u,v) = \int_U \mathrm{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \mathrm{grad}\Big[ u(\vec{x}) \Big] \, d^D \vec{x}
 $$
 es coercivo si $k(\vec{x}) > 0 \forall \vec{x} \in U$.
 
@@ -1593,7 +1592,7 @@ Sección xxx de [@quarteroni] o sección de @brennerscott
 
 :::::
 
-#### Condiciones de contorno de Dirichlet no homogéneas
+#### Condiciones de contorno de Dirichlet no homogéneas {#sec-dirichlet-nh}
 
 
 Hasta ahora las condiciones de contorno de Dirichlet han sido iguales a cero, ya que al pedir que tanto la incógnita $u$ como las funciones de prueba $v$ pertenezcan a $H^1_0$ podemos
@@ -1613,7 +1612,7 @@ $$ {#eq-no-homogeneo}
 entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que
 
 $$
-H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^2 \,d^3\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x})~\forall \vec{x} \in \Gamma_D  \right\}
+H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^{D} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x})~\forall \vec{x} \in \Gamma_D  \right\}
 $$
 
 Este planteo, además de ser poco elegante al romper la simetría entre $u$ y $v$, tiene un problema insalvable: $H^1_g$ es un conjunto^[Técnicamente es un [_affine manifold_]{lang=en-US}.] pero no un espacio ya que la suma de dos funciones $u_1 \in H^1_g$ y $u_2 \in H^1_g$ no están en $H^1_g$ sino en $H^1_{2g}$.
@@ -1859,7 +1858,7 @@ Si $V_N \rightarrow V$ para $N \rightarrow \infty$ entonces el método de Galerk
 :::
 
 ::: {.remark}
-En esta @sec-poisson hemos comenzando con la formulación fuerte de la ecuación diferencial (@eq-poisson-fuerte) y hemos llegado a un sistema lineal de ecuaciones algebraica (@eq-Au), pasando por la formulación débil (@def-formulacion-debil) y por la aproximación de Galerkin (@def-galerkin):
+En esta @sec-poisson se ha comenzado con la formulación fuerte de la ecuación diferencial (@eq-poisson-fuerte) y se ha llegado a un sistema lineal de ecuaciones algebraica (@eq-Au), pasando por la formulación débil (@def-formulacion-debil) y por la aproximación de Galerkin (@def-galerkin):
 
 $$
 \text{formulación fuerte} \quad \equiv \quad
@@ -1875,7 +1874,7 @@ La aproximación entre la formulación débil y el problema de Galerkin es la id
 
 #### Elementos finitos {#sec-fem}
 
-Tomemos un dominio $U\in \mathbb{R}^3$ (o en $\mathbb{R}^2$ para simplificar la representación gráfica, tal como hicimos en la @fig-dominio-pelado) y consideremos $J$ puntos $\vec{x}_j \in U$.
+Tomemos un dominio $U\in \mathbb{R}^D$ y consideremos $J$ puntos $\vec{x}_j \in U$.
 Estos puntos $\vec{x}_i$ para $j=1,\dots,J$ incluyen la frontera $\Gamma_N$ con condiciones de contorno de Neumann pero no incluyen a $\Gamma_D$ con condiciones de Dirichlet.
 Por ejemplo, en la @fig-dominio-solo-nodos tenemos $J=32$.
 Supongamos que existen $J$ funciones $h_j(\vec{x})$ "de forma"^[En la gran mayoría de la literatura de elementos finitos las funciones de forman se llaman $N(\vec{x})$. Como este símbolo no nos parece apropiado para una función del espacio, seguimos la nomenclatura de Bathe @bathe (que fue director de doctorado del Dr. Dvorkin que a su vez organizó el departamento de cálculo de la UBA donde este doctorando cursó la materia de elementos finitos) que utiliza la nomenclatura $h(\vec{x})$ para las funciones de forma.] que cumplen simultáneamente
@@ -1909,7 +1908,7 @@ $$
 \begin{bmatrix}
 h_1(\vec{x}) & h_2(\vec{x}) & \cdots & h_j(\vec{x}) & \cdots & h_J(\vec{x})
 \end{bmatrix}
-$$
+$$ {#eq-H}
 y
 $$
 \vec{v} = 
@@ -1952,25 +1951,25 @@ $$
 \displaystyle \frac{\partial h_1}{\partial y} & \displaystyle \frac{\partial h_2}{\partial y} & \cdots & \displaystyle \frac{\partial h_j}{\partial y} & \cdots & \displaystyle \frac{\partial h_J}{\partial y} \\
 \displaystyle \frac{\partial h_1}{\partial z} & \displaystyle \frac{\partial h_2}{\partial z} & \cdots & \displaystyle \frac{\partial h_j}{\partial z} & \cdots & \displaystyle \frac{\partial h_J}{\partial z} \\
 \end{bmatrix}
-$$
+$$ {#eq-B}
 
 Reemplazando la forma particular del operador $\mathcal{a}$ y del funcional $\mathcal{B}$ para el problema generalizado de Poisson de la @eq-a-B-poisson, tenemos
 
 $$
 \begin{aligned}
-\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^3 \vec{x} \\ 
-&= \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^3\vec{x} \\
-&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^3\vec{x} \right] \cdot \vec{u} \\
+\mathcal{a}(u,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \text{grad}\Big[ u(\vec{x}) \Big] \, d^D \vec{x} \\ 
+&= \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x} \right] \cdot \vec{u} \\
 \end{aligned}
 $$
 
 $$
 \begin{aligned}
-\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x} \\
-&= \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
-+ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x} \\
-&= \vec{v}^T \cdot \left[ \int_{U} \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
-+ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x} \right]
+\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot f(\vec{x}) \, d^D \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x} \\
+&= \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^D \vec{x}
++ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_{U} \mat{H}^T(\vec{x}) \cdot f(\vec{x}) \, d^D \vec{x}
++ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x} \right]
 \end{aligned}
 $$
 
@@ -1979,17 +1978,17 @@ Como $\mathcal{a}(u,v) = \mathcal{B}(v) \quad \forall v \in V_J$ entonces llegam
 $$
 \mat{A} \cdot \vec{u} = \vec{b}
 $$
-donde ahora tenemos una representación explícita particular para $\mat{A} \in \mathbb{R}^{J \times J}$ y $\vec{u} \in \mathbb{R}^J$ como
+donde ahora tenemos una representación explícita particular para $\mat{A} \in \mathbb{R}^{J \times J}$ y $\vec{u} \in \mathbb{R}^J$ a partir de las ecuaciones [-@eq-H} y [-@eq-B] como
 
 $$
 \begin{aligned}
-\mat{A} &= \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^3\vec{x} \\
-\vec{b} &= \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2 \vec{x}
-+ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x}
+\mat{A} &= \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x} \\
+\vec{b} &= \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x}
++ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x}
 \end{aligned}
 $$ {#eq-A-b-poisson}
 
-Una vez más, tal como hemos dicho en la observación sobre la construcción de la función $u_g$ necesaria para satisfacer condiciones de contorno de Dirichlet no homogéneas `de la página~\pageref{remark-ug}`{=latex}, estas últimas dos expresiones son correctas. Pero no parece sencillo
+Una vez más, tal como hemos dicho en la observación sobre la construcción de la función $u_g$ necesaria para satisfacer condiciones de contorno de Dirichlet no homogéneas `de la página~\pageref{remark-ug}`{=latex}, estas últimas dos expresiones son correctas. Pero no parece sencillo...
 
 ```{=latex}
 \label{dos}
@@ -2017,7 +2016,7 @@ Una de las preguntas centrales que el método de elementos finitos responde es �
 Justamente, el método de elementos finitos propone una forma sistemática para atacar estos dos puntos a partir de explotar la topología de los $J$ puntos $\vec{x}_j$ de la @fig-dominio-solo-nodos.
 El hecho de no haber incluido puntos sobre la frontera $\Gamma_D$ en el conjunto de $J$ funciones de forma de alguna manera rompe el sistematismo necesario para aplicar el método.
 Lo primero que tenemos que hacer entonces es incluir puntos sobre la frontera $\Gamma_D$.
-Digamos que hay $J_D$ puntos sobre $\Gamma_D$. Entonces agregamos $J_D$ funciones de forma para $j=J+1,\dots,J+J_D$ a las cuales les pedimos 
+Digamos que hay $J_D$ puntos sobre $\Gamma_D$. Entonces agregamos $J_D$ funciones de forma para $j=J+1,\dots,J+J_D$ a las cuales les pedimos que
 
 $$
 h_j(\vec{x}_i) = \delta_{ji} \quad \text{para \quad $j=J+1,\dots,J+J_D$ \quad e \quad $i=1,\dots,J+J_D$}\\
@@ -2092,10 +2091,10 @@ $$ {#eq-B-ext}
 Repitiendo todos los pasos, el método de Galerkin requiere que
 
 $$
-\tilde{\vec{v}}^T \cdot \left[ \int_U \tilde{\mat{B}}^T(\vec{x}) \cdot k(\vec{x}) \cdot \tilde{\mat{B}}(\vec{x}) \, d^3\vec{x} \right] \cdot \tilde{\vec{u}}
+\tilde{\vec{v}}^T \cdot \left[ \int_U \tilde{\mat{B}}^T(\vec{x}) \cdot k(\vec{x}) \cdot \tilde{\mat{B}}(\vec{x}) \, d^D\vec{x} \right] \cdot \tilde{\vec{u}}
 =
-\tilde{\vec{v}}^T \cdot \left[ \int_{U} \tilde{\mat{H}}^T(\vec{x}) \cdot f(\vec{x}) \, d^3 \vec{x}
-+ \int_{\Gamma_N} \tilde{\mat{H}}^T(\vec{x}) \cdot p(\vec{x}) \, d^2\vec{x} \right]
+\tilde{\vec{v}}^T \cdot \left[ \int_{U} \tilde{\mat{H}}^T(\vec{x}) \cdot f(\vec{x}) \, d^D \vec{x}
++ \int_{\Gamma_N} \tilde{\mat{H}}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x} \right]
 $$ {#eq-extendida}
 para todo $\tilde{v}^T = \begin{bmatrix} v_1 & \cdots \ v_J & 0 & \cdots & 0\end{bmatrix}$.
 
@@ -2184,8 +2183,14 @@ Como esta igualdad debe valer $\forall \vec{v}$, entonces $\mat{A} \cdot \vec{
 
 
 ::: {#cor-irrelevancia}
-Si $\tilde{\vec{v}}^T=\begin{bmatrix} \vec{v}^T & \vec{0}^T\end{bmatrix}$
-y $\tilde{\vec{u}}^T=\begin{bmatrix} \vec{u}^T & \vec{0}^T\end{bmatrix}$ entonces el contenido de las matrices $\mat{C}$, $\mat{D}$ y $\mat{E}$ y del vector $\vec{e}$ es irrelevante.
+Si $\tilde{\vec{v}}=\begin{bmatrix} \vec{v} & \vec{0}\end{bmatrix}^T$
+y $\tilde{\vec{u}}=\begin{bmatrix} \vec{u} & \vec{0}\end{bmatrix}^T$ entonces el contenido de las matrices $\mat{C}$, $\mat{D}$ y $\mat{E}$ y del vector $\vec{e}$ es irrelevante.
+:::
+
+::: {#thm-A-monio-es-singular}
+La matriz $\tilde{\mat{A}}$ es singular. Más aún, $\ker{(\tilde{\mat{A}})} = 1$.
+
+**TODO**
 :::
 
 ::::: {#cor-K-phi}
@@ -2203,7 +2208,7 @@ $$
 \vec{b} \\
 \vec{0} \\
 \end{bmatrix}
-$$
+$$ {#eq-K}
 tales que $\mat{A} \cdot \vec{u} = \vec{b}$, donde $\mat{I}$ es la matriz identidad de tamaño $J_D \times J_D$.
 Entonces el vector $\symbf{\varphi}$ tal que $\mat{K} \cdot \symbf{\varphi} = \vec{f}$ es igual a
 
@@ -2249,15 +2254,15 @@ Luego $\symbf{\varphi}_1 = \mat{A}^{-1} \cdot \vec{b} = \vec{u}$.
 :::::
 
 
-La importancia de este resultado radica en que si podemos construir la matriz extendida $\tilde{\mat{A}} \in \mathbb{R}^{(J+J_D)\times(J+J_D)}$ donde el elemento de la fila $i$ y la columna $j$ es
+La importancia de este resultado radica en que si pudiésemos construir la matriz extendida $\tilde{\mat{A}} \in \mathbb{R}^{(J+J_D)\times(J+J_D)}$ donde el elemento de la fila $i$ y la columna $j$ es
 
 $$
 \tilde{a}_{ij} = \mathcal{a}\Big(h_i(\vec{x}), h_j(\vec{x})\Big)
 \quad \text{para $i=1,\dots,J+J_D$ y $j=1,\dots,J+J_D$}
 $$
 sin distinguir entre nodos en $U$, en $\Gamma_N$ o en $\Gamma_D$,
-entonces podemos obtener la matriz $\mat{K}$ reemplazando las filas correspondientes a $i=J+1,\dots,J+J_D$ por todos ceros, excepto un uno (o cualquier valor $\alpha \neq 0$) en la diagonal.
-Al mismo tiempo, hay que reemplazar los elementos del vector $\vec{f}$ 
+entonces podríamos obtener la matriz $\mat{K}$ reemplazando las filas correspondientes a $i=J+1,\dots,J+J_D$ por todos ceros, excepto un uno (o cualquier valor $\alpha \neq 0$) en la diagonal.
+Al mismo tiempo, tendríamos que reemplazar los elementos del vector $\vec{f}$ 
 
 $$
 f_j = \mathcal{B}\Big(h_j(\vec{x})\Big)
@@ -2297,7 +2302,7 @@ ya que $\mat{A}$ es definida positiva por el @thm-A-spd.
 :::::
 
 ::: {.remark}
-Aún cuando la matriz $\mat{A}$ sea simétrica, la matriz de rigidez $\mat{K}$ no lo es.
+Aún cuando la matriz $\mat{A}$ sea simétrica, la matriz de rigidez $\mat{K}$ (@eq-K) no lo es.
 Sin embargo, es posible realizar el procedimiento de reemplazar filas por ceros excepto en la diagonal agregando operaciones extra de reemplazo de columans por ceros excepto en la diagonal mientras al mismo tiempo se realizan operaciones equivalentes sobre el vector $\vec{f}$ del miembro derecho de forma tal de obtener un sistema de ecuaciones equivalente donde la matriz sea simétrica. Estos detalles forman parte de la implementación computacional y no de la teoría detrás del método numérico.
 :::
 
@@ -2321,56 +2326,60 @@ $$
 u(\vec{x}) = g(\vec{x}) \quad \forall \vec{x} \in \Gamma_D
 $$
 
-La forma que introdujimos para resolver el problema continuo fue considerar $u_g \in H_g^1$, escribir $u_h = u - u_g$ y encontrar $u_h \in V$ tal que
+La forma de resolver el problema continuo que introdujimos en la @sec-dirichlet-nh fue  considerar $u_g \in H_g^1$, escribir $u_h = u - u_g$ y encontrar $u_h \in V$ tal que
 
 $$
 \mathcal{a}(u_h,v) = \mathcal{B}(v) - \mathcal{a}(u_g,v) \quad \forall v \in V
 $$
 
-Ahora volvemos a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bilinealidad de $a$
+Ahora,
 
-$$
-\mathcal{a}(u_h+u_g,v) = \mathcal{a}(u,v) = \mathcal{B}(v)
-$$
+ 1. volvemos a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bilinealidad de $a$
 
-Escribimos la parte homogénea $u_h$ como
+    $$
+    \mathcal{a}(u_h+u_g,v) = \mathcal{a}(u,v) = \mathcal{B}(v)
+    $$
 
-$$
-u_h(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot 0
-= \tilde{\mat{H}} \cdot \begin{bmatrix} \vec{u} \\ \vec{0} \end{bmatrix}
-$$
-la función auxiliar $u_g$ que satisface la condición de Dirichlet como
+ 2. escribimos la parte homogénea $u_h$ como
 
-$$
-u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot 0 + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
-= \tilde{\mat{H}} \cdot \begin{bmatrix} \vec{0} \\ \vec{g} \end{bmatrix}
-$$
-y la suma $u=u_h+u_g$
+    $$
+    u_h(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot 0
+    = \tilde{\mat{H}} \cdot \begin{bmatrix} \vec{u} \\ \vec{0} \end{bmatrix}
+    $$
+    
+ 3. la función auxiliar $u_g$ que satisface la condición de Dirichlet como
 
-$$
-u(\vec{x}) = u_h(\vec{x}) + u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
-= \tilde{\mat{H}} \cdot \tilde{\vec{u}}
-$$
-donde ahora $\vec{u}$ se extiende como
+    $$
+    u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot 0 + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
+    = \tilde{\mat{H}} \cdot \begin{bmatrix} \vec{0} \\ \vec{g} \end{bmatrix}
+    $$
+    
+ 4. y la suma $u=u_h+u_g$
 
-$$
-\tilde{\vec{u}} =
-\begin{bmatrix}
-\vec{u} \\
-\vec{g}
-\end{bmatrix}
-$$
-y
+    $$
+    u(\vec{x}) = u_h(\vec{x}) + u_g(\vec{x}) = \sum_{j=1}^{J} h_j(\vec{x}) \cdot u_j + \sum_{j=J+1}^{J+J_D} h_j(\vec{x}) \cdot g(\vec{x}_j)
+    = \tilde{\mat{H}} \cdot \tilde{\vec{u}}
+    $$
+    donde ahora extendemos $\vec{u}$ como
 
-$$
-\vec{g} =
-\begin{bmatrix}
-g(\vec{x}_{J+1}) \\
-g(\vec{x}_{J+2}) \\
-\vdots \\
-g(\vec{x}_{J+J_D}) \\
-\end{bmatrix}
-$$
+    $$
+    \tilde{\vec{u}} =
+    \begin{bmatrix}
+    \vec{u} \\
+    \vec{g}
+    \end{bmatrix}
+    $$
+    y
+
+    $$
+    \vec{g} =
+    \begin{bmatrix}
+    g(\vec{x}_{J+1}) \\
+    g(\vec{x}_{J+2}) \\
+    \vdots \\
+    g(\vec{x}_{J+J_D}) \\
+    \end{bmatrix}
+    $$
 
 Como $v(\vec{x}) \in V_J \subset H^1_0$, entonces $\vec{v}$ todavía se extiende con ceros
 
@@ -2522,6 +2531,8 @@ Tomemos la @fig-dominio-nodos-elementos, que muestra no sólo los $J_D$ puntos
 
 ## elemento
 
+Un _elemento_  es una entidad topológica de dimensión $D=0,1,2$ o $3$ capaz de cubrir un dominio espacial $U \in \mathbb{R}^D$.
+
 **TODO**
 :::
 
@@ -2547,12 +2558,12 @@ Llamamos a $v_j$, el _valor nodal_ de la solución aproximada.
 :::
 
 ::: {.remark}
-Los valores nodales $v_j$ son las incógnitas que se obtienen al resolver el problema numéricamente.
-Pero la solución al problema de Galerkin no es simplemente un conjunto de coeficientes sino una función continua $u_N$ que puede ser evaluada en cualquier punto del espacio $\vec{x} \in U$.
+Los $J$ valores nodales $u_j$ son las incógnitas que se obtienen al resolver el problema numéricamente.
+Pero la solución al problema de Galerkin no es simplemente un conjunto de coeficientes sino una función continua $u_N(\vec{x})$ que puede ser evaluada en cualquier punto del espacio $\vec{x} \in U$.
 :::
 
 ::: {#cor-suma-a-no}
-Para que sea posible recuperar exactamente una función constante $v(\vec{x})= \text{cte} \in U$ a partir de valores nodales constantes $v_j = \text{cte}$ las funciones de forma deben sumar uno $\forall \vec{x} \in U$.
+Para que sea posible recuperar exactamente una función constante $u(\vec{x})= \text{cte} \in U$ a partir de valores nodales constantes $u_j = \text{cte}$ las funciones de forma deben sumar uno $\forall \vec{x} \in U$.
 En resumen, las funciones de forma deben cumplir
 
 $$
@@ -2566,7 +2577,7 @@ $$ {#eq-condiciones-h}
 Si los elementos son apropiados, la integral sobre el dominio $U$ es aproximadamente igual a la suma de las integrales sobre cada uno de los $I$ elementos $e_1$, $e_2$, ..., $e_I$ en los que lo dividimos. De hecho, los elementos son "apropiados" justamente si a medida que dividimos el dominio en más y más elementos cada vez de menor tamaño (lo que implica que $J \rightarrow \infty$), entonces
 
 $$
-\lim_{I \rightarrow \infty} \sum_{i=1}^I \int_{e_i} f(\vec{x}) \, d^3\vec{x} = \int_{U} f(\vec{x}) \, d^3\vec{x}
+\lim_{I \rightarrow \infty} \sum_{i=1}^I \int_{e_i} f(\vec{x}) \, d^D\vec{x} = \int_{U} f(\vec{x}) \, d^D\vec{x}
 $$
 para cualquier función $f(\vec{x}) : U \mapsto \mathbb{R}$ integrable.
 
@@ -2583,7 +2594,7 @@ $$
 \end{aligned}
 $$
 
-**TODO** figura
+**TODO** figura (desde FeenoX/Gmsh)
 
 Consideremos las funciones
 
@@ -2595,17 +2606,17 @@ h_3(\vec{x}) &= y \\
 \end{aligned}
 $$
 
-Si el triángulo fuese el dominio $U$ y quisiéramos resolver una ecuación diferencial en derivadas parciales discretizándolo con los tres nodos $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3$ entonces estas funciones de forma cumplirían los requerimientos de la @eq-condiciones-h.
-Recordando las ecuaciones [-@eq-H-ext] y [-@eq-B-ext]
+Si el triángulo fuese el dominio $U \mathbb{R}^2$ y quisiéramos resolver una ecuación diferencial en derivadas parciales discretizándolo con los tres nodos $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3$ entonces estas funciones de forma cumplirían los requerimientos de la @eq-condiciones-h.
+Recordando las ecuaciones [-@eq-H-ext] y [-@eq-B-ext], para un problema escalar el número grados de libertad por nodo es $G=1$
 
 $$
 \begin{aligned}
-\tilde{\mat{H}}(\vec{x}) &= \begin{bmatrix} 1-x-y & x & y \end{bmatrix} \\
-\tilde{\mat{B}}(\vec{x}) &= \begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1\end{bmatrix}
+\tilde{\mat{H}}(\vec{x}) &= \begin{bmatrix} 1-x-y & x & y \end{bmatrix}  \quad \mathbb{R}^{G \times J}\\
+\tilde{\mat{B}}(\vec{x}) &= \begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1\end{bmatrix} \quad \mathbb{R}^{D \times J}
 \end{aligned}
 $$
 
-Usando las expresiones de la @eq-A-b-poisson, podemos calcular explícitamente la matriz aumentada $\tilde{\mat{A}}$ como^[Mantenemos la notación $d^3\vec{x}$ para indicar integración sobre el seno del elemento, aún cuando el ejemplo particular sea bi-dimensional.]
+Usando las expresiones de la @eq-A-b-poisson, podemos calcular explícitamente la matriz aumentada $\tilde{\mat{A}}$ como
 
 $$
 \tilde{\mat{A}} = \bigintss_e
@@ -2616,7 +2627,7 @@ $$
 \end{bmatrix}
  \cdot k(\vec{x}) \cdot 
 \begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1 \end{bmatrix}
-\, d^3\vec{x} \\
+\, d^D\vec{x} \\
 =
 \begin{bmatrix}
    2  & -1  & -1  \\
@@ -2624,28 +2635,29 @@ $$
   -1  &  0  &  1  \\
 \end{bmatrix}
 \cdot
-\int_e f(\vec{x}) \, d^3\vec{x}
+\int_e f(\vec{x}) \, d^D\vec{x}
 $$
 donde $e$ se refiere al elemento triangular. Si $f(\vec{x})=1$, entonces la integral es el área del triángulo que es $1/2$.
 Lo importante del ejemplo es que la matriz de rigidez elemental
 
- 1. es cuadrada,
- 2. para un problema escalar como la ecuación de Poisson su tamaño es igual al número de nodos del elemento, y
- 3. conocidas las funciones de forma del elemento, se puede calcular fácilmente primero derivando las $h_j$ con respecto a las variables espaciales y luego integrando la misma expresión de la matriz extendida global sobre el elemento.
+ 1. es cuadrada de tamaño $GJ \times GJ$ siendo $G=1$ para un problema escalar como la ecuación de Poisson y $J$ es el número de nodos del elemento
+ 2. conocidas las funciones de forma del elemento, se puede calcular fácilmente primero derivando las $h_j$ con respecto a las variables espaciales y luego integrando la misma expresión de la matriz extendida global sobre el elemento.
  
 En este caso en particular, dado que las funciones de forma son lineales con respecto a las variables espaciales entonces la matriz $\mat{B}(\vec{x})$ es uniforme y puede salir fuera de la integral.
 Para otras topologías de elementos (por ejemplo cuadrángulos) o para elementos de órdenes superiores (en los que se agregan nodos sobre los lados o sobre el seno del elemento), las funciones de forma tendrán una dependencia más compleja y sus derivadas dependerán de $\vec{x}$ por lo que efectivamente habrá que integrar el producto $\mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x})$ sobre el triángulo.
 Si bien en general es posible utilizar cualquier método de cuadratura numérica (incluyendo métodos adaptivos), la forma usual de calcular estas integrales es utilizando el método de integración de Gauss que consiste en disponer de una cantidad pre-fijada $Q$ de pares de pesos $\omega_q$ y puntos espaciales $\vec{x}_q$ tales que
 
 $$
-\int_e \vec{F}(\vec{x}) \, d^3 \vec{x} \approx \sum_{q=1}^Q \omega_q \cdot \vec{F}(\vec{x}_q)
+\int_e \vec{F}(\vec{x}) \, d^D \vec{x} \approx \sum_{q=1}^Q \omega_q \cdot \vec{F}(\vec{x}_q)
 $$
+donde el número $Q$ depende de la precisión de la aproximación: mientras mayor sea $Q$, mayor será la precisión de la integral (y mayor será el costo computacional para calcularla).
+
  
 Está claro que los elementos triangulares de la @fig-dominio-solo-nodos no coinciden con el triángulo canónico de vértices $[0,0]$, $[1,0]$ y $[0,1]$.
-Pero lo que podemos hacer es suponer que este elemento canónico $e_c$, cuya matriz elemental ya sabemos calcular, vive en un plano bidimensional $\xi$-$\eta$. Si pudiésemos encontrar, para cada elemento $e_i$ del dominio, una transformación biyectiva entre las coordenadas reales $x$-$y$ y las coordenadas canónicas $\xi$-$\eta$ entonces podríamos calcular por un lado las integrales utilizando el jacobiano $\mat{J}$ de la transformación $\vec{x} \mapsto \symbf{\xi}$
+Pero podemos suponer que este elemento canónico $e_c$, cuya matriz elemental ya sabemos calcular, vive en un plano bidimensional $\xi$-$\eta$. Si pudiésemos encontrar, para cada elemento $e_i$ del dominio, una transformación biyectiva entre las coordenadas reales $x$-$y$ y las coordenadas canónicas $\xi$-$\eta$ entonces podríamos calcular por un lado las integrales utilizando el jacobiano $\mat{J}$ de la transformación $\vec{x} \mapsto \symbf{\xi}$
 
 $$
-\int_{e_i} f(\vec{x}) \, d^3\vec{x} = \int_{e_c} f(\symbf{\xi}) \cdot | \det{(\mat{J})} | \, d^3\symbf{\xi}
+\int_{e_i} f(\vec{x}) \, d^2\vec{x} = \int_{e_c} f(\symbf{\xi}) \cdot \Big| \det{(\mat{J})} \Big| \, d^2\symbf{\xi}
 $$
 y por otro las derivadas con respecto a las coordenadas originales $x$-$y$ que aparezcan en los integrandos utilizando la regla de la cadena
 
@@ -2665,7 +2677,7 @@ y &= h_1(\symbf{\xi}) \cdot y_1 + h_2(\symbf{\xi}) \cdot y_2 + h_3(\symbf{\xi}) 
 \end{aligned}
 $$
 donde $x_j$ e $y_j$ son las coordenadas del nodo $j$-ésimo del elemento (triángulo) $e_i$.
-Es decir, la transformación (inversa) propuesta consiste en interpolar las coordenadas reales continuas $\vec{x}$ a partir de las coordenadas reales $\vec{x}_j$ de los nodos del elemento real $e_i$ usando las funciones de forma del elemento canónico $e_c$.
+Es decir, la transformación (inversa) propuesta consiste en interpolar las coordenadas reales continuas $\vec{x}$ a partir de las coordenadas reales $\vec{x}_j$ de los nodos del elemento real $e_i$ usando las funciones de forma del elemento canónico $e_c$.^[Explicar isoparamétrico **TODO**]
 Las derivadas parciales de $x$ e $y$ con respecto a $\xi$ y $\eta$ son
 
 $$
@@ -2709,7 +2721,7 @@ d\eta
 d\xi \\
 d\eta
 \end{bmatrix}
-$$
+$$ {#eq-dxdy}
 
 De la misma manera,
 
@@ -2730,7 +2742,31 @@ dy
 \end{bmatrix}
 $$
 
-Como
+Reemplazando en la @eq-dxdy
+
+$$
+\begin{bmatrix}
+dx \\
+dy
+\end{bmatrix}
+=
+\begin{bmatrix}
+\displaystyle \frac{\partial x}{\partial \xi} & \displaystyle \frac{\partial x}{\partial \eta} \\
+\displaystyle \frac{\partial y}{\partial \xi} & \displaystyle \frac{\partial y}{\partial \eta}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\displaystyle \frac{\partial \xi}{\partial x}  & \displaystyle \frac{\partial \xi}{\partial y} \\
+\displaystyle \frac{\partial \eta}{\partial x} & \displaystyle \frac{\partial \eta}{\partial y}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+dx \\
+dy
+\end{bmatrix}
+$$
+
+Por lo tanto, debe ser
 
 $$
 \begin{bmatrix}
@@ -2748,7 +2784,7 @@ $$
 0 & 1 \\
 \end{bmatrix}
 $$
-entonces
+y entonces
 
 $$
 \mat{J} = 
@@ -2776,7 +2812,7 @@ Si la transformación $\vec{x} \mapsto \symbf{\xi}$ es biyectiva, $\det{(\mat{
 Los elementos del jacobiano $\mat{J}$ están dados explícitamente por las ecuaciones [-@eq-dxdxi].
 En algún sentido, $\mat{J}$ es "fácil" ya que las funciones de forma $h_j(\symbf{\xi})$ tienen una dependencia sencilla con $\symbf{\xi}$.
 Por otro lado, los elementos de $\mat{J}^{-1}$ no están disponibles directamente ya que, en general, no tenemos una expresión explícita de $\symbf{\xi}(\vec{x})$ a partir de la cual calcular las derivadas parciales.
-Para poder evaluar las derivadas parciales de $\xi$ y $\eta$ con respecto a $x$ e $y$ se deben armar la matriz jacobiana $\mat{J} \in \mathbb{R}^{2 \times 2}$ a partir de las ecuaciones [-@eq-dxdxi], calcular su inversa $\mat{J}^{-1}$ y luego extraer sus elementos uno a uno.
+Para poder evaluar las derivadas parciales de $\xi$ y $\eta$ (y eventualmente $\zeta$) con respecto a $x$ e $y$ (y eventualmente $z$) se deben armar la matriz jacobiana $\mat{J} \in \mathbb{R}^{2 \times 2}$ (eventualmente $\mathbb{R}^3$) a partir de las ecuaciones [-@eq-dxdxi], calcular su inversa $\mat{J}^{-1}$ y luego extraer sus elementos uno a uno.
 :::
 
 ::: {.remark}
@@ -2821,12 +2857,9 @@ $$
 
 
 ::: {.remark}
-Además de triángulos (tetrahedros) se podrían utilizar elementos cuadrangulares (hexahédricos), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$.
+Además de triángulos (tetrahedros) se podrían utilizar elementos cuadrangulares (hexahédricos, prismáticos o piramidales), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$.
 :::
 
-::: {.remark}
-En tres dimensiones también existen elementos prismáticos y piramidales.
-:::
 
 ::: {.remark}
 Elementos de orden superior.
@@ -2834,18 +2867,19 @@ En el **TODO** se muestran los tipos de elementos, la numeración de los nodos y
 :::
 
 
-Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discretizado $U$, una vez que conocemos
+Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discretizado $U \in \mathbb{R}^D$, una vez que conocemos
 
  1. la topología del elemento $e_i$
+     - segmento para $D=1$
      - triángulo o cuadrángulo para $D=2$
      - tetrahedro, hexahedro, prisma o pirámide para $D=3$
- 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz $\mat{H}_c$^[Llamamos matriz a $H_c$ aunque parezca un vector porque para ecuaciones no escalares con $G > 1$ grados de libertad por nodo, el objeto $H_c$ es efectivamente una matriz de $G$ filas y $J$ columnas.]
+ 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz $\mat{H}_c$ ($G=1$ para un problema escalar)]
  
     $$
-    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
+    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{G \times J}
     $$
     
- 3. las $JD$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz $\mat{B}_c$
+ 3. las $J \times D$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz $\mat{B}_c$
  
     $$
     \mat{B}_c(\symbf{\xi}) =
@@ -2885,7 +2919,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     \end{aligned}
     $$
     
-    necesarias para evaluar $k(\vec{x})$ y $f(\vec{x})$ dentro del integrando.
+    necesarias para evaluar $k(\vec{x})$ y $f(\vec{x})$ dentro del integrando,
 
 entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J \times J}$ de rigidez elemental correspondiente a la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es una de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
 
@@ -2916,7 +2950,7 @@ Esto es, para $D=2$ debemos integrar sobre elementos tipo segmento que están s
 Para $D=3$ debemos integrar sobre elementos triangulares o cuadrangulares que están en el espacio $x$-$y$-$z$ (pero no necesariamente sobre el plano $x$-$y$).
 Hay varias formas de atacar este problema.
 En esta tesis proponemos introducir una transformación intermedia desde las coordenadas $\vec{x} \in \mathbb{R}^D$ hacia un sistema de coordenadas $\vec{r} \in \mathbb{R}^{D-1}$, para luego sí transformar las coordenadas $\vec{r}$ a $\symbf{\xi}$ y realizar la integración.
-Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un triángulo arbitrario cuyas coordenadas son $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3 \in \mathbb{R}^3$ entonces primero encontramos una (de las infinitas) transformaciones continuas $\vec{x} \mathbb{R}^3 \mapsto \vec{r} \mathbb{R}^2$ para luego transformar $\vec{r} \in \mathbb{R}^2 \mapsto \symbf{\xi} \in \mathbb{R}^2$ y poder usar las matrices del elemento triangular canónico.
+Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un triángulo arbitrario cuyas coordenadas son $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3 \in \mathbb{R}^D$ entonces primero encontramos una (de las infinitas) transformaciones continuas $\vec{x} \in \mathbb{R}^D \mapsto \vec{r} \in \mathbb{R}^{D-1}$ para luego transformar $\vec{r} \in \mathbb{R}^{D-1} \mapsto \symbf{\xi} \in \mathbb{R}^{D-1}$ y poder usar las matrices del elemento triangular canónico.
 
 
 

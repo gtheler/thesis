@@ -1,10 +1,15 @@
+Merge "dominio.geo";
 Merge "shape-function-first-order-25.msh";
+
 
 Mesh.SurfaceFaces = 0;
 Mesh.VolumeFaces = 0;
-Mesh.SurfaceEdges = 1;
+Mesh.SurfaceEdges = 0;
 Mesh.VolumeEdges = 0;
-Mesh.ColorCarousel = 0;
+Mesh.ColorCarousel = 2;
+Mesh.Nodes = 1;
+Mesh.Lines = 0;
+
 
 View[0].RaiseZ = 1;
 View[0].ShowScale = 0;
@@ -23,14 +28,6 @@ General.TrackballQuaternion0 = 0.41;
 General.TrackballQuaternion1 = 0.05;
 General.TrackballQuaternion2 = 0.10;
 General.TrackballQuaternion3 = 0.90;
-
-
-Mesh.ColorCarousel = 2;
-Mesh.Nodes = 0;
-Mesh.Lines = 0;
-Mesh.SurfaceEdges = 1;
-Mesh.SurfaceFaces = 0;
-Mesh.VolumeEdges = 0;
 
 
 Mesh.Color.Zero = {255,0,0};
