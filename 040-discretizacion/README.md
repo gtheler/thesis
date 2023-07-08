@@ -4,12 +4,18 @@
 math.md
 ```
 
-
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
-> | Boundary conditions tend to make the theory of PDEs difficult.
-> |
-> | _Jürgen Jost, Partial Differential Equations, 2013_ @pdes
+> I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
+> Math is a human discovery, and it's no more complicated than humans can understand.
+> I had a calculus book once that said, 'What one fool can do, another can'
+> There's a tendency to pomposity in all this, to make it all [artificially] deep and profund.
+> 
+> _Richard Feynmann_
+
+> Boundary conditions tend to make the theory of PDEs difficult.
+>
+> _Jürgen Jost, Partial Differential Equations, 2013_ @pdes
 :::
 :::::
 
@@ -2812,7 +2818,7 @@ Si la transformación $\vec{x} \mapsto \symbf{\xi}$ es biyectiva, $\det{(\mat{
 Los elementos del jacobiano $\mat{J}$ están dados explícitamente por las ecuaciones [-@eq-dxdxi].
 En algún sentido, $\mat{J}$ es "fácil" ya que las funciones de forma $h_j(\symbf{\xi})$ tienen una dependencia sencilla con $\symbf{\xi}$.
 Por otro lado, los elementos de $\mat{J}^{-1}$ no están disponibles directamente ya que, en general, no tenemos una expresión explícita de $\symbf{\xi}(\vec{x})$ a partir de la cual calcular las derivadas parciales.
-Para poder evaluar las derivadas parciales de $\xi$ y $\eta$ (y eventualmente $\zeta$) con respecto a $x$ e $y$ (y eventualmente $z$) se deben armar la matriz jacobiana $\mat{J} \in \mathbb{R}^{2 \times 2}$ (eventualmente $\mathbb{R}^3$) a partir de las ecuaciones [-@eq-dxdxi], calcular su inversa $\mat{J}^{-1}$ y luego extraer sus elementos uno a uno.
+Para poder evaluar las derivadas parciales de $\xi$ y $\eta$ (y eventualmente $\zeta$) con respecto a $x$ e $y$ (y eventualmente $z$) se deben armar la matriz jacobiana $\mat{J} \in \mathbb{R}^{2 \times 2}$ (eventualmente $\mathbb{R}^{3 \times 3}$) a partir de las ecuaciones [-@eq-dxdxi], calcular su inversa $\mat{J}^{-1}$ y luego extraer sus elementos uno a uno.
 :::
 
 ::: {.remark}
@@ -2862,9 +2868,19 @@ Además de triángulos (tetrahedros) se podrían utilizar elementos cuadrangular
 
 
 ::: {.remark}
-Elementos de orden superior.
+Elementos de orden superior (@fig-shape-function-second-order).
 En el **TODO** se muestran los tipos de elementos, la numeración de los nodos y las funciones de forma de los elementos canónicos soportados por la herramienta desarrollada.
 :::
+
+::: {#fig-shape-function-second-order layout="[45,-5,45]"}
+
+![Nodo sobre una esquina de un triángulo](shape-function-second-order-45.png){#fig-shape-function-second-order-45}
+
+![Nodo sobre un borde de un triángulo](shape-function-second-order-102.png){#fig-shape-function-second-order-102}
+
+Funciones de forma de segundo orden tras agregar puntos en los bordes de los triángulos de la @fig-dominio-nodos-elementos.
+:::
+
 
 
 Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discretizado $U \in \mathbb{R}^D$, una vez que conocemos
@@ -2907,7 +2923,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     
     $$
     \mat{J}(\symbf{\xi}) = \mat{B}_c(\symbf{\xi}) \cdot \mat{C}_i
-    $$
+    $$ {#eq-J-BC}
     
     y las coordenadas reales $\vec{x}_q$ de los $Q$ puntos de Gauss
     
@@ -2938,7 +2954,7 @@ y la componente volumétrica del vector elemental $\vec{b}_i$ como
 
 $$
 \begin{aligned}
-\vec{b}_i &= \int_{e_i} \mat{H}(\vec{x})^T \cdot f(\vec{x}) \, d^D\vec{x} \\
+\vec{b}_i^{(U)} &= \int_{e_i} \mat{H}(\vec{x})^T \cdot f(\vec{x}) \, d^D\vec{x} \\
 &= \int_{e_c} \mat{H}(\symbf{\xi})^T \cdot f(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^D\symbf{\xi} \\
 &\approx
 \sum_{q=1}^Q \omega_q \cdot \mat{H}(\symbf{\xi}_q)^T \cdot f(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| 
@@ -2950,7 +2966,287 @@ Esto es, para $D=2$ debemos integrar sobre elementos tipo segmento que están s
 Para $D=3$ debemos integrar sobre elementos triangulares o cuadrangulares que están en el espacio $x$-$y$-$z$ (pero no necesariamente sobre el plano $x$-$y$).
 Hay varias formas de atacar este problema.
 En esta tesis proponemos introducir una transformación intermedia desde las coordenadas $\vec{x} \in \mathbb{R}^D$ hacia un sistema de coordenadas $\vec{r} \in \mathbb{R}^{D-1}$, para luego sí transformar las coordenadas $\vec{r}$ a $\symbf{\xi}$ y realizar la integración.
-Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un triángulo arbitrario cuyas coordenadas son $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3 \in \mathbb{R}^D$ entonces primero encontramos una (de las infinitas) transformaciones continuas $\vec{x} \in \mathbb{R}^D \mapsto \vec{r} \in \mathbb{R}^{D-1}$ para luego transformar $\vec{r} \in \mathbb{R}^{D-1} \mapsto \symbf{\xi} \in \mathbb{R}^{D-1}$ y poder usar las matrices del elemento triangular canónico.
+Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un triángulo arbitrario cuyas coordenadas son $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3 \in \mathbb{R}^3$ entonces primero encontramos una (de las infinitas) rotaciones $\vec{x} \in \mathbb{R}^3 \mapsto \vec{r} \in \mathbb{R}^{2}$ para luego transformar $\vec{r} \in \mathbb{R}^{2} \mapsto \symbf{\xi} \in \mathbb{R}^{2}$ y poder usar las matrices del elemento triangular canónico.
+
+::: {#thm-rotacion}
+La matriz de rotación que lleva el vector $\vec{a} \in \mathbb{R}^3$ al vector $\vec{b} \in \mathbb{R}^3$ es
+
+$$
+\mat{R} = \mat{I} + \mat{T} + \frac{1}{1 - \vec{a} \cdot \vec{b}} \cdot \mat{T}^2
+$$
+donde la matriz $\mat{T}$ es
+
+$$
+\mat{T} = 
+\begin{bmatrix}
+0 & -\vec{t}_3 & +\vec{t}_2 \\
++\vec{t}_3 & 0 & -\vec{t}_1 \\
+-\vec{t}_2 & +\vec{t}_1 & 0
+\end{bmatrix}
+$$
+y $\vec{t}$ es producto cruz entre $\vec{a}$ y $\vec{b}$
+
+$$
+\vec{t} = \vec{a} \times \vec{b}
+$$
+:::
+
+Lo que queremos es transformar una de las dos normales $\hat{\vec{n}}$ del triángulo
+
+$$
+\hat{\vec{n}} = \frac{(\vec{x}_2 - \vec{x}_1) \times (\vec{x}_3 - \vec{x}_1)}{|| (\vec{x}_2 - \vec{x}_1) \times (\vec{x}_3 - \vec{x}_1) ||}
+$$
+
+para que coincida con versor normal en la dirección $z$, $\hat{\vec{e}}_z = [0,0,1]$.
+Haciendo $\vec{a} = \hat{\vec{n}}$ y $\vec{b} = \hat{\vec{e}}_z$, el vector $\vec{t}$ es
+
+$$
+\begin{aligned}
+\vec{t} &= \hat{\vec{n}} \times \hat{\vec{e}}_z \\
+\end{aligned}
+$$
+
+Con esto podemos entonces convertir la matriz con las tres coordenadas tridimensionales $\mat{C}_{3}$ del triángulo original a una de coordenadas bidimensionales $\mat{C}_2$ como
+
+$$
+\begin{aligned}
+\mat{C}_2 &= \mat{R} \cdot \mat{C}_3 \\
+\begin{bmatrix}
+x_1^\prime & x_2^\prime & x_3^\prime \\
+y_1^\prime & y_2^\prime & y_3^\prime \\
+0 & 0 & 0 \\
+\end{bmatrix}
+&=
+\begin{bmatrix}
+ 1     + k \cdot (-\vec{t}_3^2- \vec{t}_2^2) &
+ -\vec{t}_3 + k \cdot (\vec{t}_1\cdot \vec{t}_2) &
+ +\vec{t}_2 + k \cdot (\vec{t}_1\cdot \vec{t}_3) \\
+ +\vec{t}_3 + k \cdot (\vec{t}_1\cdot \vec{t}_2) &
+ 1     + k \cdot (-\vec{t}_3^2 - \vec{t}_1^2) &
+ -\vec{t}_1 + k \cdot (\vec{t}_2\cdot \vec{t}_3) \\
+ -\vec{t}_2 + k \cdot (\vec{t}_1\cdot \vec{t}_3) &
+ +\vec{t}_1 + k \cdot (\vec{t}_2\cdot \vec{t}_3) &
+ 1     + k \cdot (-\vec{t}_2^2 - \vec{t}_1^2)
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+x_1 & x_2 & x_3 \\
+y_1 & y_2 & y_3 \\
+z_1 & z_2 & z_3
+\end{bmatrix}
+\end{aligned}
+$$
+para
+
+$$
+k = \frac{1}{1- \hat{\vec{n}} \cdot \hat{\vec{e}}_z}
+$$
+
+Entonces podemos calcular el jacobiano de un elemento de superficie en un problema tridimensional con las funciones de forma tradicionales del triángulo canónico $e_c$.
+En efecto, la contribución de las condiciones de contorno naturales al vector $b_i$ es entonces
+
+$$
+\begin{aligned}
+\vec{b}_i^{(\Gamma_N)} &= \int_{e_i^{(D-1)}} \mat{H}(\vec{x})^T \cdot p(\vec{x}) \, d^{D-1}\vec{x} \\
+&= \int_{e_c^{(D-1)}} \mat{H}(\symbf{\xi})^T \cdot p(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^{D-1}\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q^{(D-1)} \cdot \mat{H}(\symbf{\xi}_q)^T \cdot p(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| 
+\end{aligned}
+$$
+donde la matriz $\vec{H}$ y el jacobiano $\mat{J}$ son los que le corresponden al elemento de dimensión $D-1$.
+
+
+::: {.remark}
+Si no se hace nada, es como si $p(\vec{x})=0$.
+:::
+
+### Ecuación de difusión de neutrones {#sec-difusion-multigrupo-fem}
+
+Estamos en condiciones entonces de discretizar en espacio las ecuaciones de difusión multigrupo que derivamos en la @sec-xxx
+
+$$ \tag{\ref{eq-difusionmultigrupo}}
+\begin{gathered}
+ - \text{div} \Big[ D_g(\vec{x}) \cdot \text{grad} \left[ \phi_g(\vec{x}) \right] \Big]
+ + \Sigma_{t g}(\vec{x}) \cdot \phi_g(\vec{x})
+ = \\
+\sum_{g^\prime = 1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \phi_{g^\prime}(\vec{x}) +
+\chi_g \sum_{g^\prime = 1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot \phi_{g^\prime}(\vec{x})+ s_{0g}(\vec{x})
+\end{gathered}
+$$ 
+
+Comenzamos con el caso $G=1$ y luego generalizamos la formulación para $G>1$.
+
+#### Un único grupo de energía
+
+P^ara $G=1$ la ecuación se simplifica a 
+
+$$
+ - \text{div} \Big[ D(\vec{x}) \cdot \text{grad} \left[ \phi(\vec{x}) \right] \Big]
+ + \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right]\cdot \phi(\vec{x})
+= s_{0}(\vec{x})
+$$ 
+
+El término de la divergencia y el miembro derecho tienen la misma forma que la ecuación de Poisson, por lo que debemos esperar contribuciones elementales $B^T D B$ y $H^T s_0$ respectivamente.
+Para evaluar el término de fuente neta lineal con $\phi$ procedemos a multiplicar la formulación fuerte por una función de prueba $v(\vec{x}) \in V$^[Como para el problema de elasticidad al multiplicar la formulación fuerte por las funciones de prueba se obtiene el principio de los trabajos virtuales, a veces estas funciones de prueba se llaman "desplazamientos virtuales". Como generalización, en el problema de conducción de calor se las llaman "temperaturas virtuales". En este caso, podríamos llamarlas "flujos escalares virtuales".] e integrar en el dominio $U\in\mathbb{R}^D$
+
+$$
+\begin{gathered}
+\int_U v(\vec{x}) \cdot \left\{ - \text{div} \Big[ D(\vec{x}) \cdot \text{grad} \left[ \phi(\vec{x}) \right] \Big] \right\} \, d^D\vec{x} \\
+ + \int_U v(\vec{x}) \cdot \left\{ \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \phi(\vec{x}) \right\} \, d^D\vec{x}
+= \int_U v(\vec{x}) \cdot s_{0}(\vec{x}) \, d^D\vec{x}
+\end{gathered}
+$$
+
+Usando la fórmula de Green y el hecho de que $v(\vec{x})=0$ en $\Gamma_D$ obtenemos la formulación débil de la ecuación de difusión para un único grupo de energía
+
+
+$$
+\begin{gathered}
+\int_U \text{grad} \left[ v(\vec{x}) \right] \cdot D(\vec{x}) \cdot \text{grad} \left[ \phi(\vec{x}) \right]  \,d^D\vec{x}
++ \int_U v(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x}
+= \\
+\int_U v(\vec{x}) \cdot s_0(\vec{x}) \,d^D\vec{x}
++ \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \,d^{D-1}\vec{x}
+\end{gathered}
+$$
+donde $p(\vec{x})$ es la condición de contorno de Neumann sobre $\Gamma_D$
+
+$$
+D(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x})
+$$
+
+
+El operador bilineal $a(\phi,v)$ discretizado para este problema es
+
+$$
+\begin{aligned}
+\mathcal{a}(\phi,v) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot D(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x} \\
+& \quad \quad + \int_U v(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
+=& \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x}  \\
+& \quad \quad + \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \,\, d^D\vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
++ \int_U \mat{H}^T(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \mat{H}(\vec{x})
+\right] \cdot \symbf{\phi} \\
+\end{aligned}
+$$
+
+Podemos escribimos la matriz de rigidez elemental $K_i$ como
+
+$$
+\mat{K}_i = 
+\sum_{q=1}^Q \omega_q \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big|
+$$
+
+donde tenemos la matriz elemental de "pérdidas"^[Del inglés [_leakage_]{lang=en-US}.]
+
+$$
+\mat{L}_i = \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T \cdot D(\symbf{\xi}_q) \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]
+$$
+la matriz elemental de absorciones
+
+$$
+\mat{A}_i = \mat{H}_c(\symbf{\xi}_q)^T \cdot \left[ \Sigma_t(\symbf{\xi}_q) - \Sigma_{s_0} (\symbf{\xi}_q) \right] \cdot \mat{H}_c(\symbf{\xi}_q)
+$$
+y la matriz elemental de fisiones
+
+$$
+\mat{F}_i = \mat{H}_c(\symbf{\xi}_q)^T \cdot \nu\Sigma_f(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+$$
+
+De la misma manera, el funcional $\mathcal{B}(v)$ es
+$$
+\begin{aligned}
+\mathcal{B}(v) &= \int_U v(\vec{x}) \cdot s_0(\vec{x}) \, d^D \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x} \\
+&= \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot s_0(\vec{x}) \, d^D \vec{x}
++ \int_{\Gamma_N} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_{U} \mat{H}^T(\vec{x}) \cdot s_0(\vec{x}) \, d^D \vec{x}
++ \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x} \right]
+\end{aligned}
+$$
+y las contribuciones volumétricas y superficiales al vector $\vec{b}_i$ son similares al caso del problema de Poisson
+
+$$
+\begin{aligned}
+\vec{b}_i^{(U)} &= \int_{e_i} \mat{H}(\vec{x})^T \cdot s_0(\vec{x}) \, d^D\vec{x} \\
+&= \int_{e_c} \mat{H}(\symbf{\xi})^T \cdot s_0(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^D\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q \cdot \mat{H}(\symbf{\xi}_q)^T \cdot s_0(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| 
+\end{aligned}
+$$
+y
+$$
+\begin{aligned}
+\vec{b}_i^{(\Gamma_N)} &= \int_{e_i^{(D-1)}} \mat{H}(\vec{x})^T \cdot p(\vec{x}) \, d^{D-1}\vec{x} \\
+&= \int_{e_c^{(D-1)}} \mat{H}(\symbf{\xi})^T \cdot p(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}\right)\right]}\Big| \, d^{D-1}\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q^{(D-1)} \cdot \mat{H}(\symbf{\xi}_q)^T \cdot p(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big| 
+\end{aligned}
+$$
+respectivamente.
+
+#### Cantidad arbitraria de grupos de energía
+
+Consideremos el caso $G=2$. La formulación fuerte es
+
+$$
+\begin{cases}
+ - \text{div} \left[ D_1 \, \text{grad} \left( \phi_1 \right) \right]
+ + \Sigma_{t1} \phi_1 - \Sigma_{s_0 1 \rightarrow 1} \phi_1 - \Sigma_{s_0 2 \rightarrow 1} \phi_2 - \chi_1 \left[ \nu\Sigma_{f1} \phi_1 + \nu\Sigma_{f2} \phi_2 \right] = s_{0,1} \\
+ - \text{div} \left[ D_2 \, \text{grad} \left( \phi_2 \right) \right]
+ + \Sigma_{t2} \phi_2 - \Sigma_{s_0 1 \rightarrow 2} \phi_1 - \Sigma_{s_0 2 \rightarrow 2} \phi_2 - \chi_2 \left[ \nu\Sigma_{f1} \phi_1 + \nu\Sigma_{f2} \phi_2 \right] = s_{0,2}
+\end{cases}
+$$
+
+Ahora tenemos que multiplicar la primera ecuación por una función de prueba $v_1 \in V$ y la segunda por otra $v_2 \in V$ e integrar en el dominio $U$.
+
+
+$$
+\mat{H}_c(\symbf{\xi}) =
+\begin{bmatrix}
+h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & 0 & \cdots & h_J(\symbf{\xi}) & 0 \\
+0 & h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & \cdots & 0 & h_J(\symbf{\xi}) \\
+\end{bmatrix} \quad \in \mathbb{R}^{G \times JG}
+$$
+    
+$$
+\mat{B}_c(\symbf{\xi}) =
+\begin{bmatrix}
+\frac{\partial h_1}{\partial \xi}   & 0 & \frac{\partial h_2}{\partial \xi}   & 0  & \cdots & \frac{\partial h_J}{\partial \xi} & 0 \\
+0 & \frac{\partial h_1}{\partial \xi}  & 0 & \frac{\partial h_2}{\partial \xi} &  \cdots & 0 & \frac{\partial h_J}{\partial \xi}  \\
+\frac{\partial h_1}{\partial \eta}  & 0 & \frac{\partial h_2}{\partial \eta}  & 0 & \cdots & \frac{\partial h_J}{\partial \eta} & 0 \\
+0 & \frac{\partial h_1}{\partial \eta}  & 0 & \frac{\partial h_2}{\partial \eta}  & \cdots & 0 & \frac{\partial h_J}{\partial \eta} \\
+\frac{\partial h_1}{\partial \zeta} & 0 & \frac{\partial h_2}{\partial \zeta} & 0 & \cdots & \frac{\partial h_J}{\partial \zeta} & 0 \\
+0 & \frac{\partial h_1}{\partial \zeta} & 0 & \frac{\partial h_2}{\partial \zeta}  & \cdots & 0 & \frac{\partial h_J}{\partial \zeta} \\
+\end{bmatrix} \quad \in \mathbb{R}^{D \times JG}
+$$
+
+En el caso general entonces podemos mantener la matriz de rigidez
+
+$$
+\begin{aligned}
+\mat{K}_i &= 
+\sum_{q=1}^Q \omega_q \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big|
+\end{aligned}
+$$
+
+a partir de las matrices de pérdidas, absorciones y fisiones
+
+$$
+\begin{aligned}
+\mat{L}_i &= \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T \cdot \mat{D}(\symbf{\xi}_q) \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big] \\
+\mat{A}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q) \\
+\mat{F}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+\end{aligned}
+$$
+donde introducimos las matrices de tamaño $G \times G$ con las secciones eficaces macroscópicas de difusión, remoción y nu-fisión
+
+$$
+\begin{aligned}
+\mat{D} &= xxx \\
+\mat{R} &= xxx \\
+\mat{X} &= xxx \\
+\end{aligned}
+$$
 
 
 
@@ -2959,16 +3255,6 @@ Por ejemplo, si la condición de contorno de Neumann implica integrar sobre un t
 
 
 
-
-
-
-
-
-### Difusión multigrupo {#sec-difusion-multigrupo-fem}
-
-Odio euismod lacinia at quis. Auctor urna nunc id cursus metus. Dui ut ornare lectus sit amet est placerat in. Ornare aenean euismod elementum nisi quis eleifend quam. Viverra suspendisse potenti nullam ac. Sed felis eget velit aliquet sagittis id consectetur purus. Lectus sit amet est placerat in egestas. Feugiat in fermentum posuere urna nec. Ultrices tincidunt arcu non sodales neque sodales ut etiam sit. Varius quam quisque id diam vel quam. Fermentum leo vel orci porta. Integer vitae justo eget magna.
-
-Luctus accumsan tortor posuere ac ut consequat semper. Tristique magna sit amet purus gravida quis blandit turpis. Platea dictumst quisque sagittis purus sit amet volutpat. Sagittis eu volutpat odio facilisis mauris sit. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ut lectus arcu bibendum at varius vel pharetra vel. Ornare suspendisse sed nisi lacus sed viverra tellus in. Velit laoreet id donec ultrices tincidunt arcu non sodales. Vel eros donec ac odio. Enim praesent elementum facilisis leo vel fringilla. Mi sit amet mauris commodo quis imperdiet massa. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Sit amet aliquam id diam maecenas. Nulla porttitor massa id neque aliquam vestibulum. Convallis posuere morbi leo urna molestie at elementum.
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
