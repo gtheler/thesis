@@ -1481,7 +1481,7 @@ Más aún, la derivación propuesta puede ser extendida para el caso no lineal e
 :::
 
 ::: {.remark}
-El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{B}(v)$ para todas las posibles funciones de prueba $v \in V$. Es decir, de requerir que $v$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
+El nombre _variacional_ viene del hecho de requerir que $\mathcal{a}(u,v) = \mathcal{B}(v)$ para todas las posibles funciones de prueba $v(\vec{x}) \in V$. Es decir, de requerir que $v$ pueda "variar" arbitrariamente (siempre que se anule en $\Gamma_D$) y la igualdad se siga manteniendo.
 :::
 
 ::: {.remark}
@@ -3078,7 +3078,7 @@ Comenzamos con el caso $G=1$ y luego generalizamos la formulación para $G>1$.
 
 #### Un único grupo de energía
 
-P^ara $G=1$ la ecuación se simplifica a 
+Para $G=1$ la ecuación se simplifica a
 
 $$
  - \text{div} \Big[ D(\vec{x}) \cdot \text{grad} \left[ \phi(\vec{x}) \right] \Big]
@@ -3184,9 +3184,9 @@ $$
 $$
 respectivamente.
 
-#### Cantidad arbitraria de grupos de energía
+#### Grupos arbitrarios de energía
 
-Consideremos el caso $G=2$. La formulación fuerte es
+Consideremos el caso $G=2$. La formulación fuerte son dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
 
 $$
 \begin{cases}
@@ -3196,9 +3196,496 @@ $$
  + \Sigma_{t2} \phi_2 - \Sigma_{s_0 1 \rightarrow 2} \phi_1 - \Sigma_{s_0 2 \rightarrow 2} \phi_2 - \chi_2 \left[ \nu\Sigma_{f1} \phi_1 + \nu\Sigma_{f2} \phi_2 \right] = s_{0,2}
 \end{cases}
 $$
+que podemos escribir en una ecuación vectorial como
 
-Ahora tenemos que multiplicar la primera ecuación por una función de prueba $v_1 \in V$ y la segunda por otra $v_2 \in V$ e integrar en el dominio $U$.
+$$
+\begin{gathered}
+\begin{bmatrix}
+ - \text{div} \left[ D_1(\vec{x}) \, \text{grad} \left( \phi_1 \right) \right] \\
+ - \text{div} \left[ D_2(\vec{x}) \, \text{grad} \left( \phi_2 \right) \right] \\
+\end{bmatrix}
++
+\begin{bmatrix}
+ \Sigma_{t1}(\vec{x}) - \Sigma_{s_0 1 \rightarrow 1}(\vec{x}) & - \Sigma_{s_0 2 \rightarrow 1}(\vec{x}) \\
+ - \Sigma_{s_0 1 \rightarrow 2}(\vec{x}) & \Sigma_{t2}(\vec{x}) - \Sigma_{s_0 2 \rightarrow 2}(\vec{x}) \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+\\
+-
+\begin{bmatrix}
+ \chi_1 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_1 \cdot \nu\Sigma_{f2}(\vec{x}) \\
+ \chi_2 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_2 \cdot \nu\Sigma_{f2}(\vec{x}) \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+\end{gathered}
+$$
 
+Introduciendo la matriz $\mat{R} \in \mathbb{R}^{G \times G}$ de remociones
+
+$$
+\mat{R}(\vec{x}) =
+\begin{bmatrix}
+ \Sigma_{t1}(\vec{x}) & 0 \\
+ 0 & \Sigma_{t2}(\vec{x}) \\
+\end{bmatrix}
+-
+\begin{bmatrix}
+ \Sigma_{s_0 1 \rightarrow 1}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 1}(\vec{x}) \\
+ \Sigma_{s_0 1 \rightarrow 2}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 2}(\vec{x}) \\
+\end{bmatrix}
+$$
+y la matrix $\mat{X} \in \mathbb{R}^{G \times G}$ de nu-fisiones
+
+$$
+\mat{X}(\vec{x}) =
+\begin{bmatrix}
+ \chi_1 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_1 \cdot \nu\Sigma_{f2}(\vec{x}) \\
+ \chi_2 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_2 \cdot \nu\Sigma_{f2}(\vec{x}) \\
+\end{bmatrix}
+$$
+la formulación fuerte para $G=2$ queda
+
+$$
+\begin{bmatrix}
+ - \text{div} \left[ D_1(\vec{x}) \, \text{grad} \left( \phi_1 \right) \right] \\
+ - \text{div} \left[ D_2(\vec{x})\, \text{grad} \left( \phi_2 \right) \right] \\
+\end{bmatrix}
++
+\mat{R}(\vec{x})
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+-
+\mat{X}(\vec{x})
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+$$
+
+Para encontrar la formulación débil multiplicamos cada una de las dos ecuaciones por funciones de prueba $v_1(\vec{x}) \in V$ y $v_2(\vec{x}) \in V$ respectivamente, las sumamos, integramos en el dominio $U \in \mathbb{R}^D$ y aplicamos la fórmula de Green al término de la divergencia:
+
+$$
+\begin{gathered}
+\bigintsss_U
+\begin{bmatrix}
+ \nabla v_1 & \nabla v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+D_1(\vec{x}) & 0 \\
+0 & D_2(\vec{x}) \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\nabla \phi_1  \\
+\nabla \phi_2  \\
+\end{bmatrix}
+\, d^D\vec{x}
++
+\bigintsss_U
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\Big[\mat{R}(\vec{x}) - \mat{X}(\vec{x})\Big]
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
+\\
+=
+\bigintsss_U
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
++
+\bigintsss_{\Gamma_D}
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ p_1(\vec{x}) \\
+ p_2(\vec{x}) \\
+\end{bmatrix}
+\, d^{D-1}\vec{x}
+\end{gathered}
+$$
+
+Si definimos un vector $\vec{v} \in \mathbb{R}^{GJ}$ con los valores nodales de $v_1(\vec{x})$ y $v_2(\vec{x})$ intercalados
+
+$$
+\vec{v} =
+\begin{bmatrix}
+ v_1^{(1)} \\ v_2^{(1)} \\
+ v_1^{(1)} \\ v_2^{(1)} \\
+\vdots \\
+ v_1^{(J)} \\ v_2^{(J)} \\
+\end{bmatrix}
+$$
+entonces
+
+$$
+\begin{bmatrix}
+ v_1(\vec{x}) \\ v_2(\vec{x})
+\end{bmatrix}
+=
+\mat{H}(\vec{x})
+\cdot
+\vec{v}
+$$
+con
+
+$$
+\mat{H}(\vec{x}) =
+\begin{bmatrix}
+h_1(\vec{x}) & 0 & h_2(\vec{x}) & 0 & \cdots & h_J(\vec{x}) & 0 \\
+0 & h_1(\vec{x}) & 0 & h_2(\vec{x}) & \cdots & 0 & h_J(\vec{x}) \\
+\end{bmatrix} \quad \in \mathbb{R}^{G \times JG}
+$$
+
+De la misma manera, si
+
+$$
+\symbf{\phi} =
+\begin{bmatrix}
+ \phi_1^{(1)} \\ \phi_2^{(1)} \\
+ \phi_1^{(1)} \\ \phi_2^{(1)} \\
+\vdots \\
+ \phi_1^{(J)} \\ \phi_2^{(J)} \\
+\end{bmatrix}
+$$
+entonces
+
+$$
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\ \phi_2(\vec{x})
+\end{bmatrix}
+=
+\mat{H}(\vec{x})
+\cdot
+\symbf{\phi}
+$$
+y el término de remociones menos fisiones queda
+
+$$
+\bigintsss_U
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\Big[\mat{R}(\vec{x}) - \mat{X}(\vec{x})\Big]
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
+=
+\vec{v}^T
+\cdot
+\left[
+\int_U
+\mat{H}^T
+\cdot
+\Big[\mat{R}(\vec{x}) - \mat{X}(\vec{x})\Big]
+\cdot
+\mat{H}^T
+\, d^D\vec{x}
+\right]
+\cdot
+\symbf{\phi}
+$$
+
+El término de fuentes volumétricas del miembro derecho queda
+
+$$
+\bigintsss_U
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
+=
+\vec{v}^T
+\cdot
+\left[
+\int_U
+\mat{H}^T
+\cdot
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
+\right]
+$$
+y el de condiciones de contorno naturales
+
+$$
+\bigintsss_{\Gamma_D}
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+ p_1(\vec{x}) \\
+ p_2(\vec{x}) \\
+\end{bmatrix}
+\, d^{D-1}\vec{x}
+=
+\vec{v}^T
+\cdot
+\left[
+\int_{\Gamma_N}
+\mat{H}^T
+\cdot
+\begin{bmatrix}
+ p_1(\vec{x}) \\
+ p_2(\vec{x}) \\
+\end{bmatrix}
+\, d^{D-1}\vec{x}
+\right]
+$$
+
+Nos queda evaluar el término de pérdidas.
+Para ello por un lado notamos que
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+ \nabla v_1 & \nabla v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+D_1(\vec{x}) & 0 \\
+0 & D_2(\vec{x}) \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\nabla \phi_1  \\
+\nabla \phi_2  \\
+\end{bmatrix}
+=&
+   \frac{\partial v_1}{\partial x} \cdot D_1 \cdot \frac{\partial \phi_1}{\partial x}
+ + \frac{\partial v_2}{\partial x} \cdot D_2 \cdot \frac{\partial \phi_2}{\partial x} \\
+&~
+ + \frac{\partial v_1}{\partial y} \cdot D_1 \cdot \frac{\partial \phi_1}{\partial y}
+ + \frac{\partial v_2}{\partial y} \cdot D_2 \cdot \frac{\partial \phi_2}{\partial y} \\
+=&
+\begin{bmatrix}
+\frac{\partial v_1}{\partial x} &
+\frac{\partial v_2}{\partial x} &
+\frac{\partial v_1}{\partial y} &
+\frac{\partial v_2}{\partial y}
+\end{bmatrix}
+\begin{bmatrix}
+D_1 & 0 & 0 & 0 \\
+0 & D_2 & 0 & 0 \\
+0 & 0 & D_1 & 0 \\
+0 & 0 & 0 & D_2 \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{\partial \phi_1}{\partial x} \\
+\frac{\partial \phi_2}{\partial x} \\
+\frac{\partial \phi_1}{\partial y} \\
+\frac{\partial \phi_2}{\partial y}
+\end{bmatrix}
+\end{aligned}
+$$
+y por el otro que
+
+$$
+\begin{bmatrix}
+\frac{\partial v_1}{\partial x} \\
+\frac{\partial v_2}{\partial x} \\
+\frac{\partial v_1}{\partial y} \\
+\frac{\partial v_2}{\partial y}
+\end{bmatrix}
+=
+\mat{B}(\vec{x}) \cdot \vec{v}
+\quad\quad\quad
+\begin{bmatrix}
+\frac{\partial \phi_1}{\partial x} \\
+\frac{\partial \phi_2}{\partial x} \\
+\frac{\partial \phi_1}{\partial y} \\
+\frac{\partial \phi_2}{\partial y}
+\end{bmatrix}
+=
+\mat{B}(\vec{x}) \cdot \symbf{\phi}
+$$
+con
+
+$$
+\mat{B}(\vec{x}) =
+\begin{bmatrix}
+\frac{\partial h_1}{\partial x}   & 0 & \frac{\partial h_2}{\partial x}   & 0  & \cdots & \frac{\partial h_J}{\partial x} & 0 \\
+0 & \frac{\partial h_1}{\partial x}  & 0 & \frac{\partial h_2}{\partial x} &  \cdots & 0 & \frac{\partial h_J}{\partial x}  \\
+\frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & 0 & \cdots & \frac{\partial h_J}{\partial y} & 0 \\
+0 & \frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 & \frac{\partial h_J}{\partial y} \\
+\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z} & 0 & \cdots & \frac{\partial h_J}{\partial z} & 0 \\
+0 & \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 & \frac{\partial h_J}{\partial z} \\
+\end{bmatrix} \quad \in \mathbb{R}^{D \times JG}
+$$
+entonces
+
+$$
+\bigintsss_U
+\begin{bmatrix}
+ \nabla v_1 & \nabla v_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+D_1(\vec{x}) & 0 \\
+0 & D_2(\vec{x}) \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\nabla \phi_1  \\
+\nabla \phi_2  \\
+\end{bmatrix}
+\, d^D\vec{x}
+=
+\vec{v}^T
+\cdot
+\left[
+\int_U
+\mat{B}^T(\vec{x})
+\cdot
+\mat{D}^{\prime}(\vec{x})
+\cdot
+\mat{B}(\vec{x})
+\, d^D\vec{x}
+\right]
+\cdot
+\symbf{\phi}
+$$
+siendo las matrices $\mat{D} \in \mathbb{R}^{G \times G}$ y $\mat{D}^{\prime} \in \mathbb{R}^{GD \times GD}$
+
+$$
+\mat{D}(\vec{x}) =
+\begin{bmatrix}
+D_1(\vec{x}) & 0 \\
+0 & D_2(\vec{x}) \\
+\end{bmatrix}
+$$
+
+$$
+\mat{D}^\prime(\vec{x}) =
+\begin{bmatrix}
+\mat{D}(\vec{x}) & \mat{0} \\
+\mat{0} & \mat{D}(\vec{x}) \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+D_1(\vec{x}) & 0 & 0 & 0 \\
+0 & D_2(\vec{x}) & 0 & 0 \\
+0 & 0 & D_1(\vec{x}) & 0 \\
+0 & 0 & 0 & D_2(\vec{x}) \\
+\end{bmatrix}
+$$
+
+Juntando estos resultados, el problema de Galerkin para difusión de neutrones a $G=2$ grupos es encontrar $\symbf{\phi} \in \mathbb{R}^{JG}$ tal que
+
+$$
+\begin{gathered}
+\vec{v}^T \cdot
+\left[
+\int_U
+\Big\{
+\mat{B}^T(\vec{x})
+\cdot
+\mat{D}^{\prime}(\vec{x})
+\cdot
+\mat{B}(\vec{x})
++
+\mat{H}^T(\vec{x})
+\cdot
+\left[ \mat{R}(\vec{x})-\mat{F}(\vec{x})\right]
+\cdot
+\mat{H}(\vec{x})
+\Big\}
+\, d^D\vec{x}
+\right]
+\cdot
+\symbf{\phi}
+=\\
+\vec{v}^T \cdot
+\left[
+\int_U
+\mat{H}^T
+\cdot
+\begin{bmatrix}
+ s_{0,1}(\vec{x}) \\
+ s_{0,2}(\vec{x}) \\
+\end{bmatrix}
+\, d^D\vec{x}
++
+\int_{\Gamma_N}
+\mat{H}^T
+\cdot
+\begin{bmatrix}
+ p_1(\vec{x}) \\
+ p_2(\vec{x}) \\
+\end{bmatrix}
+\, d^{D-1}\vec{x}
+\right]
+\end{gathered}
+$$
+para todo $\vec{v}\in \mathbb{R}^{JG}$.
+
+Luego, para el caso general de $G$ grupos de energía podemos escribir la matriz de rigidez elemental $\mat{K}_i$ como
+$$
+\begin{aligned}
+\mat{K}_i &= 
+\sum_{q=1}^Q \omega_q \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big|
+\end{aligned}
+$$
+
+a partir de las matrices elementales de pérdidas, absorciones y fisiones
+
+$$
+\begin{aligned}
+\mat{L}_i &= \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T \cdot \mat{D}(\symbf{\xi}_q) \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big] \\
+\mat{A}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q) \\
+\mat{F}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+\end{aligned}
+$$
+para las matrices de forma elementales
 
 $$
 \mat{H}_c(\symbf{\xi}) =
@@ -3207,7 +3694,8 @@ h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & 0 & \cdots & h_J(\symbf{\xi}) & 0 \\
 0 & h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & \cdots & 0 & h_J(\symbf{\xi}) \\
 \end{bmatrix} \quad \in \mathbb{R}^{G \times JG}
 $$
-    
+y
+
 $$
 \mat{B}_c(\symbf{\xi}) =
 \begin{bmatrix}
@@ -3219,35 +3707,50 @@ $$
 0 & \frac{\partial h_1}{\partial \zeta} & 0 & \frac{\partial h_2}{\partial \zeta}  & \cdots & 0 & \frac{\partial h_J}{\partial \zeta} \\
 \end{bmatrix} \quad \in \mathbb{R}^{D \times JG}
 $$
-
-En el caso general entonces podemos mantener la matriz de rigidez
-
-$$
-\begin{aligned}
-\mat{K}_i &= 
-\sum_{q=1}^Q \omega_q \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big|
-\end{aligned}
-$$
-
-a partir de las matrices de pérdidas, absorciones y fisiones
+con las matrices de secciones eficaces macroscópicas de difusión, remoción y nu-fisión
 
 $$
 \begin{aligned}
-\mat{L}_i &= \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T \cdot \mat{D}(\symbf{\xi}_q) \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big] \\
-\mat{A}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q) \\
-\mat{F}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+\mat{D}(\vec{x}) &=
+\begin{bmatrix}
+D_1(\vec{x}) & 0 & \cdots & 0 \\
+0 & D_2(\vec{x}) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & D_G(\vec{x})
+\end{bmatrix} \in \mathbb{R}^{G \times G}
+\\
+\mat{D}^{\prime}(\vec{x}) &=
+\begin{bmatrix}
+\mat{D}(\vec{x}) & \mat{0} & \cdots & \mat{0} \\
+\mat{0} & \mat{D}(\vec{x}) & \cdots & \mat{0} \\
+\vdots & \vdots & \ddots & \vdots \\
+\mat{0} & \mat{0} & \cdots & \mat{D}(\vec{x})
+\end{bmatrix} \in \mathbb{R}^{GD \times GD}
+\\
+\mat{R} &=
+\begin{bmatrix}
+\Sigma_{t1}(\vec{x}) & 0 & \cdots & 0 \\
+0 & \Sigma_{t2}(\vec{x}) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \Sigma_{tG}(\vec{x})
+\end{bmatrix}
+-
+\begin{bmatrix}
+\Sigma_{s_0 1 \rightarrow 1}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 1} & \cdots & \Sigma_{s_0 G \rightarrow 1} \\
+\Sigma_{s_0 1 \rightarrow 2}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 2} & \cdots & \Sigma_{s_0 G \rightarrow 2} \\
+\vdots & \vdots & \ddots & \vdots \\
+\Sigma_{s_0 1 \rightarrow G}(\vec{x}) & \Sigma_{s_0 2 \rightarrow G} & \cdots & \Sigma_{s_0 G \rightarrow G} \\
+\end{bmatrix} \in \mathbb{R}^{G \times G}
+\\
+\mat{X} &=
+\begin{bmatrix}
+\chi_1 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_1 \cdot \nu\Sigma_{f2}(\vec{x}) & \cdots & \chi_1 \cdot \nu\Sigma_{fG}(\vec{x}) \\
+\chi_2 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_2 \cdot \nu\Sigma_{f2}(\vec{x}) & \cdots & \chi_2 \cdot \nu\Sigma_{fG}(\vec{x}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\chi_G \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_G \cdot \nu\Sigma_{f2}(\vec{x}) & \cdots & \chi_G \cdot \nu\Sigma_{fG}(\vec{x}) \\
+\end{bmatrix} \in \mathbb{R}^{G \times G}
 \end{aligned}
 $$
-donde introducimos las matrices de tamaño $G \times G$ con las secciones eficaces macroscópicas de difusión, remoción y nu-fisión
-
-$$
-\begin{aligned}
-\mat{D} &= xxx \\
-\mat{R} &= xxx \\
-\mat{X} &= xxx \\
-\end{aligned}
-$$
-
 
 
 
