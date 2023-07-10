@@ -3062,7 +3062,7 @@ Si no se hace nada, es como si $p(\vec{x})=0$.
 
 ### Ecuación de difusión de neutrones {#sec-difusion-multigrupo-fem}
 
-Estamos en condiciones entonces de discretizar en espacio las ecuaciones de difusión multigrupo que derivamos en la @sec-xxx
+Estamos en condiciones entonces de discretizar en espacio las ecuaciones de difusión multigrupo que derivamos en la @sec-multigrupo
 
 $$ \tag{\ref{eq-difusionmultigrupo}}
 \begin{gathered}
@@ -3074,9 +3074,9 @@ $$ \tag{\ref{eq-difusionmultigrupo}}
 \end{gathered}
 $$ 
 
-Comenzamos con el caso $G=1$ y luego generalizamos la formulación para $G>1$.
+Comenzamos con el caso $G=1$ en la sección que sigue y luego generalizamos la formulación para $G>1$ en la @sec-dif-fem-G.
 
-#### Un único grupo de energía
+#### Un único grupo de energía {#sec-dif-fem-uno}
 
 Para $G=1$ la ecuación se simplifica a
 
@@ -3086,8 +3086,8 @@ $$
 = s_{0}(\vec{x})
 $$ 
 
-El término de la divergencia y el miembro derecho tienen la misma forma que la ecuación de Poisson, por lo que debemos esperar contribuciones elementales $B^T D B$ y $H^T s_0$ respectivamente.
-Para evaluar el término de fuente neta lineal con $\phi$ procedemos a multiplicar la formulación fuerte por una función de prueba $v(\vec{x}) \in V$^[Como para el problema de elasticidad al multiplicar la formulación fuerte por las funciones de prueba se obtiene el principio de los trabajos virtuales, a veces estas funciones de prueba se llaman "desplazamientos virtuales". Como generalización, en el problema de conducción de calor se las llaman "temperaturas virtuales". En este caso, podríamos llamarlas "flujos escalares virtuales".] e integrar en el dominio $U\in\mathbb{R}^D$
+El término de la divergencia y el miembro derecho tienen la misma forma que la ecuación de Poisson que analizamos en la @sec-poisson, por lo que debemos esperar contribuciones elementales $B^T D B$ y $H^T s_0$ respectivamente.
+Para evaluar el término de fuente neta lineal con $\phi$ procedemos a multiplicar la formulación fuerte por una función de prueba $v(\vec{x}) \in V$^[Como para el problema de elasticidad al multiplicar la formulación fuerte por las funciones de prueba y aplicar la fórmula de Green se obtiene el principio de los trabajos virtuales, a veces estas funciones de prueba se llaman "desplazamientos virtuales". Como generalización, en el problema de conducción de calor se las llaman "temperaturas virtuales" [@bathe]. En este caso, tal como ya propusimos en @monografia, podríamos llamarlas "flujos escalares virtuales".] e integrar en el dominio $U\in\mathbb{R}^D$
 
 $$
 \begin{gathered}
@@ -3115,20 +3115,25 @@ $$
 D(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x})
 $$
 
-
+::: {.remark}
 El operador bilineal $a(\phi,v)$ discretizado para este problema es
 
 $$
 \begin{aligned}
-\mathcal{a}(\phi,v) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot D(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x} \\
-& \quad \quad + \int_U v(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
-=& \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x}  \\
-& \quad \quad + \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \,\, d^D\vec{x} \\
-&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot k(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
-+ \int_U \mat{H}^T(\vec{x}) \cdot \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \cdot \mat{H}(\vec{x})
-\right] \cdot \symbf{\phi} \\
+\mathcal{a}(\phi,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] D(\vec{x}) \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
++ \int_U v(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \phi(\vec{x}) \,d^D\vec{x} \\
+&= \int_U \vec{v}^T \mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x}) \symbf{\phi} \,\, d^D\vec{x} 
++ \int_U \vec{v}^T \mat{H}^T(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \mat{H}(\vec{x}) \symbf{\phi} \,\, d^D\vec{x} \\
+&= \vec{v}^T \left[ \int_U \mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x}) \, d^D\vec{x}
++ \int_U \mat{H}^T(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \mat{H}(\vec{x}) \, d^D\vec{x}
+\right] \symbf{\phi} \\
 \end{aligned}
-$$
+$$ {#eq-a-dif-uno}
+:::
+
+::: {.remark}
+El operador de la @eq-a-dif-uno es simétrico y coercivo.
+:::
 
 Podemos escribimos la matriz de rigidez elemental $K_i$ como
 
@@ -3184,9 +3189,9 @@ $$
 $$
 respectivamente.
 
-#### Grupos arbitrarios de energía
+#### Grupos arbitrarios de energía {#sec-dif-fem-G}
 
-Consideremos el caso $G=2$. La formulación fuerte son dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
+Consideremos el caso $G=2$. La formulación fuerte ahora no es una sino dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
 
 $$
 \begin{cases}
@@ -3196,7 +3201,7 @@ $$
  + \Sigma_{t2} \phi_2 - \Sigma_{s_0 1 \rightarrow 2} \phi_1 - \Sigma_{s_0 2 \rightarrow 2} \phi_2 - \chi_2 \left[ \nu\Sigma_{f1} \phi_1 + \nu\Sigma_{f2} \phi_2 \right] = s_{0,2}
 \end{cases}
 $$
-que podemos escribir en una ecuación vectorial como
+que podemos escribir en una única ecuación vectorial como
 
 $$
 \begin{gathered}
@@ -3283,8 +3288,9 @@ $$
  s_{0,2}(\vec{x}) \\
 \end{bmatrix}
 $$
+más las condiciones de contorno discutidas en la @sec-bcdifusion.
 
-Para encontrar la formulación débil multiplicamos cada una de las dos ecuaciones por funciones de prueba $v_1(\vec{x}) \in V$ y $v_2(\vec{x}) \in V$ respectivamente, las sumamos, integramos en el dominio $U \in \mathbb{R}^D$ y aplicamos la fórmula de Green al término de la divergencia:
+Para encontrar la formulación débil multiplicamos cada una de las dos ecuaciones por funciones de prueba (¿flujos escalare virtuales?) $v_1(\vec{x}) \in V$ y $v_2(\vec{x}) \in V$ respectivamente, las sumamos, integramos en el dominio $U \in \mathbb{R}^D$ y aplicamos la fórmula de Green al término de la divergencia:
 
 $$
 \begin{gathered}
@@ -3425,9 +3431,9 @@ $$
 \right]
 \cdot
 \symbf{\phi}
-$$
+$$ {#eq-dif-fem-RX}
 
-El término de fuentes volumétricas del miembro derecho queda
+Análogamente, el término de fuentes volumétricas del miembro derecho queda
 
 $$
 \bigintsss_U
@@ -3453,7 +3459,7 @@ $$
 \end{bmatrix}
 \, d^D\vec{x}
 \right]
-$$
+$$ {#eq-dif-fem-bvol}
 y el de condiciones de contorno naturales
 
 $$
@@ -3480,7 +3486,7 @@ $$
 \end{bmatrix}
 \, d^{D-1}\vec{x}
 \right]
-$$
+$$ {#eq-dif-fem-bsup}
 
 Nos queda evaluar el término de pérdidas.
 Para ello por un lado notamos que
@@ -3593,7 +3599,8 @@ D_1(\vec{x}) & 0 \\
 \right]
 \cdot
 \symbf{\phi}
-$$
+$$ {#eq-dif-fem-L}
+
 siendo las matrices $\mat{D} \in \mathbb{R}^{G \times G}$ y $\mat{D}^{\prime} \in \mathbb{R}^{GD \times GD}$
 
 $$
@@ -3619,7 +3626,14 @@ D_1(\vec{x}) & 0 & 0 & 0 \\
 \end{bmatrix}
 $$
 
-Juntando estos resultados, el problema de Galerkin para difusión de neutrones a $G=2$ grupos es encontrar $\symbf{\phi} \in \mathbb{R}^{JG}$ tal que
+Juntando las ecuaciones
+
+ * [-@eq-dif-fem-RX]
+ * [-@eq-dif-fem-bvol]
+ * [-@eq-dif-fem-bsup]
+ * [-@eq-dif-fem-L]
+ 
+el problema de Galerkin para difusión de neutrones a $G=2$ grupos es encontrar $\symbf{\phi} \in \mathbb{R}^{JG}$ tal que
 
 $$
 \begin{gathered}
@@ -3676,7 +3690,7 @@ $$
 \end{aligned}
 $$
 
-a partir de las matrices elementales de pérdidas, absorciones y fisiones
+a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $JG \times JG$
 
 $$
 \begin{aligned}
@@ -3754,8 +3768,29 @@ $$
 
 
 
+::: {.remark}
+El operador bilineal $a(\phi,v)$ discretizado para $G>1$ es
 
+$$
+\begin{aligned}
+\mathcal{a}(\phi,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot \mat{D}^\prime(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
++ \int_U v(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
+&= \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} 
++ \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^D\vec{x} \\
+&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
++ \int_U \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \, d^D\vec{x}
+\right] \cdot \symbf{\phi} \\
+\end{aligned}
+$$ {#eq-a-dif-G}
+:::
 
+::: {.remark}
+El operador de la @eq-a-dif-G es coercivo pero es simétrico sólo si ambas matrices $\mat{R}$ y $\mat{X}$ también lo son.
+:::
+
+::: {.remark}
+Las matrices $\mat{R}$ y $\mat{X}$ no son simétricas.
+:::
 
 
 
