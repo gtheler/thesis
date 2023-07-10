@@ -9,7 +9,7 @@ toc: true
 # Introduction {#sec:introduction}
 
 ```include
-100-introduction.md
+100-srs/100-introduction.md
 ```
 
 ## Objective {#sec:objective}

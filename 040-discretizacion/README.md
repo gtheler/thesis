@@ -1,9 +1,5 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
-```include
-math.md
-```
-
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
 > I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
@@ -1475,9 +1471,7 @@ En efecto, la formulación débil del problema de conducción de calor con condu
 
 ::: {.remark}
 La formulación débil de la ecuación de conducción de calor derivada en la @eq-poisson-debil incluye la posiblidad de que la conductividad $k(\vec{x})$ pueda depender del espacio e incluso ser discontinua en interfaces materiales. 
-Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la incógnita $k(u)$.
-
-**TODO** link a SDS.
+Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la incógnita $k(u)$. Ver por ejemplo el problema de conducción de calor no lineal del @sec-simple.
 :::
 
 ::: {.remark}
