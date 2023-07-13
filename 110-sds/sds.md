@@ -265,7 +265,7 @@ $ wget http://gmsh.info/bin/Linux/gmsh-Linux64.tgz
 $ wget https://seamplex.com/feenox/dist/linux/feenox-linux-amd64.tar.gz
 ```
 
-Appendix @sec-download has more details about how to download and compile FeenoX. The full documentation contains a [compilation guide](https://seamplex.com/feenox/compilation.html) with further detailed explanations of each of the steps involved.
+The full documentation contains a [compilation guide](https://seamplex.com/feenox/compilation.html) with further detailed explanations of each of the steps involved.
 Since all the commands needed to either download a binary executable or to compile from source with customized optimization flags can be automatized, FeenoX can be built into a container such as Docker. This way, deployment and scalability can be customized and tweaked as needed.
 
 
@@ -684,12 +684,9 @@ Even though FeenoX is written in\ [C](https://en.wikipedia.org/wiki/C_(programmi
  
 Indeed, each of the supported problems, namely
 
- * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
- * [`thermal`](https://github.com/seamplex/feenox/tree/main/src/pdes/thermal)
- * [`mechanical`](https://github.com/seamplex/feenox/tree/main/src/pdes/mechanical)
- * [`modal`](https://github.com/seamplex/feenox/tree/main/src/pdes/modal)
- * [`neutron_diffusion`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_difussion)
- * [`neutron_transport`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_transport)
+```include
+pdes.md
+```
 
 is a separate directory under [`src/pdes`](https://github.com/seamplex/feenox/tree/main/src/pdes) that implements these “virtual” methods (recall that they are function pointers) that are resolved at runtime when parsing the main input file.
 
@@ -1460,7 +1457,7 @@ A useful example is allowing material properties (e.g. Young modulus) to depend 
 Consider a simple plane-strain square\ $[-1,+1]\times[-1,+1]$ fixed on one side and with a uniform tension in the opposite one while leaving the other two free.
 The square's Young modulus depends on temperature according to a one-dimensional point-wise defined function $E_\text{carbon}(T)$ given by pairs stated according to one of the many material properties tables from ASME\ II and interpolated using Steffen's method. Althouhg in this example the temperature is given as an algebraic expression of space, in particular
 
-$$T(x,y)~[\text{\textdegree}C] = 200 + 350 \cdot y$$
+$$T(x,y)~[\text{ºC}] = 200 + 350 \cdot y$$
 
 ```{.feenox include="mechanical-square-temperature.fee"}
 ```

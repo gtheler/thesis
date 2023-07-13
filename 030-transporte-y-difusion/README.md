@@ -1502,7 +1502,7 @@ La ecuación de difusión de neutrones es una aproximación muy útil que permit
  a. obtener soluciones analíticas aproximadas en algunas geometrías simples, y
  b. transformar una ecuación diferencial hiperbólica de primer orden en una elíptica de segundo orden sin dependencia angular explícita, simplificando sensiblemente las soluciones numéricas debido a que
     i. la ecuación de difusión discretizada presenta mucho menos grados de libertad que otras formulaciones, tales como ordenadas discretas, y
-    ii. la discretización numérica del operador elíptico deviene en matrices simétricas y definidas positivas que permiten la aplicación de algoritmos de resolución muy eficientes, tales como los métodos multi-grid @nachogatech.
+    ii. la discretización numérica del operador elíptico deviene en matrices simétricas y definidas positivas que permiten la aplicación de algoritmos de resolución muy eficientes, tales como los métodos multi-grid [@brandt,@nachogatech].
  
 En esta sección derivamos la ecuación de difusión a partir de la ecuación de transporte. La segunda puede ser considerada _exacta_ en el sentido de que todas las deducciones lógicas e igualdades entre miembros han sido estrictas, si damos por cierto las siete suposiciones` de la página~\pageref{siete}`{=latex}. La primera es una aproximación que, como mostramos en esta sección, proviene de igualar la corriente $\vec{J}$ en forma aproximada a un coeficiente negativo por el gradiente $\nabla \phi$ del flujo escalar despreciando la contribución de los términos con $\ell \geq 2$ en la expansión en armónicos esféricos del flujo angular $\psi$.
  
