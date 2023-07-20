@@ -4492,7 +4492,7 @@ $$
 El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}_N(\Sigma_N)$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}_N$.
 Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
-### Medio multiplicativo sin fuentes independientes {#sec-multiplicativo-sin-fuente^}
+### Medio multiplicativo sin fuentes independientes {#sec-multiplicativo-sin-fuente}
 
 En ausencia de fuentes independientes, las ecuación de transporte y difusión continuas se pueden escribir genéricamente como @stammler
 
