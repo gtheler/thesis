@@ -1,10 +1,6 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
 
-```include
-math.md
-```
-
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
 > I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
@@ -2555,13 +2551,13 @@ no es irrelevante como lo era para el caso $g(\vec{x})=0$.
 
 Estamos entonces en condiciones resolver el primero de los dos puntos `de la página~\pageref{dos}`{=latex}: ¿cómo encontramos $J+J_D$ funciones de forma apropiadas?
 Para ello, consideramos la topología subyacente en los $J+J_D$ puntos.
-Tomemos la @fig-dominio-nodos-elementos, que muestra no sólo los $J_D$ puntos sobre $\Gamma_D$ sino los triángulos que forman los $J+J_D$ puntos.
+Tomemos la @fig-dominio-nodos-elementos, que muestra no sólo los $J_D$ puntos sobre $\Gamma_D$ sino también los triángulos que forman los $J+J_D$ puntos.
 
 ![El dominio espacial $U$ de la @fig-dominio-solo-nodos con $J_D=3$ puntos extra en la frontera $\Gamma_D$ para  $j=33,34,35$. Además, se muestran los triángulos que conectan los puntos entre sí y que cubren el dominio $U$.](dominio-nodos-elementos){#fig-dominio-nodos-elementos width=75%}
 
 ::: {#def-elemento}
 
-## elemento
+## (laxa de) elemento
 
 Un _elemento_  es una entidad topológica de dimensión $D=0,1,2$ o $3$ capaz de cubrir un dominio espacial $U \in \mathbb{R}^D$.
 :::
@@ -2578,7 +2574,7 @@ Llamamos a cada uno de los puntos que define un elemento, _nodo_.
 
 ## valor nodal
 
-Dado que $h_j(\vec{x}_i) = \delta_{ji}$ entonces los coeficientes $v^{(j)}$ son iguales a la función $v$ evaluada en $\vec{x}_j$, es decir el valor que toma la función en el nodo $j$
+Dado que $h_j(\vec{x}_i) = \delta_{ij}$ entonces los coeficientes $v^{(j)}$ son iguales a la función $v$ evaluada en $\vec{x}_j$, es decir el valor que toma la función en el nodo $j$
 
 $$
 v^{(j)} = v(\vec{x}_j)
@@ -2633,11 +2629,11 @@ h_3(\vec{x}) &= y \\
 $$
 
 Si el triángulo fuese el dominio $U \in \mathbb{R}^2$ y quisiéramos resolver una ecuación diferencial en derivadas parciales discretizándolo con los tres nodos $\vec{x}_1$, $\vec{x}_2$ y $\vec{x}_3$ entonces estas funciones de forma cumplirían los requerimientos de la @eq-condiciones-h.
-Recordando las ecuaciones [-@eq-H-ext] y [-@eq-B-ext], para un problema escalar el número grados de libertad por nodo es $G=1$
+Recordando las ecuaciones [-@eq-H-ext] y [-@eq-B-ext],
 
 $$
 \begin{aligned}
-\tilde{\mat{H}}(\vec{x}) &= \begin{bmatrix} 1-x-y & x & y \end{bmatrix}  \quad \mathbb{R}^{G \times J}\\
+\tilde{\mat{H}}(\vec{x}) &= \begin{bmatrix} 1-x-y & x & y \end{bmatrix}  \quad \mathbb{R}^{1 \times J}\\
 \tilde{\mat{B}}(\vec{x}) &= \begin{bmatrix} -1 & +1 & 0 \\ -1 & 0 & +1\end{bmatrix} \quad \mathbb{R}^{D \times J}
 \end{aligned}
 $$
@@ -2663,11 +2659,11 @@ $$
 \cdot
 \int_e f(\vec{x}) \, d^D\vec{x}
 $$
-donde $e$ se refiere al elemento triangular. Si $f(\vec{x})=1$, entonces la integral es el área del triángulo que es $1/2$.
+donde $e$ se refiere al elemento triangular. Si $f(\vec{x})=1$, entonces la integral es el área del triángulo, que es $1/2$.
 Lo importante del ejemplo es que la matriz de rigidez elemental
 
- 1. es cuadrada de tamaño $GJ \times GJ$ siendo $G=1$ para un problema escalar como la ecuación de Poisson y $J$ es el número de nodos del elemento, y
- 2. conocidas las funciones de forma del elemento, se puede calcular fácilmente primero derivando las $h_j$ con respecto a las variables espaciales y luego integrando la misma expresión de la matriz extendida global sobre el elemento.
+ 1. es cuadrada de tamaño $J \times J$ siendo $J$ el número de nodos del elemento,^[Para un problema con $G >1$ grados de libertad por nodo el tamaño es $GJ \times GJ$.] y
+ 2. conocidas las funciones de forma del elemento, podemos calcular fácilmente primero derivando las $h_j$ con respecto a las variables espaciales y luego integrando la misma expresión de la matriz extendida global sobre el elemento.
  
 En este caso en particular, dado que las funciones de forma son lineales con respecto a las variables espaciales entonces la matriz $\mat{B}(\vec{x})$ es uniforme y puede salir fuera de la integral.
 Para otras topologías de elementos (por ejemplo cuadrángulos) o para elementos de órdenes superiores (en los que se agregan nodos sobre los lados o sobre el seno del elemento), las funciones de forma tendrán una dependencia más compleja y sus derivadas dependerán de $\vec{x}$ por lo que efectivamente habrá que integrar el producto $\mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x})$ sobre el triángulo.
@@ -2680,7 +2676,7 @@ donde el número $Q$ depende de la precisión de la aproximación: mientras may
 
  
 Está claro que los elementos triangulares de la @fig-dominio-solo-nodos no coinciden con el triángulo canónico de vértices $[0,0]$, $[1,0]$ y $[0,1]$.
-Pero podemos suponer que este elemento canónico $e_c$, cuya matriz elemental ya sabemos calcular, vive en un plano bidimensional $\xi$-$\eta$. Si pudiésemos encontrar, para cada elemento $e_i$ del dominio, una transformación biyectiva entre las coordenadas reales $x$-$y$ y las coordenadas canónicas $\xi$-$\eta$ entonces podríamos calcular por un lado las integrales utilizando el jacobiano $\mat{J}$ de la transformación $\vec{x} \mapsto \symbf{\xi}$
+Pero podemos suponer que este elemento canónico $e_c$, cuya matriz elemental ya sabemos calcular, vive en un plano bidimensional $\xi$-$\eta$. Si pudiésemos encontrar, para cada elemento real $e_i$ del dominio $U$, una transformación biyectiva entre las coordenadas reales $x$-$y$ y las coordenadas canónicas $\xi$-$\eta$ entonces podríamos calcular por un lado las integrales utilizando el jacobiano $\mat{J}$ de la transformación $\vec{x} \mapsto \symbf{\xi}$
 
 $$
 \int_{e_i} f(\vec{x}) \, d^2\vec{x} = \int_{e_c} f(\symbf{\xi}) \cdot \Big| \det{(\mat{J})} \Big| \, d^2\symbf{\xi}
@@ -2702,8 +2698,8 @@ x &= h_1(\symbf{\xi}) \cdot x_1 + h_2(\symbf{\xi}) \cdot x_2 + h_3(\symbf{\xi}) 
 y &= h_1(\symbf{\xi}) \cdot y_1 + h_2(\symbf{\xi}) \cdot y_2 + h_3(\symbf{\xi}) \cdot y_3 = \sum_{j=1}^3 h_j(\symbf{\xi}) \cdot y_j \\
 \end{aligned}
 $$
-donde $x_j$ e $y_j$ son las coordenadas del nodo $j$-ésimo del elemento (triángulo) $e_i$.
-Es decir, la transformación (inversa) propuesta consiste en interpolar las coordenadas reales continuas $\vec{x}$ a partir de las coordenadas reales $\vec{x}_j$ de los nodos del elemento real $e_i$ usando las funciones de forma del elemento canónico $e_c$.^[Explicar isoparamétrico **TODO**]
+donde $x_j$ e $y_j$ son las coordenadas del nodo $j$-ésimo del elemento triangular $e_i$.
+Es decir, la transformación (inversa) propuesta consiste en interpolar las coordenadas reales continuas $\vec{x}$ a partir de las coordenadas reales $\vec{x}_j$ de los nodos del elemento real $e_i$ usando las funciones de forma del elemento canónico $e_c$.^[Cuando las coordenadas se interpolan con las funciones de forma del elemento estamos ante elementos _isoparamétricos_. Existen también elementos sub-paramétricos y super-paramétricos. En este trabajo, siempre utilizamos elementos isoparamétricos.]
 Las derivadas parciales de $x$ e $y$ con respecto a $\xi$ y $\eta$ son
 
 $$
@@ -2959,7 +2955,21 @@ x_3 \\
 y_3
 \end{bmatrix}
 $$
-entonces las ecuaciones [-@eq-dxdxi] escritas en forma matricial quedan
+tal que podamos construir una matriz de coordenadas $C$
+
+$$
+\mat{C} =
+\begin{bmatrix}
+\vec{x}_1 & \vec{x}_2 & \vec{x}_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_1 & x_2 & x_3 \\
+y_1 & y_2 & y_3 \\
+\end{bmatrix}
+$$
+
+Entonces las ecuaciones [-@eq-dxdxi] escritas en forma matricial quedan
 
 $$
 \begin{bmatrix}
@@ -2974,17 +2984,18 @@ y_1 & y_2 & y_3
 \cdot
 \begin{bmatrix}
 \displaystyle \frac{\partial h_1}{\partial \xi} &
+\displaystyle \frac{\partial h_1}{\partial \eta} \\
 \displaystyle \frac{\partial h_2}{\partial \xi} &
-\displaystyle \frac{\partial h_3}{\partial \xi} \\
-\displaystyle \frac{\partial h_1}{\partial \eta} &
-\displaystyle \frac{\partial h_2}{\partial \eta} &
+\displaystyle \frac{\partial h_2}{\partial \eta} \\
+\displaystyle \frac{\partial h_3}{\partial \xi} &
 \displaystyle \frac{\partial h_3}{\partial \eta}
 \end{bmatrix}
 $$
-es decir, podemos calcular el jacobiano $\mat{J}$ de la transformación $\symbf{\xi} \mapsto \vec{x}$ como
+
+Es decir, podemos calcular el jacobiano $\mat{J}$ de la transformación $\symbf{\xi} \mapsto \vec{x}$ como
 
 $$
-\mat{J}(\symbf{\xi}) = \mat{C} \cdot \mat{B}_c(\symbf{\xi})
+\mat{J}(\symbf{\xi}) = \mat{C} \cdot \mat{B}^T_c(\symbf{\xi})
 $$ {#eq-J-C-B_c}
 y
 
@@ -3068,6 +3079,10 @@ Entonces
     $$
     \mat{C} =
     \begin{bmatrix}
+    \vec{x}_1 & \vec{x}_2 & \vec{x}_3 & \vec{x}_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
     x_1 & x_2 & x_3 & x_4 \\
     y_1 & y_2 & y_3 & y_4 \\
     z_1 & z_2 & z_3 & z_4
@@ -3080,7 +3095,7 @@ $$
 \begin{aligned}
 \nabla \vec{v} &= \mat{J}^{-T} \cdot \mat{B}_c \cdot \vec{v} &\quad \eqref{eq-gradv-invJT-B_c-v} \\
 \mat{B} &= \mat{J}^{-T} \cdot \mat{B}_c &\quad \eqref{eq-B-invJT-B_c} \\
-\mat{J} &= \mat{C} \cdot \mat{B}_c  &\quad \eqref{eq-J-C-B_c} \\
+\mat{J} &= \mat{C} \cdot \mat{B}^T_c  &\quad \eqref{eq-J-C-B_c} \\
 \mat{J}^{-T} &= \left[ \mat{B}_c^T \cdot \mat{C}\right]^{-1} &\quad \eqref{eq-invJT} \\
 \mat{B} &= \left[ \mat{B}_c^T \cdot \mat{C}^T\right]^{-1} \cdot \mat{B}_c &\quad \eqref{eq-B}
 \end{aligned}
@@ -3132,13 +3147,13 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
      - segmento para $D=1$
      - triángulo o cuadrángulo para $D=2$
      - tetrahedro, hexahedro, prisma o pirámide para $D=3$
- 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz canónica $\mat{H}_c$ ($G=1$ para un problema escalar)
+ 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz canónica $\mat{H}_c$
  
     $$
-    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{G \times J}
+    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
     $$
     
- 3. las $J \times D$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz canónica $\mat{B}_c$
+ 3. las $JD$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz canónica $\mat{B}_c$
  
     $$
     \mat{B}_c(\symbf{\xi}) =
@@ -3153,7 +3168,12 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
  5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$ del elmento $e_i$
  
     $$
-    \mat{C}_i =
+    \mat{C}_i
+    =
+    \begin{bmatrix}
+    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_J
+    \end{bmatrix}
+    =
     \begin{bmatrix}
     x_1 & x_2 & \cdots & x_J  \\
     y_1 & y_2 & \cdots & y_J  \\
@@ -3177,7 +3197,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     \end{aligned}
     $$
     
-    necesarias para evaluar $k(\vec{x})$ y $f(\vec{x})$ dentro del integrando,
+    necesarias para evaluar $k(\vec{x}_q)$ y $f(\vec{x}_q)$ dentro de cada térmiono de la suma de la cuadratura numérica,
 
 entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J \times J}$ de rigidez elemental correspondiente al elemento $e_i$ para la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es _una_ de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
 
@@ -3205,8 +3225,9 @@ $$
 \end{aligned}
 $$
 
-::: {.remark}
-El método de elementos finitos se resume en evaluar la matriz elemental $\mat{K}_i$ del elemento $i$-ésimo $e_i$, que tiene la forma
+::: {#def-Ki-poisson}
+La matriz de rigidez elemental $K_i$ del elemento $e_i$ según la formulación de elementos finitos
+desarrollada en esta sección es
 
 $$
 \mat{K}_i \approx
@@ -3216,48 +3237,77 @@ $$
 $$
 con
 
-$$
-\begin{aligned}
-\vec{x}_q(\symbf{\xi}_q) &=
-\begin{bmatrix}
-\sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
-\sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
-\sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
-\end{bmatrix}  \quad \in \mathbb{R}^{D} \\
-\mat{C}_i &=
-\begin{bmatrix}
-x_1 & x_2 & \cdots & x_J  \\
-y_1 & y_2 & \cdots & y_J  \\
-z_1 & z_2 & \cdots & z_J  \\
-\end{bmatrix} \quad \in \mathbb{R}^{D \times J}
-\\
-\mat{H}_c(\symbf{\xi}_q) &=
-\begin{bmatrix}
-h_1(\symbf{\xi}_q) & h_2(\symbf{\xi}_q) & \cdots & h_1(\symbf{\xi}_q)
-\end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
-\\
-\mat{B}_c(\symbf{\xi}_q) &=
-\begin{bmatrix}
-\displaystyle \frac{\partial h_1}{\partial \xi} &
-\displaystyle \frac{\partial h_2}{\partial \xi} &
-\cdots &
-\displaystyle \frac{\partial h_J}{\partial \xi} \\
-\displaystyle \frac{\partial h_1}{\partial \eta} &
-\displaystyle \frac{\partial h_2}{\partial \eta} &
-\cdots &
-\displaystyle \frac{\partial h_J}{\partial \eta} \\
-\displaystyle \frac{\partial h_1}{\partial \zeta} &
-\displaystyle \frac{\partial h_2}{\partial \zeta} &
-\cdots &
-\displaystyle \frac{\partial h_J}{\partial \zeta} \\
-\end{bmatrix} \quad \in \mathbb{R}^{D \times J}
-\\
-\mat{J}_i(\symbf{\xi}_q) &= \mat{B}_c(\symbf{\xi}_q) \cdot \mat{C}_i \quad \in \mathbb{R}^{D \times D} \\
-\mat{B}_i(\symbf{\xi}_q) &= \mat{J}_i^{-T}(\symbf{\xi}_q) \cdot \mat{B}_c(\symbf{\xi}_q)
-= \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J} \\
-\end{aligned}
-$$
-y en el vector elemental de fuentes volumétricas en el elemento $e_i$
+ i. la matriz de coordenadas $\mat{C}_i$
+
+    $$
+    \mat{C}_i =
+    \begin{bmatrix}
+    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_J
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    x_1 & x_2 & \cdots & x_J  \\
+    y_1 & y_2 & \cdots & y_J  \\
+    z_1 & z_2 & \cdots & z_J  \\
+    \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+    $$
+
+ ii. las coordenadas reales $\vec{x}_q$ del punto de gauss $q$-ésimo
+
+     $$
+     \vec{x}_q(\symbf{\xi}_q) =
+     \begin{bmatrix}
+     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
+     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
+     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
+     \end{bmatrix}  \quad \in \mathbb{R}^{D} \\
+     $$
+
+ iii. la matriz canónica de funciones de forma $\mat{H}_c$
+
+      $$
+      \mat{H}_c(\symbf{\xi}_q) =
+      \begin{bmatrix}
+      h_1(\symbf{\xi}_q) & h_2(\symbf{\xi}_q) & \cdots & h_1(\symbf{\xi}_q)
+      \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
+      $$
+
+ iv. la matriz canónica de derivadas $\mat{B}_c$
+
+     $$
+     \mat{B}_c(\symbf{\xi}_q) =
+     \begin{bmatrix}
+     \displaystyle \frac{\partial h_1}{\partial \xi} &
+     \displaystyle \frac{\partial h_2}{\partial \xi} &
+     \cdots &
+     \displaystyle \frac{\partial h_J}{\partial \xi} \\
+     \displaystyle \frac{\partial h_1}{\partial \eta} &
+     \displaystyle \frac{\partial h_2}{\partial \eta} &
+     \cdots &
+     \displaystyle \frac{\partial h_J}{\partial \eta} \\
+     \displaystyle \frac{\partial h_1}{\partial \zeta} &
+     \displaystyle \frac{\partial h_2}{\partial \zeta} &
+     \cdots &
+     \displaystyle \frac{\partial h_J}{\partial \zeta} \\
+     \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+     $$
+
+ v. el jacobiano $\mat{J}_i$ del elemento real $e_i$
+
+    $$
+    \mat{J}_i(\symbf{\xi}_q) = \mat{B}_c(\symbf{\xi}_q) \cdot \mat{C}_i \quad \in \mathbb{R}^{D \times D}
+    $$
+
+ vi. la matriz de derivadas reales $\mat{B}_i$ del elemento real $e_i$
+
+     $$
+     \mat{B}_i(\symbf{\xi}_q) = \mat{J}_i^{-T}(\symbf{\xi}_q) \cdot  \mat{B}_c(\symbf{\xi}_q)
+     =
+     \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J} $$
+:::
+
+::: {#def-bi-volumetrico-poisson}
+El vector elemental de fuentes volumétricas $\vec{b}_i^{(U)}$ en el elemento $e_i$ es
 
 $$
 \vec{b}_i^{(U)}
@@ -3365,7 +3415,7 @@ $$
 \begin{bmatrix}
 x_1^\prime & x_2^\prime & x_3^\prime \\
 y_1^\prime & y_2^\prime & y_3^\prime \\
-\end{bmatrix} \quad \in \mathbb{R}^{(D-1) \times J}
+\end{bmatrix} \quad \in \mathbb{R}^{2 \times 3}
 $$
 
 En efecto, la contribución de las condiciones de contorno naturales al vector $\vec{b}_i$ es entonces
@@ -3415,7 +3465,7 @@ $$
 = s_{0}(\vec{x})
 $$ 
 
-El término de la divergencia y el miembro derecho tienen la misma forma que la ecuación de Poisson que analizamos en la @sec-poisson, por lo que debemos esperar contribuciones elementales $\mat{B}_i^T D \mat{B}_i$ y $\mat{B}_i^T s_0$ respectivamente.
+El término de la divergencia y el miembro derecho tienen la misma forma que la ecuación de Poisson que analizamos en la @sec-poisson, por lo que debemos esperar contribuciones elementales $\mat{B}_i^T \cdot D \cdot \mat{B}_i$ y $\mat{H}_i^T \cdot s_0$ respectivamente.
 Para evaluar el término de fuente neta lineal con $\phi$ procedemos a multiplicar la formulación fuerte por una función de prueba $v(\vec{x}) \in V$^[Como para el problema de elasticidad al multiplicar la formulación fuerte por las funciones de prueba y aplicar la fórmula de Green se obtiene el principio de los trabajos virtuales, a veces estas funciones de prueba se llaman "desplazamientos virtuales". Como generalización, en el problema de conducción de calor se las llaman "temperaturas virtuales" [@bathe]. En este caso, tal como ya propusimos en @monografia, podríamos llamarlas "flujos escalares virtuales".] e integrar en el dominio $U\in\mathbb{R}^D$
 
 $$
@@ -3444,19 +3494,41 @@ $$
 D(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x})
 $$
 
-**TODO** Robin
+::: {.remark}
+Si la fontera $\Gamma_D$ tiene una condición de simetría entonces $p(\vec{x}) = 0$ y las contribuciones superficiales al vector $\vec{b}$ son idénticamente cero.
+:::
+
+::: {.remark}
+Si la ecuación de difusión tiene una condición de vacío (@def-ccvacuum-dif) sobre $\Gamma_V$, entonces
+
+$$
+D(\vec{x}) \cdot \frac{\partial \phi}{\partial n} = -\frac{1}{2} \cdot \phi(\vec{x})
+$$
+
+Esto es equivalente a agregar el término de superficie
+
+$$
+\int_{\Gamma_V} v(\vec{x}) \cdot \frac{1}{2} \cdot \phi(\vec{x}) \, d^{D-1}\vec{x}
+\approx
+\int_{\Gamma_V} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}^T(\vec{x}) \cdot \symbf{\phi} \, d^{D-1}\vec{x}
+$$
+al operador $\mathcal{a}(\phi, v)$.
+:::
 
 ::: {.remark}
 El operador bilineal $a(\phi,v)$ discretizado para este problema es
 
 $$
 \begin{aligned}
-\mathcal{a}(\phi,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] D(\vec{x}) \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
+\mathcal{a}(\phi,v) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] D(\vec{x}) \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
 + \int_U v(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \phi(\vec{x}) \,d^D\vec{x} \\
-&= \int_U \vec{v}^T \mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x}) \symbf{\phi} \,\, d^D\vec{x} 
+& \quad \quad + \int_{\Gamma_V} v(\vec{x}) \cdot \frac{1}{2} \cdot \phi(\vec{x}) \, d^{D-1}\vec{x} \\
+\approx & \int_U \vec{v}^T \mat{B}^T(\vec{x}) D(\vec{x}) \mat{B}(\vec{x}) \symbf{\phi} \,\, d^D\vec{x}
 + \int_U \vec{v}^T \mat{H}^T(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \mat{H}(\vec{x}) \symbf{\phi} \,\, d^D\vec{x} \\
-&= \vec{v}^T \left[ \int_U \mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x}) \, d^D\vec{x}
-+ \int_U \mat{H}^T(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \mat{H}(\vec{x}) \, d^D\vec{x}
+& \quad\quad \int_{\Gamma_V} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}^T(\vec{x}) \cdot \symbf{\phi} \, d^{D-1}\vec{x} \\
+=& \vec{v}^T \left[ \int_U \mat{B}^T(\vec{x}) D(\vec{x}) \mat{B}(\vec{x}) \, d^D\vec{x}
++ \int_U \mat{H}^T(\vec{x}) \left[\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) - \nu\Sigma_{f}(\vec{x}) \right] \mat{H}(\vec{x}) \, d^D\vec{x} \right. \\
+& \quad\quad \left. + \int_{\Gamma_V} \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}^T(\vec{x}) \, d^{D-1}\vec{x}
 \right] \symbf{\phi} \\
 \end{aligned}
 $$ {#eq-a-dif-uno}
@@ -3471,29 +3543,30 @@ El operador de la @eq-a-dif-uno es coercivo si $\Sigma_{t}(\vec{x})  - \Sigma_
 Pero puede dejar de serlo si la desigualdad no se cumple.
 En efecto, la desigualdad implica $k_\text{\infty} < 1$.
 Siguiendo razonamientos físicos, podemos decir que el operador es coercivo sólo si el factor de multiplicación $k_\text{eff} < 1$.
+Esto es, un medio multiplicativo crítico o supercrítico con una fuente independiente no tiene solución de estado estacionario.
 :::
 
-Podemos escribimos la matriz de rigidez elemental $K_i$ como
+Podemos escribir entonces la matriz de rigidez elemental $K_i$ volumétrica del problema de difusión de neutrones a un grupo de energías como
 
 $$
-\mat{K}_i = 
+\mat{K}_i^{(U)} =
 \sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] 
 $$
 
 donde tenemos la matriz elemental de "pérdidas"^[Del inglés [_leakage_]{lang=en-US}.]
 
 $$
-\mat{L}_i = \mat{B}_i^T(\symbf{\xi}_q) \cdot D(\symbf{\xi}_q) \cdot \mat{B}^T(\symbf{\xi}_q)
+\mat{L}_i = \mat{B}_i^T(\symbf{\xi}_q) \cdot D(\symbf{\xi}_q) \cdot \mat{B}_i^T(\symbf{\xi}_q)
 $$
 la matriz elemental de absorciones
 
 $$
-\mat{A}_i = \mat{H}_c(\symbf{\xi}_q)^T \cdot \left[ \Sigma_t(\symbf{\xi}_q) - \Sigma_{s_0} (\symbf{\xi}_q) \right] \cdot \mat{H}_c(\symbf{\xi}_q)
+\mat{A}_i = \mat{H}_c^T(\symbf{\xi}_q) \cdot \left[ \Sigma_t(\symbf{\xi}_q) - \Sigma_{s_0} (\symbf{\xi}_q) \right] \cdot \mat{H}_c(\symbf{\xi}_q)
 $$
 y la matriz elemental de fisiones
 
 $$
-\mat{F}_i = \mat{H}_c(\symbf{\xi}_q)^T \cdot \nu\Sigma_f(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+\mat{F}_i = \mat{H}_c^T(\symbf{\xi}_q) \cdot \nu\Sigma_f(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
 $$
 
 De la misma manera, el funcional $\mathcal{B}(v)$ es
@@ -3522,14 +3595,34 @@ $$
 \vec{b}_i^{(\Gamma_N)} &= \int_{e_i^{(D-1)}} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x} \\
 &= \int_{e_c^{(D-1)}} \mat{H}^T(\symbf{\xi}) \cdot p(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}\right)\right]}\Big| \, d^{D-1}\symbf{\xi} \\
 &\approx
-\sum_{q=1}^Q \omega_q^{(D-1)} \cdot \mat{H}^T(\symbf{\xi}_q) \cdot p(\symbf{\xi}_q) \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| 
+\sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|  \cdot \mat{H}^T(\symbf{\xi}_q) \cdot p(\symbf{\xi}_q)
 \end{aligned}
 $$
 respectivamente.
 
+Si existe una frontera $\Gamma_V$ con condición de contorno de vacío, debemos agregar una contribución superficial a la matriz de rigidez
+
+$$
+\begin{aligned}
+K_i^{(\Gamma_V)} &= \int_{e_i^{(D-1)}} \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \, d^{D-1}\vec{x} \\
+&= \int_{e_c^{(D-1)}} \mat{H}^T(\symbf{\xi}) \cdot \frac{1}{2} \cdot \mat{H}(\symbf{\xi}) \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}\right)\right]}\Big| \, d^{D-1}\symbf{\xi} \\
+&\approx
+\sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \mat{H}^T(\symbf{\xi}_q) \cdot \frac{1}{2} \cdot \mat{H}(\symbf{\xi}_q)
+\end{aligned}
+$$
+
+::: {.remark}
+Para problemas de criticidad, el término de fisiones $\mat{F}_i$ no se suma a la matriz de rigidez $\mat{K}_i$ sino que forma parte de la matriz de masa $\mat{M}_i$ de forma tal de poder escribir las ecuaciones discretizadas como un problema de autovalores
+
+$$
+\mat{K} \cdot \symbf{\phi} = \frac{1}{k_\text{eff}} \cdot \mat{M} \cdot \symbf{\phi}
+$$
+En la @sec-multiplicativo-sin-fuente discutimos este caso con más detalle.
+:::
+
 #### Grupos arbitrarios de energía {#sec-dif-fem-G}
 
-Consideremos el caso $G=2$. La formulación fuerte ahora no es una sino dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
+Consideremos por un instante el caso $G=2$. La formulación fuerte ahora no es una sino dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
 
 $$
 \begin{cases}
@@ -3570,7 +3663,7 @@ $$
 \end{bmatrix}
 =
 \begin{bmatrix}
- s_{0,1}(\vec{x}) \\
+ s_{0,1}(\vec{x}) \\´
  s_{0,2}(\vec{x}) \\
 \end{bmatrix}
 \end{gathered}
@@ -3628,7 +3721,7 @@ $$
 $$
 más las condiciones de contorno discutidas en la @sec-bcdifusion.
 
-Para encontrar la formulación débil multiplicamos cada una de las dos ecuaciones por funciones de prueba (¿flujos escalare virtuales?) $v_1(\vec{x}) \in V$ y $v_2(\vec{x}) \in V$ respectivamente, las sumamos, integramos en el dominio $U \in \mathbb{R}^D$ y aplicamos la fórmula de Green al término de la divergencia:
+Para encontrar la formulación débil multiplicamos cada una de las dos ecuaciones por funciones de prueba (¿flujos escalares virtuales?) $v_1(\vec{x}) \in V$ y $v_2(\vec{x}) \in V$ respectivamente, las sumamos, integramos en el dominio $U \in \mathbb{R}^D$ y aplicamos la fórmula de Green al término de la divergencia:
 
 $$
 \begin{gathered}
@@ -3686,7 +3779,8 @@ D_1(\vec{x}) & 0 \\
 \end{gathered}
 $$
 
-Si definimos un vector $\vec{v} \in \mathbb{R}^{GJ}$ con los valores nodales de $v_1(\vec{x})$ y $v_2(\vec{x})$ intercalados
+Ahora tratamos de encontrar la aproximación de Galerkin.
+Para ello, definimos un vector $\vec{v} \in \mathbb{R}^{GJ}$ con los valores nodales de $v_1(\vec{x})$ y $v_2(\vec{x})$ intercalados
 
 $$
 \vec{v} =
@@ -3697,27 +3791,28 @@ $$
  v_1^{(J)} \\ v_2^{(J)} \\
 \end{bmatrix}
 $$
-entonces
+
+Entonces
 
 $$
 \begin{bmatrix}
  v_1(\vec{x}) \\ v_2(\vec{x})
 \end{bmatrix}
 =
-\mat{H}(\vec{x})
+\mat{H}_2(\vec{x})
 \cdot
 \vec{v}
 $$
-con
+donde llamamos $\mat{H}_2$ a la matriz de funciones de forma para $G=2$
 
 $$
 \mat{H}(\vec{x}) =
 \begin{bmatrix}
 h_1(\vec{x}) & 0 & h_2(\vec{x}) & 0 & \cdots & h_J(\vec{x}) & 0 \\
 0 & h_1(\vec{x}) & 0 & h_2(\vec{x}) & \cdots & 0 & h_J(\vec{x}) \\
-\end{bmatrix} \quad \in \mathbb{R}^{G \times JG}
+\end{bmatrix} \quad \in \mathbb{R}^{2 \times 2J}
 $$
-
+como un caso particular de la matriz de funciones de forma $H_G$ para $G$ grupos de energía.
 De la misma manera, si
 
 $$
@@ -3736,7 +3831,7 @@ $$
  \phi_1(\vec{x}) \\ \phi_2(\vec{x})
 \end{bmatrix}
 =
-\mat{H}(\vec{x})
+\mat{H}_2(\vec{x})
 \cdot
 \symbf{\phi}
 $$
@@ -3760,11 +3855,11 @@ $$
 \cdot
 \left[
 \int_U
-\mat{H}^T
+\mat{H}_2^T(\vec{x})
 \cdot
 \Big[\mat{R}(\vec{x}) - \mat{X}(\vec{x})\Big]
 \cdot
-\mat{H}^T
+\mat{H}_2(\vec{x})
 \, d^D\vec{x}
 \right]
 \cdot
@@ -3789,7 +3884,7 @@ $$
 \cdot
 \left[
 \int_U
-\mat{H}^T
+\mat{H}_2^T(\vec{x})
 \cdot
 \begin{bmatrix}
  s_{0,1}(\vec{x}) \\
@@ -3798,10 +3893,10 @@ $$
 \, d^D\vec{x}
 \right]
 $$ {#eq-dif-fem-bvol}
-y el de condiciones de contorno naturales
+el de condiciones de contorno de Neumann
 
 $$
-\bigintsss_{\Gamma_D}
+\bigintsss_{\Gamma_N}
 \begin{bmatrix}
  v_1 & v_2
 \end{bmatrix}
@@ -3816,7 +3911,7 @@ $$
 \cdot
 \left[
 \int_{\Gamma_N}
-\mat{H}^T
+\mat{H}_2^T(\vec{x})
 \cdot
 \begin{bmatrix}
  p_1(\vec{x}) \\
@@ -3825,6 +3920,36 @@ $$
 \, d^{D-1}\vec{x}
 \right]
 $$ {#eq-dif-fem-bsup}
+y de condiciones de vacío
+
+$$
+\bigintsss_{\Gamma_V}
+\begin{bmatrix}
+ v_1 & v_2
+\end{bmatrix}
+\cdot
+\frac{1}{2}
+\cdot
+\begin{bmatrix}
+ \phi_1(\vec{x}) \\
+ \phi_2(\vec{x}) \\
+\end{bmatrix}
+\, d^{D-1}\vec{x}
+=
+\vec{v}^T
+\cdot
+\left[
+\int_{\Gamma_V}
+\mat{H}_2^T(\vec{x})
+\cdot
+\frac{1}{2}
+\cdot
+\mat{H}_2(\vec{x})
+\, d^{D-1}\vec{x}
+\right]
+$$ {#eq-dif-fem-bvac}
+
+
 
 Nos queda evaluar el término de pérdidas.
 Para ello por un lado notamos que
@@ -3881,7 +4006,7 @@ $$
 \frac{\partial v_2}{\partial y}
 \end{bmatrix}
 =
-\mat{B}(\vec{x}) \cdot \vec{v}
+\mat{B}_2(\vec{x}) \cdot \vec{v}
 \quad\quad\quad
 \begin{bmatrix}
 \frac{\partial \phi_1}{\partial x} \\
@@ -3890,12 +4015,12 @@ $$
 \frac{\partial \phi_2}{\partial y}
 \end{bmatrix}
 =
-\mat{B}(\vec{x}) \cdot \symbf{\phi}
+\mat{B}_2(\vec{x}) \cdot \symbf{\phi}
 $$
 con
 
 $$
-\mat{B}(\vec{x}) =
+\mat{B}_2(\vec{x}) =
 \begin{bmatrix}
 \frac{\partial h_1}{\partial x}   & 0 & \frac{\partial h_2}{\partial x}   & 0  & \cdots & \frac{\partial h_J}{\partial x} & 0 \\
 0 & \frac{\partial h_1}{\partial x}  & 0 & \frac{\partial h_2}{\partial x} &  \cdots & 0 & \frac{\partial h_J}{\partial x}  \\
@@ -3903,7 +4028,7 @@ $$
 0 & \frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 & \frac{\partial h_J}{\partial y} \\
 \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z} & 0 & \cdots & \frac{\partial h_J}{\partial z} & 0 \\
 0 & \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 & \frac{\partial h_J}{\partial z} \\
-\end{bmatrix} \quad \in \mathbb{R}^{D \times JG}
+\end{bmatrix} \quad \in \mathbb{R}^{2D \times 2J}
 $$
 entonces
 
@@ -3928,18 +4053,18 @@ D_1(\vec{x}) & 0 \\
 \cdot
 \left[
 \int_U
-\mat{B}^T(\vec{x})
+\mat{B}_2^T(\vec{x})
 \cdot
 \mat{D}^{\prime}(\vec{x})
 \cdot
-\mat{B}(\vec{x})
+\mat{B}_2(\vec{x})
 \, d^D\vec{x}
 \right]
 \cdot
 \symbf{\phi}
 $$ {#eq-dif-fem-L}
 
-siendo las matrices $\mat{D} \in \mathbb{R}^{G \times G}$ y $\mat{D}^{\prime} \in \mathbb{R}^{GD \times GD}$
+siendo las matrices $\mat{D} \in \mathbb{R}^{G \times G}$ y $\mat{D}^{\prime} \in \mathbb{R}^{GD \times GD}$ con los coeficientes de difusión
 
 $$
 \mat{D}(\vec{x}) =
@@ -3966,40 +4091,43 @@ $$
 
 Juntando las ecuaciones
 
- * [-@eq-dif-fem-RX]
- * [-@eq-dif-fem-bvol]
- * [-@eq-dif-fem-bsup]
- * [-@eq-dif-fem-L]
+ * [-@eq-dif-fem-RX] (remociones menos fisiones)
+ * [-@eq-dif-fem-bvol] (fuentes independientes)
+ * [-@eq-dif-fem-bsup] (condiciones de Neumann)
+ * [-@eq-dif-fem-bvac] (condiciones de vacío)
+ * [-@eq-dif-fem-L] (pérdidas)
  
-el problema de Galerkin para difusión de neutrones a $G=2$ grupos es encontrar $\symbf{\phi} \in \mathbb{R}^{JG}$ tal que
+el problema de Galerkin para difusión de neutrones a $G=2$ grupos es encontrar $\symbf{\phi} \in \mathbb{R}^{2J}$ tal que
+
 
 $$
 \begin{gathered}
-\vec{v}^T \cdot
+\vec{v}^T
 \left[
 \int_U
 \Big\{
-\mat{B}^T(\vec{x})
-\cdot
+\mat{B}_2^T(\vec{x})
 \mat{D}^{\prime}(\vec{x})
-\cdot
-\mat{B}(\vec{x})
+\mat{B}_2(\vec{x})
 +
-\mat{H}^T(\vec{x})
-\cdot
+\mat{H}_2^T(\vec{x})
 \left[ \mat{R}(\vec{x})-\mat{F}(\vec{x})\right]
-\cdot
-\mat{H}(\vec{x})
+\mat{H}_2(\vec{x})
 \Big\}
 \, d^D\vec{x}
++ \int_{\Gamma_V}
+\mat{H}_2^T(\vec{x})
+\frac{1}{2}
+\mat{H}_2(\vec{x})
+\, d^{D-1}\vec{x}
 \right]
-\cdot
 \symbf{\phi}
-=\\
+\\
+=
 \vec{v}^T \cdot
 \left[
 \int_U
-\mat{H}^T
+\mat{H}_2^T
 \cdot
 \begin{bmatrix}
  s_{0,1}(\vec{x}) \\
@@ -4008,7 +4136,7 @@ $$
 \, d^D\vec{x}
 +
 \int_{\Gamma_N}
-\mat{H}^T
+\mat{H}_2^T
 \cdot
 \begin{bmatrix}
  p_1(\vec{x}) \\
@@ -4018,46 +4146,103 @@ $$
 \right]
 \end{gathered}
 $$
-para todo $\vec{v}\in \mathbb{R}^{JG}$.
+para todo $\vec{v}\in \mathbb{R}^{2J}$.
 
 Luego, para el caso general de $G$ grupos de energía podemos escribir la matriz de rigidez elemental $\mat{K}_i$ como
 $$
 \begin{aligned}
 \mat{K}_i &= 
-\sum_{q=1}^Q \omega_q \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] \cdot \Big|\det{\left[\mat{J}\left(\symbf{\xi}_q\right)\right]}\Big|
+\sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right]
 \end{aligned}
 $$
 
-a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $JG \times JG$
+a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $GJ \times GJ$
 
 $$
 \begin{aligned}
-\mat{L}_i &= \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big]^T \cdot \mat{D}(\symbf{\xi}_q) \cdot \Big[ \mat{B}_c(\symbf{\xi}_q) \cdot \mat{J}^{-1}\left(\symbf{\xi}_q\right) \Big] \\
-\mat{A}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q) \\
-\mat{F}_i &= \mat{H}_c(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
+\mat{L}_i &= \mat{B}_{Gi}^T(\symbf{\xi}_q) \cdot \mat{D}^\prime(\symbf{\xi}_q) \cdot \mat{B}_{Gi}(\symbf{\xi}_q)  \\
+\mat{A}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q) \\
+\mat{F}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q)
 \end{aligned}
 $$
-para las matrices de forma elementales
+donde tenemos ahora la matriz $\mat{H}_{Gc} \in \mathbb{R}^{G \times GJ}$ de funciones de forma canónica para $G$ grados de libertad por nodo
 
 $$
-\mat{H}_c(\symbf{\xi}) =
+\setcounter{MaxMatrixCols}{13}
+\mat{H}_{Gc}(\symbf{\xi}) =
 \begin{bmatrix}
-h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & 0 & \cdots & h_J(\symbf{\xi}) & 0 \\
-0 & h_1(\symbf{\xi}) & 0 & h_2(\symbf{\xi}) & \cdots & 0 & h_J(\symbf{\xi}) \\
-\end{bmatrix} \quad \in \mathbb{R}^{G \times JG}
+h_1(\symbf{\xi}) & 0 & \cdots & 0 &
+h_2(\symbf{\xi}) & 0 & \cdots & 0 &
+\cdots &
+h_J(\symbf{\xi}) & 0 & \cdots & 0 \\
+0 & h_1(\symbf{\xi}) & \cdots & 0 &
+0 & h_2(\symbf{\xi}) & \cdots & 0 &
+\cdots &
+0 & h_J(\symbf{\xi}) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots &
+\vdots & \vdots & \ddots & \vdots &
+\ddots &
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & h_1(\symbf{\xi}) &
+0 & 0 & \cdots & h_2(\symbf{\xi}) &
+\cdots &
+0 & 0 & \cdots & h_J(\symbf{\xi})
+\end{bmatrix}
 $$
-y
+y la matriz de derivadas reales $\mat{B}_{Gi} \in \mathbb{R}^{GD \times GJ}$
 
 $$
-\mat{B}_c(\symbf{\xi}) =
+\mat{B}_{Gi}(\symbf{\xi}) =
 \begin{bmatrix}
-\frac{\partial h_1}{\partial \xi}   & 0 & \frac{\partial h_2}{\partial \xi}   & 0  & \cdots & \frac{\partial h_J}{\partial \xi} & 0 \\
-0 & \frac{\partial h_1}{\partial \xi}  & 0 & \frac{\partial h_2}{\partial \xi} &  \cdots & 0 & \frac{\partial h_J}{\partial \xi}  \\
-\frac{\partial h_1}{\partial \eta}  & 0 & \frac{\partial h_2}{\partial \eta}  & 0 & \cdots & \frac{\partial h_J}{\partial \eta} & 0 \\
-0 & \frac{\partial h_1}{\partial \eta}  & 0 & \frac{\partial h_2}{\partial \eta}  & \cdots & 0 & \frac{\partial h_J}{\partial \eta} \\
-\frac{\partial h_1}{\partial \zeta} & 0 & \frac{\partial h_2}{\partial \zeta} & 0 & \cdots & \frac{\partial h_J}{\partial \zeta} & 0 \\
-0 & \frac{\partial h_1}{\partial \zeta} & 0 & \frac{\partial h_2}{\partial \zeta}  & \cdots & 0 & \frac{\partial h_J}{\partial \zeta} \\
-\end{bmatrix} \quad \in \mathbb{R}^{D \times JG}
+\frac{\partial h_1}{\partial x}  & 0 & \cdots & 0 &
+\frac{\partial h_2}{\partial x}  & 0 & \cdots & 0 &
+\cdots &
+\frac{\partial h_J}{\partial x}  & 0 & \cdots & 0 \\
+0 & \frac{\partial h_1}{\partial x}  & \cdots & 0 &
+0 & \frac{\partial h_2}{\partial x}  & \cdots & 0 &
+\cdots &
+0 & \frac{\partial h_J}{\partial x}  & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots &
+\vdots & \vdots & \ddots & \vdots &
+\ddots &
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \frac{\partial h_1}{\partial x} &
+0 & 0 & \cdots & \frac{\partial h_2}{\partial x} &
+\cdots &
+0 & 0 & \cdots & \frac{\partial h_J}{\partial x} \\
+\frac{\partial h_1}{\partial y}  & 0 & \cdots & 0 &
+\frac{\partial h_2}{\partial y}  & 0 & \cdots & 0 &
+\cdots &
+\frac{\partial h_J}{\partial y}  & 0 & \cdots & 0 \\
+0 & \frac{\partial h_1}{\partial y}  & \cdots & 0 &
+0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 &
+\cdots &
+0 & \frac{\partial h_J}{\partial y}  & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots &
+\vdots & \vdots & \ddots & \vdots &
+\ddots &
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \frac{\partial h_1}{\partial y} &
+0 & 0 & \cdots & \frac{\partial h_2}{\partial y} &
+\cdots &
+0 & 0 & \cdots & \frac{\partial h_J}{\partial y} \\
+\frac{\partial h_1}{\partial z}  & 0 & \cdots & 0 &
+\frac{\partial h_2}{\partial z}  & 0 & \cdots & 0 &
+\cdots &
+\frac{\partial h_J}{\partial z}  & 0 & \cdots & 0 \\
+0 & \frac{\partial h_1}{\partial z}  & \cdots & 0 &
+0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 &
+\cdots &
+0 & \frac{\partial h_J}{\partial z}  & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots &
+\vdots & \vdots & \ddots & \vdots &
+\ddots &
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \frac{\partial h_1}{\partial z} &
+0 & 0 & \cdots & \frac{\partial h_2}{\partial z} &
+\cdots &
+0 & 0 & \cdots & \frac{\partial h_J}{\partial z} \\
+\end{bmatrix}
 $$
 con las matrices de secciones eficaces macroscópicas de difusión, remoción y nu-fisión
 
@@ -4123,14 +4308,48 @@ $$ {#eq-a-dif-G}
 :::
 
 ::: {.remark}
-El operador de la @eq-a-dif-G es coercivo pero es simétrico sólo si ambas matrices $\mat{R}$ y $\mat{X}$ también lo son.
+El operador de la @eq-a-dif-G es simétrico sólo si ambas matrices $\mat{R}$ y $\mat{X}$ también lo son.
 :::
 
 ::: {.remark}
-Las matrices $\mat{R}$ y $\mat{X}$ no son simétricas.
+Las matrices $\mat{R}$ y $\mat{X}$ no son simétricas para propiedades nucleares reales.
 :::
 
+::: {.remark}
+El operador de la @eq-a-dif-G es coercivo sólo si $k_\text{eff} < 1$.
+:::
 
+::: {.remark}
+Las matrices $\mat{H}_{Gc}$ y $\mat{B}_{Gi}$ que "saben" (son $G$-[aware]{lang=en-US}) cuantos grupos de energía tiene el problema se construyen a partir de las matrices del problema escalar $\mat{H}_c$ y $\mat{B}_i$ como
+
+$$
+\begin{aligned}
+\mat{H}_{Gc}(i,j) &= xxx \\
+\mat{B}_{Gi}(i,j) &= xxx \\
+\end{aligned}
+$$
+:::
+
+::: {.remark}
+Para $G=1$,
+
+$$
+\mat{H}_{1c} = \mat{H}_c
+\quad
+\text{y}
+\quad
+\mat{B}_{1i} = \mat{B}_c
+$$
+:::
+
+::: {.remark}
+La forma de las matrices $G$-[aware]{lang=en-US} puede ser diferente para otros problemas vectoriales con el mismo grado de libertad.
+Por ejemplo, para el problema de elasticidad tridimensional basado en desplazamientos, $G=3$ pero la matriz $B_{3i}$ es
+
+$$
+\mat{B}_{3i} = xxx
+$$
+:::
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
@@ -4273,7 +4492,7 @@ $$
 El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}_N(\Sigma_N)$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}_N$.
 Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
-### Medio multiplicativo sin fuentes independientes
+### Medio multiplicativo sin fuentes independientes {#sec-multiplicativo-sin-fuente^}
 
 En ausencia de fuentes independientes, las ecuación de transporte y difusión continuas se pueden escribir genéricamente como @stammler
 
