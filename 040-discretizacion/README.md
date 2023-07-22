@@ -1,5 +1,8 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
+```include
+math.md
+```
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
@@ -3341,9 +3344,9 @@ donde la matriz $\mat{T}$ es
 $$
 \mat{T} = 
 \begin{bmatrix}
-0 & -\vec{t}_3 & +\vec{t}_2 \\
-+\vec{t}_3 & 0 & -\vec{t}_1 \\
--\vec{t}_2 & +\vec{t}_1 & 0
+0 & -t_3 & +t_2 \\
++t_3 & 0 & -t_1 \\
+-t_2 & +t_1 & 0
 \end{bmatrix}
 $$
 y $\vec{t}$ es producto cruz entre $\vec{a}$ y $\vec{b}$
@@ -3353,7 +3356,9 @@ $$
 $$
 :::
 
-Lo que queremos es transformar una de las dos normales $\hat{\vec{n}}$ del triángulo
+![Rotación $\mathbb{R}^3 \mapsto \mathbb{R}^3$ para que la normal a un triángulo arbitrario coincida con la dirección $z$.](C-Cprime){#fig-C-Cprime width=80%}
+
+Lo que queremos es, como ilustramos en la @fig-C-Cprime, transformar una de las dos normales $\hat{\vec{n}}$ del triángulo
 
 $$
 \hat{\vec{n}} = \frac{(\vec{x}_2 - \vec{x}_1) \times (\vec{x}_3 - \vec{x}_1)}{|| (\vec{x}_2 - \vec{x}_1) \times (\vec{x}_3 - \vec{x}_1) ||}
@@ -3363,9 +3368,12 @@ para que coincida con versor normal en la dirección $z$, $\hat{\vec{e}}_z = [0
 Haciendo $\vec{a} = \hat{\vec{n}}$ y $\vec{b} = \hat{\vec{e}}_z$, el vector $\vec{t}$ es
 
 $$
-\begin{aligned}
-\vec{t} &= \hat{\vec{n}} \times \hat{\vec{e}}_z \\
-\end{aligned}
+\vec{t} = \hat{\vec{n}} \times \hat{\vec{e}}_z =
+\begin{bmatrix}
+t_1 \\
+t_2 \\
+t_3
+\end{bmatrix}
 $$
 
 Con esto podemos entonces convertir la matriz con las tres coordenadas tridimensionales $\mat{C}_i \in \mathbb{R}^{3 \times 3}$ del triángulo original a una de coordenadas bidimensionales $\mat{C}_i^\prime \in \mathbb{R}^{2 \times 3}$ como
@@ -3381,19 +3389,19 @@ $$
 \begin{bmatrix}
 x_1^\prime & x_2^\prime & x_3^\prime \\
 y_1^\prime & y_2^\prime & y_3^\prime \\
-0 & 0 & 0 \\
+z_0 & z_0 & z_0 \\
 \end{bmatrix}
 &=
 \begin{bmatrix}
- 1     + k \cdot (-\vec{t}_3^2- \vec{t}_2^2) &
- -\vec{t}_3 + k \cdot (\vec{t}_1\cdot \vec{t}_2) &
- +\vec{t}_2 + k \cdot (\vec{t}_1\cdot \vec{t}_3) \\
- +\vec{t}_3 + k \cdot (\vec{t}_1\cdot \vec{t}_2) &
- 1     + k \cdot (-\vec{t}_3^2 - \vec{t}_1^2) &
- -\vec{t}_1 + k \cdot (\vec{t}_2\cdot \vec{t}_3) \\
- -\vec{t}_2 + k \cdot (\vec{t}_1\cdot \vec{t}_3) &
- +\vec{t}_1 + k \cdot (\vec{t}_2\cdot \vec{t}_3) &
- 1     + k \cdot (-\vec{t}_2^2 - \vec{t}_1^2)
+ 1     + k \cdot (-t_3^2- t_2^2) &
+ -t_3 + k \cdot (t_1\cdot t_2) &
+ +t_2 + k \cdot (t_1\cdot t_3) \\
+ +t_3 + k \cdot (t_1\cdot t_2) &
+ 1     + k \cdot (-t_3^2 - t_1^2) &
+ -t_1 + k \cdot (t_2\cdot t_3) \\
+ -t_2 + k \cdot (t_1\cdot t_3) &
+ +t_1 + k \cdot (t_2\cdot t_3) &
+ 1     + k \cdot (-t_2^2 - t_1^2)
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -3408,7 +3416,7 @@ para
 $$
 k = \frac{1}{1- \hat{\vec{n}} \cdot \hat{\vec{e}}_z}
 $$
-
+y algún $z_0$ arbitrario que podemos ignorar.
 Entonces podemos calcular el jacobiano de un elemento de superficie $e_{i^\prime}^{(D-1)}$ en un problema tridimensional con las funciones de forma tradicionales del triángulo canónico $e_{c^\prime}^{(D-1)}$ cuya matriz de coordenadas $\mat{C}^\prime_i$ es
 $$
 \mat{C}^\prime_i =
@@ -3622,7 +3630,8 @@ En la @sec-multiplicativo-sin-fuente discutimos este caso con más detalle.
 
 #### Grupos arbitrarios de energía {#sec-dif-fem-G}
 
-Consideremos por un instante el caso $G=2$. La formulación fuerte ahora no es una sino dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
+Consideremos primeramente caso a dos grupos de energías $G=2$.
+La formulación fuerte ahora no es una sino dos ecuaciones diferenciales en derivadas parciales acopladas entre sí a través de los términos de [scattering]{lang=en-US} y de fisión
 
 $$
 \begin{cases}
@@ -3669,7 +3678,7 @@ $$
 \end{gathered}
 $$
 
-Introduciendo la matriz $\mat{R} \in \mathbb{R}^{G \times G}$ de remociones
+Introduciendo la matriz $\mat{R} \in \mathbb{R}^{2 \times 2}$ de remociones
 
 $$
 \mat{R}(\vec{x}) =
@@ -3683,7 +3692,7 @@ $$
  \Sigma_{s_0 1 \rightarrow 2}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 2}(\vec{x}) \\
 \end{bmatrix}
 $$
-y la matrix $\mat{X} \in \mathbb{R}^{G \times G}$ de nu-fisiones
+y la matrix $\mat{X} \in \mathbb{R}^{2 \times 2}$ de nu-fisiones
 
 $$
 \mat{X}(\vec{x}) =
@@ -3692,7 +3701,7 @@ $$
  \chi_2 \cdot \nu\Sigma_{f1}(\vec{x}) & \chi_2 \cdot \nu\Sigma_{f2}(\vec{x}) \\
 \end{bmatrix}
 $$
-la formulación fuerte para $G=2$ queda
+la formulación fuerte para dos grupos de energía $G=2$ queda
 
 $$
 \begin{bmatrix}
@@ -3806,13 +3815,13 @@ $$
 donde llamamos $\mat{H}_2$ a la matriz de funciones de forma para $G=2$
 
 $$
-\mat{H}(\vec{x}) =
+\mat{H}_2(\vec{x}) =
 \begin{bmatrix}
 h_1(\vec{x}) & 0 & h_2(\vec{x}) & 0 & \cdots & h_J(\vec{x}) & 0 \\
 0 & h_1(\vec{x}) & 0 & h_2(\vec{x}) & \cdots & 0 & h_J(\vec{x}) \\
 \end{bmatrix} \quad \in \mathbb{R}^{2 \times 2J}
 $$
-como un caso particular de la matriz de funciones de forma $H_G$ para $G$ grupos de energía.
+como un caso particular de la matriz de funciones de forma $\mat{H}_G$ para $G$ grupos de energía.
 De la misma manera, si
 
 $$
@@ -3952,7 +3961,8 @@ $$ {#eq-dif-fem-bvac}
 
 
 Nos queda evaluar el término de pérdidas.
-Para ello por un lado notamos que
+Para ello, simplifiquemos primera la notación suponiendo un problema bi-dimensional $D=2$.
+Por un lado notamos que
 
 $$
 \begin{aligned}
@@ -4064,7 +4074,7 @@ D_1(\vec{x}) & 0 \\
 \symbf{\phi}
 $$ {#eq-dif-fem-L}
 
-siendo las matrices $\mat{D} \in \mathbb{R}^{G \times G}$ y $\mat{D}^{\prime} \in \mathbb{R}^{GD \times GD}$ con los coeficientes de difusión
+siendo la matriz diagonal $\mat{D} \in \mathbb{R}^{2 \times 2}$
 
 $$
 \mat{D}(\vec{x}) =
@@ -4074,8 +4084,18 @@ D_1(\vec{x}) & 0 \\
 \end{bmatrix}
 $$
 
+y construyendo la matriz bloque-diagonal $\mat{D}_{D}$ según la dimensión $D$ del dominio $U$
+
 $$
-\mat{D}^\prime(\vec{x}) =
+\mat{D}_1 (\vec{x}) = \mat{D}(\vec{x}) =
+\begin{bmatrix}
+D_1(\vec{x}) & 0 \\
+0 & D_2(\vec{x}) \\
+\end{bmatrix}
+$$
+ 
+$$
+\mat{D}_2 (\vec{x}) =
 \begin{bmatrix}
 \mat{D}(\vec{x}) & \mat{0} \\
 \mat{0} & \mat{D}(\vec{x}) \\
@@ -4086,6 +4106,24 @@ D_1(\vec{x}) & 0 & 0 & 0 \\
 0 & D_2(\vec{x}) & 0 & 0 \\
 0 & 0 & D_1(\vec{x}) & 0 \\
 0 & 0 & 0 & D_2(\vec{x}) \\
+\end{bmatrix}
+$$
+
+$$
+\mat{D}_3 (\vec{x}) =
+\begin{bmatrix}
+\mat{D}(\vec{x}) & \mat{0} & \mat{0} \\
+\mat{0} & \mat{D}(\vec{x}) & \mat{0} \\
+\mat{0} & \mat{0} & \mat{D}(\vec{x}) \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+D_1(\vec{x}) & 0 & 0 & 0 & 0 & 0\\
+0 & D_2(\vec{x}) & 0 & 0 & 0 & 0\\
+0 & 0 & D_1(\vec{x}) & 0 & 0 & 0\\
+0 & 0 & 0 & D_2(\vec{x}) & 0 & 0\\
+0 & 0 & 0 & 0 & D_1(\vec{x}) & 0 \\
+0 & 0 & 0 & 0 & 0 & D_2(\vec{x}) \\
 \end{bmatrix}
 $$
 
@@ -4148,7 +4186,7 @@ $$
 $$
 para todo $\vec{v}\in \mathbb{R}^{2J}$.
 
-Luego, para el caso general de $G$ grupos de energía podemos escribir la matriz de rigidez elemental $\mat{K}_i$ como
+Luego, para el caso general de $G$ grupos de energía sobre un dominio de dimensión $D$, podemos escribir la matriz de rigidez elemental $\mat{K}_i$ como
 $$
 \begin{aligned}
 \mat{K}_i &= 
@@ -4256,7 +4294,7 @@ D_1(\vec{x}) & 0 & \cdots & 0 \\
 0 & 0 & \cdots & D_G(\vec{x})
 \end{bmatrix} \in \mathbb{R}^{G \times G}
 \\
-\mat{D}^{\prime}(\vec{x}) &=
+\mat{D}_D(\vec{x}) &=
 \begin{bmatrix}
 \mat{D}(\vec{x}) & \mat{0} & \cdots & \mat{0} \\
 \mat{0} & \mat{D}(\vec{x}) & \cdots & \mat{0} \\
@@ -4292,17 +4330,20 @@ $$
 
 
 ::: {.remark}
-El operador bilineal $a(\phi,v)$ discretizado para $G>1$ es
+El operador bilineal $a(\phi,v)$ para $G>1$ es
 
 $$
 \begin{aligned}
-\mathcal{a}(\phi,v) &= \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot \mat{D}^\prime(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
+\mathcal{a}(\phi,v) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot \mat{D}^\prime(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
 + \int_U v(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
-&= \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} 
+& \quad + \int_{\Gamma_V} v(\vec{x}) \cdot \frac{1}{2} \cdot \phi(\vec{x}) \,d^{D-1}\vec{x} \\
+=& \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} 
 + \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^D\vec{x} \\
-&= \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
-+ \int_U \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \, d^D\vec{x}
-\right] \cdot \symbf{\phi} \\
+& \quad + \int_{\Gamma_V} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^{D-1}\vec{x} \\
+=& \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
++ \int_U \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \, d^D\vec{x} \right. \\
+& \quad\quad + \left. \int_{\Gamma_V} \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \, d^{D-1}\vec{x}
+\right] \cdot \symbf{\phi}
 \end{aligned}
 $$ {#eq-a-dif-G}
 :::
@@ -4320,14 +4361,15 @@ El operador de la @eq-a-dif-G es coercivo sólo si $k_\text{eff} < 1$.
 :::
 
 ::: {.remark}
-Las matrices $\mat{H}_{Gc}$ y $\mat{B}_{Gi}$ que "saben" (son $G$-[aware]{lang=en-US}) cuantos grupos de energía tiene el problema se construyen a partir de las matrices del problema escalar $\mat{H}_c$ y $\mat{B}_i$ como
+Las matrices $\mat{H}_{Gc}$ y $\mat{B}_{Gi}$ que "saben" (son $G$-[aware]{lang=en-US}) cuántos grupos de energía tiene el problema se construyen a partir de las matrices del problema escalar $\mat{H}_c$ y $\mat{B}_i$ como
 
 $$
-\begin{aligned}
-\mat{H}_{Gc}(i,j) &= xxx \\
-\mat{B}_{Gi}(i,j) &= xxx \\
-\end{aligned}
+\mat{H}_{Gc}\Big(g, G \cdot (j-1) + g\Big) = H_c(1,j) = h_j(\symbf{\xi})
 $$
+$$
+\mat{B}_{Gi}\Big(G\cdot (d-1) + g, G\cdot (j-1) + g\Big) = B_c(d,j) = \frac{\partial h_j}{\partial \xi_d} \\
+$$
+para $j=1,\dots,J$, $g=1,\dots,G$, y $d=1,\dots,D$. El resto de los elementos son cero.
 :::
 
 ::: {.remark}
@@ -4343,12 +4385,21 @@ $$
 :::
 
 ::: {.remark}
-La forma de las matrices $G$-[aware]{lang=en-US} puede ser diferente para otros problemas vectoriales con el mismo grado de libertad.
-Por ejemplo, para el problema de elasticidad tridimensional basado en desplazamientos, $G=3$ pero la matriz $B_{3i}$ es
+La forma de las matrices $G$-[aware]{lang=en-US} puede ser diferente para otros problemas vectoriales con el mismo número de grados de libertad.
+Por ejemplo, para el problema de elasticidad tridimensional basado en desplazamientos, $G=3$ pero la matriz $B_{3i}$ es (ver [@bathe, tabla 6.6])
 
 $$
-\mat{B}_{3i} = xxx
+\mat{B}_{3i} =
+\begin{bmatrix}
+\frac{\partial h_1}{\partial x} & 0 & 0 &                               \frac{\partial h_2}{\partial x} & 0 & 0 &                                 \cdots & \frac{\partial h_J}{\partial x} & 0 & 0 &                             \\
+0 & \frac{\partial h_1}{\partial y} & 0 &                               0 & \frac{\partial h_2}{\partial y} & 0 &                                 \cdots & 0 & \frac{\partial h_J}{\partial y} & 0 &                             \\
+0 & 0 & \frac{\partial h_1}{\partial z} &                               0 & 0 & \frac{\partial h_2}{\partial z} &                                 \cdots & 0 & 0 & \frac{\partial h_J}{\partial z} &                             \\
+\frac{\partial h_1}{\partial y} & \frac{\partial h_1}{\partial x} & 0 & \frac{\partial h_2}{\partial y} & \frac{\partial h_2}{\partial x} & 0 &   \cdots & \frac{\partial h_J}{\partial y} & \frac{\partial h_J}{\partial x} & 0 \\
+0 & \frac{\partial h_1}{\partial z} & \frac{\partial h_1}{\partial y} & 0 & \frac{\partial h_2}{\partial z} & \frac{\partial h_2}{\partial y} &   \cdots & 0 & \frac{\partial h_J}{\partial z} & \frac{\partial h_J}{\partial y} \\
+\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_1}{\partial x} & \frac{\partial h_2}{\partial z} & 0 & \frac{\partial h_2}{\partial x} &   \cdots & \frac{\partial h_J}{\partial z} & 0 & \frac{\partial h_J}{\partial x} \\
+\end{bmatrix}
 $$
+ya que la matriz equivalente a la $\mat{D}_G$ del problema de difusión es de tamaño $6\times 6$ con tres filas para las tensiones normales y tres filas para los esfuerzos de corte.
 :::
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}

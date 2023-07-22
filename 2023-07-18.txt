@@ -1,0 +1,20 @@
+la mayoria de la gente sabe menos de lo que uno espera
+
+lo que importa es lo que suena creible
+
+aplicaciones a lo nuclear en la nube
+
+compara el ejemplo de no usar kd-tree para mapeo no conforme
+
+SN y difusion en la nube, XS que dependan de la temperatura
+
+
+# 2023-07-21
+
+mencionar que usan miloga en reactores y que se doctoró vitor con milonga
+
+publicar en JOSS
+
+ver cómo linkear lo de cinética puntual así referenciamos el paper y decir empecé a
+
+claridad en explicar los trucos copados
