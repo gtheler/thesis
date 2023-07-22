@@ -2,6 +2,9 @@ pdf:
 	./hash.sh
 	cp math-pdf.md math.md
 	quarto render --to pdf
+	mv _book/phd-theler.pdf _book/phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf
+	cd _book; ln -s phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf phd-theler.pdf
+
 
 html:
 	./hash.sh
