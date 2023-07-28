@@ -831,58 +831,73 @@ Por ejemplo, la @fig-constant-per-fraction ilustra un caso en el que cada octan
 El esquema numérico es consistente ya que en el límite $\Delta \omegaversor_m \rightarrow d\omegaversor_m$ la suposición es exacta y el operador discretizado coincide con el operador continuo.
 :::
 
-### Conjuntos de cuadraturas en tres dimensiones {#sec-cuadraturas}
+### Conjuntos de cuadratura {#sec-cuadraturas}
 
-Para completar el método de las ordenadas discretas debemos
-especificar $M$ pares de direcciones y
-pesos $(\boldsymbol{\hat\Omega}_m, w_m)$ para $m=1,\dots,M$. Las
-direcciones $\boldsymbol{\hat\Omega}_m = [\hat{\Omega}_{mx} \, \hat{\Omega}_{my} \, \hat{\Omega}_{mz}]^T$
+Para completar el método de las ordenadas discretas debemos especificar $M$ pares de direcciones y
+pesos $(\omegaversor_m, w_m)$ para $m=1,\dots,M$.
+En tres dimensiones, si utilizamos $M$ direcciones tales que
+
+$$
+M = N\cdot(N+2)
+$$
+decimos que estamos implementando el método de ordenadas discretas S$_N$.
+Esta relación numérica entre $N$ y $M$ es histórica y en esta tesis la mantenemos.
+
+Las direcciones $\omegaversor_m = [\hat{\Omega}_{mx} \, \hat{\Omega}_{my} \, \hat{\Omega}_{mz}]^T$
 deben ser versores unitarios tales que
 
-$$\label{eq:normalizaciondirecciones}
- \hat{\Omega}_{mx}^2 + \hat{\Omega}_{my}^2 + \hat{\Omega}_{mz}^2 = 1$$ y
-los pesos $w_m$ deben estar normalizados a uno, es decir
+$$
+\hat{\Omega}_{mx}^2 + \hat{\Omega}_{my}^2 + \hat{\Omega}_{mz}^2 = 1
+$$ {#eq-direccion-normalizada}
+y para poder aplicar el @thm-cuadratura, los pesos $w_m$ deben estar normalizados a uno, es decir
 
-$$\label{eq:normalizacionpesos}
- \sum_{m=1}^M w_m = 1$$
+$$
+\sum_{m=1}^M w_m = 1
+$$
 
-Existen varias maneras de elegir los $M$ pares de forma tal de cumplir
-estas dos condiciones. En este trabajo utilizamos la cuadratura de nivel
-simétrico [@lewis] o de simetría completa [@stammler] en la que las
-direcciones son simétricas por octante. En un espacio de tres
-dimensiones, el orden $N$ de la aproximación S$_N$ se relaciona con la
-cantidad de direcciones $M$ como
+Existen varias maneras de elegir los $M$ pares de forma tal de cumplir estas dos condiciones.
+En primer lugar, para poder poner condiciones de contorno de simetría en planos paralelos a los tres planos coordinados $x$-$y$, $x$-$z$ e $y$-$z$ requerimos que si la dirección $\omegaversor = [\hat{\Omega}_{x} \, \hat{\Omega}_{y} \, \hat{\Omega}_{z}]^T$ pertenece al conjunto de cuadratura, entonces también tienen que estar las siguientes tres direcciones
 
-$$M = N\cdot(N+2)$$
+$$
+\begin{aligned}
+\begin{bmatrix}
+-\hat{\Omega}_{x} & +\hat{\Omega}_{y} & +\hat{\Omega}_{z}
+\end{bmatrix}^T \\
+\begin{bmatrix}
++\hat{\Omega}_{x} & -\hat{\Omega}_{y} & +\hat{\Omega}_{z}
+\end{bmatrix}^T \\
+\begin{bmatrix}
++\hat{\Omega}_{x} & +\hat{\Omega}_{y} & -\hat{\Omega}_{z}
+\end{bmatrix}^T \\
+\end{aligned}
+$$
 
-En este caso, en cada octante tomamos los cosenos
-directores $\hat{\Omega}_{mx}$, $\hat{\Omega}_{my}$
-y $\hat{\Omega}_{mz}$ de un conjunto de $N/2$ valores positivos y los
-permutamos de todas las maneras posibles para obtener $N(N+2)/8$
-combinaciones en el primer octante para luego reflejar estas direcciones
-hasta completar los ocho octantes. De esta forma las $M$ direcciones son
-simétricas con respecto a rotaciones de noventa y ciento ochenta grados
-sobre cualesquiera de los ejes $x$, $y$ ó $z$.
+??? hay otros 7, no 3!
 
-Debido a estas restricciones de simetría, no todos los $N/2$ posibles
-cosenos directores son independientes. De hecho, en el caso general sólo
-podemos elegir un único valor. En efecto,
-sean $\mu_1 < \mu_2 < \dots < \mu_{N/2}$ los posibles cosenos directores
-del conjunto. Supongamos que $\hat{\Omega}_{mx} = \mu_i$,
-$\hat{\Omega}_{my} = \mu_j$ y $\hat{\Omega}_{mz} = \mu_k$. Entonces
+Luego es suficiente definir las $N(N+2)/8$ direcciones en uno de los ocho octantes---digamos el primero---y luego permutar los signos para obtener las direcciones correspondientes a los otros tres octantes.
+En este trabajo utilizamos la cuadratura de nivel simétrico [@lewis] o de simetría completa [@stammler] en la que las
+direcciones son simétricas en cada octante.
+Consiste en tomar tres cosenos directores $\mu_i$, $\mu_j$ y $\mu_k$ de un conjunto de $N/2$ valores positivos y permutarlos de todas las maneras posibles para obtener $N(N+2)/8$ combinaciones como explicamos a continuación.
 
-$$\label{eq:omega1}
- \mu_i^2 + \mu_j^2 + \mu_k^2 = 1$$
+Una característica la cuadratura de nivel simétrico es que no todos los $N/2$ posibles cosenos directores son independientes. De hecho, para S$_2$ hay una única dirección posible y para $N >2$ sólo podemos elegir un único valor.
+En efecto, sean $\mu_1 < \mu_2 < \dots < \mu_{N/2}$ los posibles cosenos directores del conjunto.
+Supongamos que para la dirección $m$ tenemos $\hat{\Omega}_{mx} = \mu_i$, $\hat{\Omega}_{my} = \mu_j$ y $\hat{\Omega}_{mz} = \mu_k$.
+Entonces, por el requerimiento de normalización de la @eq-direccion-normalizada debemos tener
 
-Tomemos ahora otra dirección diferente $m^\prime$ pero manteniendo el
-primer componente $\hat{\Omega}_{m^\prime x} = \mu_i$ y
-haciendo $\hat{\Omega}_{m^\prime y} = \mu_{j+1}$. Para poder satisfacer
-la condición de magnitud unitaria y debido a que $\mu_{j+1}>\mu{j}$
-entonces $\hat{\Omega}_{m^\prime z} = \mu_{k-1}$ ya
-que $\mu_{k-1}<\mu_k$. Entonces
+$$
+\mu_i^2 + \mu_j^2 + \mu_k^2 = 1
+$$ {#eq-mu-normalizada}
 
-$$\label{eq:omega2}
- \mu_i^2 + \mu_{j+1}^2 + \mu_{k-1}^2 = 1$$
+Tomemos ahora otra dirección diferente $m^\prime$ pero manteniendo el primer componente $\hat{\Omega}_{m^\prime x} = \mu_i$ y
+haciendo $\hat{\Omega}_{m^\prime y} = \mu_{j+1}$.
+Para poder satisfacer la @eq-mu-normalizada, debido a que $\mu_{j+1}>\mu_{j}$ entonces $\hat{\Omega}_{m^\prime z} = \mu_{k-1}$ ya que $\mu_{k-1}<\mu_k$.
+Entonces
+
+$$
+\mu_i^2 + \mu_{j+1}^2 + \mu_{k-1}^2 = 1
+$$
+
+XXXXX
 
 De [\[eq:omega1\]](#eq:omega1){reference-type="eqref"
 reference="eq:omega1"}
@@ -1038,7 +1053,7 @@ realizar cálculos de transporte con el método de las ordenadas
 discretas.</figcaption>
 </figure>
 
-### Dos dimensiones {#sec-dosdimensiones}
+#### Dos dimensiones {#sec-dosdimensiones}
 
 El caso bidimensional en realidad es un problema en tres dimensiones
 pero sin dependencia de los parámetros del problema en una de las
@@ -1118,7 +1133,7 @@ label="fig:direcciones2d"></span>Direcciones para el conjunto de
 cuadraturas de nivel simétrico en dos dimensiones.</figcaption>
 </figure>
 
-### Una dimensión
+#### Una dimensión
 
 El caso unidimensional es radicalmente diferente a los otros dos. Si
 tomamos al eje $x$ como la dirección de dependencia espacial, las
@@ -4409,7 +4424,7 @@ Ultricies lacus sed turpis tincidunt id. Elementum pulvinar etiam non quam lacus
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
 Si bien en el @sec-transporte-difusion hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
-Al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
+Tal como hemos hecho en este capítulo, al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
 
  #. Medio no multiplicativo con fuentes independientes,
  #. Medio multiplicativo con fuentes independientes, y
@@ -4419,9 +4434,10 @@ Al eliminar el término de la temporada con respecto al tiempo, las propiedades 
 
 Un medio no multiplicativo es aquel que no contiene núcleos capaces de fisionar.
 Cada neutrón que encontremos en el medio debe entonces provenir de una fuente externa $s$.
-Para estudiar este tipo de problemas, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión.
+Para estudiar este tipo de problemas, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión, por lo que $\nu\Sigma_g = 0~\forall g$.
 Luego la ecuación de difusión queda
 
+DISCRETIZADA
 $$
 \begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
@@ -4433,6 +4449,7 @@ $$
 $$ {#eq-difusionnmfi}
 y la de transporte
 
+DISCRETIZADA
 $$ 
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
@@ -4446,20 +4463,20 @@ $$
 $$ {#eq-transportenmfi}
 
 
-Para que la solución sea no trivial,
+Para que la solución sea no trivial, el vector $\vec{b}$ del miembro derecho debe ser no nulo lo que implica que
 
  a. la fuente no se debe anular idénticamente en el dominio, y/o
  b. las condiciones de contorno deben ser no homogéneas.
  
 Si las secciones eficaces (incluyendo el coeficiente de difusión) dependen explícitamente de la posición $\vec{x}$ pero no dependen del flujo $\psi$ o $\phi$, entonces tanto la @eq-difusionnmfi como la [-@eq-transportenmfi] son lineales.
-En las secciones siguientes discretizamos el problema para obtener un sistema de ecuaciones algebraicas lineales que puede ser escrito en forma matricial como
+Entonces tenemos un sistema de ecuaciones lineales que podemos escribir en forma matricial como
 
 $$
 \mat{A}_N(\Sigma_N) \cdot \symbf{\varphi}_N = \vec{b}_N(\Sigma_N)
 $$ {#eq-Aub}
 donde
 
- * $\symbf{\varphi}_N$ es un vector de tamaño $N \in \mathbb{N}$ que contiene la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizado (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
+ * $\symbf{\varphi}_N$ es un vector de tamaño $N \in \mathbb{N}$ que contiene los valores nodales de la incógnita (flujo angular $\psi$ en transporte y flujo escalar $\phi$ en difusión) asociada a cada uno de los grados de libertad del problema discretizado (cantidad de incógnitas espaciales, grupos de energía y/o direcciones),
  * $\mat{A}_N(\Sigma_N) \in \mathbb{R}^{N \times N}$ es una matriz rala^[Del inglés [*sparse*]{lang=en-US}.] cuadrada que contiene información sobre
    a. las secciones eficaces macroscópicas, es decir los coeficientes de la ecuacion que estamos resolviendo, y
    b. la discretización de los operadores diferenciales e integrales,
@@ -4467,14 +4484,14 @@ donde
    a. la versión discretizada de la fuente independiente $s$, y/o
    b. las condiciones de contorno no homogéneas
  * $N$ es el tamaño del problema discretizado, que es el producto de 
-   a. la cantidad de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
-   b. la cantidad de grupos de energía, y
-   c. la cantidad de direcciones discretas (sólo para el método de ordenadas discetas).
+   a. la cantidad $J$ de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
+   b. la cantidad $G$ de grupos de energía, y
+   c. la cantidad $M$ de direcciones discretas (sólo para el método de ordenadas discetas).
 
  
-El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá estimar la función $\psi$ ó $\phi$ en función
+El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá evaluar en forma aproximadad (en el sentido de la @sec-metodos-numericos) la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretización espacial.
-Como ya mencionamos, en esta tesis utilizamos
+Para resumir, en esta tesis utilizamos
 
  * el método multi-grupo de energías para discretizar $E$ y $E^\prime$,
  * el método de ordenadas discretas para discretizar $\omegaversor$ y $\omegaprimaversor$, y
@@ -4501,6 +4518,7 @@ En la práctica, la iteración de Newton se implementa mediante los siguientes d
  1. Resolver $\mat{J}(\symbf{\varphi}_{Nk}, \Sigma_{Nk}) \cdot \Delta \symbf{\varphi}_{Nk} = -\mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})$
  2. Actualizar $\symbf{\varphi}_{Nk+1} \leftarrow \symbf{\varphi}_{Nk} + \Delta \symbf{\varphi}_{Nk}$
 
+**TODO** explicar mejor esto:
 Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
 
 
@@ -4511,8 +4529,9 @@ En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la
 En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
 Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde un tiempo $t=-\infty$.
 
-En este caso, las ecuaciones apropiadas son las que ya hemos reproducido al comienzo del capítulo:
+En este caso, las ecuaciones apropiadas son las que hemos utilizado en la derivación de la discretización espacial en las secciones [@-sec-difusion-multigrupo-fem] y [@-sec-sn-multigrupo-fem]
 
+DISCRETO
 $$ \tag{\ref{eq-difusion}}
 \begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
@@ -4526,6 +4545,7 @@ $$
 
 y
 
+DISCRETO
 $$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
@@ -4599,6 +4619,7 @@ De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 =
 Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
 El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de difusión como
 
+DISCRETO
 $$\begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
@@ -4609,6 +4630,7 @@ $$\begin{gathered}
 $$
 y la de transporte como
 
+DISCRETO
 $$
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
@@ -4637,6 +4659,7 @@ Al no haber fuentes independientes, todos los términos están multiplicados por
 Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
 Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
 
+EXPLICAR CÓMO
 $$
 \mat{A}_N(\Sigma_N) \cdot \symbf{\varphi}_N = \lambda_N \cdot \mat{B}(\Sigma_N) \cdot \symbf{\varphi}_N
 $$ {#eq-eigen}
@@ -4673,7 +4696,7 @@ $$
 
 Existen esquemas numéricos eficientes para resolver problemas de autovalores generalizados no lineales donde la no linealidad es con respecto al autovalor $\lambda_N$ @slepc-user-ref. Pero como en este caso la no linealidad es con el autovector $\symbf{\varphi}_N$ (es decir, con el flujo) y no con el autovalor (es decir el factor de multiplicación efectivo), no son aplicables.
 
-En el caso no lineal resolvemos iterativamente
+En el caso de neutrónica no lineal tenemos que resolver iterativamente
 
 $$
 \mat{A}(\symbf{\varphi}_{Nk},\Sigma_{Nk}) \cdot \symbf{\varphi}_{Nk+1} = \lambda_{Nk+1} \cdot \mat{B}(\symbf{\varphi}_{Nk},\Sigma_{Nk}) \cdot \symbf{\varphi}_{Nk+1}
@@ -4683,4 +4706,4 @@ En este caso el flujo está completamente determinado por la dependencia (explí
 
 
 
-Terminada la explicación del _cómo_ ([how]{lang=en-US}), pasemos entonces al _qué_ ([what]{lang=en-US}).
+Terminada la explicación del _cómo_ ([how]{lang=en-US} en los capítulos [@-sec-transporte-difusion] y [@-sec-esquemas]), pasemos entonces al _qué_ ([what]{lang=en-US} en los dos capítulos que siguen).

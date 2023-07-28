@@ -6,6 +6,14 @@ math.md
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
+> The miracle of the appropriateness of the language of mathematics for the formulation
+> of the laws of physics is a wonderful gift which we neither understand nor deserve.
+> We should be grateful for it and hope that it will remain valid in future research that
+> it will extend, for better, or for worse, to our pleasure, even though perhaps also
+> to our bafflement, to wide branches of learning.
+>
+> *Eugene Wigner*
+
 > | In an enterprise such as the development nuclear physics
 > | the difference between ideas, hopes, suggestions and theoretical
 > | calculations, and solid numbers based on measurement, is paramount.
