@@ -1,0 +1,42 @@
+set multiplot; set nodisplay
+w=8*unit(cm); set terminal pdf
+set width w
+set size ratio 1
+arrow from 0.5*w,0.5*w to 0.5*w*(1+3.500212e-01),0.5*w*(1+3.500212e-01) with color blue lw 2
+text r"$1$" at (0.5+2.000000e-02)*w*(1+3.500212e-01),(0.5+2.000000e-02)*w*(1+3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+3.500212e-01),0.5*w*(1+8.688903e-01) with color blue lw 2
+text r"$2$" at (0.5+2.000000e-02)*w*(1+3.500212e-01),(0.5+2.000000e-02)*w*(1+8.688903e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+8.688903e-01),0.5*w*(1+3.500212e-01) with color blue lw 2
+text r"$3$" at (0.5+2.000000e-02)*w*(1+8.688903e-01),(0.5+2.000000e-02)*w*(1+3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-3.500212e-01),0.5*w*(1+3.500212e-01) with color blue lw 2
+text r"$4$" at (0.5+-8.000000e-02)*w*(1+-3.500212e-01),(0.5+2.000000e-02)*w*(1+3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-3.500212e-01),0.5*w*(1+8.688903e-01) with color blue lw 2
+text r"$5$" at (0.5+-8.000000e-02)*w*(1+-3.500212e-01),(0.5+2.000000e-02)*w*(1+8.688903e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-8.688903e-01),0.5*w*(1+3.500212e-01) with color blue lw 2
+text r"$6$" at (0.5+-8.000000e-02)*w*(1+-8.688903e-01),(0.5+2.000000e-02)*w*(1+3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+3.500212e-01),0.5*w*(1+-3.500212e-01) with color blue lw 2
+text r"$7$" at (0.5+2.000000e-02)*w*(1+3.500212e-01),(0.5+-8.000000e-02)*w*(1+-3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+3.500212e-01),0.5*w*(1+-8.688903e-01) with color blue lw 2
+text r"$8$" at (0.5+2.000000e-02)*w*(1+3.500212e-01),(0.5+-8.000000e-02)*w*(1+-8.688903e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+8.688903e-01),0.5*w*(1+-3.500212e-01) with color blue lw 2
+text r"$9$" at (0.5+2.000000e-02)*w*(1+8.688903e-01),(0.5+-8.000000e-02)*w*(1+-3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-3.500212e-01),0.5*w*(1+-3.500212e-01) with color blue lw 2
+text r"$10$" at (0.5+-8.000000e-02)*w*(1+-3.500212e-01),(0.5+-8.000000e-02)*w*(1+-3.500212e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-3.500212e-01),0.5*w*(1+-8.688903e-01) with color blue lw 2
+text r"$11$" at (0.5+-8.000000e-02)*w*(1+-3.500212e-01),(0.5+-8.000000e-02)*w*(1+-8.688903e-01)
+arrow from 0.5*w,0.5*w to 0.5*w*(1+-8.688903e-01),0.5*w*(1+-3.500212e-01) with color blue lw 2
+text r"$12$" at (0.5+-8.000000e-02)*w*(1+-8.688903e-01),(0.5+-8.000000e-02)*w*(1+-3.500212e-01)
+set axis x twowayarrow atzero
+set axis y twowayarrow atzero
+set nomxtics
+set nomytics
+unset key
+set xtics 0
+set ytics 0
+text r"$x$" at 0.95*w,0.47*w
+text r"$y$" at 0.48*w,0.95*w rotate 90
+set output 'direcciones2ds4.pdf'
+set xrange [-1:1]
+set yrange [-1:1]
+plot 0 w l lw 0 ti ''
+set display; refresh

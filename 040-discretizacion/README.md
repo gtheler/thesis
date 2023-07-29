@@ -839,7 +839,7 @@ En tres dimensiones, si utilizamos $M$ direcciones tales que
 
 $$
 M = N\cdot(N+2)
-$$
+$$ {#eq-MN}
 decimos que estamos implementando el método de ordenadas discretas S$_N$.
 Esta relación numérica entre $N$ y $M$ es histórica y en esta tesis la mantenemos.
 
@@ -856,33 +856,50 @@ $$
 $$
 
 Existen varias maneras de elegir los $M$ pares de forma tal de cumplir estas dos condiciones.
-En primer lugar, para poder poner condiciones de contorno de simetría en planos paralelos a los tres planos coordinados $x$-$y$, $x$-$z$ e $y$-$z$ requerimos que si la dirección $\omegaversor = [\hat{\Omega}_{x} \, \hat{\Omega}_{y} \, \hat{\Omega}_{z}]^T$ pertenece al conjunto de cuadratura, entonces también tienen que estar las siguientes tres direcciones
+En primer lugar, para poder poner condiciones de contorno de simetría en planos paralelos a los tres planos coordinados $x$-$y$, $x$-$z$ e $y$-$z$ requerimos que si la dirección $\omegaversor = [\hat{\Omega}_{x} \, \hat{\Omega}_{y} \, \hat{\Omega}_{z}]^T$ con $\hat{\Omega}_{x} > 0$, $\hat{\Omega}_{y} >0$ y $\hat{\Omega}_{z} > 0$ pertenece al conjunto de cuadratura, entonces también tienen que estar las siguientes siete direcciones
 
 $$
 \begin{aligned}
-\begin{bmatrix}
--\hat{\Omega}_{x} & +\hat{\Omega}_{y} & +\hat{\Omega}_{z}
-\end{bmatrix}^T \\
-\begin{bmatrix}
-+\hat{\Omega}_{x} & -\hat{\Omega}_{y} & +\hat{\Omega}_{z}
-\end{bmatrix}^T \\
-\begin{bmatrix}
-+\hat{\Omega}_{x} & +\hat{\Omega}_{y} & -\hat{\Omega}_{z}
-\end{bmatrix}^T \\
+\begin{bmatrix} +\hat{\Omega}_{x} & +\hat{\Omega}_{y} & -\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} +\hat{\Omega}_{x} & -\hat{\Omega}_{y} & +\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} +\hat{\Omega}_{x} & -\hat{\Omega}_{y} & -\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} -\hat{\Omega}_{x} & +\hat{\Omega}_{y} & +\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} -\hat{\Omega}_{x} & +\hat{\Omega}_{y} & -\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} -\hat{\Omega}_{x} & -\hat{\Omega}_{y} & +\hat{\Omega}_{z} \end{bmatrix}^T \\
+\begin{bmatrix} -\hat{\Omega}_{x} & -\hat{\Omega}_{y} & -\hat{\Omega}_{z} \end{bmatrix}^T \\
 \end{aligned}
 $$
 
-??? hay otros 7, no 3!
-
-Luego es suficiente definir las $N(N+2)/8$ direcciones en uno de los ocho octantes---digamos el primero---y luego permutar los signos para obtener las direcciones correspondientes a los otros tres octantes.
+Luego es suficiente definir las $N(N+2)/8$ direcciones del primero de los ocho octantes y luego permutar los signos para obtener las direcciones correspondientes a los otros siete octantes.
 En este trabajo utilizamos la cuadratura de nivel simétrico [@lewis] o de simetría completa [@stammler] en la que las
 direcciones son simétricas en cada octante.
-Consiste en tomar tres cosenos directores $\mu_i$, $\mu_j$ y $\mu_k$ de un conjunto de $N/2$ valores positivos y permutarlos de todas las maneras posibles para obtener $N(N+2)/8$ combinaciones como explicamos a continuación.
+Consiste en tomar tres cosenos directores $\mu_i$, $\mu_j$ y $\mu_k$ de un conjunto de $N/2$ valores positivos y permutarlos de todas las maneras posibles para obtener $N(N+2)/8$ combinaciones como ilustramos en la @fig-latsn y continuamos discutiendo a continuación.
+
+::: {#fig-latsn layout="[38,-15,37]"}
+
+![S$_2$](lats2-nice)
+
+![S$_2$](lats2b-nice)
+
+![S$_4$](lats4-nice)
+
+![S$_4$](lats4b-nice)
+
+![S$_6$](lats6-nice)
+
+![S$_6$](lats6b-nice)
+
+
+Direcciones de cuadratura de nivel simétrico para S$_2$, S$_4$ y S$_6$ en el primer cuadrante.
+:::
+
+
 
 ::::: {#thm-un-solo-coseno-idependiente}
 
 En la cuadratura de nivel simétrico, no todos los $N/2$ posibles cosenos directores son independientes.
-Para S$_2$ hay una única dirección posible y para $N >2$ sólo podemos elegir un único valor de los cosenos.
+Para S$_2$ hay una única dirección posible.
+Para $N >2$ sólo uno de los cosenos directores es independiente. El resto de los valores depende del primero.
 
 ::: {.proof}
 
@@ -950,76 +967,108 @@ Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden
 Si el primer coseno director $\mu_1$ es cercano a $1/sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
 :::
 
-
+Si miráramos el octante desde la dirección $[1/\sqrt{3}~1/\sqrt{3}~1/\sqrt{3}]^T$ como en la segunda columna de la @fig-latsn y le asignáramos el mismo entero a cada dirección que sea una permutación de los mismos tres cosenos directores, veríamos lo que indica la @tbl-triangulos.
 Las condiciones de simetría requieren que los pesos $w_m$ y $w_{m^\prime}$ asociados a dos direcciones $\boldsymbol{\hat\Omega}_m$
 y $\boldsymbol{\hat\Omega}_{m^\prime}$ cuyos cosenos directores son permutaciones entre sí deban ser iguales.
+Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice del peso a utilizar.
 
-Si miráramos un octante desde la dirección
+
++---------:+:-------------------+---------:+:-------------------+
+|          | ```                |          | ```                |
+| S$_2$    | 1                  | S$_{10}$ |     1              |
+|          | ```                |          |    2 2             |
+|          |                    |          |   3 4 3            |
+|          |                    |          |  2 4 4 2           |
+|          |                    |          | 1 2 3 2 1          |
+|          |                    |          | ```                |
+|          |                    |          |                    |
+|          |                    |          |                    |
+|          |                    |          |                    |
++----------+--------------------+----------+--------------------+
+|          | ```                |          | ```                |
+| S$_4$    |  1                 | S$_{12}$ |      1             |
+|          | 1 1                |          |     2 2            |
+|          | ```                |          |    3 4 3           |
+|          |                    |          |   3 5 5 3          |
+|          |                    |          |  2 4 5 4 2         |
+|          |                    |          | 1 2 3 3 2 1        |
+|          |                    |          | ```                |
+|          |                    |          |                    |
+|          |                    |          |                    |
++----------+--------------------+----------+--------------------+
+|          | ```                |          | ```                |
+| S$_6$    |   1                | S$_{14}$ |       1            |
+|          |  2 2               |          |      2 2           |
+|          | 1 2 1              |          |     3 5 3          |
+|          | ```                |          |    4 6 6 4         |
+|          |                    |          |   3 6 7 6 3        |
+|          |                    |          |  2 5 6 6 5 2       |
+|          |                    |          | 1 2 3 4 3 2 1      |
+|          |                    |          | ```                |
+|          |                    |          |                    |
++----------+--------------------+----------+--------------------+
+|          | ```                |          | ```                |
+| S$_8$    |    1               | S$_{16}$ |        1           |
+|          |   2 2              |          |       2 2          |
+|          |  2 3 2             |          |      3 5 3         |
+|          | 1 2 2 1            |          |     4 6 6 4        |
+|          | ```                |          |    4 7 8 7 4       |
+|          |                    |          |   3 6 8 8 6 3      |
+|          |                    |          |  2 5 6 7 6 5 2     |
+|          |                    |          | 1 2 3 4 4 3 2 1    |
+|          |                    |          | ```                |
++----------+--------------------+----------+--------------------+
+
+: Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores.
+Todos los números fueron generados por la herramienta descriptra en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 
-Además es deseable que los pesos $w_m$ sean tales que la cuadratura
+::: {.remark}
+Para $N=2$ el triángulo de la @tbl-triangulos tiene $N/2=1$ fila.
+Para cada nuevo $N$, se agrega una fila con $N/2$ nuevas direcciones. Entonces la cantidad de direcciones en un octante para S$_N$ es 
+
+$$
+\frac{\frac{N}{2} \left( \frac{N}{2}+1 \right) }{2}
+=
+\frac{\frac{1}{2} \cdot N \cdot \frac{1}{2} \left( N+2 \right) }{2}
+=
+\frac{N \cdot (N+2)}{8}
+$$
+de donde sigue la @eq-MN.
+:::
+
+La elección de los $w_m$ debe ser tal que la cuadratura
 
 $$
 \int_{4\pi} f(\omegaversor) \, d\omegaversor \approx 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
 $$
 del teorema @thm-cuadratura arroje los resultados más precisos posibles en la ecuación de transporte de neutrones.
+En este sentido, dos condiciones importantes son las siguientes.
 
-El cálculo detallado de los pesos está fuera del alcance de este trabajo y nos
-limitamos a reportar los valores utilizados por el código computacional
-desarrollado para esta tesis y descripto en el
-capítulo [\[cap:implementacion\]](#cap:implementacion){reference-type="ref"
-reference="cap:implementacion"}.
+ 1. Dado que la corriente neta se aproxima como
 
-::: {#tbl-quadratureset}
-               $\mu_1$       $m$      $8 \cdot w_i$
-  ------- -- ----------- -- ----- -- ---------------
-   S$_4$      0.3500212       1            1/3
-   S$_6$      0.2666355       1         0.1761263
-                              2         0.1572071
-   S$_8$      0.2182179       1         0.1209877
-                              2         0.0907407
-                              3         0.0925926
+    $$
+    \vec{J}_g(\vec{x}) \approx \sum_{m=1}^M w_m \cdot \omegaversor_m \cdot \phi_{mg}(\vec{x})
+    $$
+    entonces para poder recuperar una corriente neta igual a cero para un flujo angular uniforme debemos tener
 
-: Set de cuadraturas para S$_N$ de nivel simétrico. Para cada $N$
-  mostramos el primer coseno director (el resto se calcula con la
-  ecuación [\[eq:cosenos\]](#eq:cosenos){reference-type="eqref"
-  reference="eq:cosenos"}) y ocho veces el peso asociado a cada
-  permutación, de forma tal que se puedan utilizar los mismos valores
-  para dos dimensiones dividiendo por cuatro en lugar de por ocho (ver
-  @sec-dosdimensiones. Datos tomados de la
-  referencia [@lewis Tabla 4-1 pág. 162].
-:::
+    $$
+    \sum_{m=1}^M w_m \cdot \omegaversor_m \cdot = 0
+    $$
+   
+ 2. Para poder recuperar el resultado
+ 
+    $$
+    \psi_{mg}(\vec{x}) \approx \frac{1}{4\pi} \phi_{mg}(\vec{x}) + 3 \cdot \omegaversor_m \cdot \vec{J}_{mg}(\vec{x})
+    $$
+    entonces
 
-::: {#tbl-mus}
-           $m$   $\hat{\Omega}_{mx}$   $\hat{\Omega}_{my}$   $\hat{\Omega}_{mz}$   $i$
-  ------- ----- --------------------- --------------------- --------------------- -----
-   S$_4$    1          $\mu_1$               $\mu_1$               $\mu_2$          1
-            2          $\mu_1$               $\mu_2$               $\mu_1$          1
-            3          $\mu_2$               $\mu_1$               $\mu_1$          1
-   S$_6$    1          $\mu_1$               $\mu_1$               $\mu_3$          1
-            2          $\mu_1$               $\mu_2$               $\mu_2$          2
-            3          $\mu_2$               $\mu_1$               $\mu_2$          2
-            4          $\mu_2$               $\mu_2$               $\mu_1$          2
-            5          $\mu_3$               $\mu_1$               $\mu_1$          1
-            6          $\mu_1$               $\mu_3$               $\mu_1$          1
+    $$
+    \sum_{m=1}^M w_m \cdot \omegaversor_m^2 \cdot = \frac{1}{3}
+    $$
 
-: Combinaciones de cosenos directores positivos que forman las
-  direcciones en el primer cuadrante ($m=1,\dots,N(N+2)/8$) para S$_4$
-  y S$_2$. El índice $i$ indica el peso $w_i$ de la @tbl-quadratureset aplicable a la dirección $m$.
-:::
-
-Para obtener entonces un conjunto de cuadraturas aplicable a S$_N$ de
-nivel simétrico, para cada $N$ primero seleccionamos un valor apropiado
-de $\mu_1 > 0$. Para S$_2$ el único valor posible es $\mu_1=1/\sqrt{3}$.
-Para otro valores de $N$ hay varias opciones. En la tabla la
-tabla [1.1](#tab:quadratureset){reference-type="ref"
-reference="tab:quadratureset"} mostramos los valores de $\mu_1$
-para S$_4$, S$_6$ y S$_8$ para la cuadratura de nivel simétrico y en la
-tabla [1.2](#tab:mus){reference-type="ref" reference="tab:mus"}
-indicamos las combinaciones que dan las $N(N+2)/8$ direcciones en el
-primer octante. Para extender estas direcciones a los demás cuadrantes,
-notamos que si asignamos un índice $n$ a cada octantes de la siguiente
-manera:
+::: {.remark}
+Para extender las $N(N+2)/8$ direcciones a los demás cuadrantes, podemos notar que si asignamos un índice $n$ a cada uno de los ocho octantes de la siguiente manera:
 
  0.  $x>0$, $y>0$, $z>0$
  1.  $x<0$, $y>0$, $z>0$
@@ -1030,195 +1079,92 @@ manera:
  6.  $x>0$, $y<0$, $z<0$
  7.  $x<0$, $y<0$, $z<0$
 
-![image](axes-with-octs){width=70%}
+entonces el desarrollo binario del índice $n$ tiene tres bits y éstos indican si hubo un cambio de signo o no en cada uno de los tres ejes con
+respecto al primer cuadrante, que corresponde a $n=0$.
+De esta manera, es posbile generar las direcciones $\boldsymbol{\hat{\Omega}}_m$ para $m=N(N+2)/8+1, N(N+2)$ a partir de las direcciones del primer cuadrante $\boldsymbol{\hat{\Omega}}_j$ para $j=1,N(N+2)/8$ con el siguiente algoritmo
 
+```{=latex}
+\DontPrintSemicolon
+\begin{algorithm}
+\For{$n = 1, \dots, 7$}{ 
+ \For{$j = 1, \dots, N(N+2)/8$}{
+  $\Omega_{n\cdot N(N+2)/8 + j \, , \, x} = ((n \& 1) ? (-1) : (+1)) \cdot \Omega_{j \, , \, x}$\;
+  $\Omega_{n\cdot N(N+2)/8 + j \, , \, y} = ((n \& 2) ? (-1) : (+1)) \cdot \Omega_{j \, , \, y}$\;
+  $\Omega_{n\cdot N(N+2)/8 + j \, , \, z} = ((n \& 4) ? (-1) : (+1)) \cdot \Omega_{j \, , \, z}$\;
+  $w_{n\cdot N(N+2)/8 + j} = w_j$\;
+  }
+ }
+\caption{\label{alg:extension}Extensión del primer octante a los otros siete}
+\end{algorithm}
+```
 
-Notamos que el desarrollo binario del índice $n$ tiene tres bits y éstos
-indican si hubo un cambio de signo o no en cada uno de los tres ejes con
-respecto al primer cuadrante, que corresponde a $n=0$. De esta manera,
-podemos generar las direcciones $\boldsymbol{\hat{\Omega}}_m$
-para $m=N(N+2)/8+1, N(N+2)$ a partir de las direcciones del primer
-cuadrante $\boldsymbol{\hat{\Omega}}_j$ para $j=1,N(N+2)/8$ con el
-algoritmo de la
-figura [\[alg:extension\]](#alg:extension){reference-type="ref"
-reference="alg:extension"}, donde el símbolo ampersand `&` indica el
-operador binario `AND` y el signo de pregunta `?` el operador ternario
-de decisión. La figura [1.2](#fig:latsn){reference-type="ref"
-reference="fig:latsn"} muestra el detalle de las latitudes y longitudes
-en la esfera unitaria del primer cuadrante y el conjunto resultante de
-las $N(N+2)$ direcciones para S$_2$, S$_4$ y $S_6$ que resultan de
-aplicar este desarrollo.
-
-::: algorithm
+donde el símbolo ampersand `&` indica el
+operador binario `AND` y el signo de pregunta `?` el operador ternario de decisión.
 :::
 
-<figure id="fig:latsn">
-<div class="center">
+El cálculo detallado de los pesos está fuera del alcance de esta tesis.
+La herramienta computacional tiene cargados el primer coseno director de cada $N$ y los pesos reportados en las referencias [@lewis;@stammler].
+Consultar el código fuente para ver los detalles algorítmicos y numéricos.
 
-</div>
-<figcaption><span id="fig:latsn" label="fig:latsn"></span>Latitudes y
-longitudes en el primer cuadrante (izquierda) y conjunto de las <span
-class="math inline"><em>N</em>(<em>N</em>+2)</span> direcciones de la
-cuadratura de nivel simétrico para S<span
-class="math inline"><sub>2</sub></span>, S<span
-class="math inline"><sub>4</sub></span> y <span
-class="math inline"><em>S</em><sub>6</sub></span> generadas a partir de
-un único coseno director positivo <span
-class="math inline"><em>μ</em><sub>1</sub></span> de la tabla <a
-href="#tab:quadratureset" data-reference-type="ref"
-data-reference="tab:quadratureset">1.1</a>, aplicando con la ecuación <a
-href="#eq:cosenos" data-reference-type="eqref"
-data-reference="eq:cosenos">[eq:cosenos]</a> para obtener el resto de
-los cosenos positivos, permutándolos según la tabla <a href="#tab:mus"
-data-reference-type="ref" data-reference="tab:mus">1.2</a> y
-extendiéndolos al resto de los octantes con el algoritmo <a
-href="#alg:extension" data-reference-type="ref"
-data-reference="alg:extension">[alg:extension]</a>. Las figuras son
-reproducciones tridimensionales realizadas con la herramienta Gmsh a
-partir de la información calculada y que realmente utiliza milonga
-(capítulo <a href="#cap:implementacion" data-reference-type="ref"
-data-reference="cap:implementacion">[cap:implementacion]</a>) para
-realizar cálculos de transporte con el método de las ordenadas
-discretas.</figcaption>
-</figure>
 
 #### Dos dimensiones {#sec-dosdimensiones}
 
-El caso bidimensional en realidad es un problema en tres dimensiones
-pero sin dependencia de los parámetros del problema en una de las
-variables espaciales, digamos $z$. De esta manera, el dominio $U$ de la
-geometría está definido sólo sobre el plano $x$-$y$ y las direcciones de
-vuelo $\omegaversor$ de los neutrones son simétricas con respecto a este
-plano ya que por cada
-dirección $\omegaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, \hat{\Omega}_z]$
-con $\hat{\Omega}_z>0$ hay una dirección
-simétrica $\omegaprimaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, -\hat{\Omega}_z]$
-(figura [1.3](#fig:symmetry2d){reference-type="ref"
-reference="fig:symmetry2d"}). Luego, las posibles direcciones se reducen
-a la mitad, es decir $N(N+2)/2$.
+El caso bidimensional en realidad es un problema en tres dimensiones pero sin dependencia de los parámetros del problema en una de las
+variables espaciales, digamos $z$.
+De esta manera, el dominio $U \in \mathbb{R}^2$ de la geometría está definido sólo sobre el plano $x$-$y$ y las direcciones de
+vuelo $\omegaversor$ de los neutrones son simétricas con respecto a este plano ya que por cada
+dirección $\omegaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, \hat{\Omega}_z]$ con $\hat{\Omega}_z>0$ hay una dirección
+simétrica $\omegaprimaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, -\hat{\Omega}_z]$ (@fig-symmetry2d).
+Luego, las posibles direcciones se reducen a la mitad, es decir $N(N+2)/2$.
 
-<figure id="fig:symmetry2d">
-<div class="center">
-<img src="esquemas/symmetry2d" />
-</div>
-<figcaption><span id="fig:symmetry2d"
-label="fig:symmetry2d"></span>Simetría con respecto al plano <span
-class="math inline"><em>x</em></span>-<span
-class="math inline"><em>y</em></span> en un problema bi-dimensional. Por
-cada dirección <span class="math inline">$\omegaversor$</span> con
-componente <span class="math inline"><em>z</em></span> positiva (línea
-llena) hay una dirección <span
-class="math inline">$\omegaprimaversor$</span> simétrica e igualmente
-posible con <span
-class="math inline"><em>Ω̂</em><sub><em>z</em></sub> &lt; 0</span> (línea
-de trazos).</figcaption>
-</figure>
+![Simetría con respecto al plano $x$-$y$ en un problema bi-dimensional. Por cada dirección $\omegaversor$ con $\hat{\Omega}_z > 0$ (línea llena) hay una dirección $\omegaprimaversor$ simétrica e igualmente posible con $\hat{\Omega}_z < 0$ (línea de trazos).](symmetry2d){#fig-symmetry2d width=80%}
 
-Como la derivada espacial del flujo angular con respecto a $z$ es cero
-entonces por un lado podemos escribir el término de transporte en la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"} como
+Como la derivada espacial del flujo angular con respecto a $z$ es cero entonces por un lado podemos escribir el término de transporte en la @eq-eq-transporte-sn como
 
-$$\hat{\Omega}_{mx} \cdot \frac{\partial{\psi_{mg}}(x,y)}{\partial x} + \hat{\Omega}_{my} \cdot \frac{\partial{\psi_{mg}(x,y)}}{\partial y}$$
-donde ahora $m=1,\dots,M = N(N+2)/2$. La componente ${\Omega}_{mz}$ no
-aparece explícitamente en las ecuaciones pero sí lo hace implícitamente
-en la elección de las direcciones, ya que siguen siendo válidas las
-ecuaciones [\[eq:normalizaciondirecciones\]](#eq:normalizaciondirecciones){reference-type="eqref"
-reference="eq:normalizaciondirecciones"}
-y [\[eq:normalizacionpesos\]](#eq:normalizacionpesos){reference-type="eqref"
-reference="eq:normalizacionpesos"}. Esto implica que en cada cuadrante
-tenemos nuevamente $N(N+2)/8$ direcciones posibles, que luego debemos
-rotar para obtener las $M$ direcciones en los cuatro cuadrantes. Dado
-que por un lado los pesos deben estar normalizados a uno y por otro para
-cada dirección con $\hat{\Omega}_z>0$ hay otra dirección simétrica
-con $\hat{\Omega}_z<0$, entonces el conjunto de cuadraturas de nivel
-simétrico para el primer cuadrante de un dominio de dos dimensiones
-consiste en las mismas $N(N+2)/8$ direcciones correspondientes a tres
-dimensiones definidas en las
-tablas [1.1](#tab:quadratureset){reference-type="ref"
-reference="tab:quadratureset"} y [1.2](#tab:mus){reference-type="ref"
-reference="tab:mus"}, cada una con el doble de peso. En forma
-equivalente, podemos concluir que las
-tablas [1.1](#tab:quadratureset){reference-type="ref"
-reference="tab:quadratureset"} y [1.2](#tab:mus){reference-type="ref"
-reference="tab:mus"} valen para dos dimensiones con la salvedad de que
-el título de la tercera columna de la
-tabla [1.1](#tab:quadratureset){reference-type="ref"
-reference="tab:quadratureset"} debe ser $4\cdot w_i$ en lugar
-de $8\cdot w_i$ y debemos reemplazar la palabra "octante" por
-"cuadrante." En la figura [1.4](#fig:direcciones2d){reference-type="ref"
-reference="fig:direcciones2d"} mostramos las direcciones para la
-cuadratura de nivel simétrico utilizado en este trabajo para problemas
-de dos dimensiones espaciales.
-
-<figure id="fig:direcciones2d">
-<div class="center">
-<p><br />
-<br />
-</p>
-</div>
-<figcaption><span id="fig:direcciones2d"
-label="fig:direcciones2d"></span>Direcciones para el conjunto de
-cuadraturas de nivel simétrico en dos dimensiones.</figcaption>
-</figure>
+$$
+\hat{\Omega}_{mx} \cdot \frac{\partial{\psi_{mg}}(x,y)}{\partial x} + \hat{\Omega}_{my} \cdot \frac{\partial{\psi_{mg}(x,y)}}{\partial y}
+$$
+donde ahora $m=1,\dots,M = N(N+2)/2$.
+La componente ${\Omega}_{mz}$ no aparece explícitamente en las ecuaciones pero sí lo hace implícitamente en la elección de las direcciones, ya que sigue siendo válida la discusión de la sección anterior.
+Esto implica que en cada cuadrante tenemos nuevamente $N(N+2)/8$ direcciones posibles, que luego debemos
+rotar para obtener las $M$ direcciones en los cuatro cuadrantes.
+Dado que por un lado los pesos deben estar normalizados a uno y por otro para cada dirección con $\hat{\Omega}_z>0$ hay otra dirección simétrica
+con $\hat{\Omega}_z<0$, entonces el conjunto de cuadraturas de nivel simétrico para el primer cuadrante de un dominio de dos dimensiones
+consiste en las mismas $N(N+2)/8$ direcciones correspondientes a tres dimensiones.
 
 #### Una dimensión
 
-El caso unidimensional es radicalmente diferente a los otros dos. Si
-tomamos al eje $x$ como la dirección de dependencia espacial, las
-posibles direcciones de viaje pueden depender sólo del ángulo
-cenital $\theta$ ya que la simetría implica que todas las posibles
-direcciones azimutales con respecto al eje $x$ son igualmente posibles.
+El caso unidimensional es radicalmente diferente a los otros dos.
+Si tomamos al eje $x$ como la dirección de dependencia espacial, las posibles direcciones de viaje pueden depender sólo del ángulo
+cenital $\theta$ ya que la simetría implica que todas las posibles direcciones azimutales con respecto al eje $x$ son igualmente posibles.
 
-<figure id="fig:symmetry1d">
-<div class="center">
-<img src="esquemas/symmetry1d" />
-</div>
-<figcaption><span id="fig:symmetry1d"
-label="fig:symmetry1d"></span>Simetría con respecto al eje <span
-class="math inline"><em>x</em></span> en un problema unidimensional. Por
-cada dirección <span class="math inline">$\omegaversor$</span> (línea
-llena) hay infinitas direcciones simétricas e igualmente posibles
-apuntando en la dirección del círculo subtendido por el ángulo <span
-class="math inline"><em>θ</em> = arctan (<em>Ω̂</em><sub><em>z</em></sub>/<em>Ω̂</em><sub><em>x</em></sub>)</span>,
-representadas por las tres direcciones primadas (líneas de
-trazos).</figcaption>
-</figure>
+![Simetría con respecto al eje~$x$ en un problema unidimensional. Por cada dirección~$\omegaversor$ (línea llena) hay infinitas direcciones simétricas e igualmente posibles apuntando en la dirección del círculo subtendido por el ángulo~$\theta=\arctan(\hat{\Omega}_z/\hat{\Omega}_x)$, representadas por las tres direcciones primadas (líneas de trazos).](symmetry1d){#fig-symmetry1d width=80%}
 
-El término de transporte de la
-ecuación [\[eq:transportesngeneral\]](#eq:transportesngeneral){reference-type="eqref"
-reference="eq:transportesngeneral"} es entonces
+El término de transporte es ahora entonces
 
-$$\hat{\Omega}_{mx} \cdot \frac{\partial{\psi_{mg}}(x)}{\partial x}$$
+$$
+\hat{\Omega}_{mx} \cdot \frac{\partial{\psi_{mg}}(x)}{\partial x}
+$$
 
-El hecho de que no una sino dos componentes de $\omegaversor$ no
-aparezcan explícitamente relaja mucho más las condiciones para la
-elección de las $M=N$ direcciones. En efecto, la única condición es
-simetría completa entre el semieje $x>0$ y el semieje $x<0$, lo que nos
-deja con $N/2$ direcciones en cada semieje, todas ellas libres e
-independientes.
+El hecho de que no una sino dos componentes de $\omegaversor$ no aparezcan explícitamente relaja mucho más las condiciones para la
+elección de las $M=N$ direcciones. En efecto, la única condición es simetría completa entre el semieje $x>0$ y el semieje $x<0$, lo que nos
+deja con $N/2$ direcciones en cada semieje, todas ellas libres e independientes.
 
-Para seleccionar las $N/2$ direcciones y sus pesos asociados, notamos
-que en una dimensión
+Para seleccionar las $N/2$ direcciones y sus pesos asociados, notamos que en una dimensión
 
-$$\label{eq:1dgauss}
+$$
  \int_{4\pi} f(\omegaversor) \, d\omegaversor = 2\pi \int_{-1}^{1} f(\hat{\Omega}_x) \, d\hat{\Omega}_x \simeq 
 2\pi \sum_{m=1}^N w_m \cdot f_m =
 4\pi \sum_{m=1}^N \frac{w_m}{2} \cdot f_m =
-4\pi \sum_{m=1}^N w_m \cdot f_m$$
+4\pi \sum_{m=1}^N w_m \cdot f_m
+$$ {#eq-1dgauss}
 
-Si los puntos $\hat{\Omega}_{xm}$ y los pesos $w_m=2\cdot w_m$ son
-los asociados a la integración de Gauss y $f(\hat{\Omega}_x)$ es un
-polinomio de orden $2N-1$ o menos, entonces la integración es exacta
- y la
-ecuación xxx deja de ser una aproximación para transformarse
-en una igualdad. En la tabla @tbl-gauss1d mostramos el conjunto de cuadraturas utilizadas
-para una dimensión, que contiene esencialmente las abscisas y los pesos
+Si los puntos $\hat{\Omega}_{xm}$ y los pesos $w_m=2\cdot w_m$ son los asociados a la integración de Gauss y $f(\hat{\Omega}_x)$ es un
+polinomio de orden $2N-1$ o menos, entonces la integración es exacta.
+En la tabla @tbl-gauss1d mostramos el conjunto de cuadraturas utilizadas para una dimensión, que contiene esencialmente las abscisas y los pesos
 de la cuadratura de Gauss.
 
-::: center
-::: {#tbl-gauss1d}
-           $m$                  $\hat{\Omega}_{mx}$                   $w_m = 2 \cdot w_m$
+           $m$                  $\hat{\Omega}_{mx}$                        $2 \cdot w_m$
   ------- ----- ---------------------------------------------------- --------------------------
    S$_2$    1                   $\sqrt{\frac{1}{3}}$                             1
    S$_4$    1    $\sqrt{\frac{3}{7}-\frac{2}{7}\sqrt{\frac{6}{5}}}$         0.6521451549
@@ -1231,15 +1177,13 @@ de la cuadratura de Gauss.
             3                       0.7966664774                            0.2223810344
             4                       0.9602898564                            0.1012285363
 
-  : Conjuntos de cuadratura para problemas unidimensionales. Las
+: Conjuntos de cuadratura para problemas unidimensionales. Las
   direcciones $\hat{\Omega}_{mx}$ coinciden con las abscisas de la
   cuadratura de Gauss. Los pesos $w_m$ de ordenadas discretas son la
   mitad de los pesos $w_m$ de la cuadratura de Gauss. Las
   direcciones $m=N/2+1,\dots,N$ no se muestran pero se obtienen
   como $\hat{\Omega}_{N/2+m \, x} = -\hat{\Omega}_{mx}$
-  y $w_{N/2+m} = w_m$.
-:::
-:::
+  y $w_{N/2+m} = w_m$. {#tbl-gauss1d}
 
 ## Discretización en espacio {#sec-discretizacion-espacial}
 
@@ -3568,7 +3512,7 @@ al operador $\mathcal{a}(\phi, v)$.
 :::
 
 ::: {.remark}
-El operador bilineal $a(\phi,v)$ discretizado para este problema es
+El operador bilineal $a(\phi,v) : V \times V \mapsto \mathbb{R}$ discretizado para este problema es
 
 $$
 \begin{aligned}
@@ -3621,7 +3565,8 @@ $$
 \mat{F}_i = \mat{H}_c^T(\symbf{\xi}_q) \cdot \nu\Sigma_f(\symbf{\xi}_q) \cdot \mat{H}_c(\symbf{\xi}_q)
 $$
 
-De la misma manera, el funcional $\mathcal{B}(v)$ es
+::: {.remark}
+El funcional $\mathcal{B}(v) : V \mapsto \mathbb{R}$ es
 $$
 \begin{aligned}
 \mathcal{B}(v) &= \int_U v(\vec{x}) \cdot s_0(\vec{x}) \, d^D \vec{x} + \int_{\Gamma_N} v(\vec{x}) \cdot p(\vec{x}) \, d^{D-1} \vec{x} \\
@@ -3631,7 +3576,10 @@ $$
 + \int_{\Gamma_N} \mat{H}^T(\vec{x}) \cdot p(\vec{x}) \, d^{D-1}\vec{x} \right]
 \end{aligned}
 $$ {#eq-grad-v-B-v}
-y las contribuciones volumétricas y superficiales al vector $\vec{b}_i$ son similares al caso del problema de Poisson
+:::
+
+
+Las contribuciones volumétricas y superficiales al vector $\vec{b}_i$ son similares al caso del problema de Poisson
 
 $$
 \begin{aligned}
@@ -4374,19 +4322,19 @@ $$
 
 
 ::: {.remark}
-El operador bilineal $a(\phi,v)$ para $G>1$ es
+El operador bilineal $\mathcal{a}\big([\phi_1~\dots~\phi_G]^T, [v_1~\dots~v_G]\big) : V^G \times V^G \mapsto \mathbb{R}$ para $G>1$ es
 
 $$
 \begin{aligned}
-\mathcal{a}(\phi,v) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot \mat{D}^\prime(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x}
-+ \int_U v(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
+\mathcal{a}\big([\phi_1~\dots~\phi_G]^T, [v_1~\dots~v_G]^T\big) =& \int_U \text{grad}\Big[ v(\vec{x}) \Big] \cdot \mat{D}^\prime(\vec{x}) \cdot \text{grad}\Big[ \phi(\vec{x}) \Big] \, d^D \vec{x} \\
+& \quad + \int_U v(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \phi(\vec{x}) \,d^D\vec{x} \\
 & \quad + \int_{\Gamma_V} v(\vec{x}) \cdot \frac{1}{2} \cdot \phi(\vec{x}) \,d^{D-1}\vec{x} \\
-=& \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} 
-+ \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^D\vec{x} \\
+=& \int_U \vec{v}^T \cdot \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \cdot \vec{u} \,\, d^D\vec{x} \\
+& \quad + \int_U \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^D\vec{x} \\
 & \quad + \int_{\Gamma_V} \vec{v}^T \cdot \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \cdot \symbf{\phi} \, d^{D-1}\vec{x} \\
-=& \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x}
-+ \int_U \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \, d^D\vec{x} \right. \\
-& \quad\quad + \left. \int_{\Gamma_V} \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \, d^{D-1}\vec{x}
+=& \vec{v}^T \cdot \left[ \int_U \mat{B}^T(\vec{x}) \cdot \mat{D}^\prime(\vec{x}) \cdot \mat{B}(\vec{x}) \, d^D\vec{x} \right. \\
+& \quad\quad + \int_U \mat{H}^T(\vec{x}) \cdot \left[\mat{R}(\vec{x})  - \mat{X}(\vec{x}) \right] \cdot \mat{H}(\vec{x}) \, d^D\vec{x}  \\
+& \quad\quad\quad + \left. \int_{\Gamma_V} \mat{H}^T(\vec{x}) \cdot \frac{1}{2} \cdot \mat{H}(\vec{x}) \, d^{D-1}\vec{x}
 \right] \cdot \symbf{\phi}
 \end{aligned}
 $$ {#eq-a-dif-G}
@@ -4443,12 +4391,187 @@ $$
 \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_1}{\partial x} & \frac{\partial h_2}{\partial z} & 0 & \frac{\partial h_2}{\partial x} &   \cdots & \frac{\partial h_J}{\partial z} & 0 & \frac{\partial h_J}{\partial x} \\
 \end{bmatrix}
 $$
-ya que la matriz equivalente a la $\mat{D}_G$ del problema de difusión es de tamaño $6\times 6$ con tres filas para las tensiones normales y tres filas para los esfuerzos de corte.
+ya que la matriz equivalente a la $\mat{D}_G$ del problema de difusión es de tamaño $6\times 6$ con tres filas para las tensiones normales y tres filas para los esfuerzos de corte en una notación de Voigt.
 :::
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
-Ultricies lacus sed turpis tincidunt id. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Tortor consequat id porta nibh. Eu lobortis elementum nibh tellus molestie nunc non. Facilisis gravida neque convallis a cras semper auctor neque vitae. Nisl purus in mollis nunc sed id semper risus in. Mattis nunc sed blandit libero. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. Faucibus purus in massa tempor nec. Arcu odio ut sem nulla pharetra diam sit. Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Vitae semper quis lectus nulla at volutpat diam. Gravida arcu ac tortor dignissim convallis. Est velit egestas dui id ornare arcu odio. Odio facilisis mauris sit amet massa vitae. Nibh cras pulvinar mattis nunc sed blandit libero volutpat.
+Siguiendo el mismo razonamiento que en la sección anterior, para el caso de ordenadas discretas multigrupo tenemos tebemos que derivar un operador $\mathcal{a}(\psi,v) : V^{MG} \times V^{MG} \mapsto \mathbb{R}$ y un funcional $\mathcal{B}(v) : V^{MG} \mapsto \mathbb{R}$ de forma tal de re-escribir la formulación fuerte dada por la @eq-transporte-sn en una formulación débil de encontrar $[\psi_{11}(\vec{x})~\cdots~\psi_{MG}(\vec{x})]^T \in V^{MG}$ tal que
+
+$$
+\mathcal{a} \Big([\psi_{11}~\cdots~\psi_{MG}]^T, [v_{11}~\cdots~v_{MG}]^T\Big) = \mathcal{B} \Big([v_{11}~\cdots~v_{MG}]^T)\Big)
+\quad
+\forall [v_{11}(\vec{x})~\cdots~v_{MG}(\vec{x})]^T \in V^{MG}
+$$
+
+Para ello, partimos de la la @eq-transporte-sn
+
+$$
+\begin{gathered}
+\underbrace{\omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]}_\text{advección}  +
+\underbrace{\Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x})}_\text{absorciones} = 
+\underbrace{\sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})}_\text{scattering isotrópico}  + \\
+\underbrace{3 \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \sum_{m^\prime=1} w_{m^\prime} \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \psi_{m^\prime g^\prime}(\vec{x})}_\text{scattering anisotrópico} + 
+\underbrace{\chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x})   \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})}_\text{fisiones} + 
+\underbrace{s_{mg}(\vec{x})}_\text{fuentes}
+\end{gathered}
+$$
+y tal como hicimos con la ecuación de difusión, multiplicamos cada término por $v_{mg}(\vec{x})$, integramos sobre el dominio $U \in \mathbb{R}^D$, pasamos los términos de scattering y fisiones al miembro izquierdo y los sumamos.
+Podemos escribir los términos de absorciones, scattering y fisiones en forma similar al caso de difusión como
+
+$$
+\bigintss_U
+\begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
+\cdot \Big( \mat{R}(\vec{x}) - \mat{F}(\vec{x}) \Big) \cdot 
+\begin{bmatrix}\psi_{11}(\vec{x}) \\ \vdots \\ \psi_{MG}(\vec{x})\end{bmatrix}
+d^D \vec{x}
+$$
+con las matrices cuadradas de secciones eficaces de remoción y $\nu$-fisiones de tamaño $MG \times MG$
+
+$$
+\mat{R}(\vec{x}) =
+\begin{bmatrix}
+\text{TODO}
+\end{bmatrix}
+$$
+
+$$
+\mat{X}(\vec{x}) =
+\begin{bmatrix}
+\text{TODO}
+\end{bmatrix}
+$$
+
+Pero ahora el término de advección es de primer orden
+
+$$
+\bigints_U
+\begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{mg}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\omegaversor_{1} \cdot \nabla \psi_{11}(\vec{x}) \\
+\vdots \\
+\hat{\Omega}_{mx} \cdot \frac{\partial \psi_{mg}}{\partial x} + \hat{\Omega}_{my} \cdot \frac{\partial \psi_{mg}}{\partial y} + \hat{\Omega}_{mz} \cdot \frac{\partial \psi_{mg}}{\partial z} \\
+\vdots \\
+\omegaversor_{M} \cdot \nabla \psi_{MG}(\vec{x}) \\
+\end{bmatrix}
+d^D \vec{x}
+$$
+
+Re-escribimos el vector $\Omega_{m} \cdot \nabla \psi_{mg}$ como el producto de una matriz constante con los cosenos directores $\mat{D}_{MG}$ de tamaño $MG \times MGD$ y un vector $\boldsymbol{\psi}^\prime \in \mathbb{R}^{MG}ˇ$ de derivadas parciales de los $MG$ flujos angulares con respecto a las $D$ coordenadas
+
+$$
+\begin{bmatrix}
+\hat{\Omega}_{1x} & 0 & \cdots & 0 & \cdots & 0 & \hat{\Omega}_{1y} & \cdots & 0 \\
+0 & \hat{\Omega}_{1x} & \cdots & 0 & \cdots & 0 & 0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \vdots & \ddots & 0 \\
+0 & 0 & \cdots & \hat{\Omega}_{mx} & \cdots & 0 & 0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \vdots & \ddots & 0  \\
+0 & 0 & \cdots & 0 & \cdots & \hat{\Omega}_{Mx} & 0 & \cdots & \hat{\Omega}_{Mz}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\partial \psi_{11}/\partial x \\
+\partial \psi_{12}/\partial x \\
+\vdots \\
+\partial \psi_{mg}/\partial x \\
+\vdots \\
+\partial \psi_{MG}/\partial x \\
+\partial \psi_{11}/\partial y \\
+\vdots \\
+\partial \psi_{MG}/\partial z \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\omegaversor_{1} \cdot \nabla \psi_{11}(\vec{x}) \\
+\omegaversor_{1} \cdot \nabla \psi_{12}(\vec{x}) \\
+\vdots \\
+\omegaversor_{m} \cdot \nabla \psi_{mg}(\vec{x}) \\
+\vdots \\
+\omegaversor_{M} \cdot \nabla \psi_{MG}(\vec{x}) \\
+\end{bmatrix}
+$$
+
+El operador $\mathcal{a}\big([\psi_{11} \dots \psi_{MG}]^T, [v_{11} \dots v_{MG}]^T\big) : V^{MG} \times V^{MG} \mapsto \mathbb{R}$ que buscamos es
+
+$$
+\begin{aligned}
+\mathcal{a}\big([\psi_{11} \dots \psi_{MG}]^T, [v_{11} \dots v_{MG}]^T\big)
+=&
+\bigintss_U
+\begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
+\cdot \mat{D}_{MG} \cdot \symbf{\psi}^\prime(\vec{x})
+d^D \vec{x} \\
+& +
+\bigintss_U
+\begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
+\Big( \mat{R}(\vec{x}) - \mat{F}(\vec{x}) \Big)
+\begin{bmatrix}\psi_{11}(\vec{x}) \\ \vdots \\ \psi_{MG}(\vec{x})\end{bmatrix}
+d^D \vec{x}
+\end{aligned}
+$$
+
+::: {.remark}
+El operador $\mathcal{a}\big([\psi_{11} \dots \psi_{MG}]^T, [v_{11} \dots v_{MG}]^T\big)$ para ordenadas discretas no es simétrico y la mayoría de las veces tampoco es coercivo.
+:::
+
+Como en la formulación S$_N$ las condiciones de contorno son sólo de Dirichlet, la única contribución al vector $\vec{b}$ proviene del término de fuentes independientes. Entonces el funcional $\mathcal{B}(v) : V^{MG} \mapsto \mathbb{R}$ es directamente
+
+$$
+\mathcal{B}\big( [v_{11} \dots v_{MG}]^T\big) =
+\bigintss_U
+\begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
+\cdot 
+\begin{bmatrix}s_{11}(\vec{x}) \\ \vdots \\ s_{MG}(\vec{x})\end{bmatrix}
+d^D \vec{x}
+$$
+
+
+
+En principio, estaríamos en condiciones de discretizar la variable espacial $\vec{x}$ con las matrices $\mat{H}_{MGc}$ y $\mat{B}_{MGi}$ tal como hemos hecho en la @sec-sec-dif-fem-G para la ecuación de difusión multigrupo, con la salvedad de que ahora hay $MG$ grados de libertad por nodo espacial.
+Pero el hecho de que el operador no sea coercivo hace que el método numérico basado en la aproximación de Galerkin no sea estable y por lo tanto no converja.
+Una forma de recuperar la coercividad del operador $\mathcal{a}$ y poder obtener una solución numérica al problema de ordenadas discretas formulado con un esquema de elementos finitos sobre la variable espacial $\vec{x}$ es resolver un problema de Petrov-Galerkin en el cual cada una de las funciones de prueba $v_{mg}$ vive en un espacio vectorial $V^\prime_{N}$ diferente al espacio vectorial $V_N$ donde viven las incógnitas $\psi_{mg}$ para alguna elección adecuada de $V^\prime_{N}$.
+
+::: {#def-galerkin}
+
+## problema de Petrov-Galerkin
+
+Sea $V_N$ un subespacio de $V = H^1_0(U)$ y sea $V^\prime_N$ un subespacio de $V^\prime = H^{\prime 1}_0(U)$, ambos de dimensión finita $N$
+Llamamos _problema de Petrov-Galerkin_ a
+
+$$
+\text{encontrar~} u_N \in V_N: \quad
+\mathcal{a} (u_N, v_N) = \mathcal{B} (v_N)
+\quad  \forall v_N \in V^\prime_N
+$$
+:::
+
+Para encontrar la formulación de Petrov-Galerkin del problema de transporte multigrupo de neutrones por ordenadas discretas, comenzamos aproximando las incógnitas de la misma manera que para el problema de Galerkin
+
+$$
+\begin{bmatrix}
+\psi_{11}(\vec{x} \\
+\vdots
+\psi_{MG}(\vec{x} \\
+\end{bmatrix}
+=
+\mat{H}_{MGc} \cdot \symbf{\psi}
+$$
+donde $\symbf{\psi} \in \mathbb{R}^{MG}$ es un vector que contiene los valores nodales de los flujos angulares y $\mat{H}_{MGc}$ es la matriz canónica de funciones de forma $MG$-aware.
+Pero como las funciones de prueba viven en otro espacio vectorial $V^\prime_N$, ahora
+
+$$
+\begin{bmatrix}
+v_{11}(\vec{x} \\
+\vdots
+v_{MG}(\vec{x} \\
+\end{bmatrix}
+=
+\mat{H}^\prime_{MGc} \cdot \vec{v}
+$$
+para un vector $\vec{v} \in \mathbb{R}^{MG}$ con los valores nodales de las funciones de prueba pero para una matriz $\mat{H}^\prime_{MGc}$ con las funciones de forma que generan^{Del inglés _span_.} el espacio $V^\prime_N$.
+
+
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
