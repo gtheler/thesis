@@ -4190,7 +4190,7 @@ a partir de las matrices elementales de pérdidas, absorciones y fisiones de tam
 
 $$
 \begin{aligned}
-\mat{L}_i &= \mat{B}_{Gi}^T(\symbf{\xi}_q) \cdot \mat{D}^\prime(\symbf{\xi}_q) \cdot \mat{B}_{Gi}(\symbf{\xi}_q)  \\
+\mat{L}_i &= \mat{B}_{Gi}^T(\symbf{\xi}_q) \cdot \mat{D}_D \cdot \mat{B}_{Gi}(\symbf{\xi}_q)  \\
 \mat{A}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q) \\
 \mat{F}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q)
 \end{aligned}
@@ -4458,7 +4458,7 @@ $$
 d^D \vec{x}
 $$
 
-Re-escribimos el vector $\Omega_{m} \cdot \nabla \psi_{mg}$ como el producto de una matriz constante con los cosenos directores $\mat{D}_{MG}$ de tamaño $MG \times MGD$ y un vector $\boldsymbol{\psi}^\prime \in \mathbb{R}^{MG}ˇ$ de derivadas parciales de los $MG$ flujos angulares con respecto a las $D$ coordenadas
+Re-escribimos el vector $\Omega_{m} \cdot \nabla \psi_{mg}$ como el producto de una matriz constante con los cosenos directores $\mat{D}$ de tamaño $MG \times MGD$ y un vector $\boldsymbol{\psi}^\prime \in \mathbb{R}^{MG}ˇ$ de derivadas parciales de los $MG$ flujos angulares con respecto a las $D$ coordenadas
 
 $$
 \begin{bmatrix}
@@ -4500,7 +4500,7 @@ $$
 =&
 \bigintss_U
 \begin{bmatrix}v_{11}(\vec{x}) & \cdots & v_{MG}(\vec{x})\end{bmatrix}
-\cdot \mat{D}_{MG} \cdot \symbf{\psi}^\prime(\vec{x})
+\cdot \mat{D} \cdot \symbf{\psi}^\prime(\vec{x})
 d^D \vec{x} \\
 & +
 \bigintss_U
@@ -4528,7 +4528,7 @@ $$
 
 
 
-En principio, estaríamos en condiciones de discretizar la variable espacial $\vec{x}$ con las matrices $\mat{H}_{MGc}$ y $\mat{B}_{MGi}$ tal como hemos hecho en la @sec-sec-dif-fem-G para la ecuación de difusión multigrupo, con la salvedad de que ahora hay $MG$ grados de libertad por nodo espacial.
+En principio, estaríamos en condiciones de discretizar la variable espacial $\vec{x}$ con las matrices $\mat{H}_{MGc}$ y $\mat{B}_{MG}$ tal como hemos hecho en la @sec-dif-fem-G para la ecuación de difusión multigrupo, con la salvedad de que ahora hay $MG$ grados de libertad por nodo espacial.
 Pero el hecho de que el operador no sea coercivo hace que el método numérico basado en la aproximación de Galerkin no sea estable y por lo tanto no converja.
 Una forma de recuperar la coercividad del operador $\mathcal{a}$ y poder obtener una solución numérica al problema de ordenadas discretas formulado con un esquema de elementos finitos sobre la variable espacial $\vec{x}$ es resolver un problema de Petrov-Galerkin en el cual cada una de las funciones de prueba $v_{mg}$ vive en un espacio vectorial $V^\prime_{N}$ diferente al espacio vectorial $V_N$ donde viven las incógnitas $\psi_{mg}$ para alguna elección adecuada de $V^\prime_{N}$.
 
@@ -4551,11 +4551,11 @@ Para encontrar la formulación de Petrov-Galerkin del problema de transporte mul
 $$
 \begin{bmatrix}
 \psi_{11}(\vec{x} \\
-\vdots
+\vdots \\
 \psi_{MG}(\vec{x} \\
 \end{bmatrix}
 =
-\mat{H}_{MGc} \cdot \symbf{\psi}
+\mat{H}_{MGc}(\vec{x}) \cdot \symbf{\psi}
 $$
 donde $\symbf{\psi} \in \mathbb{R}^{MG}$ es un vector que contiene los valores nodales de los flujos angulares y $\mat{H}_{MGc}$ es la matriz canónica de funciones de forma $MG$-aware.
 Pero como las funciones de prueba viven en otro espacio vectorial $V^\prime_N$, ahora
@@ -4563,14 +4563,62 @@ Pero como las funciones de prueba viven en otro espacio vectorial $V^\prime_N$,
 $$
 \begin{bmatrix}
 v_{11}(\vec{x} \\
-\vdots
+\vdots \\
 v_{MG}(\vec{x} \\
 \end{bmatrix}
 =
-\mat{H}^\prime_{MGc} \cdot \vec{v}
+\mat{P}_{MGc}(\vec{x}) \cdot \vec{v}
 $$
-para un vector $\vec{v} \in \mathbb{R}^{MG}$ con los valores nodales de las funciones de prueba pero para una matriz $\mat{H}^\prime_{MGc}$ con las funciones de forma que generan^{Del inglés _span_.} el espacio $V^\prime_N$.
+para un vector $\vec{v} \in \mathbb{R}^{MG}$ con los valores nodales de las funciones de prueba pero para una matriz de Petrov $\mat{P}_{MGc}$ con las funciones de forma que generan^[Del inglés _span_.] el espacio $V^\prime_N$.
+Entonces la formulación débil discretizada queda
 
+$$
+\begin{gathered}
+\vec{v}^T \cdot
+\left[
+\int_U \Big(
+\mat{P}^T_{MGc}(\vec{x}) \cdot \mat{D} \cdot \mat{H}_{MGc}(\vec{x})
++
+\mat{H}^T_{MGc} \cdot \big( \mat{R}(\vec{x}) - \mat{X}(\vec{x}) \big)  \cdot \mat{H}_{MGc}(\vec{x})
+\Big) \, d^D \vec{x}
+\right]
+\cdot
+\symbf{\psi}
+=\\
+\vec{v}^T \cdot
+\left[
+\int_U \Big(
+\mat{P}^T_{MGc}(\vec{x}) \cdot \vec{s}(\vec{x})
+\Big) \, d^D \vec{x}
+\right]
+\end{gathered}
+$$
+lo que implica
+
+$$
+\mat{K} \cdot \symbf{\psi} = \vec{b}
+$$
+
+De la misma manera que para difusión, la matriz de rigidez elemental de tamaño $MGJ \times MGJ$ evaluada en el $q$-ésimo punto de Gauss $\symbf{\xi}_q$ es
+
+$$
+\begin{aligned}
+\mat{K}_i &= 
+\sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right]
+\end{aligned}
+$$
+
+a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $MGJ \times MGJ$
+
+$$
+\begin{aligned}
+\mat{L}_i &= \mat{P}_{MGc}^T(\symbf{\xi}_q) \cdot \mat{D} \cdot \mat{H}_{MGc}(\symbf{\xi}_q)  \\
+\mat{A}_i &= \mat{P}_{MGc}^T(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_{MGc}(\symbf{\xi}_q) \\
+\mat{F}_i &= \mat{P}_{MGc}^T(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_{MGc}(\symbf{\xi}_q)
+\end{aligned}
+$$
+
+**TODO** explicar quién es \mat{P} = SUPG
 
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
