@@ -879,8 +879,17 @@ En este trabajo utilizamos la cuadratura de nivel simétrico [@lewis] o de sime
 direcciones son simétricas en cada octante.
 Consiste en tomar tres cosenos directores $\mu_i$, $\mu_j$ y $\mu_k$ de un conjunto de $N/2$ valores positivos y permutarlos de todas las maneras posibles para obtener $N(N+2)/8$ combinaciones como explicamos a continuación.
 
-Una característica la cuadratura de nivel simétrico es que no todos los $N/2$ posibles cosenos directores son independientes. De hecho, para S$_2$ hay una única dirección posible y para $N >2$ sólo podemos elegir un único valor.
-En efecto, sean $\mu_1 < \mu_2 < \dots < \mu_{N/2}$ los posibles cosenos directores del conjunto.
+::::: {#thm-un-solo-coseno-idependiente}
+
+En la cuadratura de nivel simétrico, no todos los $N/2$ posibles cosenos directores son independientes.
+Para S$_2$ hay una única dirección posible y para $N >2$ sólo podemos elegir un único valor de los cosenos.
+
+::: {.proof}
+
+Para $N=2$ hay una única dirección posible en cada octante que proviene de un único cosenos director $\mu_1$ ya que $N/2=1$.
+Luego $\omegaversor_1 = [\mu_1 ~ \mu_1 ~ \mu_1]^T$. Para preservar la condición de normalización, debe ser $\mu_1 = 1/\sqrt{3}$.
+
+Para $N>2$, sean $\mu_1 \le \mu_2 \le \dots < \mu_{N/2}$ los posibles cosenos directores del conjunto.
 Supongamos que para la dirección $m$ tenemos $\hat{\Omega}_{mx} = \mu_i$, $\hat{\Omega}_{my} = \mu_j$ y $\hat{\Omega}_{mz} = \mu_k$.
 Entonces, por el requerimiento de normalización de la @eq-direccion-normalizada debemos tener
 
@@ -889,53 +898,73 @@ $$
 $$ {#eq-mu-normalizada}
 
 Tomemos ahora otra dirección diferente $m^\prime$ pero manteniendo el primer componente $\hat{\Omega}_{m^\prime x} = \mu_i$ y
-haciendo $\hat{\Omega}_{m^\prime y} = \mu_{j+1}$.
+haciendo que $\hat{\Omega}_{m^\prime y} = \mu_{j+1}$.
 Para poder satisfacer la @eq-mu-normalizada, debido a que $\mu_{j+1}>\mu_{j}$ entonces $\hat{\Omega}_{m^\prime z} = \mu_{k-1}$ ya que $\mu_{k-1}<\mu_k$.
 Entonces
 
 $$
 \mu_i^2 + \mu_{j+1}^2 + \mu_{k-1}^2 = 1
+$$ {#eq-omega2}
+
+De las ecuaciones [-@eq-mu-normalizada] y [-@eq-omega2] obtenemos
+
+$$
+\mu_{j+1}^2 - \mu_{j} = \mu_{k}^2 - \mu_{k-1}^2
 $$
 
-XXXXX
+Como esta condición debe cumplirse para todo $j$ y para todo $k$, entonces
 
-De [\[eq:omega1\]](#eq:omega1){reference-type="eqref"
-reference="eq:omega1"}
-y [\[eq:omega2\]](#eq:omega2){reference-type="eqref"
-reference="eq:omega2"} obtenemos
+$$
+\mu_i^2 = \mu_{i-1} + C
+$$
+para todo $1 < i \leq N/2$, con $C$ una constante a determinar.
+Luego el $i$-ésimo coseno director es
 
-$$\mu_{j+1}^2 - \mu_{j} = \mu_{k}^2 - \mu_{k-1}^2$$
+$$
+\mu_i^2 = \mu_{1} + C \cdot (i-1)
+$$
 
-Como esta ecuación debe cumplirse para todo $j$ y para todo $k$,
-entonces debe ser
+Si tomamos $\hat{\Omega}_{mx} = \hat{\Omega}_{my} = \mu_1$ y $\hat{\Omega}_{mz}=\mu_{N/2}$, por la condición de magnitud unitaria
+debe ser
 
-$$\mu_i^2 = \mu_{i-1} + C$$ para todo $1 < i \leq N/2$, con $C$ una
-constante a determinar. Luego
+$$
+2\mu_1^2 + \mu_{N/2}^2 = 1
+$$
+de donde podemos determinar la constante $C$ como
 
-$$\mu_i^2 = \mu_{1} + C(i-1)$$
+$$
+C = \frac{2 \cdot (1 - 3\mu_1^2)}{N-2}
+$$
 
-Si tomamos $\hat{\Omega}_{mx} = \hat{\Omega}_{my} = \mu_1$
-y $\hat{\Omega}_{mz}=\mu_{N/2}$, por la condición de magnitud unitaria
-debe ser $2\mu_1^2 + \mu_{N/2}^2 = 1$ por lo que podemos determinar la
-constante $C$ como
+Finalmente, una vez seleccionado el coseno director $\mu_1$, podemos calcular el resto de los $N/2-1$ valores como
 
-$$C = \frac{2 (1 - 3\mu_1^2)}{N-2}$$
-
-Finalmente, una vez seleccionado el coseno director $\mu_1$, podemos
-calcular el resto de los $N/2-1$ valores como
-
-$$\label{eq:cosenos}
- \mu_{i} = \sqrt{\mu_1^2 + (2 - 6\mu_1^2) \cdot \frac{(i-1)}{N-2}}$$
+$$
+ \mu_{i} = \sqrt{\mu_1^2 + (2 - 6\mu_1^2) \cdot \frac{(i-1)}{N-2}}
+$$
 para $i=2,\dots,N/2$.
+:::
+:::::
 
-Las condiciones de simetría requieren que los pesos $w_m$
-y $w_{m^\prime}$ asociados a dos direcciones $\boldsymbol{\hat\Omega}_m$
-y $\boldsymbol{\hat\Omega}_{m^\prime}$ cuyos cosenos directores son
-permutaciones entre sí deben ser iguales. Además es deseable que los
-pesos $w_m$ sean tales que la cuadratura ilustrada en la
-ecuación [\[eq:cuadratura\]](#eq:cuadratura){reference-type="eqref"
-reference="eq:cuadratura"} sea lo más aproximada posible. El cálculo
-detallado de los pesos está fuera del alcance de este trabajo y nos
+::: {.remark}
+Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
+Si el primer coseno director $\mu_1$ es cercano a $1/sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
+:::
+
+
+Las condiciones de simetría requieren que los pesos $w_m$ y $w_{m^\prime}$ asociados a dos direcciones $\boldsymbol{\hat\Omega}_m$
+y $\boldsymbol{\hat\Omega}_{m^\prime}$ cuyos cosenos directores son permutaciones entre sí deban ser iguales.
+
+Si miráramos un octante desde la dirección
+
+
+Además es deseable que los pesos $w_m$ sean tales que la cuadratura
+
+$$
+\int_{4\pi} f(\omegaversor) \, d\omegaversor \approx 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
+$$
+del teorema @thm-cuadratura arroje los resultados más precisos posibles en la ecuación de transporte de neutrones.
+
+El cálculo detallado de los pesos está fuera del alcance de este trabajo y nos
 limitamos a reportar los valores utilizados por el código computacional
 desarrollado para esta tesis y descripto en el
 capítulo [\[cap:implementacion\]](#cap:implementacion){reference-type="ref"

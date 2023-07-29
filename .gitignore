@@ -8,6 +8,9 @@ math.md
 *.toc
 phd-theler.tex
 phd-theler*.pdf
+index.tex
+index.pdf
 
 /_*.local
+
 sn
