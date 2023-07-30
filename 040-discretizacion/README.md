@@ -963,14 +963,10 @@ Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden
 Si el primer coseno director $\mu_1$ es cercano a $1/sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
 :::
 
-Si miráramos el octante desde la dirección $[1/\sqrt{3}~1/\sqrt{3}~1/\sqrt{3}]^T$ como en la segunda columna de la @fig-latsn y le asignáramos el mismo entero a cada dirección que sea una permutación de los mismos tres cosenos directores, veríamos lo que indica la @tbl-triangulos.
-Las condiciones de simetría requieren que los pesos $w_m$ y $w_{m^\prime}$ asociados a dos direcciones $\boldsymbol{\hat\Omega}_m$
-y $\boldsymbol{\hat\Omega}_{m^\prime}$ cuyos cosenos directores son permutaciones entre sí deban ser iguales.
-Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice del peso a utilizar.
 
 
 +---------:+:-------------------+---------:+:-------------------+
-|          | ```                |          | ```                |
+|          | ```sn              |          | ```sn              |
 | S$_2$    | 1                  | S$_{10}$ |     1              |
 |          | ```                |          |    2 2             |
 |          |                    |          |   3 4 3            |
@@ -981,7 +977,7 @@ Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice d
 |          |                    |          |                    |
 |          |                    |          |                    |
 +----------+--------------------+----------+--------------------+
-|          | ```                |          | ```                |
+|          | ```sn              |          | ```sn              |
 | S$_4$    |  1                 | S$_{12}$ |      1             |
 |          | 1 1                |          |     2 2            |
 |          | ```                |          |    3 4 3           |
@@ -992,7 +988,7 @@ Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice d
 |          |                    |          |                    |
 |          |                    |          |                    |
 +----------+--------------------+----------+--------------------+
-|          | ```                |          | ```                |
+|          | ```sn              |          | ```sn              |
 | S$_6$    |   1                | S$_{14}$ |       1            |
 |          |  2 2               |          |      2 2           |
 |          | 1 2 1              |          |     3 5 3          |
@@ -1003,7 +999,7 @@ Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice d
 |          |                    |          | ```                |
 |          |                    |          |                    |
 +----------+--------------------+----------+--------------------+
-|          | ```                |          | ```                |
+|          | ```sn              |          | ```sn              |
 | S$_8$    |    1               | S$_{16}$ |        1           |
 |          |   2 2              |          |       2 2          |
 |          |  2 3 2             |          |      3 5 3         |
@@ -1018,6 +1014,12 @@ Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice d
 : Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores.
 Todos los números fueron generados por la herramienta descriptra en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
+
+
+Si miráramos el octante desde la dirección $[1/\sqrt{3}~1/\sqrt{3}~1/\sqrt{3}]^T$ como en la segunda columna de la @fig-latsn y le asignáramos el mismo entero a cada dirección que sea una permutación de los mismos tres cosenos directores, veríamos lo que indica la @tbl-triangulos.
+Las condiciones de simetría requieren que los pesos $w_m$ y $w_{m^\prime}$ asociados a dos direcciones $\boldsymbol{\hat\Omega}_m$
+y $\boldsymbol{\hat\Omega}_{m^\prime}$ cuyos cosenos directores son permutaciones entre sí deban ser iguales.
+Por lo tanto, los enteros de la @tbl-triangulos terminan indicando el índice del peso a utilizar.
 
 ::: {.remark}
 Para $N=2$ el triángulo de la @tbl-triangulos tiene $N/2=1$ fila.
@@ -3545,7 +3547,7 @@ $$
 \sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right] 
 $$
 
-donde tenemos la matriz elemental de "pérdidas"^[Del inglés [_leakage_]{lang=en-US}.]
+donde tenemos la matriz elemental de "pérdidas"^[Del inglés [*leakage*]{lang=en-US}.]
 
 $$
 \mat{L}_i = \mat{B}_i^T(\symbf{\xi}_q) \cdot D(\symbf{\xi}_q) \cdot \mat{B}_i^T(\symbf{\xi}_q)
@@ -4392,12 +4394,16 @@ ya que la matriz equivalente a la $\mat{D}_G$ del problema de difusión es de t
 
 ### Ordenadas discretas multigrupo {#sec-sn-multigrupo-fem}
 
-Siguiendo el mismo razonamiento que en la sección anterior, para el caso de ordenadas discretas multigrupo tenemos tebemos que derivar un operador $\mathcal{a}(\psi,v) : V^{MG} \times V^{MG} \mapsto \mathbb{R}$ y un funcional $\mathcal{B}(v) : V^{MG} \mapsto \mathbb{R}$ de forma tal de re-escribir la formulación fuerte dada por la @eq-transporte-sn en una formulación débil de encontrar $[\psi_{11}(\vec{x})~\cdots~\psi_{MG}(\vec{x})]^T \in V^{MG}$ tal que
+Siguiendo el mismo razonamiento que en la sección anterior, para el caso de ordenadas discretas multigrupo tenemos que derivar un operador $\mathcal{a}(\psi,v) : V^{MG} \times V^{MG} \mapsto \mathbb{R}$ y un funcional $\mathcal{B}(v) : V^{MG} \mapsto \mathbb{R}$ de forma tal de re-escribir la formulación fuerte dada por la @eq-transporte-sn en una formulación débil como
+
 
 $$
+\begin{gathered}
+\text{encontrar $[\psi_{11}(\vec{x})~\cdots~\psi_{MG}(\vec{x})]^T \in V^{MG}$ tal que} \\
 \mathcal{a} \Big([\psi_{11}~\cdots~\psi_{MG}]^T, [v_{11}~\cdots~v_{MG}]^T\Big) = \mathcal{B} \Big([v_{11}~\cdots~v_{MG}]^T)\Big)
 \quad
 \forall [v_{11}(\vec{x})~\cdots~v_{MG}(\vec{x})]^T \in V^{MG}
+\end{gathered}
 $$
 
 Para ello, partimos de la la @eq-transporte-sn
@@ -4427,14 +4433,14 @@ con las matrices cuadradas de secciones eficaces de remoción y $\nu$-fisiones d
 $$
 \mat{R}(\vec{x}) =
 \begin{bmatrix}
-\text{TODO}
+\Sigma_{t1} - w_1 \cdot \Sigma_{s_0~1 \rightarrow 1} & - w_1 \cdot \Sigma_{s_0~1 \rightarrow 2} & \cdots & - w_1 \cdot \Sigma_{s_0~1 \rightarrow G} & - w_1 \cdot \Sigma_{s_0~2 \rightarrow 1} & \cdots \\
 \end{bmatrix}
 $$
 
 $$
 \mat{X}(\vec{x}) =
 \begin{bmatrix}
-\text{TODO}
+w_1 \chi_1 \nu\Sigma_{f1} & w_1 \chi_1 \nu\Sigma_{f2} & w_1 \chi_1 \nu\Sigma_{f1} & \cdots & w_1 \chi_1 \nu\Sigma_{fG} & w_1 \chi_2 \nu\Sigma_{f1} & \cdots \\
 \end{bmatrix}
 $$
 
@@ -4565,7 +4571,7 @@ v_{MG}(\vec{x} \\
 =
 \mat{P}_{MGc}(\vec{x}) \cdot \vec{v}
 $$
-para un vector $\vec{v} \in \mathbb{R}^{MG}$ con los valores nodales de las funciones de prueba pero para una matriz de Petrov $\mat{P}_{MGc}$ con las funciones de forma que generan^[Del inglés _span_.] el espacio $V^\prime_N$.
+para un vector $\vec{v} \in \mathbb{R}^{MG}$ con los valores nodales de las funciones de prueba pero para una matriz de Petrov $\mat{P}_{MGc}$ con las funciones de forma que generan^[Del inglés [*span*]{lang=en-US}.] el espacio $V^\prime_N$.
 Entonces la formulación débil discretizada queda
 
 $$

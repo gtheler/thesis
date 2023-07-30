@@ -51,7 +51,7 @@ La parte de la industria nuclear está en @sec-neutronica-phwr.
 La parte de industria de software computacional está más abajo.
 El disparador de mi perfil en @sec-history.
 
-
+hay mucho escrito porque es la forma de digerir lo que uno lee (séneca)
 
 Motivación:
 no hay forma de que haya innovación en una organización rígida (CNEA, NASA, si me apurás INVAP).

@@ -2006,12 +2006,12 @@ Si las fuentes independientes son isotrópicas en el marco de referencia del rea
 
 Estamos entonces en condiciones de volver a reunir los seis términos de la @eq-difusionporomega que analizamos por separado en las ecuaciones
 
- * [-@eq-difusion1],
- * [-@eq-difusion2],
- * [-@eq-difusion3],
- * [-@eq-difusion4],
- * [-@eq-difusion5], y
- * [-@eq-difusion6]
+ * [-@eq-difusion1] (derivada temporal),
+ * [-@eq-difusion2] (advección),
+ * [-@eq-difusion3] (absorciones totales),
+ * [-@eq-difusion4] (scattering),
+ * [-@eq-difusion5] (fisiones), y
+ * [-@eq-difusion6] (fuentes)
 
 y concluir que al multiplicar la @eq-orden1 por $\omegaversor$ e integrar en todas las
 posibles direcciones, obtenemos
@@ -2115,11 +2115,11 @@ Dado que las secciones eficaces macroscópicas tienen unidades de inversa de lon
 
 Podemos combinar los dos resultados de la conservación de momentos de orden cero y uno desarrollados en las secciones anteriores teniendo en cuenta las expresiones dadas por las ecuaciones
 
- * [-@eq-conservacion],
- * [-@eq-Qs],
- * [-@eq-Qf],
- * [-@eq-S], y
- * [-@eq-fick]
+ * [-@eq-conservacion] (conservación),
+ * [-@eq-Qs] (scattering),
+ * [-@eq-Qf] (fisión),
+ * [-@eq-S] (fuentes), y
+ * [-@eq-fick] (ley de Fick)
 
 para obtener finalmente la celebrada *ecuación de difusión de neutrones*
 
