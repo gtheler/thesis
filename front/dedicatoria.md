@@ -19,3 +19,7 @@ _Y a todos los que entrenan laterales con sandías._
 
 \thispagestyle{empty}
 \frontmatter
+
+```include
+math.md
+```

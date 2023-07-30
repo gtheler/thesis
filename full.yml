@@ -108,6 +108,7 @@ format:
           \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
           %
           \usepackage{lipsum}
+          \usepackage{algorithm2e}
           \usepackage{bigints}
           \include{ibthesis.tex}
           \usepackage{scrlayer-scrpage}

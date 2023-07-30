@@ -1,9 +1,5 @@
 # Transporte y difusión de neutrones {#sec-transporte-difusion}
 
-```include
-math.md
-```
-
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
 > The miracle of the appropriateness of the language of mathematics for the formulation

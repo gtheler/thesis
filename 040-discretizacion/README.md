@@ -1,9 +1,5 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
-```include
-math.md
-```
-
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
 > I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
@@ -1119,7 +1115,7 @@ Luego, las posibles direcciones se reducen a la mitad, es decir $N(N+2)/2$.
 
 ![Simetría con respecto al plano $x$-$y$ en un problema bi-dimensional. Por cada dirección $\omegaversor$ con $\hat{\Omega}_z > 0$ (línea llena) hay una dirección $\omegaprimaversor$ simétrica e igualmente posible con $\hat{\Omega}_z < 0$ (línea de trazos).](symmetry2d){#fig-symmetry2d width=80%}
 
-Como la derivada espacial del flujo angular con respecto a $z$ es cero entonces por un lado podemos escribir el término de transporte en la @eq-eq-transporte-sn como
+Como la derivada espacial del flujo angular con respecto a $z$ es cero entonces por un lado podemos escribir el término de transporte en la @eq-transporte-sn como
 
 $$
 \hat{\Omega}_{mx} \cdot \frac{\partial{\psi_{mg}}(x,y)}{\partial x} + \hat{\Omega}_{my} \cdot \frac{\partial{\psi_{mg}(x,y)}}{\partial y}
@@ -4618,7 +4614,7 @@ $$
 \end{aligned}
 $$
 
-**TODO** explicar quién es \mat{P} = SUPG
+**TODO** explicar quién es $\mat{P} =$ SUPG
 
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
