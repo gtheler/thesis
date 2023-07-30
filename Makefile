@@ -18,6 +18,7 @@ single:
 html:
 	./hash.sh
 	cp math-html.md math.md
+	cp full.yml _quarto.yml
 	quarto render --to html
 
 	
