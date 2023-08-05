@@ -15,10 +15,10 @@ book:
     - index.md
     - front/resumen.md
     - front/abstract.md
-    - 040-discretizacion/README.md
+    - 050-implementacion/README.md
     
   appendices:
-    - 110-sds/feenox-history.md    
+    - 100-srs/README.md
     - bibliografia/README.md
 
 title-en: "Differential equations in the cloud: application to neutron transport"

@@ -1084,12 +1084,12 @@ De esta manera, es posbile generar las direcciones $\boldsymbol{\hat{\Omega}}_m
 ```{=latex}
 \DontPrintSemicolon
 \begin{algorithm}
-\For{$n = 1, \dots, 7$}{ 
- \For{$j = 1, \dots, N(N+2)/8$}{
-  $\Omega_{n\cdot N(N+2)/8 + j \, , \, x} = ((n \& 1) ? (-1) : (+1)) \cdot \Omega_{j \, , \, x}$\;
-  $\Omega_{n\cdot N(N+2)/8 + j \, , \, y} = ((n \& 2) ? (-1) : (+1)) \cdot \Omega_{j \, , \, y}$\;
-  $\Omega_{n\cdot N(N+2)/8 + j \, , \, z} = ((n \& 4) ? (-1) : (+1)) \cdot \Omega_{j \, , \, z}$\;
-  $w_{n\cdot N(N+2)/8 + j} = w_j$\;
+\For{$c = 1, \dots, 7$}{ 
+ \For{$m = 1, \dots, N(N+2)/8$}{
+  $\Omega_{c\cdot N(N+2)/8 + m \, , \, x} \leftarrow [(c \& 1) ? (-1) : (+1)] \cdot \Omega_{m \, , \, x}$\;
+  $\Omega_{c\cdot N(N+2)/8 + m \, , \, y} \leftarrow [(c \& 2) ? (-1) : (+1)] \cdot \Omega_{m \, , \, y}$\;
+  $\Omega_{c\cdot N(N+2)/8 + m \, , \, z} \leftarrow [(c \& 4) ? (-1) : (+1)] \cdot \Omega_{m \, , \, z}$\;
+  $w_{c\cdot N(N+2)/8 + m} = w_j$\;
   }
  }
 \caption{\label{alg:extension}Extensión del primer octante a los otros siete}
@@ -1554,8 +1554,6 @@ La demostración detallada se puede encontrar la sección 5.3 de @brennerscott 
 La idea básica es que $\int_U [\nabla v]^2 d^D\vec{x}$ se comporta en forma similar a $\int_U v^2 d^D\vec{x}$.
 :::
 :::::
-
-
 
 
 ::::: {#thm-existencia-y-unicidad}
@@ -2430,7 +2428,7 @@ $$
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-\vec{b} & \vec{e}
+\vec{b} \\ \vec{e}
 \end{bmatrix} \\
 \begin{bmatrix}
 \vec{v}^T & \vec{0}^T
@@ -2446,7 +2444,7 @@ $$
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-\vec{b} & \vec{e}
+\vec{b} \\ \vec{e}
 \end{bmatrix} \\
 \vec{v}^T \cdot \mat{A} \cdot \vec{u} + \vec{v}^T \cdot \mat{C} \cdot \vec{g} &= \vec{v}^T \cdot \vec{b}
 \end{aligned}
@@ -3249,7 +3247,10 @@ con
      \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
      \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
      \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
-     \end{bmatrix}  \quad \in \mathbb{R}^{D} \\
+     \end{bmatrix}
+     =
+     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot \vec{x}_j
+     \quad \in \mathbb{R}^{D} \\
      $$
 
  iii. la matriz canónica de funciones de forma $\mat{H}_c$
@@ -3303,7 +3304,7 @@ $$
 \approx
 \sum_{q=1}^Q
 \underbrace{\omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|}_{\text{cuadratura numérica sobre $e_c$}}
-\underbrace{\mat{H}_c^T(\symbf{\xi}_q) \cdot f(\vec{x}_q)}_{\text{discretización del miembro derecho $f$}}
+\underbrace{\left\{\mat{H}_c^T(\symbf{\xi}_q) \cdot f(\vec{x}_q)\right\}}_{\text{discretización del miembro derecho $f$}}
 $$
 :::
 
@@ -3412,7 +3413,8 @@ y_1^\prime & y_2^\prime & y_3^\prime \\
 \end{bmatrix} \quad \in \mathbb{R}^{2 \times 3}
 $$
 
-En efecto, la contribución de las condiciones de contorno naturales al vector $\vec{b}_i$ es entonces
+::: {#def-bi-superficial-poisson}
+La contribución de las condiciones de contorno naturales al vector $\vec{b}_i$ es
 
 $$
 \begin{aligned}
@@ -3423,7 +3425,7 @@ $$
 \end{aligned}
 $$
 donde la matriz $\mat{H}_{c^\prime}$ es la del elemento canónico superficial $e_{c^\prime}^{(D-1)}$ y el jacobiano $\mat{J}_i$ es el que le corresponde al elemento superficial $e_{i^\prime}^{(D-1)}$, ambos de dimensión $D-1$.
-
+:::
 
 ::: {.remark}
 No tener en cuenta ningún término de superficie es equivalente a hacer que $p(\vec{x})=0$.
@@ -4188,11 +4190,11 @@ a partir de las matrices elementales de pérdidas, absorciones y fisiones de tam
 
 $$
 \begin{aligned}
-\mat{L}_i &= \mat{B}_{Gi}^T(\symbf{\xi}_q) \cdot \mat{D}_D \cdot \mat{B}_{Gi}(\symbf{\xi}_q)  \\
-\mat{A}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q) \\
-\mat{F}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q)^T \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q)
+\mat{L}_i &= \mat{B}_{Gi}^T(\symbf{\xi}_q) \cdot \mat{D}_D(\symbf{\xi}_q) \cdot \mat{B}_{Gi}(\symbf{\xi}_q)  \\
+\mat{A}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q) \cdot \mat{R}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q) \\
+\mat{F}_i &= \mat{H}_{Gc}^T(\symbf{\xi}_q) \cdot \mat{X}(\symbf{\xi}_q) \cdot \mat{H}_{Gc}(\symbf{\xi}_q)
 \end{aligned}
-$$
+$$ {#eq-LAF}
 donde tenemos ahora la matriz $\mat{H}_{Gc} \in \mathbb{R}^{G \times GJ}$ de funciones de forma canónica para $G$ grados de libertad por nodo
 
 $$
