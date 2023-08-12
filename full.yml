@@ -107,8 +107,9 @@ format:
           \global\mdfdefinestyle{exampledefault}{linecolor=gray,linewidth=2pt,leftmargin=0.5cm,rightmargin=0.5cm,topline=false,bottomline=false,rightline=false}
           \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
           %
-          \usepackage{lipsum}
           \usepackage{algorithm2e}
+          \renewcommand{\algorithmcfname}{Algoritmo}
+          \usepackage{lipsum}
           \usepackage{bigints}
           \include{ibthesis.tex}
           \usepackage{scrlayer-scrpage}

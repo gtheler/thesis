@@ -651,6 +651,8 @@ El @sec-srs contiene el [Software Design Specification]{lang=en-US} de la herra
    - Even parity
    - Probabilidad de colisiones
  * Capacidad de refinamiento de malla automático^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
+ * Elementos de alto orden y refinamiento tipo $p$
+ * Esquemas de solución $p$-multigrid @brown2022performance
  * Transitorios neutrónicos
  * Acople con otros códigos de cálculo a través de memoria compartida
  * Medición y optimización de performance computacional

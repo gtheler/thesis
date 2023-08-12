@@ -98,6 +98,7 @@ format:
           \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
           %
           \usepackage{algorithm2e}
+          \renewcommand{\algorithmcfname}{Algoritmo}
           \usepackage{lipsum}
           \usepackage{bigints}
           \include{ibthesis.tex}
