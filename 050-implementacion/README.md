@@ -73,8 +73,7 @@ Comparamos alternativas e indicamos por qué hemos decidido diseñar el software
 Por otro lado, en este capítulo nos centramos en la implementación, tratando de converger a una de las infinitas formas de implementar el diseño propuesto en el SDS.
 
 
-
-## Construcción de los elementos globales
+## Arquitectura del código
 
 Comencemos preguntándonos qué debemos tener en cuenta para implementar una herramienta computacional que permita resolver ecuaciones en derivadas parciales con aplicación en ingeniería.
 Por el momento enfoquémonos en problemas lineales^[Si el problema fuese no lineal o incluso transitorio, la discusión de esta sección sigue siendo válida para la construcción de la matriz jacobiana global.] como los analizados en los dos capítulos anteriores.
@@ -82,6 +81,7 @@ Las dos tareas principales son
 
  1. construir la matriz global de rigidez $\mat{K}$ y el vector $\vec{b}$ (o la matriz de masa $\mat{M}$), y
  2. resolver el sistema de ecuaciones $\mat{K} \cdot \vec{u} = \vec{b}$ (o $\mat{K} \cdot \vec{u} = \lambda \cdot \mat{M} \cdot \vec{u}$)
+
  
 Haciendo énfasis en la filosofía Unix, tenemos que escribir un programa que haga bien una sola cosa^[[Do only one thing but do it well]{lang=en-US}.] que nadie más hace y que interactúe con otros que hacen bien otras cosas (regla de composición).
 En este sentido, nuestra herramienta se tiene que enfocar en el punto 1.
@@ -102,6 +102,10 @@ Para resumir una discusión mucho más compleja, los lenguajes candidatos para i
 Según la regla de representación de Unix, la implementación debería poner la complejidad en las estructuras de datos más que en la lógica. Sin embargo, en el área de mecánica computacional, paradigmas de programación demasiado orientados a objetos impactan en la performance. La tendencia es encontrar una balance, tal como persigue la filosofía desde hace más de dos mil quinientos años, entre programación orientada a objetos y programación orientada a datos.
 
 Tal como explican los autores de PETSc (y coincidentemente Eric Raymond en @raymond), es C el lenguaje que mejor se presta a este paradigma:
+```{=latex}
+\label{polymorphism}
+```
+
 
 ::: {lang=en-US}
 > Why is PETSc written in C, instead of Fortran or C++?
@@ -147,6 +151,7 @@ c te hace dificil agregar complejidad
 unix rule of complexity: only add complexity when a solution thing won't do
 
 
+### Construcción de los elementos globales
 
 Habiendo decidido entonces construir la matriz $\mat{K}$ y el vector $\vec{b}$ como una [glue-layer]{lang=en-US} implementada en C utilizando una estructura de datos que PETSc pueda entender, preguntémonos ahora qué necesitamos para construir estos objetos.
 Para simplificar el argumento, supongamos por ahora que queremos resolver la ecuación generalizada de Poisson de la @sec-poisson. La matriz global $\mat{K}$ proviene de ensamblar las matrices elementales $\mat{K}_i$ para todos los elementos volumétricos $e_i$ según la @def-Ki-poisson. De la misma manera, el vector global $\vec{b}_i$ proviene de ensamblar las contribuciones elementales $\vec{b}_i$ tanto de los elementos volumétricos (@def-bi-volumetrico-poisson) como de los elementos de superficie con condiciones de contorno naturales (@def-bi-superficial-poisson).
@@ -156,7 +161,7 @@ Para simplificar el argumento, supongamos por ahora que queremos resolver la ecu
 ```{=latex}
 \DontPrintSemicolon
 \begin{algorithm}
-\For{ cada elemento volumétrico $e_i$}{ 
+\ForEach{ elemento volumétrico $e_i$}{ 
  $\mat{K}_i \leftarrow 0$\;
  $\mat{b}_i \leftarrow 0$\;
  \For{ cada punto de cuadratura $q = 1, \dots, Q_i$}{
@@ -170,7 +175,7 @@ Para simplificar el argumento, supongamos por ahora que queremos resolver la ecu
  ensamblar $\vec{b}_i \rightarrow \vec{b}$\;
 }
 
-\For{ cada elemento superficial $e_i$ con condición de Neumann $p(\vec{x})$}{ 
+\ForEach{ elemento superficial $e_i$ con condición de Neumann $p(\vec{x})$}{ 
  $\mat{b}_i \leftarrow 0$\;
  \For{ cada punto de cuadratura $q = 1, \dots, Q_i$}{
   $\vec{b}_i \leftarrow \vec{b}_i + \omega_q^{(D-1)} \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|  \cdot \left\{ \mat{H}_{c^\prime}^T(\symbf{\xi}_q) \cdot p(\vec{x}_q) \right\}$ \; 
@@ -184,7 +189,7 @@ Para simplificar el argumento, supongamos por ahora que queremos resolver la ecu
 ```{=latex}
 \DontPrintSemicolon
 \begin{algorithm}
-\For{ cada elemento superficial $e_i$ con condición de Dirichlet $g(\vec{x})$}{ 
+\ForEach{ elemento superficial $e_i$ con condición de Dirichlet $g(\vec{x})$}{ 
  \For{ cada nodo local $j = 1, \dots, J_i$}{
   calcular la fila global $k$ correspondiente al nodo local $j$ del elemento $e_i$\;
   hacer cero la fila $k$ de la matriz global $\mat{K}$\;
@@ -199,8 +204,8 @@ Para simplificar el argumento, supongamos por ahora que queremos resolver la ecu
 ```{=latex}
 \DontPrintSemicolon
 \begin{algorithm}
-\For{ cada nodo global $j = 1, \dots J$}{ 
- \For{ cada elemento $e_i$ al que pertenece el nodo global $j$}{
+\ForEach{ nodo global $j = 1, \dots J$}{ 
+ \ForEach{ elemento $e_i$ al que pertenece el nodo global $j$}{
   \If{ el elemento $e_i$ tiene una condición de Dirichlet}{
     hacer cero la fila $j$ de la matriz global $\mat{K}$\;
     poner un uno en la diagonal de la fila $j$ de la matriz global $\mat{K}$\;
@@ -266,27 +271,249 @@ De la misma manera, una condición de contorno (sea esencial o natural) puede de
 Entonces, la segunda conclusión es que si nuestra herramienta fuese capaz de proveer un mecanismo para definir propiedades materiales y condiciones de contorno que puedan depender discontinuamente según el volúmen o superficie al que pertenezca cada elemento (algunos elementos volumétricos pertenecerán al combustible y otros al moderador, algunos elementos superficiales pertenecerán a una condición de simetría y otros a una condición de vacío) y/o continuamente en el espacio según variaciones locales (por ejemplo cambios de temperatura y/o densidad, concentración de venenos, etc.) entonces podríamos resolver ecuaciones diferenciales arbitrarias discretizadas espacialmente con el método de elementos finitos.
 
       
-## Arquitectura del código
+### Polimorfismo con apuntadores a función 
 
 Según la discusión de la sección anterior, podemos diferenciar entre cierta parte del código que tendrá que realizar tareas "comunes" (en el sentido de que son las mismas para todas las PDEs tal como leer la malla y evaluar funciones en un punto $\vec{x}$ arbitrario del espacio) y otra parte que tendrá que realizar tareas particulares para cada ecuación a resolver (por ejemplo evaluar las expresiones entre llaves en el $q$-ésimo punto de Gauss del elemento $i$-ésimo.
 
+::: {#def-framework}
 
+## framework 
 
-      
-## Misc
+Llamamos [_framework_]{lang=en-US} a la parte del código que implementa las tareas comunes.
+:::
 
+Por diseño, el problema que FeenoX tiene que resolver tiene que estar completamente definido en el archivo de entrada.
+Entonces éste debe justamente definir qué clase de ecuación se debe resolver.
+Como el tipo de ecuación se lee en tiempo de ejecución, el framework debe poder ser capaz de llamar a una u otra (u otra) función que le provea la información particular que necesita: por ejemplo las expresiones entre llaves para la matriz de rigidez y para las condiciones de contorno.
 
-no tenemos virtual methods en C, pero es turing complete
-tenemos
+Una posible implementación (ingenua) sería 
 
- * punteros a funciones
- * lenguajes de macro
+```{=latex}
+\DontPrintSemicolon
+\begin{algorithm}[H]
+\uIf{ la PDE es poisson } { evaluar $\mat{B}_i^T \cdot k(\vec{x}_q) \cdot \mat{B}_i$\; }
+\uElseIf{ la PDE es difusión } { evaluar $\mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) + \mat{F}_i(\symbf{\xi}_q)$ \;}
+\uElseIf{ la PDE es S$_N$ } { evaluar $\mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) + \mat{F}_i(\symbf{\xi}_q)$\; }
+\Else{ quejarse “no sé resolver esta PDE” \; }
+\end{algorithm}
+```
 
-`autogen.sh` + entry points
+De la misma manera, necesitaríamos bloques `if` de este tipo para inicializar el problema, evaluar condiciones de contorno, calcular resultados derivados (por ejemplo flujos de calor a partir de las temperaturas, tensiones a partir de desplazamientos o corrientes a partir de flujos neutrónicos), etc.
+Está claro que esto es 
 
-macros/wrappers para `gsl_cblas_dgemmv()` = `MatAtBA()`
+ 1. feo,
+ 2. ineficiente, y
+ 3. difícil de extender
+ 
+En C++ esto se podría implementar mediante una jerarquía de clases donde las clases hijas implementaría métodos virtuales que el framework llamaría cada vez que necesite evaluar el término entre llaves.
+Si bien C no tiene "métodos virtuales", sí tiene apuntadores a función (que es justamente lo que PETSc usa para implementar polimorfismo `como mencionamos en la página~\pageref{polymorphism}`{=latex}) por lo que podemos usar este mecanismo para lograr una implementación superior, que explicamos a continuación.
 
+Por un lado, sí existe un lugar del código con un bloque `if` según el tipo de PDE requerida en tiempo de ejecución que consideramos feo, ineficiente y difícil de extender.
+Pero,
 
-LTO. Macro para single-pde.
+ a. este único bloques `if` se ejecutan una sola vez en el momento de analizar gramaticalmente^[Del inglés [_parse_]{lang=en-US}.] el archivo de entrada y lo que hacen es definir la dirección de memoria de una función de inicialización que el framework debe llamar antes de comenzar a construir $\mat{K}$ y $\vec{b}$:
+ 
+    ```c
+      if (strcasecmp(token, "laplace") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_laplace;
+      } else if (strcasecmp(token, "mechanical") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_mechanical;
+      } else if (strcasecmp(token, "modal") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_modal;
+      } else if (strcasecmp(token, "neutron_diffusion") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_diffusion;
+      } else if (strcasecmp(token, "neutron_sn") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_sn;
+      } else if (strcasecmp(token, "thermal") == 0) {
+        feenox.pde.init_parser_particular = feenox_problem_init_parser_thermal;
+      } else {
+        feenox_push_error_message("unknown problem type '%s'", token);
+        return FEENOX_ERROR;
+      }
+    ```
 
+    Estas funciones de inicialización a su vez resuelven los apuntadores a función particulares para evaluar contribuciones elementales volumétricas en puntos de Gauss, condiciones de contorno, post-procesamiento, etc.
+    
+ b. El bloque `if` mostrado en el punto anterior es generado programáticamente a partir de un script (regla de Unix de generación) que analiza (_parsea_) el árbol del código fuente y, para cada subdirectorio en [`src/pdes`](https://github.com/seamplex/feenox/tree/main/src/pdes), genera un bloque `if` automáticamente. 
+ Es fácil ver el patrón que siguen cada una de las líneas del listado en el punto a y escribir un script o macro para generarlo programáticamente.
+ 
+Entonces,
+
+ 1. Si bien ese bloque sigue siendo feo, lo genera y lo compila una máquina que no tiene el mismo sentido estético que un programador humano.
+ 2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular.
+ 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
+ 
+    * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
+    * [`thermal`](https://github.com/seamplex/feenox/tree/main/src/pdes/thermal)
+    * [`mechanical`](https://github.com/seamplex/feenox/tree/main/src/pdes/mechanical)
+    * [`modal`](https://github.com/seamplex/feenox/tree/main/src/pdes/modal)
+    * [`neutron_diffusion`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_difussion)
+    * [`neutron_sn`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_sn)
+ 
+    tomando uno de estos subdirectorios como plantilla. De hecho también es posible eliminar completamente uno de estos directorios en el caso de no querer que FeenoX pueda resolver alguna PDE en particular.
+    De esta forma, `autogen.sh` permitirá extender (o reducir) la funcionalidad del código, que es uno de los puntos solicitados en el SDS.
+    Más aún, sería posible utilizar este mecanismo para cargar funciones particulares desde objetos compartidos^[Del inglés [_shared objects_]{lang=en-US}.] en tiempo de ejecución, incrementando aún más la extensibilidad de la herramienta.
+
+### Definiciones e instrucciones
+
+En el @sec-neutronica-phwr mencionamos (y en el @sec-sds explicamos en detalle) que la herramienta desarrollada es una especie de "función de transferencia" entre uno o más archivos de entrada y cero o más archivos de salida (incluyendo la salida estándar `stdout`):
+
+```include
+110-sds/transfer.md
+```
+
+Este archivo de entrada, que a su vez puede incluir otros archivos de entrada y/o hacer referencia a otros archivos de datos (incluyendo la malla en formato `.msh`) contiene palabras clave^[Del inglés [_keywords_]{lang=en-US}.] en inglés que, por decisión de diseño, deben 
+
+ #. definir completamente el problema de resolver
+ #. ser lo más autodescriptivas posible
+ #. permitir una expresión algebraica en cualquier lugar donde se necesite un valor numérico
+ #. mantener una correspondencia uno a uno entre la definición "humana" del problema y el archivo de entrada
+ #. hacer que el archivo de entrada de un problema simple sea simple
+ 
+Estas keywords pueden ser
+ 
+ a. definiciones (sustantivos), o
+ 
+    * qué PDE hay que resolver
+    * propiedades materiales
+    * condiciones de contorno
+    * variables, vectores y/o funciones auxiliares
+    * etc.
+    
+ b. instrucciones (verbos)
+ 
+    * leer la malla
+    * resolver problema
+    * asignar valores a variables
+    * calcular integrales o encontrar extremos sobre la malla
+    * escribir resultados
+    * etc.
+ 
+Las definiciones se realizan a tiempo de parseo. Una vez que el FeenoX acepta que el archivo de entrada es válido, comienza la ejecución de las instrucciones en el orden indicado en el archivo de entrada.
+De hecho, FeenoX tiene un apuntador a instrucción^[Del inglés [_instruction pointer_]{lang=en-US}.] que se incrementa a medida que avanza la ejecución de las instrucciones. Existen palabras clave `IF` y `WHILE` que permiten flujos de ejecución no triviales, especialmente en problemas iterativos, cuasi-estáticos o transitorios.
+
+Por ejemplo, la lectura del archivo de malla es una instrucción y no una definición porque por ejemplo
+
+ 1. el nombre del archivo de la malla puede depender de alguna variable cuyo valor deba ser evaluado en tiempo de ejecución con una instrucción previa,
+ 2. el archivo con la malla en sí puede ser creado internamente por FeenoX con una instrucción previa "escribir resultados", y/o
+ 3. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver.
+
+Comencemos con un problema sencillo para luego agregar complejidad en forma incremental.
+A la luz de la discusión de este capítulo, preguntémonos ahora qué necesitamos para resolver por ejemplo un problema de conducción de calor estacionario sobre un dominio $U \mathbb{R}^D$ con un único material:
+
+ 1. definir que la PDE es conducción de calor en $D$ dimensiones
+ 2. leer la malla con el dominio $U \in \mathbb{R}^D$ discretizado
+ 3. definir la conductividad térmica $k$ del material
+ 4. definir las condiciones de contorno del problema
+ 5. construir $\mat{K}$ y $\vec{b}$
+ 6. resolver $\mat{K} \cdot \vec{u} = \vec{b}$
+ 7. hacer algo con los resultados
+    - calcular $T_\text{max}$
+    - calcular $T_\text{mean}$
+    - comparar con soluciones analíticas
+    - etc.
+ 8. escribir los resultados
+ 
+El problema de conducción de calor más sencillo es un slab en el intervalo $x \in [0,1]$ con conductividad uniforme y condiciones de Dirichlet $T(0)=0$ y $T(1)=1$ en ambos extremos. Por diseño, el archivo de entrada tiene que ser sencillo y tener una correspondencia uno a uno con la definición "humana" del problema:
+
+```feenox
+PROBLEM thermal 1D               # 1. definir que la PDE es calor 1D
+READ_MESH slab.msh               # 2. leer la malla
+k = 1                            # 3. definir conductividad uniforme igual a uno
+BC left  T=0                     # 4. condiciones de contorno de Dirichlet
+BC right T=1                     #    "left" y "right" son nombres en la malla
+SOLVE_PROBLEM                    # 5. y 6. construir y resolver
+PRINT T(0.5)                     # 7. y 8. imprimir en stdout la temperatura en x=0.5
+```
+
+En este caso sencillo, la conductividad $k$ fue dada como una variable `k` con un valor igual a uno.
+Estrictamente hablando, la asignación fue una instrucción. Pero en el momento de resolver el problema, las funciones particulares de la PDE de conducción de calor (dentro de `src/pdes/thermal`) buscan una variable llamada `k` y toman su valor para utilizarlo idénticamente en todos los puntos de Gauss de los elementos volumétricos al calcular el término $\mat{B}_i^T \cdot k \cdot \mat{B}_i$.
+
+Si la conductividad no fuese uniforme sino que dependiera del espacio por ejemplo como
+
+$$
+k(x) = 1+x
+$$
+entonces el archivo de entrada sería
+
+```feenox
+PROBLEM thermal 1D
+READ_MESH slab.msh
+k(x) = 1+x                       # 3. conductividad dada por una función de x
+BC left  T=0
+BC right T=1
+SOLVE_PROBLEM
+PRINT T(1/2) log(1+1/2)/log(2)   # 7. y 8. imprimir el valor numérico y la solución analítica
+```
+
+En este caso, no hay una variable llamada `k` sino que hay una función de $x$ con la expresión algebraica $1+x$.
+Entonces la función que evalúa las contribuciones volumétricas elementales de la matriz de rigidez toman dicha función como la propiedad "conductividad" y la evalúan como $\mat{B}_i^T \cdot k(\symbf{x}_q) \cdot \mat{B}_i$.
+La salida, que por diseño está 100% definida por el archivo de entrada (reglas de Unix de silencio y de economía) consiste en la temperatura evaluada en $x=1/2$ junto con la solución analítica en dicho punto.
+
+Por completitud, mostramos que también la conductividad podría depender de la temperatura.
+En este caso particular el problema queda no lineal y mencionamos algunas particularidades sin ahondar en detalles.
+El parser algebraico de FeenoX sabe que $k$ depende de $T$, por lo que la rutina particular de inicialización de la PDE de conducción de calor marca que el problema debe ser resuelto por PETSc con un objeto SNES (en lugar de un KSP como para el caso lineal). FeenoX también calcula el jacobiano necesario para resolver el problema con un método de Newton iterativo:
+
+```feenox
+PROBLEM thermal 1D
+READ_MESH slab.msh
+k(x) = 1+T(x)                    # 3. la conductividad ahora depende de T(x)
+BC left  T=0
+BC right T=1
+SOLVE_PROBLEM
+PRINT T(1/2) sqrt(1+(3*0.5))-1
+```
+
+La ejecución de FeenoX sigue también las reglas tradicionales de Unix.
+Se debe proveer la ruta al archivo de entrada como principal argumento luego del ejecutable.
+Es un argumento y no como una opción ya que la funcionalidad del programa depende de que se indique un archivo de entrada, por lo que no es "opcional".
+Sí pueden agregar opciones siguiendo las reglas POSIX. Algunas opciones son para FeenoX (por ejemplo `--progress` o `--elements_info` y otras son pasadas a PETSc/SLEPc (por ejemplo `--ksp_view` o `--mg_levels_pc_type=sor`).
+Al ejecutar los tres casos anteriores, obtenemos los resultados solicitados con la instrucción `PRINT` en la salida estándar:
+
+```terminal
+$ feenox thermal-1d-dirichlet-uniform-k.fee
+0.5
+$ feenox thermal-1d-dirichlet-space-k.fee
+0.584945        0.584963
+$ feenox thermal-1d-dirichlet-temperature-k.fee
+0.581139        0.581139
+$ 
+```
+
+Para el caso de conducción de calor estacionario solamente hay una única propiedad cuyo nombre debe ser `k` para que las rutinas particulares la detecten como la conductividad $k$ que debe aparecer en la contribución volumétrica.
+Si el problema (es decir, la malla) tuviese dos materiales diferentes, digamos `A` y `B` hay dos maneras de definir sus propiedades materiales en FeenoX:
+
+ 1. agregando el sufijo `_A` y `_B` a la variable `k` o a la función `k(x)`, es decir
+ 
+    ```feenox
+    k_A = 1
+    k_B = 2
+    ```
+    si $k_A = 1$ y $k_B=2$, o
+    
+    ```feenox
+    k_A(x) = 1+2*x
+    k_B(x) = 3+4*x
+    ``` 
+    si $k_A(x) = 1+2x$ y $k_B(x) = 3+4x$.
+    
+ 2. utilizando una palabra clave `MATERIAL` (definición) para cada material, del siguiente modo
+ 
+    ```feenox
+    MATERIAL A k=1
+    MATERIAL B k=2
+    ```
+    
+    o
+    
+    ```feenox
+    MATERIAL A k=1+2*x
+    MATERIAL B k=3+4*x
+    ```
+    
+De esta forma, el framework implementa las dos posibles dependencias de las propiedades de los materiales:
+
+ a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la sec-xxx
+ b. discontinua según el material al que pertenece el elemento
+ 
 

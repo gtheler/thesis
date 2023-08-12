@@ -580,12 +580,8 @@ comment: poner referencias al SDS en los bullets
       a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
       b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
       
-      ```
-                                        +------------+
-       malla   (*.msh)  }               |            |             { terminal
-       datos   (*.dat)  } entrada ----> |   FeenoX   |----> salida { archivos de datos
-       entrada (*.fee)  }               |            |             { post (vtk/msh)
-                                        +------------+
+      ```include
+      110-sds/transfer.md
       ```
       
     * no escribe (y muy probablemente ni siquiera calcule) un resultado si éste no se pide explícitamente como una salida.
