@@ -341,7 +341,7 @@ Entonces,
 
  1. Si bien ese bloque sigue siendo feo, lo genera y lo compila una máquina que no tiene el mismo sentido estético que un programador humano.
  2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular.
- 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
+ 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (a veces llamado `bootstrap` @fig-bootstrap) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
  
     * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
     * [`thermal`](https://github.com/seamplex/feenox/tree/main/src/pdes/thermal)
@@ -354,7 +354,10 @@ Entonces,
     De esta forma, `autogen.sh` permitirá extender (o reducir) la funcionalidad del código, que es uno de los puntos solicitados en el SDS.
     Más aún, sería posible utilizar este mecanismo para cargar funciones particulares desde objetos compartidos^[Del inglés [_shared objects_]{lang=en-US}.] en tiempo de ejecución, incrementando aún más la extensibilidad de la herramienta.
 
+![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
+    
 ### Definiciones e instrucciones
+
 
 En el @sec-neutronica-phwr mencionamos (y en el @sec-sds explicamos en detalle) que la herramienta desarrollada es una especie de "función de transferencia" entre uno o más archivos de entrada y cero o más archivos de salida (incluyendo la salida estándar `stdout`):
 
@@ -516,4 +519,136 @@ De esta forma, el framework implementa las dos posibles dependencias de las prop
  a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la sec-xxx
  b. discontinua según el material al que pertenece el elemento
  
+Con respecto a las condiciones de contorno, la lógica es similar pero ligeramente más complicada.
+Mientras que a partir del nombre la propiedad las rutinas particulares pueden evaluar las contribuciones volumétricas, sean a la matriz de rigidez a través de la conductividad `k` o al vector $\vec{b}$ a través de la fuente de calor por unidad de volumen `q`, para las condiciones de contorno se necesita un poco más de información.
+Supongamos que una superficie tiene una condición de "simetría" y que queremos que la línea del archivo de entrada que la defina sea
+
+```feenox
+BC left  symmetry
+```
+donde `left` es el nombre de la entidad superficial definida en la malla y `symmetry` es una palabra clave que indica qué tipo de condición de contorno tienen los elementos que pertenecen a `left`.
+La forma de implementar numéricamente (e incluso el signficado físico) esta condición de contorno depende de la PDE que estamos resolviendo. No es lo mismo poner una condición de simetría en
+
+ * poisson generalizada
+ * elasticidad lineal
+ * difusión de neutrones
+ * transporte por S$_N$
+ 
+Entonces, si bien las propiedades de materiales pueden ser parseadas por el framework y aplicadas por las rutinas particulares, las condiciones de contorno deben ser parseadas y aplicadas por las rutinas particulares.
+De todas maneras, la lógica es similar: las rutinas particulares proveen puntos de entrada^[Del inglés [_entry points_]{lang=en-US}.] que el framework llama en los momentos pertinentes durante la ejecución de las instrucciones.
+
+Para terminar de ilustrar la idea, consideremos el problema de Reed que propone resolver con S$_N$ un slab uni-dimensional compuesto por varios materiales, algunos con una fuente independiente, otros sin fuente e incluso un material de vacío:
+
+```feenox
+#
+#     |         |    |         |    |         |
+#  m  | src= 50 | 0  |    0    | 1  |    0    |    v
+#  i  |         |    |         |    |         |    a
+#  r  | tot= 50 | 5  |    0    | 1  |    1    |    c
+#  r  |         |    |         |    |         |    u
+#  o  | scat=0  | 0  |    0    | 0.9|   0.9   |    u
+#  r  |         |    |         |    |         |    m
+#     |         |    |         |    |         |
+#     |    1    | 2  |    3    | 4  |    5    |
+#     |         |    |         |    |         |
+#     +---------+----+---------+----+---------+-------> x
+#    x=0       x=2  x=3       x=5  x=6       x=8   
+
+PROBLEM neutron_sn DIM 1 GROUPS 1 SN $1
+
+READ_MESH reed.msh
+ 
+MATERIAL source_abs    S1=50 Sigma_t1=50 Sigma_s1.1=0
+MATERIAL absorber      S1=0  Sigma_t1=5  Sigma_s1.1=0
+MATERIAL void          S1=0  Sigma_t1=0  Sigma_s1.1=0
+MATERIAL source_scat   S1=1  Sigma_t1=1  Sigma_s1.1=0.9
+MATERIAL reflector     S1=0  Sigma_t1=1  Sigma_s1.1=0.9
+
+BC left  mirror
+BC right vacuum
+
+SOLVE_PROBLEM
+
+FUNCTION ref(x) FILE reed-ref.csv INTERPOLATION steffen
+PRINT sqrt(integral((ref(x)-phi1(x))^2,x,0,8))/8
+```
+
+ * La primera línea es una definición (`PROBLEM` es un sustantivo) le indica a FeenoX que debe resolver las ecuaciones S$_N$ en $D=1$ dimensión con $G=1$ grupo de energías y utilizando una discretrización angular $N$ dada por el primer argumento de la línea de comando luego del nombre del archivo de entrada. De esta manera se pueden probar diferentes discretizaciones con el mismo archivo de entrada, digamos `reed.fee`
+ 
+   ```terminal
+   $ feenox reed 2   # <- usa S2
+   [...]
+   $ feenox reed 4   # <- usa S4
+   [...]
+   ```
+   
+ * La segunda línea es una instrucción (el verbo `READ`) que indica que la malla a utilizar por el problema se llama `reed.msh`.
+   Si el archivo de entrada se llama `reed.fee`, esta línea podría haber sido `READ_MESH $0.msh`.
+   
+ * El bloque de palabras claves `MATERIAL` definen (con un sustantivo) las secciones eficaces macroscópicas (`Sigma`) y las fuentes independientes (`S`). En este caso todas las propiedades son uniformes dentro de cada material.
+ 
+ * Las siguientes dos líneas definien las condiciones de contorno (`BC` quiere decir boundary condition): la superficie `left` tiene una condición espejo y la superficie `right` tiene una condición de vacío.
+ 
+ * La instrucción `SOLVE_PROBLEM` le pide a FeenoX que
+ 
+    1. construya la matriz global $\mat{K}$ y el vector $\vec{b}$ (pidiéndole a su vez a las rutinas específicas del subdirectorio `src/pdes/neutron_sn`)
+    2. que le pida a PETSc que resuelva el problema $\mat{K} \cdot \vec{u} = \vec{b}$ (como hay fuentes independientes entonces la rutina de inicialización del problema `neutron_sn` sabe que debe resolver un problema lineal, si no hubiese fuentes y sí secciones eficaces de fisión se resolvería un problema de autovalores con la biblioteca SLEPc)
+    3. que extraiga los valores nodales de la solución $\vec{u}$ y defina las funciones del espacio $\psi_{mg}(x)$ y $\phi_{g}(x)$. Si `$1` fuese `2` entonces las funciones con la solución serían
+       - `psi1.1(x)`
+       - `psi1.2(x)`
+       - `phi1(x)`
+      
+       Estas funciones están disponibles para que subsiguientes instrucciones las utilicen como salida directamente, como parte de otras expresiones intermedias, etc.
+    4. Si el problema fuese de criticidad, entonces esta instrucción también pondría el valor del factor de multiplicación efectivo $k_\text{eff}$ en una variable llamada `keff`.
+    
+ * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen`.
+ 
+ * La última línea imprime en la salida estándar una representación ASCII (por defecto utilizando el formato `%g` de la instrucción `printf()` de C) del error $L_2$ cometido por la solución calculada con FeenoX con respecto a la solución de referencia, es decir
+
+ $$
+ \sqrt{\frac{1}{8} \cdot \int_0^8 \left[ \text{ref}(x) - \phi_1(x) \right]^2}
+ $$
+
+La ejecución de FeenoX con este archivo de entrada para S$_2$, S$_4, S$_6$ y S$_8$ da como resultado
+ 
+```terminal
+$ feenox reed.fee 2
+0.0505655
+$ feenox reed.fee 4
+0.0143718
+$ feenox reed.fee 6
+0.010242
+$ feenox reed.fee 8
+0.0102363
+$ 
+```
+
+### Puntos de entrada
+
+autogen.sh
+
+## Algoritmos auxiliares
+
+### Expresiones algebraicas
+
+pemdas
+
+### Evaluación de funciones 
+
+##### Una dimensión
+
+gsl interpolation
+
+##### Varias dimensiones
+
+k-dimensional trees
+
+non-conformal mesh mapping
+
+
+### Campos secundarios
+
+stress recovery
+
+
 
