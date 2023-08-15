@@ -101,16 +101,20 @@ Para resumir una discusión mucho más compleja, los lenguajes candidatos para i
 
 Según la regla de representación de Unix, la implementación debería poner la complejidad en las estructuras de datos más que en la lógica. Sin embargo, en el área de mecánica computacional, paradigmas de programación demasiado orientados a objetos impactan en la performance. La tendencia es encontrar una balance, tal como persigue la filosofía desde hace más de dos mil quinientos años, entre programación orientada a objetos y programación orientada a datos.
 
+::: {.remark}
+En los últimos años el lenguaje Rust se ha comenzado a posicionar como una alternativa a C para _system programming_^[No hay traducción de este término. En el año 2008, se propuso una materia en el IB con este nombre en inglés. El consejo académico decidió traducirla y nombrarla como "programación de sistemas". Ni el nombre elegido ni el ligeramente más correcto "programación del sistema" tienen la misma denotación que el concepto original [_system programming_]{lang=en-US}] debido al requerimiento intrínseco de que todos las referencias deben apuntar a una dirección de memoria virtual válida. A principios de 2023 aparecieron por primera vez líneas de código en Rust en el kernel de Linux. Pero desde el punto de vista de computación de alto rendimiento^[Del inglés [_high-performance computing_]{lang=en-US} (HPC).], Rust (o incluso Go) no tienen nada nuevo que aportar con respecto a C.
+:::
+
+
 Tal como explican los autores de PETSc (y coincidentemente Eric Raymond en @raymond), es C el lenguaje que mejor se presta a este paradigma:
 ```{=latex}
 \label{polymorphism}
 ```
 
-
 ::: {lang=en-US}
 > Why is PETSc written in C, instead of Fortran or C++?
 > 
-> When this decision was made, in the early 1990s, C enabled us to build data structures for storing sparse matrices, solver information, etc. in ways that Fortran simply did not allow. ANSI C was a complete standard that all modern C compilers supported. The language was identical on all machines. C++ was still evolving and compilers on different machines were not identical. Using C function pointers to provide data encapsulation and polymorphism allowed us to get many of the advantages of C++ without using such a large and more complicated language. It would have been natural and reasonable to have coded PETSc in C++; we opted to use C instead.
+> When this decision was made, in the early 1990s, C enabled us to build data structures for storing sparse matrices, solver information, etc. in ways that Fortran simply did not allow. ANSI C was a complete standard that all modern C compilers supported. The language was identical on all machines. C++ was still evolving and compilers on different machines were not identical. Using C function pointers to provide data encapsulation and polyRmorphism allowed us to get many of the advantages of C++ without using such a large and more complicated language. It would have been natural and reasonable to have coded PETSc in C++; we opted to use C instead.
 :::
 
 Fortran fue diseñado en la década de 1950 y fue un salto cualitativo con respecto a la forma de programar las incipientes computadoras digitales. Sin embargo, las suposiciones que se han tenido en cuenta con respecto al hardware sobre el cual estos programas debería ejecutarse ya no son válidas. Las revisiones posteriores como Fortran 90 son modificaciones y parches que no resuelven el problema de fondo.
@@ -635,11 +639,11 @@ pemdas
 
 ### Evaluación de funciones 
 
-##### Una dimensión
+#### Una dimensión
 
 gsl interpolation
 
-##### Varias dimensiones
+#### Varias dimensiones
 
 k-dimensional trees
 
