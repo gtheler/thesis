@@ -2,10 +2,42 @@
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
-> | A good hockey player plays where the puck is.
-> | A great hockey player plays where the puck is going to be.
-> |
-> | _Wayne Gretzky_
+> C++ is a horrible language. It's made more horrible by the fact that a lot 
+> of substandard programmers use it, to the point where it's much much 
+> easier to generate total and utter crap with it. Quite frankly, even if 
+> the choice of C were to do *nothing* but keep the C++ programmers out, 
+> that in itself would be a huge reason to use C.
+> 
+> [...]
+>
+> C++ leads to really really bad design choices. You invariably start using 
+> the "nice" library features of the language like STL and Boost and other 
+> total and utter crap, that may "help" you program, but causes:
+>
+>  - infinite amounts of pain when they don't work [...]
+>
+>  - inefficient abstracted programming models where two years down the road 
+>    you notice that some abstraction wasn't very efficient, but now all 
+>    your code depends on all the nice object models around it, and you 
+>    cannot fix it without rewriting your app.
+>
+> [...]
+>
+> So I'm sorry, but for something like git, where efficiency was a primary 
+> objective, the "advantages" of C++ is just a huge mistake. The fact that 
+> we also piss off people who cannot see that is just a big additional 
+> advantage.
+>
+>
+> _Linus Torvalds_, explaing why Git is written in C, 2007
+:::
+
+::: {.chapterquote data-latex=""}
+> | C++ is a badly designed and ugly language.
+> | It would be a shame to use it in Emacs.
+>
+>
+> _Richard M. Stallmann_, explaining why Emacs is written in C, 2010
 :::
 :::::
 
@@ -48,6 +80,8 @@ Si bien está claro que, de tener la posibilidad, resolver ecuaciones en forma p
 ::: {.remark}
 Si bien es cierto que en teoría un algoritmo implementado en un lenguaje Turing-completo podría resolver un sistema de ecuaciones algebraicas de tamaño arbitrario independientemente de la memoria RAM disponible (por ejemplo usando almacenamiento en dispositivos magnéticos o de estado sólido), prácticamente no es posible obtener un resultado útil en un tiempo razonable si no se dispone de suficiente memoria RAM para evitar tener que descargar el contenido de esta memoria de alta velocidad de acceso a medios alternativos ([out-of-core memory]{lang=en-US} como los mencionados en el paréntesis anterior) cuya velocidad de acceso es varios órdenes de magnitud más lenta.
 :::
+
+**TODO** este esquema evita el developer-easy user-difficult porque se empieza por el user y no por el dev
 
 Según el pliego, es mandatorio que el software desarrollado sea de código abierto según la definición de la _Open Source Initiative_.
 El SDS (@sec-sds) comienza indicando que la herramienta FeenoX es al software tradicional de ingeniería y a las bibliotecas especializadas de elementos finitos lo que Markdown es a Word y a LaTeX, respectivamente.
@@ -345,7 +379,7 @@ Entonces,
 
  1. Si bien ese bloque sigue siendo feo, lo genera y lo compila una máquina que no tiene el mismo sentido estético que un programador humano.
  2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular.
- 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (a veces llamado `bootstrap` @fig-bootstrap) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
+ 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (ver la discusión de la @sec-entry) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
  
     * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
     * [`thermal`](https://github.com/seamplex/feenox/tree/main/src/pdes/thermal)
@@ -358,7 +392,6 @@ Entonces,
     De esta forma, `autogen.sh` permitirá extender (o reducir) la funcionalidad del código, que es uno de los puntos solicitados en el SDS.
     Más aún, sería posible utilizar este mecanismo para cargar funciones particulares desde objetos compartidos^[Del inglés [_shared objects_]{lang=en-US}.] en tiempo de ejecución, incrementando aún más la extensibilidad de la herramienta.
 
-![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
     
 ### Definiciones e instrucciones
 
@@ -627,15 +660,183 @@ $ feenox reed.fee 8
 $ 
 ```
 
-### Puntos de entrada
+### Puntos de entrada {#sec-entry}
 
-autogen.sh
+La compilación del código fuente usa el procedimiento recomendado por GNU donde el script `configure` genera los archivos de _make_^[Del inglés [_make files_]{lang=en-US}.] según
+
+ a. la arquitectura del hardware (Intel, ARM, etc.)
+ b. el sistema operativo (GNU/Linux, otras variantes, etc.)
+ c. las dependencias disponibles (MPI, PETSc, SLEPc, GSL, etc.)
+ 
+A su vez, para generar este script `configure` se suele utilizar el conjunto de herramientas conocidas como Autotools.
+Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, el script `configure` y otros archivos relacionados al proceso de compilación tales como las plantillas para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y las plantillas que indican dónde están los archivos fuentes que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
+Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
+
+Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
+Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (o a veces `bootstrap`).
+
+![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
+
+Este script `autogen.sh` mira qué subdirectorios hay dentro del directorio `src/pdes` y, para cada uno de ellos, agrega unas líneas a un archivo fuente llamado `src/pdes/parse.c` que hace apuntar un cierto apuntador a función a una de las funciones definidas dentro del subdirectorio. En forma resumida,
+
+```bash
+for pde in *; do
+ if [ -d ${pde} ]; then
+  if [ ${first} -eq 0 ]; then
+    echo -n "  } else " >> parse.c
+  else
+    echo -n "  " >> parse.c
+  fi
+  cat << EOF >> parse.c
+if (strcasecmp(token, "${pde}") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_${pde};
+    
+EOF
+    
+  first=0
+ fi
+done
+```
+
+Esto generaría las siguientes líneas de código en `parse.c`
+
+```c
+  if (strcasecmp(token, "laplace") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_laplace;
+  } else if (strcasecmp(token, "mechanical") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_mechanical;
+  } else if (strcasecmp(token, "modal") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_modal;
+  } else if (strcasecmp(token, "neutron_diffusion") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_diffusion;
+  } else if (strcasecmp(token, "neutron_sn") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_sn;
+  } else if (strcasecmp(token, "thermal") == 0) {
+    feenox.pde.parse_problem = feenox_problem_parse_problem_thermal;
+  } else {
+    feenox_push_error_message("unknown problem type '%s'", token);
+    return FEENOX_ERROR;
+  }
+```
+
+que son llamadas desde el parser general luego de haber leído la definición `PROBLEM`.
+Entonces, si en el archivo de entrada se encuentra esta línea
+
+```feenox
+PROBLEM laplace
+```
+
+entonces el apuntador a función `feenox.pde.parse_problem` declarado en `feenox.h` como
+
+```c
+int (*parse_problem)(const char *token);
+```
+
+apuntaría a la función `feenox_problem_parse_problem_laplace()` declarada en `src/pdes/laplace/methods.h` y definida en `src/pdes/laplace/parser.c`.
+De hecho, esta función es llamada con el parámetro `token` conteniendo cada una de las palabras que está a continuación del nombre del problema que el parse general no entienda.
+Por ejemplo, en
+
+```feenox 
+PROBLEM neutron_sn DIM 3 GROUPS 2 SN 8
+```
+
+ 1. La palabra clave primaria `PROBLEM` es leída (y entendida) por el parser general.
+ 2. El argumento `neutron_sn` es leído por el bloque generado por `autogen.sh`. El apuntador `feenox.pde.parse_problem` apunta entonces a `feenox_problem_parse_problem_neutron_sn()`.
+ 3. La palabra clave secundaria `DIM` es leída por el parser general. Como es una palabra clave secundaria asociada a la primaria `PROBLEM` y el parser general la entiende, lee el siguiente argumento `3` y sabe que tiene que resolver una ecuación diferencial sobre tres dimensiones espaciales. Esto implica, por ejemplo, saber que las propiedades de los materiales y las soluciones serán funciones de $x$, $y$ y $z$.
+ 4. La palabra clave secundaria `GROUPS` es leída por el parser general. Como no es una palabra clave secundaria asociada a la primara `PROBLEM`, entonces se llama a `feenox.pde.parse_problem` (que apunta a `feenox_problem_parse_problem_neutron_sn()`) con el argumento `token` apuntando a `GROUPS`.
+ 5. Como el parser particular dentro de `src/pdes/neutron_sn` sí entiende que la palabra clave `GROUPS` define la cantidad de grupos de energía, lee el siguiente token `2` y lo entiende como tal.
+ 6. El control vuelve al parser principal que lee la siguiente palabra clave secundaria `SN`. Como tampoco la entiende, vuelve a llamar al parser particular que entiende que debe utilizar las direcciones y pesos de S$_8$. 
+ 7. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)` es una función válida:
+ 
+    ```feenox
+    PRINT "keff = " keff
+    PRINT " rho = " (1-keff)/keff
+    profile(x) = phi1(x,x,0)
+    PRINT_FUNCTION profile phi1(x,0,0)
+    ```
+    
+Dentro de las inicializaciones en tiempo de parseo, cada implementación específica debe resolver el resto de los apuntadores a función que definen los puntos de entrada específicos que el framework principal necesita llamar para 
+
+ i. parsear partes específicas del archivo de entrada
+    
+    a. condiciones de contorno
+    b. la palabra clave `WRITE_RESULTS` que escribe "automáticamente" los resultados en un archivo de post-procesamiento en formato `.msh` o `.vtk`. Esto es necesario ya que las rutinas que escriben los resultados son parte del framework general pero dependiendo de la PDE a resolver e incluso de los detalles de la PDE (por ejemplo la cantidad de grupos de energía en un problema neutrónico o la cantidad de frecuencias calculadas en un problema modal).
+    
+ ii. inicializar estructuras internas
+ iii. construir las matrices y los vectores globales
+ iv. resolver las ecuaciones discretizadas con PETSc (o SLEPc) según el tipo de problema resultante:
+ 
+      a. problema lineal en estado estacionario $\mat{K} \cdot \vec{u} = \vec{b}$ (PETSc KSP)
+      b. problema generalizado de autovalores $\mat{K} \cdot \vec{u} = \lambda \cdot \mat{M} \cdot \vec{u}$ (SLEPc EPS)
+      c. problema no lineal en estado estacinario $\vec{F}(\vec{u}) = 0$ (PETSc SNES)
+      d. problema transitorio $\vec{G}(\vec{u}, \dot{\vec{u}}, t) = 0$ (PETSc TS)
+      
+ v. calcular campos secundarios a partir de los primarios, por ejemplo
+ 
+     * flujos escalares a partir de flujos angulares
+     * corrientes a partir de flujos neutrónicos
+     * flujos de calor a partir de temperaturas
+     * tensiones a partir de deformaciones
+     * etc.
+
+```c
+    // parse
+    int (*parse_problem)(const char *token);
+    int (*parse_write_results)(mesh_write_t *mesh_write, const char *token);
+    int (*parse_bc)(bc_data_t *bc_data, const char *lhs, char *rhs);
+    
+    // init
+    int (*init_before_run)(void);
+    int (*setup_pc)(PC pc);
+    int (*setup_ksp)(KSP ksp);
+    int (*setup_eps)(EPS eps);
+    int (*setup_ts)(TS ksp);
+
+    // build
+    int (*element_build_volumetric)(element_t *e);
+    int (*element_build_volumetric_at_gauss)(element_t *e, unsigned int q);
+    
+    // solve
+    int (*solve)(void);
+    
+    // post
+    int (*solve_post)(void);
+    int (*gradient_fill)(void);
+    int (*gradient_nodal_properties)(element_t *e, mesh_t *mesh);
+    int (*gradient_alloc_nodal_fluxes)(node_t *node);
+    int (*gradient_add_elemental_contribution_to_node)(node_t *node, element_t *e, unsigned int j, double rel_weight);
+    int (*gradient_fill_fluxes)(mesh_t *mesh, size_t j_global);
+```
+
+#### Parseo
+
+```c
+  int (*set_essential)(bc_data_t *, element_t *, size_t j_global);
+  int (*set_natural)(bc_data_t *, element_t *, unsigned int q);
+```
+
+#### Inicialización
+
+#### Construcción
+
+volume & bcs
+
+#### Solución
+
+#### Post-procesamiento
+
+
+
+
 
 ## Algoritmos auxiliares
 
 ### Expresiones algebraicas
 
 pemdas
+
+
+**TODO** comparar con soluciones analíticas dadas por sumas infinitas, ver thermal_slab_transient.fee
 
 ### Evaluación de funciones 
 

@@ -48,6 +48,8 @@ comparar con onedim?
 ## El reactor cubo-esfera
 ## Verificacion con MMS {#sec-mms}
 
+ver thermal-slab-transient-mms-capacity-of-T.fee  thermal-slab-transient-mms.fee
+
 ## PHWR de siete canales y tres barras de control inclinadas
 
 Dependencias espaciales no triviales

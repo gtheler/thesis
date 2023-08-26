@@ -82,6 +82,17 @@ Ansys, Inc.
  
  
 
+El arquetipo de las presentaciones a congresos de mecom son:
+
+ 1. esto es lo que tiene de malo resolver el problema x con el enfoque tradicional
+ 2. esta es mi propuesta para resolver el problema x
+ 3. como el problema x es muy complicado, resolvemos el y que es más sencillo: da lo mismo y mi forma es mejor
+ 4. TODO: resolver el problema x
+ 
+Esta tesis es exactamente igual.
+Ojalá no pase lo mismo.
+
+ 
 Lo que traigo/aporto:
 
  * experiencia en programación basic desde 1991
