@@ -810,12 +810,137 @@ Dentro de las inicializaciones en tiempo de parseo, cada implementación especí
 
 #### Parseo
 
-```c
-  int (*set_essential)(bc_data_t *, element_t *, size_t j_global);
-  int (*set_natural)(bc_data_t *, element_t *, unsigned int q);
+Cuando se termina la línea de `PROBLEM`, el parser general llama a `parse_problem(NULL)` que debe
+
+ 1. terminar de rellenar los apuntadores específicos
+
+    ```c
+    // virtual methods
+    feenox.pde.parse_bc = feenox_problem_bc_parse_neutron_diffusion;
+    feenox.pde.parse_write_results = feenox_problem_parse_write_post_neutron_diffusion;
+
+    feenox.pde.init_before_run = feenox_problem_init_runtime_neutron_diffusion;
+
+    feenox.pde.setup_eps = feenox_problem_setup_eps_neutron_diffusion;
+    feenox.pde.setup_ksp = feenox_problem_setup_ksp_neutron_diffusion;
+    feenox.pde.setup_pc = feenox_problem_setup_pc_neutron_diffusion;
+
+    feenox.pde.element_build_volumetric = feenox_problem_build_volumetric_neutron_diffusion;
+    feenox.pde.element_build_volumetric_at_gauss = feenox_problem_build_volumetric_gauss_point_neutron_diffusion;
+
+    feenox.pde.solve_post = feenox_problem_solve_post_neutron_diffusion;
+    ```
+
+ 2. inicializar lo que necesita el parser para poder continuar leyendo el problema específico, incluyendo
+
+    - la definición de variables especiales (por ejemplo los flujos escalares `phi_1`, `phi_2`, etc. y angulares `psi_1.1`, `psi_2.1`, \dots, `psi_12.2` y las variables `keff` y `sn_alpha`) para que estén disponibes para el parser algebraico (ver @sec-pemdas)
+
+      ```c
+      // the angular fluxes psi
+      feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
+      for (int n = 0; n < neutron_sn.directions; n++) {
+        for (int g = 0; g < neutron_sn.groups; g++) {
+          feenox_check_minusone(asprintf(&feenox.pde.unknown_name[n * neutron_sn.groups + g], "psi%d.%d", n+1, g+1));
+        }
+      }
+      feenox_call(feenox_problem_define_solutions());
+
+      // the scalar fluxes psi
+      feenox_check_alloc(neutron_sn.phi = calloc(neutron_sn.groups, sizeof(function_t *)));
+      for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+        char *name = NULL;
+        feenox_check_minusone(asprintf(&name, "phi%u", g+1));
+        feenox_call(feenox_problem_define_solution_function(name, &neutron_sn.phi[g], FEENOX_SOLUTION_NOT_GRADIENT));
+        feenox_free(name);
+      }
+
+      neutron_sn.keff = feenox_define_variable_get_ptr("keff");
+      neutron_sn.sn_alpha = feenox_define_variable_get_ptr("sn_alpha");
+      feenox_var_value(neutron_sn.sn_alpha) = 0.5;
+      ```
+
+    - el seteo de opciones por defecto (¿qué pasa si no hay keywords `GROUPS` o `SN`?)
+
+      ```c
+      // default is 1 group
+      if (neutron_sn.groups == 0) {
+        neutron_sn.groups = 1;
+      }
+
+      // default is N=2
+      if (neutron_sn.N == 0) {
+        neutron_sn.N = 2;
+      }
+      if (neutron_sn.N % 2 != 0) {
+        feenox_push_error_message("number of ordinates N = %d has to be even", neutron_sn.N);
+        return FEENOX_ERROR;
+      }
+
+      // stammler's eq 6.19
+      switch(feenox.pde.dim) {
+        case 1:
+          neutron_sn.directions = neutron_sn.N;
+          break;
+        case 2:
+          neutron_sn.directions = 0.5*neutron_sn.N*(neutron_sn.N+2);
+          break;
+        case 3:
+          neutron_sn.directions = neutron_sn.N*(neutron_sn.N+2);
+          break;
+      }
+
+      // dofs = number of directions * number of groups
+      feenox.pde.dofs =  neutron_sn.directions * neutron_sn.groups;
+      ```
+
+    - la inicialización de direcciones $\omegaversor_m$ y pesos $w_m$ para S$_N$
+
+Cuando una línea contiene la palabra clave princial `BC` tal como
+
+```feenox
+BC left  mirror
+BC right vacuum
 ```
 
+entonces el parser principal lee el token siguiente, `left` y `right` respectivamente, que intentará vincular con un grupo físico en la malla del problema. Los siguientes tokens, en este caso sólo uno para cada caso, son pasados al parser específico `feenox.pde.parse_bc` que sabe qué hacer con las palabras `mirror` y `vacuum`.
+Este parser de condiciones de contorno a su vez resuelve uno de los dos apuntadores
+
+```c
+int (*set_essential)(bc_data_t *, element_t *, size_t j_global);
+int (*set_natural)(bc_data_t *, element_t *, unsigned int q);
+```
+
+dentro de la estructura asociada a la condición de contorno según corresponda al tipo de condición.
+
+
 #### Inicialización
+
+Luego de que el parser lee completamente el archivo de entrada, FeenoX ejecuta las instrucciones en el orden adecuado posiblemente siguiendo lazos de control y bucles.
+Al llegar a la instrucción `SOLVE_PROBLEM`, llama al punto de entrada `init_before_run()` donde
+
+ 1. Se define el tamaño del problema global como el producto entre la cantidad de nodos en la malla (que ya debe haber sido leida por la instrucción genérica `READ_MESH`) y la cantidad de grados de libertad por coordenada espacial (que fue definida en la primera inicialización) para que el framework pueda alocar las matrices y vectores globales en formato PETSc:
+
+    ```c
+    feenox.pde.spatial_unknowns = feenox.pde.mesh->n_nodes;
+    feenox.pde.size_global = feenox.pde.spatial_unknowns * feenox.pde.;
+    ```
+
+ 2. Se leen las expresiones que definen las propiedades de los materiales, que no estaban disponibles en el momento de la primera inicialización después de leer la línea `PROBLEM`. Estas propiedades de materiales en general y las secciones eficaces macroscópicas en particular pueden estar dadas por
+
+     a. variables
+     b. funciones del espacio
+     c. la palabra clave `MATERIAL`
+
+    En este momento de la ejecución todas las secciones eficaces deben estar definidas con nombres especiales.
+    Por ejemplo,
+
+    * $\Sigma_{tg} =$ `"Sigma_t%d"`
+    * $\Sigma_{ag} =$ `"Sigma_a%d"`
+    * $\nu\Sigma_{fg} =$ `"nuSigma_f%d"`
+    * $\Sigma_{s g \rightarrow g^\prime} =$ `"Sigma_s%d.%d"`
+    * $S_g =$ `"S_%d"`
+
+ 2.
 
 #### Construcción
 
@@ -831,7 +956,7 @@ volume & bcs
 
 ## Algoritmos auxiliares
 
-### Expresiones algebraicas
+### Expresiones algebraicas {#sec-pemdas}
 
 pemdas
 
