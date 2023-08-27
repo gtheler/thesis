@@ -81,7 +81,10 @@ Si bien está claro que, de tener la posibilidad, resolver ecuaciones en forma p
 Si bien es cierto que en teoría un algoritmo implementado en un lenguaje Turing-completo podría resolver un sistema de ecuaciones algebraicas de tamaño arbitrario independientemente de la memoria RAM disponible (por ejemplo usando almacenamiento en dispositivos magnéticos o de estado sólido), prácticamente no es posible obtener un resultado útil en un tiempo razonable si no se dispone de suficiente memoria RAM para evitar tener que descargar el contenido de esta memoria de alta velocidad de acceso a medios alternativos ([out-of-core memory]{lang=en-US} como los mencionados en el paréntesis anterior) cuya velocidad de acceso es varios órdenes de magnitud más lenta.
 :::
 
-**TODO** este esquema evita el developer-easy user-difficult porque se empieza por el user y no por el dev
+::: {.remark}
+Este esquema de definir primero los requerimientos y luego indicar cómo se los satisface evita un sesgo común dentro de las empresas de software que implica hacer algo "fácil para el desarrollador" a costa de que el usuario tengo que hacer algo "más difícil".
+Por ejemplo en la mayoría de los programas de elementos finitos para elasticidad lineal es necesario hacer un mapeo entre los grupos de elementos volumétricos y los materiales disponibles, tarea que tiene sentido siempre que haya más de un grupo de elementos volumétricos o más de un material disponible. Pero en los casos donde hay un único grupo de elementos volumétricos (usualmente porque se parte de un CAD con un único volumen) y un único juego de propiedades materiales (digamos un único valor $E$ de módulo de Young y un único $\nu$ para coeficiente de Poisson), el software requiere que el usuario tenga que hacer explícitamente el mapeo aún cuando éste es trivial. Un claro de ejemplo del sesgo "developer-easy/user-hard" que FeenoX no tiene.
+:::
 
 Según el pliego, es mandatorio que el software desarrollado sea de código abierto según la definición de la _Open Source Initiative_.
 El SDS (@sec-sds) comienza indicando que la herramienta FeenoX es al software tradicional de ingeniería y a las bibliotecas especializadas de elementos finitos lo que Markdown es a Word y a LaTeX, respectivamente.
@@ -98,7 +101,7 @@ En Español no debería haber ninguna confusión. Pero en inglés, el sustantivo
 
 De hecho, como Unix^[A principios de 1960, los Bell Labs en EEUU llegaron a desarrollar un sistema operativo que funcionaba bien, así que decidieron encarar MULTICS. Como terminó siendo una monstruosidad, empezaron UNIX que es lo que quedó bien.]
 y C^[A fines de 1960, también en los Bell Labs, llegaron a desarrollar un un lenguaje de programación A que funcionaba bien, así que decidieron encarar B. Como terminó siendo una monstruosidad, empezaron C que es lo que quedó bien.], FeenoX es un "efecto de tercer sistema"^[Del inglés [_third-system effect_]{lang=en-US}.] @raymond.
-De hecho, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema.
+En efecto, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema.
 
 De las lecciones aprendidas en las dos primeras versiones, la primera un poco naïve pero funcional y la segunda más pretenciosa y compleja (apalancada en la funcionalidad de la primera), hemos convergido al diseño explicado en el SDS del @sec-sds donde definimos la filosofía de diseño del software y elegimos una de las infinitas formas de diseñar una herramienta computacional mencionadas al comienzo de este capítulo.
 Gran parte de este diseño está basado en la filosofía de programación Unix @raymond.
@@ -106,6 +109,40 @@ Damos ejemplos de cómo son las interfaces para definir un cierto problema y de 
 Comparamos alternativas e indicamos por qué hemos decidido diseñar el software de la forma en la que fue diseñado.
 Por otro lado, en este capítulo nos centramos en la implementación, tratando de converger a una de las infinitas formas de implementar el diseño propuesto en el SDS.
 
+En lo que resta del capítulo comentamos muy superficialmente las ideas distintivas que tiene FeenoX con respecto a otros programas de elementos finitos desde el punto de vista técnico de programación. Estas características son distintivas y no son comunes. En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} del software con respecto a otras herramientas similares.
+
+::: {.remark}
+El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/>.
+Consiste en aproximadamente cuarenta y cinco mil líneas de código.
+:::
+
+```{=latex}
+\begin{figure}
+\begin{verbatim}
+.
+├── dist
+├── doc
+├── examples
+├── src
+│   ├── contrib
+│   ├── flow
+│   ├── io
+│   ├── math
+│   ├── mesh
+│   │   └── elements
+│   ├── parser
+│   └── pdes
+│       ├── laplace
+│       ├── mechanical
+│       ├── modal
+│       ├── neutron_diffusion
+│       ├── neutron_sn
+│       └── thermal
+└── tests
+\end{verbatim}
+\caption{\label{fig:tree} Estructura de directorios del código fuente de FeenoX.}
+\end{figure}
+```
 
 ## Arquitectura del código
 
@@ -553,7 +590,7 @@ Si el problema (es decir, la malla) tuviese dos materiales diferentes, digamos `
     
 De esta forma, el framework implementa las dos posibles dependencias de las propiedades de los materiales:
 
- a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la sec-xxx
+ a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la @sec-funciones
  b. discontinua según el material al que pertenece el elemento
  
 Con respecto a las condiciones de contorno, la lógica es similar pero ligeramente más complicada.
@@ -669,7 +706,7 @@ La compilación del código fuente usa el procedimiento recomendado por GNU dond
  c. las dependencias disponibles (MPI, PETSc, SLEPc, GSL, etc.)
  
 A su vez, para generar este script `configure` se suele utilizar el conjunto de herramientas conocidas como Autotools.
-Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, el script `configure` y otros archivos relacionados al proceso de compilación tales como las plantillas para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y las plantillas que indican dónde están los archivos fuentes que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
+Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como las plantillas para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y las plantillas que indican dónde están los archivos fuentes que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
 Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
 
 Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
@@ -677,7 +714,7 @@ Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el a
 
 ![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
 
-Este script `autogen.sh` mira qué subdirectorios hay dentro del directorio `src/pdes` y, para cada uno de ellos, agrega unas líneas a un archivo fuente llamado `src/pdes/parse.c` que hace apuntar un cierto apuntador a función a una de las funciones definidas dentro del subdirectorio. En forma resumida,
+Este script `autogen.sh` detecta qué subdirectorios hay dentro del directorio `src/pdes` y, para cada uno de ellos, agrega unas líneas a un archivo fuente llamado `src/pdes/parse.c` que hace apuntar un cierto apuntador a función a una de las funciones definidas dentro del subdirectorio. En forma resumida,
 
 ```bash
 for pde in *; do
@@ -720,7 +757,7 @@ Esto generaría las siguientes líneas de código en `parse.c`
 ```
 
 que son llamadas desde el parser general luego de haber leído la definición `PROBLEM`.
-Entonces, si en el archivo de entrada se encuentra esta línea
+Por ejemplo, si en el archivo de entrada se encuentra esta línea
 
 ```feenox
 PROBLEM laplace
@@ -733,26 +770,28 @@ int (*parse_problem)(const char *token);
 ```
 
 apuntaría a la función `feenox_problem_parse_problem_laplace()` declarada en `src/pdes/laplace/methods.h` y definida en `src/pdes/laplace/parser.c`.
-De hecho, esta función es llamada con el parámetro `token` conteniendo cada una de las palabras que está a continuación del nombre del problema que el parse general no entienda.
-Por ejemplo, en
+De hecho, esta función es llamada con el parámetro `token` conteniendo cada una de las palabras que está a continuación del nombre del problema que el parser general no entienda.
+En particular, para la línea
 
 ```feenox 
 PROBLEM neutron_sn DIM 3 GROUPS 2 SN 8
 ```
+lo que sucede es
 
  1. La palabra clave primaria `PROBLEM` es leída (y entendida) por el parser general.
- 2. El argumento `neutron_sn` es leído por el bloque generado por `autogen.sh`. El apuntador `feenox.pde.parse_problem` apunta entonces a `feenox_problem_parse_problem_neutron_sn()`.
- 3. La palabra clave secundaria `DIM` es leída por el parser general. Como es una palabra clave secundaria asociada a la primaria `PROBLEM` y el parser general la entiende, lee el siguiente argumento `3` y sabe que tiene que resolver una ecuación diferencial sobre tres dimensiones espaciales. Esto implica, por ejemplo, saber que las propiedades de los materiales y las soluciones serán funciones de $x$, $y$ y $z$.
+ 2. El argumento `neutron_sn` es leído por el bloque generado por `autogen.sh`. El apuntador a la función global `feenox.pde.parse_problem` apunta entonces a `feenox_problem_parse_problem_neutron_sn()`.
+ 3. La palabra clave secundaria `DIM` es leída por el parser general. Como es una palabra clave secundaria asociada a la primaria `PROBLEM` y el parser general la entiende ya que el framework tiene que saber la dimensión espacial de la ecuación diferencial en derivadas parciales que tiene que resolver. Entonces lee el siguiente argumento `3` y sabe que tiene que resolver una ecuación diferencial sobre tres dimensiones espaciales. Esto implica, por ejemplo, saber que las propiedades de los materiales y las soluciones serán funciones de $x$, $y$ y $z$.
  4. La palabra clave secundaria `GROUPS` es leída por el parser general. Como no es una palabra clave secundaria asociada a la primara `PROBLEM`, entonces se llama a `feenox.pde.parse_problem` (que apunta a `feenox_problem_parse_problem_neutron_sn()`) con el argumento `token` apuntando a `GROUPS`.
  5. Como el parser particular dentro de `src/pdes/neutron_sn` sí entiende que la palabra clave `GROUPS` define la cantidad de grupos de energía, lee el siguiente token `2` y lo entiende como tal.
  6. El control vuelve al parser principal que lee la siguiente palabra clave secundaria `SN`. Como tampoco la entiende, vuelve a llamar al parser particular que entiende que debe utilizar las direcciones y pesos de S$_8$. 
- 7. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)` es una función válida:
+ 7. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)`, `psi1.1(x,y,z)` y `psi8.2(x,y,z)` son expresiones válidas:
  
     ```feenox
     PRINT "keff = " keff
     PRINT " rho = " (1-keff)/keff
+    PRINT psi1.1(0,0,0) psi8.2(0,0,0)
     profile(x) = phi1(x,x,0)
-    PRINT_FUNCTION profile phi1(x,0,0)
+    PRINT_FUNCTION profile phi1(x,0,0) MIN 0 MAX 20 NSTEPS 100
     ```
     
 Dentro de las inicializaciones en tiempo de parseo, cada implementación específica debe resolver el resto de los apuntadores a función que definen los puntos de entrada específicos que el framework principal necesita llamar para 
@@ -780,32 +819,32 @@ Dentro de las inicializaciones en tiempo de parseo, cada implementación especí
      * etc.
 
 ```c
-    // parse
-    int (*parse_problem)(const char *token);
-    int (*parse_write_results)(mesh_write_t *mesh_write, const char *token);
-    int (*parse_bc)(bc_data_t *bc_data, const char *lhs, char *rhs);
-    
-    // init
-    int (*init_before_run)(void);
-    int (*setup_pc)(PC pc);
-    int (*setup_ksp)(KSP ksp);
-    int (*setup_eps)(EPS eps);
-    int (*setup_ts)(TS ksp);
+// parse
+int (*parse_problem)(const char *token);
+int (*parse_write_results)(mesh_write_t *mesh_write, const char *token);
+int (*parse_bc)(bc_data_t *bc_data, const char *lhs, char *rhs);
 
-    // build
-    int (*element_build_volumetric)(element_t *e);
-    int (*element_build_volumetric_at_gauss)(element_t *e, unsigned int q);
-    
-    // solve
-    int (*solve)(void);
-    
-    // post
-    int (*solve_post)(void);
-    int (*gradient_fill)(void);
-    int (*gradient_nodal_properties)(element_t *e, mesh_t *mesh);
-    int (*gradient_alloc_nodal_fluxes)(node_t *node);
-    int (*gradient_add_elemental_contribution_to_node)(node_t *node, element_t *e, unsigned int j, double rel_weight);
-    int (*gradient_fill_fluxes)(mesh_t *mesh, size_t j_global);
+// init
+int (*init_before_run)(void);
+int (*setup_pc)(PC pc);
+int (*setup_ksp)(KSP ksp);
+int (*setup_eps)(EPS eps);
+int (*setup_ts)(TS ksp);
+
+// build
+int (*element_build_volumetric)(element_t *e);
+int (*element_build_volumetric_at_gauss)(element_t *e, unsigned int q);
+
+// solve
+int (*solve)(void);
+
+// post
+int (*solve_post)(void);
+int (*gradient_fill)(void);
+int (*gradient_nodal_properties)(element_t *e, mesh_t *mesh);
+int (*gradient_alloc_nodal_fluxes)(node_t *node);
+int (*gradient_add_elemental_contribution_to_node)(node_t *node, element_t *e, unsigned int j, double rel_weight);
+int (*gradient_fill_fluxes)(mesh_t *mesh, size_t j_global);
 ```
 
 #### Parseo
@@ -918,14 +957,7 @@ dentro de la estructura asociada a la condición de contorno según corresponda 
 Luego de que el parser lee completamente el archivo de entrada, FeenoX ejecuta las instrucciones en el orden adecuado posiblemente siguiendo lazos de control y bucles.
 Al llegar a la instrucción `SOLVE_PROBLEM`, llama al punto de entrada `init_before_run()` donde
 
- 1. Se define el tamaño del problema global como el producto entre la cantidad de nodos en la malla (que ya debe haber sido leida por la instrucción genérica `READ_MESH`) y la cantidad de grados de libertad por coordenada espacial (que fue definida en la primera inicialización) para que el framework pueda alocar las matrices y vectores globales en formato PETSc:
-
-    ```c
-    feenox.pde.spatial_unknowns = feenox.pde.mesh->n_nodes;
-    feenox.pde.size_global = feenox.pde.spatial_unknowns * feenox.pde.;
-    ```
-
- 2. Se leen las expresiones que definen las propiedades de los materiales, que no estaban disponibles en el momento de la primera inicialización después de leer la línea `PROBLEM`. Estas propiedades de materiales en general y las secciones eficaces macroscópicas en particular pueden estar dadas por
+ 1. Se leen las expresiones que definen las propiedades de los materiales, que no estaban disponibles en el momento de la primera inicialización después de leer la línea `PROBLEM`. Estas propiedades de materiales en general y las secciones eficaces macroscópicas en particular pueden estar dadas por
 
      a. variables
      b. funciones del espacio
@@ -934,17 +966,326 @@ Al llegar a la instrucción `SOLVE_PROBLEM`, llama al punto de entrada `init_bef
     En este momento de la ejecución todas las secciones eficaces deben estar definidas con nombres especiales.
     Por ejemplo,
 
-    * $\Sigma_{tg} =$ `"Sigma_t%d"`
-    * $\Sigma_{ag} =$ `"Sigma_a%d"`
-    * $\nu\Sigma_{fg} =$ `"nuSigma_f%d"`
-    * $\Sigma_{s g \rightarrow g^\prime} =$ `"Sigma_s%d.%d"`
-    * $S_g =$ `"S_%d"`
+     * $\Sigma_{tg} =$ `"Sigma_t%d"`
+     * $\Sigma_{ag} =$ `"Sigma_a%d"`
+     * $\nu\Sigma_{fg} =$ `"nuSigma_f%d"`
+     * $\Sigma_{s_0 g \rightarrow g^\prime} =$ `"Sigma_s%d.%d"`
+     * $\Sigma_{s_1 g \rightarrow g^\prime} =$ `"Sigma_s_one%d.%d"`
+     * $S_g =$ `"S%d"`
 
- 2.
+ 2. Dependiendo de si hay fuentes de fisión y/o fuentes independientes se determina si hay que resolver un problema lineal o un problema de autovalores generalizado. En el primer caso se hace
+ 
+    ```c
+    feenox.pde.math_type = math_type_linear;
+    feenox.pde.solve     = feenox_problem_solve_petsc_linear;
+    feenox.pde.has_mass  = 0;
+    feenox.pde.has_rhs   = 1;
+    ```
+    
+    y en el segundo
+    
+    ```c
+    feenox.pde.math_type = math_type_eigen;
+    feenox.pde.solve     = feenox_problem_solve_slepc_eigen;
+    feenox.pde.has_mass  = 1;
+    feenox.pde.has_rhs   = 0;
+    ```
+    
+Luego de esta segunda inicialización, se llama al apuntador `feenox.pde.solve` que para neutrónica es o bien
+
+ a. `feenox_problem_solve_petsc_linear()` que construye $\mat{K}$ y $\vec{b}$ y resuelve $\mat{K} \cdot \vec{u} = \vec{b}$, o
+ b. `feenox_problem_solve_slepc_eigen()` que construye $\mat{K}$ y $\mat{M}$ y resuelve $\mat{K} \cdot \vec{u} = \lambda \cdot \mat{M} \cdot \vec{u}$.
+ 
+Antes de construir y resolver las ecuaciones, se llama a su vez a los apuntadores a función que correspondan 
+ 
+ * `feenox_pde.setup_pc(PC pc)`
+ * `feenox.pde.setup_ksp(KSP kps)`
+ * `feenox.pde.setup_eps(EPS eps)`
+
+donde cada problema particular configura el precondicionador, el solver lineal y el solver de autovalores en caso de que el usuario no haya elegido algoritmos explícitamente en el archivo de entrada.
+Si el operador diferencial es elíptico y simétrico (por ejemplo para conducción de calor o elasticidad lineal) tal vez convenga usar por defecto un solver iterativo basado en gradientes conjugados pre-condicionado con multi-grilla geométrica-algebraica^[Del inglés [_geometric algeraic multi-grid_]{lang=en-US}.] @baker2009. En cambio para un operador hiperbólico no simétrico (por ejemplo S$_N$ multigrupo) es necesario un solver más robusto como LU.
+
 
 #### Construcción
 
-volume & bcs
+Para construir las matrices globales $\mat{K}$ y/o $\mat{M}$ y/o el vector global $\vec{b}$ el framework general hace un loop sobre todos los elementos volumétricos (locales a cada proceso) y, para cada uno de ellos, primero llama al punto de entrada `feenox.pde.element_build_volumetric()` que toma un apuntador al elemento como único argumento.
+Cada elemento es una estructura tipo `element_t` definida en `feenox.h` como
+
+```c
+struct element_t {
+  size_t index;
+  size_t tag;
+  
+  double quality;
+  double volume;
+  double area;
+  double size;
+  double gradient_weight;   // this weight is used to average the contribution of this element to nodal gradients
+  double *w;                // weights of the gauss points time determinant of the jacobian
+  double **x;               // coordinates fo the gauss points 
+  double *normal;           // outward normal direction (only for 2d elements)
+  
+  // matrix with the coordinates (to compute the jacobian)
+  gsl_matrix *C;
+  
+  element_type_t *type;                  // pointer to the element type
+  physical_group_t *physical_group;      // pointer to the physical group this element belongs to
+  node_t **node;                         // pointer to the nodes, node[j] points to the j-th local node
+  cell_t *cell;                          // pointer to the associated cell (only for FVM)
+};
+```
+
+Luego el framework general hace un sub-bucle sobre el índice $q$ de los puntos de Gauss y llama a `feenox.pde.element_build_volumetric_at_gauss()` que toma el apuntador al elemento y el índice $q$ como argumentos:
+
+
+```c
+// if the specific pde wants, it can loop over gauss point in the call
+// or it can just do some things that are per-element only and then loop below
+if (feenox.pde.element_build_volumetric) {
+  feenox_call(feenox.pde.element_build_volumetric(this));
+}
+
+// or, if there's an entry point for gauss points, then we do the loop here
+if (feenox.pde.element_build_volumetric_at_gauss != NULL) {
+  int Q = this->type->gauss[feenox.pde.mesh->integration].Q;
+  for (unsigned int q = 0; q < Q; q++) {
+    feenox_call(feenox.pde.element_build_volumetric_at_gauss(this, q));
+  }
+}
+```
+
+Estos dos métodos son responsables de devolver los objetos elementales volumétricos $\mat{K}_i$, $\mat{M}_i$ como matrices densas en formato de la GNU Scientific Library `gsl_matrix` y el vector elemental $\vec{b}_i$ como `gsl_vector` almacenados en los apuntadores globales dentro de la estructura `feenox.fem`:
+
+```c
+// elemental (local) objects
+gsl_matrix *Ki;               // elementary stiffness matrix
+gsl_matrix *Mi;               // elementary mass matrix
+gsl_matrix *JKi;              // elementary jacobian for stiffness matrix
+gsl_matrix *Jbi;              // elementary jacobian for RHS vector
+gsl_vector *bi;               // elementary right-hand side vector
+```
+
+::: {.remark}
+Las matrices jacobianas son necesarias para problemas no lineales resueltos con SNES.
+:::
+
+Para el caso de difusión de neutrones, las dos funciones que construyen los objetos elementales son
+
+```c
+int feenox_problem_build_volumetric_neutron_diffusion(element_t *e) {
+  if (neutron_diffusion.space_XS == 0) {
+    feenox_call(feenox_problem_neutron_diffusion_eval_XS(feenox_fem_get_material(e), NULL));
+  }
+  return FEENOX_OK;
+}
+
+int feenox_problem_build_volumetric_gauss_point_neutron_diffusion(element_t *e, unsigned int q) {
+  if (neutron_diffusion.space_XS != 0) {
+    double *x = feenox_fem_compute_x_at_gauss(e, q, feenox.pde.mesh->integration);
+    feenox_call(feenox_problem_neutron_diffusion_eval_XS(feenox_fem_get_material(e), x));
+  }
+
+  // elemental stiffness for the diffusion term B'*D*B
+  double wdet = feenox_fem_compute_w_det_at_gauss(e, q, feenox.pde.mesh->integration);
+  gsl_matrix *B = feenox_fem_compute_B_G_at_gauss(e, q, feenox.pde.mesh->integration);
+  feenox_call(feenox_blas_BtCB(B, neutron_diffusion.D_G, neutron_diffusion.DB, wdet, neutron_diffusion.Li));
+
+  // elemental scattering H'*A*H
+  gsl_matrix *H = feenox_fem_compute_H_Gc_at_gauss(e, q, feenox.pde.mesh->integration);
+  feenox_call(feenox_blas_BtCB(H, neutron_diffusion.R, neutron_diffusion.RH, wdet, neutron_diffusion.Ai));
+  
+  // elemental fission matrix
+  if (neutron_diffusion.has_fission) {
+    feenox_call(feenox_blas_BtCB(H, neutron_diffusion.X, neutron_diffusion.XH, wdet, neutron_diffusion.Fi));
+  }
+  
+  if (neutron_diffusion.has_sources) {
+    feenox_call(feenox_blas_Atb_accum(H, neutron_diffusion.s, wdet, feenox.fem.bi));
+  }
+  
+  // for source-driven problems
+  //   Ki = Li + Ai - Xi
+  // for criticallity problems
+  //   Ki = Li + Ai
+  //   Mi = Xi
+  feenox_call(gsl_matrix_add(neutron_diffusion.Li, neutron_diffusion.Ai));
+  if (neutron_diffusion.has_fission) {
+    if (neutron_diffusion.has_sources) {
+      feenox_call(gsl_matrix_scale(neutron_diffusion.Fi, -1.0));
+      feenox_call(gsl_matrix_add(neutron_diffusion.Li, neutron_diffusion.Fi));
+    } else {
+      feenox_call(gsl_matrix_add(feenox.fem.Mi, neutron_diffusion.Fi));
+    }  
+  }
+  feenox_call(gsl_matrix_add(feenox.fem.Ki, neutron_diffusion.Li));
+  
+  return FEENOX_OK;
+}
+```
+
+Luego de hacer el bucle sobre cada punto de Gauss $q$ de cada elemento volumétrico $e_i$, el framework general se encarga de ensamblar los objetos globales $\mat{K}$, $\mat{M}$ y/o $\vec{b}$ en formato PETSc a partir de los objetos locales $\mat{K}_i$, $\mat{M}_i$ y/o $\vec{b}_i$ en formato GSL.
+En forma análoga, el framework hace un bucle sobre los elementos superficiales que contienen condiciones de borde naturales y llama al apuntador a función `set_natural()` que toma como argumentos
+
+ 1. un apuntador a una estructura `bc_data_t` definida como
+ 
+    ```c
+    struct bc_data_t {
+      char *string;
+    
+      enum {
+        bc_type_math_undefined,
+        bc_type_math_dirichlet,
+        bc_type_math_neumann,
+        bc_type_math_robin,
+        bc_type_math_multifreedom
+      } type_math;
+      
+      int type_phys;     // problem-based flag that tells which type of BC this is
+      
+      // boolean flags
+      int space_dependent;
+      int nonlinear;
+      int disabled;
+      int fills_matrix;
+      
+      unsigned int dof;  // -1 means "all" dofs
+      expr_t expr;
+      expr_t condition;  // if it is not null the BC only applies if this evaluates to non-zero
+      
+      int (*set_essential)(bc_data_t *, element_t *, size_t j_global);
+      int (*set_natural)(bc_data_t *, element_t *, unsigned int q);
+      
+      bc_data_t *prev, *next;   // doubly-linked list in ech bc_t
+    };    
+    ```
+    
+    que es "rellenada" por el parser específico de condiciones de contorno,
+    
+ 2. un apuntador al elemento
+ 3. el índice $q$ del punto de Gauss
+
+
+Por ejemplo, la condición de contorno natural tipo `vacuum` de difusión de neutrones es
+
+```c
+int feenox_problem_bc_set_neutron_diffusion_vacuum(bc_data_t *this, element_t *e, unsigned int q) {
+
+  feenox_fem_compute_x_at_gauss_if_needed_and_update_var(e, q, feenox.pde.mesh->integration, this->space_dependent);
+  double coeff = (this->expr.items != NULL) ? feenox_expression_eval(&this->expr) : 0.5;
+  
+  double wdet = feenox_fem_compute_w_det_at_gauss(e, q, feenox.pde.mesh->integration);
+  gsl_matrix *H = feenox_fem_compute_H_Gc_at_gauss(e, q, feenox.pde.mesh->integration);
+  feenox_call(feenox_blas_BtB_accum(H, wdet*coeff, feenox.fem.Ki));
+  
+  return FEENOX_OK;
+}
+```
+
+::: {.remark}
+La condición de contorno tipo `mirror` en difusión, tal como en la ecuación de Laplace o en conducción de calor, consiste en "no hacer nada".
+:::
+
+Las condiciones de contorno esenciales se ponen en el problema luego de haber ensamblado la matriz global $\mat{A}$ y transformarla en la matriz de rigidez $\mat{K}$ según el procedimiento discutido en la @sec-fem.
+Para ello debemos hacer un bucle sobre los nodos, bien con el \ref{alg:poisson-dirichlet1} o con el \ref{alg:poisson-dirichlet2}, y poner un uno en la diagonal de la matriz de rigidez y el valor de la condición de contorno en el nodo en el vector del miembro derecho, en la fila correspondiente al grado de libertad global.
+
+::: {.remark}
+En un problema de autovalores, sólo es posible poner condiciones de contorno homogéneas.
+En este caso, se pone un uno en la diagonal de $\mat{K}$ y un cero en la diagonal de $\mat{M}$.
+:::
+
+La forma de implementar esto en FeenoX para una PDE arbitraria es que para cada nodo que contiene una condición de Dirichlet, el framework llama al apuntador a función `set_essential()` que toma como argumentos
+
+ 1. un apuntador a la estructura `bc_data_t`
+ 2. un apuntador al elemento (estructura `element_t`)
+ 3. el índice $j$ global del nodo
+ 
+Para difusión, la condición `null` se implementa sencillamente como
+
+```c
+int feenox_problem_bc_set_neutron_diffusion_null(bc_data_t *this, element_t *e, size_t j_global) {
+  for (unsigned int g = 0; g < feenox.pde.dofs; g++) {
+    feenox_call(feenox_problem_dirichlet_add(feenox.pde.mesh->node[j_global].index_dof[g], 0));
+  }
+  return FEENOX_OK;
+}
+```
+
+En S$_N$, la condición `vacuum` es ligeramente más compleja ya que debemos verificar que la dirección sea entrante:
+
+```c
+int feenox_problem_bc_set_neutron_sn_vacuum(bc_data_t *this, element_t *e, size_t j_global) {
+
+  double outward_normal[3];
+  feenox_call(feenox_mesh_compute_outward_normal(e, outward_normal));
+  for (unsigned m = 0; m < neutron_sn.directions; m++) {
+    if (feenox_mesh_dot(neutron_sn.Omega[m], outward_normal) < 0) {
+      // if the direction is inward set it to zero
+      for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+        feenox_call(feenox_problem_dirichlet_add(feenox.pde.mesh->node[j_global].index_dof[sn_dof_index(m,g)], 0));
+      }
+    }
+  }
+  
+  return FEENOX_OK;
+}
+```
+
+La condición de contorno `mirror` es más compleja aún porque implica condiciones multi-libertad^[Del inglés [_multi-freedom_]{lang=en-US}.], que deben ser puestas en la matriz de rigidez usando
+
+ 1. Eliminación directa
+ 2. Método de penalidad
+ 3. Multiplicadores de Lagrange
+
+En su versión actual, FeenoX utiliza el método de penalidad @felippa. El framework provee una llamada genérica `feenox_problem_multifreedom_add()` donde las rutinas particulares deben "registrar" sus condiciones multi-libertad:
+
+```c
+int feenox_problem_bc_set_neutron_sn_mirror(bc_data_t *this, element_t *e, size_t j_global) {
+  
+  double outward_normal[3];
+  double reflected[3];
+  double Omega_dot_outward = 0;
+  double eps = feenox_var_value(feenox.mesh.vars.eps);
+  
+  feenox_call(feenox_mesh_compute_outward_normal(e, outward_normal));
+  for (unsigned m = 0; m < neutron_sn.directions; m++) {
+    if ((Omega_dot_outward = feenox_mesh_dot(neutron_sn.Omega[m], outward_normal)) < 0) {
+      // if the direction is inward then we have to reflect it
+      // if Omega is the incident direction with respect to the outward normal then
+      // reflected = Omega - 2*(Omega dot outward_normal) * outward_normal
+      for (int d = 0; d < 3; d++) {
+        reflected[d] = neutron_sn.Omega[m][d] - 2*Omega_dot_outward * outward_normal[d];
+      }
+
+      unsigned int m_prime = 0;
+      for (m_prime = 0; m_prime < neutron_sn.directions; m_prime++) {
+        if (fabs(reflected[0] - neutron_sn.Omega[m_prime][0]) < eps &&
+            fabs(reflected[1] - neutron_sn.Omega[m_prime][1]) < eps &&
+            fabs(reflected[2] - neutron_sn.Omega[m_prime][2]) < eps) {
+          break;
+        }
+      }
+      
+      if (m_prime == neutron_sn.directions) {
+        feenox_push_error_message("cannot find a reflected direction for m=%d (out of %d in S%d) for node %d", m, neutron_sn.directions, neutron_sn.N, feenox.pde.mesh->node[j_global].tag);
+        return FEENOX_ERROR;
+      }
+      
+      double *coefficients = NULL;
+      feenox_check_alloc(coefficients = calloc(feenox.pde.dofs, sizeof(double)));
+      
+      for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+        coefficients[sn_dof_index(m,g)] = -1;
+        coefficients[sn_dof_index(m_prime,g)] = +1;
+      }
+      feenox_call(feenox_problem_multifreedom_add(j_global, coefficients));
+      feenox_free(coefficients);
+    }
+  }
+      
+  return FEENOX_OK;
+}
+
+```
 
 #### Solución
 
@@ -963,7 +1304,7 @@ pemdas
 
 **TODO** comparar con soluciones analíticas dadas por sumas infinitas, ver thermal_slab_transient.fee
 
-### Evaluación de funciones 
+### Evaluación de funciones  {#sec-funciones}
 
 #### Una dimensión
 

@@ -1,25 +1,33 @@
-\definecolor{was_keyword1}{rgb}{0.0,0.0,0.4}
+\definecolor{was_keyword1}{rgb}{0.0,0.4,0.1}
 \definecolor{was_keyword2}{rgb}{0.0,0.2,0.0}
 \definecolor{was_variable}{rgb}{0.5,0.2,0.2}
-\definecolor{was_function}{rgb}{0.2,0.5,0.2}
+\definecolor{was_function}{rgb}{0.2,0.2,0.5}
 \definecolor{was_comment}{rgb}{0.5,0.5,0.5}
 
-\definecolor{bash_keyword1}{rgb}{0.2,0.2,0.2}
-\definecolor{bash_keyword2}{rgb}{0.7,0.7,0.7}
+\definecolor{c_keyword1}{rgb}{0.0,0.1,0.4}
+\definecolor{c_keyword2}{rgb}{0.0,0.1,0.2}
+\definecolor{c_variable}{rgb}{0.5,0.2,0.2}
+\definecolor{c_function}{rgb}{0.2,0.2,0.5}
+\definecolor{c_comment}{rgb}{0.5,0.5,0.5}
+\definecolor{c_fondo}{rgb}{0.98,0.98,0.98}
+
+\definecolor{bash_keyword1}{rgb}{0.2,0.2,0.4}
+\definecolor{bash_keyword2}{rgb}{0.4,0.7,0.4}
 \definecolor{bash_comment}{rgb}{0.5,0.5,0.5}
 
 \definecolor{python_keyword2}{rgb}{0.5,0.2,0.8}
 
-\definecolor{was_fondo}{rgb}{0.95,0.95,0.90}
+\definecolor{was_fondo}{rgb}{0.95,0.95,0.92}
 \definecolor{fino_fondo}{rgb}{0.90,0.95,0.90}
-\definecolor{gmsh_fondo}{rgb}{0.90,0.90,0.95}
-\definecolor{terminal_fondo}{rgb}{0.2,0.2,0.2}
+\definecolor{gmsh_fondo}{rgb}{0.92,0.92,0.95}
 \definecolor{awk_fondo}{rgb}{0.95,0.90,0.95}
 \definecolor{bash_fondo}{rgb}{0.90,0.90,0.90}
 
-\definecolor{terminal_fore}{rgb}{1.0,1.0,1.0}
+\definecolor{terminal_fondo}{rgb}{0.99,0.99,0.99}
+\definecolor{terminal_fore}{rgb}{0,0,0}
 
 
+\lstset{frameshape={RYR}{Y}{Y}{RYR}}
 \newcommand{\MyHookSign}{\hbox{\ensuremath{\hookleftarrow}}}
 
 % default
@@ -28,8 +36,8 @@
   backgroundcolor=\color{bash_fondo},
   breaklines=true,
   prebreak={\space\MyHookSign},
-  xleftmargin=0.2cm,
-  xrightmargin=0.2cm,
+  xleftmargin=0.3cm,
+  xrightmargin=0.3cm,
   framesep=0.2cm,
   frame=single,
 }
@@ -52,10 +60,11 @@
   captionpos=b,
 %   numbers=left,
 %   stepnumber=5,
-  xleftmargin=0.2cm,
+  xleftmargin=0.3cm,
   xrightmargin=0.4cm,
-  framesep=0.1cm,
+  framesep=0.2cm,
   frame=single,
+  frameround=tttt,
 }
 
 
@@ -74,8 +83,8 @@
   captionpos=b,
 %   numbers=left,
 %   stepnumber=5,
-  xleftmargin=0.2cm,
-  xrightmargin=0.2cm,
+  xleftmargin=0.3cm,
+  xrightmargin=0.3cm,
   framesep=0.2cm,
   frame=single,
 }
@@ -87,8 +96,8 @@
   backgroundcolor=\color{terminal_fondo},
   breaklines=true,
   prebreak={\space\MyHookSign},
-  xleftmargin=0.2cm,
-  xrightmargin=0.2cm,
+  xleftmargin=0.3cm,
+  xrightmargin=0.3cm,
   framesep=0.2cm,
   frame=single,
 }
@@ -96,12 +105,12 @@
 \lstdefinestyle{c}{
   language=C,
   basicstyle=\ttfamily\footnotesize,                                
-  commentstyle={\color{was_comment}\normalfont\textit},     
-  keywordstyle=[1]{\color{was_keyword1}\ttfamily\textbf},   
-  keywordstyle=[2]{\color{was_keyword2}\ttfamily\textbf},   
-  keywordstyle=[3]{\color{was_variable}\textit},            
-  keywordstyle=[4]{\color{was_function}\textbf},            
-  backgroundcolor=\color{gmsh_fondo},                       
+  commentstyle={\color{c_comment}\normalfont\textit},     
+  keywordstyle=[1]{\color{c_keyword1}\ttfamily\textbf},   
+  keywordstyle=[2]{\color{c_keyword2}\ttfamily\textbf},   
+  keywordstyle=[3]{\color{c_variable}\textit},            
+  keywordstyle=[4]{\color{c_function}\textbf},            
+  backgroundcolor=\color{c_fondo},                       
   showstringspaces=true,                                    
   breaklines=true,                                          
   breakatwhitespace=true,                                   
@@ -110,59 +119,21 @@
   captionpos=b,
 %   numbers=left,
 %   stepnumber=5,
-  xleftmargin=0.2cm,                                        
+  xleftmargin=0.4cm,
   xrightmargin=0.4cm,                                       
-  framesep=0.1cm,                                           
+  framesep=0.2cm,                                           
   frame=single,                                             
-}
-
-\lstdefinestyle{cpp}{
-  language=C++,
-  basicstyle=\ttfamily\footnotesize,                                
-  commentstyle={\color{was_comment}\normalfont\textit},     
-  keywordstyle=[1]{\color{was_keyword1}\ttfamily\textbf},   
-  keywordstyle=[2]{\color{was_keyword2}\ttfamily\textbf},   
-  keywordstyle=[3]{\color{was_variable}\textit},            
-  keywordstyle=[4]{\color{was_function}\textbf},            
-  backgroundcolor=\color{gmsh_fondo},                       
-  showstringspaces=true,                                    
-  breaklines=true,                                          
-  breakatwhitespace=true,                                   
-  prebreak={\space\MyHookSign},                             
-  lineskip=-1pt,                                            
-  captionpos=b,
-%   numbers=left,
-%   stepnumber=5,
-  xleftmargin=0.2cm,                                        
-  xrightmargin=0.4cm,                                       
-  framesep=0.1cm,                                           
-  frame=single,                                             
+  frameround=tttt,
 }
 
 
-
-
-\lstdefinestyle{awk}{
-  language=awk,
-  basicstyle=\ttfamily\footnotesize,                                
-  commentstyle={\color{was_comment}\normalfont\textit},     
-  keywordstyle=[1]{\color{was_keyword1}\ttfamily\textbf},   
-  keywordstyle=[2]{\color{was_keyword2}\ttfamily\textbf},   
-  keywordstyle=[3]{\color{was_variable}\textit},            
-  keywordstyle=[4]{\color{was_function}\textbf},            
-  backgroundcolor=\color{awk_fondo},                       
-  showstringspaces=true,                                    
-  breaklines=true,                                          
-  breakatwhitespace=true,                                   
-  prebreak={\space\MyHookSign},                             
-  lineskip=-1pt,                                            
-  captionpos=b,
-%   numbers=left,
-%   stepnumber=5,
-  xleftmargin=0.2cm,                                        
-  xrightmargin=0.4cm,                                       
-  framesep=0.1cm,                                           
-  frame=single,                                             
+\lstdefinestyle{sn}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=,
+  xleftmargin=0cm,
+  xrightmargin=0cm,
+  framesep=0cm,
+  frame=none,
 }
 
 \lstdefinestyle{python}{
@@ -184,14 +155,4 @@
   xrightmargin=0.1cm,
   framesep=0.1cm,
   frame=single,
-}
-
-
-\lstdefinestyle{sn}{
-  basicstyle=\ttfamily\footnotesize,
-  backgroundcolor=,
-  xleftmargin=0cm,
-  xrightmargin=0cm,
-  framesep=0cm,
-  frame=none,
 }
