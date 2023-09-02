@@ -1,0 +1,16 @@
+PROBLEM neutron_diffusion 3D GROUPS 2
+READ_MESH phwr.msh
+
+MATERIAL fuel      D1=1.5 D2=0.4 Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.08  nuSigma_f2=0.135
+MATERIAL rod       D1=2.0 D2=0.3 Sigma_s1.2=0.04 Sigma_a1=0.02 Sigma_a2=0.12  nuSigma_f2=0
+MATERIAL moderator D1=2.0 D2=0.3 Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.01  nuSigma_f2=0
+MATERIAL guide     D1=2.0 D2=0.3 Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.04  nuSigma_f2=0
+  
+BC vacuum   vacuum=0.4692
+
+SOLVE_PROBLEM
+
+PRINT keff
+WRITE_RESULTS FORMAT vtk
+
+PRINT total_dofs wall_time() memory()
