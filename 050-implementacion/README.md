@@ -83,7 +83,7 @@ Si bien es cierto que en teoría un algoritmo implementado en un lenguaje Turing
 
 ::: {.remark}
 Este esquema de definir primero los requerimientos y luego indicar cómo se los satisface evita un sesgo común dentro de las empresas de software que implica hacer algo "fácil para el desarrollador" a costa de que el usuario tengo que hacer algo "más difícil".
-Por ejemplo en la mayoría de los programas de elementos finitos para elasticidad lineal es necesario hacer un mapeo entre los grupos de elementos volumétricos y los materiales disponibles, tarea que tiene sentido siempre que haya más de un grupo de elementos volumétricos o más de un material disponible. Pero en los casos donde hay un único grupo de elementos volumétricos (usualmente porque se parte de un CAD con un único volumen) y un único juego de propiedades materiales (digamos un único valor $E$ de módulo de Young y un único $\nu$ para coeficiente de Poisson), el software requiere que el usuario tenga que hacer explícitamente el mapeo aún cuando éste es trivial. Un claro de ejemplo del sesgo "developer-easy/user-hard" que FeenoX no tiene.
+Por ejemplo en la mayoría de los programas de elementos finitos para elasticidad lineal es necesario hacer un mapeo entre los grupos de elementos volumétricos y los materiales disponibles, tarea que tiene sentido siempre que haya más de un grupo de elementos volumétricos o más de un material disponible. Pero en los casos donde hay un único grupo de elementos volumétricos (usualmente porque se parte de un CAD con un único volumen) y un único juego de propiedades materiales (digamos un único valor $E$ de módulo de Young y un único $\nu$ para coeficiente de Poisson), el software requiere que el usuario tenga que hacer explícitamente el mapeo aún cuando éste es trivial. Un claro de ejemplo del sesgo "[developer-easy/user-hard]{lang=en-US}" que FeenoX no tiene, ya que el SRS pide que "problemas sencillos tengan [inputs]{lang=en-US} sencillos".
 :::
 
 Según el pliego, es mandatorio que el software desarrollado sea de código abierto según la definición de la _Open Source Initiative_.
@@ -112,7 +112,7 @@ Por otro lado, en este capítulo nos centramos en la implementación, tratando d
 En lo que resta del capítulo comentamos muy superficialmente las ideas distintivas que tiene FeenoX con respecto a otros programas de elementos finitos desde el punto de vista técnico de programación. Estas características son distintivas y no son comunes. En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} del software con respecto a otras herramientas similares.
 
 ::: {.remark}
-El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/>.
+El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/> bajo licencia GPLv3+.
 Consiste en aproximadamente cuarenta y cinco mil líneas de código.
 :::
 
@@ -159,6 +159,9 @@ En este sentido, nuestra herramienta se tiene que enfocar en el punto 1.
 Pero tenemos que definir quién va a hacer el punto 2 para que sepamos cómo es que tenemos que construir $\mat{K}$ y $\vec{b}$.
 
 Las bibliotecas PETSc [@petsc-user-ref;@petsc-efficient] junto con la extensión SLEPc [@slepc-manual;@slepc-toms] proveen exactamente lo que necesita una herramienta que satisfaga el SRS siguiendo la filosofía de diseño del SDS.
+De hecho, en 2010 seleccioné PETSc para la segunda versión del solver neutrónico por la única razón de que era una dependencia necesaria para resolver el problema de criticidad con SLEPc [@milongabase2010, milongaiaea2011].
+Con el tiempo, resultó que PETSc proveía el resto de las herramientas necesarias para resolver numéricamente ecuaciones en derivadas parciales en forma portable y extensible.
+
 Otra vez desde el punto de vista de la filosofía de programación Unix, la tarea 1 consiste en un cemento de contacto^[En el sentido del inglés [_glue layer_]{lang=en-US}.] entre la definición del problema a resolver por parte del ingeniero usuario y la biblioteca matemática para resolver problemas ralos^[Del inglés [_sparse_]{lang=en-US}.] PETSc. 
 Cabe preguntarnos entonces cuál es el lenguaje de programación adecuado para implementar el diseño del SDS.
 Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son convenientes.
@@ -1221,7 +1224,9 @@ int feenox_problem_bc_set_neutron_sn_vacuum(bc_data_t *this, element_t *e, size_
     if (feenox_mesh_dot(neutron_sn.Omega[m], outward_normal) < 0) {
       // if the direction is inward set it to zero
       for (unsigned int g = 0; g < neutron_sn.groups; g++) {
-        feenox_call(feenox_problem_dirichlet_add(feenox.pde.mesh->node[j_global].index_dof[sn_dof_index(m,g)], 0));
+        feenox_call(feenox_problem_dirichlet_add(
+         feenox.pde.mesh->node[j_global].index_dof[sn_dof_index(m,g)], 0)
+        );
       }
     }
   }
@@ -1289,10 +1294,110 @@ int feenox_problem_bc_set_neutron_sn_mirror(bc_data_t *this, element_t *e, size_
 
 #### Solución
 
+Una vez construidos los objetos globales $\mat{K}$ y/o $\mat{M}$ y/o $\vec{b}$, el framework llama a `feenox.pde.solve()` que puede apuntar a 
+
+ #. `feenox_problem_solve_petsc_linear()`
+ #. `feenox_problem_solve_petsc_nonlinear()`
+ #. `feenox_problem_solve_slepc_eigen()`
+ #. `feenox_problem_solve_petsc_transient()`
+ 
+según el inicializador particular de la PDE haya elegido.
+Por ejemplo, si la variable `end_time` es diferente de cero, entonces en `thermal` se llama a `trasient()`.
+De otra manera, si la conductividad $k$ depende de la temperatura $T$, se llama a `nonlinear()` y si no depende de $T$, se llama a `linear()`.
+En el caso de neutrónica, tanto difusión como S$_N$, la lógica depende de si existen fuentes independientes o no:
+
+```c
+feenox.pde.math_type = neutron_diffusion.has_sources ? math_type_linear : math_type_eigen;
+feenox.pde.solve     = neutron_diffusion.has_sources ? feenox_problem_solve_petsc_linear : feenox_problem_solve_slepc_eigen;
+  
+feenox.pde.has_stiffness = 1;
+feenox.pde.has_mass = !neutron_diffusion.has_sources;
+feenox.pde.has_rhs  =  neutron_diffusion.has_sources;
+```
+
+
 #### Post-procesamiento
 
+Luego de resolver el problema discretizado y encontrar el vector global solución $\vec{u}$, debemos dejar disponibles la solución para que las instrucciones que siguen a `SOLVE_PROBLEM` tales como `PRINT` o `WRITE_RESULTS` puedan operar sobre ellas.
 
 
+::: {#def-campos-principales}
+
+# campos principales
+
+Las funciones del espacio que son solución de la ecuación a resolver y cuyos valores nodales provienen de los elementos del vector solución $\vec{u}$ se llaman _campos principales_.
+:::
+
+
+::: {#def-campos-secundarios}
+
+# campos secundarios
+
+Las funciones del espacio que dan información sobre la solución del problema cuyos valores nodales provienen de operar algebraica, diferencial o integralmente sobre el vector solución $\vec{u}$ se llaman _campos secundarios_.
+:::
+
+
+ Problema                       |  Campo principal    |  Campos secundarios
+--------------------------------|---------------------|----------------------------------
+Conducción de calor             |  Temperatura        |  Flujos de calor
+Elasticidad (formulación $u$)   |  Desplazamientos    |  Tensiones y deformaciones
+Difusión de neutrones           |  Flujos escalares   |  Corrientes
+Ordenadas discretas             |  Flujos angulares   |  Flujos escalares y corrientes
+
+: Campos principales y secundarios. {#tbl-campos}
+
+
+La @tbl-campos lista los campos principales y secundarios de algunos tipos de problemas físicos.
+Los campos principales son "rellenados" por el framework general mientras que los campos secundarios necesitan más puntos de entrada específicos para poder ser definidos.
+
+En efecto, el framework sabe cómo "rellenar" las funciones solución a partir de $\vec{u}$ mediante los índices que mapean los grados de libertad de cada nodo espacial con los índices globales. En efecto, como ya vimos, cada inicializador debe "registrar" la cantidad y el nombre de las soluciones según la cantidad de grados de libertad por nodo dado en `feenox.pde.dofs`.
+
+Por ejemplo, para un problema escalar como `thermal`, hay un único grado de libertad por nodo por lo que debe haber una única función solución de la ecuación que el inicializador "registró" en el framework como
+
+```c
+// thermal is a scalar problem
+feenox.pde.dofs = 1;
+feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
+feenox_check_alloc(feenox.pde.unknown_name[0] = strdup("T"));
+```
+
+En difusión de neutrones, la cantidad de grados de libertad por nodo es la cantidad $G$ de grupos de energía, leído por el parser específico en la palabra clave `GROUPS`. Las funciones solución son `phi1`, `phi2`, etc:
+
+```c
+// default is 1 group
+if (neutron_diffusion.groups == 0) {
+  neutron_diffusion.groups = 1;
+}
+// dofs = number of groups
+feenox.pde.dofs = neutron_diffusion.groups;
+  
+feenox_check_alloc(feenox.pde.unknown_name = calloc(neutron_diffusion.groups, sizeof(char *)));
+for (unsigned int g = 0; g < neutron_diffusion.groups; g++) {
+  feenox_check_minusone(asprintf(&feenox.pde.unknown_name[g], "phi%u", g+1));
+}
+```
+
+En S$_N$, es el producto entre $M$ y $G$. Las funciones son `psi1.1`, `psi1.2`, etc. donde el primer índice es $m$ y el segundo es $g$:
+
+```c
+// dofs = number of directions * number of groups
+feenox.pde.dofs =  neutron_sn.directions * neutron_sn.groups;
+  
+// the angular fluxes psi
+feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
+for (unsigned int m = 0; m < neutron_sn.directions; m++) {
+  for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+    asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%d.%d", m+1, g+1);
+  }
+}
+
+```
+
+
+
+**TODO** flujos escalares  y corrientes en Sn
+
+**TODO** corrientes en difusión
 
 
 ## Algoritmos auxiliares
@@ -1317,7 +1422,7 @@ k-dimensional trees
 non-conformal mesh mapping
 
 
-### Campos secundarios
+### Campos secundarios diferenciales
 
 stress recovery
 
