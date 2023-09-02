@@ -57,7 +57,7 @@ Coherence;
 
 Mesh.Algorithm = 6;
 Mesh.Algorithm3D = 10;
-Mesh.ElementOrder = 2;
+Mesh.ElementOrder = 1;
 Mesh.HighOrderOptimize = 4;
 
 Mesh.MeshSizeMin = 0.25*r_rod;
@@ -70,4 +70,4 @@ Physical Volume("rod", 2) = {24, 19, 10, 25, 18, 13, 26, 20, 16};
 Physical Volume("guide", 3) = {21, 23, 22};
 Physical Volume("moderator", 4) = {17};
 
-Physical Surface("vacuum", 5) = {13, 22, 23, 24, 51, 50, 47, 46, 49, 48};
+Physical Surface("vacuum", 5) = {22, 23, 24, 51, 50, 47, 46, 49, 48};

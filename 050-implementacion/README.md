@@ -1323,7 +1323,7 @@ Luego de resolver el problema discretizado y encontrar el vector global solució
 
 ::: {#def-campos-principales}
 
-# campos principales
+## campos principales
 
 Las funciones del espacio que son solución de la ecuación a resolver y cuyos valores nodales provienen de los elementos del vector solución $\vec{u}$ se llaman _campos principales_.
 :::
@@ -1331,7 +1331,7 @@ Las funciones del espacio que son solución de la ecuación a resolver y cuyos v
 
 ::: {#def-campos-secundarios}
 
-# campos secundarios
+## campos secundarios
 
 Las funciones del espacio que dan información sobre la solución del problema cuyos valores nodales provienen de operar algebraica, diferencial o integralmente sobre el vector solución $\vec{u}$ se llaman _campos secundarios_.
 :::
@@ -1402,20 +1402,319 @@ for (unsigned int m = 0; m < neutron_sn.directions; m++) {
 
 ## Algoritmos auxiliares
 
+
+
 ### Expresiones algebraicas {#sec-pemdas}
 
-pemdas
+Una característica distintiva de FeenoX es que en cada lugar del archivo de entrada donde se espere un valor numérico, desde la cantidad de grupos de energía después de la palabra clave `GROUPS` hasta las propiedades de los materiales, es posible escribir una expresión algebraica. Por ejemplo
 
+```feenox
+PROBLEM neutron_diffusion DIMENSIONS 1+2 GROUPS sqrt(4)
+MATERIAL fuel nuSigma_f1=1+T(x,y,z)  nuSigma_f2=10-1e-2*(T(x,y,z)-T0)^2
+```
 
-**TODO** comparar con soluciones analíticas dadas por sumas infinitas, ver thermal_slab_transient.fee
+Esto obedece a una de las primeras decisiones de diseño del código:
+
+> Todo es una expresión. No hay constantes.
+
+La explicación se basa en la historia misma de por qué en algún momento de mi vida profesional es que decidí escribir la primera versión de este código, cuya tercera implementación es FeenoX @sec-history.
+Luego de la tesis de grado @theler2007 y de la de maestría @theler2008, en el año 2009 busqué en StackOverflow cómo implementar un parser PEMDAS ([_Parenthesis Exponents Multiplication Division Addition Subtraction_]{lang=en-US}) en C.
+Esa primera implementación solamente soportaba constantes numéricas, por lo que luego agregué la posibilidad de incorporar variables y funciones matemáticas estándar (trigonométricas, exponenciales, etc.) cuyos argumentos son, a su vez, expresiones algebraicas. Finalmente funciones definidas por el usuario (@sec-funciones) e incluso funcionales que devuelven un número real a partir de una expresión (implementadas con la GNU Scientific Library) como por ejemplo
+
+ * derivación
+ 
+   ```feenox
+   VAR t'
+   f'(t) = derivative(f(t'),t',t)
+   ```
+ 
+ * integración
+ 
+   ```feenox
+   # this integral is equal to 22/7-pi
+   piapprox = 22/7-integral((x^4*(1-x)^4)/(1+x^2), x, 0, 1)
+   ```
+   
+ * sumatoria
+ 
+   ```feenox
+   # the abraham sharp sum (twenty-one terms)
+   piapprox = sum(2*(-1)^i * 3^(1/2-i)/(2*i+1), i, 0, 20)
+   ```
+ 
+ * búsqueda de extremos en un dimensión
+ 
+   ```feenox
+   PRINT %.7f func_min(cos(x)+1,x,0,6)
+   ```
+ 
+ * búsqueda de raíces en una dimensión
+ 
+   ```feenox
+   VECTOR kl[5]
+   kl[i] = root(cosh(t)*cos(t)+1, t, 3*i-2,3*i+1)
+   ```
+
+La forma en la que FeenoX maneja expresiones es la siguiente:
+
+ 1. El parser toma una cadena de caracteres y la analiza (_parsea_) para generar un árbol de sintaxis abstracto^[Del inglés [_abstract syntax tree_]{lang=en-US}.] que consiste en una estructura `expr_t`
+ 
+    ```c
+    // algebraic expression
+    struct expr_t {
+      expr_item_t *items;
+      double value;
+      char *string;     // just in case we keep the original string
+      
+      // lists of which variables and functions this expression depends on
+      var_ll_t *variables;
+      function_ll_t *functions;
+      
+      expr_t *next;
+    };
+    ```
+    que tiene una lista simplemente vinculada^[Del inglés [_single-linked list_]{lang=en-US}.] de estructuras `expr_item_t`
+    
+    ```c
+    // individual item (factor) of an algebraic expression
+    struct expr_item_t {
+      size_t n_chars;
+      int type;           // defines #EXPR_ because we need to operate with masks
+      
+      size_t level;       // hierarchical level
+      size_t tmp_level;   // for partial sums
+    
+      size_t oper;        // number of the operator if applicable
+      double constant;    // value of the numerical constant if applicable
+      double value;       // current value
+      
+      // vector with (optional) auxiliary stuff (last value, integral accumulator, rng, etc)
+      double *aux;
+      
+      builtin_function_t *builtin_function;
+      builtin_vectorfunction_t *builtin_vectorfunction;
+      builtin_functional_t *builtin_functional;
+    
+      var_t *variable;
+      vector_t *vector;
+      matrix_t *matrix;
+      function_t *function;
+    
+      vector_t **vector_arg;
+    
+      var_t *functional_var_arg;
+    
+      // algebraic expression of the arguments of the function
+      expr_t *arg;
+      
+      // lists of which variables and functions this item (and its daughters)
+      var_ll_t *variables;
+      function_ll_t *functions;
+      
+    
+      expr_item_t *next;
+    };
+    ```
+    
+    que pueden ser 
+    
+     a. un operador algebraico (`+`, `-`, `*`, `/` o `^`)
+     b. una constante numérica (`12.34` o `1.234e1`)
+     c. una variable como por (`t` o `x`)
+     d. un elemento de un vector (`v[1]` o `p[1+i]`)
+     e. un elemento de una matriz (`A(1,1)` o `B(1+i,1+j)`)
+     f. una función interna como por ejemplo (`sin(w*pi*t)` o `exp(-x)` o `atan2(y,x)`)
+     g. un funcional interno como por ejemplo (`integral(x^2,x,0,1)` o `root(cos(x)-x,x,0,1)`)
+     h. una función definida por el usuario (`f(x,y,z)` o `g(t)`)
+    
+ 2. Cada vez que se necesita el valor numérico de la expresión, se recorre la lista `items` evaluando cada uno de los factores según su orden de procedencia jerárquica PEMDAS.
+ 
+ 
+::: {.remark}
+Algunas expresiones como por ejemplo la cantidad de grupos de energía deben poder evaluarse en tiempo de parseo.
+Si bien FeenoX permite introducir expresiones en el archivo de entrada, éstas no deben depender de variables o de funciones ya que éstas necesitan estar en modo ejecución para tener valores diferentes de cero.
+:::
+
+::: {.remark}
+Los índices de elementos de vectores o matrices y los argumentos de funciones y funcionales son expresiones, que deben ser evaluadas en forma recursiva al recorrer la lista de ítems de una expresión base.
+:::
+
+::: {.remark}
+Los argumentos en la línea de comando `$1`, `$2`, etc. se reemplazan como si fuesen cadenas antes de parsear la expresión.
+:::
+
+Esta funcionalidad, entre otras cosa, permite comparar resultados numéricos con resultados analíticos.
+Como muchas veces estas soluciones analíticas están dadas por series de potencias, el funcional `sum()` es muy útil para realizar esta comparación.
+Por ejemplo
+
+```feenox
+# example of a 1D heat transient problem
+# from https://www.math.ubc.ca/~peirce/M257_316_2012_Lecture_20.pdf
+# T(0,t) = 0       for t < 1
+#          A*(t-1) for t > 1  
+# T(L,t) = 0
+# T(x,0) = 0
+READ_MESH slab-1d-0.1m.msh DIMENSIONS 1
+PROBLEM thermal
+
+end_time = 2
+
+# unitary non-dimensional properties
+k = 1
+rhocp = 1
+alpha = k/rhocp
+
+# initial condition
+T_0(x) = 0
+# analytical solution
+# example 20.2 equation 20.25
+A = 1.23456789
+L = 0.1
+N = 100
+T_a(x,t) = A*(t-1)*(1-x/L) + 2*A*L^2/(pi^3*alpha^2) * sum((exp(-alpha^2*(i*pi/L)^2*(t-1))-1)/i^3 * sin(i*pi*x/L), i, 1, N) 
+
+# boundary conditions
+BC left  T=if(t>1,A*(t-1),0)
+BC right T=0
+
+SOLVE_PROBLEM
+
+IF done
+  PRINT %e (T(0.5*L)-T_a(0.5*L,t))/T_a(0.5*L,t)
+ENDIF
+```
+
 
 ### Evaluación de funciones  {#sec-funciones}
 
-#### Una dimensión
+Tal como las expresiones de la sección anterior, el concepto de _funciones_ es central para FeenoX como oposición y negación definitiva de la idea de "tabla" para dar dependencias no triviales de las secciones eficaces con respecto a temperaturas, quemados, concentraciones de venenos, etc. según lo discutido en la referencia @enief-milonga-2014 sobre la segunda versión del código.
+Una función está completamente definida por un nombre único $f$, por la cantidad $n$ de argumentos que toma y por la forma de evaluar el número real $f(\vec{x}) : \mathbb{R}^n \mapsto \mathbb{R}$ que corresponde a los argumentos $\vec{x} \in \mathbb{R}^n$. Las funciones en FeenoX pueden ser
 
-gsl interpolation
+ 1. algebraicas, o
+ 2. definidas por puntos
+ 
+    
+En el caso de funciones algebraicas, los argumentos tienen que ser variables que luego aparecen en la expresión que define la función. El valor de la función proviene de asignar a las variables de los argumentos los valores numéricos de la invocación y luego evaluar la expresión algebraica que la define.
+Por ejemplo
+ 
+```feenox
+f(x) = 1/2*x^2
+PRINT f(1) f(2)
+```
+ 
+Al evaluar `f(1)` FeenoX pone el valor de la variable `x` igual a 1 y luego evalúa la expresión `1/2*x^2` dando como resultado `0.5`. En la segunda evaluación, `x` vale 2 y la función se evalúa como `2`.
+ 
+Si en la expresión aparecen otras variables que no forman parte de los argumentos, la evaluación de la función dependerá del valor que tengan estas variables (que se toman como parámetros) al momento de la invocación. Por ejemplo,
+ 
+```feenox
+VAR v0
+v(x0,t) = x0 + v0*t
+PRINT v(1)
+v0 = 1
+PRINT v(1)
+```
+en la primera evaluación se obtendrá `0` y en la segunda `1`.
 
-#### Varias dimensiones
+
+Por otro lado, las funciones definidas por puntos pueden ser uni-dimensionales o multi-dimensionales.
+Las multi-dimensionales pueden tener o no topología.
+Y todas las funciones definidas por puntos pueden provenir de datos
+
+ a. dentro del archivo de entrada
+ b. de otro archivo de datos por columnas
+ c. de archivos de mallas (`.msh` o `.vtk`)
+ d. de vectores de FeenoX (posiblemente modificados en tiempo de ejecución)
+    
+De hecho aunque no provengan de vectores, FeenoX provee acceso a los vectores que contienen tanto los valores independientes (puntos de definición) como los valores dependientes (valores que toma la función).
+
+
+Las funciones definidas por puntos que dependen de un único argumento tienen siempre una topología implícita.
+FeenoX utiliza el framework de interpolación unidimensional `gsl_interp` de la GNU Scientific Library.
+
+**TODO** examples
+
+Como mencionamos, las funciones definidas por puntos de varias dimensiones pueden tener o no una topología asociada.
+Si no la tienen, la forma más naïve de interpolar una función de $k$ argumentos $f(\vec{x})$ con $\vec{x} \in \mathbb{R}^k$ de estas características es asignar al punto de evaluación $\vec{x} \in \mathbb{R}^k$ el valor $f_i$ del punto de definición $\vec{x}_i$ más cercano a $\vec{x}$.
+
+::: {.remark}
+La determinación de cuál es el punto de definición $\vec{x}_i$ más cercano a $\vec{x}$ se realiza con un árbol $k$-d^[Del inglés [$k$_-dimensional tree_]{lang=en-US}.] conteniendo todos los puntos de definición $\vec{x}_i \in \mathbb{R}^k$ para $i=1,\dots,N$.
+:::
+
+::: {.remark}
+La noción de "punto más cercano" involucra una métrica del espacio de definición $\mathbb{R}^k$.
+Si las $k$ componentes tienen las mismas unidades, se puede emplear la distancia euclideana usual.
+Pero por ejemplo si una componente es una temperatura y otra una presión, la métrica euclideana depende de las unidades en la que se expresan las componentes.
+:::
+
+
+Una segunda forma de evaluar la función es con una interpolación tipo Shepard @shepard, original o modificada. La primera consiste en realizar una suma pesada con alguna potencia $p$ de la distancia del punto de evaluación $\vec{x}$ a todos los $N$ puntos de definición de la función
+
+$$
+f(\vec{x}) = \frac{\sum_{i=1}^N w_i(\vec{x}) \cdot f_i}{w_i(\vec{x})}
+$$
+donde
+
+$$
+w_i(\vec{x}) = \frac{1}{|\vec{x} - \vec{x}_i|^p}
+$$
+
+
+La versión modificada consisten en sumar solamente las contribuciones correspondientes a los puntos de definición que se encuentren dentro de una hiper-bola de radio $R$ alrededor del punto de evaluación $\vec{x} \in \mathbb{R}^k$.
+
+::: {.remark}
+La determinación de qué puntos $\vec{x}_i$ están dentro de la hiper-bola de centro $\vec{x}$ y de radio $R$ también se realiza con un árbol $k$-d.
+:::
+
+Si los puntos de definición están en una grilla multidimensional estructurada rectangularmente (no necesariamente con incrementos uniformes), entonces FeenoX puede detectar la topología implícita y realizar una interpolación local a partir de los vértices del hiper-cubo que contiene el punto de evaluación $\vec{x} \in \mathbb{R}^n$. Esta interpolación local es similar a la explicada a continuación para el caso de topología explícita mediante una generalización de las funciones de forma para los elementos producto-tensor de primer orden a una dimensión arbitraria $k$.
+
+Por ejemplo, si se tiene el siguiente archivo con tres columnas
+
+ 1. $x_i$
+ 2. $y_i$
+ 3. $f_i$
+ 
+```
+ -1 -1   -1
+ -1  0    0
+ -1 +2    2
+  0 -1    0 
+  0  0    0
+  0 +2    0
+ +3 -1   -3 
+ +3  0    0
+ +3 +2   +6
+```
+
+donde no hay una topología explícita pero sí una rectangular implícita, entonces podemos comparar las tres interpolaciones con el archivo de entrada
+
+```feenox
+FUNCTION f(x,y) FILE hyperbolic-paraboloid.dat INTERPOLATION nearest
+FUNCTION g(x,y) FILE hyperbolic-paraboloid.dat INTERPOLATION shepard 
+FUNCTION h(x,y) FILE hyperbolic-paraboloid.dat INTERPOLATION rectangular
+
+PRINT_FUNCTION f g h MIN -1 -1 MAX 3 2 NSTEPS 40 30
+```
+
+para obtener la @fig-2dinterp.
+
+::: {#fig-2dinterp layout="[38,-15,37]"}
+
+![$f(x,y)$ (`nearest`)](f.svg)
+
+![$f(x,y)$ (`nearest`)](f.png)
+
+![$g(x,y)$ (`shepard`)](g.svg)
+
+![$g(x,y)$ (`shepard`)](g.png)
+
+![$h(x,y)$ (`rectangular`)](h.svg)
+
+![$h(x,y)$ (`rectangular`)](h.png)
+
+
+Tres formas de interpolar funciones definidas por puntos a partir del mismo conjunto de datos.
+:::
+
 
 k-dimensional trees
 
@@ -1426,5 +1725,25 @@ non-conformal mesh mapping
 
 stress recovery
 
+
+## Otros aspectos
+
+
+### Estudios paramétricos
+
+
+### Performance
+
+
+### Paralelización
+
+
+### Ejecución en la nube
+
+
+### Integración continua
+
+
+### Documentación
 
 
