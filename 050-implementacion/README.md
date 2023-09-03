@@ -1637,8 +1637,11 @@ Como mencionamos, las funciones definidas por puntos de varias dimensiones puede
 Si no la tienen, la forma más naïve de interpolar una función de $k$ argumentos $f(\vec{x})$ con $\vec{x} \in \mathbb{R}^k$ de estas características es asignar al punto de evaluación $\vec{x} \in \mathbb{R}^k$ el valor $f_i$ del punto de definición $\vec{x}_i$ más cercano a $\vec{x}$.
 
 ::: {.remark}
-La determinación de cuál es el punto de definición $\vec{x}_i$ más cercano a $\vec{x}$ se realiza con un árbol $k$-d^[Del inglés [$k$_-dimensional tree_]{lang=en-US}.] conteniendo todos los puntos de definición $\vec{x}_i \in \mathbb{R}^k$ para $i=1,\dots,N$.
+La determinación de cuál es el punto de definición $\vec{x}_i$ más cercano a $\vec{x}$ se realiza en orden $O(\log N)$ con un árbol $k$-d^[Del inglés [$k$_-dimensional tree_]{lang=en-US}.] conteniendo todos los puntos de definición $\vec{x}_i \in \mathbb{R}^k$ para $i=1,\dots,N$.
+La implementación del $k$-d [tree]{lang=en-US} no es parte de FeenoX sino una biblioteca externa libre y abierta.
 :::
+
+
 
 ::: {.remark}
 La noción de "punto más cercano" involucra una métrica del espacio de definición $\mathbb{R}^k$.
@@ -1671,7 +1674,7 @@ Por ejemplo, si se tiene el siguiente archivo con tres columnas
 
  1. $x_i$
  2. $y_i$
- 3. $f_i$
+ 3. $f_i = f(x_i,y_i)$
  
 ```
  -1 -1   -1
@@ -1716,7 +1719,11 @@ Tres formas de interpolar funciones definidas por puntos a partir del mismo conj
 :::
 
 
-k-dimensional trees
+Otra forma de definir y evaluar funciones definidas por puntos es cuando existe una topología explícita.
+Esto es, cuando los puntos de definición forman parte de una malla no estructurada con una conectividad conocida.
+En este caso, la función puede tomar o bien dos o bien tres argumentos solamente.
+
+
 
 non-conformal mesh mapping
 

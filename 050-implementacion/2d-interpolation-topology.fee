@@ -1,0 +1,2 @@
+READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION u
+PRINT_FUNCTION u MIN -1 -1 MAX 3 2 NSTEPS 40 30

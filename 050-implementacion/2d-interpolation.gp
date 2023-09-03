@@ -7,6 +7,7 @@ set ticslevel 0
 unset key
 set size ratio 2.0/3.0
 
+# TODO! dar vueltas esto, primero la interpolacion y despues el paraboloide
 set terminal svg
 set output "f.svg"
 set zlabel "f" 
@@ -19,6 +20,10 @@ splot "hyperbolic-paraboloid.dat" pt 52 ps 2 palette,  "2d-interpolation.dat" u 
 set output "h.svg"
 set zlabel "h" 
 splot "hyperbolic-paraboloid.dat" pt 52 ps 2 palette,  "2d-interpolation.dat" u 1:2:5 w l palette
+
+set output "u.svg"
+set zlabel "u" 
+splot "hyperbolic-paraboloid-topology.dat" pt 52 ps 2 palette,  "2d-interpolation-topology.dat" u 1:2:3 w l palette
 
 
 
@@ -34,3 +39,6 @@ plot "2d-interpolation.dat" u 1:2:4 w image
 
 set output "h.png"
 plot "2d-interpolation.dat" u 1:2:5 w image
+
+set output "u.png"
+plot "2d-interpolation-topology.dat" u 1:2:3 w image
