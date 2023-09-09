@@ -60,6 +60,7 @@ Mesh.Algorithm3D = 10;
 Mesh.ElementOrder = 1;
 Mesh.HighOrderOptimize = 4;
 
+Mesh.MeshSizeFactor = 1;
 Mesh.MeshSizeMin = 0.25*r_rod;
 Mesh.MeshSizeMax = 1.0*r_fuel;
 

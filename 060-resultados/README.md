@@ -19,8 +19,6 @@ _Wayne Gretzky_
 Ver apéndice ejemplos
 
 
-## Reactor con forma de Stanford Bunny
-
 ## IAEA PWR Benchmark
 
 ### Caso 2D original
@@ -31,24 +29,34 @@ Ver apéndice ejemplos
 
 ### Caso 3D original
 
+
 ## El problema de Reed
 
 comparar con onedim?
 
-### Caso 1D original
 
-### Extensión 2D
+## El problema de Azmy
 
-### Extensión 3D
 
-## Benchmarks de criticidad desnudos
+## Benchmarks de criticidad de Los Alamos
+
 
 ## Slab a dos zonas, efecto de dilución de XSs {#sec-prob-dilucion}
 
-## El reactor cubo-esfera
-## Verificacion con MMS {#sec-mms}
+
+## Estudios paramétricos: el reactor cubo-esfera
+
+
+## Optimización: el problema de los pescaditos
+
+
+## Verificación con el método de soluciones fabricadas {#sec-mms}
+
+reactor tipo conejo
+MMS
 
 ver thermal-slab-transient-mms-capacity-of-T.fee  thermal-slab-transient-mms.fee
+
 
 ## PHWR de siete canales y tres barras de control inclinadas
 
