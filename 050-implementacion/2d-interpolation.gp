@@ -11,19 +11,23 @@ set size ratio 2.0/3.0
 set terminal svg
 set output "f.svg"
 set zlabel "f" 
-splot "hyperbolic-paraboloid.dat" pt 52 ps 2 palette,  "2d-interpolation.dat" u 1:2:3 w l palette
+splot "2d-interpolation.dat" u 1:2:3 w l palette, "hyperbolic-paraboloid.dat" pt 52 ps 2 palette
 
 set output "g.svg"
 set zlabel "g" 
-splot "hyperbolic-paraboloid.dat" pt 52 ps 2 palette,  "2d-interpolation.dat" u 1:2:4 w l palette
+splot "2d-interpolation.dat" u 1:2:4 w l palette, "hyperbolic-paraboloid.dat" pt 52 ps 2 palette
 
 set output "h.svg"
 set zlabel "h" 
-splot "hyperbolic-paraboloid.dat" pt 52 ps 2 palette,  "2d-interpolation.dat" u 1:2:5 w l palette
+splot "2d-interpolation.dat" u 1:2:5 w l palette, "hyperbolic-paraboloid.dat" pt 52 ps 2 palette
 
-set output "u.svg"
-set zlabel "u" 
-splot "hyperbolic-paraboloid-topology.dat" pt 52 ps 2 palette,  "2d-interpolation-topology.dat" u 1:2:3 w l palette
+set output "f-topology.svg"
+set zlabel "f" 
+splot "2d-interpolation-topology.dat" u 1:2:3 w l palette, "hyperbolic-paraboloid-topology.dat" pt 52 ps 2 palette
+
+set output "f-modified.svg"
+set zlabel "f" 
+splot "2d-interpolation-topology-modified.dat" u 1:2:3 w l palette
 
 
 
@@ -40,5 +44,8 @@ plot "2d-interpolation.dat" u 1:2:4 w image
 set output "h.png"
 plot "2d-interpolation.dat" u 1:2:5 w image
 
-set output "u.png"
+set output "f-topology.png"
 plot "2d-interpolation-topology.dat" u 1:2:3 w image
+
+set output "f-modified.png"
+plot "2d-interpolation-topology-modified.dat" u 1:2:3 w image

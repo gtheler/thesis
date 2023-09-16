@@ -1630,8 +1630,31 @@ De hecho aunque no provengan de vectores, FeenoX provee acceso a los vectores qu
 
 Las funciones definidas por puntos que dependen de un único argumento tienen siempre una topología implícita.
 FeenoX utiliza el framework de interpolación unidimensional `gsl_interp` de la GNU Scientific Library.
+En principio, en este tipo de funciones el nombre de los argumentos no es importante.
+Pero el siguiente ejemplo ilustra que no es lo mismo definir `f(x)` que `f(y)` ya que de otra manera la instrucción `PRINT_FUNCTION` daría idénticamente `sin(y)`, con el valor que tuviera la variable `y` al momento de ejecutar la instrucción `PRINT_FUNCTION` en lugar del perfil `sin(x)` que es lo que se busca:
 
-**TODO** examples
+```feenox
+FUNCTION f(x) DATA {
+0.2 sin(0.2)
+0.4 sin(0.4)
+0.6 sin(0.6)
+0.8 sin(0.8)
+}
+
+PRINT_FUNCTION f sin(x) MIN 0.2 MAX 0.8 NSTEPS 100
+```
+
+Este pequeño archivo de entrada---que además muestra que una función definida por puntos puede usar expresiones algebraicas---fue usado para generar la
+
+::: {#fig-sine layout="[45,-10,45]"}
+
+![](sine.svg){#fig-sine}
+
+![](sine-error.svg){#fig-sine-error}
+
+Dos figuras para ilustrar que el error cometido en una aproximación lineal de elementos finitos es mayor lejos de los nodos.
+:::
+
 
 Como mencionamos, las funciones definidas por puntos de varias dimensiones pueden tener o no una topología asociada.
 Si no la tienen, la forma más naïve de interpolar una función de $k$ argumentos $f(\vec{x})$ con $\vec{x} \in \mathbb{R}^k$ de estas características es asignar al punto de evaluación $\vec{x} \in \mathbb{R}^k$ el valor $f_i$ del punto de definición $\vec{x}_i$ más cercano a $\vec{x}$.
@@ -1676,6 +1699,9 @@ Por ejemplo, si se tiene el siguiente archivo con tres columnas
  2. $y_i$
  3. $f_i = f(x_i,y_i)$
  
+```{=latex}
+\label{3cols}
+```
 ```
  -1 -1   -1
  -1  0    0
@@ -1702,17 +1728,17 @@ para obtener la @fig-2dinterp.
 
 ::: {#fig-2dinterp layout="[38,-15,37]"}
 
-![$f(x,y)$ (`nearest`)](f.svg)
+![$f(x,y)$ (`nearest`)](f.svg){#fig-f1}
 
-![$f(x,y)$ (`nearest`)](f.png)
+![$f(x,y)$ (`nearest`)](f.png){#fig-f2}
 
-![$g(x,y)$ (`shepard`)](g.svg)
+![$g(x,y)$ (`shepard`)](g.svg){#fig-g1}
 
-![$g(x,y)$ (`shepard`)](g.png)
+![$g(x,y)$ (`shepard`)](g.png){#fig-f2}
 
-![$h(x,y)$ (`rectangular`)](h.svg)
+![$h(x,y)$ (`rectangular`)](h.svg){#fig-h1}
 
-![$h(x,y)$ (`rectangular`)](h.png)
+![$h(x,y)$ (`rectangular`)](h.png){#fig-h2}
 
 
 Tres formas de interpolar funciones definidas por puntos a partir del mismo conjunto de datos.
@@ -1721,11 +1747,69 @@ Tres formas de interpolar funciones definidas por puntos a partir del mismo conj
 
 Otra forma de definir y evaluar funciones definidas por puntos es cuando existe una topología explícita.
 Esto es, cuando los puntos de definición forman parte de una malla no estructurada con una conectividad conocida.
-En este caso, la función puede tomar o bien dos o bien tres argumentos solamente.
+En este caso, dada una función $f(\vec{x})$, el procedimiento para evaluarla en $\vec{x} \in \mathbb{R}^2$ o $\vec{x} \in \mathbb{R}^3$ es el siguiente:
+
+ 1. Encontrar el elemento $e_i$ que contiene al punto $\vec{x}$
+ 2. Encontrar las coordenadas locales $\symbf{\xi}$ del punto $\vec{x}$ en $e_i$
+ 3. Evaluar las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento $e_i$ en el punto $\symbf{\xi}$
+ 4. Calcular $f(\vec{x})$ a partir de los $J$ valores nodales de definción $f_j$ como
+ 
+    $$
+    f(\vec{x}) = \sum_{j=1}^J h_j(\symbf{\xi}) \cdot f_j
+    $$
+
+La forma particular de implementar los puntos 1 y 2 (especialmente el 1) es crucial en términos de perfomance.
+FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, para encontrar las coordenadas locales $\symbf{\xi}$ debemos resolver un sistema de ecuaciones de tamaño $J$.
+
+De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tendríamos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
+
+```feenox
+READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
+PRINT_FUNCTION f MIN -1 -1 MAX 3 2 NSTEPS 40 30
+```
+
+![Definición de una función $f(x,y)$ a partir de 9 datos discretos $f_j$ y con una topología bi-dimensional explícita.](2d-interpolation-topology.svg){#fig-2d-interpolation-topology}
+
+::: {#fig-2dinterp-topology layout="[38,-15,37]"}
+
+![$f(x,y)$ con topología](f-topology.svg){#fig-ft1}
+
+![$f(x,y)$ con topología](f-topology.png){#fig-ft2}
+
+Interpolación de una función definida por puntos con una topología explícita.
+La función interpolada coincide con la $h(x,y,)$ de la @fig-2dinterp.
+:::
 
 
+Esta funcionalidad permite realizar lo que se conoce como "mapeo de mallas no conformes".
+Es decir, utilizar una distribución de alguna propiedad espacial (digamos la temperatura) dada por valores nodales en una cierta malla (de un [solver]{lang=en-US} térmico) para evaluar propiedades de materiales (digamos la sección eficaz de fisión) en la malla de cálculo.
+En este caso en particular, los puntos $\vec{x}$ donde se requiere evaluar la función definida en la otra malla de definición corresponden a los puntos de Gauss de los elementos de la malla de cálculo.
 
-non-conformal mesh mapping
+::: {.remark}
+Es importante remarcar que para todas las funciones definidas por puntos, FeenoX utiliza un esquema de memoria en la cual los datos numéricos tanto de la ubicación de los puntos de definición $\vec{x}_j$ como de los valores $f_j$ de definición están disponibles para lectura y/o escritura como vectores accesibles como expresiones en tiempo de ejecución. Esto quiere decir que FeenoX puede leer la posición de los nodos de un archivo de malla fijo y los valores de definición de alguna otra fuente que provea un vector del tamaño adecuado, como por ejemplo un recurso de memoria compartida o un [socket TCP]{lang=en-US}. Por ejemplo, podemos modificar el valor de definición $f(0.5,0.5)=0.25$ a $f(0.5,0.5)=40$ en tiempo de ejecución como
+
+```feenox
+READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
+
+# modificamos el valor de f(0.5,0.5) de 0.25 a 40
+vec_f[5] = 40
+
+PRINT_FUNCTION f MIN -1 -1 MAX 3 2 NSTEPS 40 30
+```
+para obtener la @fig-2dinterp-modified.
+:::
+
+
+::: {#fig-2dinterp-modified layout="[38,-15,37]"}
+
+![$f(x,y)$ con topología y datos modificados](f-modified.svg){#fig-fm1}
+
+![$f(x,y)$ con topología y datos modificados](f-modified.png){#fig-fm2}
+
+Ilustración de la modificación en tiempo de ejecución de los datos de definición de una función definida con puntos (en este caso, con topología explícita).
+:::
+
+TODO: ejemplo de non-conformal mesh mapping
 
 
 ### Campos secundarios diferenciales

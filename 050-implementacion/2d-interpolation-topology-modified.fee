@@ -1,2 +1,6 @@
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
+
+# modificamos el valor de f(0.5,0.5) de 0.25 a 40
+vec_f[5] = 40
+
 PRINT_FUNCTION f MIN -1 -1 MAX 3 2 NSTEPS 40 30
