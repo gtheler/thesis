@@ -1,0 +1,3 @@
+READ_MESH square.msh SCALE 1e-3
+WRITE_MESH square.vtk 1
+READ_MESH square.vtk

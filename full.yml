@@ -7,7 +7,7 @@ metadata-files:
   - _date.yml.local
   
 book:
-  title: "Ecuaciones diferenciales en la nube: aplicación al transporte de neutrones"
+  title: "Transporte de neutrones en la nube"
   author: "Mg. Ing. Germán Theler"
   date: 2023-04-09
   output-file: "phd-theler"
@@ -29,9 +29,10 @@ book:
     - 110-sds/README.md
     - 110-sds/feenox-unix.md
     - 110-sds/feenox-history.md    
+    - 110-sds/feenox-FAQ.md
     - bibliografia/README.md
 
-title-en: "Differential equations in the cloud: application to neutron transport"
+title-en: "Neutron transport in the cloud"
 keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"
 palabras_clave: "transporte de neutrones, difusión de neutrones, computación en la nube, computación de alto rendimiento, elementos finitos, mallas no estructuradas"    
 

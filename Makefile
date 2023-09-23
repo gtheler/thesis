@@ -28,3 +28,5 @@ clean:
 .PHONY: pdf clean
 
 all: pdf
+
+full: all

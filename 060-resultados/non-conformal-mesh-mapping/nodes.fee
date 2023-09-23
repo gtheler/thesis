@@ -1,0 +1,3 @@
+READ_MESH $1 
+PRINT nodes
+

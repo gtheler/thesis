@@ -1,0 +1,3 @@
+READ_MESH cube-$2.msh
+f(x,y,z) = $1
+WRITE_MESH cube-$2-src.msh f

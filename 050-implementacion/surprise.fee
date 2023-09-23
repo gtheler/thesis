@@ -1,0 +1,3 @@
+INPUT_FILE surprise PATH nafems-le1%g.msh round(random(0,1))
+READ_MESH surprise
+PRINT cells

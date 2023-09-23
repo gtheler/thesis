@@ -42,13 +42,13 @@
 :::::
 
 
-Hay virtualmente infinitas maneras de diseñar un programa para que una computadora para que realice una determinada tarea.
-Y otras infinitas maneras de implementarlo. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/), fue diseñada siguiendo un patrón frecuente en la industria de software:
+Hay virtualmente infinitas maneras de diseñar un programa para que una computadora realice una determinada tarea.
+Y otras infinitas maneras de implementarlo. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/) (ver @sec-faq para una explicación del nombre), fue diseñada siguiendo un patrón frecuente en la industria de software:
 
- 1. el "cliente" define un documento titulado [_Sofware Design Requirements_]{lang=en-US}, y
- 2. el "proveedor" indica cómo cumplirá esos requerimientos en un [_Sofware Design Specifications_]{lang=en-US}. Una vez que ambas partes están de acuerdo, se comienza con el proyecto de ingeniería en sí con [kick-off meetings]{lang=en-US}, certificaciones de avance, órdenes de cambio, etc.
+ 1. el "cliente" define un documento denominado [_Sofware Design Requirements_]{lang=en-US}, y
+ 2. el "proveedor" indica cómo cumplirá esos requerimientos en un [_Sofware Design Specifications_]{lang=en-US}. Una vez que ambas partes están de acuerdo, se comienza con el proyecto de ingeniería en sí con [_kick-off meetings_]{lang=en-US}, certificaciones de avance, órdenes de cambio, etc.
 
-El SRS para FeenoX (@sec-srs) es ficticio pero plausible. Podríamos pensarlo como un llamado a licitación por parte de una empresa, entidad pública o laboratorio nacional, para que alguien desarrolle una herramienta computacional que permita resolver problemas matemáticos con interés práctico en aplicaciones de ingeniería. En forma muy resumida, requiere
+El SRS para FeenoX (@sec-srs) es ficticio pero plausible. Podríamos pensarlo como un llamado a licitación por parte de una empresa, entidad pública o laboratorio nacional, para que un contratista desarrolle una herramienta computacional que permita resolver problemas matemáticos con interés práctico en aplicaciones de ingeniería. En forma muy resumida, requiere
 
  a. buenas prácticas generales de desarrollo de software tales como
  
@@ -61,11 +61,11 @@ El SRS para FeenoX (@sec-srs) es ficticio pero plausible. Podríamos pensarlo co
  
  b. que la herramienta pueda ser ejecutada en la nube
 
-    * ejecución remota 
-    * mecanismos de reporte de estado
-    * paralelización en diferentes nodos computacionales
+    * a través de ejecución remota 
+    * que provea mecanismos de reporte de estado
+    * con posibilidad de paralelización en diferentes nodos computacionales
     
- c. que sea aplicable a problemas de ingeniería
+ c. que sea aplicable a problemas de ingeniería proveyendo
   
     * eficiencia computacional razonable
     * flexibilidad en la definición de problemas
@@ -74,46 +74,58 @@ El SRS para FeenoX (@sec-srs) es ficticio pero plausible. Podríamos pensarlo co
     
 ::: {.remark}
 El requerimiento de paralelización está relacionado con el tamaño de los problemas a resolver y no (tanto) con la performance.
-Si bien está claro que, de tener la posibilidad, resolver ecuaciones en forma paralela es más eficiente en términos del tiempo de pared^[Del inglés [_wall time_]{lang=en-US}.] necesario para obtener un resultado, en el SRS la posibilidad de paralelizar el código se refiere a la capacidad de poder resolver problemas de tamaño arbitrario que no podrían ser resueltos sin esta capacidad, principalmente por una limitación de la cantidad de memoria RAM.
+Si bien está claro que, de tener la posibilidad, resolver ecuaciones en forma paralela es más eficiente en términos del tiempo de pared^[Del inglés [_wall time_]{lang=en-US}.] necesario para obtener un resultado, en el SRS la posibilidad de paralelizar el código se refiere principalmente a la capacidad de poder resolver problemas de tamaño arbitrario que no podrían ser resueltos en serie, principalmente por una limitación de la cantidad de memoria RAM.
 :::
 
 ::: {.remark}
-Si bien es cierto que en teoría un algoritmo implementado en un lenguaje Turing-completo podría resolver un sistema de ecuaciones algebraicas de tamaño arbitrario independientemente de la memoria RAM disponible (por ejemplo usando almacenamiento en dispositivos magnéticos o de estado sólido), prácticamente no es posible obtener un resultado útil en un tiempo razonable si no se dispone de suficiente memoria RAM para evitar tener que descargar el contenido de esta memoria de alta velocidad de acceso a medios alternativos ([out-of-core memory]{lang=en-US} como los mencionados en el paréntesis anterior) cuya velocidad de acceso es varios órdenes de magnitud más lenta.
+Si bien es cierto que en teoría un algoritmo implementado en un lenguaje Turing-completo podría resolver un sistema de ecuaciones algebraicas de tamaño arbitrario independientemente de la memoria RAM disponible (por ejemplo usando almacenamiento intermedio en dispositivos magnéticos o de estado sólido), prácticamente no es posible obtener un resultado útil en un tiempo razonable si no se dispone de suficiente memoria RAM para evitar tener que descargar el contenido de esta memoria de alta velocidad de acceso a medios alternativos ([out-of-core memory]{lang=en-US} como los mencionados en el paréntesis anterior) cuya velocidad de acceso es varios órdenes de magnitud más lenta.
 :::
 
 ::: {.remark}
 Este esquema de definir primero los requerimientos y luego indicar cómo se los satisface evita un sesgo común dentro de las empresas de software que implica hacer algo "fácil para el desarrollador" a costa de que el usuario tengo que hacer algo "más difícil".
-Por ejemplo en la mayoría de los programas de elementos finitos para elasticidad lineal es necesario hacer un mapeo entre los grupos de elementos volumétricos y los materiales disponibles, tarea que tiene sentido siempre que haya más de un grupo de elementos volumétricos o más de un material disponible. Pero en los casos donde hay un único grupo de elementos volumétricos (usualmente porque se parte de un CAD con un único volumen) y un único juego de propiedades materiales (digamos un único valor $E$ de módulo de Young y un único $\nu$ para coeficiente de Poisson), el software requiere que el usuario tenga que hacer explícitamente el mapeo aún cuando éste es trivial. Un claro de ejemplo del sesgo "[developer-easy/user-hard]{lang=en-US}" que FeenoX no tiene, ya que el SRS pide que "problemas sencillos tengan [inputs]{lang=en-US} sencillos".
+Por ejemplo en la mayoría de los programas de elementos finitos para elasticidad lineal es necesario hacer un mapeo entre los grupos de elementos volumétricos y los materiales disponibles, tarea que tiene sentido siempre que haya más de un grupo de elementos volumétricos o más de un material disponible. Pero en los casos donde hay un único grupo de elementos volumétricos (usualmente porque se parte de un CAD con un único volumen) y un único juego de propiedades materiales (digamos un único valor $E$ de módulo de Young y un único $\nu$ para coeficiente de Poisson), el software requiere que el usuario tenga que hacer explícitamente el mapeo aún cuando éste es trivial. Un claro de ejemplo del sesgo "[developer-easy/user-hard]{lang=en-US}" que FeenoX no tiene, ya que el SRS pide que "problemas sencillos tengan [inputs]{lang=en-US} sencillos". En caso de que haya una única manera de asociar volúmenes geométricos a propiedades materiales, FeenoX hace la asociación implícitamente simplificando el archivo de entrada.
 :::
 
 Según el pliego, es mandatorio que el software desarrollado sea de código abierto según la definición de la _Open Source Initiative_.
-El SDS (@sec-sds) comienza indicando que la herramienta FeenoX es al software tradicional de ingeniería y a las bibliotecas especializadas de elementos finitos lo que Markdown es a Word y a LaTeX, respectivamente.
-Y que no sólo es de código abierto en el sentido de la OSI sino que es libre en el sentido de la _Free Software Foundation_ @faif.
-La diferencia entre código abierto y software libre es sutil más que práctica, ya que las definiciones técnicas prácticamente coinciden.
-El punto principal de que el código sea abierto es que permite obtener mejores resultados con mejor performance mientras más personas puedan estudiar el código, escrutarlo y eventualmente mejorarlo. 
-Por otro lado, el software libre persigue un fin ético relacionado con la libertad de poder ejecutar, distribuir, modificar y distribuir las modificaciones del software recibido.
+El SDS (@sec-sds) comienza indicando que la herramienta FeenoX es
+
+ * al software tradicional de ingeniería y
+ * a las bibliotecas especializadas de elementos finitos
+ 
+lo que Markdown es
+
+ * a Word y
+ * a LaTeX
+ 
+respectivamente.
+
+Y que no sólo es de código _abierto_ en el sentido de la OSI sino que también es _libre_ en el sentido de la _Free Software Foundation_ @faif.
+La diferencia entre código abierto y software libre es más sutil que práctica, ya que las definiciones técnicas prácticamente coinciden.
+El punto principal de que el código sea abierto es que permite obtener mejores resultados con mejor performance mientras más personas puedan estudiar el código, escrutarlo y eventualmente mejorarlo @cathedral. 
+Por otro lado, el software libre persigue un fin ético relacionado con la libertad de poder ejecutar, distribuir, modificar y distribuir las modificaciones del software recibido [@gnu-manifesto; @hack-rms].
 
 ::: {.remark}
-Ninguno de los dos conceptos, código abierto o software libre se refiere a la idea de _precio_.
-En Español no debería haber ninguna confusión. Pero en inglés, el sustantivo adjetivado [_free software_]{lang=en-US} se suele tomar como gratis en lugar de libre. Si bien es cierto que la mayoría de las veces la utilización de software libre y abierto no implica el pago de ninguna tarifa directa al autor del programa, el software libre puede tener otros costos asociados y terminar siendo más caro que otro tipo de software. El concepto importante es _libertad_: la libertad de poder contratar a uno o más programadores que modifiquen el código para que el software se comporte como uno necesita.
+Ninguno de los dos conceptos, código abierto o software libre, se refiere a la idea de _precio_.
+En Español no debería haber ninguna confusión. Pero en inglés, el sustantivo adjetivado [_free software_]{lang=en-US} se suele tomar como gratis en lugar de libre. Si bien es cierto que la mayoría de las veces la utilización de software libre y abierto no implica el pago de ninguna tarifa directa al autor del programa, el software libre puede tener otros costos indirectos asociados.^[El gerente de sistemas de una empresa de ingeniería y construcción me dijo que por un tema de costos ellos preferían usar un servidor SQL privativo antes que uno libre: "es más caro pagarle al que sabe dónde poner el punto y coma en el archivo de configuración que pagar la licencia y configurarlo con el [mouse]{lang=en-US}".] El concepto importante es _libertad_: la libertad de poder contratar a uno o más programadores que modifiquen el código para que el software se comporte como uno necesita.
 :::
 
 
-De hecho, como Unix^[A principios de 1960, los Bell Labs en EEUU llegaron a desarrollar un sistema operativo que funcionaba bien, así que decidieron encarar MULTICS. Como terminó siendo una monstruosidad, empezaron UNIX que es lo que quedó bien.]
+Tal como como Unix^[A principios de 1960, los Bell Labs en EEUU llegaron a desarrollar un sistema operativo que funcionaba bien, así que decidieron encarar MULTICS. Como terminó siendo una monstruosidad, empezaron UNIX que es lo que quedó bien.] @unix
 y C^[A fines de 1960, también en los Bell Labs, llegaron a desarrollar un un lenguaje de programación A que funcionaba bien, así que decidieron encarar B. Como terminó siendo una monstruosidad, empezaron C que es lo que quedó bien.], FeenoX es un "efecto de tercer sistema"^[Del inglés [_third-system effect_]{lang=en-US}.] @raymond.
-En efecto, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema.
+De hecho, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema.
 
 De las lecciones aprendidas en las dos primeras versiones, la primera un poco naïve pero funcional y la segunda más pretenciosa y compleja (apalancada en la funcionalidad de la primera), hemos convergido al diseño explicado en el SDS del @sec-sds donde definimos la filosofía de diseño del software y elegimos una de las infinitas formas de diseñar una herramienta computacional mencionadas al comienzo de este capítulo.
 Gran parte de este diseño está basado en la filosofía de programación Unix @raymond.
-Damos ejemplos de cómo son las interfaces para definir un cierto problema y de ·cómo obtener los resultados.
+En el @sec-sds damos ejemplos de cómo son las interfaces para definir un cierto problema y de cómo obtener los resultados.
 Comparamos alternativas e indicamos por qué hemos decidido diseñar el software de la forma en la que fue diseñado.
-Por otro lado, en este capítulo nos centramos en la implementación, tratando de converger a una de las infinitas formas de implementar el diseño propuesto en el SDS.
+Por otro lado, en este capítulo de la tesis nos centramos en la implementación, tratando de converger a una de las infinitas formas de implementar el diseño propuesto en el SDS. Comentamos muy superficialmente las ideas distintivas que tiene FeenoX con respecto a otros programas de elementos finitos desde el punto de vista técnico de programación.
 
-En lo que resta del capítulo comentamos muy superficialmente las ideas distintivas que tiene FeenoX con respecto a otros programas de elementos finitos desde el punto de vista técnico de programación. Estas características son distintivas y no son comunes. En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} del software con respecto a otras herramientas similares.
+Estas características son distintivas del diseño e implementación propuestos y no son comunes.
+En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} del software con respecto a otras herramientas similares.
 
 ::: {.remark}
 El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/> bajo licencia GPLv3+.
-Consiste en aproximadamente cuarenta y cinco mil líneas de código.
+Consiste en aproximadamente cuarenta y cinco mil líneas de código` organizadas según la estructura de directorios mostrada en la figura~\ref{fig:tree}`{=latex}.·
 :::
 
 ```{=latex}
@@ -146,7 +158,7 @@ Consiste en aproximadamente cuarenta y cinco mil líneas de código.
 
 ## Arquitectura del código
 
-Comencemos preguntándonos qué debemos tener en cuenta para implementar una herramienta computacional que permita resolver ecuaciones en derivadas parciales con aplicación en ingeniería.
+Comencemos preguntándonos qué debemos tener en cuenta para implementar una herramienta computacional que permita resolver ecuaciones en derivadas parciales con aplicación en ingeniería utilizando el método de elementos finitos.
 Por el momento enfoquémonos en problemas lineales^[Si el problema fuese no lineal o incluso transitorio, la discusión de esta sección sigue siendo válida para la construcción de la matriz jacobiana global.] como los analizados en los dos capítulos anteriores.
 Las dos tareas principales son
 
@@ -154,33 +166,33 @@ Las dos tareas principales son
  2. resolver el sistema de ecuaciones $\mat{K} \cdot \vec{u} = \vec{b}$ (o $\mat{K} \cdot \vec{u} = \lambda \cdot \mat{M} \cdot \vec{u}$)
 
  
-Haciendo énfasis en la filosofía Unix, tenemos que escribir un programa que haga bien una sola cosa^[[Do only one thing but do it well]{lang=en-US}.] que nadie más hace y que interactúe con otros que hacen bien otras cosas (regla de composición).
+Haciendo énfasis en la filosofía Unix, tenemos que escribir un programa que haga bien una sola cosa^[[Do only one thing but do it well]{lang=en-US}.] que nadie más hace y que interactúe con otros que h7acen bien otras cosas (regla de composición).
 En este sentido, nuestra herramienta se tiene que enfocar en el punto 1.
 Pero tenemos que definir quién va a hacer el punto 2 para que sepamos cómo es que tenemos que construir $\mat{K}$ y $\vec{b}$.
 
 Las bibliotecas PETSc [@petsc-user-ref;@petsc-efficient] junto con la extensión SLEPc [@slepc-manual;@slepc-toms] proveen exactamente lo que necesita una herramienta que satisfaga el SRS siguiendo la filosofía de diseño del SDS.
-De hecho, en 2010 seleccioné PETSc para la segunda versión del solver neutrónico por la única razón de que era una dependencia necesaria para resolver el problema de criticidad con SLEPc [@milongabase2010, milongaiaea2011].
+De hecho, en 2010 seleccioné PETSc para la segunda versión del solver neutrónico por la única razón de que era una dependencia necesaria para resolver el problema de criticidad con SLEPc [@milongabase2010;@milongaiaea2011].
 Con el tiempo, resultó que PETSc proveía el resto de las herramientas necesarias para resolver numéricamente ecuaciones en derivadas parciales en forma portable y extensible.
 
 Otra vez desde el punto de vista de la filosofía de programación Unix, la tarea 1 consiste en un cemento de contacto^[En el sentido del inglés [_glue layer_]{lang=en-US}.] entre la definición del problema a resolver por parte del ingeniero usuario y la biblioteca matemática para resolver problemas ralos^[Del inglés [_sparse_]{lang=en-US}.] PETSc. 
 Cabe preguntarnos entonces cuál es el lenguaje de programación adecuado para implementar el diseño del SDS.
-Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son convenientes.
+Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son igualmente convenientes.
 Por ejemplo Assembly o BrainFuck son interesantes en sí mismos (por diferentes razones) pero para nada útiles para la tarea que tenemos que realizar.
-De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] a través de APIs que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
+De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] a través de APIs que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
 Para resumir una discusión mucho más compleja, los lenguajes candidatos para implementar la herramienta requerida por el SRS podrían ser
 
  a. Fortran
  b. C
  c. C++
 
-Según la regla de representación de Unix, la implementación debería poner la complejidad en las estructuras de datos más que en la lógica. Sin embargo, en el área de mecánica computacional, paradigmas de programación demasiado orientados a objetos impactan en la performance. La tendencia es encontrar una balance, tal como persigue la filosofía desde hace más de dos mil quinientos años, entre programación orientada a objetos y programación orientada a datos.
+Según la regla de representación de Unix, la implementación debería poner la complejidad en las estructuras de datos más que en la lógica. Sin embargo, en el área de mecánica computacional, paradigmas de programación demasiado orientados a objetos impactan negativamente en la performance. La tendencia es encontrar un balance, tal como persigue la filosofía desde hace más de dos mil quinientos años a través de la virtud de la prudencia, entre programación orientada a objetos y programación orientada a datos.
 
 ::: {.remark}
-En los últimos años el lenguaje Rust se ha comenzado a posicionar como una alternativa a C para _system programming_^[No hay traducción de este término. En el año 2008, se propuso una materia en el IB con este nombre en inglés. El consejo académico decidió traducirla y nombrarla como "programación de sistemas". Ni el nombre elegido ni el ligeramente más correcto "programación del sistema" tienen la misma denotación que el concepto original [_system programming_]{lang=en-US}] debido al requerimiento intrínseco de que todos las referencias deben apuntar a una dirección de memoria virtual válida. A principios de 2023 aparecieron por primera vez líneas de código en Rust en el kernel de Linux. Pero desde el punto de vista de computación de alto rendimiento^[Del inglés [_high-performance computing_]{lang=en-US} (HPC).], Rust (o incluso Go) no tienen nada nuevo que aportar con respecto a C.
+En los últimos años el lenguaje Rust se ha comenzado a posicionar como una alternativa a C para _system programming_^[No hay traducción de este término. En el año 2008, se propuso una materia en el IB con este nombre en inglés. El consejo académico decidió traducirla y nombrarla como "programación de sistemas". Ni el nombre elegido ni el ligeramente más correcto "programación del sistema" tienen la misma denotación que el concepto original [_system programming_]{lang=en-US}] debido al requerimiento intrínseco de que todos las referencias deben apuntar a una dirección de memoria virtual válida. A principios de 2023 aparecieron por primera vez líneas de código en Rust en el kernel de Linux. Pero desde el punto de vista de computación de alto rendimiento,^[Del inglés [_high-performance computing_]{lang=en-US} (HPC).] Rust (o incluso Go) no tienen nada nuevo que aportar con respecto a C.
 :::
 
 
-Tal como explican los autores de PETSc (y coincidentemente Eric Raymond en @raymond), es C el lenguaje que mejor se presta a este paradigma:
+Tal como explican los autores de PETSc (y coincidentemente Eric Raymond en @raymond), C es el lenguaje que mejor se presta a este paradigma:
 ```{=latex}
 \label{polymorphism}
 ```
@@ -191,19 +203,21 @@ Tal como explican los autores de PETSc (y coincidentemente Eric Raymond en @ray
 > When this decision was made, in the early 1990s, C enabled us to build data structures for storing sparse matrices, solver information, etc. in ways that Fortran simply did not allow. ANSI C was a complete standard that all modern C compilers supported. The language was identical on all machines. C++ was still evolving and compilers on different machines were not identical. Using C function pointers to provide data encapsulation and polyRmorphism allowed us to get many of the advantages of C++ without using such a large and more complicated language. It would have been natural and reasonable to have coded PETSc in C++; we opted to use C instead.
 :::
 
-Fortran fue diseñado en la década de 1950 y fue un salto cualitativo con respecto a la forma de programar las incipientes computadoras digitales. Sin embargo, las suposiciones que se han tenido en cuenta con respecto al hardware sobre el cual estos programas debería ejecutarse ya no son válidas. Las revisiones posteriores como Fortran 90 son modificaciones y parches que no resuelven el problema de fondo.
-En cambio, C fue diseñado a principios de la década 1970 suponiendo arquitecturas de hardware que justamente son las que se emplean hoy en día, tales como
+Fortran fue diseñado en la década de 1950 y en ese momento representó un salto cualitativo con respecto a la forma de programar las incipientes computadoras digitales @knuth-languages. Sin embargo, las suposiciones que se han tenido en cuenta con respecto al [hardware]{lang=en-US} y a los sistemas operativos sobre los cuales estos programas deberían ejecutarse ya no son válidas. Las revisiones posteriores como Fortran 90 son modificaciones y parches que no resuelven el problema de fondo.
+En cambio, C fue diseñado a principios de la década 1970 suponiendo arquitecturas de hardware y de sistemas operativos que justamente son las que se emplean hoy en día, tales como
 
  * espacio de direcciones plano^[Del inglés [_flat address space_]{lang=en-US}.]
- * registros
+ * procesadores con registros de diferentes tamaños
+ * llamadas al sistema^[Del inglés [_system calls_]{lang=en-US}.]
  * entrada y salida basada en archivos
  * etc.
  
 para correr en entornos Unix, que justamente, es el sistema operativo de la vasta mayoría de los servidores de la nube pública, que justa y nuevamente, es lo que perseguimos en esta tesis.
 
 Una vez más, en principio la misma tarea puede ser implementada en cualquier lenguaje: Fortran podría implementar programación con objetos y C++ podría ser utilizado con un paradigma orientado a datos.
-Pero lo usual es que código escrito en Fortran sea procedural y basado en estructuras `COMMON`, resultando difícil de entender y depurar. Código escrito en C++ suele ser orientado a objetos y con varias capas de encapsulamiento, polimorfismo, métodos virtuales, redefinición de operadoras y contenedores enplantillados^[Del inglés [_templated_]{lang=en-US}.] resultando difícil de entender y depurar.
-De la misma manera que el lenguaje Fortran permite realizar ciertas prácticas que bien utilizadas agregan potencia y eficiencia pero cuyo abuso lleva a código ininteligible (por ejemplo el uso y abuso de bloques `COMMON`), C++ permite ciertas prácticas que bien utilizadas agregan potencia pero cuyo abuso lleva a código de baja calidad (por ejemplo el uso y abuso de `template`s, `shared_pointer`s, `bind`s, `move`s, lambdas, wrappers sobre wrappers, objetos sobre objetos, interfaz sobre interfaz, etc.), a veces en términos de eficiencia, a veces en términos del concepto de Unix _compactness_ @raymond
+Pero lo usual es que código escrito en Fortran sea procedural y basado en estructuras `COMMON`, resultando difícil de entender y depurar
+El código escrito en C++ suele ser orientado a objetos y con varias capas de encapsulamiento, polimorfismo, métodos virtuales, redefinición de operadoras y contenedores enplantillados^[Del inglés [_templated_]{lang=en-US}.] resultando difícil de entender y depurar, tal como indica Linus Torvals en la cita del comienzo del capítulo.
+De la misma manera que el lenguaje Fortran permite realizar ciertas prácticas que bien utilizadas agregan potencia y eficiencia pero cuyo abuso lleva a código ininteligible (por ejemplo el uso y abuso de bloques `COMMON`), C++ permite ciertas prácticas que bien utilizadas agregan potencia pero cuyo abuso lleva a código de baja calidad (por ejemplo el uso y abuso de `template`s, `shared_pointer`s, `bind`s, `move`s, lambdas, wrappers sobre wrappers, objetos sobre objetos, interfaz sobre interfaz, etc.), a veces en términos de eficiencia, a veces en términos del concepto de Unix _compactness_ @raymond:
 
 ::: {lang=en-US}
 > Compactness is the property that a design can fit inside a human being's head. A good practical test for compactness is this: Does an experienced user normally need a manual? If not, then the design (or at least the subset of it that covers normal use) is compact.
@@ -215,19 +229,16 @@ y usualmente en términos de la regla de simplicidad en la filosofía de Unix:
 :::
 
 
-**TODO**: feenox está en el medio y busca ser compacto:
-mapdl es un quilombo de commons y no se entiende nada
-reflex es un quilombo de visitors, interfaces, etc. y no se entiende nada
-feenox es lo más straightforward
+Justamente, Fortran y C++ hacen fácil agregar complejidad innecesaria.
+En C, no es fácil agregar complejidad innecesaria.
 
-todo lo que sea turing completo es equivalente
-pero c++ te hace facil complicarla al pedo
-y fortran te hace facil hacer chanchadas
-
-c te hace dificil agregar complejidad
-
-unix rule of complexity: only add complexity when a solution thing won't do
-
+---
+comment: |
+  **TODO**: feenox está en el medio y busca ser compacto:
+  mapdl es un quilombo de commons y no se entiende nada
+  reflex es un quilombo de visitors, interfaces, etc. y no se entiende nada
+  feenox es lo más straightforward
+...
 
 ### Construcción de los elementos globales
 
@@ -260,7 +271,7 @@ Para simplificar el argumento, supongamos por ahora que queremos resolver la ecu
  }
  ensamblar $\vec{b}_i \rightarrow \vec{b}$\;
 }
-\caption{\label{alg:poisson}Posible implementación de alto nivel de la construcción de $\mat{K}$ y $\vec{b}$ para el problema de Poisson generalizado de la \ref{sec-poisson}}
+\caption{\label{alg:poisson}Posible implementación de alto nivel de la construcción de $\mat{K}$ y $\vec{b}$ para el problema de Poisson generalizado de la sección \ref{sec-poisson}}
 \end{algorithm}
 ```
 
@@ -316,9 +327,9 @@ $$ \tag{\ref{eq-LAF}}
 \end{aligned}
 $$
 más las contribuciones a la matriz de rigidez para condiciones de Robin.
-Pero en principio podríamos escribir un algoritmo genérico que implemente el método de elementos finitos para resolver una cierta ecuación diferencial completamente definida por la expresión dentro de las llaves.
+Pero en principio podríamos escribir un algoritmo genérico (¿una cáscara?) que implemente el método de elementos finitos para resolver una cierta ecuación diferencial completamente definida por la expresión dentro de las llaves (¿pasadas como argumentos?).
 
-La segunda conclusión proviene de preguntarnos qué es lo que necesitan los algoritmos \ref{alg:poisson}, \ref{alg:poisson-dirichlet2} y \ref{alg:poisson-dirichlet2} para construir la matriz de rigidez global $\mat{K}$ y el vector $\vec{b}$:
+La segunda conclusión proviene de preguntarnos qué es lo que necesitan los algoritmos \ref{alg:poisson}, \ref{alg:poisson-dirichlet1} y \ref{alg:poisson-dirichlet2} para construir la matriz de rigidez global $\mat{K}$ y el vector $\vec{b}$:
 
  i. los conjuntos de cuadraturas de gauss $\omega_q, \symbf{\xi}_q$ para el elemento $e_i$
  ii. las matrices canónicas $\mat{H}_{c}$, $\mat{B}_{c}$ y $\mat{H}_{Gc}$
@@ -329,9 +340,9 @@ La segunda conclusión proviene de preguntarnos qué es lo que necesitan los alg
      c. las condiciones de contorno $p(\vec{x})$ y $g(\vec{x})$ (o las correspondientes a difusión de neutrones)
 
 Los tres primeros puntos no dependen de la ecuación a resolver.
-Lo único que se necesita para evaluar los tres primeros puntos es tener disponible la topología de la malla no estructurada que discretiza el dominio $U \in \mathbb{R}^D$ a través la posición $\vec{x}_j \in \mathbb{R}^D$ de los nodos y la topología de cada uno de los elementos $e_i$.
+Lo único que se necesita para evaluarlos es tener disponible la topología de la malla no estructurada que discretiza el dominio $U \in \mathbb{R}^D$ a través la posición $\vec{x}_j \in \mathbb{R}^D$ de los nodos y la conectividad de cada uno de los elementos $e_i$.
 
-El tercer cuarto en principio sí depende de la ecuación, pero finalmente se reduce a la capacidad de evaluar
+El cuarto en principio sí depende de la ecuación, pero finalmente se reduce a la capacidad de evaluar
 
  1. propiedades de materiales
  2. condiciones de contorno
@@ -341,17 +352,33 @@ en una ubicación espacial arbitraria $\vec{x}$.
 Para fijar ideas, supongamos que tenemos un problema de conducción de calor.
 La conductividad $k(\vec{x})$^[Si la conductividad dependiera de la temperatura $T$ el problema sería no lineal. Pero en el paso $k$ e la iteración de Newton tendríamos $k(\vec{T}_k(\vec{x})=k_k(\vec{x})$ por lo que la discusión sigue siendo válida.] o en general, cualquier propiedad material puede depender de la posición $\vec{x}$ porque
 
- 1. existen materiales con propiedades discontinuas en diferentes ubicaciones $\vec{x}$, y/o
- 2. la propiedad depende continuamente de la posición aún para el mismo material.
+```{=latex}
+\label{dependencias}
+```
+ a. existen materiales con propiedades discontinuas en diferentes ubicaciones $\vec{x}$, y/o
+ b. la propiedad depende continuamente de la posición aún para el mismo material.
 
 De la misma manera, una condición de contorno (sea esencial o natural) puede depender discontinuamente con la superficie donde esté aplicada o continuamente dentro de la misma superficie a través de alguna dependencia con la posición $\vec{x}$.
  
-Entonces, la segunda conclusión es que si nuestra herramienta fuese capaz de proveer un mecanismo para definir propiedades materiales y condiciones de contorno que puedan depender discontinuamente según el volúmen o superficie al que pertenezca cada elemento (algunos elementos volumétricos pertenecerán al combustible y otros al moderador, algunos elementos superficiales pertenecerán a una condición de simetría y otros a una condición de vacío) y/o continuamente en el espacio según variaciones locales (por ejemplo cambios de temperatura y/o densidad, concentración de venenos, etc.) entonces podríamos resolver ecuaciones diferenciales arbitrarias discretizadas espacialmente con el método de elementos finitos.
+Entonces, la segunda conclusión es que si nuestra herramienta fuese capaz de proveer un mecanismo para definir propiedades materiales y condiciones de contorno que puedan depender 
+
+ a. discontinuamente según el volúmen o superficie al que pertenezca cada elemento (algunos elementos volumétricos pertenecerán al combustible y otros al moderador, algunos elementos superficiales pertenecerán a una condición de simetría y otros a una condición de vacío) y/o
+ b. continuamente en el espacio según variaciones locales (por ejemplo cambios de temperatura y/o densidad, concentración de venenos, etc.)
+ 
+entonces podríamos resolver ecuaciones diferenciales arbitrarias discretizadas espacialmente con el método de elementos finitos.
 
       
 ### Polimorfismo con apuntadores a función 
 
-Según la discusión de la sección anterior, podemos diferenciar entre cierta parte del código que tendrá que realizar tareas "comunes" (en el sentido de que son las mismas para todas las PDEs tal como leer la malla y evaluar funciones en un punto $\vec{x}$ arbitrario del espacio) y otra parte que tendrá que realizar tareas particulares para cada ecuación a resolver (por ejemplo evaluar las expresiones entre llaves en el $q$-ésimo punto de Gauss del elemento $i$-ésimo.
+Según la discusión de la sección anterior, podemos diferenciar entre dos partes del código:
+
+ 1. Una que tendrá que realizar tareas "comunes"
+   
+    * en el sentido de que son las mismas para todas las PDEs tal como leer la malla y evaluar funciones en un punto $\vec{x}$ arbitrario del espacio
+    
+ 2. Otra parte que tendrá que realizar tareas particulares para cada ecuación a resolver
+ 
+    * por ejemplo evaluar las expresiones entre llaves en el $q$-ésimo punto de Gauss del elemento $i$-ésimo
 
 ::: {#def-framework}
 
@@ -383,13 +410,13 @@ Está claro que esto es
  2. ineficiente, y
  3. difícil de extender
  
-En C++ esto se podría implementar mediante una jerarquía de clases donde las clases hijas implementaría métodos virtuales que el framework llamaría cada vez que necesite evaluar el término entre llaves.
-Si bien C no tiene "métodos virtuales", sí tiene apuntadores a función (que es justamente lo que PETSc usa para implementar polimorfismo `como mencionamos en la página~\pageref{polymorphism}`{=latex}) por lo que podemos usar este mecanismo para lograr una implementación superior, que explicamos a continuación.
+En C++ esto se podría implementar mediante una jerarquía de clases donde las clases hijas implementarían métodos virtuales que el framework llamaría cada vez que necesite evaluar el término entre llaves.
+Si bien C no tiene "métodos virtuales", sí tiene apuntadores a función (que es justamente lo que PETSc usa para implementar polimorfismo` como mencionamos en la página~\pageref{polymorphism}`{=latex}) por lo que podemos usar este mecanismo para lograr una implementación superior, que explicamos a continuación.
 
 Por un lado, sí existe un lugar del código con un bloque `if` según el tipo de PDE requerida en tiempo de ejecución que consideramos feo, ineficiente y difícil de extender.
 Pero,
 
- a. este único bloques `if` se ejecutan una sola vez en el momento de analizar gramaticalmente^[Del inglés [_parse_]{lang=en-US}.] el archivo de entrada y lo que hacen es definir la dirección de memoria de una función de inicialización que el framework debe llamar antes de comenzar a construir $\mat{K}$ y $\vec{b}$:
+ a. este _único_ bloque de condiciones `if` se ejecutan una sola vez en el momento de analizar gramaticalmente^[Del inglés [_parse_]{lang=en-US}.] el archivo de entrada y lo que hacen es resolver un apuntador a función a la dirección de memoria de una rutina de inicialización particular que el framework debe llamar antes de comenzar a construir $\mat{K}$ y $\vec{b}$:
  
     ```c
       if (strcasecmp(token, "laplace") == 0) {
@@ -417,8 +444,10 @@ Pero,
  
 Entonces,
 
- 1. Si bien ese bloque sigue siendo feo, lo genera y lo compila una máquina que no tiene el mismo sentido estético que un programador humano.
- 2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular.
+ 1. Si bien ese bloque sigue siendo feo, es generado y compilado por una máquina que no tiene el mismo sentido estético que nosotros.
+ 
+ 2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular (ver @sec-performance).
+ 
  3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (ver la discusión de la @sec-entry) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
  
     * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
@@ -428,7 +457,7 @@ Entonces,
     * [`neutron_diffusion`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_difussion)
     * [`neutron_sn`](https://github.com/seamplex/feenox/tree/main/src/pdes/neutron_sn)
  
-    tomando uno de estos subdirectorios como plantilla. De hecho también es posible eliminar completamente uno de estos directorios en el caso de no querer que FeenoX pueda resolver alguna PDE en particular.
+    tomando uno de estos subdirectorios como plantilla.^[Del inglés [_template_]{lang=en-US}] De hecho también es posible eliminar completamente uno de estos directorios en el caso de no querer que FeenoX pueda resolver alguna PDE en particular.
     De esta forma, `autogen.sh` permitirá extender (o reducir) la funcionalidad del código, que es uno de los puntos solicitados en el SDS.
     Más aún, sería posible utilizar este mecanismo para cargar funciones particulares desde objetos compartidos^[Del inglés [_shared objects_]{lang=en-US}.] en tiempo de ejecución, incrementando aún más la extensibilidad de la herramienta.
 
@@ -445,14 +474,14 @@ En el @sec-neutronica-phwr mencionamos (y en el @sec-sds explicamos en detalle
 Este archivo de entrada, que a su vez puede incluir otros archivos de entrada y/o hacer referencia a otros archivos de datos (incluyendo la malla en formato `.msh`) contiene palabras clave^[Del inglés [_keywords_]{lang=en-US}.] en inglés que, por decisión de diseño, deben 
 
  #. definir completamente el problema de resolver
- #. ser lo más autodescriptivas posible
+ #. ser lo más auto-descriptivas posible
  #. permitir una expresión algebraica en cualquier lugar donde se necesite un valor numérico
  #. mantener una correspondencia uno a uno entre la definición "humana" del problema y el archivo de entrada
  #. hacer que el archivo de entrada de un problema simple sea simple
  
 Estas keywords pueden ser
  
- a. definiciones (sustantivos), o
+ a. definiciones (sustantivos)
  
     * qué PDE hay que resolver
     * propiedades materiales
@@ -472,29 +501,60 @@ Estas keywords pueden ser
 Las definiciones se realizan a tiempo de parseo. Una vez que el FeenoX acepta que el archivo de entrada es válido, comienza la ejecución de las instrucciones en el orden indicado en el archivo de entrada.
 De hecho, FeenoX tiene un apuntador a instrucción^[Del inglés [_instruction pointer_]{lang=en-US}.] que se incrementa a medida que avanza la ejecución de las instrucciones. Existen palabras clave `IF` y `WHILE` que permiten flujos de ejecución no triviales, especialmente en problemas iterativos, cuasi-estáticos o transitorios.
 
-Por ejemplo, la lectura del archivo de malla es una instrucción y no una definición porque por ejemplo
+Por ejemplo, la lectura del archivo de malla es una instrucción y no una definición porque
 
- 1. el nombre del archivo de la malla puede depender de alguna variable cuyo valor deba ser evaluado en tiempo de ejecución con una instrucción previa,
- 2. el archivo con la malla en sí puede ser creado internamente por FeenoX con una instrucción previa "escribir resultados", y/o
- 3. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver.
+ i. el nombre del archivo de la malla puede depender de alguna variable cuyo valor deba ser evaluado en tiempo de ejecución con una instrucción previa. Por ejemplo
+ 
+    ```feenox
+    INPUT_FILE surprise PATH nafems-le1%g.msh round(random(0,1))
+    READ_MESH surprise
+    PRINT cells
+    ```
+    
+    ```terminal
+    $ feenox surprise.fee 
+    18700
+    $ feenox surprise.fee 
+    18700
+    $ feenox surprise.fee 
+    32492
+    $ feenox surprise.fee 
+    32492
+    $ feenox surprise.fee 
+    18700
+    $ 
+    ```
+ 
+ ii. el archivo con la malla en sí puede ser creado internamente por FeenoX con una instrucción previa `WRITE_MESH` y/o modificada en tiempo de ejecución
+ 
+    ```feenox
+    READ_MESH square.msh SCALE 1e-3
+    WRITE_MESH square_tmp.vtk
+    
+    INPUT_FILE tmp PATH square_tmp.vtk
+    READ_MESH tmp
+    ```
+    
+ iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver ejemplo **XXX** de non-conformal mesh mapping.
 
 Comencemos con un problema sencillo para luego agregar complejidad en forma incremental.
-A la luz de la discusión de este capítulo, preguntémonos ahora qué necesitamos para resolver por ejemplo un problema de conducción de calor estacionario sobre un dominio $U \mathbb{R}^D$ con un único material:
+A la luz de la discusión de este capítulo, preguntémonos ahora qué necesitamos para resolver un problema de conducción de calor estacionario sobre un dominio $U \mathbb{R}^D$ con un único material:
 
  1. definir que la PDE es conducción de calor en $D$ dimensiones
  2. leer la malla con el dominio $U \in \mathbb{R}^D$ discretizado
- 3. definir la conductividad térmica $k$ del material
+ 3. definir la conductividad térmica $k(\vec{x})$ del material
  4. definir las condiciones de contorno del problema
  5. construir $\mat{K}$ y $\vec{b}$
  6. resolver $\mat{K} \cdot \vec{u} = \vec{b}$
  7. hacer algo con los resultados
     - calcular $T_\text{max}$
     - calcular $T_\text{mean}$
+    - calcular el vector flujo de calor $q^{\prime \prime}(\vec{x}) = -k(\vec{x}) \cdot \nabla T$
     - comparar con soluciones analíticas
     - etc.
  8. escribir los resultados
  
-El problema de conducción de calor más sencillo es un slab en el intervalo $x \in [0,1]$ con conductividad uniforme y condiciones de Dirichlet $T(0)=0$ y $T(1)=1$ en ambos extremos. Por diseño, el archivo de entrada tiene que ser sencillo y tener una correspondencia uno a uno con la definición "humana" del problema:
+El problema de conducción de calor más sencillo es un slab unidimensional en el intervalo $x \in [0,1]$ con conductividad uniforme y condiciones de Dirichlet $T(0)=0$ y $T(1)=1$ en ambos extremos. Por diseño, el archivo de entrada tiene que ser sencillo y tener una correspondencia uno a uno con la definición "humana" del problema:
 
 ```feenox
 PROBLEM thermal 1D               # 1. definir que la PDE es calor 1D
@@ -503,7 +563,7 @@ k = 1                            # 3. definir conductividad uniforme igual a uno
 BC left  T=0                     # 4. condiciones de contorno de Dirichlet
 BC right T=1                     #    "left" y "right" son nombres en la malla
 SOLVE_PROBLEM                    # 5. y 6. construir y resolver
-PRINT T(0.5)                     # 7. y 8. imprimir en stdout la temperatura en x=0.5
+PRINT T(0.5)                     # 7. y 8. escribir en stdout la temperatura en x=0.5
 ```
 
 En este caso sencillo, la conductividad $k$ fue dada como una variable `k` con un valor igual a uno.
@@ -526,9 +586,9 @@ SOLVE_PROBLEM
 PRINT T(1/2) log(1+1/2)/log(2)   # 7. y 8. imprimir el valor numérico y la solución analítica
 ```
 
-En este caso, no hay una variable llamada `k` sino que hay una función de $x$ con la expresión algebraica $1+x$.
-Entonces la función que evalúa las contribuciones volumétricas elementales de la matriz de rigidez toman dicha función como la propiedad "conductividad" y la evalúan como $\mat{B}_i^T \cdot k(\symbf{x}_q) \cdot \mat{B}_i$.
-La salida, que por diseño está 100% definida por el archivo de entrada (reglas de Unix de silencio y de economía) consiste en la temperatura evaluada en $x=1/2$ junto con la solución analítica en dicho punto.
+En este caso, no hay una variable llamada `k` sino que hay una _función_ de $x$ con la expresión algebraica $1+x$.
+Entonces la rutina particular dentro de `src/pde/thermal` que evalúa las contribuciones volumétricas elementales de la matriz de rigidez toma dicha función $k(x)$ como la propiedad "conductividad" y la evalúa como $\mat{B}_i^T(\symbf{x}_q) \cdot k(\symbf{x}_q) \cdot \mat{B}_i(\symbf{x}_q)$.
+La salida, que por diseño está 100% definida por el archivo de entrada (reglas de Unix de silencio y de economía) consiste en la temperatura evaluada en $x=1/2$ junto con la solución analítica $\log(1+\frac{1}{2})/\log(2)$ en dicho punto.
 
 Por completitud, mostramos que también la conductividad podría depender de la temperatura.
 En este caso particular el problema queda no lineal y mencionamos algunas particularidades sin ahondar en detalles.
@@ -547,7 +607,7 @@ PRINT T(1/2) sqrt(1+(3*0.5))-1
 La ejecución de FeenoX sigue también las reglas tradicionales de Unix.
 Se debe proveer la ruta al archivo de entrada como principal argumento luego del ejecutable.
 Es un argumento y no como una opción ya que la funcionalidad del programa depende de que se indique un archivo de entrada, por lo que no es "opcional".
-Sí pueden agregar opciones siguiendo las reglas POSIX. Algunas opciones son para FeenoX (por ejemplo `--progress` o `--elements_info` y otras son pasadas a PETSc/SLEPc (por ejemplo `--ksp_view` o `--mg_levels_pc_type=sor`).
+Sí se pueden agregar opciones siguiendo las reglas POSIX. Algunas opciones son para FeenoX (por ejemplo `--progress` o `--elements_info` y otras son pasadas a PETSc/SLEPc (por ejemplo `--ksp_view` o `--mg_levels_pc_type=sor`).
 Al ejecutar los tres casos anteriores, obtenemos los resultados solicitados con la instrucción `PRINT` en la salida estándar:
 
 ```terminal
@@ -577,7 +637,7 @@ Si el problema (es decir, la malla) tuviese dos materiales diferentes, digamos `
     ``` 
     si $k_A(x) = 1+2x$ y $k_B(x) = 3+4x$.
     
- 2. utilizando una palabra clave `MATERIAL` (definición) para cada material, del siguiente modo
+ 2. utilizando una palabra clave `MATERIAL` (definición) para ´cada material, del siguiente modo
  
     ```feenox
     MATERIAL A k=1
@@ -591,10 +651,10 @@ Si el problema (es decir, la malla) tuviese dos materiales diferentes, digamos `
     MATERIAL B k=3+4*x
     ```
     
-De esta forma, el framework implementa las dos posibles dependencias de las propiedades de los materiales:
+De esta forma, el framework implementa las dos posibles dependencias de las propiedades de los materiales discutidas` en la página~\pageref{dependencias}`{=latex}:
 
- a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la @sec-funciones
- b. discontinua según el material al que pertenece el elemento
+ a. continua con el espacio a través de expresiones algebraicas que pueden involucrar funciones definidas por puntos en interpoladas como discutimos en la @sec-funciones, y
+ b. discontinua según el material al que pertenece el elemento.
  
 Con respecto a las condiciones de contorno, la lógica es similar pero ligeramente más complicada.
 Mientras que a partir del nombre la propiedad las rutinas particulares pueden evaluar las contribuciones volumétricas, sean a la matriz de rigidez a través de la conductividad `k` o al vector $\vec{b}$ a través de la fuente de calor por unidad de volumen `q`, para las condiciones de contorno se necesita un poco más de información.
@@ -614,7 +674,7 @@ La forma de implementar numéricamente (e incluso el signficado físico) esta co
 Entonces, si bien las propiedades de materiales pueden ser parseadas por el framework y aplicadas por las rutinas particulares, las condiciones de contorno deben ser parseadas y aplicadas por las rutinas particulares.
 De todas maneras, la lógica es similar: las rutinas particulares proveen puntos de entrada^[Del inglés [_entry points_]{lang=en-US}.] que el framework llama en los momentos pertinentes durante la ejecución de las instrucciones.
 
-Para terminar de ilustrar la idea, consideremos el problema de Reed que propone resolver con S$_N$ un slab uni-dimensional compuesto por varios materiales, algunos con una fuente independiente, otros sin fuente e incluso un material de vacío:
+Para terminar de ilustrar la idea, consideremos el problema de Reed (discutido en detalle en la @sec-reed) que propone resolver con S$_N$ un slab uni-dimensional compuesto por varios materiales, algunos con una fuente independiente, otros sin fuente e incluso un material de vacío:
 
 ```feenox
 #
@@ -650,43 +710,53 @@ FUNCTION ref(x) FILE reed-ref.csv INTERPOLATION steffen
 PRINT sqrt(integral((ref(x)-phi1(x))^2,x,0,8))/8
 ```
 
- * La primera línea es una definición (`PROBLEM` es un sustantivo) le indica a FeenoX que debe resolver las ecuaciones S$_N$ en $D=1$ dimensión con $G=1$ grupo de energías y utilizando una discretrización angular $N$ dada por el primer argumento de la línea de comando luego del nombre del archivo de entrada. De esta manera se pueden probar diferentes discretizaciones con el mismo archivo de entrada, digamos `reed.fee`
+ * La primera línea es una definición (`PROBLEM` es un sustantivo) que le indica a FeenoX que debe resolver las ecuaciones S$_N$ en $D=1$ dimensión con $G=1$ grupo de energías y utilizando una discretrización angular $N$ dada por el primer argumento de la línea de comando luego del nombre del archivo de entrada. De esta manera se pueden probar diferentes discretizaciones con el mismo archivo de entrada, digamos `reed.fee`
  
    ```terminal
-   $ feenox reed 2   # <- usa S2
+   $ feenox reed 2   # <- S2
    [...]
-   $ feenox reed 4   # <- usa S4
+   $ feenox reed 4   # <- S4
    [...]
    ```
    
- * La segunda línea es una instrucción (el verbo `READ`) que indica que la malla a utilizar por el problema se llama `reed.msh`.
-   Si el archivo de entrada se llama `reed.fee`, esta línea podría haber sido `READ_MESH $0.msh`.
+ * La segunda línea es una instrucción (el verbo `READ`) que indica que FeenoX debe leer la malla donde resolver problema del archivo `reed.msh`.
+   Si el archivo de entrada se llamara `reed.fee`, esta línea podría haber sido `READ_MESH $0.msh`. En caso de leer varias mallas, la que define el domnio de la PDE es
    
- * El bloque de palabras claves `MATERIAL` definen (con un sustantivo) las secciones eficaces macroscópicas (`Sigma`) y las fuentes independientes (`S`). En este caso todas las propiedades son uniformes dentro de cada material.
+     a. la primera de las instrucciones `READ_MESH`, o
+     b. la definida explícitamente con la palabra clave `MAIN_MESH`
+   
+ * El bloque de palabras clave `MATERIAL` definen (con un sustantivo) las secciones eficaces macroscópicas (`Sigma`) y las fuentes independientes (`S`). En este caso todas las propiedades son uniformes dentro de cada material.
  
- * Las siguientes dos líneas definien las condiciones de contorno (`BC` quiere decir boundary condition): la superficie `left` tiene una condición espejo y la superficie `right` tiene una condición de vacío.
+ * Las siguientes dos líneas definien las condiciones de contorno (`BC` quiere decir [_boundary condition_]{lang=en-US} que es un sustantivo adjetivado): la superficie `left` tiene una condición de simetría (o espejo) y la superficie `right` tiene una condición de vacío.
  
  * La instrucción `SOLVE_PROBLEM` le pide a FeenoX que
  
-    1. construya la matriz global $\mat{K}$ y el vector $\vec{b}$ (pidiéndole a su vez a las rutinas específicas del subdirectorio `src/pdes/neutron_sn`)
-    2. que le pida a PETSc que resuelva el problema $\mat{K} \cdot \vec{u} = \vec{b}$ (como hay fuentes independientes entonces la rutina de inicialización del problema `neutron_sn` sabe que debe resolver un problema lineal, si no hubiese fuentes y sí secciones eficaces de fisión se resolvería un problema de autovalores con la biblioteca SLEPc)
-    3. que extraiga los valores nodales de la solución $\vec{u}$ y defina las funciones del espacio $\psi_{mg}(x)$ y $\phi_{g}(x)$. Si `$1` fuese `2` entonces las funciones con la solución serían
+    #. construya la matriz global $\mat{K}$ y el vector $\vec{b}$ (pidiéndole a su vez a las rutinas específicas del subdirectorio `src/pdes/neutron_sn`)
+    #. que le pida a su vez a PETSc que resuelva el problema $\mat{K} \cdot \vec{u} = \vec{b}$ (como hay fuentes independientes entonces la rutina de inicialización del problema `neutron_sn` sabe que debe resolver un problema lineal, si no hubiese fuentes y sí secciones eficaces de fisión se resolvería un problema de autovalores con la biblioteca SLEPc)
+    #. que extraiga los valores nodales de la solución $\vec{u}$ y defina las funciones del espacio $\psi_{mg}(x)$ y $\phi_{g}(x)$. Si `$1` fuese `2` entonces las funciones con la solución serían
        - `psi1.1(x)`
        - `psi1.2(x)`
        - `phi1(x)`
+       
+       Si `$1` fuese `4` entonces serían
+       - `psi1.1(x)`
+       - `psi1.2(x)`
+       - `psi1.3(x)`
+       - `psi1.4(x)`
+       - `phi1(x)`
       
-       Estas funciones están disponibles para que subsiguientes instrucciones las utilicen como salida directamente, como parte de otras expresiones intermedias, etc.
-    4. Si el problema fuese de criticidad, entonces esta instrucción también pondría el valor del factor de multiplicación efectivo $k_\text{eff}$ en una variable llamada `keff`.
+       Estas funciones están disponibles para que instrucciones subsiguientes las utilicen como salida directamente con `WRITE_MESH, como parte de otras expresiones intermedias, etc.
+    #. Si el problema fuese de criticidad, entonces esta instrucción también pondría el valor del factor de multiplicación efectivo $k_\text{eff}$ en una variable llamada `keff`.
     
- * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen`.
+ * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen` xxxxxxx. @sec-xxxxxxxxxxxxxxxxx
  
  * La última línea imprime en la salida estándar una representación ASCII (por defecto utilizando el formato `%g` de la instrucción `printf()` de C) del error $L_2$ cometido por la solución calculada con FeenoX con respecto a la solución de referencia, es decir
 
  $$
- \sqrt{\frac{1}{8} \cdot \int_0^8 \left[ \text{ref}(x) - \phi_1(x) \right]^2}
+ \frac{1}{8} \cdot \sqrt{\int_0^8 \left[ \text{ref}(x) - \phi_1(x) \right]^2}
  $$
 
-La ejecución de FeenoX con este archivo de entrada para S$_2$, S$_4, S$_6$ y S$_8$ da como resultado
+La ejecución de FeenoX con este archivo de entrada para S$_2$, S$_4$, S$_6$ y S$_8$ da como resultado
  
 ```terminal
 $ feenox reed.fee 2
@@ -709,11 +779,11 @@ La compilación del código fuente usa el procedimiento recomendado por GNU dond
  c. las dependencias disponibles (MPI, PETSc, SLEPc, GSL, etc.)
  
 A su vez, para generar este script `configure` se suele utilizar el conjunto de herramientas conocidas como Autotools.
-Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como las plantillas para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y las plantillas que indican dónde están los archivos fuentes que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
+Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como los templates para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y los templates que indican dónde están los archivos fuente que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
 Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
 
 Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
-Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (o a veces `bootstrap`).
+Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (algunos autores prefieren llamarlo `bootstrap`).
 
 ![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
 
@@ -738,7 +808,7 @@ EOF
 done
 ```
 
-Esto generaría las siguientes líneas de código en `parse.c`
+Esto generaría el bloque de `if`s feo que ya mencionamos en `parse.c`
 
 ```c
   if (strcasecmp(token, "laplace") == 0) {
@@ -779,15 +849,21 @@ En particular, para la línea
 ```feenox 
 PROBLEM neutron_sn DIM 3 GROUPS 2 SN 8
 ```
-lo que sucede es
+lo que sucede en tiempo de parseo es
 
- 1. La palabra clave primaria `PROBLEM` es leída (y entendida) por el parser general.
- 2. El argumento `neutron_sn` es leído por el bloque generado por `autogen.sh`. El apuntador a la función global `feenox.pde.parse_problem` apunta entonces a `feenox_problem_parse_problem_neutron_sn()`.
- 3. La palabra clave secundaria `DIM` es leída por el parser general. Como es una palabra clave secundaria asociada a la primaria `PROBLEM` y el parser general la entiende ya que el framework tiene que saber la dimensión espacial de la ecuación diferencial en derivadas parciales que tiene que resolver. Entonces lee el siguiente argumento `3` y sabe que tiene que resolver una ecuación diferencial sobre tres dimensiones espaciales. Esto implica, por ejemplo, saber que las propiedades de los materiales y las soluciones serán funciones de $x$, $y$ y $z$.
- 4. La palabra clave secundaria `GROUPS` es leída por el parser general. Como no es una palabra clave secundaria asociada a la primara `PROBLEM`, entonces se llama a `feenox.pde.parse_problem` (que apunta a `feenox_problem_parse_problem_neutron_sn()`) con el argumento `token` apuntando a `GROUPS`.
- 5. Como el parser particular dentro de `src/pdes/neutron_sn` sí entiende que la palabra clave `GROUPS` define la cantidad de grupos de energía, lee el siguiente token `2` y lo entiende como tal.
- 6. El control vuelve al parser principal que lee la siguiente palabra clave secundaria `SN`. Como tampoco la entiende, vuelve a llamar al parser particular que entiende que debe utilizar las direcciones y pesos de S$_8$. 
- 7. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)`, `psi1.1(x,y,z)` y `psi8.2(x,y,z)` son expresiones válidas:
+ #. La palabra clave primaria `PROBLEM` es leída (y entendida) por el parser general.
+ 
+ #. El argumento `neutron_sn` es leído por el bloque generado por `autogen.sh`. El apuntador a la función global `feenox.pde.parse_problem` se hace apuntar entonces a `feenox_problem_parse_problem_neutron_sn()`.
+ 
+ #. La palabra clave secundaria `DIM` es leída por el parser general. Como es una palabra clave secundaria asociada a la primaria `PROBLEM` y el parser general la entiende (ya que el framework tiene que saber la dimensión espacial de la ecuación diferencial en derivadas parciales que tiene que resolver). Entonces lee el siguiente argumento `3` y sabe que tiene que resolver una ecuación diferencial sobre tres dimensiones espaciales. Esto implica, por ejemplo, definir que las propiedades de los materiales y las soluciones serán funciones de tres argumentos: $x$, $y$ y $z$.
+ 
+ #. La palabra clave secundaria `GROUPS` es leída por el parser general. Como no es una palabra clave secundaria asociada a la primara `PROBLEM`, entonces se llama a `feenox.pde.parse_problem` (que apunta a `feenox_problem_parse_problem_neutron_sn()`) con el argumento `token` apuntando a `GROUPS`.
+ 
+ #. Como el parser particular dentro de `src/pdes/neutron_sn` sí entiende que la palabra clave `GROUPS` define la cantidad de grupos de energía, lee el siguiente token `2`, lo entiende como tal y lo alamacena en la estructura de datos particular de las rutinas correspondientes a `neutron_sn`.
+ 
+ #. El control vuelve al parser principal que lee la siguiente palabra clave secundaria `SN`. Como tampoco la entiende, vuelve a llamar al parser particular que entiende que debe utilizar las direcciones y pesos de S$_8$. 
+ 
+ #. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)`, `psi1.1(x,y,z)` y `psi8.2(x,y,z)` son expresiones válidas:
  
     ```feenox
     PRINT "keff = " keff
@@ -802,10 +878,10 @@ Dentro de las inicializaciones en tiempo de parseo, cada implementación especí
  i. parsear partes específicas del archivo de entrada
     
     a. condiciones de contorno
-    b. la palabra clave `WRITE_RESULTS` que escribe "automáticamente" los resultados en un archivo de post-procesamiento en formato `.msh` o `.vtk`. Esto es necesario ya que las rutinas que escriben los resultados son parte del framework general pero dependiendo de la PDE a resolver e incluso de los detalles de la PDE (por ejemplo la cantidad de grupos de energía en un problema neutrónico o la cantidad de frecuencias calculadas en un problema modal).
+    b. la palabra clave `WRITE_RESULTS` que escribe "automáticamente" los resultados en un archivo de post-procesamiento en formato `.msh` o `.vtk`. Esto es necesario ya que las rutinas que escriben los resultados son parte del framework general pero dependiendo de la PDE a resolver e incluso de los detalles de la PDE (por ejemplo la cantidad de grupos de energía en un problema neutrónico o la cantidad de modos calculadas en un problema de análsis de modos naturales de oscilación mecánicos).
     
  ii. inicializar estructuras internas
- iii. construir las matrices y los vectores globales
+ iii. solicitar la memoria virtual necesaria al sistema operativo^[Del inglés [_allocate_]{lang=en-US}.] y construir las matrices y los vectores globales
  iv. resolver las ecuaciones discretizadas con PETSc (o SLEPc) según el tipo de problema resultante:
  
       a. problema lineal en estado estacionario $\mat{K} \cdot \vec{u} = \vec{b}$ (PETSc KSP)
@@ -813,7 +889,7 @@ Dentro de las inicializaciones en tiempo de parseo, cada implementación especí
       c. problema no lineal en estado estacinario $\vec{F}(\vec{u}) = 0$ (PETSc SNES)
       d. problema transitorio $\vec{G}(\vec{u}, \dot{\vec{u}}, t) = 0$ (PETSc TS)
       
- v. calcular campos secundarios a partir de los primarios, por ejemplo
+ v. calcular campos secundarios a partir de los primarios (ver @sec-post), por ejemplo
  
      * flujos escalares a partir de flujos angulares
      * corrientes a partir de flujos neutrónicos
@@ -834,7 +910,7 @@ int (*setup_ksp)(KSP ksp);
 int (*setup_eps)(EPS eps);
 int (*setup_ts)(TS ksp);
 
-// build
+// build·
 int (*element_build_volumetric)(element_t *e);
 int (*element_build_volumetric_at_gauss)(element_t *e, unsigned int q);
 
@@ -957,7 +1033,7 @@ dentro de la estructura asociada a la condición de contorno según corresponda 
 
 #### Inicialización
 
-Luego de que el parser lee completamente el archivo de entrada, FeenoX ejecuta las instrucciones en el orden adecuado posiblemente siguiendo lazos de control y bucles.
+Luego de que el parser lee completamente el archivo de entrada, FeenoX ejecuta las instrucciones en el orden adecuado posiblemente siguiendo lazos de control y bucles^[Del inglés [_loop_]{lang=en-US}].
 Al llegar a la instrucción `SOLVE_PROBLEM`, llama al punto de entrada `init_before_run()` donde
 
  1. Se leen las expresiones que definen las propiedades de los materiales, que no estaban disponibles en el momento de la primera inicialización después de leer la línea `PROBLEM`. Estas propiedades de materiales en general y las secciones eficaces macroscópicas en particular pueden estar dadas por
@@ -1126,8 +1202,8 @@ int feenox_problem_build_volumetric_gauss_point_neutron_diffusion(element_t *e, 
 }
 ```
 
-Luego de hacer el bucle sobre cada punto de Gauss $q$ de cada elemento volumétrico $e_i$, el framework general se encarga de ensamblar los objetos globales $\mat{K}$, $\mat{M}$ y/o $\vec{b}$ en formato PETSc a partir de los objetos locales $\mat{K}_i$, $\mat{M}_i$ y/o $\vec{b}_i$ en formato GSL.
-En forma análoga, el framework hace un bucle sobre los elementos superficiales que contienen condiciones de borde naturales y llama al apuntador a función `set_natural()` que toma como argumentos
+Luego de hacer el loop sobre cada punto de Gauss $q$ de cada elemento volumétrico $e_i$, el framework general se encarga de ensamblar los objetos globales $\mat{K}$, $\mat{M}$ y/o $\vec{b}$ en formato PETSc a partir de los objetos locales $\mat{K}_i$, $\mat{M}_i$ y/o $\vec{b}_i$ en formato GSL.
+En forma análoga, el framework hace un loop sobre los elementos superficiales que contienen condiciones de borde naturales y llama al apuntador a función `set_natural()` que toma como argumentos
 
  1. un apuntador a una estructura `bc_data_t` definida como
  
@@ -1189,11 +1265,16 @@ La condición de contorno tipo `mirror` en difusión, tal como en la ecuación d
 :::
 
 Las condiciones de contorno esenciales se ponen en el problema luego de haber ensamblado la matriz global $\mat{A}$ y transformarla en la matriz de rigidez $\mat{K}$ según el procedimiento discutido en la @sec-fem.
-Para ello debemos hacer un bucle sobre los nodos, bien con el \ref{alg:poisson-dirichlet1} o con el \ref{alg:poisson-dirichlet2}, y poner un uno en la diagonal de la matriz de rigidez y el valor de la condición de contorno en el nodo en el vector del miembro derecho, en la fila correspondiente al grado de libertad global.
+Para ello debemos hacer un loop sobre los nodos, bien con el algoritmo \ref{alg:poisson-dirichlet1} o con el algoritmo \ref{alg:poisson-dirichlet2}, y poner un uno en la diagonal de la matriz de rigidez y el valor de la condición de contorno en el nodo en el vector del miembro derecho, en la fila correspondiente al grado de libertad global.
 
 ::: {.remark}
 En un problema de autovalores, sólo es posible poner condiciones de contorno homogéneas.
-En este caso, se pone un uno en la diagonal de $\mat{K}$ y un cero en la diagonal de $\mat{M}$.
+En este caso, se puede
+
+ a. poner un uno en la diagonal de $\mat{K}$ y un cero en la diagonal de $\mat{M}$, ó
+ b. poner un uno en la diagonal de $\mat{M}$ y un cero en la diagonal de $\mat{K}$
+ 
+Cuál de las dos opciones es la más conveniente depende del algoritmo seleccionado para la transformación espectral del problema de autovalores a resolver.
 :::
 
 La forma de implementar esto en FeenoX para una PDE arbitraria es que para cada nodo que contiene una condición de Dirichlet, el framework llama al apuntador a función `set_essential()` que toma como argumentos
@@ -1316,7 +1397,7 @@ feenox.pde.has_rhs  =  neutron_diffusion.has_sources;
 ```
 
 
-#### Post-procesamiento
+#### Post-procesamiento {#sec-post}
 
 Luego de resolver el problema discretizado y encontrar el vector global solución $\vec{u}$, debemos dejar disponibles la solución para que las instrucciones que siguen a `SOLVE_PROBLEM` tales como `PRINT` o `WRITE_RESULTS` puedan operar sobre ellas.
 
