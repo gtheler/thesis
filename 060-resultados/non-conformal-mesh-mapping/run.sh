@@ -3,6 +3,8 @@
 # si no nos dieron una expresión, usamos esta
 if [ -z "$1" ]; then
  f="1 + x*sqrt(y) + 2*log(1+y+z) + cos(x*z)*exp(y*z)"
+else
+ f="$1"
 fi
 
 # verificamos que los binarios necesarios estén
@@ -37,7 +39,7 @@ echo "interpolando..."
 for src in $(seq ${min} ${step} ${max}); do
  for dst in $(seq ${min} ${step} ${max}); do
   echo "de ${src} a ${dst}... "
-  /usr/bin/time -o time_interp_${src}_${dst} -f "%e" feenox interpolate.fee ${src} ${dst}
+  /usr/bin/time -o time_interp_${src}_${dst} -f "%e" feenox interpolate.fee "${f}" ${src} ${dst}
  done
  echo
 done

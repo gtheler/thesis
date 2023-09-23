@@ -1,3 +1,3 @@
 READ_MESH cube-$2-src.msh DIM 3 READ_FUNCTION f
 READ_MESH cube-$3.msh
-WRITE_MESH cube-$1-$2-dst.vtk f abs(f(x,y,z)-($1)) MESH cube-$3.msh
+WRITE_MESH cube-$2-$3-dst.vtk f NAME error "abs(f(x,y,z)-($1))" MESH cube-$3.msh

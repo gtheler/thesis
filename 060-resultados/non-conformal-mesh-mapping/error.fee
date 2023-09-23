@@ -1,4 +1,4 @@
 READ_MESH cube-$2-$3-dst.vtk DIM 3 READ_FIELD f AS f_msh
-INTEGRATE (f_msh(x,y,z)-f(x,y,z))^2 RESULT error_l2
-FIND_EXTREMA abs(f_msh(x,y,z)-($1)) NODES MAX error_max
+INTEGRATE "(f_msh(x,y,z)-($1))^2" RESULT error_l2
+FIND_EXTREMA "abs(f_msh(x,y,z)-($1))" NODES MAX error_max
 PRINTF "%g | %g | %.1e | %.1e | " $2 $3 sqrt(error_l2) error_max
