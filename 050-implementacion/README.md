@@ -1494,10 +1494,7 @@ PROBLEM neutron_diffusion DIMENSIONS 1+2 GROUPS sqrt(4)
 MATERIAL fuel nuSigma_f1=1+T(x,y,z)  nuSigma_f2=10-1e-2*(T(x,y,z)-T0)^2
 ```
 
-Esto obedece a una de las primeras decisiones de diseño del código:
-
-> Todo es una expresión. No hay constantes.
-
+Esto obedece a una de las primeras decisiones de diseño del código. Parafraseando la idea de Unix "todo es un archivo", para FeenoX "todo es una expresión".
 La explicación se basa en la historia misma de por qué en algún momento de mi vida profesional es que decidí escribir la primera versión de este código, cuya tercera implementación es FeenoX @sec-history.
 Luego de la tesis de grado @theler2007 y de la de maestría @theler2008, en el año 2009 busqué en StackOverflow cómo implementar un parser PEMDAS ([_Parenthesis Exponents Multiplication Division Addition Subtraction_]{lang=en-US}) en C.
 Esa primera implementación solamente soportaba constantes numéricas, por lo que luego agregué la posibilidad de incorporar variables y funciones matemáticas estándar (trigonométricas, exponenciales, etc.) cuyos argumentos son, a su vez, expresiones algebraicas. Finalmente funciones definidas por el usuario (@sec-funciones) e incluso funcionales que devuelven un número real a partir de una expresión (implementadas con la GNU Scientific Library) como por ejemplo
@@ -1538,7 +1535,7 @@ Esa primera implementación solamente soportaba constantes numéricas, por lo qu
 
 La forma en la que FeenoX maneja expresiones es la siguiente:
 
- 1. El parser toma una cadena de caracteres y la analiza (_parsea_) para generar un árbol de sintaxis abstracto^[Del inglés [_abstract syntax tree_]{lang=en-US}.] que consiste en una estructura `expr_t`
+ 1. El parser toma una cadena de caracteres y la analiza (_parsea_, por eso es un _parser_) para generar un árbol de sintaxis abstracto^[Del inglés [_abstract syntax tree_]{lang=en-US}.] que consiste en una estructura `expr_t`
  
     ```c
     // algebraic expression
@@ -1624,56 +1621,48 @@ Los índices de elementos de vectores o matrices y los argumentos de funciones y
 Los argumentos en la línea de comando `$1`, `$2`, etc. se reemplazan como si fuesen cadenas antes de parsear la expresión.
 :::
 
-Esta funcionalidad, entre otras cosa, permite comparar resultados numéricos con resultados analíticos.
+Esta funcionalidad, entre otras cosas, permite comparar resultados numéricos con resultados analíticos.
 Como muchas veces estas soluciones analíticas están dadas por series de potencias, el funcional `sum()` es muy útil para realizar esta comparación.
-Por ejemplo
+Por ejemplo, en conducción de calor transitoria:
 
-```feenox
-# example of a 1D heat transient problem
-# from https://www.math.ubc.ca/~peirce/M257_316_2012_Lecture_20.pdf
-# T(0,t) = 0       for t < 1
-#          A*(t-1) for t > 1  
-# T(L,t) = 0
-# T(x,0) = 0
-READ_MESH slab-1d-0.1m.msh DIMENSIONS 1
-PROBLEM thermal
-
-end_time = 2
-
-# unitary non-dimensional properties
-k = 1
-rhocp = 1
-alpha = k/rhocp
-
-# initial condition
-T_0(x) = 0
-# analytical solution
-# example 20.2 equation 20.25
-A = 1.23456789
-L = 0.1
-N = 100
-T_a(x,t) = A*(t-1)*(1-x/L) + 2*A*L^2/(pi^3*alpha^2) * sum((exp(-alpha^2*(i*pi/L)^2*(t-1))-1)/i^3 * sin(i*pi*x/L), i, 1, N) 
-
-# boundary conditions
-BC left  T=if(t>1,A*(t-1),0)
-BC right T=0
-
-SOLVE_PROBLEM
-
-IF done
-  PRINT %e (T(0.5*L)-T_a(0.5*L,t))/T_a(0.5*L,t)
-ENDIF
+```{.feenox include="thermal-slab-transient.fee"}
 ```
 
+```terminal
+$ feenox thermal-slab-transient.fee 
+1.0018730       0.0006274       0.0005100       0.0001174
+1.0047112       0.0021005       0.0021442       -0.0000436
+1.0072771       0.0036783       0.0037210       -0.0000427
+1.0097632       0.0052402       0.0052551       -0.0000150
+1.0131721       0.0073607       0.0073593       0.0000014
+1.0192879       0.0111393       0.0111345       0.0000048
+1.0315195       0.0186881       0.0186849       0.0000032
+1.0500875       0.0301491       0.0301466       0.0000025
+1.0872233       0.0530725       0.0530700       0.0000025
+1.1614950       0.0989193       0.0989167       0.0000026
+1.3100385       0.1906127       0.1906102       0.0000026
+1.6071253       0.3739997       0.3739971       0.0000026
+2.0000000       0.6165149       0.6165123       0.0000026
+$
+```
 
 ### Evaluación de funciones  {#sec-funciones}
 
-Tal como las expresiones de la sección anterior, el concepto de _funciones_ es central para FeenoX como oposición y negación definitiva de la idea de "tabla" para dar dependencias no triviales de las secciones eficaces con respecto a temperaturas, quemados, concentraciones de venenos, etc. según lo discutido en la referencia @enief-milonga-2014 sobre la segunda versión del código.
+Tal como las expresiones de la sección anterior, el concepto de _funciones_ es central para FeenoX como oposición y negación definitiva de la idea de "tabla" para dar dependencias no triviales de las secciones eficaces con respecto a
+
+  i. temperaturas
+  ii. quemados
+  iii. concentración de venenos
+  iv. etc.
+  
+según lo discutido en la referencia @enief-milonga-2014 sobre la segunda versión del código.
+
 Una función está completamente definida por un nombre único $f$, por la cantidad $n$ de argumentos que toma y por la forma de evaluar el número real $f(\vec{x}) : \mathbb{R}^n \mapsto \mathbb{R}$ que corresponde a los argumentos $\vec{x} \in \mathbb{R}^n$. Las funciones en FeenoX pueden ser
 
  1. algebraicas, o
  2. definidas por puntos
  
+#### Funciones definidas algebraicamente
     
 En el caso de funciones algebraicas, los argumentos tienen que ser variables que luego aparecen en la expresión que define la función. El valor de la función proviene de asignar a las variables de los argumentos los valores numéricos de la invocación y luego evaluar la expresión algebraica que la define.
 Por ejemplo
@@ -1694,8 +1683,9 @@ PRINT v(1)
 v0 = 1
 PRINT v(1)
 ```
-en la primera evaluación se obtendrá `0` y en la segunda `1`.
+en la primera evaluación obtendremos `0` y en la segunda `1`.
 
+#### Funciones definidas por puntos sin topología
 
 Por otro lado, las funciones definidas por puntos pueden ser uni-dimensionales o multi-dimensionales.
 Las multi-dimensionales pueden tener o no topología.
@@ -1706,7 +1696,7 @@ Y todas las funciones definidas por puntos pueden provenir de datos
  c. de archivos de mallas (`.msh` o `.vtk`)
  d. de vectores de FeenoX (posiblemente modificados en tiempo de ejecución)
     
-De hecho aunque no provengan de vectores, FeenoX provee acceso a los vectores que contienen tanto los valores independientes (puntos de definición) como los valores dependientes (valores que toma la función).
+De hecho aunque no provengan estrictamente de vectores (podrían hacerlo con la palabra clave `FUNCTION VECTOR`), FeenoX provee acceso a los vectores que contienen tanto los valores independientes (puntos de definición) como los valores dependientes (valores que toma la función). `En la página~\pageref{3cols} ilustramos este acceso.`{=latex}
 
 
 Las funciones definidas por puntos que dependen de un único argumento tienen siempre una topología implícita.
@@ -1725,7 +1715,7 @@ FUNCTION f(x) DATA {
 PRINT_FUNCTION f sin(x) MIN 0.2 MAX 0.8 NSTEPS 100
 ```
 
-Este pequeño archivo de entrada---que además muestra que una función definida por puntos puede usar expresiones algebraicas---fue usado para generar la
+Este pequeño archivo de entrada---que además muestra que una función definida por puntos puede usar expresiones algebraicas---fue usado para generar la @fig-sine.
 
 ::: {#fig-sine layout="[45,-10,45]"}
 
@@ -1733,7 +1723,7 @@ Este pequeño archivo de entrada---que además muestra que una función definida
 
 ![](sine-error.svg){#fig-sine-error}
 
-Dos figuras para ilustrar que el error cometido en una aproximación lineal de elementos finitos es mayor lejos de los nodos.
+Dos figuras para ilustrar que el error cometido en una aproximación lineal de elementos finitos es mayor lejos de los nodos fabricada a partir de datos numéricos generados por FeenoX.
 :::
 
 
@@ -1750,7 +1740,7 @@ La implementación del $k$-d [tree]{lang=en-US} no es parte de FeenoX sino una b
 ::: {.remark}
 La noción de "punto más cercano" involucra una métrica del espacio de definición $\mathbb{R}^k$.
 Si las $k$ componentes tienen las mismas unidades, se puede emplear la distancia euclideana usual.
-Pero por ejemplo si una componente es una temperatura y otra una presión, la métrica euclideana depende de las unidades en la que se expresan las componentes.
+Pero por ejemplo si una componente es una temperatura y otra una presión, la métrica euclideana depende de las unidades en la que se expresan las componentes por lo que deja de ser apropiada.
 :::
 
 
@@ -1766,11 +1756,14 @@ w_i(\vec{x}) = \frac{1}{|\vec{x} - \vec{x}_i|^p}
 $$
 
 
-La versión modificada consisten en sumar solamente las contribuciones correspondientes a los puntos de definición que se encuentren dentro de una hiper-bola de radio $R$ alrededor del punto de evaluación $\vec{x} \in \mathbb{R}^k$.
+La versión modificada consiste en sumar solamente las contribuciones correspondientes a los puntos de definición que se encuentren dentro de una hiper-bola de radio $R$ alrededor del punto de evaluación $\vec{x} \in \mathbb{R}^k$.
 
 ::: {.remark}
 La determinación de qué puntos $\vec{x}_i$ están dentro de la hiper-bola de centro $\vec{x}$ y de radio $R$ también se realiza con un árbol $k$-d.
 :::
+
+
+#### Funciones definidas por puntos con topología implícita
 
 Si los puntos de definición están en una grilla multidimensional estructurada rectangularmente (no necesariamente con incrementos uniformes), entonces FeenoX puede detectar la topología implícita y realizar una interpolación local a partir de los vértices del hiper-cubo que contiene el punto de evaluación $\vec{x} \in \mathbb{R}^n$. Esta interpolación local es similar a la explicada a continuación para el caso de topología explícita mediante una generalización de las funciones de forma para los elementos producto-tensor de primer orden a una dimensión arbitraria $k$.
 
@@ -1822,9 +1815,10 @@ para obtener la @fig-2dinterp.
 ![$h(x,y)$ (`rectangular`)](h.png){#fig-h2}
 
 
-Tres formas de interpolar funciones definidas por puntos a partir del mismo conjunto de datos.
+Tres formas de interpolar funciones definidas por puntos a partir del mismo conjunto de datos con topología implícita.
 :::
 
+#### Funciones definidas por puntos con topología explícita
 
 Otra forma de definir y evaluar funciones definidas por puntos es cuando existe una topología explícita.
 Esto es, cuando los puntos de definición forman parte de una malla no estructurada con una conectividad conocida.
@@ -1840,9 +1834,9 @@ En este caso, dada una función $f(\vec{x})$, el procedimiento para evaluarla en
     $$
 
 La forma particular de implementar los puntos 1 y 2 (especialmente el 1) es crucial en términos de perfomance.
-FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, para encontrar las coordenadas locales $\symbf{\xi}$ debemos resolver un sistema de ecuaciones de tamaño $J$.
+FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, resolvemos un sistema de ecuaciones de tamaño $J$ para encontrar las coordenadas locales $\symbf{\xi}$.
 
-De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tendríamos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
+De esta manera, si en lugar de tener los puntos de definición completamente estructurado` de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
@@ -1864,10 +1858,10 @@ La función interpolada coincide con la $h(x,y,)$ de la @fig-2dinterp.
 
 Esta funcionalidad permite realizar lo que se conoce como "mapeo de mallas no conformes".
 Es decir, utilizar una distribución de alguna propiedad espacial (digamos la temperatura) dada por valores nodales en una cierta malla (de un [solver]{lang=en-US} térmico) para evaluar propiedades de materiales (digamos la sección eficaz de fisión) en la malla de cálculo.
-En este caso en particular, los puntos $\vec{x}$ donde se requiere evaluar la función definida en la otra malla de definición corresponden a los puntos de Gauss de los elementos de la malla de cálculo.
+En este caso en particular, los puntos $\vec{x}$ donde se requiere evaluar la función definida en la otra malla de definición corresponden a los puntos de Gauss de los elementos de la malla de cálculo. En el caso de la @sec-non-conformal profundizamos este concepto.
 
 ::: {.remark}
-Es importante remarcar que para todas las funciones definidas por puntos, FeenoX utiliza un esquema de memoria en la cual los datos numéricos tanto de la ubicación de los puntos de definición $\vec{x}_j$ como de los valores $f_j$ de definición están disponibles para lectura y/o escritura como vectores accesibles como expresiones en tiempo de ejecución. Esto quiere decir que FeenoX puede leer la posición de los nodos de un archivo de malla fijo y los valores de definición de alguna otra fuente que provea un vector del tamaño adecuado, como por ejemplo un recurso de memoria compartida o un [socket TCP]{lang=en-US}. Por ejemplo, podemos modificar el valor de definición $f(0.5,0.5)=0.25$ a $f(0.5,0.5)=40$ en tiempo de ejecución como
+Es importante remarcar que para todas las funciones definidas por puntos, FeenoX utiliza un esquema de memoria en la cual los datos numéricos tanto de la ubicación de los puntos de definición $\vec{x}_j$ como de los valores $f_j$ de definición están disponibles para lectura y/o escritura como vectores accesibles como expresiones en tiempo de ejecución. Esto quiere decir que esta herramienta puede leer la posición de los nodos de un archivo de malla fijo y los valores de definición de alguna otra fuente que provea un vector del tamaño adecuado, como por ejemplo un recurso de memoria compartida o un [socket TCP]{lang=en-US}. Por ejemplo, podemos modificar el valor de definición $f(0.5,0.5)=0.25$ a $f(0.5,0.5)=40$ en tiempo de ejecución como
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
@@ -1890,32 +1884,113 @@ para obtener la @fig-2dinterp-modified.
 Ilustración de la modificación en tiempo de ejecución de los datos de definición de una función definida con puntos (en este caso, con topología explícita).
 :::
 
-TODO: ejemplo de non-conformal mesh mapping
-
-
-### Campos secundarios diferenciales
-
-stress recovery
 
 
 ## Otros aspectos
 
 
-### Estudios paramétricos
+### Filosofía Unix
+
+@sec-unix
+
+@raymond @unix
+
+ * Regla de composición
+ * Regla de simplicidad
+ * Regla de parsimonia
+ * Regla de transparencia
+ * Regla de generación
+ * Regla de diversidad
+ 
+Git
+
+Bucles paramétricos a través de la línea de comandos
 
 
 ### Performance
 
+Balance entre CPU y memoria
 
-### Paralelización
+Hay un montón de cosas para hacer!
+
+Comparar con LE10
+
+Hay un repositorio para medir con google-benchmark
+
+Investigar y medir
+
+ - efecto de inlining
+ - eficiencia de acceso a memoria (cache misses)
+ - data-oriented design
+ - dmplex para topología
+ 
+ * have compile-time macros that will optimize for
+   - speed
+   - memory
+   - something else
+ * create FeenoX flavors with compile-time 
+   - problem type (so we can avoid function pointers)
+   - problem dimension (so we can hardcode sizes)
+   - full or axi-symmetry
+   - scalar size (float or double)
+   - all elements are of the same type
+
+
+### Escalabilidad
+
+Paralelización 
+
+ - MPI, no openmp
+ - hay un montón para hacer
+ - Metis: gmsh o dmplex
+
 
 
 ### Ejecución en la nube
 
+No es sólo poder hacer `mpirun` por SSH!
+
+GUIs
+
+ - web
+ - desktop
+ - mobile
+ 
+Client
+
+ - python to do the auth + versioning + launch + follow the execution + get results
+
+ 
+
+### Extensibildiad
+
+ - `src/pdes/`
+ - FVM
+ - truss1d
 
 ### Integración continua
 
+Github actions
+
+TODO: code coverage?
 
 ### Documentación
+
+Markdown 
+
+Pandoc:
+
+ - HTML
+ - PDF (a través de LaTeX)
+ - Github Markdown (READMEs)
+ 
+SDS
+
+SRS
+
+Contributing
+
+Code of conduct
+
 
 

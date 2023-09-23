@@ -7,3 +7,14 @@
  * index?
  * zebra tables
  * CSL style 
+
+ * FeenoX & Unix
+ * terminar SDS
+ * resolver transporte en 1d como Los Alamos (if one keeps the higher...)
+ * apéndice con elementos
+   1. dibujo con node ordering en Gmsh
+   2. shape functions & derivatives: LaTeX commands
+   3. Guass points como Markdown tables
+   
+ * point kinetics with $\rho(z)$
+

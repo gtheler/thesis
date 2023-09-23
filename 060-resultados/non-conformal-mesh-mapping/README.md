@@ -1,6 +1,6 @@
 # Mapeo en mallas no conformes {#sec-non-conformal}
 
-> Sobre la importancia de que FeenoX siga la filosofía Unix.
+> **TL;DR:** Sobre la importancia de que FeenoX siga la filosofía Unix.
 
 Este prime caso no resuelve ninguna PDE pero sirve para ilustrar...
 
