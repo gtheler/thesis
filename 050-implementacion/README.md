@@ -748,7 +748,7 @@ PRINT sqrt(integral((ref(x)-phi1(x))^2,x,0,8))/8
        Estas funciones están disponibles para que instrucciones subsiguientes las utilicen como salida directamente con `WRITE_MESH, como parte de otras expresiones intermedias, etc.
     #. Si el problema fuese de criticidad, entonces esta instrucción también pondría el valor del factor de multiplicación efectivo $k_\text{eff}$ en una variable llamada `keff`.
     
- * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen` xxxxxxx. @sec-xxxxxxxxxxxxxxxxx
+ * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen` @steffen.
  
  * La última línea imprime en la salida estándar una representación ASCII (por defecto utilizando el formato `%g` de la instrucción `printf()` de C) del error $L_2$ cometido por la solución calculada con FeenoX con respecto a la solución de referencia, es decir
 
@@ -1625,7 +1625,7 @@ Esta funcionalidad, entre otras cosas, permite comparar resultados numéricos co
 Como muchas veces estas soluciones analíticas están dadas por series de potencias, el funcional `sum()` es muy útil para realizar esta comparación.
 Por ejemplo, en conducción de calor transitoria:
 
-```{.feenox include="thermal-slab-transient.fee"}
+```{.feenox include="050-implementacion/thermal-slab-transient.fee"}
 ```
 
 ```terminal
