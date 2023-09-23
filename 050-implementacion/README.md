@@ -1907,7 +1907,7 @@ Git
 Bucles paramétricos a través de la línea de comandos
 
 
-### Performance
+### Performance {#sec-performance}
 
 Balance entre CPU y memoria
 

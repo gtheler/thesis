@@ -300,7 +300,7 @@ Durante la interacción con los consultores extranjeros en la etapa de
 evaluación de la inyección de boro en Atucha II hemos identificado que
 una discretización espacial gruesa tiende a sobrestimar la reactividad
 negativa introducida de forma inaceptable debido al efecto de dilución
-de secciones eficaces que repasamos a continuación (ver @sec-prob-dilucion). En efecto,
+de secciones eficaces que repasamos a continuación (ver @sec-slab). En efecto,
 consideremos una pequeña gota de ácido deuterobórico con una gran
 concentración de boro, digamos 2000 partes por millón, que en algún
 instante se encuentra dentro de una de las celdas sobre las cuales se
