@@ -12,6 +12,9 @@
 :::::
 
 
+citar "la singularidad"
+
+
 
 
 
@@ -80,7 +83,7 @@ Ashish Patel, Jeremy Theler, Francesc Levrero-Florencio, Nabil Abboud, Mohammad 
 Ansys, Inc.
 
  
- 
+ citar phd vitor
 
 El arquetipo de las presentaciones a congresos de mecom son:
 
@@ -171,11 +174,22 @@ cloud native != cloud enabled or cloud friendly
 ilustrar LE-10 vs aster/elmer/calculix e iaea3d pwr vs parcs
 
 
+
+
 Paralelización @intro-parallel
 
  1. shared memory -> openmp
  2. openmpi
  3. GPU
+
+
+3dpwr con borde circular
+
+mostrar weak/strong scaling (la que el tiempo es más chico)
+y que baja la memoria por nodo
+
+tabla de costos 1965 vs. ec2 pricing + contabo
+
 
 
     

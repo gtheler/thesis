@@ -1935,6 +1935,9 @@ Investigar y medir
    - scalar size (float or double)
    - all elements are of the same type
 
+Idea: el sistema de templates de C++ es Turing complete.
+Se podría hacer un solver (con la malla y las propiedades embebidas) que corra en tiempo 0 pero que tarde muchísimo en compilar.
+
 
 ### Escalabilidad
 
