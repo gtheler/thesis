@@ -18,7 +18,7 @@ Mesh.Optimize = 1;
 Mesh.OptimizeNetgen = 1;
 Mesh.ElementOrder = 1;
 
-Mesh.MeshSizeMin = 5/Mesh.ElementOrder;
-Mesh.MeshSizeMax = 10/Mesh.ElementOrder;
+//Mesh.MeshSizeMin = 5/Mesh.ElementOrder;
+//Mesh.MeshSizeMax = 10/Mesh.ElementOrder;
 
 Merge "iaea-colors.geo";
