@@ -11,7 +11,7 @@ BC vacuum   vacuum=0.4692
 BC mirror   mirror
 
 SOLVE_PROBLEM
-# WRITE_RESULTS FORMAT vtk
+WRITE_RESULTS FORMAT vtk
 
 # print results
 PRINTF "  keff = %.5f" keff

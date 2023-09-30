@@ -183,13 +183,45 @@ Paralelización @intro-parallel
  3. GPU
 
 
-3dpwr con borde circular
+mostrar 
+
+ 1. bunny con KSP y vacuum
+ 2. bunny con KSP en box
+ 3. 3dpwr con borde circular
 
 mostrar weak/strong scaling (la que el tiempo es más chico)
 y que baja la memoria por nodo
 
 tabla de costos 1965 vs. ec2 pricing + contabo
 
+$1 in 1965 is worth $16.21 today (2023)
+
+IBM 7030: 1.2 MIPS
+
+::: {#tbl-1965}
+
+    Computer | Monthly Rental [1965 USDs] | Relative Speed | First Delivery 
+----------------------------|----------------|-------------|----------------
+ CDC 3800                   |     50,000     |     1       |  Jan 66 \\
+ CDC 6600                   |     80,000     |     6       |  Sep 64 \\
+ CDC 6800                   |     85,000     |     20      |  Jul 67 \\
+ GE 635                     |     55,000     |     1       |  Nov 64 \\
+ IBM 360/62                 |     58,000     |     1       |  Nov 65 \\
+ IBM 360/70                 |     80,000     |     2       |  Nov 65 \\
+ IBM 360/92                 |     142,000    |     20      |  Nov 66 \\
+ PHILCO 213                 |     78,000     |     2       |  Sep 65 \\
+ UNIVAC 1108                |     45,000     |     2       |  Aug 65 \\
+
+The new high speed computers in 1965, table 3 of @computadoras65. Costs are expressed in 1965 USD and may vary by a factor of two.
+Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.
+:::
+
+
+hay que sacarse el sombrero frente a los ñatos de hace 60 años!
+el cuento es que hoy seguimos haciendo software de la misma manera
+
+el que sabe de programación unix y taocp usualmente no sabe de FEM @bathe
+y más aún, el que sabe de los dos no sabe de neutrónica
 
 
     

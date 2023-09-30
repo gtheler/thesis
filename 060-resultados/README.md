@@ -111,4 +111,5 @@ ver thermal-slab-transient-mms-capacity-of-T.fee  thermal-slab-transient-mms.fee
 > **TL;DR:** Mallas no estructuradas, dependencias espaciales no triviales, escalabilidad.
 
 
+mostrar que KSP es mucho más barato que EPS
 

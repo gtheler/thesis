@@ -1906,6 +1906,17 @@ Git
 
 Bucles paramétricos a través de la línea de comandos
 
+### Simulación programática
+
+No me gusta el término "simulación" pero es como se llama en la industria.
+
+ * interfaz en lenguaje de alto nivel
+ * entrada definida 100% en un archivo ASCII
+ 
+Symbios
+
+
+
 
 ### Performance {#sec-performance}
 
@@ -1913,7 +1924,7 @@ Balance entre CPU y memoria
 
 Hay un montón de cosas para hacer!
 
-Comparar con LE10
+Comparar con LE10, sparselizard, etc.
 
 Hay un repositorio para medir con google-benchmark
 
@@ -1948,10 +1959,35 @@ Paralelización
  - Metis: gmsh o dmplex
 
 
+```
+mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee
+
+```
+
+```
+ubuntu@ip-172-31-44-208:~/mpi/hello$ mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee 
+[0/4 ip-172-31-44-208] Hello MPI World!
+[1/4 ip-172-31-44-208] Hello MPI World!
+[2/4 ip-172-31-34-195] Hello MPI World!
+[3/4 ip-172-31-34-195] Hello MPI World!
+ubuntu@ip-172-31-44-208:~/mpi/hello$ 
+```
 
 ### Ejecución en la nube
 
 No es sólo poder hacer `mpirun` por SSH!
+
+Hay que poner todo en una red, configurar nfs, hostfiles, et.c
+
+Pero además tener en cuenta interacción remota en tiempo de ejecución
+
+ * cómo reportar el estado del solver a demanda
+   - en un gui web
+   - en un email
+   - en un whatsapp
+   
+   
+
 
 GUIs
 
@@ -1971,6 +2007,9 @@ Client
  - FVM
  - truss1d
 
+El código es GPLv3+. El + es por extensibilidad.
+
+ 
 ### Integración continua
 
 Github actions
