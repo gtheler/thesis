@@ -1,0 +1,20 @@
+set preamble "\usepackage{amsmath}"
+
+set width 12*unit(cm)
+set size ratio 9.0/16.0
+
+set axis x arrow nomirrored
+set axis y arrow nomirrored
+set key above
+
+set grid
+set terminal pdf
+
+set xlabel "$y$"
+set ylabel "$\phi$"
+
+set key above
+
+load "azmy-full-fixed-theta-fixed-sn.ppl"
+load "azmy-full-fixed-theta-fixed-c.ppl"
+load "azmy-full-fixed-sn-fixed-c.ppl"

@@ -18,6 +18,8 @@ Mesh.Optimize = 1;
 Mesh.OptimizeNetgen = 1;
 Mesh.ElementOrder = 1;
 
+
+MeshSize {:} = 7.5;
 //Mesh.MeshSizeMin = 5/Mesh.ElementOrder;
 //Mesh.MeshSizeMax = 10/Mesh.ElementOrder;
 

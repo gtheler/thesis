@@ -50,66 +50,32 @@ Ver apéndice para más problemas.
 
 
 ```{.include shift-heading-level-by=1}
-060-resultados/non-conformal-mesh-mapping/README.md
+060-resultados/010-non-conformal-mesh-mapping/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/020-reed/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/030-iaea-2d/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/040-azmy/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/050-los-alamos/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/060-two-zone-slab/README.md
+```
+
+```{.include shift-heading-level-by=1}
+060-resultados/070-cube-sphere/README.md
 ```
 
 
-## El problema de Reed {#sec-reed}
-
-> **TL;DR:** Este problema tiene curiosidad histórica, es uno de los problemas más sencillos no triviales que podemos encontrar y sirve para mostrar que para tener en cuenta regiones vacías no se puede utilizar una formulación de difusión.
-
-
-## IAEA PWR Benchmark {#sec-2dpwr}
-
-> **TL;DR:** El problema original de 1976 propone resolver un cuarto de núcleo cuando en realidad la simetría es 1/8.
-
-### Caso 2D original
-
-### Caso 2D con simetría 1/8
-
-### Caso 2D con reflector circular
-
-### Caso 3D original con simetría 1/8
-
-
-
-
-## El problema de Azmy {#sec-azmy}
-
-> **TL;DR:** Este problema ilustra el "efecto rayo" de la formulación de ordenadas discretas en dos dimensiones.
-> Para estudiar completamente el efecto se necesita o rotar la geometría con respecto a las direcciones de S$_N$.
-
-## Benchmarks de criticidad de Los Alamos {#sec-losalamos}
-
-> **TL;DR:** Curiosidad histórica y verificación con el método de soluciones exactas.
-
-## Slab a dos zonas, efecto de dilución de XSs {#sec-slab}
-
-> **TL;DR:** Este problema ilustra el error cometido al analizar casos multi-material con mallas estructuradas donde la interfaz no coincide con los nodos de la malla.
-
-
-## Estudios paramétricos: el reactor cubo-esfera {#sec-cubesphere}
-
-> **TL;DR:** No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada.
-
-## Optimización: el problema de los pescaditos {#sec-pescaditos}
-
-> **TL;DR:** Composición con una herramienta de optimización.
-
-## Verificación con el método de soluciones fabricadas {#sec-mms}
-
-> **TL;DR:** Para verificar los métodos numéricos con el método de soluciones fabricadas se necesita un solver que permita definir propiedades materiales en función del espacio a través de expresiones algebraicas.
-
-reactor tipo conejo
-MMS
-
-ver thermal-slab-transient-mms-capacity-of-T.fee  thermal-slab-transient-mms.fee
-
-
-## PHWR de siete canales y tres barras de control inclinadas {#sec-phwr}
-
-> **TL;DR:** Mallas no estructuradas, dependencias espaciales no triviales, escalabilidad.
-
-
-mostrar que KSP es mucho más barato que EPS
 

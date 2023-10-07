@@ -1,0 +1,9 @@
+# parametros de la geometria
+NUMBER A      50    # radio del reactor
+NUMBER a      2     # radio del pescadito
+NUMBER deltar 1     # incremento en r
+lc = 2         # longitud caracteristica
+
+# secciones eficaces
+MATERIAL fuel       D_1 1   SigmaA_1 0.02  nuSigmaF_1 0.03
+MATERIAL pescadito  D_1 0.9 SigmaA_1 0.10

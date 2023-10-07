@@ -535,7 +535,7 @@ Por ejemplo, la lectura del archivo de malla es una instrucción y no una defini
     READ_MESH tmp
     ```
     
- iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver ejemplo **XXX** de non-conformal mesh mapping.
+ iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver @sec-non-conformal.
 
 Comencemos con un problema sencillo para luego agregar complejidad en forma incremental.
 A la luz de la discusión de este capítulo, preguntémonos ahora qué necesitamos para resolver un problema de conducción de calor estacionario sobre un dominio $U \mathbb{R}^D$ con un único material:
@@ -782,6 +782,15 @@ A su vez, para generar este script `configure` se suele utilizar el conjunto de 
 Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como los templates para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y los templates que indican dónde están los archivos fuente que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
 Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
 
+::::: {lang=en-US}
+> FeenoX has releases with proper a tarball! It has `INSTALL`, `./configure` and 
+> just compiles. Wow. Yeah, these are free software basics, but majority of 
+> the sim software (some discrete circuit simulators included!) I've tried 
+> fail on most of these points. So thanks for making quality software!
+>
+> _Tibor 'Igor2' Palinkas, maintainer of the open source PCB editor pcb-rnd_
+::::: {lang=en-US}
+
 Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
 Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (algunos autores prefieren llamarlo `bootstrap`).
 
@@ -956,13 +965,12 @@ Cuando se termina la línea de `PROBLEM`, el parser general llama a `parse_probl
       ```c
       // the angular fluxes psi
       feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
-      for (int n = 0; n < neutron_sn.directions; n++) {
-        for (int g = 0; g < neutron_sn.groups; g++) {
-          feenox_check_minusone(asprintf(&feenox.pde.unknown_name[n * neutron_sn.groups + g], "psi%d.%d", n+1, g+1));
+      for (unsigned int m = 0; m < neutron_sn.directions; m++) {
+        for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+          feenox_check_minusone(asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%u.%u", m+1, g+1));
         }
       }
-      feenox_call(feenox_problem_define_solutions());
-
+    
       // the scalar fluxes psi
       feenox_check_alloc(neutron_sn.phi = calloc(neutron_sn.groups, sizeof(function_t *)));
       for (unsigned int g = 0; g < neutron_sn.groups; g++) {
@@ -971,8 +979,9 @@ Cuando se termina la línea de `PROBLEM`, el parser general llama a `parse_probl
         feenox_call(feenox_problem_define_solution_function(name, &neutron_sn.phi[g], FEENOX_SOLUTION_NOT_GRADIENT));
         feenox_free(name);
       }
-
+    
       neutron_sn.keff = feenox_define_variable_get_ptr("keff");
+    
       neutron_sn.sn_alpha = feenox_define_variable_get_ptr("sn_alpha");
       feenox_var_value(neutron_sn.sn_alpha) = 0.5;
       ```
@@ -1468,10 +1477,9 @@ feenox.pde.dofs =  neutron_sn.directions * neutron_sn.groups;
 feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
 for (unsigned int m = 0; m < neutron_sn.directions; m++) {
   for (unsigned int g = 0; g < neutron_sn.groups; g++) {
-    asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%d.%d", m+1, g+1);
+    feenox_check_minusone(asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%u.%u", m+1, g+1));
   }
 }
-
 ```
 
 
@@ -1662,7 +1670,7 @@ Una función está completamente definida por un nombre único $f$, por la cant
  1. algebraicas, o
  2. definidas por puntos
  
-#### Funciones definidas algebraicamente
+#### Funciones definidas algebraicamente {#sec-funciones-algebraicas}
     
 En el caso de funciones algebraicas, los argumentos tienen que ser variables que luego aparecen en la expresión que define la función. El valor de la función proviene de asignar a las variables de los argumentos los valores numéricos de la invocación y luego evaluar la expresión algebraica que la define.
 Por ejemplo
@@ -1684,6 +1692,28 @@ v0 = 1
 PRINT v(1)
 ```
 en la primera evaluación obtendremos `0` y en la segunda `1`.
+
+::: {.remark}
+La @fig-harmonics fue creada por la herramienta de post-procesamiento tridimensinoal Paraview a partir de un archivo VTK generado por FeenoX con el siguiente archivo de entrada:
+
+```feenox
+READ_MESH sphere.msh
+
+Y00(x,y,z) = sqrt(1/(4*pi))
+
+Y1m1(x,y,z) = sqrt(3/(4*pi)) * y
+Y10(x,y,z)  = sqrt(3/(4*pi)) * z
+Y1p1(x,y,z) = sqrt(3/(4*pi)) * x
+
+Y2m2(x,y,z)  = sqrt(15/(4*pi)) * x*y
+Y2m1(x,y,z)  = sqrt(15/(4*pi)) * y*z
+Y20(x,y,z)   = sqrt(5/(16*pi)) * (-x^2-y^2+2*z^2)
+Y2p1(x,y,z)  = sqrt(15/(4*pi)) * z*x
+Y2p2(x,y,z)  = sqrt(15/(16*pi)) * (x^2-y^2) 
+
+WRITE_MESH harmonics.vtk Y00 Y1m1 Y10 Y1p1 Y2m2 Y2m1 Y20 Y2p1 Y2p2
+```
+:::
 
 #### Funciones definidas por puntos sin topología
 
@@ -1902,11 +1932,20 @@ Ilustración de la modificación en tiempo de ejecución de los datos de definic
  * Regla de generación
  * Regla de diversidad
  
-Git
+ASCII, git
 
-Bucles paramétricos a través de la línea de comandos
+Bucles paramétricos a través de la línea de comandos @sec-simulacion-programatica
 
-### Simulación programática
+Do not repeat yourself!
+PETSc: mark hizo un cambio de 3.19 a 3.20 y GAMG va casi al doble de rápido
+
+Open source
+
+![[Anuncio de lanzamiento de PETSc 3.20 (29 de septimebre de 2023)](https://lists.mcs.anl.gov/pipermail/petsc-announce/2023/000113.html) con la lista de personas que han contribuido a la base del código, incluyendo al autor de esta tesis.](petsc320.svg){#fig-petsc320}
+
+
+
+### Simulación programática {#sec-simulacion-programatica}
 
 No me gusta el término "simulación" pero es como se llama en la industria.
 
@@ -1950,6 +1989,21 @@ Idea: el sistema de templates de C++ es Turing complete.
 Se podría hacer un solver (con la malla y las propiedades embebidas) que corra en tiempo 0 pero que tarde muchísimo en compilar.
 
 
+replace with compile-time macros
+
+enable LTO and measure
+
+
+GPU con PETSc
+
+BLAS, MKL
+
+repositorio https://github.com/seamplex/feenox-benchmark
+
+no calcula lo que no se pide: corrientes
+
+
+
 ### Escalabilidad
 
 Paralelización 
@@ -1961,8 +2015,9 @@ Paralelización
 
 ```
 mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee
-
 ```
+
+La instrucción `PRINTF_ALL` hace que todos los procesos escriban en la salida estándar los datos formateados con los especificadores de `printf` las variables indicadas, prefijando cada línea con la identificación del proceso y el nombre del _host_.
 
 ```
 ubuntu@ip-172-31-44-208:~/mpi/hello$ mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee 
@@ -1972,6 +2027,102 @@ ubuntu@ip-172-31-44-208:~/mpi/hello$ mpiexec --verbose --oversubscribe --hostfil
 [3/4 ip-172-31-34-195] Hello MPI World!
 ubuntu@ip-172-31-44-208:~/mpi/hello$ 
 ```
+
+![Geometría tutorial `t21` de Gmsh: dos cuadrados mallados con triángulos y descompuestos en 6 particiones.](t21.svg){#fig-t21 width=90%}
+
+Podemos utilizar el tutorial `t21` de Gmsh en el que se ilustra el concepto de DDM (descomposición de dominio o particionado de la malla^[Del inglés [_mesh partitioning_]{lang=en-US}.]) para mostrar cómo funciona la paralelización por MPI en FeenoX.
+En efecto, consideremos la malla de la @fig-t21 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor númerico 2.
+
+```feenox
+READ_MESH t21.msh
+INTEGRATE 1 RESULT two
+PRINTF_ALL "%g" two
+```
+
+En este caso, la instrucción `INTEGRATE` se calcula en paralelo donde cada proceso calcula una integral local y antes de pasar a la siguiente instrucción, todos los procesos hacen una operación de reducción mediante la cual se suman todas las contribuciones y todos los procesos obtienen el valor global en la variable `two`:
+
+```terminal
+$ mpiexec -n 2 feenox t21.fee 
+[0/2 tom] 2
+[1/2 tom] 2
+$ mpiexec -n 4 feenox t21.fee 
+[0/4 tom] 2
+[1/4 tom] 2
+[2/4 tom] 2
+[3/4 tom] 2
+$ mpiexec -n 6 feenox t21.fee 
+[0/6 tom] 2
+[1/6 tom] 2
+[2/6 tom] 2
+[3/6 tom] 2
+[4/6 tom] 2
+[5/6 tom] 2
+$ 
+```
+
+Para ver lo que efectivamente está pasando, modificamos temporalmente el código fuente de FeenoX para que cada proceso muestre la sumatoria parcial:
+
+```terminal
+$ mpiexec -n 2 feenox t21.fee
+[proceso 0] mi integral parcial es 0.996699
+[proceso 1] mi integral parcial es 1.0033
+[0/2 tom] 2
+[1/2 tom] 2
+$ mpiexec -n 3 feenox t21.fee
+[proceso 0] mi integral parcial es 0.658438
+[proceso 1] mi integral parcial es 0.672813
+[proceso 2] mi integral parcial es 0.668749
+[0/3 tom] 2
+[1/3 tom] 2
+[2/3 tom] 2
+$ mpiexec -n 4 feenox t21.fee
+[proceso 0] mi integral parcial es 0.505285
+[proceso 1] mi integral parcial es 0.496811
+[proceso 2] mi integral parcial es 0.500788
+[proceso 3] mi integral parcial es 0.497116
+[0/4 tom] 2
+[1/4 tom] 2
+[2/4 tom] 2
+[3/4 tom] 2
+$ mpiexec -n 5 feenox t21.fee
+[proceso 0] mi integral parcial es 0.403677
+[proceso 1] mi integral parcial es 0.401883
+[proceso 2] mi integral parcial es 0.399116
+[proceso 3] mi integral parcial es 0.400042
+[proceso 4] mi integral parcial es 0.395281
+[0/5 tom] 2
+[1/5 tom] 2
+[2/5 tom] 2
+[3/5 tom] 2
+[4/5 tom] 2
+$ mpiexec -n 6 feenox t21.fee
+[proceso 0] mi integral parcial es 0.327539
+[proceso 1] mi integral parcial es 0.330899
+[proceso 2] mi integral parcial es 0.338261
+[proceso 3] mi integral parcial es 0.334552
+[proceso 4] mi integral parcial es 0.332716
+[proceso 5] mi integral parcial es 0.336033
+[0/6 tom] 2
+[1/6 tom] 2
+[2/6 tom] 2
+[3/6 tom] 2
+[4/6 tom] 2
+[5/6 tom] 2
+$ 
+```
+
+::: {.remark}
+En los casos con 4 y 5 procesos, la cantidad de particiones $P$ no es múltiplo de la cantidad de procesos $N$.
+De todas maneras, FeenoX es capaz de distribuir la carga entre los $N$ procesos requeridos aunque la eficiencia es menor que en los otros casos.
+:::
+
+Al construir los objetos globales $\mat{K}$ y $\mat{M}$ o $\vec{b}$, FeenoX utiliza un algoritmo similar para seleccionar qué procesos calculan las matrices elementales de cada elemento.
+Una vez que cada proceso ha terminado de barrer los elementos locales, se le pide a PETSc que ensamble la matriz global enviando información no local a través de mensajes MPI de forma tal de que cada proceso tenga filas contiguas de los objetos globales.
+
+::: {.remark}
+Cada fila de la matriz global $\mat{K}$ corresponde a un grado de libertad asociado a un nodo de la malla.
+:::
+
 
 ### Ejecución en la nube
 
@@ -2025,6 +2176,9 @@ Pandoc:
  - HTML
  - PDF (a través de LaTeX)
  - Github Markdown (READMEs)
+ 
+![The Unix manual page for FeenoX in `man feenox`](manpage.png){#fig-manpage}
+
  
 SDS
 

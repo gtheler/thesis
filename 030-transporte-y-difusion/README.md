@@ -1096,7 +1096,7 @@ P_\ell(\omegaversor \cdot \omegaprimaversor) =
 $$
 :::
 
-![Representación gráfica de los primeros nueve armónicos esféricos reales (@def-y00)](harmonics.png){#fig-harmonics width=100%}
+![Representación gráfica de los primeros nueve armónicos esféricos reales (@def-y00). En la @sec-funciones-algebraicas explicamos cómo generamos esta figura.](harmonics.png){#fig-harmonics width=100%}
 
 
 ::: {.remark}

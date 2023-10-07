@@ -1,0 +1,24 @@
+set preamble "\usepackage{amsmath}"
+
+set width 13.5*unit(cm)
+set axis x arrow nomirrored atzero
+set axis y reversearrow nomirrored
+set xrange [0:50]
+set yrange [-1400:0]
+set key bottom
+set nomxtics
+set nomytics
+
+set ylabel "$\Delta \rho$ [PCM]"
+set xlabel "$r$"
+
+set terminal pdf
+set output "un-pescadito.pdf"
+
+#plot "u-volumes.dat"  u 1:5 w l  color salmon lt 2 lw 3 ti "soluci\\'on anal\\'itica", \
+
+plot "un-pescadito.dat" w lp pt 15 lw 2 color olivegreen ti ""
+     
+
+
+
