@@ -14,6 +14,8 @@ MATERIAL reflrod   Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.055 nuSigma_f2=0
 BC vacuum   vacuum
 BC mirror   mirror
 
+mumps_icntl_14 = 200
+
 SOLVE_PROBLEM
 WRITE_RESULTS FORMAT vtk
 

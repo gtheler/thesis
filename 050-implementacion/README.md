@@ -1949,6 +1949,12 @@ Investigar y medir
 Idea: el sistema de templates de C++ es Turing complete.
 Se podría hacer un solver (con la malla y las propiedades embebidas) que corra en tiempo 0 pero que tarde muchísimo en compilar.
 
+Se puede optimizar el proceso de construccion de matrices elementales para SN.
+El tamaño aumenta rapido con N y son esencialmente sparse.
+
+Fortran 77 tiene un punto: como el modelo de memoria es muy limitado, el compilador puede hacer buenas optimizaciones automaticamente porque esta seguro de que no hay apuntadores apuntando a lugares inapropiados, etc.
+De todas maneras, con el uso de `const` y `restrict` en principio se podria lograr el mismo nivel de optimizacion con C. TODO!
+
 
 ### Escalabilidad
 

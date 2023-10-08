@@ -198,6 +198,29 @@ $1 in 1965 is worth $16.21 today (2023)
 
 IBM 7030: 1.2 MIPS
 
+https://en.wikipedia.org/wiki/CDC_6600 
+2 mips, up to 982kb
+US$2,370,000[2] (equivalent to $22,360,000 in 2022)
+60-bit processor @ 10 MHz[7]
+
+
+
+12th Gen Intel(R) Core(TM) i7-12850H
+4.8ghz
+64gb ram
+5000 mips por cpu
+16 cores, 24 threads
+
+Total Cores
+
+Cores is a hardware term that describes the number of independent central processing units in a single computing component (die or chip).
+
+
+Total Threads
+
+Where applicable, Intel® Hyper-Threading Technology is only available on Performance-cores.
+
+
 ::: {#tbl-1965}
 
     Computer | Monthly Rental [1965 USDs] | Relative Speed | First Delivery 

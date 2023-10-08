@@ -1,5 +1,10 @@
 # solve with
-#  feenox iaea-3dpwr-sn.fee --eps_monitor --progress --st_mat_mumps_icntl_14=200 --info --log_view
+
+# time mpiexec -n 12 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm --st_ksp_max_it=15 --eps_tol=1e-4
+
+# mpiexec -n 4 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --st_mat_mumps_icntl_14=200
+
+
 
 PROBLEM neutron_sn 3D GROUPS 2 SN 4
 READ_MESH iaea-3dpwr-eighth-circular.msh
@@ -14,15 +19,19 @@ MATERIAL reflrod   Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.055 nuSigma_f2=0
 BC vacuum   vacuum
 BC mirror   mirror
 
+PRINTF " nodes = %g"   nodes
+PRINTF_ALL "solving..."
+# mumps_icntl_14 = 200
+
 SOLVE_PROBLEM
 WRITE_RESULTS FORMAT vtk
 
 # print results
-PRINTF "  keff = %.5f" keff
-PRINTF " nodes = %g"   nodes
 PRINTF "  DOFs = %g"   total_dofs
+PRINTF "  keff = %.5f" keff
 PRINTF "  wall = %.1f sec" wall_time()
-# PRINTF_ALL "  local memory = %.1f Gb" mpi_memory_local()
-# PRINTF_ALL " global memory = %.1f Gb" mpi_memory_global()
-avg_mem = mpi_memory_global()/mpi_size
-PRINTF "average memory = %.1f Gb" avg_mem
+
+mem_global = mpi_memory_global()
+mem_avg = mem_global / mpi_size
+PRINTF "average memory = %.1f Gb" mem_avg
+PRINTF " global memory = %.1f Gb" mem_global
