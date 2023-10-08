@@ -1,0 +1,29 @@
+# solve with
+
+PROBLEM neutron_sn 3D GROUPS 2 SN 4 EIGEN_FORMULATION $1 EIGEN_DIRICHLET_ZERO $2 ST $3
+READ_MESH iaea-3dpwr-eighth-circular.msh
+
+MATERIAL fuel1     Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.08  nuSigma_f2=0.135
+MATERIAL fuel2     Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.085 nuSigma_f2=0.135
+MATERIAL fuel2rod  Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.13  nuSigma_f2=0.135
+MATERIAL reflector Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.01  nuSigma_f2=0
+MATERIAL reflrod   Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.055 nuSigma_f2=0
+
+
+BC vacuum   vacuum
+BC mirror   mirror
+
+mumps_icntl_14 = 400
+
+SOLVE_PROBLEM
+# WRITE_RESULTS FORMAT vtk
+
+# print results
+PRINTF "  keff = %.5f" keff
+PRINTF " nodes = %g"   nodes
+PRINTF "  DOFs = %g"   total_dofs
+PRINTF "  wall = %.1f sec" wall_time()
+# PRINTF_ALL "  local memory = %.1f Gb" mpi_memory_local()
+# PRINTF_ALL " global memory = %.1f Gb" mpi_memory_global()
+avg_mem = mpi_memory_global()/mpi_size
+PRINTF "average memory = %.1f Gb" avg_mem
