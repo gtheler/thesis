@@ -349,7 +349,7 @@ esquema de cálculo acoplado mapeando explícitamente (con un código desarrolla
 (@fig-cfd, $\sim$ 4.5 millones de celdas) a la malla de
 cálculo del código neutrónico (@fig-boropce, $\sim$ 200.000 celdas para
 $4\times 4 \times 20$).
-En la @sec-sec-non-conformal del capítulo de resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
+En la @sec-non-conformal del capítulo de resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
 
 ### Celdas refinadas
 

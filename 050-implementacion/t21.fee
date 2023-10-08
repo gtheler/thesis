@@ -1,0 +1,3 @@
+READ_MESH t21.msh
+INTEGRATE 1 RESULT two
+PRINTF_ALL "%g" two

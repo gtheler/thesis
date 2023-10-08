@@ -1,0 +1,19 @@
+set preamble "\usepackage{amsmath}"
+
+set width 13.5*unit(cm)
+set axis x arrow nomirrored atzero
+set axis y reversearrow nomirrored
+set xrange [0:50]
+set yrange [-2800:0]
+set key bottom
+set nomxtics
+set nomytics
+
+set ylabel "$\Delta \rho$ [PCM]"
+set xlabel "$r$"
+
+set terminal pdf
+set output "dos-pescaditos.pdf"
+
+plot "un-pescadito.dat"   u 1:($2*2) w lp      pt 15 color olivegreen   ti "twice one fish", \
+     "dos-pescaditos.dat"            w lp lw 2 pt 1  color royalpurple  ti "two fish"

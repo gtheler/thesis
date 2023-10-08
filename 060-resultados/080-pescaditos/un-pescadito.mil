@@ -1,0 +1,27 @@
+PROBLEM GROUPS 1 DIMENSIONS 2 MESH un-pescadito.msh
+SCHEME elements
+INCLUDE xs.mil   # geometria y secciones eficaces
+
+# estudio parametrico sobre r entre [0:A-a-deltar] con saltos
+# de deltar (si el rango esta dado por expresiones deben ser
+# de NUMBERs constantes y no de variables)
+PARAMETRIC r 0  A-a-0.5*deltar deltar
+# r = 20
+
+# generamos el archivo .geo con lo que valgan los parametros A, r y a
+TEMPLATE un-pescadito.tpl un-pescadito.geo A a r lc
+# llamamos a gmsh para generar la malla
+SHELL "gmsh -v 0 -2 un-pescadito.geo"
+
+# resolvemos el problema 
+SOLVE_PROBLEM
+
+# calculamos el keff que tendria el circulo sin pescaditos
+# para eso miramos las XS en un punto donde sepamos que no va a
+# estar el pescadito
+rho0 = (nuSigmaF_1(0,0.9*A) - SigmaA_1(0,0.9*A) - D_1(0,0.9*A)*(2.4048/A)^2)/nuSigmaF_1(0,0.9*A)
+rho = (keff-1)/keff
+
+# imprimimos en pantalla el delta rho que metio el pez vs. r
+PRINT %g r %e 1e5*(rho-rho0)
+

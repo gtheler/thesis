@@ -1227,7 +1227,7 @@ Si se pudiera intercambiar en toda la literatura existente (y en las clases, sem
 :::
 
 
-Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de Poisson generalizada.
+Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de Poisson generalizada.^[En en apéndice @sec-sds`, más precisamente en la página~\pageref{placemat},`{=latex} mostramos cómo aprovechar la elipticidad del operador de Laplace para resolver un laberinto arbitrario.]
 Para este caso introducimos las ideas básicas de
 
  i. la  formulación débil o variacional (@sec-poisson),

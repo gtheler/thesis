@@ -18,11 +18,11 @@ citar "la singularidad"
 
 
 
-why: 1 & 2
+why: 1 & 2, personal
 
-how: 3 & 4
+how: 3 & 4, already known pero digerido como séneca
 
-what: 5 & 6
+what: 5 & 6, nuevo (contribución)
 
 
 
@@ -70,10 +70,22 @@ citar tesis chaboncito
 
 TL;DR: mezcla de 
 
- 1. transporte de neutrones (cap 3)
- 2. métodos numéricos (cap 4)
- 3. programación (cap 5)
- 
+ 1. experiencia en la industria nuclear (cap 2)
+ 2. transporte de neutrones (cap 3)
+ 3. métodos numéricos (cap 4)
+ 4. programación (cap 5)
+ 5. programatic simulation (cap 6) 
+
+un poco de HPC, un poco de neutrónica: el el título de las dos mitadades
+pasa todo el rato,
+
+el que hace `git branch fix/segfault` antes de arreglar un segmentation fault
+y se preocupa por medir el code coverage de los unit tests suele no saber de neutrónica/mecánica/electromagnetismo/etc
+y viceversa
+
+
+
+
 
 El SDS/SRS es único
 citar presentación de Ashish en PETSc2023
@@ -246,6 +258,15 @@ el cuento es que hoy seguimos haciendo software de la misma manera
 el que sabe de programación unix y taocp usualmente no sabe de FEM @bathe
 y más aún, el que sabe de los dos no sabe de neutrónica
 
+
+iaea3d con
+
+ #. geometría 1/8 (en lugar de 1/4)
+ #. reflector circular (reflector tipo staircase)
+ #. s4 (difusión)
+ #. MPI (N/A en 1976)
+
+bunny y bunny-in-a-box
 
     
 Esta problemática es (o debería ser) de interés para la industria

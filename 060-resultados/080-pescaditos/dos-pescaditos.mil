@@ -1,0 +1,15 @@
+PROBLEM GROUPS 1 DIMENSIONS 2 MESH dos-pescaditos.msh
+SCHEME elements
+
+INCLUDE xs.mil
+PARAMETRIC r a+0.5*deltar  A-a-0.5*deltar deltar
+TEMPLATE dos-pescaditos.tpl dos-pescaditos.geo A a r lc
+SHELL "gmsh -v 0 -2 dos-pescaditos.geo"
+SOLVE_PROBLEM
+
+rho0 = (nuSigmaF_1(0,0.9*A) - SigmaA_1(0,0.9*A) - D_1(0,0.9*A)*(2.4048/A)^2)/nuSigmaF_1(0,0.9*A)
+rho = (keff-1)/keff
+
+# imprimimos en pantalla el delta rho que metio el pez vs. r
+PRINT %g r %e 1e5*(rho-rho0)
+

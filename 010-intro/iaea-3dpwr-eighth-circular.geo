@@ -24,9 +24,14 @@ Mesh.Algorithm3D = 10;
 Mesh.RecombineAll = 0;
 Mesh.Optimize = 1;
 Mesh.OptimizeNetgen = 1;
+Mesh.ElementOrder = 1;
 
 
-n = 2;
+MeshSize {:} = 7.5;
+//Mesh.MeshSizeMin = 5/Mesh.ElementOrder;
+//Mesh.MeshSizeMax = 10/Mesh.ElementOrder;
+
+//n = 2;
 
 // esto tarda unos 10 mins con 4 ranks
 // time mpiexec -n 4 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --st_mat_mumps_icntl_14=200
@@ -38,8 +43,8 @@ n = 2;
 // este se queda sin memoria (64gb) con mumps incluso con 1 ranks
 // n = 1.25;
 
-Mesh.MeshSizeMin = n*20/4;
-Mesh.MeshSizeMax = n*20/3;
+Mesh.MeshSizeMin = 5;
+Mesh.MeshSizeMax = 10;
 
 // Mesh.MeshSizeExtendFromBoundary = 1;
 
