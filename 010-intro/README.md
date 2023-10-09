@@ -79,9 +79,11 @@ TL;DR: mezcla de
 un poco de HPC, un poco de neutrónica: el el título de las dos mitadades
 pasa todo el rato,
 
-el que hace `git branch fix/segfault` antes de arreglar un segmentation fault
-y se preocupa por medir el code coverage de los unit tests suele no saber de neutrónica/mecánica/electromagnetismo/etc
-y viceversa
+el que hace `git branch fix/segfault` antes de arreglar un segmentation fault suele no conocer la forma de tener en cuenta la tensión normal media en un cálculo de fatiga con cargas triaxiales
+
+el que sabe cómo poner una condición de contorno de flujo de calor por radiación en una formulación de elementos finitos usualmente no se se preocupa por medir el code coverage de los unit tests (si es que los tiene).
+
+
 
 
 

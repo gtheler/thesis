@@ -20,24 +20,24 @@
 
 Cada uno de estos diez problemas no puede ser resuelto con una herramienta computacional neutrónica de nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
- a. Filosofía Unix, especialmente integración en scripts
+ a. Filosofía Unix, integración en scripts y simulación programática
  b. Mallas no estructuradas
  c. Ordenadas discretas (además de difusión)
- d. Paralelización en varios nodos de cálculo
+ d. Paralelización en varios nodos de cálculo con MPI
  
 
- Problema                                      |       Unix       |     Mallas       |       S$_N$      |  Paralelización
-:----------------------------------------------|:----------------:|:----------------:|:----------------:|:-----------------:
- Mallas no conformes ([-@sec-non-conformal])   |       ●          |        ●         |                  |         ◓
- Reed ([-@sec-reed])                           |       ○          |        ◓         |         ●        |
- IAEA 2D PWR ([-@sec-2dpwr])                   |       ◓          |        ●         |                  | 
- Azmy ([-@sec-azmy])                           |       ●          |        ●         |         ●        |         ○
- Los Alamos ([-@sec-losalamos])                |       ●          |        ◓         |         ●        |
- Slab a dos zonas ([-@sec-slab])               |       ●          |        ●         |                  |
- Cubo-esfera ([-@sec-cubesphere])              |       ●          |        ●         |                  |
- Pescaditos ([-@sec-pescaditos])               |       ●          |        ●         |         ○        |
- Stanford bunny ([-@sec-mms])                  |       ●          |        ●         |         ○        |
- Vertical PHWR ([-@sec-phwr])                  |                  |        ●         |         ◓        |         ●
+ Problema                                              |    a    |    b    |    c    |    d
+:------------------------------------------------------|:-------:|:-------:|:-------:|:-------:
+ Mapeo en mallas no conformes ([-@sec-non-conformal])  |    ●    |    ●    |         |    ◓
+ El problema de Reed ([-@sec-reed])                    |    ○    |    ◓    |    ●    | 
+ Benchmark PWR IAEA ([-@sec-2dpwr])                    |    ◓    |    ●    |         |    ◓
+ El problema de Azmy ([-@sec-azmy])                    |    ●    |    ●    |    ●    |    ○
+ Benchmarks de Los Alamos ([-@sec-losalamos])          |    ●    |    ◓    |    ●    |
+ Slab a dos zonas ([-@sec-slab])                       |    ●    |    ●    |         |
+ Cubo-esfera ([-@sec-cubesphere])                      |    ●    |    ●    |         | 
+ El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    | 
+ MMS con el Stanford bunny ([-@sec-mms])               |    ●    |    ●    |    ○    |    ◓
+ PHWR vertical con barras inclinadas ([-@sec-phwr])    |    ●    |    ●    |    ●    |    ●
  
 
  * ● requerido
@@ -77,5 +77,14 @@ Ver apéndice para más problemas.
 060-resultados/070-cube-sphere/README.md
 ```
 
+```{.include shift-heading-level-by=1}
+060-resultados/080-pescaditos/README.md
+```
 
+```{.include shift-heading-level-by=1}
+060-resultados/090-mms/README.md
+```
 
+```{.include shift-heading-level-by=1}
+060-resultados/100-phwr/README.md
+```

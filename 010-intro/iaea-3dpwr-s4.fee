@@ -1,8 +1,8 @@
 # solve with
 
-# time mpiexec -n 12 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm --st_ksp_max_it=15 --eps_tol=1e-4
+# time mpiexec -n 12 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
 
-# mpiexec -n 4 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --st_mat_mumps_icntl_14=200
+# mpiexec -n 4 feenox iaea-3dpwr-s4.fee --progress --eps_monitor
 
 
 
@@ -21,7 +21,8 @@ BC mirror   mirror
 
 PRINTF " nodes = %g"   nodes
 PRINTF_ALL "solving..."
-# mumps_icntl_14 = 200
+mumps_icntl_14 = 150
+ksp_rtol = 1e-9
 
 SOLVE_PROBLEM
 WRITE_RESULTS FORMAT vtk

@@ -1,0 +1,160 @@
+con lc = 20;
+
+
+Info    : 1398 nodes 9438 elements
+Warning : ------------------------------
+Warning : Mesh generation error summary
+Warning :     3 warnings
+Warning :     0 errors
+Warning : Check the full log for details
+Warning : ------------------------------
+Info    : Writing 'iaea-3dpwr-eighth-circular.msh'...
+Info    : Done writing 'iaea-3dpwr-eighth-circular.msh'
+Info    : Stopped on Mon Oct  9 08:03:52 2023 (From start: Wall 0.511364s, CPU 0.502144s)
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
+ nodes = 1398
+[0/1 tom] solving...
+....................................................................................................
+  1 EPS nconv=0 first unconverged value (error) -3.81973e-09+2.09427e-09i (1.21399564e+02)
+  2 EPS nconv=0 first unconverged value (error) 0.522918 (9.48063317e+01)
+  3 EPS nconv=0 first unconverged value (error) 0.976006 (8.69033598e+00)
+  4 EPS nconv=0 first unconverged value (error) 0.985294 (5.72023726e+00)
+  5 EPS nconv=0 first unconverged value (error) 0.993202 (2.64232517e+00)
+  6 EPS nconv=0 first unconverged value (error) 0.995501 (1.60031658e+00)
+  7 EPS nconv=0 first unconverged value (error) 0.995281 (8.01699901e-01)
+  8 EPS nconv=0 first unconverged value (error) 0.994908 (5.36820513e-01)
+  9 EPS nconv=0 first unconverged value (error) 0.994763 (2.81920962e-01)
+ 10 EPS nconv=0 first unconverged value (error) 0.994656 (2.81920962e-01)
+ 11 EPS nconv=0 first unconverged value (error) 0.994656 (1.46764695e-01)
+ 12 EPS nconv=0 first unconverged value (error) 0.994684 (9.69953377e-02)
+ 13 EPS nconv=0 first unconverged value (error) 0.994629 (8.49229397e-02)
+ 14 EPS nconv=0 first unconverged value (error) 0.994627 (7.92606898e-02)
+ 15 EPS nconv=0 first unconverged value (error) 0.994645 (4.48471920e-02)
+ 16 EPS nconv=0 first unconverged value (error) 0.994656 (1.87808531e-02)
+ 17 EPS nconv=0 first unconverged value (error) 0.994653 (6.48345040e-03)
+ 18 EPS nconv=0 first unconverged value (error) 0.994652 (2.57900721e-03)
+ Linear eigensolve converged (1 eigenpair) due to CONVERGED_TOL; iterations 19
+  DOFs = 67104
+  keff = 0.99465
+  wall = 219.1 sec
+average memory = 3.3 Gb
+ global memory = 3.3 Gb
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason
+ nodes = 1398
+[0/1 tom] solving...
+....................................................................................................
+  1 EPS nconv=0 first unconverged value (error) 0.994651 (3.28347545e-05)
+  2 EPS nconv=0 first unconverged value (error) 0.994652 (3.36428246e-08)
+  3 EPS nconv=1 first unconverged value (error) 0.934962 (2.10095652e-08)
+ Linear eigensolve converged (1 eigenpair) due to CONVERGED_TOL; iterations 3
+  DOFs = 67104
+  keff = 0.99465
+  wall = 105.1 sec
+average memory = 5.5 Gb
+ global memory = 5.5 Gb
+
+ 
+ 
+ 
+
+ 
+ con lc=15
+ 
+ 
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
+ nodes = 2272
+[0/1 tom] solving...
+....................................................................................................
+  1 EPS nconv=0 first unconverged value (error) 2.09886e-08 (1.86001745e+02)
+  2 EPS nconv=0 first unconverged value (error) 0.475021 (5.63182204e+01)
+  3 EPS nconv=0 first unconverged value (error) 0.981718 (5.14945564e+00)
+  4 EPS nconv=0 first unconverged value (error) 0.989121 (2.95080132e+00)
+  5 EPS nconv=0 first unconverged value (error) 0.995595 (1.64444703e+00)
+  6 EPS nconv=0 first unconverged value (error) 0.998491 (9.05992601e-01)
+  7 EPS nconv=0 first unconverged value (error) 0.996737 (4.62500751e-01)
+^Cpid 20893: signal #2 caught, finnishing...
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason
+ nodes = 2272
+[0/1 tom] solving...
+....................................................................................................
+  1 EPS nconv=0 first unconverged value (error) 0.996797 (4.94265955e-05)
+  2 EPS nconv=0 first unconverged value (error) 0.996796 (6.79892832e-08)
+  3 EPS nconv=1 first unconverged value (error) 0.938061 (5.39061220e-08)
+ Linear eigensolve converged (1 eigenpair) due to CONVERGED_TOL; iterations 3
+  DOFs = 109056
+  keff = 0.99680
+  wall = 287.9 sec
+average memory = 11.1 Gb
+ global memory = 11.1 Gb
+gtheler@tom:~/phd/thesis/010-intro$ 
+
+
+
+
+
+con
+
+
+lc = 12.5;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*lc;
+
+
+
+Info    : 3586 nodes 23484 elements
+Info    : Writing 'iaea-3dpwr-eighth-circular.msh'...
+Info    : Done writing 'iaea-3dpwr-eighth-circular.msh'
+Info    : Stopped on Mon Oct  9 09:54:08 2023 (From start: Wall 1.09532s, CPU 1.07791s)
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor
+ nodes = 3586
+[0/1 tom] solving...
+....................................................................................................
+  1 EPS nconv=0 first unconverged value (error) 0.995376 (4.33578796e-05)
+  2 EPS nconv=0 first unconverged value (error) 0.995377 (6.26387767e-08)
+  3 EPS nconv=1 first unconverged value (error) 0.934463 (7.17125740e-08)
+  DOFs = 172128
+  keff = 0.99538
+  wall = 740.2 sec
+average memory = 20.9 Gb
+ global memory = 20.9 Gb
+
+ 
+
+ 
+ 
+ 
+ lc = 10;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*lc;
+
+Info    : 5232 nodes 33724 elements
+Info    : Writing 'iaea-3dpwr-eighth-circular.msh'...
+Info    : Done writing 'iaea-3dpwr-eighth-circular.msh'
+Info    : Stopped on Mon Oct  9 11:05:58 2023 (From start: Wall 1.45573s, CPU 1.44625s)
+gtheler@tom:~/phd/thesis/010-intro$ feenox iaea-3dpwr-s4.fee --progress --eps_monitor
+ nodes = 5232
+[0/1 tom] solving...
+....................................................................................................
+[0]PETSC ERROR: --------------------- Error Message --------------------------------------------------------------
+[0]PETSC ERROR: Error in external library
+[0]PETSC ERROR: MUMPS error in numerical factorization: INFOG(1)=-13, INFO(2)=-5399 (see users manual https://mumps-solver.org/index.php?page=doc "Error and warning diagnostics")
+[0]PETSC ERROR: See https://petsc.org/release/faq/ for trouble shooting.
+[0]PETSC ERROR: Petsc Release Version 3.20.0, Sep 28, 2023 
+[0]PETSC ERROR: feenox on a double-int32-release named tom by gtheler Mon Oct  9 11:06:35 2023
+[0]PETSC ERROR: Configure options --download-eigen --download-hdf5 --download-hypre --download-metis --download-mumps --download-parmetis --download-scalapack --download-slepc --with-64-bit-indices=no --with-debugging=no --with-precision=double --with-scalar-type=real COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3
+[0]PETSC ERROR: #1 MatFactorNumeric_MUMPS() at /home/gtheler/libs/petsc-3.20.0/src/mat/impls/aij/mpi/mumps/mumps.c:1964
+[0]PETSC ERROR: #2 MatLUFactorNumeric() at /home/gtheler/libs/petsc-3.20.0/src/mat/interface/matrix.c:3252
+[0]PETSC ERROR: #3 PCSetUp_LU() at /home/gtheler/libs/petsc-3.20.0/src/ksp/pc/impls/factor/lu/lu.c:121
+[0]PETSC ERROR: #4 PCSetUp() at /home/gtheler/libs/petsc-3.20.0/src/ksp/pc/interface/precon.c:1068
+[0]PETSC ERROR: #5 KSPSetUp() at /home/gtheler/libs/petsc-3.20.0/src/ksp/ksp/interface/itfunc.c:415
+[0]PETSC ERROR: #6 STSetUp_Shift() at /home/gtheler/libs/petsc-3.20.0/double-int32-release/externalpackages/git.slepc/src/sys/classes/st/impls/shift/shift.c:102
+[0]PETSC ERROR: #7 STSetUp() at /home/gtheler/libs/petsc-3.20.0/double-int32-release/externalpackages/git.slepc/src/sys/classes/st/interface/stsolve.c:524
+[0]PETSC ERROR: #8 EPSSetUp() at /home/gtheler/libs/petsc-3.20.0/double-int32-release/externalpackages/git.slepc/src/eps/interface/epssetup.c:381
+[0]PETSC ERROR: #9 EPSSolve() at /home/gtheler/libs/petsc-3.20.0/double-int32-release/externalpackages/git.slepc/src/eps/interface/epssolve.c:134
+[0]PETSC ERROR: #10 feenox_problem_solve_slepc_eigen() at pdes/slepc_eps.c:146
+[0] error: PETSc error
+
+
+ 

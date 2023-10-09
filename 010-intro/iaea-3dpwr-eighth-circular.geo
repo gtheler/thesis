@@ -27,9 +27,10 @@ Mesh.OptimizeNetgen = 1;
 Mesh.ElementOrder = 1;
 
 
-MeshSize {:} = 7.5;
-//Mesh.MeshSizeMin = 5/Mesh.ElementOrder;
-//Mesh.MeshSizeMax = 10/Mesh.ElementOrder;
+lc = 10;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*lc;
 
 //n = 2;
 
@@ -43,8 +44,6 @@ MeshSize {:} = 7.5;
 // este se queda sin memoria (64gb) con mumps incluso con 1 ranks
 // n = 1.25;
 
-Mesh.MeshSizeMin = 5;
-Mesh.MeshSizeMax = 10;
 
 // Mesh.MeshSizeExtendFromBoundary = 1;
 
