@@ -188,6 +188,7 @@ cloud native != cloud enabled or cloud friendly
 ilustrar LE-10 vs aster/elmer/calculix e iaea3d pwr vs parcs
 
 
+iaea 2d: @unstructured-stni
 
 
 Paralelización @intro-parallel
