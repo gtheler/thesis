@@ -1988,6 +1988,13 @@ Investigar y medir
 Idea: el sistema de templates de C++ es Turing complete.
 Se podría hacer un solver (con la malla y las propiedades embebidas) que corra en tiempo 0 pero que tarde muchísimo en compilar.
 
+Algo parecido pasa con la malla: si la malla tiene buena calidad entonces multrigrid va más rápido.
+Pero hay que optimizar la malla antes! si una malla va a ser re-usada entonces se repaga, sino.
+
+Igualmente todo esto viene de unix rule of economy!
+ejemplo de mazes: es lo mejor desde que te dan el maze hasta que das una solución
+
+
 Se puede optimizar el proceso de construccion de matrices elementales para SN.
 El tamaño aumenta rapido con N y son esencialmente sparse.
 
