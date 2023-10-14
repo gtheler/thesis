@@ -21,7 +21,7 @@ BC mirror   mirror
 
 PRINTF " nodes = %g"   nodes
 PRINTF_ALL "solving..."
-mumps_icntl_14 = 150
+mumps_icntl_14 = 200
 ksp_rtol = 1e-9
 
 SOLVE_PROBLEM

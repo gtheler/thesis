@@ -15,11 +15,13 @@ Merge "iaea-colors.geo";
 
 // meshing options
 // (1: MeshAdapt, 2: Automatic, 3: Initial mesh only, 5: Delaunay, 6: Frontal-Delaunay, 7: BAMG, 8: Frontal-Delaunay for Quads, 9: Packing of Parallelograms, 11: Quasi-structured Quad)
-Mesh.Algorithm = 9;  
-MeshAlgorithm Surface {64} = 6; // MeshAdapt on surfaces 31 and 35
+Mesh.Algorithm = 6;
+
+// Mesh.Algorithm = 9;
+// MeshAlgorithm Surface {64} = 6; // MeshAdapt on surfaces 31 and 35
 
 // 3D mesh algorithm (1: Delaunay, 3: Initial mesh only, 4: Frontal, 7: MMG3D, 9: R-tree, 10: HXT)
-Mesh.Algorithm3D = 10; 
+// Mesh.Algorithm3D = 10; 
 
 Mesh.RecombineAll = 0;
 Mesh.Optimize = 1;
@@ -27,7 +29,32 @@ Mesh.OptimizeNetgen = 1;
 Mesh.ElementOrder = 1;
 
 
-lc = 10;
+// lc = 10
+//   DOFs = 250608
+//   keff = 0.99447
+//   wall = 1557.4 sec
+// average memory = 36.7 Gb
+//  global memory = 36.7 Gb
+
+
+// lc = 15 deberia tomar 
+//   DOFs = 110928
+//   keff = 0.99648
+//   wall = 341.9 sec
+// average memory = 13.1 Gb
+//  global memory = 13.1 Gb
+//  
+//  
+//   DOFs = 110928
+//   keff = 0.99648
+//   wall = 208.0 sec
+// average memory = 11.7 Gb
+//  global memory = 11.7 Gb
+//  
+
+
+
+lc = 15;
 MeshSize {:} = lc;
 Mesh.MeshSizeMin = 0.5*lc;
 Mesh.MeshSizeMax = 1.0*lc;
