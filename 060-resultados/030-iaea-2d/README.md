@@ -5,7 +5,11 @@
 
 ## Caso 2D original
 
+@anl7416
+
 ## Caso 2D con simetría 1/8
+
+@unstructured-stni
 
 ## Caso 2D con reflector circular
 
