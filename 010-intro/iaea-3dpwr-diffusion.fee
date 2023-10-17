@@ -1,5 +1,5 @@
 PROBLEM neutron_diffusion 3D GROUPS 2
-READ_MESH iaea-3dpwr-eighth-circular.msh
+READ_MESH iaea-3dpwr-eighth-circular-75knodes-algo$1.msh
 
 MATERIAL fuel1     D1=1.5 D2=0.4 Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.08  nuSigma_f2=0.135
 MATERIAL fuel2     D1=1.5 D2=0.4 Sigma_s1.2=0.02 Sigma_a1=0.01 Sigma_a2=0.085 nuSigma_f2=0.135
@@ -10,15 +10,20 @@ MATERIAL reflrod   D1=2.0 D2=0.3 Sigma_s1.2=0.04 Sigma_a1=0    Sigma_a2=0.055 nu
 BC vacuum   vacuum=0.4692
 BC mirror   mirror
 
+PRINTF " nodes = %g"   nodes
+PRINTF_ALL "solving..."
+mumps_icntl_14 = 200
+ksp_rtol = 1e-9
+
 SOLVE_PROBLEM
 WRITE_RESULTS FORMAT vtk
 
 # print results
-PRINTF "  keff = %.5f" keff
-PRINTF " nodes = %g"   nodes
 PRINTF "  DOFs = %g"   total_dofs
+PRINTF "  keff = %.5f" keff
 PRINTF "  wall = %.1f sec" wall_time()
-# PRINTF_ALL "  local memory = %.1f Gb" mpi_memory_local()
-# PRINTF_ALL " global memory = %.1f Gb" mpi_memory_global()
-avg_mem = mpi_memory_global()/mpi_size
-PRINTF "average memory = %.1f Gb" avg_mem
+
+mem_global = mpi_memory_global()
+mem_avg = mem_global / mpi_size
+PRINTF "average memory = %.1f Gb" mem_avg
+PRINTF " global memory = %.1f Gb" mem_global

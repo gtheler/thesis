@@ -207,6 +207,157 @@ mostrar
 mostrar weak/strong scaling (la que el tiempo es más chico)
 y que baja la memoria por nodo
 
+
+```
+lc = 12.5;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*lc;
+```
+
+3582 nodos
+
+```
+Info    : 3582 nodes 23435 elements
+Info    : Writing 'iaea-3dpwr-eighth-circular.msh'...
+Info    : Done writing 'iaea-3dpwr-eighth-circular.msh'
+Info    : Stopped on Fri Oct 13 09:08:27 2023 (From start: Wall 0.617712s, CPU 0.606793s)
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ mpiexec -n 4 feenox iaea-3dpwr-s4.fee 
+ nodes = 3582
+[0/4 LIN54Z7SQ3] solving...
+[1/4 LIN54Z7SQ3] solving...
+[2/4 LIN54Z7SQ3] solving...
+[3/4 LIN54Z7SQ3] solving...
+  DOFs = 171936
+  keff = 0.99557
+  wall = 310.3 sec
+average memory = 7.9 Gb
+ global memory = 31.7 Gb
+```
+
+
+sdfsd
+
+
+```
+lc = 10;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*l
+
+
+Info    : 5231 nodes 33600 elements
+Info    : Writing 'iaea-3dpwr-eighth-circular.msh'...
+Info    : Done writing 'iaea-3dpwr-eighth-circular.msh'
+Info    : Stopped on Fri Oct 13 09:20:40 2023 (From start: Wall 0.846201s, CPU 0.835272s)
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ gmsh iaea-3dpwr-eighth-circular.msh 
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ mpiexec -n 1 feenox iaea-3dpwr-s4.fee 
+ nodes = 5231
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 251088
+  keff = 0.99433
+  wall = 1338.0 sec
+average memory = 37.0 Gb
+ global memory = 37.0 Gb
+```
+
+
+sdd
+
+
+```
+lc = 10;
+MeshSize {:} = lc;
+Mesh.MeshSizeMin = 0.5*lc;
+Mesh.MeshSizeMax = 1.0*lc;
+```
+
+fsd
+
+
+````
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ for i in 1 2 3 4; do mpiexec -n $i feenox iaea-3dpwr-s4.fee ; done
+ nodes = 3258
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 156384
+  keff = 0.99771
+  wall = 339.8 sec
+average memory = 17.2 Gb
+ global memory = 17.2 Gb
+ nodes = 3258
+[0/2 LIN54Z7SQ3] solving...
+[1/2 LIN54Z7SQ3] solving...
+  DOFs = 156384
+  keff = 0.99771
+  wall = 244.3 sec
+average memory = 10.8 Gb
+ global memory = 21.6 Gb
+ nodes = 3258
+[0/3 LIN54Z7SQ3] solving...
+[1/3 LIN54Z7SQ3] solving...
+[2/3 LIN54Z7SQ3] solving...
+  DOFs = 156384
+  keff = 0.99771
+  wall = 213.4 sec
+average memory = 7.6 Gb
+ global memory = 22.8 Gb
+ nodes = 3258
+[0/4 LIN54Z7SQ3] solving...
+[1/4 LIN54Z7SQ3] solving...
+[2/4 LIN54Z7SQ3] solving...
+[3/4 LIN54Z7SQ3] solving...
+  DOFs = 156384
+  keff = 0.99771
+  wall = 195.9 sec
+average memory = 6.2 Gb
+ global memory = 24.7 Gb
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ 
+```
+
+
+gfsdd
+
+```
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ feenox iaea-3dpwr-diffusion.fee 6
+ nodes = 75413
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 150826
+  keff = 1.08285
+  wall = 22.4 sec
+average memory = 2.0 Gb
+ global memory = 2.0 Gb
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ feenox iaea-3dpwr-diffusion.fee 9
+
+ nodes = 75032
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 150064
+  keff = 1.08278
+  wall = 23.2 sec
+average memory = 2.1 Gb
+ global memory = 2.1 Gb
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ 
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ feenox iaea-3dpwr-diffusion-ksp.fee 6
+ nodes = 75413
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 150826
+  keff = 0.00000
+  wall = 4.5 sec
+average memory = 0.4 Gb
+ global memory = 0.4 Gb
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ feenox iaea-3dpwr-diffusion-ksp.fee 9
+ nodes = 75032
+[0/1 LIN54Z7SQ3] solving...
+  DOFs = 150064
+  keff = 0.00000
+  wall = 3.9 sec
+average memory = 0.4 Gb
+ global memory = 0.4 Gb
+jtheler@LIN54Z7SQ3:~/thesis/010-intro$ ls -lt | head
+```
+
+
+
+
 tabla de costos 1965 vs. ec2 pricing + contabo
 
 $1 in 1965 is worth $16.21 today (2023)
