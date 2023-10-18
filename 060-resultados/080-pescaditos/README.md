@@ -3,3 +3,6 @@
 > **TL;DR:** Composición con una herramienta de optimización.
 
 
+optimización sin gradientes
+
+
