@@ -1,0 +1,36 @@
+set preamble "\usepackage{amsmath}"
+
+set width 12*unit(cm)
+set size ratio 0.5
+set axis x arrow nomirrored #atzero
+set axis y arrow nomirrored
+
+set xrange [0:8]
+set yrange [-0.2:2]
+
+set grid
+set key above
+
+set terminal pdf
+
+
+set ylabel "$\\phi(x)$"
+
+set output "reed-flux-alpha-2.pdf"
+plot \
+     "reed-alpha-2-0.01-sorted.csv"  w l lt 1 lw 3 color red     ti "$\\alpha=0.01$",\
+     "reed-alpha-2-0.25-sorted.csv"  w l lt 2 lw 2 color green   ti "$\\alpha=0.25$",\
+     "reed-alpha-2-1-sorted.csv"     w l lt 3 lw 1 color blue    ti "$\\alpha=1.00$"
+     
+set output "reed-flux-alpha-4.pdf"
+plot \
+     "reed-alpha-4-0.01-sorted.csv"  w l lt 1 lw 3 color red     ti "",\
+     "reed-alpha-4-0.25-sorted.csv"  w l lt 2 lw 2 color green   ti "",\
+     "reed-alpha-4-1-sorted.csv"     w l lt 3 lw 1 color blue    ti ""
+
+set xlabel "non-dimensional $x$"
+set output "reed-flux-alpha-8.pdf"
+plot \
+     "reed-alpha-8-0.01-sorted.csv"  w l lt 1 lw 3 color red     ti "",\
+     "reed-alpha-8-0.25-sorted.csv"  w l lt 2 lw 2 color green   ti "",\
+     "reed-alpha-8-1-sorted.csv"     w l lt 3 lw 1 color blue    ti ""

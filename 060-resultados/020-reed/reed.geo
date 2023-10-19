@@ -1,4 +1,3 @@
-// solve the reed 1d benchmark
 //
 //     |         |    |         |    |         |
 //  m  | src= 50 | 0  |    0    | 1  |    0    |    v
@@ -13,22 +12,25 @@
 //     +---------+----+---------+----+---------+-------> x
 //    x=0       x=2  x=3       x=5  x=6       x=8   
 
-lc0 = 0.25;
-f = 0.1;
+lc0 = 0.25;   // tamaño de elemento base
+f = 0.1;      // factor de refinamiento
 
-Point(1) = {0, 0, 0, f*lc0};
+// puntos en extremos de interfaces
+Point(1) = {0, 0, 0, lc0};
 Point(2) = {2, 0, 0, f*lc0};
 Point(3) = {3, 0, 0, f*lc0};
 Point(4) = {5, 0, 0, f*lc0};
 Point(5) = {6, 0, 0, f*lc0};
-Point(6) = {8, 0, 0, f*lc0};
+Point(6) = {8, 0, 0, lc0};
 
+// puntos medios de cada zona
 Point(11) = {1,   0, 0, lc0};
 Point(12) = {2.5, 0, 0, lc0};
 Point(13) = {4,   0, 0, lc0};
 Point(14) = {5.5, 0, 0, lc0};
 Point(15) = {7,   0, 0, lc0};
 
+// líneas geométricas
 Line(1) = {1, 11};
 Line(11) = {11, 2};
 Line(2) = {2, 12};
@@ -40,12 +42,13 @@ Line(14) = {14, 5};
 Line(5) = {5, 15};
 Line(15) = {15, 6};
 
-
+// líneas físicas
 Physical Line("source1")   = {1,11};
 Physical Line("absorber")  = {2,12};
 Physical Line("void")      = {3,13};
 Physical Line("source2")   = {4,14};
 Physical Line("reflector") = {5,15};
 
+// puntos físicos
 Physical Point("left")  = {1};
 Physical Point("right") = {6};

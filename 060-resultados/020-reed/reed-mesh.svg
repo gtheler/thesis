@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1500.708pt"
+   height="10pt"
+   viewBox="0 0 1500.708 10"
+   version="1.1"
+   id="svg192"
+   sodipodi:docname="reed-mesh.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview194"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="pt"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.50470219"
+     inkscape:cx="356.64596"
+     inkscape:cy="-74.301242"
+     inkscape:window-width="1920"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg192" />
+  <title
+     id="title2">reed-mesh</title>
+  <desc
+     id="desc4">
+Creator: GL2PS 1.4.3, (C) 1999-2020 C. Geuzaine
+For: Gmsh
+CreationDate: Thu Oct 19 19:00:30 2023
+</desc>
+  <defs
+     id="defs6" />
+  <g
+     id="g190"
+     transform="translate(-122.282,-535.19397)">
+    <circle
+       fill="#b0c4de"
+       cx="127.282"
+       cy="540.19397"
+       r="5"
+       id="circle8" />
+    <circle
+       fill="#71717c"
+       cx="499.95801"
+       cy="540.19397"
+       r="5"
+       id="circle10" />
+    <circle
+       fill="#71717c"
+       cx="686.29602"
+       cy="540.19397"
+       r="5"
+       id="circle12" />
+    <circle
+       fill="#71717c"
+       cx="1058.97"
+       cy="540.19397"
+       r="5"
+       id="circle14" />
+    <circle
+       fill="#71717c"
+       cx="1245.3101"
+       cy="540.19397"
+       r="5"
+       id="circle16" />
+    <circle
+       fill="#bc8f8f"
+       cx="1617.99"
+       cy="540.19397"
+       r="5"
+       id="circle18" />
+    <circle
+       fill="#71717c"
+       cx="313.62"
+       cy="540.19397"
+       r="5"
+       id="circle20" />
+    <circle
+       fill="#71717c"
+       cx="593.12701"
+       cy="540.19397"
+       r="5"
+       id="circle22" />
+    <circle
+       fill="#71717c"
+       cx="872.63397"
+       cy="540.19397"
+       r="5"
+       id="circle24" />
+    <circle
+       fill="#71717c"
+       cx="1152.14"
+       cy="540.19397"
+       r="5"
+       id="circle26" />
+    <circle
+       fill="#71717c"
+       cx="1431.65"
+       cy="540.19397"
+       r="5"
+       id="circle28" />
+    <circle
+       fill="#daa520"
+       cx="173.866"
+       cy="540.19397"
+       r="5"
+       id="circle30" />
+    <circle
+       fill="#daa520"
+       cx="220.451"
+       cy="540.19397"
+       r="5"
+       id="circle32" />
+    <circle
+       fill="#daa520"
+       cx="267.035"
+       cy="540.19397"
+       r="5"
+       id="circle34" />
+    <circle
+       fill="#32cd32"
+       cx="504.61899"
+       cy="540.19397"
+       r="5"
+       id="circle36" />
+    <circle
+       fill="#32cd32"
+       cx="510.87399"
+       cy="540.19397"
+       r="5"
+       id="circle38" />
+    <circle
+       fill="#32cd32"
+       cx="519.26599"
+       cy="540.19397"
+       r="5"
+       id="circle40" />
+    <circle
+       fill="#32cd32"
+       cx="530.52802"
+       cy="540.19397"
+       r="5"
+       id="circle42" />
+    <circle
+       fill="#32cd32"
+       cx="545.64001"
+       cy="540.19397"
+       r="5"
+       id="circle44" />
+    <circle
+       fill="#32cd32"
+       cx="565.91699"
+       cy="540.19397"
+       r="5"
+       id="circle46" />
+    <circle
+       fill="#202020"
+       cx="691.117"
+       cy="540.19397"
+       r="5"
+       id="circle48" />
+    <circle
+       fill="#202020"
+       cx="697.06"
+       cy="540.19397"
+       r="5"
+       id="circle50" />
+    <circle
+       fill="#202020"
+       cx="704.38702"
+       cy="540.19397"
+       r="5"
+       id="circle52" />
+    <circle
+       fill="#202020"
+       cx="713.42102"
+       cy="540.19397"
+       r="5"
+       id="circle54" />
+    <circle
+       fill="#202020"
+       cx="724.55798"
+       cy="540.19397"
+       r="5"
+       id="circle56" />
+    <circle
+       fill="#202020"
+       cx="738.28802"
+       cy="540.19397"
+       r="5"
+       id="circle58" />
+    <circle
+       fill="#202020"
+       cx="755.21503"
+       cy="540.19397"
+       r="5"
+       id="circle60" />
+    <circle
+       fill="#202020"
+       cx="776.08398"
+       cy="540.19397"
+       r="5"
+       id="circle62" />
+    <circle
+       fill="#202020"
+       cx="801.81097"
+       cy="540.19397"
+       r="5"
+       id="circle64" />
+    <circle
+       fill="#202020"
+       cx="833.53003"
+       cy="540.19397"
+       r="5"
+       id="circle66" />
+    <circle
+       fill="#8a2be2"
+       cx="1063.63"
+       cy="540.19397"
+       r="5"
+       id="circle68" />
+    <circle
+       fill="#8a2be2"
+       cx="1069.89"
+       cy="540.19397"
+       r="5"
+       id="circle70" />
+    <circle
+       fill="#8a2be2"
+       cx="1078.28"
+       cy="540.19397"
+       r="5"
+       id="circle72" />
+    <circle
+       fill="#8a2be2"
+       cx="1089.54"
+       cy="540.19397"
+       r="5"
+       id="circle74" />
+    <circle
+       fill="#8a2be2"
+       cx="1104.65"
+       cy="540.19397"
+       r="5"
+       id="circle76" />
+    <circle
+       fill="#8a2be2"
+       cx="1124.9301"
+       cy="540.19397"
+       r="5"
+       id="circle78" />
+    <circle
+       fill="#ff1493"
+       cx="1250.13"
+       cy="540.19397"
+       r="5"
+       id="circle80" />
+    <circle
+       fill="#ff1493"
+       cx="1256.0699"
+       cy="540.19397"
+       r="5"
+       id="circle82" />
+    <circle
+       fill="#ff1493"
+       cx="1263.4"
+       cy="540.19397"
+       r="5"
+       id="circle84" />
+    <circle
+       fill="#ff1493"
+       cx="1272.4301"
+       cy="540.19397"
+       r="5"
+       id="circle86" />
+    <circle
+       fill="#ff1493"
+       cx="1283.5699"
+       cy="540.19397"
+       r="5"
+       id="circle88" />
+    <circle
+       fill="#ff1493"
+       cx="1297.3"
+       cy="540.19397"
+       r="5"
+       id="circle90" />
+    <circle
+       fill="#ff1493"
+       cx="1314.23"
+       cy="540.19397"
+       r="5"
+       id="circle92" />
+    <circle
+       fill="#ff1493"
+       cx="1335.1"
+       cy="540.19397"
+       r="5"
+       id="circle94" />
+    <circle
+       fill="#ff1493"
+       cx="1360.83"
+       cy="540.19397"
+       r="5"
+       id="circle96" />
+    <circle
+       fill="#ff1493"
+       cx="1392.54"
+       cy="540.19397"
+       r="5"
+       id="circle98" />
+    <circle
+       fill="#daa520"
+       cx="352.724"
+       cy="540.19397"
+       r="5"
+       id="circle100" />
+    <circle
+       fill="#daa520"
+       cx="384.44199"
+       cy="540.19397"
+       r="5"
+       id="circle102" />
+    <circle
+       fill="#daa520"
+       cx="410.17001"
+       cy="540.19397"
+       r="5"
+       id="circle104" />
+    <circle
+       fill="#daa520"
+       cx="431.03799"
+       cy="540.19397"
+       r="5"
+       id="circle106" />
+    <circle
+       fill="#daa520"
+       cx="447.965"
+       cy="540.19397"
+       r="5"
+       id="circle108" />
+    <circle
+       fill="#daa520"
+       cx="461.69601"
+       cy="540.19397"
+       r="5"
+       id="circle110" />
+    <circle
+       fill="#daa520"
+       cx="472.832"
+       cy="540.19397"
+       r="5"
+       id="circle112" />
+    <circle
+       fill="#daa520"
+       cx="481.866"
+       cy="540.19397"
+       r="5"
+       id="circle114" />
+    <circle
+       fill="#daa520"
+       cx="489.19299"
+       cy="540.19397"
+       r="5"
+       id="circle116" />
+    <circle
+       fill="#daa520"
+       cx="495.13699"
+       cy="540.19397"
+       r="5"
+       id="circle118" />
+    <circle
+       fill="#32cd32"
+       cx="620.336"
+       cy="540.19397"
+       r="5"
+       id="circle120" />
+    <circle
+       fill="#32cd32"
+       cx="640.61298"
+       cy="540.19397"
+       r="5"
+       id="circle122" />
+    <circle
+       fill="#32cd32"
+       cx="655.72498"
+       cy="540.19397"
+       r="5"
+       id="circle124" />
+    <circle
+       fill="#32cd32"
+       cx="666.987"
+       cy="540.19397"
+       r="5"
+       id="circle126" />
+    <circle
+       fill="#32cd32"
+       cx="675.38"
+       cy="540.19397"
+       r="5"
+       id="circle128" />
+    <circle
+       fill="#32cd32"
+       cx="681.63397"
+       cy="540.19397"
+       r="5"
+       id="circle130" />
+    <circle
+       fill="#202020"
+       cx="911.73798"
+       cy="540.19397"
+       r="5"
+       id="circle132" />
+    <circle
+       fill="#202020"
+       cx="943.45599"
+       cy="540.19397"
+       r="5"
+       id="circle134" />
+    <circle
+       fill="#202020"
+       cx="969.18402"
+       cy="540.19397"
+       r="5"
+       id="circle136" />
+    <circle
+       fill="#202020"
+       cx="990.052"
+       cy="540.19397"
+       r="5"
+       id="circle138" />
+    <circle
+       fill="#202020"
+       cx="1006.98"
+       cy="540.19397"
+       r="5"
+       id="circle140" />
+    <circle
+       fill="#202020"
+       cx="1020.71"
+       cy="540.19397"
+       r="5"
+       id="circle142" />
+    <circle
+       fill="#202020"
+       cx="1031.85"
+       cy="540.19397"
+       r="5"
+       id="circle144" />
+    <circle
+       fill="#202020"
+       cx="1040.88"
+       cy="540.19397"
+       r="5"
+       id="circle146" />
+    <circle
+       fill="#202020"
+       cx="1048.21"
+       cy="540.19397"
+       r="5"
+       id="circle148" />
+    <circle
+       fill="#202020"
+       cx="1054.15"
+       cy="540.19397"
+       r="5"
+       id="circle150" />
+    <circle
+       fill="#8a2be2"
+       cx="1179.35"
+       cy="540.19397"
+       r="5"
+       id="circle152" />
+    <circle
+       fill="#8a2be2"
+       cx="1199.63"
+       cy="540.19397"
+       r="5"
+       id="circle154" />
+    <circle
+       fill="#8a2be2"
+       cx="1214.74"
+       cy="540.19397"
+       r="5"
+       id="circle156" />
+    <circle
+       fill="#8a2be2"
+       cx="1226"
+       cy="540.19397"
+       r="5"
+       id="circle158" />
+    <circle
+       fill="#8a2be2"
+       cx="1234.39"
+       cy="540.19397"
+       r="5"
+       id="circle160" />
+    <circle
+       fill="#8a2be2"
+       cx="1240.65"
+       cy="540.19397"
+       r="5"
+       id="circle162" />
+    <circle
+       fill="#ff1493"
+       cx="1478.23"
+       cy="540.19397"
+       r="5"
+       id="circle164" />
+    <circle
+       fill="#ff1493"
+       cx="1524.8199"
+       cy="540.19397"
+       r="5"
+       id="circle166" />
+    <circle
+       fill="#ff1493"
+       cx="1571.4"
+       cy="540.19397"
+       r="5"
+       id="circle168" />
+    <polyline
+       fill="none"
+       stroke="#daa520"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="127.282,540.194 173.866,540.194 220.451,540.194 267.035,540.194 313.62,540.194"
+       id="polyline170" />
+    <polyline
+       fill="none"
+       stroke="#32cd32"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="499.958,540.194 504.619,540.194 510.874,540.194 519.266,540.194 530.528,540.194 545.64,540.194 565.917,540.194 593.127,540.194"
+       id="polyline172" />
+    <polyline
+       fill="none"
+       stroke="#202020"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="686.296,540.194 691.117,540.194 697.06,540.194 704.387,540.194 713.421,540.194 724.558,540.194 738.288,540.194 755.215,540.194 776.084,540.194 801.811,540.194 833.53,540.194 872.634,540.194"
+       id="polyline174" />
+    <polyline
+       fill="none"
+       stroke="#8a2be2"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="1058.97,540.194 1063.63,540.194 1069.89,540.194 1078.28,540.194 1089.54,540.194 1104.65,540.194 1124.93,540.194 1152.14,540.194"
+       id="polyline176" />
+    <polyline
+       fill="none"
+       stroke="#ff1493"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="1245.31,540.194 1250.13,540.194 1256.07,540.194 1263.4,540.194 1272.43,540.194 1283.57,540.194 1297.3,540.194 1314.23,540.194 1335.1,540.194 1360.83,540.194 1392.54,540.194 1431.65,540.194"
+       id="polyline178" />
+    <polyline
+       fill="none"
+       stroke="#daa520"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="313.62,540.194 352.724,540.194 384.442,540.194 410.17,540.194 431.038,540.194 447.965,540.194 461.696,540.194 472.832,540.194 481.866,540.194 489.193,540.194 495.137,540.194 499.958,540.194"
+       id="polyline180" />
+    <polyline
+       fill="none"
+       stroke="#32cd32"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="593.127,540.194 620.336,540.194 640.613,540.194 655.725,540.194 666.987,540.194 675.38,540.194 681.634,540.194 686.296,540.194"
+       id="polyline182" />
+    <polyline
+       fill="none"
+       stroke="#202020"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="872.634,540.194 911.738,540.194 943.456,540.194 969.184,540.194 990.052,540.194 1006.98,540.194 1020.71,540.194 1031.85,540.194 1040.88,540.194 1048.21,540.194 1054.15,540.194 1058.97,540.194"
+       id="polyline184" />
+    <polyline
+       fill="none"
+       stroke="#8a2be2"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="1152.14,540.194 1179.35,540.194 1199.63,540.194 1214.74,540.194 1226,540.194 1234.39,540.194 1240.65,540.194 1245.31,540.194"
+       id="polyline186" />
+    <polyline
+       fill="none"
+       stroke="#ff1493"
+       stroke-width="1"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       points="1431.65,540.194 1478.23,540.194 1524.82,540.194 1571.4,540.194 1617.99,540.194"
+       id="polyline188" />
+  </g>
+  <metadata
+     id="metadata196">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>reed-mesh</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
