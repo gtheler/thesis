@@ -14,4 +14,5 @@ SOLVE_PROBLEM
 FUNCTION phi_first(x) FILE reed-alpha-$1-1-sorted.csv
 
 # escribimos el flujo y la diferencia
-PRINT_FUNCTION phi1 phi_first(x)-phi1(x) MIN 0 MAX 8 STEP 1e-3
+PRINT_FUNCTION phi1 phi_first(x)-phi1(x) MIN 0 MAX 8 STEP 1e-3 FILE $0-$1.csv
+

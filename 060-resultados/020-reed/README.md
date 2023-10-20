@@ -182,7 +182,7 @@ Info    : Stopped on Fri Oct 20 13:45:05 2023 (From start: Wall 0.0102896s, CPU 
 $
 ```
 
-Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$:
+Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$ para obtener la\ @fig2-reed-flux.
 
 ```{.feenox include="reed2.fee"}
 ```
@@ -193,3 +193,9 @@ Dado que las propiedades de los materiales y las condiciones de contorno fueron 
 Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
 :::
 
+```terminal
+$ for N in 2 4 8; do feenox reed2.fee $N; done
+$
+```
+
+![Diferencia entre flujos de primer y segundo orden en el problema de Reed](reed2-flux.svg){#fig2-reed-flux}
