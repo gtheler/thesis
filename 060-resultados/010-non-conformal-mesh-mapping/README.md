@@ -119,7 +119,7 @@ ansys:
 50 | 50 | $2.5 \cdot 10^{-3}$ | $7.3 \cdot 10^{-6}$ | 7.40
 
 
-ansys:
+laptop:
 
  $n_1$ | $n_2$ | error $L_2$ | error $L_\infty$ | tiempo [s] 
 :-----:|:-----:|:-------------:|:------------------:|:----------:
@@ -167,3 +167,20 @@ Performance. En el repositorio <https://github.com/gtheler/feenox-non-conformal-
 Performance. Comparación con Ansys.
 :::
 
+## Cube from `s=50` (98,243 nodes) to `t=100` (741,243 nodes)
+
+ .                      |     Ansys    |    Feenox
+:-----------------------|:------------:|:------------:
+ Wall time [sec]        |     33.4    |    7.24
+ $L_2$ error            |   2.859e-05  |  2.901e-05
+ More negative diff.    |  -2.509e-04  |  -5.544e-03
+ More positive diff.    |  +1.477e-04  |  +7.412e-04
+
+## Cube from `s=100` (741,243 nodes) to `t=50` (98,243 nodes)
+
+ .                      |     Ansys    |    Feenox
+:-----------------------|:------------:|:------------:
+ Wall time [sec]        |     54.2    |    1.63
+ $L_2$ error            |   6.937e-06  |  6.797e-06
+ More negative diff.    |  -6.504e-05  |  -5.164e-05
+ More positive diff.    |  +2.605e-05  |  +3.196e-05
