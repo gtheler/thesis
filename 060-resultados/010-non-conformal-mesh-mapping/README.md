@@ -160,7 +160,7 @@ Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho me
 :::
 
 ::: {.remark}
-Performance. En el repositorio <https://github.com/gtheler/feenox-non-conformal-mesh-interpolation> hay más data.
+Performance. En el repositorio <https://github.com/gtheler/feenox-non-conformal-mesh-interpolation> hay más detalles.
 :::
 
 ::: {.remark}
