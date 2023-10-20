@@ -25,6 +25,16 @@ mallado con un algoritmo completamente no estructurado utilizando una cierta can
 Este procedimiento no es exactamente el necesario para realizar cálculos acoplados ya que la evaluación en la segunda malla es sobre los nodos y no sobre los puntos de Gauss, pero el concepto es el mismo: interpolar valores nodales en puntos arbitrarios.
 :::
 
+::: {#fig-cube-interp layout="[45,-10,45]"}
+
+![$n=10$](cube-20-10.png)
+
+![$n=20$](cube-10-20.png)
+
+
+Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes números de elementos por lado.
+:::
+
 El script `run.sh` realiza una inicialización y tres pasos:
 
  0. Lee de la línea de comandos la función $f(x,y,z)$. Si no se provee ninguna, utiliza
@@ -34,7 +44,7 @@ El script `run.sh` realiza una inicialización y tres pasos:
     $$
 
  1. Crea cinco mallas con $n=10, 20, 30, 40, 50$ elementos por lado a partir del cubo base.
-   Cada una de estas cinco mallas `cube-n.msh` (donde `n` es 10, 20, 30, 40 o 50) es leída por FeenoX y se crea un archivo nuevo llamado `cube-n-src.msh` con un campo escalar `f` definido sobre los nodos según el argumento pasado por `run.sh` a FeenoX en `$1`:
+   Cada una de estas cinco mallas `cube-n.msh` (donde `n` es 10, 20, 30, 40 o 50) es leída por FeenoX y se crea un archivo nuevo llamado `cube-n-src.msh` con un campo escalar `f` definido sobre los nodos según el argumento pasado por `run.sh` a FeenoX en `$1` (@fig-cube-interp):
  
     ```{.feenox include="create.fee"}
     ```
@@ -65,19 +75,11 @@ El script `run.sh` realiza una inicialización y tres pasos:
     ```{.feenox include="interpolate.fee"}
     ```
 
-    
-tom:
-    
- $n$ |    elementos   |     nodos      | tiempo de mallado [s] | tiempo de rellenado [s] 
-:---:|:--------------:|:--------------:|:---------------------:|:-----------------------:
- 10  |  4.979 | 1.201 | 0,09 | 0,02
- 20  |  37.089 | 7.411 | 0,50 | 0,11
- 30  |  123.264 | 22.992 | 2,09 | 0,58
- 40  |  289.824 | 51.898 | 5,71 | 1,68
- 50  |  560.473 | 98.243 | 12,12 | 3,63
 
- 
-ansys: 
+
+    
+La @tbl-010-generar muestra el tiempo necesario para generar lo datos.
+La @#tbl-010-interpolar muestra los errores y el tiempo necesario para interpolar los datos.
  
  $n$ |    elementos   |     nodos      | tiempo de mallado [s] | tiempo de rellenado [s] 
 :---:|:--------------:|:--------------:|:---------------------:|:-----------------------:
@@ -87,39 +89,8 @@ ansys:
  40  |  289.824 | 51.898 | 3,23 | 0,87
  50  |  560.473 | 98.243 | 7,04 | 1,85
  
- 
- tom:
- 
- $n_1$ | $n_2$ | error $L_2$ | error $L_\infty$ | tiempo [s] 
-:-----:|:-----:|:-------------:|:------------------:|:----------:
-10 | 10 | $1.3 \cdot 10^{-2}$ | $6.2 \cdot 10^{-6}$ | 0.04
-10 | 20 | $1.3 \cdot 10^{-2}$ | $9.0 \cdot 10^{-2}$ | 0.17
-10 | 30 | $1.3 \cdot 10^{-2}$ | $9.6 \cdot 10^{-2}$ | 0.73
-10 | 40 | $1.3 \cdot 10^{-2}$ | $9.4 \cdot 10^{-2}$ | 2.01
-10 | 50 | $1.3 \cdot 10^{-2}$ | $9.8 \cdot 10^{-2}$ | 4.18
-20 | 10 | $1.3 \cdot 10^{-2}$ | $4.1 \cdot 10^{-3}$ | 0.13
-20 | 20 | $6.2 \cdot 10^{-3}$ | $6.9 \cdot 10^{-6}$ | 0.21
-20 | 30 | $6.4 \cdot 10^{-3}$ | $6.4 \cdot 10^{-2}$ | 0.92
-20 | 40 | $6.2 \cdot 10^{-3}$ | $6.7 \cdot 10^{-2}$ | 2.34
-20 | 50 | $6.1 \cdot 10^{-3}$ | $6.7 \cdot 10^{-2}$ | 4.70
-30 | 10 | $1.3 \cdot 10^{-2}$ | $1.7 \cdot 10^{-3}$ | 0.58
-30 | 20 | $6.4 \cdot 10^{-3}$ | $6.4 \cdot 10^{-3}$ | 0.78
-30 | 30 | $4.2 \cdot 10^{-3}$ | $7.1 \cdot 10^{-6}$ | 1.22
-30 | 40 | $4.3 \cdot 10^{-3}$ | $4.7 \cdot 10^{-2}$ | 3.07
-30 | 50 | $4.2 \cdot 10^{-3}$ | $5.3 \cdot 10^{-2}$ | 5.64
-40 | 10 | $1.3 \cdot 10^{-2}$ | $1.2 \cdot 10^{-3}$ | 1.64
-40 | 20 | $6.3 \cdot 10^{-3}$ | $5.3 \cdot 10^{-3}$ | 1.84
-40 | 30 | $4.3 \cdot 10^{-3}$ | $1.3 \cdot 10^{-2}$ | 2.63
-40 | 40 | $3.1 \cdot 10^{-3}$ | $7.4 \cdot 10^{-6}$ | 3.55
-40 | 50 | $3.2 \cdot 10^{-3}$ | $3.6 \cdot 10^{-2}$ | 7.11
-50 | 10 | $1.3 \cdot 10^{-2}$ | $6.0 \cdot 10^{-4}$ | 3.37
-50 | 20 | $6.2 \cdot 10^{-3}$ | $2.1 \cdot 10^{-3}$ | 3.59
-50 | 30 | $4.2 \cdot 10^{-3}$ | $3.9 \cdot 10^{-3}$ | 4.45
-50 | 40 | $3.2 \cdot 10^{-3}$ | $2.4 \cdot 10^{-2}$ | 6.28
-50 | 50 | $2.5 \cdot 10^{-3}$ | $7.3 \cdot 10^{-6}$ | 7.40
+: Tiempo necesario para generar los datos. {#tbl-010-generar}
 
-
-laptop:
 
  $n_1$ | $n_2$ | error $L_2$ | error $L_\infty$ | tiempo [s] 
 :-----:|:-----:|:-------------:|:------------------:|:----------:
@@ -149,9 +120,10 @@ laptop:
 50 | 40 | $3.2 \times 10^{-3}$ | $2.4 \times 10^{-2}$ | 3.74
 50 | 50 | $2.5 \times 10^{-3}$ | $7.3 \times 10^{-6}$ | 4.26
 
+: Errores y tiempos necesarios para interpolar los datos. {#tbl-010-interpolar}
 
 ::: {.remark}
-El $L_\infty$ se hace sobre los nodos y sobre los puntos de Gauss.
+El cálculo del error $L_\infty$ se hace sobre los nodos y sobre los puntos de Gauss.
 Recordar la @fig-sine.
 :::
 
@@ -159,28 +131,27 @@ Recordar la @fig-sine.
 Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho menores.
 :::
 
-::: {.remark}
-Performance. En el repositorio <https://github.com/gtheler/feenox-non-conformal-mesh-interpolation> hay más detalles.
-:::
+Para finalizar, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
-::: {.remark}
-Performance. Comparación con Ansys.
-:::
 
-## Cube from `s=50` (98,243 nodes) to `t=100` (741,243 nodes)
-
- .                      |     Ansys    |    Feenox
+                        |     Otro     |    FeenoX
 :-----------------------|:------------:|:------------:
- Wall time [sec]        |     33.4    |    7.24
- $L_2$ error            |   2.859e-05  |  2.901e-05
- More negative diff.    |  -2.509e-04  |  -5.544e-03
- More positive diff.    |  +1.477e-04  |  +7.412e-04
+ Tiempo                 |  $33.4$ seg    |    $7.24$ seg
+ Error $L_2$            |   $2.859 \times 10^{-5}$  |   $2.901 \times 10^{-5}$
+ Dif. más negativa      |  $-2.509 \times 10^{-4}$  |  $-5.544 \times 10^{-3}$
+ Dif. más positiva      |  $+1.477 \times 10^{-4}$  |  $+7.412 \times 10^{-4}$
 
-## Cube from `s=100` (741,243 nodes) to `t=50` (98,243 nodes)
+: Mapeo de $n_1 = 50$ (98.243 nodos) a $n_2 = 100$ (nodos 41.243 nodos) {#tbl-50-100-ansys}
 
- .                      |     Ansys    |    Feenox
+
+                        |     Otro     |    FeenoX
 :-----------------------|:------------:|:------------:
- Wall time [sec]        |     54.2    |    1.63
- $L_2$ error            |   6.937e-06  |  6.797e-06
- More negative diff.    |  -6.504e-05  |  -5.164e-05
- More positive diff.    |  +2.605e-05  |  +3.196e-05
+ Tiempo                 |     $54.2$ seg    |    $1.63$ seg
+ Error $L_2$            |   $6.937 \times 10^{-6}$  |   $6.797 \times 10^{-6}$
+ Dif. más negativa      |  $-6.504 \times 10^{-5}$  |  $-5.164 \times 10^{-5}$
+ Dif. más positiva      |  $+2.605 \times 10^{-5}$  |  $+3.196 \times 10^{-5}$
+
+: Mapeo de $n_1 = 100$ (nodos 41.243 nodos) a $n_2 = 50$ (98.243 nodos) {#tbl-100-50-ansys}
+
+
+En el repositorio <https://github.com/gtheler/feenox-non-conformal-mesh-interpolation> se pueden encontrar más detalles sobre el análisis del mapeo no conforme propuesto por FeenoX.
