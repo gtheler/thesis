@@ -91,10 +91,11 @@ $ feenox reed.fee 4 > reed-s4.csv
 $ feenox reed.fee 8 > reed-s8.csv
 ```
 
-Podemos darle una vuelta de tuerca más a la filosofía Unix y remplazar las últimas tres llamadas explícitas a feenox por un bucle de Bash
+Podemos darle una vuelta de tuerca más a la filosofía Unix y remplazar las últimas tres llamadas explícitas a feenox por un bucle de Bash.
+Incluso aprovechamos para ordenar las líneas en orden creciente según la primera columna para poder graficar "con líneas":
 
 ```terminal
-$ for N in 2 4 8; do feenox reed.fee $N > reed-s$N.csv; done
+$ for N in 2 4 8; do feenox reed.fee $N | sort -g > reed-s$N.csv; done
 $
 ```
 
@@ -128,7 +129,8 @@ Agregamos entonces la posibilidad de leer otro argumento en la línea de comando
 Con dos bucles de Bash anidados probamos todas las combinaciones posibles de $N=2,4,8$ y $\alpha = 0.01,0.25,1$:
 
 ```terminal
-$ for N in 2 4 8; do for alpha in 0.01 0.25 1; do feenox reed-alpha.fee $N $alpha; done; done
+$ for N in 2 4 8; do for alpha in 0.01 0.25 1; do feenox reed-alpha.fee $N $alpha ; done; done
+$ for N in 2 4 8; do for alpha in 0.01 0.25 1; do sort -g reed-alpha-$N-$alpha.csv > reed-alpha-$N-$alpha-sorted.csv; done; done
 ```
 para obtener la @fig-reed-flux-alpha.
 
@@ -153,8 +155,41 @@ Como veremos más adelante, el realizar estudios paramétricos sobre más de un 
 :::
 
 
-## Efecto del factor de peso del método de penalidad
-
 
 ## Efecto del orden de los elementos
+
+Para finalizar el estudio de este primer problema sencillo volvemos a resolver el mismo problema pero utilizando elementos de segundo orden.
+Está claro que para poder comparar soluciones se debe tener en cuenta el esfuerzo computacional que cada método necesita. Para el mismo tamaño de elemento, el tamaño del problema para una malla de segundo orden es mucho más grande que para una malla de primer orden. Por lo tanto, lo primero que hay que hacer es
+
+ a. refinar la malla de primer orden, o
+ b. hacer más gruesa la malla de segundo orden.
+
+Por otro lado el patrón de la matriz también cambia (el ancho de banda es mayor en la malla de segundo orden) por lo que también cambia el esfuerzo necesario no sólo para construir la matriz sino también para invertirla, especialmente en términos de memoria.
+En algunos tipos de problemas (como por ejemplo elasticidad ver xxx), está demostrado que cualquier esfuerzo necesario para resolver un problema con elementos de segundo orden vale la pena ya que los elementos de primer orden, aún cuando la malla esté muy refinada, padecen del efecto numérico conocido como [_shear locking_]{lang=en-US} que arroja resultados poco precisos.
+Pero en el caso de transporte (e incluso difusión) de neutrones no está claro que, para el mismo tamaño de problema, la utilización de elementos de alto orden sea más precisa que la de elementos de primer orden, más allá de la posibilidad de representar geometrías curvas con más precisión.
+
+De cualquier manera, presentamos entonces resultados para el problema de Reed con elementos unidimensionales de segundo orden.
+Primeramente le pedimos a Gmsh que nos prepare una malla más gruesa aún pero de orden dos. Esto da 53 nodos, tal como la malla `reed-coarse.msh` de la sección anterior:
+
+```terminal
+$ gmsh -1 reed.geo -order 2 -clscale 5 -o reed-coarser2.msh
+[...]
+Info    : Done meshing order 2 (Wall 0.000161366s, CPU 9.7e-05s)
+Info    : 53 nodes 37 elements
+Info    : Writing 'reed-coarser2.msh'...
+Info    : Done writing 'reed-coarser2.msh'
+Info    : Stopped on Fri Oct 20 13:45:05 2023 (From start: Wall 0.0102896s, CPU 0.012253s)
+$
+```
+
+Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$:
+
+```{.feenox include="reed2.fee"}
+```
+
+
+::: {.remark}
+Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada hubiese implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE`.
+Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
+:::
 

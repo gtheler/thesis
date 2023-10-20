@@ -1,0 +1,17 @@
+PROBLEM neutron_sn DIM 1 GROUPS 1 SN $1
+READ_MESH reed-coarser2.msh
+MATERIAL source1       S1=50 Sigma_t1=50 Sigma_s1.1=0
+MATERIAL absorber      S1=0  Sigma_t1=5  Sigma_s1.1=0
+MATERIAL void          S1=0  Sigma_t1=0  Sigma_s1.1=0
+MATERIAL source2       S1=1  Sigma_t1=1  Sigma_s1.1=0.9
+MATERIAL reflector     S1=0  Sigma_t1=1  Sigma_s1.1=0.9
+BC left  mirror
+BC right vacuum
+sn_alpha = 1
+SOLVE_PROBLEM
+
+# leemos la solución de primer orden para comparar
+FUNCTION phi_first(x) FILE reed-alpha-$1-1-sorted.csv
+
+# escribimos el flujo y la diferencia
+PRINT_FUNCTION phi1 phi_first(x)-phi1(x) MIN 0 MAX 8 STEP 1e-3

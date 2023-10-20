@@ -1,15 +1,5 @@
 # Resultados {#sec-resultados}
 
-::::: {lang=en-US}
-::: {.chapterquote data-latex=""}
-> | A good hockey player plays where the puck is.  
-> | A great hockey player plays where the puck is going to be.
->
-> _Wayne Gretzky_
-:::
-:::::
-
-
 ::: {.chapterquote data-latex=""}
 > Es el "tocate una que sepamos todos" de S$_N$.
 >
@@ -17,8 +7,8 @@
 :::
 
 
-
-Cada uno de estos diez problemas no puede ser resuelto con una herramienta computacional neutrónica de nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
+Este capítulo muestra diez problemas resueltos con la herramienta computacional FeenoX descripta en el @cap-implementacion que ilustran algunas de sus características particulares.
+Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
  a. Filosofía Unix, integración en scripts y simulación programática
  b. Mallas no estructuradas
@@ -34,19 +24,31 @@ Cada uno de estos diez problemas no puede ser resuelto con una herramienta compu
  El problema de Azmy ([-@sec-azmy])                    |    ●    |    ●    |    ●    |    ○
  Benchmarks de Los Alamos ([-@sec-losalamos])          |    ●    |    ◓    |    ●    |
  Slab a dos zonas ([-@sec-slab])                       |    ●    |    ●    |         |
- Cubo-esfera ([-@sec-cubesphere])                      |    ●    |    ●    |         | 
- El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    | 
+ Reactor cubo-esfera ([-@sec-cubesphere])              |    ●    |    ●    |         |
+ El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    |
  MMS con el Stanford bunny ([-@sec-mms])               |    ●    |    ●    |    ○    |    ◓
  PHWR vertical con barras inclinadas ([-@sec-phwr])    |    ●    |    ●    |    ●    |    ●
  
+
+|   |                         |   |                         |   |                         |
+|:-:|:------------------------|:-:|:------------------------|:-:|:------------------------|
+| ● | requerido               | ◓ | recomendado             | ○ | opcional                |
+
+
 
  * ● requerido
  * ◓ recomendado
  * ○ opcional
 
 ::: {.remark} 
-Ver apéndice para más problemas.
+Excepto el primer problema de la @sec-non-conformal, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.
+En el documento [Software Design Specifications]{lang=en-US} del @ap-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @ap-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, netrónica por difusión, neutrónica por ordenadas discretas).
 :::
+
+::: {.remark}
+Todos los archivos necesarios para reproducir los resultados mostrados en este capítulo, junto con el fuente original de esta tesis en Markdown y los archivos de metadata necesarios para compilar a PDF y/o HTML a través de LaTeX, están dispnibles en <https://github.com/gtheler/thesis> bajo licencia CC-BY. Todas las herramientas utilizadas, incluyendo el sistema operativo, el mallador, el propio solver FeenoX, los post-procesadores, los graficadores, los generadores de documentación (y todas las bibliotecas de las cuales todo este software dependede) son libres y/o de código abierto.
+:::
+
 
 
 ```{.include shift-heading-level-by=1}

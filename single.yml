@@ -15,7 +15,6 @@ book:
     - index.md
     - front/resumen.md
     - front/abstract.md
-    - 050-implementacion/README.md
     - 060-resultados/README.md
     
   appendices:
