@@ -1,9 +1,22 @@
+ * otros aspectos
+   - Filosofía Unix
+   - simulacion programatica
+   - performance
+   - escalabilidad
+   - ejecucion en la nube
+   - extensibilidad
+   - intregracion continua
+   - documentacion
+ * demostración alternativa de thm-A-spd en hughes
+ * demostrar thm-A-monio-es-singular con la demostracion alternativa
+ * flujos escalares y corrientes en sn
+ 
+   
  * si pongo el abstract del sds/srs como meta no me lo expande dentro del div en-US
  * las crossrefs dentro de en-US todavía tienen "sección" en lugar de "section"
  * custom chapters no funcionan con scrbook
  * decir de qué versión de FeenoX son los apéndices
  * roman de frontmatter con emph
- * poner un footnote y explicar lo de los laterales con sandías
  * index?
  * zebra tables
  * CSL style 

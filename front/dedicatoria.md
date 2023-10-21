@@ -5,7 +5,7 @@
 ```
 
 | _A mis increíbles hijos Tomás y Máximo_
-| _y a mi esposa Natalia,_
+| _y a mi hermosa esposa Natalia,_
 | _que me han acompañado en esta montaña rusa._
 
 \bigskip

@@ -21,6 +21,9 @@ El problema pide calcular varios puntos, incluyendo
 
 ![Caso 2D original del benchmark PWR de IAEA](iaea-2dpwr-figure.svg){#fig-iaea-2dpwr-figure}
 
+
+::: {#tbl-iaea-xs}
+
 Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_{a2}$ | $\nu\Sigma_{f2}$ | Material
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-------------:
    1   |  1.5  |  0.4  | 0.02  | 0.01  | 0.08  | 0.135 | Fuel 1
@@ -29,7 +32,10 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
    4   |  2.0  |  0.3  | 0.04  |  0    | 0.01  |   0   | Reflector
    5   |  2.0  |  0.3  | 0.04  |  0    | 0.055 |   0   | Refl. + Rod
 
-: Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA {#tbl-iaea-xs}
+: {#tbl-iaea-xs2}
+
+Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA
+:::
 
 
 En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando una versión anterior de FeenoX, incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia.
@@ -67,7 +73,7 @@ $
 ## Caso 2D con simetría 1/8
 
 Bien mirado, el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito, @park, @babcsany]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 

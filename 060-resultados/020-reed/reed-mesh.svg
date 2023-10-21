@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="1500.708pt"
-   height="10pt"
-   viewBox="0 0 1500.708 10"
+   width="1550.708pt"
+   height="160pt"
+   viewBox="0 0 1550.708 160"
    version="1.1"
    id="svg192"
    sodipodi:docname="reed-mesh.svg"
@@ -24,13 +24,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="pt"
      showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
+     fit-margin-top="100"
+     fit-margin-left="25"
+     fit-margin-right="25"
+     fit-margin-bottom="50"
      inkscape:zoom="0.50470219"
-     inkscape:cx="356.64596"
-     inkscape:cy="-74.301242"
+     inkscape:cx="998.6087"
+     inkscape:cy="50.524845"
      inkscape:window-width="1920"
      inkscape:window-height="1007"
      inkscape:window-x="0"
@@ -49,7 +49,7 @@ CreationDate: Thu Oct 19 19:00:30 2023
      id="defs6" />
   <g
      id="g190"
-     transform="translate(-122.282,-535.19397)">
+     transform="translate(-97.281998,-435.19397)">
     <circle
        fill="#b0c4de"
        cx="127.282"

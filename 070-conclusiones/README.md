@@ -9,3 +9,19 @@
 :::
 :::::
 
+:::
+> Leí con incomprensión y fervor estas palabras que con minucioso pincel redactó un hombre de mi sangre:
+>
+> > Dejo a los varios porvenires (no a todos) mi jardín de senderos que se bifurcan.
+>
+> Devolví en silencio la hoja
+>
+> _Jorge Luis Borges, El jardín de senderos que se bifurcan, 1941_
+
+
+
+importancia FOSS en ingenería
+
+
+otros conjuntos de cuadraturas
+
