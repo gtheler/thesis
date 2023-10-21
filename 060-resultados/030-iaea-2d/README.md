@@ -64,9 +64,9 @@ $ time feenox iaea-2dpwr.fee
 grados de libertad =    2066
 keff =  1.02985
 
-real    0m0,434s
-user    0m0,124s
-sys     0m0,028s
+real    0m0.696s
+user    0m0.090s
+sys     0m0.162s
 $
 ```
 
@@ -90,16 +90,38 @@ $ time feenox iaea-2dpwr.fee eighth
 grados de libertad =    1336
 keff =  1.02974
 
-real    0m0,443s
-user    0m0,124s
-sys     0m0,037s
+real    0m0.681s
+user    0m0.075s
+sys     0m0.161s
 $
 ```
 
 
 ![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=80%}
 
+::: {.remark}
+El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
+Esto indica que el tama&ntilde;o del problema es muy peque&ntilde; y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US] de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
+Podemos verificar esta afirmaci'on analizando la salida de la opcion `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
 
+```terminal
+$ feenox iaea-2dpwr.fee eighth --log_view
+grados de libertad =    1336
+keff =  1.02974
+[...]
+Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
+ 0:      Main Stage: 2.0911e-03   7.7%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 1:            init: 2.1185e-04   0.8%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 2:           build: 9.7703e-03  36.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 3:           solve: 1.4487e-02  53.6%  1.9467e+07 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 4:            post: 4.8677e-04   1.8%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+[...]
+$
+```
+
+En efecto, se necesitan menos de 10 milisegundos para construir las matrices del problema y menos de 15 para resolverlo.
+:::
 
 ## Caso 2D con reflector circular
 
@@ -126,13 +148,15 @@ $ time feenox iaea-2dpwr.fee eighth-circular
 grados de libertad =    1048
 keff =  1.02970
 
-real    0m0,400s
-user    0m0,096s
-sys     0m0,020s
+real    0m0.649s
+user    0m0.048s
+sys     0m0.156s
 $
 ```
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con difusión
+
+
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$
 
