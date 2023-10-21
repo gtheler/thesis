@@ -34,7 +34,8 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
 
 : {#tbl-iaea-xs2}
 
-Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA
+Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de buckling geométrico $B_g^2=0.8 \times 10^{-4}$.
+ 
 :::
 
 
@@ -51,6 +52,11 @@ En este caso vamos a prestar más atención al archivo de entrada de FeenoX que 
 Hay una relación bi-unívoca bastate clara entre la definición del problema en el reporte @anl7416 y el archivo de entrada necesario para resolverlo con FeenoX.
 El lector experimentado podrá notar que esta característica (que es parte de la base de diseño del software) no es común en otros solvers, ni neutrónicos ni termo-mecánicos.
 :::
+
+::: {.remark}
+Si bien las secciones eficaces con uniformes, la sección eficaz de absorción está dada por una expresión que es la suma de la sección eficas base más el producto del coeficiente de difusión $D_g$ por el buckling geométrico $B_g$. En lugar de volver a escribir la constante numérica correspondiente al material, escribimos $Dg(x,y)$ para que FeenoX reemplace el valor apropiado del coeficiente de difusión del material en cuestión por nosotros.
+:::
+
 
 ```terminal
 $ gmsh -2 iaea-2dpwr-quarter.geo

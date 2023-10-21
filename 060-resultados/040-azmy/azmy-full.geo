@@ -1,4 +1,3 @@
-// --- geometry -------------------------------------------------
 SetFactory("OpenCASCADE");
 a = 5;
 b = 10;
@@ -28,8 +27,3 @@ Transfinite Surface "*";
 Mesh.RecombineAll = 1;
 Mesh.ElementOrder = 1;
 Mesh.SecondOrderIncomplete = 0;
-
-// c = Sqrt(5.84375*5.84375/2);
-// Point(100) = {c-(-10)/Sqrt(2), c+(-10)/Sqrt(2), 0};
-// Point(101) = {c-10/Sqrt(2), c+10/Sqrt(2), 0};
-// Line(100) = {100, 101};

@@ -1,4 +1,4 @@
-// --- geometry -------------------------------------------------
+// --- geometría -----------------------------
 SetFactory("OpenCASCADE");
 a = 5;
 b = 10;
@@ -8,11 +8,11 @@ Rectangle(3) = {0, a, 0, a, a};
 Rectangle(4) = {a, 0, 0, a, a};
 Coherence;
 
-// --- physical groups ------------------------------------------
-Physical Surface("llq",1) = {1};
-Physical Surface("lrq",2) = {4};
-Physical Surface("urq",3) = {2};
-Physical Surface("ulq",4) = {3};
+// --- grupos físicos ------------------------
+Physical Surface("llq",1) = {1}; // lower left
+Physical Surface("lrq",2) = {4}; // lower right
+Physical Surface("urq",3) = {2}; // upper right
+Physical Surface("ulq",4) = {3}; // upper left
 
 Physical Curve("mirror", 13) = {10, 4, 1, 11};
 Physical Curve("vacuum", 14) = {9, 7, 6, 12};
