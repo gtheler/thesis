@@ -2,7 +2,7 @@
 
 > **TL;DR:** Este problema tiene curiosidad histórica, es uno de los problemas más sencillos no triviales que podemos encontrar y sirve para mostrar que para tener en cuenta regiones vacías no se puede utilizar una formulación de difusión.
 
-Este caso, que data de 1971 @cite, es de los más sencillos que FeenoX puede resolver.
+Este caso, que data de 1971 @reed, es de los más sencillos que FeenoX puede resolver.
 Por lo tanto, por base de diseño, el archivo de entrada también debe ser sencilo.
 Aprovechamos, entonces, la sencillez de este primer problema para explicar en detalle cómo generar la malla con Gmsh y cómo preparar este archivo de entrada en forma apropiadada.
 
@@ -182,7 +182,7 @@ Info    : Stopped on Fri Oct 20 13:45:05 2023 (From start: Wall 0.0102896s, CPU 
 $
 ```
 
-Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$ para obtener la\ @fig2-reed-flux.
+Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$ para obtener la\ @fig-reed2-flux.
 
 ```{.feenox include="reed2.fee"}
 ```
@@ -198,4 +198,4 @@ $ for N in 2 4 8; do feenox reed2.fee $N; done
 $
 ```
 
-![Diferencia entre flujos de primer y segundo orden en el problema de Reed](reed2-flux.svg){#fig2-reed-flux}
+![Diferencia entre flujos de primer y segundo orden en el problema de Reed](reed2-flux.svg){#fig-reed2-flux}
