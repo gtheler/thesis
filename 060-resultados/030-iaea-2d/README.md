@@ -101,8 +101,8 @@ $
 
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
-Esto indica que el tama&ntilde;o del problema es muy peque&ntilde; y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US] de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
-Podemos verificar esta afirmaci'on analizando la salida de la opcion `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
+Esto indica que el tamaño del problema es muy pequeño y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US] de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
+Podemos verificar esta afirmación analizando la salida de la opcion `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
 
 ```terminal
 $ feenox iaea-2dpwr.fee eighth --log_view
@@ -157,6 +157,113 @@ $
 ## Caso 3D con simetría 1/8, reflector circular resuelto con difusión
 
 
+![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
+
+
+Pasemos ahora a un caso tri-dimensional.
+El problema original es una extensión sobre el eje $z$ de la geometría son simetría 1/4 y reflector no circular.
+Como ya vimos en 2D, podemos tener simetría 1/8 y reflector cilíndrico.
+Ya que estamos en 3D, podemos preparar la geometría con una herramienta tipo CAD como es usual en análisis de ingeniería tipo CAE.
+En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape.]
+La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mallada con Gmsh con elementos de segundo orden arroja la malla de la @fig-iaea-3dpwr-eighth-circular-mesh.
+
+
+
+::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21,-3,20,-3,28,-3,22]"}
+![](iaea-3dpwr-eighth-circular-mesh1.png){#fig-iaea-3dpwr-eighth-mesh1}
+
+![](iaea-3dpwr-eighth-circular-mesh2.png){#fig-iaea-3dpwr-eighth-mesh2}
+
+![](iaea-3dpwr-eighth-circular-mesh3.png){#fig-iaea-3dpwr-eighth-mesh3}
+
+![](iaea-3dpwr-eighth-circular-mesh4.png){#fig-iaea-3dpwr-eighth-mesh4}
+
+
+Malla para el problema 3D PWR IAEA con simetría 1/8 y reflector circular con elementos tet10 de segundo orden.
+:::
+
+El archivo de entrada sigue siendo relativamente sencillo, sólo que ahora agregamos un poco más de información a la salida:
+
+```{.feenox include="iaea-3dpwr.fee"}
+```
+
+Como somos ingenieros y tenemos un trauma profesional con el tema de performance, comparamos la "ganancia" de usar simetría 1/8 con respecto al original de 1/4:
+
+```terminal
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee quarter
+geometry = quarter
+    keff = 1.02918
+   nodes = 70779
+    DOFs = 141558
+  memory = 3.5 Gb (local) 3.5 Gb (global)
+    wall = 39.3 sec
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee eighth
+geometry = eighth
+    keff = 1.02912
+   nodes = 47798
+    DOFs = 95596
+  memory = 2.3 Gb (local) 2.3 Gb (global)
+    wall = 19.5 sec
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee eighth-circular
+geometry = eighth-circular
+    keff = 1.08307
+   nodes = 32039
+    DOFs = 64078
+  memory = 1.3 Gb (local) 1.3 Gb (global)
+    wall = 11.1 sec
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ 
+```
+
+La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al reducir el tamaño del problema mediante la explotación de la simetría. El tiempo para construir la matriz pasó de 3.2 segundos a 2.0 (recordar que son elementos de segundo orden) y el tiempo necesario para resolver el problema bajó de 21 a 10 segundos.
+
+![Comparación entre la salida `--log_view` del caso 1/4 y 1/8 con el mismo reflector](uno-dos){#fig-uno-dos}
+
+
+::: {#fig-iaea-3dpwr-eighth-circular-flux layout="[45,-10,45]"}
+![](iaea-3dpwr-eighth-circular-flux-1.png){#fig-iaea-3dpwr-eighth-flux1}
+
+![](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
+
+Flujos rápidos y térmicos para el benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
+:::
+
+Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:
+
+```terminal
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ mpiexec -n 2 feenox iaea-3dpwr.fee quarter
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+pid 7095: signal #15 caught, finnishing...
+--------------------------------------------------------------------------
+mpiexec noticed that process rank 0 with PID 0 on node chalmers exited on signal 9 (Killed).
+--------------------------------------------------------------------------
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ mpiexec -n 4 feenox iaea-3dpwr.fee quarter
+[chalmers:07118] Read -1, expected 4886408, errno = 3
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+pid 7118: signal #15 caught, finnishing...
+pid 7121: signal #15 caught, finnishing...
+pid 7120: signal #15 caught, finnishing...
+--------------------------------------------------------------------------
+mpiexec noticed that process rank 1 with PID 0 on node chalmers exited on signal 9 (Killed).
+--------------------------------------------------------------------------
+gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ 
+
+```
+
+
+
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$
+
+Para finalizar el caso, mostramos que FeenoX puede resolver no sólo este problema con el método de difusión sino también con ordenadas discretas.
+
+
+```terminal
+```
+
 
