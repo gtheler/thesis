@@ -196,28 +196,28 @@ El archivo de entrada sigue siendo relativamente sencillo, sólo que ahora agreg
 Como somos ingenieros y tenemos un trauma profesional con el tema de performance, comparamos la "ganancia" de usar simetría 1/8 con respecto al original de 1/4:
 
 ```terminal
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee quarter
+$ feenox iaea-3dpwr.fee quarter
 geometry = quarter
     keff = 1.02918
    nodes = 70779
     DOFs = 141558
-  memory = 3.5 Gb (local) 3.5 Gb (global)
-    wall = 39.3 sec
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee eighth
+[0/1 LIN54Z7SQ3]   memory = 2.3 Gb (local) 2.3 Gb (global)
+    wall = 26.1 sec
+$ feenox iaea-3dpwr.fee eighth
 geometry = eighth
     keff = 1.02912
    nodes = 47798
     DOFs = 95596
-  memory = 2.3 Gb (local) 2.3 Gb (global)
-    wall = 19.5 sec
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ feenox iaea-3dpwr.fee eighth-circular
+[0/1 LIN54Z7SQ3]   memory = 1.2 Gb (local) 1.2 Gb (global)
+    wall = 12.7 sec
+$ feenox iaea-3dpwr.fee eighth-circular
 geometry = eighth-circular
     keff = 1.08307
    nodes = 32039
     DOFs = 64078
-  memory = 1.3 Gb (local) 1.3 Gb (global)
-    wall = 11.1 sec
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ 
+[0/1 LIN54Z7SQ3]   memory = 0.8 Gb (local) 0.8 Gb (global)
+    wall = 7.9 sec
+$ 
 ```
 
 La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al reducir el tamaño del problema mediante la explotación de la simetría. El tiempo para construir la matriz pasó de 3.2 segundos a 2.0 (recordar que son elementos de segundo orden) y el tiempo necesario para resolver el problema bajó de 21 a 10 segundos.
@@ -236,29 +236,32 @@ Flujos rápidos y térmicos para el benchmark de 3D PWR de IAEA con simetría 1/
 Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:
 
 ```terminal
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ mpiexec -n 2 feenox iaea-3dpwr.fee quarter
---------------------------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code. Per user-direction, the job has been aborted.
---------------------------------------------------------------------------
-pid 7095: signal #15 caught, finnishing...
---------------------------------------------------------------------------
-mpiexec noticed that process rank 0 with PID 0 on node chalmers exited on signal 9 (Killed).
---------------------------------------------------------------------------
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ mpiexec -n 4 feenox iaea-3dpwr.fee quarter
-[chalmers:07118] Read -1, expected 4886408, errno = 3
---------------------------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code. Per user-direction, the job has been aborted.
---------------------------------------------------------------------------
-pid 7118: signal #15 caught, finnishing...
-pid 7121: signal #15 caught, finnishing...
-pid 7120: signal #15 caught, finnishing...
---------------------------------------------------------------------------
-mpiexec noticed that process rank 1 with PID 0 on node chalmers exited on signal 9 (Killed).
---------------------------------------------------------------------------
-gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$ 
-
+$ mpiexec -n 1 feenox iaea-3dpwr.fee quarter
+geometry = quarter
+    keff = 1.02918
+   nodes = 70779
+    DOFs = 141558
+[0/1 LIN54Z7SQ3]   memory = 2.3 Gb (local) 2.3 Gb (global)
+    wall = 26.2 sec
+$ mpiexec -n 2 feenox iaea-3dpwr.fee quarter
+geometry = quarter
+    keff = 1.02918
+   nodes = 70779
+    DOFs = 141558
+[0/2 LIN54Z7SQ3]   memory = 1.5 Gb (local) 3.0 Gb (global)
+[1/2 LIN54Z7SQ3]   memory = 1.5 Gb (local) 3.0 Gb (global)
+    wall = 17.0 sec
+$ mpiexec -n 4 feenox iaea-3dpwr.fee quarter
+geometry = quarter
+    keff = 1.02918
+   nodes = 70779
+    DOFs = 141558
+[0/4 LIN54Z7SQ3]   memory = 1.0 Gb (local) 3.9 Gb (global)
+[1/4 LIN54Z7SQ3]   memory = 0.9 Gb (local) 3.9 Gb (global)
+[2/4 LIN54Z7SQ3]   memory = 1.1 Gb (local) 3.9 Gb (global)
+[3/4 LIN54Z7SQ3]   memory = 0.9 Gb (local) 3.9 Gb (global)
+    wall = 13.0 sec
+$ 
 ```
 
 
@@ -268,8 +271,69 @@ gtheler@chalmers:~/phd/thesis/060-resultados/030-iaea-2d$
 
 Para finalizar el caso, mostramos que FeenoX puede resolver no sólo este problema con el método de difusión sino también con ordenadas discretas.
 
-
 ```terminal
+$ feenox iaea-3dpwr-s4.fee --eps_monitor
+ nodes = 3258
+[0/1 LIN54Z7SQ3] solving...
+  1 EPS nconv=0 first unconverged value (error) 0.996623 (4.34362059e-05)
+  2 EPS nconv=0 first unconverged value (error) 0.996626 (4.49580500e-08)
+  3 EPS nconv=1 first unconverged value (error) 0.9353 (3.29379374e-08)
+  DOFs = 156384
+  keff = 0.99663
+  wall = 197.9 sec
+average memory = 13.6 Gb
+ global memory = 13.6 Gb
+$ mpiexec -n 4 feenox iaea-3dpwr-s4.fee --eps_monitor
+ nodes = 3258
+[0/4 LIN54Z7SQ3] solving...
+[1/4 LIN54Z7SQ3] solving...
+[2/4 LIN54Z7SQ3] solving...
+[3/4 LIN54Z7SQ3] solving...
+  1 EPS nconv=0 first unconverged value (error) 0.996625 (4.19395044e-05)
+  2 EPS nconv=0 first unconverged value (error) 0.996626 (4.67480991e-08)
+  3 EPS nconv=1 first unconverged value (error) 0.9353 (3.29361847e-08)
+  DOFs = 156384
+  keff = 0.99663
+  wall = 99.5 sec
+average memory = 4.7 Gb
+ global memory = 19.0 Gb
+$ mpiexec -n 12 feenox iaea-3dpwr-s4.fee --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
+ nodes = 3258
+[0/12 LIN54Z7SQ3] solving...
+[1/12 LIN54Z7SQ3] solving...
+[2/12 LIN54Z7SQ3] solving...
+[3/12 LIN54Z7SQ3] solving...
+[4/12 LIN54Z7SQ3] solving...
+[5/12 LIN54Z7SQ3] solving...
+[6/12 LIN54Z7SQ3] solving...
+[7/12 LIN54Z7SQ3] solving...
+[8/12 LIN54Z7SQ3] solving...
+[9/12 LIN54Z7SQ3] solving...
+[10/12 LIN54Z7SQ3] solving...
+[11/12 LIN54Z7SQ3] solving...
+  1 EPS nconv=0 first unconverged value (error) 0.542411 (1.45272351e+02)
+  2 EPS nconv=0 first unconverged value (error) 0.988282 (6.81535819e+00)
+  3 EPS nconv=0 first unconverged value (error) 0.97111 (4.90651112e+00)
+  4 EPS nconv=0 first unconverged value (error) 0.991935 (2.72069261e+00)
+  5 EPS nconv=0 first unconverged value (error) 0.995226 (1.46652556e+00)
+  6 EPS nconv=0 first unconverged value (error) 0.997734 (6.67104794e-01)
+  7 EPS nconv=0 first unconverged value (error) 0.996109 (3.82428107e-01)
+  8 EPS nconv=0 first unconverged value (error) 0.996941 (2.46293703e-01)
+  9 EPS nconv=0 first unconverged value (error) 0.996638 (1.44292090e-01)
+ 10 EPS nconv=0 first unconverged value (error) 0.996653 (8.93529784e-02)
+ 11 EPS nconv=0 first unconverged value (error) 0.99657 (8.93529784e-02)
+ 12 EPS nconv=0 first unconverged value (error) 0.99657 (7.22756164e-02)
+ 13 EPS nconv=0 first unconverged value (error) 0.996607 (6.32159213e-02)
+ 14 EPS nconv=0 first unconverged value (error) 0.996704 (4.36139189e-02)
+ 15 EPS nconv=0 first unconverged value (error) 0.996642 (2.01286172e-02)
+ 16 EPS nconv=0 first unconverged value (error) 0.996617 (6.63384323e-03)
+ 17 EPS nconv=0 first unconverged value (error) 0.996629 (2.39149013e-03)
+ Linear eigensolve converged (1 eigenpair) due to CONVERGED_TOL; iterations 18
+  DOFs = 156384
+  keff = 0.99663
+  wall = 613.2 sec
+average memory = 1.6 Gb
+ global memory = 19.4 Gb
 ```
 
 
