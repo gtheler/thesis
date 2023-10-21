@@ -2,22 +2,19 @@
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
-> The miracle of the appropriateness of the language of mathematics for the formulation
-> of the laws of physics is a wonderful gift which we neither understand nor deserve.
-> We should be grateful for it and hope that it will remain valid in future research that
-> it will extend, for better, or for worse, to our pleasure, even though perhaps also
-> to our bafflement, to wide branches of learning.
+> In an enterprise such as the development nuclear physics
+> the difference between ideas, hopes, suggestions and theoretical
+> calculations, and solid numbers based on measurement, is paramount.
+> All the committees, the politicking and the plans would have come
+> to naught if a few unpredictable nuclear cross sections
+> had been different from what they are by a factor of two.
 >
-> *Eugene Wigner*
+> _Emilio Segré_
 
-> | In an enterprise such as the development nuclear physics
-> | the difference between ideas, hopes, suggestions and theoretical
-> | calculations, and solid numbers based on measurement, is paramount.
-> | All the committees, the politicking and the plans would have come
-> | to naught if a few unpredictable nuclear cross sections
-> | had been different from what they are by a factor of two.
-> |
-> | *Emilio Segré*
+> digestión
+>
+> _Lucio Séneca, siglo I d.C._
+
 :::
 :::::
 
@@ -35,13 +32,10 @@ Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de def
 Está claro los desarrollos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
- a. para que un profesional con conocimientos promedios de física de neutrones pueda seguir el hilo y entender las ideas que forman la propuesta central de esta tesis explicada en la\ @sec-propuestas, y
- b. como un recordatorio para mi propio yo del futuro, que seguramente olvidará todos los detalles aquí expuestos.
+ a. A modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en sentido figurado) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
+ b. Abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería.
 
----
-comment: es una especie de diario de Marco Aurelio para mí mismo
-...
- 
+
 \medskip
 
 Para modelar matemáticamente el comportamiento de reactores nucleares de fisión debemos primero poder caracterizar campos de neutrones arbitrarios a través de distribuciones matemáticas sobre un dominio espacial $U \in \mathbb{R}^3$ de tres dimensiones.^[Llegado el caso veremos cómo reducir el problema para casos particulares de dominios de una y dos dimensiones.]
@@ -1231,7 +1225,7 @@ $$
 $$
 
 ::: {.proof}
-En efecto, tomemos $\ell^\prime = 0$ y $m^\prime=0$ en el @thm-harmonic-orto y reemplacemos la @def-y00 para $Y_0^0 = 1/\sqrt{4\pi}$
+Tomemos $\ell^\prime = 0$ y $m^\prime=0$ en el @thm-harmonic-orto y reemplacemos la @def-y00 para $Y_0^0 = 1/\sqrt{4\pi}$
 
 $$
 \begin{aligned}
@@ -1906,14 +1900,17 @@ $$
 \int_{4\pi} \left( \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E, t) \right] \cdot  \omegaversor \right) \, d\omegaversor \simeq  \frac{1}{3} \cdot \text{grad} \left[ \phi(\vec{x}, E,t ) \right]
 $$ {#eq-difusion2}
 
-::: {.remark lang=en-US}
-If one keeps the higher terms in the Legendre polynomial expansion of $\psi$, there then then results, as can be shown by an easy calculation, the exact expression [@beckurts, p. 88] 
+::::: {.remark}
+La referencia [@beckurts, p. 88] indica
 
-$$
-J = - \frac{1}{3 \left( \Sigma_{tr} + \Sigma_a \right)} \frac{d}{dx} \left[ \phi(x) \left(1 + 2 \frac{\psi_2(x)}{\phi(x)} \right)  \right] 
-$$
+::: {lang=en-US}
+> If one keeps the higher terms in the Legendre polynomial expansion of $\psi$, there then results, as can be shown by an easy calculation, the exact expression
+>
+> $$
+> J = - \frac{1}{3 \left( \Sigma_{tr} + \Sigma_a \right)} \frac{d}{dx} \left[ \phi(x) \left(1 + 2 \frac{\psi_2(x)}{\phi(x)} \right)  \right]
+> $$
 :::
-
+:::::
 
 #### Absorción total
 
@@ -2291,14 +2288,17 @@ En la práctica se recurre a un esquema multi-escala, donde primero se evalúan 
 
 ### Evaluación y procesamiento de secciones eficaces {#sec-evaluacionxs}
 
-Este nivel de cálculo es el punto central de la tesis @nacho.
+Este nivel de cálculo es el punto central del trabajo de doctorado de la referencia @nacho.
+A partir de mediciones experimentales, los datos se procesan de forma tal de que puedan ser evaluados y utilizados como bibliotecas de secciones eficaces microscópicas con las cuales realizar cálculos a nivel de celda.
+
 
 ### Cálculo a nivel celda {#sec-celda}
 
-Este nivel de cálculo es el punto central de la tesis @chaco.
+Este nivel de cálculo es el punto central del trabajo de doctorado de la referencia @chaco.
+A partir de biblioctecas de secciones eficaces microscópica se procede a realizar cálculos de transporte de forma tal de calcular secciones eficaces macroscópicas a pocos grupos de energía que puedan ser usadas como los coeficientes de las ecuaciones de transporte utilizadas en el cálculo a nivel de núcleo.
 
 ### Cálculo a nivel núcleo
 
 Este nivel de cálculo es el punto central de esta tesis, especialmente en el @sec-esquemas y en el @sec-resultados.
-
+Las secciones eficaces macroscópicas que son los coeficientes de las ecuaciones de ordenadas discretas y difusión de neutrones multigrupo se suponene funciones conocidas del espacio.
 

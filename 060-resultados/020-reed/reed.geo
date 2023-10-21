@@ -52,5 +52,3 @@ Physical Line("reflector") = {5,15};
 // puntos físicos
 Physical Point("left")  = {1};
 Physical Point("right") = {6};
-
-RenumberMeshNodes;

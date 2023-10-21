@@ -10,7 +10,7 @@ for i in download; do
   cp ${dir}/${i}.md .
 done
 
-for i in sds why licensing transfer lorenz nafems-le10 mazes laplace nafems-le11 binary source git compilation unix history downloads debian binary source git freesw licensing windows pdes FAQ; do
+for i in sds why licensing transfer lorenz nafems-le10 mazes laplace nafems-le11 binary source git compilation unix history downloads debian binary source git freesw licensing windows pdes FAQ double-click; do
   cp ${dir}/doc/${i}.md .
 done
 

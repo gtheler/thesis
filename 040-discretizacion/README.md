@@ -2,6 +2,14 @@
 
 ::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
+> The miracle of the appropriateness of the language of mathematics for the formulation
+> of the laws of physics is a wonderful gift which we neither understand nor deserve.
+> We should be grateful for it and hope that it will remain valid in future research that
+> it will extend, for better, or for worse, to our pleasure, even though perhaps also
+> to our bafflement, to wide branches of learning.
+>
+> _Eugene Wigner_
+
 > I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
 > Math is a human discovery, and it's no more complicated than humans can understand.
 > I had a calculus book once that said, 'What one fool can do, another can'
@@ -61,10 +69,10 @@ Comenzamos primero entonces introduciendo algunas propiedades matemáticas de lo
 Pasamos luego a la discretización de las ecuaciones propiamente dicha.
 Primeramente discretizamos la dependencia en energía aplicando la idea de grupos discretos de energías para obtener las llamadas “ecuaciones multigrupo”.
 Continuamos luego por la dependencia angular de la ecuación de transporte aplicando el método de ordenadas discretas S$_N$.
-Esencialmente la idea es transformar las integrales sobre $E^\prime$ y sobre $\omegaprimaversor$ en las dos ecuaciones [-@eq-difusion-ss] y [@-eq-transporte-linealmente-anisotropica] del principio del capítulo por sumatorias finitas.
+Esencialmente la idea es transformar las integrales sobre $E^\prime$ y sobre $\omegaprimaversor$ en las dos ecuaciones [-@eq-difusion-ss] y [-@eq-transporte-linealmente-anisotropica] del principio del capítulo por sumatorias finitas.
 
 El grueso del capítulo lo dedicamos a la discretización espacial de ambas ecuaciones, que es el aporte principal de esta tesis al problema de la resolución de las ecuaciones de transporte de neutrones a nivel de núcleo utilizando mallas no estructuradas y técnicas de descomposición de dominio para permitir la resolución de problemas de tamaño arbitrario.
-En la referencia @monografia se muestra, para la ecuación de difusión, una derivación similar a la formulación propuesta en esta tesis basada en elementos finitos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
+En la monografía @monografia mostramos, para la ecuación de difusión, una derivación similar a la formulación propuesta en esta tesis basada en elementos finitos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
 Dejamos la extensión a volúmenes finitos y su comparación con otros esquemas como trabajos futuros.
 
 Finalmente analizamos la forma matricial/vectorial de los tres casos de problemas de estado estacionario que resolvemos en esta tesis según el medio se multiplicativo o no y según haya fuentes externas o no.
@@ -119,9 +127,9 @@ $$
 $$
 :::
 
-La convergencia y, más aún, el orden con el cual el error $|| \varphi - \varphi_N ||$ converge a cero es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de este error con $1/N$ tiene que coincidir con el orden del método numérico (ver\ @sec-mms).
+La convergencia y, más aún, el orden con el cual el error $|| \varphi - \varphi_N ||$ converge a cero es importante al verificar la implementación computacional de un método numérico. Tanto es así que para que una herramienta computacional sea verificada en el sentido de “verificación y validación” de software, no sólo se tiene que mostrar que $\lim_{N\rightarrow \infty} || \varphi - \varphi_N || = 0$ sino que la tasa de disminución de este error con $1/N$ tiene que coincidir con el orden del método numérico (ver @sec-mms-dif).
 De todas maneras, demostrar que un método numérico genérico es convergente no es sencillo y ni siquiera posible en la mayoría de los casos.
-En forma equivalente, se prueban los conceptos de consistencia y estabilidad definidos a continuación y luego se utiliza el teorema de equivalencia.
+En forma equivalente, se prueban los conceptos de consistencia y estabilidad definidos a continuación y luego se utiliza el teorema de equivalencia que sigue.
 
 ::: {#def-consistencia}
 ## Consistencia
@@ -194,7 +202,7 @@ Suponiendo que disponemos de varios métodos numéricos que nos permitan calcula
      
     
      
-Si bien con esta taxonomía parecería que comparar métodos numéricos no debería ser muy difícil, hay detalles que deben ser tenidos en cuenta y que de hecho complican la evaluación.
+Si bien con esta taxonomía pareciera ser que comparar métodos numéricos no debería ser muy difícil, hay detalles que deben ser tenidos en cuenta y que de hecho complican la evaluación.
 Por ejemplo, dado un cierto problema de análisis de reactores a nivel de núcleo, el punto 1 incluye las siguiente preguntas:
 
  * ¿Es necesario resolver la ecuación de transporte o la ecuación de difusión es suficiente?
@@ -873,17 +881,17 @@ Consiste en tomar tres cosenos directores $\mu_i$, $\mu_j$ y $\mu_k$ de un con
 
 ::: {#fig-latsn layout="[38,-15,37]"}
 
-![S$_2$](lats2-nice)
+![S$_2$](lats2-nice){#fig-latsn1}
 
-![S$_2$](lats2b-nice)
+![S$_2$](lats2b-nice){#fig-latsn2}
 
-![S$_4$](lats4-nice)
+![S$_4$](lats4-nice){#fig-latsn3}
 
-![S$_4$](lats4b-nice)
+![S$_4$](lats4b-nice){#fig-latsn4}
 
-![S$_6$](lats6-nice)
+![S$_6$](lats6-nice){#fig-latsn5}
 
-![S$_6$](lats6b-nice)
+![S$_6$](lats6b-nice){#fig-latsn6}
 
 
 Direcciones de cuadratura de nivel simétrico para S$_2$, S$_4$ y S$_6$ en el primer cuadrante.
@@ -960,9 +968,8 @@ para $i=2,\dots,N/2$.
 
 ::: {.remark}
 Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
-Si el primer coseno director $\mu_1$ es cercano a $1/sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
+Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
 :::
-
 
 
 +---------:+:-------------------+---------:+:-------------------+
@@ -1011,8 +1018,7 @@ Si el primer coseno director $\mu_1$ es cercano a $1/sqrt{3}$, las direcciones 
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores.
-Todos los números fueron generados por la herramienta descriptra en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores. Todos los números fueron generados por la herramienta descripta en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 
 
@@ -1162,6 +1168,7 @@ polinomio de orden $2N-1$ o menos, entonces la integración es exacta.
 En la tabla @tbl-gauss1d mostramos el conjunto de cuadraturas utilizadas para una dimensión, que contiene esencialmente las abscisas y los pesos
 de la cuadratura de Gauss.
 
+::: {#tbl-gauss1d}
            $m$                  $\hat{\Omega}_{mx}$                        $2 \cdot w_m$
   ------- ----- ---------------------------------------------------- --------------------------
    S$_2$    1                   $\sqrt{\frac{1}{3}}$                             1
@@ -1175,13 +1182,18 @@ de la cuadratura de Gauss.
             3                       0.7966664774                            0.2223810344
             4                       0.9602898564                            0.1012285363
 
-: Conjuntos de cuadratura para problemas unidimensionales. Las
+:  {#tbl-gauss1dx}
+
+Conjuntos de cuadratura para problemas unidimensionales. Las
   direcciones $\hat{\Omega}_{mx}$ coinciden con las abscisas de la
   cuadratura de Gauss. Los pesos $w_m$ de ordenadas discretas son la
   mitad de los pesos $w_m$ de la cuadratura de Gauss. Las
   direcciones $m=N/2+1,\dots,N$ no se muestran pero se obtienen
   como $\hat{\Omega}_{N/2+m \, x} = -\hat{\Omega}_{mx}$
-  y $w_{N/2+m} = w_m$. {#tbl-gauss1d}
+  y $w_{N/2+m} = w_m$.
+:::
+
+
 
 ## Discretización en espacio {#sec-discretizacion-espacial}
 
@@ -1218,7 +1230,7 @@ Esencialmente el grueso de la literatura teórica [@quarteroni,@brennerscott,@pd
  2. que soluciones continuas pero no necesariamente diferenciables en a lo más un sub-espacio de medida cero tienen sentido matemático, y
  3. que el esquema numérico es consistente (@def-consistencia), estable (@def-estabilidad) y convergente (@def-convergencia).
 
-De la misma manera que el @sec-transporte-difusion esencialmente repetimos teoría matemática ya conocida a partir de diferentes fuente pero amalgamada de forma tal de unificar nomenclaturas y criterios, en este hacemos lo mismo por cuestiones de consistencia. Mostramos algunos resultados conocidos y derivamos con algún cierto nivel de detalle razonable (teniendo en cuenta que es ésta una tesis de Ingeniería y no de Matemática) el problema de aproximación de Galerkin a partir de la formulación débil de un problema en derivadas parciales.
+De la misma manera que el @sec-transporte-difusion esencialmente repetimos teoría matemática ya conocida a partir de diferentes fuente pero "digerida" a lo Séneca de forma tal de unificar nomenclaturas y criterios, en este hacemos lo mismo por cuestiones de consistencia. Mostramos algunos resultados conocidos y derivamos con algún cierto nivel de detalle razonable (teniendo en cuenta que es ésta una tesis de Ingeniería y no de Matemática) el problema de aproximación de Galerkin a partir de la formulación débil de un problema en derivadas parciales.
 Dejamos la derivación completa incluyendo la teoría de análisis funcional necesaria para demostrar completamente todos los resultados del método de elementos finitos en las referencias [@brennerscott; @quarteroni; @hughes].
 En la monografía @monografia escrita durante el plan de formación de este doctorado se muestra una derivación de la formulación en elementos finitos de la ecuación de difusión multigrupo de forma menos formal pero más intuitiva. Incluso se comparan los resultados numéricos obtenidos con dicha formulación con los obtenidos con una formulación basada en volúmenes finitos @bookevol.
 
@@ -1793,10 +1805,12 @@ $$
 para $\alpha > 0$.
 Dado que  $||v_N||_V$ es una norma, la igualdad se cumple si y sólo si $||v_N||_V = 0$, lo que implica que todos los elementos de $v$ son nulos.
 
-**TODO** demostración alternativa de @hughes
-
 :::
 :::::
+
+::: {.remark}
+Ver @hughes para una demostración alternativa.
+:::
 
 ::::: {#thm-galerkin-existencia-y-unicidad}
 
@@ -1930,12 +1944,12 @@ y
 $$
 \vec{v} = 
 \begin{bmatrix}
-v^{(1)} \\
-v^{(2)} \\
+v(\vec{x}_1) \\
+v(\vec{x}_2) \\
 \vdots \\
-v^{(j)} \\
+(\vec{x}_j) \\
 \vdots \\
-v^{(J)} \\
+(\vec{x}_J) \\
 \end{bmatrix}
 $$
 
@@ -2204,8 +2218,6 @@ y $\tilde{\vec{u}}=\begin{bmatrix} \vec{u} & \vec{0}\end{bmatrix}^T$ entonces e
 
 ::: {#thm-A-monio-es-singular}
 La matriz $\tilde{\mat{A}}$ es singular. Más aún, $\ker{(\tilde{\mat{A}})} = 1$.
-
-**TODO**
 :::
 
 ::::: {#cor-K-phi}
@@ -2835,9 +2847,9 @@ $$
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-v^{(1)} \\
-v^{(2)} \\
-v^{(3)}
+v(\vec{x_1}) \\
+v(\vec{x_2}) \\
+v(\vec{x_3})
 \end{bmatrix}
 $$
 
@@ -2893,9 +2905,9 @@ $$
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-v^{(1)} \\
-v^{(2)} \\
-v^{(3)}
+v(\vec{x_1}) \\
+v(\vec{x_2}) \\
+v(\vec{x_3})
 \end{bmatrix}
 =
 \mat{J}^{-T}(\symbf{\xi}) \cdot \mat{B}_c(\symbf{\xi}) \cdot \vec{v}
@@ -2998,10 +3010,10 @@ $$ {#eq-B}
 
 
 ::: {.remark}
-Si el problema es tri-dimensional, el elemento canónico $e_c$ es el tetrahedro de dimensión $D=3$ cuyos $J=4$ vértices tienen coordenadas $\symbf{\xi}_1=[0,0,0]$, $\symbf{\xi}_2=[1,0,0]$, $\symbf{\xi}_3=[0,1,0]$ y $\symbf{\xi}_4=[0,0,1]$.
+Si el problema es tri-dimensional, el elemento canónico $e_{c_i}$ es el tetrahedro de dimensión $D=3$ cuyos $J_i=4$ vértices tienen coordenadas $\symbf{\xi}_1=[0,0,0]$, $\symbf{\xi}_2=[1,0,0]$, $\symbf{\xi}_3=[0,1,0]$ y $\symbf{\xi}_4=[0,0,1]$.
 Entonces
 
- a. las $J=4$ funciones de forma son
+ a. las $J_i=4$ funciones de forma son
 
     $$
     \begin{aligned}
@@ -3099,13 +3111,6 @@ Además de triángulos (tetrahedros) se podrían haber utiliado elementos cuadra
 
 ::: {.remark}
 Además de elementos lineales en los que hay un nodo en cada vértice, también existen elementos de órdenes superiores con nodos en los lados y eventualmente en el seno del elemento (@fig-shape-function-second-order).
-En el **TODO** se muestran 
-
- i. los tipos de elementos,
- ii. la numeración de los nodos, y
- iii. las funciones de forma
- 
-de los elementos canónicos soportados por la herramienta desarrollada para esta tesis.
 :::
 
 ::: {#fig-shape-function-second-order layout="[45,-5,45]"}
@@ -3134,38 +3139,38 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
      - segmento para $D=1$
      - triángulo o cuadrángulo para $D=2$
      - tetrahedro, hexahedro, prisma o pirámide para $D=3$
- 2. las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz canónica $\mat{H}_c$
+ 2. las $J_i$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz canónica $\mat{H}_c$
  
     $$
-    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_J(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
+    \mat{H}_c(\symbf{\xi}) = \begin{bmatrix}h_1(\symbf{\xi}) & h_2(\symbf{\xi}) & \cdots & h_{J_i}(\symbf{\xi}) \end{bmatrix} \quad \in \mathbb{R}^{1 \times J_i}
     $$
     
- 3. las $JD$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz canónica $\mat{B}_c$
+ 3. las $J_i \cdot D$ derivadas parciales $\partial h_j/\partial \xi_d$ con respecto a las coordenadas $\symbf{\xi} \in \mathbb{R}^D$, con las cuales construimos la matriz canónica $\mat{B}_c$
  
     $$
     \mat{B}_c(\symbf{\xi}) =
     \begin{bmatrix}
-    \displaystyle \frac{\partial h_1}{\partial \xi}   & \displaystyle \frac{\partial h_2}{\partial \xi}   & \cdots & \displaystyle \frac{\partial h_J}{\partial \xi} \\
-    \displaystyle \frac{\partial h_1}{\partial \eta}  & \displaystyle \frac{\partial h_2}{\partial \eta}  & \cdots & \displaystyle \frac{\partial h_J}{\partial \eta} \\
-    \displaystyle \frac{\partial h_1}{\partial \zeta} & \displaystyle \frac{\partial h_2}{\partial \zeta} & \cdots & \displaystyle \frac{\partial h_J}{\partial \zeta}
-    \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+    \displaystyle \frac{\partial h_1}{\partial \xi}   & \displaystyle \frac{\partial h_2}{\partial \xi}   & \cdots & \displaystyle \frac{\partial h_{J_i}}{\partial \xi} \\
+    \displaystyle \frac{\partial h_1}{\partial \eta}  & \displaystyle \frac{\partial h_2}{\partial \eta}  & \cdots & \displaystyle \frac{\partial h_{J_i}}{\partial \eta} \\
+    \displaystyle \frac{\partial h_1}{\partial \zeta} & \displaystyle \frac{\partial h_2}{\partial \zeta} & \cdots & \displaystyle \frac{\partial h_{J_i}}{\partial \zeta}
+    \end{bmatrix} \quad \in \mathbb{R}^{D \times J_i}
     $$
  
  4. el conjunto de $Q$ pares de pesos y ubicaciones de puntos de Gauss $(\omega_q, \symbf{\xi}_q)$ del elemento canónico $e_c$
- 5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$ del elmento $e_i$
+ 5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J_i$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$ del elmento $e_i$
  
     $$
     \mat{C}_i
     =
     \begin{bmatrix}
-    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_J
+    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_{J_i}
     \end{bmatrix}
     =
     \begin{bmatrix}
-    x_1 & x_2 & \cdots & x_J  \\
-    y_1 & y_2 & \cdots & y_J  \\
-    z_1 & z_2 & \cdots & z_J  \\
-    \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+    x_1 & x_2 & \cdots & x_{J_i}  \\
+    y_1 & y_2 & \cdots & y_{J_i}  \\
+    z_1 & z_2 & \cdots & z_{J_i}  \\
+    \end{bmatrix} \quad \in \mathbb{R}^{D \times J_i}
     $$
     
     que permite evaluar el $i$-ésimo jacobiano $\mat{J}_i(\symbf{\xi})$ como
@@ -3178,15 +3183,15 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     
     $$
     \begin{aligned}
-    x_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
-    y_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
-    z_q &= \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
+    x_q &= \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot x_j \\
+    y_q &= \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot y_j \\
+    z_q &= \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot z_j \\
     \end{aligned}
     $$
     
     necesarias para evaluar $k(\vec{x}_q)$ y $f(\vec{x}_q)$ dentro de cada térmiono de la suma de la cuadratura numérica,
 
-entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J \times J}$ de rigidez elemental correspondiente al elemento $e_i$ para la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es _una_ de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
+entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J_i \times J_i}$ de rigidez elemental correspondiente al elemento $e_i$ para la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es _una_ de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
 
 $$
 \begin{aligned}
@@ -3229,14 +3234,14 @@ con
     $$
     \mat{C}_i =
     \begin{bmatrix}
-    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_J
+    \vec{x}_1 & \vec{x}_2 & \cdots & \vec{x}_{J_i}
     \end{bmatrix}
     =
     \begin{bmatrix}
-    x_1 & x_2 & \cdots & x_J  \\
-    y_1 & y_2 & \cdots & y_J  \\
-    z_1 & z_2 & \cdots & z_J  \\
-    \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+    x_1 & x_2 & \cdots & x_{J_i}  \\
+    y_1 & y_2 & \cdots & y_{J_i}  \\
+    z_1 & z_2 & \cdots & z_{J_i}  \\
+    \end{bmatrix} \quad \in \mathbb{R}^{D \times J_i}
     $$
 
  ii. las coordenadas reales $\vec{x}_q$ del punto de gauss $q$-ésimo
@@ -3244,12 +3249,12 @@ con
      $$
      \vec{x}_q(\symbf{\xi}_q) =
      \begin{bmatrix}
-     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot x_j \\
-     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot y_j \\
-     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot z_j \\
+     \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot x_j \\
+     \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot y_j \\
+     \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot z_j \\
      \end{bmatrix}
      =
-     \sum_{j=1}^J h_j(\symbf{\xi}_q) \cdot \vec{x}_j
+     \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot \vec{x}_j
      \quad \in \mathbb{R}^{D} \\
      $$
 
@@ -3259,7 +3264,7 @@ con
       \mat{H}_c(\symbf{\xi}_q) =
       \begin{bmatrix}
       h_1(\symbf{\xi}_q) & h_2(\symbf{\xi}_q) & \cdots & h_1(\symbf{\xi}_q)
-      \end{bmatrix} \quad \in \mathbb{R}^{1 \times J}
+      \end{bmatrix} \quad \in \mathbb{R}^{1 \times J_i}
       $$
 
  iv. la matriz canónica de derivadas $\mat{B}_c$
@@ -3270,16 +3275,16 @@ con
      \displaystyle \frac{\partial h_1}{\partial \xi} &
      \displaystyle \frac{\partial h_2}{\partial \xi} &
      \cdots &
-     \displaystyle \frac{\partial h_J}{\partial \xi} \\
+     \displaystyle \frac{\partial h_{J_i}}{\partial \xi} \\
      \displaystyle \frac{\partial h_1}{\partial \eta} &
      \displaystyle \frac{\partial h_2}{\partial \eta} &
      \cdots &
-     \displaystyle \frac{\partial h_J}{\partial \eta} \\
+     \displaystyle \frac{\partial h_{J_i}}{\partial \eta} \\
      \displaystyle \frac{\partial h_1}{\partial \zeta} &
      \displaystyle \frac{\partial h_2}{\partial \zeta} &
      \cdots &
-     \displaystyle \frac{\partial h_J}{\partial \zeta} \\
-     \end{bmatrix} \quad \in \mathbb{R}^{D \times J}
+     \displaystyle \frac{\partial h_{J_i}}{\partial \zeta} \\
+     \end{bmatrix} \quad \in \mathbb{R}^{D \times J_i}
      $$
 
  v. el jacobiano $\mat{J}_i$ del elemento real $e_i$
@@ -3293,7 +3298,7 @@ con
      $$
      \mat{B}_i(\symbf{\xi}_q) = \mat{J}_i^{-T}(\symbf{\xi}_q) \cdot  \mat{B}_c(\symbf{\xi}_q)
      =
-     \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J} $$
+     \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J_i} $$
 :::
 
 ::: {#def-bi-volumetrico-poisson}
@@ -3781,15 +3786,15 @@ D_1(\vec{x}) & 0 \\
 $$
 
 Ahora tratamos de encontrar la aproximación de Galerkin.
-Para ello, definimos un vector $\vec{v} \in \mathbb{R}^{GJ}$ con los valores nodales de $v_1(\vec{x})$ y $v_2(\vec{x})$ intercalados
+Para ello, definimos un vector $\vec{v} \in \mathbb{R}^{GJ}$ con los valores nodales de $v_1(\vec{x})$ para $g=1$ y $v_2(\vec{x})$ para $g=2$ intercalados
 
 $$
 \vec{v} =
 \begin{bmatrix}
- v_1^{(1)} \\ v_2^{(1)} \\
- v_1^{(1)} \\ v_2^{(1)} \\
+ v_1(\vec{x}_1) \\ v_2(\vec{x}_1) \\
+ v_1(\vec{x}_2) \\ v_2(\vec{x}_2) \\
 \vdots \\
- v_1^{(J)} \\ v_2^{(J)} \\
+ v_1(\vec{x}_{J}) \\ v_2(\vec{x}_{J}) \\
 \end{bmatrix}
 $$
 
@@ -3809,8 +3814,8 @@ donde llamamos $\mat{H}_2$ a la matriz de funciones de forma para $G=2$
 $$
 \mat{H}_2(\vec{x}) =
 \begin{bmatrix}
-h_1(\vec{x}) & 0 & h_2(\vec{x}) & 0 & \cdots & h_J(\vec{x}) & 0 \\
-0 & h_1(\vec{x}) & 0 & h_2(\vec{x}) & \cdots & 0 & h_J(\vec{x}) \\
+h_1(\vec{x}) & 0 & h_2(\vec{x}) & 0 & \cdots & h_{J_i}(\vec{x}) & 0 \\
+0 & h_1(\vec{x}) & 0 & h_2(\vec{x}) & \cdots & 0 & h_{J_i}(\vec{x}) \\
 \end{bmatrix} \quad \in \mathbb{R}^{2 \times 2J}
 $$
 como un caso particular de la matriz de funciones de forma $\mat{H}_G$ para $G$ grupos de energía.
@@ -3819,10 +3824,10 @@ De la misma manera, si
 $$
 \symbf{\phi} =
 \begin{bmatrix}
- \phi_1^{(1)} \\ \phi_2^{(1)} \\
- \phi_1^{(1)} \\ \phi_2^{(1)} \\
+ \phi_1(\vec{x}_1) \\ \phi_2(\vec{x}_1) \\
+ \phi_1(\vec{x}_2) \\ \phi_2(\vec{x}_2) \\
 \vdots \\
- \phi_1^{(J)} \\ \phi_2^{(J)} \\
+ \phi_1(\vec{x}_{J}) \\ \phi_2(\vec{x}_{J}) \\
 \end{bmatrix}
 $$
 entonces
@@ -4024,12 +4029,12 @@ con
 $$
 \mat{B}_2(\vec{x}) =
 \begin{bmatrix}
-\frac{\partial h_1}{\partial x}   & 0 & \frac{\partial h_2}{\partial x}   & 0  & \cdots & \frac{\partial h_J}{\partial x} & 0 \\
-0 & \frac{\partial h_1}{\partial x}  & 0 & \frac{\partial h_2}{\partial x} &  \cdots & 0 & \frac{\partial h_J}{\partial x}  \\
-\frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & 0 & \cdots & \frac{\partial h_J}{\partial y} & 0 \\
-0 & \frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 & \frac{\partial h_J}{\partial y} \\
-\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z} & 0 & \cdots & \frac{\partial h_J}{\partial z} & 0 \\
-0 & \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 & \frac{\partial h_J}{\partial z} \\
+\frac{\partial h_1}{\partial x}   & 0 & \frac{\partial h_2}{\partial x}   & 0  & \cdots & \frac{\partial h_j}{\partial x} & 0 \\
+0 & \frac{\partial h_1}{\partial x}  & 0 & \frac{\partial h_2}{\partial x} &  \cdots & 0 & \frac{\partial h_j}{\partial x}  \\
+\frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & 0 & \cdots & \frac{\partial h_j}{\partial y} & 0 \\
+0 & \frac{\partial h_1}{\partial y}  & 0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 & \frac{\partial h_j}{\partial y} \\
+\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z} & 0 & \cdots & \frac{\partial h_j}{\partial z} & 0 \\
+0 & \frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 & \frac{\partial h_j}{\partial z} \\
 \end{bmatrix} \quad \in \mathbb{R}^{2D \times 2J}
 $$
 entonces
@@ -4204,11 +4209,11 @@ $$
 h_1(\symbf{\xi}) & 0 & \cdots & 0 &
 h_2(\symbf{\xi}) & 0 & \cdots & 0 &
 \cdots &
-h_J(\symbf{\xi}) & 0 & \cdots & 0 \\
+h_{J_i}(\symbf{\xi}) & 0 & \cdots & 0 \\
 0 & h_1(\symbf{\xi}) & \cdots & 0 &
 0 & h_2(\symbf{\xi}) & \cdots & 0 &
 \cdots &
-0 & h_J(\symbf{\xi}) & \cdots & 0 \\
+0 & h_{J_i}(\symbf{\xi}) & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots &
 \vdots & \vdots & \ddots & \vdots &
 \ddots &
@@ -4216,10 +4221,10 @@ h_J(\symbf{\xi}) & 0 & \cdots & 0 \\
 0 & 0 & \cdots & h_1(\symbf{\xi}) &
 0 & 0 & \cdots & h_2(\symbf{\xi}) &
 \cdots &
-0 & 0 & \cdots & h_J(\symbf{\xi})
+0 & 0 & \cdots & h_{J_i}(\symbf{\xi})
 \end{bmatrix}
 $$
-y la matriz de derivadas reales $\mat{B}_{Gi} \in \mathbb{R}^{GD \times GJ}$
+y la matriz de derivadas reales $\mat{B}_{Gi} \in \mathbb{R}^{GD \times GJ_i}$
 
 $$
 \mat{B}_{Gi}(\symbf{\xi}) =
@@ -4227,11 +4232,11 @@ $$
 \frac{\partial h_1}{\partial x}  & 0 & \cdots & 0 &
 \frac{\partial h_2}{\partial x}  & 0 & \cdots & 0 &
 \cdots &
-\frac{\partial h_J}{\partial x}  & 0 & \cdots & 0 \\
+\frac{\partial h_{J_i}}{\partial x}  & 0 & \cdots & 0 \\
 0 & \frac{\partial h_1}{\partial x}  & \cdots & 0 &
 0 & \frac{\partial h_2}{\partial x}  & \cdots & 0 &
 \cdots &
-0 & \frac{\partial h_J}{\partial x}  & \cdots & 0 \\
+0 & \frac{\partial h_{J_i}}{\partial x}  & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots &
 \vdots & \vdots & \ddots & \vdots &
 \ddots &
@@ -4239,15 +4244,15 @@ $$
 0 & 0 & \cdots & \frac{\partial h_1}{\partial x} &
 0 & 0 & \cdots & \frac{\partial h_2}{\partial x} &
 \cdots &
-0 & 0 & \cdots & \frac{\partial h_J}{\partial x} \\
+0 & 0 & \cdots & \frac{\partial h_{J_i}}{\partial x} \\
 \frac{\partial h_1}{\partial y}  & 0 & \cdots & 0 &
 \frac{\partial h_2}{\partial y}  & 0 & \cdots & 0 &
 \cdots &
-\frac{\partial h_J}{\partial y}  & 0 & \cdots & 0 \\
+\frac{\partial h_{J_i}}{\partial y}  & 0 & \cdots & 0 \\
 0 & \frac{\partial h_1}{\partial y}  & \cdots & 0 &
 0 & \frac{\partial h_2}{\partial y}  & \cdots & 0 &
 \cdots &
-0 & \frac{\partial h_J}{\partial y}  & \cdots & 0 \\
+0 & \frac{\partial h_{J_i}}{\partial y}  & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots &
 \vdots & \vdots & \ddots & \vdots &
 \ddots &
@@ -4255,15 +4260,15 @@ $$
 0 & 0 & \cdots & \frac{\partial h_1}{\partial y} &
 0 & 0 & \cdots & \frac{\partial h_2}{\partial y} &
 \cdots &
-0 & 0 & \cdots & \frac{\partial h_J}{\partial y} \\
+0 & 0 & \cdots & \frac{\partial h_{J_i}}{\partial y} \\
 \frac{\partial h_1}{\partial z}  & 0 & \cdots & 0 &
 \frac{\partial h_2}{\partial z}  & 0 & \cdots & 0 &
 \cdots &
-\frac{\partial h_J}{\partial z}  & 0 & \cdots & 0 \\
+\frac{\partial h_{J_i}}{\partial z}  & 0 & \cdots & 0 \\
 0 & \frac{\partial h_1}{\partial z}  & \cdots & 0 &
 0 & \frac{\partial h_2}{\partial z}  & \cdots & 0 &
 \cdots &
-0 & \frac{\partial h_J}{\partial z}  & \cdots & 0 \\
+0 & \frac{\partial h_{J_i}}{\partial z}  & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots &
 \vdots & \vdots & \ddots & \vdots &
 \ddots &
@@ -4271,7 +4276,7 @@ $$
 0 & 0 & \cdots & \frac{\partial h_1}{\partial z} &
 0 & 0 & \cdots & \frac{\partial h_2}{\partial z} &
 \cdots &
-0 & 0 & \cdots & \frac{\partial h_J}{\partial z} \\
+0 & 0 & \cdots & \frac{\partial h_{J_i}}{\partial z} \\
 \end{bmatrix}
 $$
 con las matrices de secciones eficaces macroscópicas de difusión, remoción y nu-fisión
@@ -4353,7 +4358,7 @@ El operador de la @eq-a-dif-G es coercivo sólo si $k_\text{eff} < 1$.
 :::
 
 ::: {.remark}
-Las matrices $\mat{H}_{Gc}$ y $\mat{B}_{Gi}$ que "saben" (son $G$-[aware]{lang=en-US}) cuántos grupos de energía tiene el problema se construyen a partir de las matrices del problema escalar $\mat{H}_c$ y $\mat{B}_i$ como
+Las matrices $\mat{H}_{Gc}$ y $\mat{B}_{Gi}$ que "saben" (decimos que son $G$-[_aware_]{lang=en-US}) cuántos grupos de energía tiene el problema se construyen a partir de las matrices del problema escalar $\mat{H}_c$ y $\mat{B}_i$ como
 
 $$
 \mat{H}_{Gc}\Big(g, G \cdot (j-1) + g\Big) = H_c(1,j) = h_j(\symbf{\xi})
@@ -4383,12 +4388,12 @@ Por ejemplo, para el problema de elasticidad tridimensional basado en desplazami
 $$
 \mat{B}_{3i} =
 \begin{bmatrix}
-\frac{\partial h_1}{\partial x} & 0 & 0 &                               \frac{\partial h_2}{\partial x} & 0 & 0 &                                 \cdots & \frac{\partial h_J}{\partial x} & 0 & 0 &                             \\
-0 & \frac{\partial h_1}{\partial y} & 0 &                               0 & \frac{\partial h_2}{\partial y} & 0 &                                 \cdots & 0 & \frac{\partial h_J}{\partial y} & 0 &                             \\
-0 & 0 & \frac{\partial h_1}{\partial z} &                               0 & 0 & \frac{\partial h_2}{\partial z} &                                 \cdots & 0 & 0 & \frac{\partial h_J}{\partial z} &                             \\
-\frac{\partial h_1}{\partial y} & \frac{\partial h_1}{\partial x} & 0 & \frac{\partial h_2}{\partial y} & \frac{\partial h_2}{\partial x} & 0 &   \cdots & \frac{\partial h_J}{\partial y} & \frac{\partial h_J}{\partial x} & 0 \\
-0 & \frac{\partial h_1}{\partial z} & \frac{\partial h_1}{\partial y} & 0 & \frac{\partial h_2}{\partial z} & \frac{\partial h_2}{\partial y} &   \cdots & 0 & \frac{\partial h_J}{\partial z} & \frac{\partial h_J}{\partial y} \\
-\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_1}{\partial x} & \frac{\partial h_2}{\partial z} & 0 & \frac{\partial h_2}{\partial x} &   \cdots & \frac{\partial h_J}{\partial z} & 0 & \frac{\partial h_J}{\partial x} \\
+\frac{\partial h_1}{\partial x} & 0 & 0 &                               \frac{\partial h_2}{\partial x} & 0 & 0 &                                 \cdots & \frac{\partial h_{J_i}}{\partial x} & 0 & 0 &                             \\
+0 & \frac{\partial h_1}{\partial y} & 0 &                               0 & \frac{\partial h_2}{\partial y} & 0 &                                 \cdots & 0 & \frac{\partial h_{J_i}}{\partial y} & 0 &                             \\
+0 & 0 & \frac{\partial h_1}{\partial z} &                               0 & 0 & \frac{\partial h_2}{\partial z} &                                 \cdots & 0 & 0 & \frac{\partial h_{J_i}}{\partial z} &                             \\
+\frac{\partial h_1}{\partial y} & \frac{\partial h_1}{\partial x} & 0 & \frac{\partial h_2}{\partial y} & \frac{\partial h_2}{\partial x} & 0 &   \cdots & \frac{\partial h_{J_i}}{\partial y} & \frac{\partial h_{J_i}}{\partial x} & 0 \\
+0 & \frac{\partial h_1}{\partial z} & \frac{\partial h_1}{\partial y} & 0 & \frac{\partial h_2}{\partial z} & \frac{\partial h_2}{\partial y} &   \cdots & 0 & \frac{\partial h_{J_i}}{\partial z} & \frac{\partial h_{J_i}}{\partial y} \\
+\frac{\partial h_1}{\partial z} & 0 & \frac{\partial h_1}{\partial x} & \frac{\partial h_2}{\partial z} & 0 & \frac{\partial h_2}{\partial x} &   \cdots & \frac{\partial h_{J_i}}{\partial z} & 0 & \frac{\partial h_{J_i}}{\partial x} \\
 \end{bmatrix}
 $$
 ya que la matriz equivalente a la $\mat{D}_G$ del problema de difusión es de tamaño $6\times 6$ con tres filas para las tensiones normales y tres filas para los esfuerzos de corte en una notación de Voigt.
@@ -4554,9 +4559,9 @@ Para encontrar la formulación de Petrov-Galerkin del problema de transporte mul
 
 $$
 \begin{bmatrix}
-\psi_{11}(\vec{x} \\
+\psi_{11}(\vec{x}) \\
 \vdots \\
-\psi_{MG}(\vec{x} \\
+\psi_{MG}(\vec{x}) \\
 \end{bmatrix}
 =
 \mat{H}_{MGc}(\vec{x}) \cdot \symbf{\psi}
@@ -4566,9 +4571,9 @@ Pero como las funciones de prueba viven en otro espacio vectorial $V^\prime_N$,
 
 $$
 \begin{bmatrix}
-v_{11}(\vec{x} \\
+v_{11}(\vec{x}) \\
 \vdots \\
-v_{MG}(\vec{x} \\
+v_{MG}(\vec{x}) \\
 \end{bmatrix}
 =
 \mat{P}_{MGc}(\vec{x}) \cdot \vec{v}
@@ -4622,7 +4627,30 @@ $$
 \end{aligned}
 $$
 
-**TODO** explicar quién es $\mat{P} =$ SUPG
+::: {.remark}
+En la herramienta computacional desarrolladad, la matriz de estabilización SUPG $\mat{P}_{MGc}$ se calcula de la siguiente manera:
+
+```c
+  int MG = neutron_sn.directions * neutron_sn.groups;
+  double tau = feenox_var_value(neutron_sn.sn_alpha) * e->type->size(e);
+  
+  gsl_matrix *H_G = feenox_fem_compute_H_Gc_at_gauss(e, q, feenox.pde.mesh->integration);
+  gsl_matrix *B = feenox_fem_compute_B_at_gauss(e, q, feenox.pde.mesh->integration);
+  feenox_call(gsl_matrix_memcpy(neutron_sn.P, H_G));
+  for (unsigned int j = 0; j < neutron_sn.n_nodes; j++) {
+    int MGj = MG*j;
+    for (unsigned int m = 0; m < neutron_sn.directions; m++) {
+      for (unsigned int d = 0; d < feenox.pde.dim; d++) {
+        double value = tau * neutron_sn.Omega[m][d] * gsl_matrix_get(B, d, j);
+        for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+          int diag = sn_dof_index(m,g);
+          gsl_matrix_add_to_element(neutron_sn.P, diag, MGj + diag, value);
+        }
+      }
+    }
+  }
+```
+:::
 
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
@@ -4641,7 +4669,6 @@ Cada neutrón que encontremos en el medio debe entonces provenir de una fuente e
 Para estudiar este tipo de problemas, además de eliminar la derivada temporal y la dependencia con el tiempo, tenemos que hacer cero el término de fisión, por lo que $\nu\Sigma_g = 0~\forall g$.
 Luego la ecuación de difusión queda
 
-DISCRETIZADA
 $$
 \begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
@@ -4653,7 +4680,7 @@ $$
 $$ {#eq-difusionnmfi}
 y la de transporte
 
-DISCRETIZADA
+
 $$ 
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
@@ -4695,13 +4722,10 @@ donde
  
 El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá evaluar en forma aproximadad (en el sentido de la @sec-metodos-numericos) la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretización espacial.
-Para resumir, en esta tesis utilizamos
 
- * el método multi-grupo de energías para discretizar $E$ y $E^\prime$,
- * el método de ordenadas discretas para discretizar $\omegaversor$ y $\omegaprimaversor$, y
- * el método de elementos finitos para discretizar el espacio $\vec{x}$.
-
-**TODO** ejemplos de problemas del @sec-resultados
+::: {.remark}
+Las secciones [-@sec-reed], [-@sec-azmy] y [-@sec-mms-dif] contienen casos de este tipo de problemas.
+:::
 
 Si las secciones eficaces dependen directa o indirectamente del flujo, por ejemplo a través de concentraciones de venenos o de la temperatura de los materiales (que a su vez puede depender de la potencia disipada, que depende del flujo neutrónico) entonces el problema es no lineal.
 En este caso, tenemos que volver a escribir la versión discretizada en forma genérica\ [-@eq-generica-numerica]
@@ -4722,8 +4746,7 @@ En la práctica, la iteración de Newton se implementa mediante los siguientes d
  1. Resolver $\mat{J}(\symbf{\varphi}_{Nk}, \Sigma_{Nk}) \cdot \Delta \symbf{\varphi}_{Nk} = -\mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})$
  2. Actualizar $\symbf{\varphi}_{Nk+1} \leftarrow \symbf{\varphi}_{Nk} + \Delta \symbf{\varphi}_{Nk}$
 
-**TODO** explicar mejor esto:
-Es por eso que  la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
+Dado que la matriz de rigidez es el jacobiano de las iteraciones de Newton, la formulación discreta de la @eq-Aub es central tanto para problemas lineales como no lineales.
 
 
 ### Medio multiplicativo con fuentes independientes {#sec-multiplicativoconfuente}
@@ -4732,36 +4755,6 @@ Si además de contar con fuentes independientes de fisión el medio contiene mat
 En este caso, tenemos que tener en cuenta la fuente de fisión, cuyo valor en la posición $\vec{x}$ es proporcional al flujo escalar $\phi(\vec{x})$.
 En la @sec-fision indicamos que debemos utilizar expresiones diferentes para la fuente de fisión dependiendo de si estamos resolviendo un problema transitorio o estacionario.
 Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisión se generan en forma instantánea, en el estado estacionario debemos también sumar el resto de los $(1-\beta)$ como fuente de fisión ya que suponemos el estado encontrado es un equilibrio instante a instante dado por los $\beta$ neutrones [prompt]{lang=en-US} y $(1-\beta)$ neutrones retardados que provienen de fisiones operando desde un tiempo $t=-\infty$.
-
-En este caso, las ecuaciones apropiadas son las que hemos utilizado en la derivación de la discretización espacial en las secciones [@-sec-difusion-multigrupo-fem] y [@-sec-sn-multigrupo-fem]
-
-DISCRETO
-$$ \tag{\ref{eq-difusion}}
-\begin{gathered}
- - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
- + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
- = \\
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)  \cdot \phi(\vec{x}, E^\prime) \, dE^\prime +
-\chi(E) \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \phi(\vec{x}, E^\prime) \, dE^\prime
-+ s_0(\vec{x}, E)
-\end{gathered}
-$$
-
-y
-
-DISCRETO
-$$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
-\begin{gathered}
- \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
- + \Sigma_t(\vec{x}, E) \cdot \psi(\vec{x}, \omegaversor, E) = \\
-\frac{1}{4\pi} \cdot 
-\int_{0}^{\infty} \Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime + \\
-\frac{3 \cdot \omegaversor}{4\pi} \cdot
-\int_{0}^{\infty} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \cdot \omegaprimaversor \, d\omegaprimaversor \, dE^\prime  \\
-+ \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \int_{4\pi} \psi(\vec{x}, \omegaprimaversor, E^{\prime}) \, d\omegaprimaversor \, dE^\prime 
-+ s(\vec{x}, \omegaversor, E)
-\end{gathered}
-$$ 
 
 
 El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}_N(\Sigma_N)$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}_N$.
@@ -4823,7 +4816,7 @@ De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 =
 Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
 El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de difusión como
 
-DISCRETO
+
 $$\begin{gathered}
  - \text{div} \Big[ D(\vec{x}, E) \cdot \text{grad} \left[ \phi(\vec{x}, E) \right] \Big]
  + \Sigma_t(\vec{x}, E) \cdot \phi(\vec{x}, E)
@@ -4834,7 +4827,6 @@ $$\begin{gathered}
 $$
 y la de transporte como
 
-DISCRETO
 $$
 \begin{gathered}
  \omegaversor \cdot \text{grad} \left[ \psi(\vec{x}, \omegaversor, E) \right]
@@ -4863,7 +4855,6 @@ Al no haber fuentes independientes, todos los términos están multiplicados por
 Sin embargo, ahora habrá algunos términos multiplicados por el coeficiente $1/k_\text{eff}$ y otros no.
 Una vez más, si las secciones eficaces dependen sólo de la posición $\vec{x}$ en forma explícita y no a través del flujo, entonces el problema es lineal y al separar en ambos miembros estos dos tipos de términos obtendremos una formulación discretizada de la forma
 
-EXPLICAR CÓMO
 $$
 \mat{A}_N(\Sigma_N) \cdot \symbf{\varphi}_N = \lambda_N \cdot \mat{B}(\Sigma_N) \cdot \symbf{\varphi}_N
 $$ {#eq-eigen}
@@ -4892,6 +4883,10 @@ Esta característica define dos propiedades importantes:
 
  2. Las condiciones de contorno también deben ser homogéneas. Es decir, no es posible fijar valores de flujo o corrientes diferentes de cero. 
 
+::: {.remark}
+Las secciones [-@sec-2dpwr], [-@sec-losalamos], [-@sec-slab], [-@sec-cubesphere], [-@sec-pescaditos] y [-@sec-phwr] contienen casos de este tipo de problemas.
+::: 
+ 
 Si, en cambio, las secciones eficaces macroscópicas dependen directa o indirectamente del flujo neutrónico (por ejemplo a través de la concentración de venenos hijos de fisión o de la temperatura de los componentes del reactor a través de la potencia disipada) entonces el problema de autovalores toma la forma no lineal
 
 $$
@@ -4908,6 +4903,6 @@ $$
 a partir de una solución inicial $\symbf{\varphi}_{N0}$.
 En este caso el flujo está completamente determinado por la dependencia (explícita o implícita) de $\mat{A}$ y $\mat{B}$ con $\symbf{\varphi}_N$ y no hay ninguna constante multiplicativa arbitraria.
 
+\bigskip
 
-
-Terminada la explicación del _cómo_ ([how]{lang=en-US} en los capítulos [@-sec-transporte-difusion] y [@-sec-esquemas]), pasemos entonces al _qué_ ([what]{lang=en-US} en los dos capítulos que siguen).
+Terminada la explicación del _cómo_ (en los capítulos [-@sec-transporte-difusion] y [-@sec-esquemas]), pasemos entonces al _qué_ (en los dos capítulos que siguen).

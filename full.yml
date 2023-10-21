@@ -116,8 +116,11 @@ format:
           \usepackage{scrlayer-scrpage}
           %\lehead{\leftmark}
           %\rohead{\leftmark}
+          \usepackage{caption}
+          \captionsetup[table]{name=Tabla}
     include-before-body:
       - file: syntax-feenox.tex
+      - file: syntax-geo.tex
       - file: syntax.tex
     
   epub:

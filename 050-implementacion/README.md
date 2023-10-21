@@ -28,14 +28,12 @@
 > we also piss off people who cannot see that is just a big additional 
 > advantage.
 >
->
 > _Linus Torvalds_, explaing why Git is written in C, 2007
 :::
 
 ::: {.chapterquote data-latex=""}
 > | C++ is a badly designed and ugly language.
 > | It would be a shame to use it in Emacs.
->
 >
 > _Richard M. Stallmann_, explaining why Emacs is written in C, 2010
 :::
@@ -738,14 +736,14 @@ PRINT sqrt(integral((ref(x)-phi1(x))^2,x,0,8))/8
        - `psi1.2(x)`
        - `phi1(x)`
        
-       Si `$1` fuese `4` entonces serían
+       Si `$1` fuese `4` entonces serían `\label{psi11}`{=latex}
        - `psi1.1(x)`
        - `psi1.2(x)`
        - `psi1.3(x)`
        - `psi1.4(x)`
        - `phi1(x)`
       
-       Estas funciones están disponibles para que instrucciones subsiguientes las utilicen como salida directamente con `WRITE_MESH, como parte de otras expresiones intermedias, etc.
+       Estas funciones están disponibles para que instrucciones subsiguientes las utilicen como salida directamente con `WRITE_MESH`, como parte de otras expresiones intermedias, etc.
     #. Si el problema fuese de criticidad, entonces esta instrucción también pondría el valor del factor de multiplicación efectivo $k_\text{eff}$ en una variable llamada `keff`.
     
  * La siguiente línea define una función auxiliar de la variable espacial $x$ a partir de un archivo de columnas de datos. Este archivo contiene una solución de referencia del problema de Reed. La función `ref(x)` puede ser evaluada en cualquier punto $x$ utilizando una interpolación monotónica cúbica de tipo `steffen` @steffen.
@@ -782,14 +780,6 @@ A su vez, para generar este script `configure` se suele utilizar el conjunto de 
 Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como los templates para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y los templates que indican dónde están los archivos fuente que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
 Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
 
-::::: {lang=en-US}
-> FeenoX has releases with proper a tarball! It has `INSTALL`, `./configure` and 
-> just compiles. Wow. Yeah, these are free software basics, but majority of 
-> the sim software (some discrete circuit simulators included!) I've tried 
-> fail on most of these points. So thanks for making quality software!
->
-> _Tibor 'Igor2' Palinkas, maintainer of the open source PCB editor pcb-rnd_
-::::: {lang=en-US}
 
 Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
 Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (algunos autores prefieren llamarlo `bootstrap`).
@@ -872,7 +862,7 @@ lo que sucede en tiempo de parseo es
  
  #. El control vuelve al parser principal que lee la siguiente palabra clave secundaria `SN`. Como tampoco la entiende, vuelve a llamar al parser particular que entiende que debe utilizar las direcciones y pesos de S$_8$. 
  
- #. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)`, `psi1.1(x,y,z)` y `psi8.2(x,y,z)` son expresiones válidas:
+ #. Una vez más el control vuelve al parser principal, que llega al final de la línea. En este momento, vuelve a llamar al parser específico `feenox_problem_parse_problem_neutron_sn()` pero pasando `NULL` como argumento. En este punto, se considera que el parser específico ya tiene toda la información necesaria para inicializar (al menos una parte) de sus estructuras internas y de las variables o funciones que deben estar disponibles para otras palabras claves genéricas. Por ejemplo, si el problema es neutrónico entonces inmediatamente después de haber parseado completamente la línea `PROBLEM` debe definirse la variable `keff` y las funciones con los flujos escalares (y angulares si correspondiere) de forma tal que las siguientes líneas, que serán interpretadas por el parser genérico, entiendan que `keff` es una variable y que `phi1(x,y,z)`, `psi1.1(x,y,z)` y `psi2.8(x,y,z)` son expresiones válidas:
  
     ```feenox
     PRINT "keff = " keff
@@ -935,7 +925,7 @@ int (*gradient_add_elemental_contribution_to_node)(node_t *node, element_t *e, u
 int (*gradient_fill_fluxes)(mesh_t *mesh, size_t j_global);
 ```
 
-#### Parseo
+#### Parseo {#sec-parseo}
 
 Cuando se termina la línea de `PROBLEM`, el parser general llama a `parse_problem(NULL)` que debe
 
@@ -960,18 +950,18 @@ Cuando se termina la línea de `PROBLEM`, el parser general llama a `parse_probl
 
  2. inicializar lo que necesita el parser para poder continuar leyendo el problema específico, incluyendo
 
-    - la definición de variables especiales (por ejemplo los flujos escalares `phi_1`, `phi_2`, etc. y angulares `psi_1.1`, `psi_2.1`, \dots, `psi_12.2` y las variables `keff` y `sn_alpha`) para que estén disponibes para el parser algebraico (ver @sec-pemdas)
+    - la definición de variables especiales (por ejemplo los flujos escalares `phi_1`, `phi_2`, etc. y angulares `psi_1.1`, `psi_1.2`, \dots, `psi_2.12` y las variables `keff` y `sn_alpha`) para que estén disponibes para el parser algebraico (ver @sec-pemdas)
 
       ```c
-      // the angular fluxes psi
-      feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
-      for (unsigned int m = 0; m < neutron_sn.directions; m++) {
-        for (unsigned int g = 0; g < neutron_sn.groups; g++) {
-          feenox_check_minusone(asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%u.%u", m+1, g+1));
+      // NOTE: it is more natural to put first the group and then the direction
+      //       while in the doc we use $\psi_{mg}$
+      for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+        for (unsigned int m = 0; m < neutron_sn.directions; m++) {
+          feenox_check_minusone(asprintf(&feenox.pde.unknown_name[sn_dof_index(m,g)], "psi%u.%u", g+1, m+1));
         }
       }
     
-      // the scalar fluxes psi
+      // the scalar fluxes phi
       feenox_check_alloc(neutron_sn.phi = calloc(neutron_sn.groups, sizeof(function_t *)));
       for (unsigned int g = 0; g < neutron_sn.groups; g++) {
         char *name = NULL;
@@ -1467,26 +1457,12 @@ for (unsigned int g = 0; g < neutron_diffusion.groups; g++) {
 }
 ```
 
-En S$_N$, es el producto entre $M$ y $G$. Las funciones son `psi1.1`, `psi1.2`, etc. donde el primer índice es $m$ y el segundo es $g$:
+En S$_N$, la cantidad de grados de libertadad por nodo es el producto entre $M$ y $G$. Las funciones, como mostramos en la sec-parseo, son `psi1.1`, `psi2.1`, etc. donde el primer índice es $g$ y el segundo es $m$.
 
-```c
-// dofs = number of directions * number of groups
-feenox.pde.dofs =  neutron_sn.directions * neutron_sn.groups;
-  
-// the angular fluxes psi
-feenox_check_alloc(feenox.pde.unknown_name = calloc(feenox.pde.dofs, sizeof(char *)));
-for (unsigned int m = 0; m < neutron_sn.directions; m++) {
-  for (unsigned int g = 0; g < neutron_sn.groups; g++) {
-    feenox_check_minusone(asprintf(&feenox.pde.unknown_name[m * neutron_sn.groups + g], "psi%u.%u", m+1, g+1));
-  }
-}
-```
-
-
-
-**TODO** flujos escalares  y corrientes en Sn
-
-**TODO** corrientes en difusión
+::: {.remark}
+En la notación matemática de los capítulos [-@sec-transporte-difusion] y [-@sec-esquemas] es más natural escribir $\psi_{mg}$ para la dirección $m$ y el grupo $g$.
+Pero en el archivo ASCII de entrada de FeenoX es más natural escribir `psig.m` para la dirección `m` y el grupo `g`.
+:::
 
 
 ## Algoritmos auxiliares
@@ -1886,12 +1862,12 @@ La función interpolada coincide con la $h(x,y,)$ de la @fig-2dinterp.
 :::
 
 
-Esta funcionalidad permite realizar lo que se conoce como "mapeo de mallas no conformes".
+Esta funcionalidad permite realizar lo que se conoce como "mapeo de mallas no conformes" (ver @sec-non-conformal).
 Es decir, utilizar una distribución de alguna propiedad espacial (digamos la temperatura) dada por valores nodales en una cierta malla (de un [solver]{lang=en-US} térmico) para evaluar propiedades de materiales (digamos la sección eficaz de fisión) en la malla de cálculo.
 En este caso en particular, los puntos $\vec{x}$ donde se requiere evaluar la función definida en la otra malla de definición corresponden a los puntos de Gauss de los elementos de la malla de cálculo. En el caso de la @sec-non-conformal profundizamos este concepto.
 
 ::: {.remark}
-Es importante remarcar que para todas las funciones definidas por puntos, FeenoX utiliza un esquema de memoria en la cual los datos numéricos tanto de la ubicación de los puntos de definición $\vec{x}_j$ como de los valores $f_j$ de definición están disponibles para lectura y/o escritura como vectores accesibles como expresiones en tiempo de ejecución. Esto quiere decir que esta herramienta puede leer la posición de los nodos de un archivo de malla fijo y los valores de definición de alguna otra fuente que provea un vector del tamaño adecuado, como por ejemplo un recurso de memoria compartida o un [socket TCP]{lang=en-US}. Por ejemplo, podemos modificar el valor de definición $f(0.5,0.5)=0.25$ a $f(0.5,0.5)=40$ en tiempo de ejecución como
+Es importante remarcar que para todas las funciones definidas por puntos, FeenoX utiliza un esquema de memoria en la cual los datos numéricos tanto de la ubicación de los puntos de definición $\vec{x}_j$ como de los valores $f_j$ de definición están disponibles para lectura y/o escritura como vectores accesibles como expresiones en tiempo de ejecución. Esto quiere decir que esta herramienta puede leer la posición de los nodos de un archivo de malla fijo y los valores de definición de alguna otra fuente que provea un vector del tamaño adecuado, como por ejemplo un recurso de memoria compartida o un [socket TCP]{lang=en-US} [@vitor, @milonga-openfoam, @enief-2013-cpl]. Por ejemplo, podemos modificar el valor de definición $f(0.5,0.5)=0.25$ a $f(0.5,0.5)=40$ en tiempo de ejecución como
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
@@ -2190,7 +2166,7 @@ Pandoc:
  - PDF (a través de LaTeX)
  - Github Markdown (READMEs)
  
-![The Unix manual page for FeenoX in `man feenox`](manpage.png){#fig-manpage}
+![La página de manual de FeenoX de Unix al ejecutar `man feenox`](manpage.png){#fig-manpage}
 
  
 SDS

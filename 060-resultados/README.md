@@ -1,5 +1,16 @@
 # Resultados {#sec-resultados}
 
+::::: {lang=en-US}
+::: {.chapterquote data-latex=""}
+> FeenoX has releases with proper a tarball! It has `INSTALL`, `./configure` and 
+> just compiles. Wow. Yeah, these are free software basics, but majority of 
+> the sim software (some discrete circuit simulators included!) I've tried 
+> fail on most of these points. So thanks for making quality software!
+>
+> _Tibor 'Igor2' Palinkas, maintainer of the open source PCB editor pcb-rnd_
+:::
+:::::
+
 ::: {.chapterquote data-latex=""}
 > Es el "tocate una que sepamos todos" de S$_N$.
 >
@@ -7,14 +18,10 @@
 :::
 
 
-Este capítulo muestra diez problemas resueltos con la herramienta computacional FeenoX descripta en el @cap-implementacion que ilustran algunas de sus características particulares.
-Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
- a. Filosofía Unix, integración en scripts y simulación programática
- b. Mallas no estructuradas
- c. Ordenadas discretas (además de difusión)
- d. Paralelización en varios nodos de cálculo con MPI
- 
+
+Este capítulo muestra diez problemas resueltos con la herramienta computacional FeenoX descripta en el @sec-implementacion que ilustran algunas de sus características particulares.
+Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
  Problema                                              |    a    |    b    |    c    |    d
 :------------------------------------------------------|:-------:|:-------:|:-------:|:-------:
@@ -26,15 +33,20 @@ Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-U
  Slab a dos zonas ([-@sec-slab])                       |    ●    |    ●    |         |
  Reactor cubo-esfera ([-@sec-cubesphere])              |    ●    |    ●    |         |
  El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    |
- MMS con el Stanford bunny ([-@sec-mms])               |    ●    |    ●    |    ○    |    ◓
+ MMS con el Stanford bunny ([-@sec-mms-dif])           |    ●    |    ●    |    ○    |    ◓
  PHWR vertical con barras inclinadas ([-@sec-phwr])    |    ●    |    ●    |    ●    |    ●
  
+---
+comment: |
+  |   |                         |   |                         |   |                         |
+  |:-:|:------------------------|:-:|:------------------------|:-:|:------------------------|
+  | ● | requerido               | ◓ | recomendado             | ○ | opcional                |
+...
 
-|   |                         |   |                         |   |                         |
-|:-:|:------------------------|:-:|:------------------------|:-:|:------------------------|
-| ● | requerido               | ◓ | recomendado             | ○ | opcional                |
-
-
+ a. Filosofía Unix, integración en scripts y simulación programática
+ b. Mallas no estructuradas
+ c. Ordenadas discretas (además de difusión)
+ d. Paralelización en varios nodos de cálculo con MPI
 
  * ● requerido
  * ◓ recomendado
@@ -42,7 +54,7 @@ Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-U
 
 ::: {.remark} 
 Excepto el primer problema de la @sec-non-conformal, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.
-En el documento [Software Design Specifications]{lang=en-US} del @ap-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @ap-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, netrónica por difusión, neutrónica por ordenadas discretas).
+En el documento [Software Design Specifications]{lang=en-US} del @sec-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @sec-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, netrónica por difusión, neutrónica por ordenadas discretas).
 :::
 
 ::: {.remark}
