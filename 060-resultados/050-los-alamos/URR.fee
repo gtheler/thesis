@@ -1,0 +1,40 @@
+# material Research Reactpr (tables 59, 60 and 61)
+
+# NOTE: 1 is the slow energy grop and 3 is the fast energy group
+
+# fast-energy group
+nu3_fuel = 3.0
+Sigma_f3_fuel = 0.006
+nuSigma_f3_fuel = nu3_fuel*Sigma_f3_fuel
+
+Sigma_s3.3_fuel     = 0.024
+Sigma_s3.2_fuel     = 0.171
+Sigma_s3.1_fuel     = 0.033
+
+Sigma_t3_fuel   = 0.240
+chi[3] = 0.96
+
+# middle-energy group
+nu2_fuel = 2.5
+Sigma_f2_fuel = 0.060
+nuSigma_f2_fuel = nu2_fuel*Sigma_f2_fuel
+
+Sigma_s2.3_fuel     = 0
+Sigma_s2.2_fuel     = 0.60
+Sigma_s2.1_fuel     = 0.275
+
+Sigma_t2_fuel   = 0.975
+chi[2] = 0.04
+
+# slow energy group
+nu1_fuel = 2.0
+Sigma_f1_fuel = 0.90
+nuSigma_f1_fuel = nu1_fuel*Sigma_f1_fuel
+
+Sigma_s1.3_fuel     = 0
+Sigma_s1.2_fuel     = 0
+Sigma_s1.1_fuel     = 2.0
+
+Sigma_t1_fuel   = 3.10
+chi[1] = 0.0
+
