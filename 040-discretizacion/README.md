@@ -1,7 +1,7 @@
 # Esquemas de discretización numérica {#sec-esquemas}
 
-::::: {lang=en-US}
-::: {.chapterquote data-latex=""}
+::::: {.chapterquote data-latex=""}
+::: {lang=en-US}
 > The miracle of the appropriateness of the language of mathematics for the formulation
 > of the laws of physics is a wonderful gift which we neither understand nor deserve.
 > We should be grateful for it and hope that it will remain valid in future research that

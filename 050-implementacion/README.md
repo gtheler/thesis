@@ -29,9 +29,7 @@
 > advantage.
 >
 > _Linus Torvalds_, explaing why Git is written in C, 2007
-:::
 
-::: {.chapterquote data-latex=""}
 > | C++ is a badly designed and ugly language.
 > | It would be a shame to use it in Emacs.
 >

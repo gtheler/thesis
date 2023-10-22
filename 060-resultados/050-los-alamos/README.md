@@ -37,19 +37,50 @@ Por ejemplo UD2O-H2O(10)-1-0-SL indica un reactor de uranio y D$_2$O con un refl
 
 ## Casos de medio infinito
 
-Una forma de implementar un medio infinito en FeenoX es utilizar una geometría unidimensional tipo slab y poner condiciones de contorno de simetría en ambos extremos.
+Una forma de implementar un medio infinito en FeenoX es utilizar una geometría unidimensional tipo slab y poner condiciones de contorno de simetría en ambos extremos. Como el $k_\infty$ no depende ni de la cantidad de nodos espaciales ni de la cantidad de direcciones angulares, reportamos directamente la diferencia entre el $k_\text{eff}$ calculado por FeenoX con S$_2$ y el $k_\infty$ de la referencia:
 
-Problema | Identificador                             | $k_\infty$ de referencia 
-:-------:|:------------------------------------------|:------------------------:| 
- 01      | PUa-1-0-IN                                |    2.612903              
- 05      | PUb-1-0-IN                                |    2.290323
- 47      | U-2-0-IN                                  |    2.216349
- 50      | UAl-2-0-IN                                |    2.661745
- 70      | URRa-2-1-IN                               |    1.631452
- 74      | la-p74-URR-3-0-IN                         |    1.6
+Problema | Identificador                             | $k_\infty$               |  $k_\infty - k_\text{eff}$
+:-------:|:------------------------------------------|:------------------------:|:------------------------:
+ 01      | PUa-1-0-IN                                |    2.612903              |   $+2.3 \times 10^{-7}$
+ 05      | PUb-1-0-IN                                |    2.290323              |   $+3.6 \times 10^{-7}$
+ 47      | U-2-0-IN                                  |    2.216349              |   $-4.6 \times 10^{-7}$
+ 50      | UAl-2-0-IN                                |    2.661745              |   $-4.2 \times 10^{-7}$
+ 70      | URRa-2-1-IN                               |    1.631452              |   $-2.5 \times 10^{-6}$
+ 74      | URR-3-0-IN                                |    1.60                  |   $+2.7 \times 10^{-15}$
+ 75      | URR6-6-0-IN                               |    1.60                  |   $+5.2 \times 10^{-14}$
+
+: Factores de multiplicación de medio infinito con las cifra significativas reportadas en @losalamos y diferencia con respecto al $k_\text{eff}$ calculado con FeenoX con S$_2$. {#tbl-la-inf}
+         
+::: {.remark}
+Está claro que la diferencia $k_\infty - k_\text{eff}$ es menor a la precisión del $k_\infty$ dado en la referencia y que los problemas 74 y 75 han sido "manufacturados" para que el factor infinito sea exactamente igual a 8/5.
+:::
+
+Para ilustrar cómo hemos obtenido la @tbl-la-inf mostramos a continuación el archivo de entrada del caso 74:
+
+```{.feenox include="la-p74-URR-3-0-IN.fee"}
+```
+
+![Secciones eficaces macroscópicas a tres grupos del material URR @losalamos.](xs3.png){#fig-xs3 width=70%}
+
+Como las secciones eficaces son las mismas para varios problemas, cada material tiene un archivo separado que se incluye desde cada entrada principal. En este caso, a partir de los datos originales mostrados en la @fig-xs3, preparamos el archivo `URR.fee`:
 
 
+```{.feenox include="URR.fee"}
+```
+
+::: {.remark}
+La definición de los grupos en la referencia @losalamos es opuesta a la de la mayoría de la literatura: el grupo uno es el térmico y el de mayor energía es el de mayor índice $g$.
+:::
+ 
 ## Casos de medio finito
 
-La forma de "verificar" FeenoX es entonces resolver algunos de los problemas planteados en la referencia, que incluyen 
-creando una malla con el tamaño indicado como crítico y mostrar que el factor de multiplicación efectivo $k_\text{eff}$ obtenido se acerca a la unidad a medida que aumentamos el tamaño del problema discretizado, sea por refinar la malla espacial o por aumentar el número $N$ de ordenadas discretas. 
+La forma de "verificar" que FeenoX resuelve razonablemente bien problemas de transporte de neutrones con dependencia espacial es entonces
+crear una malla con el tamaño indicado como crítico en cada problema y mostrar que el factor de multiplicación efectivo $k_\text{eff}$ obtenido se acerca a la unidad a medida que aumentamos el tamaño del problema discretizado, sea por refinar la malla espacial o por aumentar el número $N$ de ordenadas discretas. 
+
+Para ello podemos crear un script de Bash que llame a cada uno de los archivos de entrada de cada problema, luego de haber creado mallas con diferente refinamiento, con valores de $N$ sucesivos:
+
+```{.bash include="losalamos.sh"}
+```
+
+![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos](losalamos.svg){#fig-losalamos}
+

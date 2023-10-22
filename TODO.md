@@ -10,6 +10,7 @@
  * demostración alternativa de thm-A-spd en hughes
  * demostrar thm-A-monio-es-singular con la demostracion alternativa
  * flujos escalares y corrientes en sn
+ * explicar SUPG
  
    
  * si pongo el abstract del sds/srs como meta no me lo expande dentro del div en-US

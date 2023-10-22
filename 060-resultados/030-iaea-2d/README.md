@@ -140,9 +140,14 @@ Con FeenoX es posible resolver fácilmente esta geometría con el mismo archivo 
  a. zonas estructuradas y no estructuradas, y
  b. triángulos y cuadrángulos.
 
-![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr width=50%}
+::: {#fig-pwr-tipico-circ layout="[50,50]"}
+![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr}
 
-![Malla para el caso 2D con simetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular width=50%}
+![Malla para el caso 2D con simetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
+
+Un reactor PWR real y un modelo matemático
+:::
+
 
 ```terminal
 $ gmsh -2 iaea-2dpwr-eighth-circular.geo
@@ -162,10 +167,6 @@ $
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con difusión
 
-
-![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
-
-
 Pasemos ahora a un caso tri-dimensional.
 El problema original es una extensión sobre el eje $z$ de la geometría son simetría 1/4 y reflector no circular.
 Como ya vimos en 2D, podemos tener simetría 1/8 y reflector cilíndrico.
@@ -173,9 +174,9 @@ Ya que estamos en 3D, podemos preparar la geometría con una herramienta tipo CA
 En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape.]
 La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mallada con Gmsh con elementos de segundo orden arroja la malla de la @fig-iaea-3dpwr-eighth-circular-mesh.
 
+![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
 
-
-::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21,-3,20,-3,28,-3,22]"}
+::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21.5,-3,20.5,-3,28,-3,20]"}
 ![](iaea-3dpwr-eighth-circular-mesh1.png){#fig-iaea-3dpwr-eighth-mesh1}
 
 ![](iaea-3dpwr-eighth-circular-mesh2.png){#fig-iaea-3dpwr-eighth-mesh2}
@@ -222,7 +223,7 @@ $
 
 La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al reducir el tamaño del problema mediante la explotación de la simetría. El tiempo para construir la matriz pasó de 3.2 segundos a 2.0 (recordar que son elementos de segundo orden) y el tiempo necesario para resolver el problema bajó de 21 a 10 segundos.
 
-![Comparación entre la salida `--log_view` del caso 1/4 y 1/8 con el mismo reflector](uno-dos){#fig-uno-dos}
+![Comparación entre la salida `--log_view` del caso 1/4 y 1/8 con el mismo reflector](uno-dos){#fig-uno-dos width=80%}
 
 
 ::: {#fig-iaea-3dpwr-eighth-circular-flux layout="[45,-10,45]"}
@@ -230,7 +231,7 @@ La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al red
 
 ![](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
 
-Flujos rápidos y térmicos para el benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
+Flujos rápidos y térmicos del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
 :::
 
 Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:
@@ -271,6 +272,10 @@ $
 
 Para finalizar el caso, mostramos que FeenoX puede resolver no sólo este problema con el método de difusión sino también con ordenadas discretas.
 
+
+```{.feenox include="iaea-3dpwr-s4.fee"}
+```
+
 ```terminal
 $ feenox iaea-3dpwr-s4.fee --eps_monitor
  nodes = 3258
@@ -297,6 +302,12 @@ $ mpiexec -n 4 feenox iaea-3dpwr-s4.fee --eps_monitor
   wall = 99.5 sec
 average memory = 4.7 Gb
  global memory = 19.0 Gb
+$
+```
+
+Utilizando el mismo archivo de entrada pero modificando las opciones de la línea de comando es posible utilizar un solver iterativo para resolver el mismo problema.
+
+```terminal
 $ mpiexec -n 12 feenox iaea-3dpwr-s4.fee --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
  nodes = 3258
 [0/12 LIN54Z7SQ3] solving...
@@ -336,4 +347,15 @@ average memory = 1.6 Gb
  global memory = 19.4 Gb
 ```
 
+La distribución de flujos ya la mostramos en el @sec-introduccion en la @fig-iaea-3dpwr-eighth-circular-flux-s4.
 
+::: {.remark}
+La malla es ligeramente más gruesa y de menor orden que en los casos resueltos con difusión en la sección anterior.
+De todas maneras, la cantidad de grados de libertad al caso `quarter` de difusión.
+Pero los recursos computacionales requeridos para resolver un problema de autovalores proveniente de una discretización de ordenadas discretas son significativamente mayores que para difusión.
+:::
+
+::: {.remark}
+Este caso pone en relieve la importancia de la paralelización por MPI: reducir el tiempo de cálculo es un beneficio secudario (que aún debe optimizarse en FeenoX) en comparación con la reducción de la memoria por nodo necesaria para resolver un problema de autovalores con un solver lineal directo.
+En el caso del solver iterativo, está claro que se intercambia velocidad por memoria.
+:::

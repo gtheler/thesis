@@ -1,8 +1,9 @@
 # Los Alamos LA-13511 Analytical Benchmark Test Set for Criticallity Code Verification
 # problem 70
-PROBLEM neutron_sn 1D GROUPS 2 SN $1
+PROBLEM neutron_sn 1D GROUPS 2 SN 2
 READ_MESH la-IN.msh
 INCLUDE URRa.fee
 BC mirror  mirror
+penalty_weight = 10
 SOLVE_PROBLEM
-PRINT $1 keff-1.631452
+PRINT %+.1e keff-1.631452

@@ -1,28 +1,31 @@
 # Resultados {#sec-resultados}
 
-::::: {lang=en-US}
-::: {.chapterquote data-latex=""}
-> FeenoX has releases with proper a tarball! It has `INSTALL`, `./configure` and 
+::::: {.chapterquote data-latex=""}
+::: {lang=en-US}
+> FeenoX has releases with a proper tarball! It has `INSTALL`, `./configure` and 
 > just compiles. Wow. Yeah, these are free software basics, but majority of 
 > the sim software (some discrete circuit simulators included!) I've tried 
 > fail on most of these points. So thanks for making quality software!
 >
 > _Tibor 'Igor2' Palinkas, maintainer of the open source PCB editor pcb-rnd_
 :::
-:::::
 
-::: {.chapterquote data-latex=""}
 > Es el "tocate una que sepamos todos" de S$_N$.
 >
 > _Dr. Ignacio Márquez Damián, sobre el problema de Reed (2023)_
-:::
+:::::
 
 
-
+\vspace{-1cm plus 0.5cm minus 0.5cm}
 
 Este capítulo muestra diez problemas resueltos con la herramienta computacional FeenoX descripta en el @sec-implementacion que ilustran algunas de sus características particulares.
 Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
+ a. Filosofía Unix, integración en scripts y simulación programática
+ b. Mallas no estructuradas
+ c. Ordenadas discretas (además de difusión)
+ d. Paralelización en varios nodos de cálculo con MPI
+ 
  Problema                                              |    a    |    b    |    c    |    d
 :------------------------------------------------------|:-------:|:-------:|:-------:|:-------:
  Mapeo en mallas no conformes ([-@sec-non-conformal])  |    ●    |    ●    |         |    ◓
@@ -35,22 +38,21 @@ Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-U
  El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    |
  MMS con el Stanford bunny ([-@sec-mms-dif])           |    ●    |    ●    |    ○    |    ◓
  PHWR vertical con barras inclinadas ([-@sec-phwr])    |    ●    |    ●    |    ●    |    ●
+
+\vspace{-0.5cm plus 0.25cm minus 0.25cm}
+\nopagebreak 
  
+|   |                         |   |                         |   |                         |
+|:-:|:------------------------|:-:|:------------------------|:-:|:------------------------|
+| ● | requerido               | ◓ | recomendado             | ○ | opcional                |
+
 ---
 comment: |
-  |   |                         |   |                         |   |                         |
-  |:-:|:------------------------|:-:|:------------------------|:-:|:------------------------|
-  | ● | requerido               | ◓ | recomendado             | ○ | opcional                |
+  * ● requerido
+  * ◓ recomendado
+  * ○ opcional
 ...
 
- a. Filosofía Unix, integración en scripts y simulación programática
- b. Mallas no estructuradas
- c. Ordenadas discretas (además de difusión)
- d. Paralelización en varios nodos de cálculo con MPI
-
- * ● requerido
- * ◓ recomendado
- * ○ opcional
 
 ::: {.remark} 
 Excepto el primer problema de la @sec-non-conformal, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.

@@ -1,6 +1,6 @@
 # Los Alamos LA-13511 Analytical Benchmakr Test Set for Criticallity Code Verification
 # problem 9
-PROBLEM neutron_sn 2D GROUPS 1 SN 8
+PROBLEM neutron_sn 2D GROUPS 1 SN $1
 READ_MESH $0.msh
 
 INCLUDE Pu-239b.fee
@@ -9,8 +9,6 @@ INCLUDE H2O.fee
 BC mirror  mirror
 BC vacuum  vacuum
 
-sn_alpha = 0.65
 SOLVE_PROBLEM
 
-PRINT keff-1.00005
-# WRITE_RESULTS FILE pepe.msh
+PRINT total_dofs keff

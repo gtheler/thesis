@@ -1,0 +1,35 @@
+set preamble "\usepackage{amsmath}"
+
+set width 14*unit(cm)
+set size ratio 0.5
+set axis x arrow nomirrored
+set axis y arrow nomirrored
+
+# set xrange [1:9]
+set yrange [0.94:1.03]
+
+set grid
+set key above
+
+set terminal pdf
+
+set xlabel "cantidad de grados de libertad"
+set ylabel "$k_\\text{eff}$"
+set logscale x
+
+set output "losalamos.pdf"
+plot \
+"la-p02-PUa-1-0-SL.csv"          w lp lt 1 lw 1 ti "PUa-1-0-SL",\
+"la-p03-PUa-H2O_1-1-0-SL.csv"    w lp lt 2 lw 2 ti "PUa-H2O1-1-0-SL",\
+"la-p04-PUa-H2O_0.5-1-0-SL.csv"  w lp lt 3 lw 3 ti "PUa-H2O0.5-1-0-SL",\
+"la-p06-PUb-1-0-SL.csv"          w lp lt 4 lw 1 ti "PUb-1-0-SL",\
+"la-p07-PUb-1-0-CY.csv"          w lp lt 5 lw 2 ti "PUb-1-0-CY",\
+"la-p08-PUb-1-0-SP.csv"          w lp lt 6 lw 3 ti "PUb-1-0-SP       ",\
+"la-p09-PUb-H2O_1-1-0-CY.csv"    w lp lt 7 lw 1 ti "PUb-H2O1-1-0-CY ",\
+"la-p10-PUb-H2O_10-1-0-CY.csv"   w lp lt 6 lw 2 ti "PUb-H2O10-1-0-CY",\
+"la-p48-U-2-0-SL.csv"            w lp lt 5 lw 3 ti "U-2-0-SL         ",\
+"la-p49-U-2-0-SP.csv"            w lp lt 4 lw 1 ti "U-2-0-SP         ",\
+"la-p51-UAl-2-0-SL.csv"          w lp lt 3 lw 2 ti "UAl-2-0-SL       ",\
+"la-p52-UAl-2-0-SP.csv"          w lp lt 2 lw 3 ti "UAl-2-0-SP       ",\
+"la-p71-URRa-2-1-SL.csv"         w lp lt 1 lw 1 ti "URRa-2-1-SL      "
+

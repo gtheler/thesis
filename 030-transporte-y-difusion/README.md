@@ -1,22 +1,29 @@
 # Transporte y difusión de neutrones {#sec-transporte-difusion}
 
-::::: {lang=en-US}
 ::: {.chapterquote data-latex=""}
-> In an enterprise such as the development nuclear physics
-> the difference between ideas, hopes, suggestions and theoretical
-> calculations, and solid numbers based on measurement, is paramount.
-> All the committees, the politicking and the plans would have come
-> to naught if a few unpredictable nuclear cross sections
-> had been different from what they are by a factor of two.
+> No debemos tan sólo escribir ni tan sólo leer.
+> Hay que acudir a la vez a lo uno y a lo otro, y combinar ambos ejercicios a fin de que, cuantos pensamientos ha recogido la lectura los reduzca a la unidad. 
+> [...] Debemos actuar como las abejas. Las abejas revolotean de aquí para allá y van comiendo en las flores idóneas para elaborar la miel.
+> Luego el botín conseguido lo ordenan y distribuyen por los panales.
+> Te recuerdo que también nosotros tenemos que imitar a las abejas y distinguir cuántas ideas acumulamos de diversas lecturas, pues se conservan mejor diferenciadas.
+> Luego, aplicando la atención y los recursos de nuestro ingenio, debemos fundir en sabor único aquellos diversos jugos de suerte que aún cuando se muestre el modelo del que han sido tomados, no obstante, aparezca distinto de la fuente de inspiración.
+> [...]
+> Lo que comprobamos que realiza en nuestro cuerpo la naturaleza sin ninguna colaboración nuestra, es eso lo que tenemos que hacer con la lectura. Los alimentos que tomamos, mientras mantienen su propia cualidad y compactos flotan en el estómago, son una carga.
+> Mas cuando se ha producido su trasformación, entonces y sólo entonces, se convierten en fuerza y sangre.
+> Procuremos otro tanto con los alimentos que nutren nuestro espíritu.
+> No permitamos que queden intactos cuántos hayamos ingerido para que no resulten ajenos a nosotros.
+> Asimilémoslos. De otra suerte, irán al acervo de la memoria y no al de la inteligencia.
+> [...]
+> Prestémosle fiel asentimiento y apropiémonos de [lo que leemos] para que resulte una cierta unidad de muchos elementos.
+> Esa conducta es la que tiene que observar nuestra alma.
+> Oculte todas las ayudas recibidas y muestre solamente lo propio que realizó.
+> Aunque se aprecie en ti la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
+> [...]
+> ¿Cómo lograr esto te preguntas? Con una constante aplicación.
 >
-> _Emilio Segré_
-
-> digestión
->
-> _Lucio Séneca, siglo I d.C._
-
+> _Lucio Séneca, Carta a Lucilio sobre la importancia de escribir, siglo I d.C._
 :::
-:::::
+
 
 En este capítulo introducimos las ecuaciones que modelan el transporte de neutrones en el núcleo de un reactor nuclear con los siguientes objetivos:
 
@@ -32,7 +39,7 @@ Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de def
 Está claro los desarrollos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
- a. A modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en sentido figurado) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
+ a. A modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en el sentido de Séneca) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
  b. Abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería.
 
 

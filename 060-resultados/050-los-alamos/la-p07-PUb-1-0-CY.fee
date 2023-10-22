@@ -1,6 +1,6 @@
 # Los Alamos LA-13511 Analytical Benchmark Test Set for Criticallity Code Verification
 # problem 7
-PROBLEM neutron_sn 2D GROUPS 1 SN 6
+PROBLEM neutron_sn 2D GROUPS 1 SN $1
 READ_MESH $0.msh
 
 INCLUDE Pu-239b.fee
@@ -8,8 +8,6 @@ INCLUDE Pu-239b.fee
 BC mirror  mirror
 BC vacuum  vacuum 
 
-sn_alpha = 0.1
 SOLVE_PROBLEM
 
-rc = 4.279960
-PRINT %.2f keff phi1(0.50*rc,0)/phi1(0,0) phi1(1.00*rc,0)/phi1(0,0) SEP " "
+PRINT total_dofs keff

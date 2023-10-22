@@ -1,7 +1,7 @@
 # Neutrónica de núcleo en un PHWR {#sec-neutronica-phwr}
 
-::::: {lang=en-US}
-::: {.chapterquote data-latex=""}
+::::: {.chapterquote data-latex=""}
+::: {lang=en-US}
 > | It was the best of times,
 > | it was the worst of times,
 > | it was the age of wisdom,
@@ -9,6 +9,15 @@
 > | it was the epoch of belief,
 > | it was the epoch of incredulity...
 > | _Charles Dickens, A Tale of Two Cities, 1859_
+
+> In an enterprise such as the development nuclear physics
+> the difference between ideas, hopes, suggestions and theoretical
+> calculations, and solid numbers based on measurement, is paramount.
+> All the committees, the politicking and the plans would have come
+> to naught if a few unpredictable nuclear cross sections
+> had been different from what they are by a factor of two.
+>
+> _Emilio Segré_
 :::
 :::::
 
