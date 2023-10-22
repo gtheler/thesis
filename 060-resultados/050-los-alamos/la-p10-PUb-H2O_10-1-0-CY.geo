@@ -1,6 +1,6 @@
 rc = 3.077574;
 h_refl = 30.637255;
-n = 12;
+n = 2;
 
 SetFactory("OpenCASCADE");
 Point(1) = {0, 0, 0};
