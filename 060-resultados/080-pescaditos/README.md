@@ -4,6 +4,10 @@
 
 @enief2013-opt
 
+::: {.remark}
+Se podria usar simetria pero lo dejamos full para mostrar los tres pescaditos.
+:::
+
 ## Un pescadito: teoría de perturbaciones lineales
 
 ```{.geo include="un-pescadito.geo"}
@@ -29,6 +33,8 @@ gtheler@chalmers:~/phd/thesis/060-resultados/080-pescaditos$ ./un-pescadito.sh
 45      -34.5701
 gtheler@chalmers:~/phd/thesis/060-resultados/080-pescaditos$ 
 ```
+
+![Curva "S" de reactividad negativa introducida por un pescadito en un reactor circular.](un-pescadito.svg){#fig-un-pescadito}
 
 ## Dos pescaditos: estudio paramétrico no lineal
 

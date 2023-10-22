@@ -3,7 +3,8 @@
 A=50   # radio del reactor
 a=2    # radio del pescadito
 
-for r in $(seq 0 5 45); do
+rm -f un-pescadito.csv
+for r in $(seq 0 1 47); do
  cat << EOF > vars.geo 
 A = ${A};
 a = ${a};
