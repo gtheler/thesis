@@ -2,22 +2,22 @@ import os
 import math
 import gmsh
 
-def create_mesh(vol, F):
+def create_mesh(vol, f):
   gmsh.initialize()
   gmsh.option.setNumber("General.Terminal", 0)  
   
-  f = 0.01*F
+  f = 0.01*f
   a = (vol / (1/8*4/3*math.pi*f**3 + 3*1/4*math.pi*f**2*(1-f) + 3*f*(1-f)**2 + (1-f)**3))**(1.0/3.0)
   
   internal = []
   gmsh.model.add("cubesphere")
-  if (F < 1):
+  if (f < 1):
     # a cube
     gmsh.model.occ.addBox(0, 0, 0, a, a, a, 1)
     internal = [1,3,5]
     external = [2,4,6]
 
-  elif (F > 99):
+  elif (f > 99):
     # a sphere
     gmsh.model.occ.addSphere(0, 0, 0, a, 1, 0, math.pi/2, math.pi/2)
     internal = [2,3,4]
@@ -50,24 +50,12 @@ def create_mesh(vol, F):
   gmsh.option.setNumber("Mesh.CharacteristicLengthMax", a/10);
   
   gmsh.model.mesh.generate(3)
-  gmsh.write("cubesphere-%g.msh"%(F))  
-
-  gmsh.model.remove()
-  #gmsh.fltk.run()
-  
+  gmsh.write("cubesphere-%g.msh"%(f))  
   gmsh.finalize()
   return
 
 
-def main():
-  
-  vol0 = 100**3
-  
-  for F in range(0,101,5):   # mesh refinement level
-    create_mesh(vol0, F)
-    # TODO: FeenoX Python API!
-    os.system("feenox cubesphere.fee %g"%(F))
-    
+for f in range(0,101,5):
+  create_mesh(100**3, f)
+  os.system("feenox cubesphere.fee %g"%(f))
 
-if __name__ == "__main__":
-  main()
