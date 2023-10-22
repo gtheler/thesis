@@ -1,3 +1,4 @@
+ * citar nuc eng & des point kinetics 
  * otros aspectos
    - Filosofía Unix
    - simulacion programatica

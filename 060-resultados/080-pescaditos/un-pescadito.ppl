@@ -1,24 +1,17 @@
 set preamble "\usepackage{amsmath}"
 
-set width 13.5*unit(cm)
-set axis x arrow nomirrored atzero
-set axis y reversearrow nomirrored
-set xrange [0:50]
-set yrange [-1400:0]
-set key bottom
-set nomxtics
-set nomytics
+set width 14*unit(cm)
+set size ratio 9/16
 
-set ylabel "$\Delta \rho$ [PCM]"
-set xlabel "$r$"
+set axis x arrow nomirrored
+set axis y arrow nomirrored
 
+set grid
 set terminal pdf
+
+set xlabel "Posici\\'on radial del pescadito"
+set ylabel "$\\Delta \rho$ [PCM]"
+
 set output "un-pescadito.pdf"
 
-#plot "u-volumes.dat"  u 1:5 w l  color salmon lt 2 lw 3 ti "soluci\\'on anal\\'itica", \
-
-plot "un-pescadito.dat" w lp pt 15 lw 2 color olivegreen ti ""
-     
-
-
-
+plot "un-pescadito.csv" u 1:2 w l lt 1 lw 3 color red ti ""

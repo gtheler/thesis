@@ -1,0 +1,13 @@
+PROBLEM neutron_diffusion GROUPS 1 DIMENSIONS 2
+READ_MESH un-pescadito.msh
+INCLUDE xs.fee
+INCLUDE vars.geo
+SOLVE_PROBLEM
+
+# calculamos la reactividad que tendría el círculo sin pescaditos
+# para eso miramos las XS en un punto donde sepamos que no va a estar el pescadito
+rho0 = (nuSigma_f1(0.5*A,0.5*A) - Sigma_a1(0.5*A,0.5*A) - D1(0.5*A,0.5*A)*(2.4048/A)^2)/nuSigma_f1(0.5*A,0.5*A)
+rho = (keff-1)/keff
+
+# el delta rho que metio el pescado vs. r
+PRINT r 1e5*(rho-rho0)

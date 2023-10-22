@@ -1,0 +1,6 @@
+PROBLEM neutron_diffusion GROUPS 1 DIMENSIONS 2
+READ_MESH base.msh
+INCLUDE xs.fee
+INCLUDE vars.geo
+SOLVE_PROBLEM
+PRINT keff

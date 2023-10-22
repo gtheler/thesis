@@ -1,0 +1,4 @@
+# secciones eficaces
+MATERIAL fuel       D1=1   Sigma_a1=0.02  nuSigma_f1=0.03
+MATERIAL pescadito  D1=0.9 Sigma_a1=0.10
+BC external null

@@ -82,5 +82,7 @@ Para ello podemos crear un script de Bash que llame a cada uno de los archivos d
 ```{.bash include="losalamos.sh"}
 ```
 
-![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos](losalamos.svg){#fig-losalamos}
+![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que amentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
 
+La @fig-losalamos muestra, de forma poco rigurosa, que en en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
+Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US] pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisotrópico y con más de dos grupos de energías.
