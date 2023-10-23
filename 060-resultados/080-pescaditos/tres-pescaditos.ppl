@@ -1,0 +1,45 @@
+set preamble "\usepackage{amsmath}"
+
+f = 0.1
+set width 100*f
+set size ratio 1
+
+set axis x arrow nomirrored atzero
+set axis y arrow nomirrored atzero
+
+set grid
+set xrange [-50:+50]
+set yrange [-50:+50]
+
+set terminal pdf
+set key left
+
+set xlabel "$x$"
+set ylabel "$y$"
+
+set output "tres-pescaditos.pdf"
+
+
+set multiplot
+set nodisplay
+
+circle at 0,0     radius 50*f with col blue fillcol skyblue
+
+text "pescadito \#1" at -18*f,+8*f with color black
+circle at -10*f,+5*f  radius 2*f  with col black fillcol maroon
+
+text "pescadito \#2" at +15*f,+18*f with color black
+circle at +25*f,+15*f radius 2*f  with col black fillcol maroon
+
+text "pos. inicial" at +16*f,-22*f with color black
+circle at +25*f,-25*f radius 2*f  with col black fillcol red
+
+# text "pos. inicial" at +3.6*f,-0.9*f with color black
+circle at +3.55*f,-1.16*f radius 2*f  with col black fillcol carnationpink
+
+
+set display
+refresh
+
+set origin -50*f,-50*f
+plot "tres.csv" w lp lt 2 lw 1 color sepia ti ""

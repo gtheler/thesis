@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 from scipy.optimize import minimize 
 import numpy as np
 import subprocess
@@ -10,6 +9,6 @@ def keff(x):
   print("%g\t%g\t%g" % (x[0], x[1], k))
   return k
 
-x0 = [-15, -15]
-result = minimize(keff, x0, method="nelder-mead", options = {"initial_simplex": [[-20,-20], [-20,10], [10,-20]], "fatol": 1, "xatol": 1})
+x0 = [+25, -25]
+result = minimize(keff, x0, method="nelder-mead", options = {"fatol": 1e-5, "xatol": 1})
 print(result)

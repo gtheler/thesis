@@ -23,7 +23,6 @@ Color Cyan      { Surface{5}; }
 Color Maroon    { Surface{2,3,4}; }
 
 Mesh.Algorithm = 9;
-Mesh.MeshSizeMax = A/10;
+Mesh.MeshSizeMax = A/25;
 Mesh.MeshSizeFromCurvature = 16;
 Mesh.Optimize = 1;
-
