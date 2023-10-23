@@ -37,7 +37,7 @@ Notar que a diferencia de los estudios paramétricos realizados hasta el momento
 
 ```{.feenox include="steps.fee"}
 ```
-que genera una sucesión de números cuasi-aleatorios que, eventualmente, llena densamente un hipercubo.
+que genera una sucesión (determinística) de números cuasi-aleatorios que, eventualmente, llena densamente un hipercubo @sobol.
 En los lazos paramétricos crecientes, si se desea aumentar la densidad del barrio hay que volver a calcular todo el intervalo nuevamente.
 En una serie de números cuasi-aleatorios, es posible agregar nuevos puntos a los ya calculados dando un _offset_ inicial.
 Por ejemplo, podemos barrer el intervalo $[0,1]$ con tres puntos con el archivo `steps.fee` como
@@ -123,7 +123,7 @@ Efecto de apantallamiento y anti-apantallamiento
 
 Supongamos ahora que agregamos un tercer pescadito. Por alguna razón, los primeros dos pescaditos están fijos en dos posiciones arbitrarias $[x_1,y_1]$ y $[x_2,y_2]$. Tenemos que poner el tercer pescadito en una posición $[x_3,y_3]$ de forma tal de hacer que la reactividad total sea lo menor posible.^[Reemplazar "pescadito" por "lanza de inyección de boro de emergencia" para pasar de un problema puramente académico a un problema de interés en ingeniería nuclear.]
 
-Una forma de resolver este problema con FeenoX es proceder de la misma manera que en las secciones anteriores pero en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
+Una forma de resolver este problema con FeenoX es proceder de la misma manera que en las secciones anteriores pero en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta determinística ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
 
 En particular, podemos usar la biblioteca de Python SciPy que provee acceso a algoritmos de optimización y permite con muy pocas líneas de Python implementar el bucle de optimización:
 
