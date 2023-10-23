@@ -27,47 +27,85 @@ for i in feenox gmsh maxima tr; do
 done
 
 # compute the appropriate neutron source
-## first read flux and XS from FeenoX input
-phi=$(grep "phi_mms(x,y) =" neutron-square.fee | sed 's/phi_mms(x,y)//' | sed 's/=//')
-phi_mms=$(grep "phi_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
-D_mms=$(grep "D_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
-SigmaA_mms=$(grep "SigmaA_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
+## first read flux and XS from FeenoX inputp
+phi1=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/phi1_mms(x,y)//' | sed 's/=//')
+phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
 
+phi2=$(grep "phi2_mms(x,y) =" neutron-square.fee | sed 's/phi2_mms(x,y)//' | sed 's/=//')
+phi2_mms=$(grep "phi2_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
 
-## then ask maxima to compute s_mms(x)
+# TODO: bash array
+D1=$(grep "D1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_a1=$(grep "Sigma_a1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_s1_2=$(grep "Sigma_s1_2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+
+D2=$(grep "D2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_a2=$(grep "Sigma_a2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_s2_1=$(grep "Sigma_s2_1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+
+## then ask maxima to compute the sources and currents
 maxima --very-quiet << EOF > /dev/null
-${phi_mms};
-${D_mms};
-${SigmaA_mms};
-s_mms(x,y) := -(diff(D_mms(x,y) * diff(phi_mms(x,y), x), x) + diff(D_mms(x,y) * diff(phi_mms(x,y), y), y)) + SigmaA_mms(x,y)*phi_mms(x,y);
-stringout("neutron-square-s.txt", s_mms(x,y));
-stringout("neutron-square-jx.txt", -D_mms(x,y) * diff(phi_mms(x,y),x));
-stringout("neutron-square-jy.txt", -D_mms(x,y) * diff(phi_mms(x,y),y));
+${phi1_mms};
+${phi2_mms};
+${D1};
+${Sigma_a1};
+${Sigma_s1_2};
+${D2};
+${Sigma_a2};
+${Sigma_s2_1};
+s1(x,y) := -(diff(D1(x,y) * diff(phi1_mms(x,y), x), x) + diff(D1(x,y) * diff(phi1_mms(x,y), y), y)) + Sigma_a1(x,y)*phi1_mms(x,y) - Sigma_s2_1(x,y)*phi2_mms(x,y);
+s2(x,y) := -(diff(D2(x,y) * diff(phi2_mms(x,y), x), x) + diff(D2(x,y) * diff(phi2_mms(x,y), y), y)) + Sigma_a2(x,y)*phi2_mms(x,y) - Sigma_s1_2(x,y)*phi1_mms(x,y);
+stringout("neutron-square-s1.txt", s1(x,y));
+stringout("neutron-square-s2.txt", s2(x,y));
+stringout("neutron-square-j1x.txt", -D1(x,y) * diff(phi1_mms(x,y),x));
+stringout("neutron-square-j1y.txt", -D1(x,y) * diff(phi1_mms(x,y),y));
+stringout("neutron-square-j2x.txt", -D2(x,y) * diff(phi2_mms(x,y),x));
+stringout("neutron-square-j2y.txt", -D2(x,y) * diff(phi2_mms(x,y),y));
 EOF
 
+
+
 ## read back the string with phi_mms(x) and store it in a FeenoX input
-s=$(cat neutron-square-s.txt | tr -d ';\n')
-jx=$(cat neutron-square-jx.txt | tr -d ';\n')
-jy=$(cat neutron-square-jy.txt | tr -d ';\n')
+s1=$(cat neutron-square-s1.txt | tr -d ';\n')
+j1x=$(cat neutron-square-j1x.txt | tr -d ';\n')
+j1y=$(cat neutron-square-j1y.txt | tr -d ';\n')
+
+s2=$(cat neutron-square-s2.txt | tr -d ';\n')
+j2x=$(cat neutron-square-j2x.txt | tr -d ';\n')
+j2y=$(cat neutron-square-j2y.txt | tr -d ';\n')
 
 cat << EOF > neutron-square-s.fee
-s_mms(x,y) = ${s}
-jx_mms(x,y) = ${jx}
-jy_mms(x,y) = ${jy}
+S1(x,y) = ${s1}
+S2(x,y) = ${s2}
+
+J1x(x,y) = ${j1x}
+J1y(x,y) = ${j1y}
+J2x(x,y) = ${j2x}
+J2y(x,y) = ${j2y}
 EOF
 
 # report what we found
 cat << EOF
-# manufactured solution
-${phi_mms}
-${D_mms}
-${SigmaA_mms}
-# source terms
-s_mms(x,y) = ${s}
-jx_mms(x,y) = ${jx}
-jy_mms(x,y) = ${jy}
+# manufactured solution (input)
+${phi1_mms};
+${phi2_mms};
+${D1};
+${Sigma_a1};
+${Sigma_s1_2};
+${D2};
+${Sigma_a2};
+${Sigma_s2_1};
 
+# source terms (output)
+S1(x,y) = ${s1}
+S2(x,y) = ${s2}
+J1x(x,y) = ${j1x}
+J1y(x,y) = ${j1y}
+J2x(x,y) = ${j2x}
+J2y(x,y) = ${j2y}
 EOF
+
+# exit
 
 rm -f neutron-square-fits.ppl
 echo "plot \\" > neutron-square-einf.ppl

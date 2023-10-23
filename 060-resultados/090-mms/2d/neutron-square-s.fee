@@ -1,3 +1,7 @@
-s_mms(x,y) = (-18*sin(2*x)^2*(0.01*x*y+1)*sin(3*y)^2)+0.06*x*sin(2*x)^2*cos(3*y)*sin(3*y)+0.1*((-0.5*y)+x+1)*(sin(2*x)^2*cos(3*y)^2+1)+26*sin(2*x)^2*(0.01*x*y+1)*cos(3*y)^2-8*cos(2*x)^2*(0.01*x*y+1)*cos(3*y)^2-0.04*cos(2*x)*sin(2*x)*y*cos(3*y)^2
-jx_mms(x,y) = 4*cos(2*x)*sin(2*x)*((-0.01*x*y)-1)*cos(3*y)^2
-jy_mms(x,y) = -6*sin(2*x)^2*((-0.01*x*y)-1)*cos(3*y)*sin(3*y)
+S1(x,y) = (-18*sin(2*x)^2*(0.01*x*y+1)*sin(3*y)^2)+0.06*x*sin(2*x)^2*cos(3*y)*sin(3*y)+0.1*((-0.5*y)+x+1)*(sin(2*x)^2*cos(3*y)^2+1)+26*sin(2*x)^2*(0.01*x*y+1)*cos(3*y)^2-8*cos(2*x)^2*(0.01*x*y+1)*cos(3*y)^2-0.04*cos(2*x)*sin(2*x)*y*cos(3*y)^2
+S2(x,y) = (-0.04*(0.5*y-x+1)*(sin(2*x)^2*cos(3*y)^2+1))+1.0*log(x+1)*sech(y)^2*tanh(y)+0.05*log(x+1)*(x*y+1)*(0.5*tanh(y)+1)+(0.5*tanh(y)+1)/(x+1)^2
+
+J1x(x,y) = 4*cos(2*x)*sin(2*x)*((-0.01*x*y)-1)*cos(3*y)^2
+J1y(x,y) = -6*sin(2*x)^2*((-0.01*x*y)-1)*cos(3*y)*sin(3*y)
+J2x(x,y) = -(0.5*tanh(y)+1)/(x+1)
+J2y(x,y) = -0.5*log(x+1)*sech(y)^2

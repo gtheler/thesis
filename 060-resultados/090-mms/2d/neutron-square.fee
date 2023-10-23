@@ -1,11 +1,17 @@
-# MMS data, set solution and XSs as desired
-phi_mms(x,y) = 1 + sin(2*x)^2 * cos(3*y)^2
-D_mms(x,y) = 1 + 1e-2*x*y
-SigmaA_mms(x,y) = 0.10*(1 + x - 0.5*y)
+# MMS solution and XSs, set as desired
+phi1_mms(x,y) = 1 + sin(2*x)^2 * cos(3*y)^2
+D1(x,y) = 1 + 1e-2*x*y
+Sigma_a1(x,y) = 0.10*(1 + x - 0.5*y)
+Sigma_s1_2(x,y) = 0.04*(1 - x + 0.5*y)
+
+phi2_mms(x,y) = (1-0.5*tanh(-y))*log(1+x)
+D2(x,y) = 1
+Sigma_a2(x,y) = 0.05*(1+y*x)
+Sigma_s2_1(x,y) = 0
 
 
 READ_MESH square-$2-$3-$4.msh DIMENSIONS 2
-PROBLEM neutron_diffusion
+PROBLEM neutron_diffusion GROUPS 2
 
 DEFAULT_ARGUMENT_VALUE 1 dirichlet # BCs = dirichlet/neumann
 DEFAULT_ARGUMENT_VALUE 2 tri3      # shape = tri3/tri6/quad4/quad8/quad9
@@ -15,11 +21,6 @@ DEFAULT_ARGUMENT_VALUE 5 0         # write vtk? = 0/1
 
 # read the results of the symbolic derivatives
 INCLUDE neutron-square-s.fee
-
-# set the PDE coefficients and BCs we just read above
-D1(x,y) = D_mms(x,y)
-SigmaA1(x,y) = SigmaA_mms(x,y)
-S1(x,y) = s_mms(x,y)
 
 # set the BCs (depending on $1)
 INCLUDE neutron-square-bc-$1.fee
@@ -31,14 +32,14 @@ PHYSICAL_GROUP bulk DIM 2
 h = sqrt(bulk_area/cells)
 
 # L-2 error
-INTEGRATE (phi1(x,y)-phi_mms(x,y))^2 RESULT e_2
+INTEGRATE (phi1(x,y)-phi1_mms(x,y))^2+(phi2(x,y)-phi2_mms(x,y))^2 RESULT e_2
 error_2 = sqrt(e_2)
 
 # L-inf error
-FIND_EXTREMA abs(phi1(x,y)-phi_mms(x,y)) MAX error_inf
+FIND_EXTREMA abs(phi1(x,y)-phi1_mms(x,y))+abs(phi2(x,y)-phi2_mms(x,y)) MAX error_inf
 
 PRINT %.6f log(h) log(error_inf) log(error_2) %g $4 cells nodes %.2f 1024*memory() wall_time()
 
 IF $5
-  WRITE_MESH neutron-square_$1-$2-$3-$4.vtk phi1 S1 phi_mms phi1(x,y)-phi_mms(x,y)
+  WRITE_MESH neutron-square_$1-$2-$3-$4.vtk phi1_mms phi2_mms phi1 phi2 S1 S2 phi1(x,y)-phi1_mms(x,y) phi2(x,y)-phi2_mms(x,y) 
 ENDIF

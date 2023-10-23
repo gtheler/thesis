@@ -1,4 +1,4 @@
-BC left   phi1=phi_mms(x,y)
-BC right  phi1=phi_mms(x,y)
-BC bottom phi1=phi_mms(x,y)
-BC top    phi1=phi_mms(x,y)
+BC left   phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
+BC right  phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
+BC bottom phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
+BC top    phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
