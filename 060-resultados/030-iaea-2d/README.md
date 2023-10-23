@@ -176,14 +176,12 @@ La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mal
 
 ![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
 
-::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21.5,-3,20.5,-3,28,-3,20]"}
+::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21.8,-3,21,-3,27]"}
 ![](iaea-3dpwr-eighth-circular-mesh1.png){#fig-iaea-3dpwr-eighth-mesh1}
 
 ![](iaea-3dpwr-eighth-circular-mesh2.png){#fig-iaea-3dpwr-eighth-mesh2}
 
 ![](iaea-3dpwr-eighth-circular-mesh3.png){#fig-iaea-3dpwr-eighth-mesh3}
-
-![](iaea-3dpwr-eighth-circular-mesh4.png){#fig-iaea-3dpwr-eighth-mesh4}
 
 
 Malla para el problema 3D PWR IAEA con simetría 1/8 y reflector circular con elementos tet10 de segundo orden.
