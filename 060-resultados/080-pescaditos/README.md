@@ -84,12 +84,14 @@ La constante 2.4048 que aparece en el archivo de entrada de FeenoX es una aproxi
 Al ejecutar el script obtenemos la curva que mostramos en la @fig-un-pescadito: mientras más alejado del centro nade el pescadito, menor es la reactividad neta introducida.
 
 ```terminal
-$ cat un-pescadito.csv 
-0       -1340.47
-1       -1338.43
+$ ./un-pescadito.sh 
+23.5    -606.765
+35.25   -202.255
+11.75   -1094.41
 [...]
-46      -19.7905
-47      -13.1464
+24.2344 -576.9
+0.734375        -1339.52
+1.10156 -1338.06
 $
 ```
 
