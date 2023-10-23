@@ -17,5 +17,5 @@ set output "dos-pescaditos.pdf"
 
 
 plot "dos-pescaditos.csv" u 1:2      w l lt 1 lw 4 color brown     ti "2 pescaditos",\
-     "un-pescadito.csv"   u 1:(2*$2) w l lt 2 lw 2 color red       ti "2 veces un pescadito"`
+     "un-pescadito.csv"   u 1:(2*$2) w l lt 2 lw 2 color red       ti "2 veces un pescadito"
      
