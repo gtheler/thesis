@@ -101,7 +101,7 @@ Se deja como ejercicio calcular la misma curva con teoría de perturbaciones.
 
 ## Dos pescaditos: estudio paramétrico no lineal {#sec-dos-pescaditos}
 
-![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#dos-pescaditos-geo width=60%}
+![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=60%}
 
 Agregemos ahora otro pescadito nadando en forma diametralmente opuesta al primero (@fig-dos-pescaditos-geo).
 El script de Bash, el archivo de entrada de Gmsh y el de FeenoX son muy similares a los de la sección anterior por lo que no los mostramos.
