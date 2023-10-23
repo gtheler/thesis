@@ -1,17 +1,25 @@
 #!/bin/bash -e
 # 
 bcs="dirichlet neumann"
-elems="tri3 tri6 quad4 quad8 quad9"
-algos="struct frontal delaunay"
-# cs="4 6 8 10 12 16 20 24 30 36 48"
+elems="tri3 tri6 quad4 quad8"
+algos="struct frontal"
 
-bcs="dirichlet"
-elems="quad4"
-algos="struct"
-cs="8 12 16"
+# bcs="neumann"
+# elems="tri3"
+# algos="struct"
+
+declare -A cs
+
+cs["tri3"]="4 6 12 16 20"
+cs["quad4"]="4 6 12 16 20"
+
+cs["tri6"]="4 6 8 10 12"
+cs["quad8"]="4 6 8 10 12"
+cs["quad9"]="4 6 8 10 12"
+
 
 # set this flag to 1 if you want to create one VTK for each run
-vtk=1
+vtk=0
 if [ "x${1}" = "xvtk" ]; then
   vtk=1  
 fi
@@ -78,10 +86,10 @@ cat << EOF > neutron-square-s.fee
 S1(x,y) = ${s1}
 S2(x,y) = ${s2}
 
-J1x(x,y) = ${j1x}
-J1y(x,y) = ${j1y}
-J2x(x,y) = ${j2x}
-J2y(x,y) = ${j2y}
+Jx1_mms(x,y) = ${j1x}
+Jy1_mms(x,y) = ${j1y}
+Jx2_mms(x,y) = ${j2x}
+Jy2_mms(x,y) = ${j2y}
 EOF
 
 # report what we found
@@ -120,7 +128,7 @@ for bc in ${bcs}; do
     echo ${dat}
     echo "--------------------------------------------------------"
      
-    for c in ${cs}; do
+    for c in ${cs[${elem}]}; do
   
      name="neutron_square_${bc}-${elem}-${algo}-${c}"
    
@@ -141,9 +149,13 @@ for bc in ${bcs}; do
      "${dat}.dat"                              u (exp(\$1)):(exp(\$2)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
 e_inf_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
 EOF
+#     cat << EOF >> neutron-square-e2.ppl
+#      "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
+#   e_2_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
+# EOF
+
     cat << EOF >> neutron-square-e2.ppl
      "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
-  e_2_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
 EOF
 
   done
@@ -152,12 +164,12 @@ done
 
 cat << EOF >> neutron-square-einf.ppl
  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
+ x**3    w l lt 3 lw 4 color gray ti "\$ h^3\$"
 EOF
 
 cat << EOF >> neutron-square-e2.ppl
  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
+ x**3    w l lt 3 lw 4 color gray ti "\$ h^3\$"
 EOF
 
 cat << EOF > neutron-square-results.md

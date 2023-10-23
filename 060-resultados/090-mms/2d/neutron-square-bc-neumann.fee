@@ -1,0 +1,6 @@
+BC left   phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
+BC top    phi1=phi1_mms(x,y)    phi2=phi2_mms(x,y)
+
+BC bottom J1=+Jy1_mms(x,y)     J2=+Jy2_mms(x,y)
+BC right  J1=-Jx1_mms(x,y)     J2=-Jx2_mms(x,y)
+
