@@ -9,5 +9,5 @@ SOLVE_PROBLEM
 rho0 = (nuSigma_f1(0.5*A,0.5*A) - Sigma_a1(0.5*A,0.5*A) - D1(0.5*A,0.5*A)*(2.4048/A)^2)/nuSigma_f1(0.5*A,0.5*A)
 rho = (keff-1)/keff
 
-# el delta rho que metio el pescado vs. r
+# el delta rho que metió el pescado vs. r
 PRINT r 1e5*(rho-rho0)

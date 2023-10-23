@@ -1,0 +1,9 @@
+DEFAULT_ARGUMENT_VALUE 1 0   # min
+DEFAULT_ARGUMENT_VALUE 2 1   # max
+DEFAULT_ARGUMENT_VALUE 3 1   # steps
+DEFAULT_ARGUMENT_VALUE 4 0   # offset
+static_steps = $4+$3
+x = quasi_random($1,$2)
+IF (step_static>($4+0.1))
+ PRINT x
+ENDIF
