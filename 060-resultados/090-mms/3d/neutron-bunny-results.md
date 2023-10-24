@@ -1,4 +1,5 @@
 
  element type | order of convergence
 --------------|:----------------------:
- tet10 |  0.0
+ tet4 |  2.0
+ tet10 |  2.6

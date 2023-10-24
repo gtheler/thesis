@@ -3,7 +3,11 @@
 bc="dirichlet"
 algo="delaunay"
 elems="tet4 tet10"
-cs="20 24 32 36 40 46 52 48 64 72"
+
+declare -A cs
+
+cs["tet4"]="20 24 28 36 40 44 48 54 60 64"
+cs["tet10"]="12 16 20 24 28 32 36 40 44 48"
 
 # set this flag to 1 if you want to create one VTK for each run
 vtk=1
@@ -32,7 +36,6 @@ stringout("neutron-bunny-s1.txt", s1(x,y,z));
 tex(s1(x,y,z), "neutron-bunny-s1.tex");
 EOF
 
-# exit
 
 ## read back the string with phi_mms(x) and store it in a FeenoX input
 s1=$(cat neutron-bunny-s1.txt | tr -d ';\n')
@@ -64,14 +67,14 @@ echo "plot \\" > neutron-bunny-e2.ppl
     echo ${dat}
     echo "--------------------------------------------------------"
      
-    for c in ${cs}; do
+    for c in ${cs[${elem}]}; do
   
      name="neutron_bunny_${elem}-${c}"
    
      # prepare mesh
      if [ ! -e bunny-${elem}-${c}.msh ]; then
        lc=$(echo "PRINT 1/${c}" | feenox -)
-       gmsh -v 0 -3 bunny.geo ${elem}.geo -clscale ${lc} -o bunny-${elem}-${c}.msh
+       gmsh -v 0 -3 bunny.geo ${elem}.geo -clscale ${lc} -o bunny-${elem}-${c}.msh || exit 1
      fi
      
      # run feenox
@@ -91,13 +94,13 @@ EOF
  done
 
 cat << EOF >> neutron-bunny-einf.ppl
- 1e-6*x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- 1e-6*x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
+ 1e-6*x**2    w l lt 2 lw 4 color gray ti "\$10^{-6} \\cdot h^2\$",\\
+ 3e-7*x**3    w l lt 3 lw 4 color gray ti "\$3 \\cdot 10^{-7} \\cdot h^3\$"
 EOF
 
 cat << EOF >> neutron-bunny-e2.ppl
- 1e-6*x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- 1e-6*x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
+ 1e-6*x**2    w l lt 2 lw 4 color gray ti "\$10^{-6} \\cdot h^2\$",\\
+ 3e-7*x**3    w l lt 3 lw 4 color gray ti "\$3 \\cdot 10^{-7} \\cdot h^3\$"
 EOF
 
 cat << EOF > neutron-bunny-results.md

@@ -21,13 +21,13 @@ set key above
 load "neutron-square-fits.ppl"
 
 set ylabel "$e_\infty = \max \Big| \phi(x,y)-\phi_\text{mms}(x,y) \Big|$"
-set title "FeenoX---Square--$e_\infty$"
+#set title "FeenoX---Square--$e_\infty$"
 set output "neutron-square-einf.pdf"
 load "neutron-square-einf.ppl"
 
 # set yrange [2e-3:0.1]
 set ylabel "$e_2 = \sqrt{\int \left[\phi(x,y)-\phi_\text{mms}(x,y)\right]^2 \, dx \, dy}$"
-set title "FeenoX---Square--$e_2$"
+#set title "FeenoX---Square--$e_2$"
 set output "neutron-square-e2.pdf"
 load "neutron-square-e2.ppl"
 

@@ -14,9 +14,9 @@ lw['quad8']=1
 lw['quad9']=1
 
 declare -A lt
-lt['delaunay']=4
-lt['frontal']=3
-lt['struct']=2
+lt['delaunay']=3
+lt['frontal']=2
+lt['struct']=1
 
 declare -A co
 co['dirichletstruct']="plum"

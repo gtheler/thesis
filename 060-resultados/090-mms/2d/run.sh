@@ -10,12 +10,12 @@ algos="struct frontal"
 
 declare -A cs
 
-cs["tri3"]="4 6 12 16 20"
-cs["quad4"]="4 6 12 16 20"
+cs["tri3"]="4 6 8 12 14 16 18 20"
+cs["quad4"]="4 6 8 12 14 16 18 20"
 
 cs["tri6"]="4 6 8 10 12"
-cs["quad8"]="4 6 8 10 12"
-cs["quad9"]="4 6 8 10 12"
+cs["quad8"]="4 6 8 10"
+cs["quad9"]="4 6 8 10"
 
 
 # set this flag to 1 if you want to create one VTK for each run
@@ -154,7 +154,7 @@ EOF
 # EOF
 
     cat << EOF >> neutron-square-e2.ppl
-     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
+     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt ${lt[${algo}]} color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
 EOF
 
   done
@@ -163,12 +163,12 @@ done
 
 cat << EOF >> neutron-square-einf.ppl
  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- x**3    w l lt 3 lw 4 color gray ti "\$ h^3\$"
+ x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
 EOF
 
 cat << EOF >> neutron-square-e2.ppl
  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- x**3    w l lt 3 lw 4 color gray ti "\$ h^3\$"
+ x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
 EOF
 
 cat << EOF > neutron-square-results.md
