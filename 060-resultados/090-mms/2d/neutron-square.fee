@@ -1,15 +1,4 @@
 # MMS solution and XSs, set as desired
-pxhi1_mms(x,y) = 1 + sqrt(x)*sin(7*x)^2 * (1+cos(6*y^2))
-Dx1(x,y) = 1 + 1e-2*x*y^2
-Sxigma_a1(x,y) = 0.10*(1 + log(1+x) - 0.5*y^3)
-Sxigma_s1_2(x,y) = 0.04*(1 - x + sqrt(0.5*y))
-
-pxhi2_mms(x,y) = (1-0.5*tanh(-y))*log(1+x)
-Dx2(x,y) = 1 + 0.5*sin(4*x)*(1-y)
-Sxigma_a2(x,y) = 0.05*(1+y*x)
-Sxigma_s2_1(x,y) = 0.01*(1+cos(x^2*y))
-
-
 phi1_mms(x,y) = 1 + sin(2*x)^2 * cos(3*y)^2
 D1(x,y) = 1 + 0.1*(x - 0.5*y)
 Sigma_a1(x,y) = 1e-3*(1 + log(1+x) - 0.5*y^3)
@@ -19,8 +8,6 @@ phi2_mms(x,y) = (1-0.5*tanh(-y))*log(1+x)
 D2(x,y) = 1
 Sigma_a2(x,y) = 1e-3
 Sigma_s2_1(x,y) = 0
-
-
 
 
 READ_MESH square-$2-$3-$4.msh DIMENSIONS 2

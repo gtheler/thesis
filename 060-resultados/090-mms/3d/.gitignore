@@ -1,0 +1,11 @@
+old
+*.msh
+*.dat
+*.txt
+*.vtk
+neutron-*.pdf
+neutron*-fits.ppl
+
+neutron-bunny*-e2.ppl
+neutron-bunny*-einf.ppl
+

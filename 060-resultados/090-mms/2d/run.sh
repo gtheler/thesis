@@ -113,7 +113,6 @@ J2x(x,y) = ${j2x}
 J2y(x,y) = ${j2y}
 EOF
 
-# exit
 
 rm -f neutron-square-fits.ppl
 echo "plot \\" > neutron-square-einf.ppl

@@ -13,13 +13,12 @@ Surface Loop(1) = Surface{:};
 Volume(1) = {1};
 
 Physical Volume("bunny") = {1};
-Physical Surface("rest") = {3};
-Physical Surface("base") = {2};
+Physical Surface("external") = {2,3};
 
-Mesh.MeshSizeMin = 8;
-Mesh.MeshSizeMax = 15;
-// Mesh.ElementOrder = 1;
 Mesh.Algorithm = 6;
-Mesh.Algorithm3D = 1;
+Mesh.Algorithm3D = 10;
 Mesh.Optimize = 1;
+Mesh.OptimizeNetgen = 1;
+// Mesh.MeshSizeMin = 100;
+Mesh.MeshSizeMax = 80;
 Mesh.MeshSizeExtendFromBoundary = 0;

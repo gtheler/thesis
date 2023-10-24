@@ -1,0 +1,36 @@
+# MMS solution and XSs, set as desired
+phi1_mms(x,y,z) = log(1+1e-2*z*(y+50)) + 1e-3*(x+sqrt(y+50))
+D1(x,y,z) = 1
+Sigma_a1(x,y,z) = 0.05
+
+DEFAULT_ARGUMENT_VALUE 1 tet4      # elemento = tet4/tet10
+DEFAULT_ARGUMENT_VALUE 2 16        # factor de refinamiento
+DEFAULT_ARGUMENT_VALUE 3 0         # escribimos vtk? = 0/1
+
+READ_MESH bunny-$1-$2.msh
+PROBLEM neutron_diffusion 3D
+
+# incluimos la fuente calculada con maxima
+INCLUDE neutron-bunny-s.fee
+
+# ponemos condicion de contorno de dirichlet
+BC external phi1=phi1_mms(x,y,z)
+
+SOLVE_PROBLEM
+
+# salidas
+PHYSICAL_GROUP bunny DIM 3
+h = (bunny_volume/cells)^(1/3)
+
+# L-2 error
+INTEGRATE (phi1(x,y,z)-phi1_mms(x,y,z))^2 RESULT e_2
+error_2 = sqrt(e_2)/bunny_volume
+
+# L-inf error
+FIND_EXTREMA abs(phi1(x,y,z)-phi1_mms(x,y,z)) MAX error_inf
+
+PRINT %.6f log(h) log(error_inf) log(error_2) %g $2 cells nodes %.2f 1024*memory() wall_time()
+
+IF $3
+  WRITE_MESH neutron-bunny_$1-$2-$3.vtk phi1 phi1_mms phi1(x,y,z)-phi1_mms(x,y,z)
+ENDIF
