@@ -105,7 +105,7 @@ EOF
 
 
 rm -f neutron-square-fits.ppl
-echo "plot \\" > neutron-square-einf.ppl
+# echo "plot \\" > neutron-square-einf.ppl
 echo "plot \\" > neutron-square-e2.ppl
 
 for bc in ${bcs}; do
@@ -134,27 +134,23 @@ for bc in ${bcs}; do
  
     feenox fit.fee ${dat}  >> neutron-square-fits.ppl
   
-    cat << EOF >> neutron-square-einf.ppl
-     "${dat}.dat"                              u (exp(\$1)):(exp(\$2)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
-e_inf_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
-EOF
-#     cat << EOF >> neutron-square-e2.ppl
-#      "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
-#   e_2_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
+#     cat << EOF >> neutron-square-einf.ppl
+#      "${dat}.dat"                              u (exp(\$1)):(exp(\$2)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
+# e_inf_neutron_square_${bc}_${elem}_${algo}(x)        w l                    lw 2 lt 1 color ${co[${bc}${algo}]}  ti "",\\
 # EOF
 
     cat << EOF >> neutron-square-e2.ppl
-     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt ${lt[${algo}]} color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_inf_neutron_square_${bc}_${elem}_${algo}_title,\\
+     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt ${lt[${algo}]} color ${co[${bc}${algo}]}  ti "${bc}-${elem}-${algo} = " + e_2_neutron_square_${bc}_${elem}_${algo}_title,\\
 EOF
 
   done
  done
 done
 
-cat << EOF >> neutron-square-einf.ppl
- x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
- x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
-EOF
+# cat << EOF >> neutron-square-einf.ppl
+#  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\
+#  x**3    w l lt 3 lw 4 color gray ti "\$h^3\$"
+# EOF
 
 cat << EOF >> neutron-square-e2.ppl
  x**2    w l lt 2 lw 4 color gray ti "\$h^2\$",\\

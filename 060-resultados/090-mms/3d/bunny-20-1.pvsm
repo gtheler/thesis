@@ -3899,10 +3899,10 @@
     </Proxy>
     <Proxy group="sources" type="LegacyVTKFileReader" id="7299" servers="1">
       <Property name="FileNameInfo" id="7299.FileNameInfo" number_of_elements="1">
-        <Element index="0" value="/home/gtheler/phd/thesis/060-resultados/090-mms/3d/neutron-bunny_tet4-20-1.vtk"/>
+        <Element index="0" value="neutron-bunny_tet4-20-1.vtk"/>
       </Property>
       <Property name="FileNames" id="7299.FileNames" number_of_elements="1">
-        <Element index="0" value="/home/gtheler/phd/thesis/060-resultados/090-mms/3d/neutron-bunny_tet4-20-1.vtk"/>
+        <Element index="0" value="neutron-bunny_tet4-20-1.vtk"/>
         <Domain name="files" id="7299.FileNames.files"/>
       </Property>
       <Property name="TimestepValues" id="7299.TimestepValues"/>

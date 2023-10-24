@@ -168,16 +168,19 @@ Aún para mallas relativamente gruesas @fig-bunny-14, la diferencia entre el fl
 
 
 ::: {#fig-bunny-14 layout="[50,50]"}
-![$\phi(x,y,z)$](3d/bunny-1.png){#fig-bunny-14-1}
+![$\phi(x,y,z)$ para $c=20$](3d/bunny-20-1.png){#fig-bunny-20-1}
 
-![$\phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x})$](3d/bunny-2.png){#fig-bunny-14-2}
+![$\phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x})$ para $c=20$](3d/bunny-20-2.png){#fig-bunny-20-2}
 
-Flujo y error en el conejo de Stanford para $c=14$ con elementos tet10
+![$\phi(x,y,z)$ para $c=100$](3d/bunny-100-1.png){#fig-bunny-100-1}
+
+![$\phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x})$ para $c=100$](3d/bunny-100-2.png){#fig-bunny-100-2}
+
+Flujo y error en el conejo de Stanford para diferentes mallas (tet4)
 :::
 
-**TODO** figura correcta
 
-![Error $e_2$ vs. tamaño del elemento $h$ para el conejo de Stanford](2d/neutron-square-e2.svg){#fig-neutron-bunny-e2}
+![Error $e_2$ vs. tamaño del elemento $h$ para el conejo de Stanford](2d/neutron-bunny-e2.svg){#fig-neutron-bunny-e2}
 
 ::: {.remark]
 La @fig-neutron-bunny-e2 ilustra por qué el tamaño del elemento $h$ no es una buena medida de la precisión de una discretización: obviamente, para un mismo tamaño de celda, la precisión obtenida por los elementos de mayor orden es, justamente, mucho mayor. Es por eso que es más apropiado hablar de la cantidad total de incógnitas, de grados de libertad o tamaño del problema.

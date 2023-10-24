@@ -6,8 +6,9 @@ elems="tet4 tet10"
 
 declare -A cs
 
-cs["tet4"]="20 24 28 36 40 44 48 54 60 64"
-cs["tet10"]="12 16 20 24 28 32 36 40 44 48"
+cs["tet4"]="20 30 40 50 60 70 80 90 100"
+cs["tet10"]="10 15 20 25 35 40 45"
+
 
 # set this flag to 1 if you want to create one VTK for each run
 vtk=1
@@ -58,7 +59,7 @@ EOF
 
 
 rm -f neutron-bunny-fits.ppl
-echo "plot \\" > neutron-bunny-einf.ppl
+# echo "plot \\" > neutron-bunny-einf.ppl
 echo "plot \\" > neutron-bunny-e2.ppl
 
  for elem in ${elems}; do
@@ -84,23 +85,23 @@ echo "plot \\" > neutron-bunny-e2.ppl
   
     feenox fit.fee ${dat} >> neutron-bunny-fits.ppl
   
-    cat << EOF >> neutron-bunny-einf.ppl
-     "${dat}.dat"                              u (exp(\$1)):(exp(\$2)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}= " + e_inf_neutron_bunny_${elem}_title,\\
-EOF
+#     cat << EOF >> neutron-bunny-einf.ppl
+#      "${dat}.dat"                              u (exp(\$1)):(exp(\$2)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem}= " + e_inf_neutron_bunny_${elem}_title,\\
+# EOF
     cat << EOF >> neutron-bunny-e2.ppl
-     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem} = " + e_inf_neutron_bunny_${elem}_title,\\
+     "${dat}.dat"                              u (exp(\$1)):(exp(\$3)) w lp pt ${pt[${elem}]} lw 1 lt 2 color ${co[${bc}${algo}]}  ti "${bc}-${elem} = " + e_2_neutron_bunny_${elem}_title,\\
 EOF
 
  done
 
-cat << EOF >> neutron-bunny-einf.ppl
- 1e-6*x**2    w l lt 2 lw 4 color gray ti "\$10^{-6} \\cdot h^2\$",\\
- 3e-7*x**3    w l lt 3 lw 4 color gray ti "\$3 \\cdot 10^{-7} \\cdot h^3\$"
-EOF
+# cat << EOF >> neutron-bunny-einf.ppl
+#  1e-6*x**2    w l lt 2 lw 4 color gray ti "\$10^{-6} \\cdot h^2\$",\\
+#  3e-7*x**3    w l lt 3 lw 4 color gray ti "\$3 \\cdot 10^{-7} \\cdot h^3\$"
+# EOF
 
 cat << EOF >> neutron-bunny-e2.ppl
  1e-6*x**2    w l lt 2 lw 4 color gray ti "\$10^{-6} \\cdot h^2\$",\\
- 3e-7*x**3    w l lt 3 lw 4 color gray ti "\$3 \\cdot 10^{-7} \\cdot h^3\$"
+ 1e-7*x**3    w l lt 3 lw 4 color gray ti "\$10^{-7} \\cdot h^3\$"
 EOF
 
 cat << EOF > neutron-bunny-results.md
