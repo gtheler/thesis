@@ -180,7 +180,7 @@ Flujo y error en el conejo de Stanford para diferentes mallas (tet4)
 :::
 
 
-![Error $e_2$ vs. tamaño del elemento $h$ para el conejo de Stanford](2d/neutron-bunny-e2.svg){#fig-neutron-bunny-e2}
+![Error $e_2$ vs. tamaño del elemento $h$ para el conejo de Stanford](3d/neutron-bunny-e2.svg){#fig-neutron-bunny-e2}
 
 ::: {.remark]
 La @fig-neutron-bunny-e2 ilustra por qué el tamaño del elemento $h$ no es una buena medida de la precisión de una discretización: obviamente, para un mismo tamaño de celda, la precisión obtenida por los elementos de mayor orden es, justamente, mucho mayor. Es por eso que es más apropiado hablar de la cantidad total de incógnitas, de grados de libertad o tamaño del problema.
