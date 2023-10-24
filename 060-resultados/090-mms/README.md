@@ -4,14 +4,14 @@
 > **TL;DR:** Para verificar los métodos numéricos con el método de soluciones fabricadas se necesita un solver que permita definir propiedades materiales en función del espacio a través de expresiones algebraicas.
 
 
-Como mencionamos brevemente en la @sec-los-alamos, la verificación de códigos de cálculo involucra mostrar que dicho código resuelve correctamente las ecuaciones que debe resolver.
-La forma de hacerlo es calcular alguna medida del error cometidoor el método numérico implementado en el código, por ejemplo el error $L_2$
+Como mencionamos brevemente en la @sec-losalamos, la verificación de códigos de cálculo involucra mostrar que dicho código resuelve correctamente las ecuaciones que debe resolver.
+La forma de hacerlo es calcular alguna medida del error cometido por el método numérico implementado en el código, por ejemplo el error $L_2$
 
 $$
-e_2 = \sqrt{ \frac{\int \left[ \phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x}) \right]^2 \, d^D \vec{x}}{\int d^D \vec{x}}} 
+e_2 =  \frac{\displaystyle \sqrt{ \int \Big[ \phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x}) \Big]^2 \, d^D \vec{x}]}}{\displaystyle \int d^D \vec{x}}
 $$ {#eq-mms-e2}
 
-y mostrar que dicho error tiende a cero cuando el problema del problema discretizado tiene a infinito.
+y mostrar que dicho error tiende a cero cuando el tamaño del problema discretizado tiene a infinito.
 Según la referencia @roache,
 
 ::: {lang=en-US}
@@ -24,15 +24,15 @@ Más aún, según la referencia @sandia dice
 > ... we recommend that, when possible, one should demonstrate that the equations are solved to the theoretical order-of-accuracy of the discretization method.
 :::
 
-Esto quiere decir, que la forma de tender a cero debe coincidir con el orden predicho por la teoría.
+Esto quiere decir que la forma de tender a cero debe coincidir con el orden predicho por la teoría.
 Para difusión de neutrones con elementos finitos, este orden es 2 para elementos de primer orden y 3 para elementos de segundo orden.
 La forma de hacer esto es 
 
- 1. Resolver el problema para un cierto tamaño característico $h$ de malla
- 2. Calcular el error $e_2$ (o alguna otra medida del error) en función de $h$
- 3. Verificar que la pendiente de $e_2$ vs. $h$ en un gráfico log-log es la predicha por la teoría
+ 1. Resolver el problema para un cierto tamaño característico $h$ de malla.
+ 2. Calcular el error $e_2$ (o alguna otra medida del error) en función de $h$.
+ 3. Verificar que la pendiente de $e_2$ vs. $h$ en un gráfico log-log es la predicha por la teoría.
 
-De todas maneras, para mostrar que el error tiende a cero, necesitamos tener una expresión algebraica para la solución exacta de la ecuación que queremos resolver. Es decir, necesitamos conocer $\phi_\text{ref}(\vec{x})$ en la @eq-mms-e2.
+De todas maneras, para mostrar que el error tiende a cero necesitamos tener una expresión algebraica para la solución exacta de la ecuación que queremos resolver. Es decir, necesitamos conocer $\phi_\text{ref}(\vec{x})$ en la @eq-mms-e2.
 Está claro que si conociéramos esta expresión para un caso general, esta tesis no tendría razón de ser.
 Y es razonable que esto sea así porque, de alguna manera, resolver la ecuación de difusión de neutrones involucra "integrar" dos veces la fuente de neutrones. 
 
@@ -70,7 +70,7 @@ La ecuación de difusión es entonces
 ![El conejo de Stanford original](3d/bunny.jpg){#fig-bunny-orig width=50%}
 
 $$
--\text{div} \left[ D \cdot \text{grad} \phi \right] + \Sigma_a = S(x,y,z)
+-\text{div} \left[ D \cdot \text{grad}(\phi) \right] + \Sigma_a = S(x,y,z)
 $$ {#eq-mms-dif}
 
 Propongamos una solución fabricada para el flujo escalar, digamos
@@ -80,7 +80,7 @@ $$
 $$ {#eq-mms-phi}
 
 La fuente que necesitamos proviene de reemplazar la @eq-mms-phi en la @eq-mms-dif.
-Siguiendo las reglas de generación y de composición de Unix lo que hacemos es usar Maxima para que haga las cuentas por nosotros.
+Siguiendo las reglas de generación y de composición de Unix lo que hacemos es usar Maxima, que es un sistema para la manipulación simbólica y numérica de expresiones libre, abierto y ameno a la filosofía Unix, para que haga las cuentas por nosotros.
 En efecto, consideremos el siguiente archivo de entrada:
 
 
@@ -125,9 +125,46 @@ $$
 
 Lo siguiente es completar el script de Bash para generar las mallas apropiadas y graficar los resultados automáticamente.
 
+```terminal
+$ ./run.sh 
+# manufactured solution (input)
+phi1_mms(x,y,z) := log(1+1e-2*z*(y+50)) + 1e-3*(x+sqrt(y+50));
+D1(x,y,z) := 1;
+Sigma_a1(x,y,z) := 0.05;
+
+# source term (output)
+S1(x,y,z) = 0.05*(log(0.01*(y+50)*z+1)+0.001*(sqrt(y+50)+x))+(1.0E-4*z^2)/(0.01*(y+50)*z+1)^2+(1.0E-4*(y+50)^2)/(0.01*(y+50)*z+1)^2+2.5E-4/(y+50)^(3/2)
+neutron_bunny_tet4
+--------------------------------------------------------
+0.882892        -2.913390       -11.628276      20      19682   4707    83.56   1.62
+0.713751        -3.078327       -11.919410      24      32742   7373    91.12   2.38
+0.566854        -3.515901       -12.236276      28      50921   10955   106.29  3.06
+0.324435        -2.603344       -12.683721      36      105483  21355   147.19  4.83
+0.224405        -3.864497       -12.850835      40      142438  28201   173.22  6.12
+0.131075        -2.897239       -13.077100      44      188504  36661   208.54  8.09
+0.045617        -2.848969       -13.264638      48      243633  46614   247.41  10.21
+-0.068898       -3.793360       -13.505172      54      343580  64510   318.68  13.90
+-0.172894       -3.198078       -13.685647      60      469441  86726   402.59  19.69
+-0.236015       -3.197992       -13.823714      64      567349  103924  472.24  23.86
+neutron_bunny_tet10
+--------------------------------------------------------
+1.345444        -1.999232       -11.668375      12      4933    8922    82.05   1.02
+1.092143        -2.130628       -12.250770      16      10558   17898   102.77  1.94
+0.884565        -2.576929       -12.872198      20      19682   31819   134.21  2.56
+0.714908        -2.753582       -13.413654      24      32742   51285   169.44  2.34
+0.567712        -2.604532       -13.699554      28      50921   77891   223.13  3.87
+0.439735        -3.211762       -14.037924      32      74757   112362  300.83  5.81
+0.324963        -2.843215       -14.264197      36      105483  156399  395.41  7.75
+0.224848        -3.354946       -14.545579      40      142438  208860  510.00  9.93
+0.131448        -3.886458       -14.788972      44      188504  273940  648.63  14.42
+0.045929        -3.739021       -15.018699      48      243633  351128  807.64  18.41
+$ pyxplot
+```
+
 ::: {.remark}
 Aún para mallas relativamente gruesas @fig-bunny-14, la diferencia entre el flujo numérico y la solución manufacturada es muy pequeña para ser observada a simple vista. Es necesario calcular la integral de los errores y ajustar el orden de convergencia para realmente verificar el código.
 :::
+
 
 
 ::: {#fig-bunny-14 layout="[50,50]"}
@@ -135,14 +172,160 @@ Aún para mallas relativamente gruesas @fig-bunny-14, la diferencia entre el fl
 
 ![$\phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x})$](3d/bunny-2.png){#fig-bunny-14-2}
 
-Flujo y error en el conejo de Stanford para $c=14$
+Flujo y error en el conejo de Stanford para $c=14$ con elementos tet10
 :::
 
+**TODO** figura correcta
 
+![Error $e_2$ vs. tamaño del elemento $h$ para el conejo de Stanford](2d/neutron-square-e2.svg){#fig-neutron-bunny-e2}
+
+::: {.remark]
+La @fig-neutron-bunny-e2 ilustra por qué el tamaño del elemento $h$ no es una buena medida de la precisión de una discretización: obviamente, para un mismo tamaño de celda, la precisión obtenida por los elementos de mayor orden es, justamente, mucho mayor. Es por eso que es más apropiado hablar de la cantidad total de incógnitas, de grados de libertad o tamaño del problema.
+:::
 
 
 ## Cuadrado a dos grupos {#sec-mms-2d}
 
+Simplifiquemos un poco la geometría para poder introducir complejidades en la matemática.
+Tomemos como geometría el cuadrado $[0:1] \times [0:1]$, pero estudiemos el problema a dos grupos con el siguiente juego de secciones eficaces:
+
+```feenox
+phi1_mms(x,y) = 1 + sin(2*x)^2 * cos(3*y)^2
+D1(x,y) = 1 + 0.1*(x - 0.5*y)
+Sigma_a1(x,y) = 1e-3*(1 + log(1+x) - 0.5*y^3)
+Sigma_s1_2(x,y) = 1e-3*(1 - x + sqrt(0.5*y))
+
+phi2_mms(x,y) = (1-0.5*tanh(-y))*log(1+x)
+D2(x,y) = 1
+Sigma_a2(x,y) = 1e-3
+Sigma_s2_1(x,y) = 0
+```
+
+Como ahora la geometría es más sencilla, además de fijar solamente condiciones de Dirichlet en los cuadro lados del cuadrado vamos a poner dos condiciones de Dirichlet y dos de Neumann.
+Necesitamos entonces, además de las dos fuentes volumétricas $S1(x,y)$ y $S2(x,y)$, que Maxima nos calcule las dos componentes de la dos corrientes para que las podamos usar como condiciones de contorno:
+
+```bash
+phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
+phi2_mms=$(grep "phi2_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
+
+D1=$(grep "D1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_a1=$(grep "Sigma_a1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_s1_2=$(grep "Sigma_s1_2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+
+D2=$(grep "D2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_a2=$(grep "Sigma_a2(x,y) =" neutron-square.fee | sed 's/=/:=/')
+Sigma_s2_1=$(grep "Sigma_s2_1(x,y) =" neutron-square.fee | sed 's/=/:=/')
+
+maxima --very-quiet << EOF > /dev/null
+${phi1_mms};
+${phi2_mms};
+${D1};
+${Sigma_a1};
+${Sigma_s1_2};
+${D2};
+${Sigma_a2};
+${Sigma_s2_1};
+s1(x,y) := -(diff(D1(x,y) * diff(phi1_mms(x,y), x), x) + diff(D1(x,y) * diff(phi1_mms(x,y), y), y)) + Sigma_a1(x,y)*phi1_mms(x,y) - Sigma_s2_1(x,y)*phi2_mms(x,y);
+s2(x,y) := -(diff(D2(x,y) * diff(phi2_mms(x,y), x), x) + diff(D2(x,y) * diff(phi2_mms(x,y), y), y)) + Sigma_a2(x,y)*phi2_mms(x,y) - Sigma_s1_2(x,y)*phi1_mms(x,y);
+stringout("neutron-square-s1.txt", s1(x,y));
+stringout("neutron-square-s2.txt", s2(x,y));
+stringout("neutron-square-j1x.txt", -D1(x,y) * diff(phi1_mms(x,y),x));
+stringout("neutron-square-j1y.txt", -D1(x,y) * diff(phi1_mms(x,y),y));
+stringout("neutron-square-j2x.txt", -D2(x,y) * diff(phi2_mms(x,y),x));
+stringout("neutron-square-j2y.txt", -D2(x,y) * diff(phi2_mms(x,y),y));
+EOF
+```
+ 
+El archivo de entrada de FeenoX continua de la siguiente manera
+
+```feenox
+READ_MESH square-$2-$3-$4.msh DIMENSIONS 2
+PROBLEM neutron_diffusion GROUPS 2
+
+DEFAULT_ARGUMENT_VALUE 1 dirichlet # BCs = dirichlet/neumann
+DEFAULT_ARGUMENT_VALUE 2 tri3      # shape = tri3/tri6/quad4/quad8/quad9
+DEFAULT_ARGUMENT_VALUE 3 struct    # algorithm = struct/frontal/delaunay
+DEFAULT_ARGUMENT_VALUE 4 8         # refinement factor = 1/2/3/4...
+DEFAULT_ARGUMENT_VALUE 5 0         # write vtk? = 0/1
+
+# read the results of the symbolic derivatives
+INCLUDE neutron-square-s.fee
+
+# set the BCs (depending on $1)
+INCLUDE neutron-square-bc-$1.fee
+
+SOLVE_PROBLEM   # this line should be self-explanatory 
+```
+para terminar calculando el error $e_2$ (y el error $e_\infty$ que ni siquiera discutimos por falta de espacio-tiempo) en forma similar al caso del conejo.
+
+Los dos archivos con condiciones de contorno son el ya conococido 100% Dirichlet:
+
+```{.feenox include="2d/neutron-square-bc-dirichlet.fee"}
+```
+y el nuevo caso 50% Dirichlet 50% Neumann, donde en los lados `bottom` y `right` ponemos el producto interno de la corriente $\vec{J}_g(\vec{x})$ con la normal exterior $\hat{\vec{n}}(\vec{x})$:
+ 
+```{.feenox include="2d/neutron-square-bc-neumann.fee"}
+```
+
+Como ahora nuestra geometría es más sencilla podemos utilizar algoritmos de mallado estructurados.
+Incluso podemos estudiar qué sucede si usamos triángulos y cuadrángulos, de primer y segundo orden y completos (quad8) o incompletos (quad9). Con los dos tipos de condiciones de contorno, que podrían ser muchas más combinaciones de porcentajes de Dirichlet y Neumann. ¡Bienvenida la explosión combinatoria!
+
+El resto del trabajo consiste en ejecutar el script de Bash y dejar que Maxima haga la manipulación simbólica:
+
+```terminal
+$ ./run.sh 
+# manufactured solution (input)
+phi1_mms(x,y) := 1 + sin(2*x)^2 * cos(3*y)^2;
+phi2_mms(x,y) := (1-0.5*tanh(-y))*log(1+x);
+D1(x,y) := 1 + 0.1*(x - 0.5*y);
+Sigma_a1(x,y) := 1e-3*(1 + log(1+x) - 0.5*y^3);
+Sigma_s1_2(x,y) := 1e-3*(1 - x + sqrt(0.5*y));
+D2(x,y) := 1;
+Sigma_a2(x,y) := 1e-3;
+Sigma_s2_1(x,y) := 0;
+
+# source terms (output)
+S1(x,y) = (-18*sin(2*x)^2*(0.1*(x-0.5*y)+1)*sin(3*y)^2)-0.3*sin(2*x)^2*cos(3*y)*sin(3*y)+0.001*((-0.5*y^3)+log(x+1)+1)*(sin(2*x)^2*cos(3*y)^2+1)+26*sin(2*x)^2*(0.1*(x-0.5*y)+1)*cos(3*y)^2-8*cos(2*x)^2*(0.1*(x-0.5*y)+1)*cos(3*y)^2-0.4*cos(2*x)*sin(2*x)*cos(3*y)^2
+S2(x,y) = (-0.001*(0.7071067811865476*sqrt(y)-x+1)*(sin(2*x)^2*cos(3*y)^2+1))+1.0*log(x+1)*sech(y)^2*tanh(y)+0.001*log(x+1)*(0.5*tanh(y)+1)+(0.5*tanh(y)+1)/(x+1)^2
+J1x(x,y) = 4*cos(2*x)*sin(2*x)*((-0.1*(x-0.5*y))-1)*cos(3*y)^2
+J1y(x,y) = -6*sin(2*x)^2*((-0.1*(x-0.5*y))-1)*cos(3*y)*sin(3*y)
+J2x(x,y) = -(0.5*tanh(y)+1)/(x+1)
+J2y(x,y) = -0.5*log(x+1)*sech(y)^2
+neutron_square_dirichlet_tri3_struct
+--------------------------------------------------------
+-1.732868	-1.940256	-2.857245	4	32	25	68.38	0.85
+-1.956012	-2.294614	-3.245481	6	50	36	68.60	1.48
+-2.426015	-3.135938	-4.117575	8	128	81	68.32	1.11
+[...]
+-2.079442	-6.417214	-7.519575	8	64	225	68.92	1.04
+-2.302585	-6.909677	-8.086373	10	100	341	67.30	0.68
+neutron_square_neumann_quad8_frontal
+--------------------------------------------------------
+-1.545521	-4.303977	-5.509111	4	22	83	66.53	1.30
+-1.903331	-5.471960	-6.794112	6	45	160	70.89	0.92
+-2.191013	-6.055953	-7.497523	8	80	273	69.48	1.55
+-2.393746	-6.834924	-8.197128	10	120	401	69.51	1.19
+$
+```
+
+::: {.remark}
+La expresión para la componente $y$ de la corriente de grupo 2 involucra una secante hiperbólica que Feenox puede evaluar sin inconvenientes.
+:::
 
 
-ver thermal-slab-transient-mms-capacity-of-T.fee  thermal-slab-transient-mms.fee
+
+::: {#fig-square-14 layout="[25,25,25,25]"}
+![tri3 struct](2d/tri-struct.png){#fig-square-14-tri-struct}
+
+![quad4 struct](2d/quad-struct.png){#fig-square-14-quad-struct}
+
+![tri3 unstruct](2d/tri-frontal.png){#fig-square-14-tri-unstruct}
+
+![quad4 unstruct](2d/quad-frontal.png){#fig-square-14-quad-unstruct}
+
+Flujos y diferencias en el cuadrado con cuatro tipos de mallas para el caso con condiciones de Neumann
+:::
+
+
+![Error $e_2$ vs. tamaño del elemento $h$ para el cuadrado a dos grupos](2d/neutron-square-e2.svg){#fig-neutron-square-e2}
+

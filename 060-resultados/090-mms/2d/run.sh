@@ -4,10 +4,6 @@ bcs="dirichlet neumann"
 elems="tri3 tri6 quad4 quad8"
 algos="struct frontal"
 
-# bcs="neumann"
-# elems="tri3"
-# algos="struct"
-
 declare -A cs
 
 cs["tri3"]="4 6 8 12 14 16 18 20"
@@ -34,15 +30,10 @@ for i in feenox gmsh maxima tr; do
  fi
 done
 
-# compute the appropriate neutron source
-## first read flux and XS from FeenoX inputp
-phi1=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/phi1_mms(x,y)//' | sed 's/=//')
-phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
 
-phi2=$(grep "phi2_mms(x,y) =" neutron-square.fee | sed 's/phi2_mms(x,y)//' | sed 's/=//')
+phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
 phi2_mms=$(grep "phi2_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
 
-# TODO: bash array
 D1=$(grep "D1(x,y) =" neutron-square.fee | sed 's/=/:=/')
 Sigma_a1=$(grep "Sigma_a1(x,y) =" neutron-square.fee | sed 's/=/:=/')
 Sigma_s1_2=$(grep "Sigma_s1_2(x,y) =" neutron-square.fee | sed 's/=/:=/')
@@ -51,7 +42,6 @@ D2=$(grep "D2(x,y) =" neutron-square.fee | sed 's/=/:=/')
 Sigma_a2=$(grep "Sigma_a2(x,y) =" neutron-square.fee | sed 's/=/:=/')
 Sigma_s2_1=$(grep "Sigma_s2_1(x,y) =" neutron-square.fee | sed 's/=/:=/')
 
-## then ask maxima to compute the sources and currents
 maxima --very-quiet << EOF > /dev/null
 ${phi1_mms};
 ${phi2_mms};

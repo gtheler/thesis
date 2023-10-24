@@ -36,7 +36,7 @@ Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-U
  Slab a dos zonas ([-@sec-slab])                       |    ●    |    ●    |         |
  Reactor cubo-esfera ([-@sec-cubesphere])              |    ●    |    ●    |         |
  El problema de los pescaditos ([-@sec-pescaditos])    |    ●    |    ●    |    ○    |
- MMS con el Stanford bunny ([-@sec-mms-dif])           |    ●    |    ●    |    ○    |    ◓
+ MMS con el Stanford bunny ([-@sec-mms-dif])           |    ●    |    ●    |    ○    |    ○
  PHWR vertical con barras inclinadas ([-@sec-phwr])    |    ●    |    ●    |    ●    |    ●
 
 \vspace{-0.5cm plus 0.25cm minus 0.25cm}
