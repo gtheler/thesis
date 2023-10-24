@@ -65,7 +65,7 @@ Physical Surface("vacuum", 5) = {22, 23, 24, 51, 50, 47, 46, 49, 48};
 
 Mesh.Algorithm = 6;
 Mesh.Algorithm3D = 10;
-Mesh.ElementOrder = 1;
+// Mesh.ElementOrder = 1;
 Mesh.HighOrderOptimize = 4;
 
 Mesh.MeshSizeFromCurvature = 6;

@@ -1,5 +1,5 @@
 PROBLEM neutron_diffusion 3D GROUPS 2
-READ_MESH phwr.msh
+READ_MESH phwr2.msh
 
 INCLUDE xs.fee
 
@@ -8,4 +8,6 @@ SOLVE_PROBLEM
 PRINT keff
 WRITE_RESULTS FORMAT vtk
 
-PRINT total_dofs wall_time() memory()
+mem_global = mpi_memory_global()
+PRINTF     "problem size = %g\twall time = %g\t global memory" total_dofs wall_time() mem_global
+PRINTF_ALL "memory local = %.1f Gb" mpi_memory_local()
