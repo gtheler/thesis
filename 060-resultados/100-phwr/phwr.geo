@@ -70,7 +70,7 @@ Mesh.HighOrderOptimize = 4;
 
 Mesh.MeshSizeFromCurvature = 6;
 Mesh.MeshSizeExtendFromBoundary = 1;
-Mesh.MeshSizeFactor = 1;
+// Mesh.MeshSizeFactor = 1;
 Mesh.MeshSizeMin = 0.2*r_rod;
 Mesh.MeshSizeMax = 2*r_fuel;
 
