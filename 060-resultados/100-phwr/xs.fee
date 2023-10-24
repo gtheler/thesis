@@ -1,0 +1,60 @@
+ffuel = 1
+MATERIAL fuel {
+  Sigma_t1=ffuel*0.34
+  Sigma_t2=ffuel*0.55
+  Sigma_s1.1=ffuel*0.32
+  Sigma_s1.2=ffuel*0.0045
+  Sigma_s2.1=0
+  Sigma_s2.2=ffuel*0.42
+  nuSigma_f1=2.5*0.003
+  nuSigma_f2=2.5*0.1
+}
+
+Tmod0 = 100
+Tmod(z) = 100 + (200-100)*(z/400)
+FUNCTION sigmat_mod(T) INTERPOLATION linear DATA {
+90  0.108
+100 0.112
+110 0.116
+130 0.118
+180 0.120
+200 0.122 }
+
+MATERIAL moderator {
+  Sigma_t1=0.068
+  Sigma_t2=sigmat_mod(Tmod(z))
+  Sigma_s1.1=0.06+1e-5*(Tmod(z)-Tmod0)
+  Sigma_s1.2=0.002
+  Sigma_s2.1=0
+  Sigma_s2.2=sigmat_mod(Tmod(z))-0.005
+  nuSigma_f1=0
+  nuSigma_f2=0
+}
+
+
+frod = 1.5
+MATERIAL rod {
+  Sigma_t1=frod*0.34
+  Sigma_t2=frod*0.55
+  Sigma_s1.1=frod*0.32
+  Sigma_s1.2=frod*0.0045
+  Sigma_s2.1=0
+  Sigma_s2.2=frod*0.42
+  nuSigma_f1=0
+  nuSigma_f2=0
+}
+
+fguide = 0.65
+MATERIAL guide {
+  Sigma_t1=fguide*0.34
+  Sigma_t2=fguide*0.55
+  Sigma_s1.1=fguide*0.32
+  Sigma_s1.2=fguide*0.0045
+  Sigma_s2.1=0
+  Sigma_s2.2=fguide*0.42
+  nuSigma_f1=0
+  nuSigma_f2=0
+}
+
+BC vacuum   vacuum
+

@@ -164,6 +164,7 @@ $ ./tres.py
 $ 
 ```
 
+
 ![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead.](tres-pescaditos.svg){#fig-tres-pescaditos}
 
 
