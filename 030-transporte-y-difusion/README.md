@@ -1147,7 +1147,7 @@ con $\ell=1$ y $m=-1,0,+1$.
 \medskip
 
 Prestemos atención ahora al coeficiente $\Psi_0^0$.
-Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre todas las direcciones es igual al flujo angular (@def-flujoescalar),
+Ya que por un lado $Y_0^0 = \sqrt{1/4\pi}$ (@def-y00) mientras que por otro la integral del flujo angular $\psi$ con respecto a $\omegaversor$ sobre todas las direcciones es igual al flujo escalar (@def-flujoescalar),
 entonces
 
 $$
