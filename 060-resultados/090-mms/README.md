@@ -1,4 +1,3 @@
-
 # Verificación con el método de soluciones fabricadas {#sec-mms-dif}
 
 > **TL;DR:** Para verificar los métodos numéricos con el método de soluciones fabricadas se necesita un solver que permita definir propiedades materiales en función del espacio a través de expresiones algebraicas.
@@ -67,7 +66,7 @@ Es también recomendable que permita realizar estudios paramétricos con cierta 
 Consideremos un reactor con la forma del conejo de Stanford (@fig-bunny-orig) con secciones eficaces adimensionales uniformes $D=1$ y $\Sigma_a=0.05$.
 La ecuación de difusión es entonces
 
-![El conejo de Stanford original](3d/bunny.jpg){#fig-bunny-orig width=50%}
+![El famoso y nunca bien ponderado conejo de Stanford](3d/bunny.jpg){#fig-bunny-orig width=50%}
 
 $$
 -\text{div} \left[ D \cdot \text{grad}(\phi) \right] + \Sigma_a = S(x,y,z)

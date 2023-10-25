@@ -18,7 +18,7 @@
 
 \vspace{-1cm plus 0.5cm minus 0.5cm}
 
-Este capítulo muestra diez problemas resueltos con la herramienta computacional FeenoX descripta en el @sec-implementacion que ilustran algunas de sus características particulares.
+En este capítulo mostramos diez problemas resueltos con la herramienta computacional FeenoX descripta en el @sec-implementacion que ilustran algunas de sus características particulares.
 Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
  a. Filosofía Unix, integración en scripts y simulación programática
@@ -60,7 +60,11 @@ En el documento [Software Design Specifications]{lang=en-US} del @sec-sds se pu
 :::
 
 ::: {.remark}
-Todos los archivos necesarios para reproducir los resultados mostrados en este capítulo, junto con el fuente original de esta tesis en Markdown y los archivos de metadata necesarios para compilar a PDF y/o HTML a través de LaTeX, están dispnibles en <https://github.com/gtheler/thesis> bajo licencia CC-BY. Todas las herramientas utilizadas, incluyendo el sistema operativo, el mallador, el propio solver FeenoX, los post-procesadores, los graficadores, los generadores de documentación (y todas las bibliotecas de las cuales todo este software dependede) son libres y/o de código abierto.
+Todos los archivos necesarios para reproducir los resultados mostrados en este capítulo, junto con el fuente original de esta tesis en Markdown y los archivos de metadata necesarios para compilar a PDF y/o HTML a través de LaTeX, están dispnibles en <https://github.com/gtheler/thesis> bajo licencia CC-BY. Todas las herramientas utilizadas, incluyendo el sistema operativo, el mallador, el propio solver FeenoX, los post-procesadores, los graficadores, los generadores de documentación (y todas las bibliotecas de las cuales todo este software depende) son libres y/o de código abierto.
+:::
+
+::: {.remark}
+Las mallas de los problemas resueltos en este capítulo son generadas con la herramienta de mallado Gmsh @gmsh y las vistas de post-procesamiento son creadas con la herramienta ParaView. Ambas son libres, abiertas y amenas a la simulación programática.
 :::
 
 

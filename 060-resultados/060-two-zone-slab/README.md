@@ -3,7 +3,7 @@
 > **TL;DR:** Este problema ilustra el error cometido al analizar casos multi-material con mallas estructuradas donde la interfaz no coincide con los nodos de la malla (y la flexibilidad de FeenoX para calcular y comparar soluciones analíticas con soluciones numéricas).
 
 Richard Stallman dice en sus conferencias (incluso en castellano) "la mejor manera de resolver un problema es evitar tenerlo".
-Como discutimos en el @sec-neutronica-phwr, los códigos neutrónicos de núcleo que usamos durante el completamiento de la Central Nuclear Atucha II solamente usaban mallas estructuradas. Además del inconveniente que esto supone para modelar barras de control invertidas, constantemente aparecía un efecto numérico denominado "cúspide por dilución de secciones eficaces". Este efecto aparece cuando la posición de una barra de control no coincide con la interfaz entre dos celdas de cálculo y hay que de alguna manera "diluir" las secciones eficaces de la barra absorbente entre las secciones eficaces del tubo guía vacío en forma proporcional a la posición geométrica de la barra en la celda de cálculo.
+Como discutimos en el @sec-neutronica-phwr, los códigos neutrónicos de núcleo que usamos durante el completamiento de la Central Nuclear Atucha II solamente usaban mallas estructuradas. Además del inconveniente que esto supone para modelar barras de control invertidas, muy a menudo teníamos que lidiar un efecto numérico denominado "cúspide por dilución de secciones eficaces". Este efecto aparece cuando la posición de una barra de control no coincide con la interfaz entre dos celdas de cálculo y hay que de alguna manera "diluir" las secciones eficaces de la barra absorbente entre las secciones eficaces del tubo guía vacío en forma proporcional a la posición geométrica de la barra en la celda de cálculo.
 
 Es exactamente este efecto el que ilustramos en este ejemplo, pero en geometría tipo slab ya que dicho problema tiene solución analítca exacta (en difusión, que es lo que usaban los código en Atucha de cualquier manera).
 Efectivamente, consideremos un reactor en geometría slab a dos zonas:
@@ -14,7 +14,7 @@ Efectivamente, consideremos un reactor en geometría slab a dos zonas:
 Si 
  
  1. resolvemos el slab con un grupo de energías con aproximación de difusión,
- 2. las dos zonas tienen secciones eficaces macroscópicas uniformes,
+ 2. las dos zonas tienen secciones eficaces macroscópicas uniformes, y
  3. hacemos que el flujo escalar $\phi$ sea cero en ambos extremos $x=0$ y $x=b$,
  
 entoces tanto el factor efectivo de multiplicación $k_\text{eff}$ es tal que

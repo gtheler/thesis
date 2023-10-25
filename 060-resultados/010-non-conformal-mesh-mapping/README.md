@@ -2,7 +2,7 @@
 
 > **TL;DR:** Sobre la importancia de que FeenoX siga la filosofía Unix.
 
-Este prime caso no resuelve ninguna PDE pero sirve para ilustrar...
+Este primer caso no resuelve ninguna PDE pero sirve para ilustrar...
 
  1. las ideas de la filosofía Unix [@raymond; @unix], en particular programas que...
 
@@ -14,12 +14,12 @@ Este prime caso no resuelve ninguna PDE pero sirve para ilustrar...
  
 Una aplicación de esta segunda característica es leer una distribución espacial de temperaturas calculadas por un solver térmico (el mismo FeenoX podría servir) y utilizarlas para construir la matriz de rigidez de otro problema (por ejemplo elasticidad lineal para problemas termo-mecánicos o transporte o difusión de neutrones para neutrónica realimentada con termohidráulica). En este caso, los puntos de evaluación son los puntos de Gauss de los elementos de la segunda malla.
 
-En este problema escribimos una función $f(x,y,z)$ definida algebraicamente en los nodos de un cubo unitario $[0,1]\times[0,1]\times[0,1]$ creado en Gmsh con la instrucción de OpenCASCADE:
+En este problema comenzamos escribiendo una función $f(x,y,z)$ definida algebraicamente en los nodos de un cubo unitario $[0,1]\times[0,1]\times[0,1]$ creado en Gmsh con la instrucción de OpenCASCADE
 
 ```{.geo include="cube.geo"}
 ```
 
-mallado con un algoritmo completamente no estructurado utilizando una cierta cantidad $n_1$ de elementos por lado. Luego, se lee esa malla de densidad $c_1$ con los valores nodales de $f(\vec{x})$ y los interpolamos en la posición de los nodos del mismo cubo mallado con otra densidad $n_2$. Como hemos partido de una función algebraica, podemos evaluar el error cometido en la interpolación en función de las densidades $n_1$ y $n_2$.
+mallado con un algoritmo completamente no estructurado utilizando una cierta cantidad $n_1$ de elementos por lado. Luego, leemos esa malla de densidad $c_1$ con los valores nodales de $f(\vec{x})$ y los interpolamos en la posición de los nodos del mismo cubo mallado con otra densidad $n_2$. Como hemos partido de una función algebraica, podemos evaluar el error cometido en la interpolación en función de las densidades $n_1$ y $n_2$.
 
 ::: {.remark}
 Este procedimiento no es exactamente el necesario para realizar cálculos acoplados ya que la evaluación en la segunda malla es sobre los nodos y no sobre los puntos de Gauss, pero el concepto es el mismo: interpolar valores nodales en puntos arbitrarios.
@@ -32,7 +32,7 @@ Este procedimiento no es exactamente el necesario para realizar cálculos acopla
 ![$n=20$](cube-10-20.png)
 
 
-Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes números de elementos por lado.
+Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes mallas
 :::
 
 El script `run.sh` realiza una inicialización y tres pasos:
@@ -79,7 +79,7 @@ El script `run.sh` realiza una inicialización y tres pasos:
 
     
 La @tbl-010-generar muestra el tiempo necesario para generar lo datos.
-La @#tbl-010-interpolar muestra los errores y el tiempo necesario para interpolar los datos.
+La @tbl-010-interpolar muestra los errores y el tiempo necesario para interpolar los datos.
  
  $n$ |    elementos   |     nodos      | tiempo de mallado [s] | tiempo de rellenado [s] 
 :---:|:--------------:|:--------------:|:---------------------:|:-----------------------:
@@ -131,7 +131,7 @@ Recordar la @fig-sine.
 Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho menores.
 :::
 
-Para finalizar, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
+Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como opsición a "software libre" o "ćodigo abierto". Es éste un error común, pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
 
                         |     Otro     |    FeenoX

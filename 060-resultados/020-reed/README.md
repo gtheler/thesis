@@ -1,6 +1,6 @@
 # El problema de Reed {#sec-reed}
 
-> **TL;DR:** Este problema tiene curiosidad histórica, es uno de los problemas más sencillos no triviales que podemos encontrar y sirve para mostrar que para tener en cuenta regiones vacías no se puede utilizar una formulación de difusión.
+> **TL;DR:** Este problema tiene más curiosidad histórica que numérica. Es uno de los problemas más sencillos no triviales que podemos encontrar y sirve para mostrar que para tener en cuenta regiones vacías no se puede utilizar una formulación de difusión.
 
 Este caso, que data de 1971 @reed, es de los más sencillos que FeenoX puede resolver.
 Por lo tanto, por base de diseño, el archivo de entrada también debe ser sencilo.
@@ -47,7 +47,7 @@ Este (sencillo) archivo de entrada tiene 6 secciones bien definidas:
     d. el orden $N$ en S$_N$ (`SN $1`) a leer como el primer argumento en la línea de comando de invocación del ejecutable `feenox` luego del archivo de entrada `reed.fee`
  2. Instrucción para leer la malla (`READ_MESH` es un verbo seguido de un sustantivo)
  3. Definición de los nombres y propiedades de los materiales (`MATERIAL` es un sustantivo). Si los nombres de los materiales en el archivo de entrada de FeenoX coinciden con el nombre de las entidades físicas cuya dimensión es la del problema (líneas físicas en este caso unidimensional) entonces éstas se asocian implícitamente a los materiales. En cualquier caso, se puede hacer una asociación explícita con tantas palabras clave `LABEL` como sea necesario para cada material.
- 4. Definición de condiciones de contorno (`BC` quiere decir [_boundary condition_}{lang=en-US} que es un sustantivo adjetivado). De la misma manera, si el nombre de la condición de contorno coincide con el nombre de entidades físicas de dimensión menor a la dimensión del problema en la malla, la asociación se hace implícitamente. Igualmente, se pueden agregar palabras clave `LABEL`.
+ 4. Definición de condiciones de contorno (`BC` quiere decir [_boundary condition_]{lang=en-US} que es un sustantivo adjetivado). De la misma manera, si el nombre de la condición de contorno coincide con el nombre de entidades físicas de dimensión menor a la dimensión del problema en la malla, la asociación se hace implícitamente. Igualmente, se pueden agregar palabras clave `LABEL`.
  5. Instrucción para indicar que FeenoX debe resolver el problema. En este caso sencillo esta instrucción debe venir luego de leer la malla y antes de escribir el resultado. En casos ligeramente más complejos como estudiamos a continuación donde cambiamos los valores por defecto de las variables `sn_alpha` y `penalty_weight`, la instrucción `SOLVE_PROBLEM` debe venir luego de las instrucciones de asignación.
  6. Instrucción para escribir en la salida estándar una columna con la posición de los nodos (en este caso un único valor para $x$) y el flujo escalar $\phi$ evaluado en $x$. Podríamos haber pedido los flujos angulares $\psi_{mg}$ a continuación para obtener más columnas de datos, pero dado que el parámetro $N$ se lee desde la línea de comandos no podemos saber al momento de preparar el archivo de entrada cuántos flujos angulares van a estar definidos. Por ejemplo, si `$1` es 2 entonces `psi1.1` y `psi1.2` están definidas pero `psi1.3` no lo estará por lo que la línea
 
@@ -152,7 +152,7 @@ Efecto del factor de estabilización $\alpha$
 
 
 ::: {.remark}
-Como veremos más adelante, el realizar estudios paramétricos sobre más de un parámetro la cantidad de resultados a analizar aumenta geométricamente. Debido a que FeenoX permite la flexibilidad de ser ejecutado en bucles y de pasar parámetros por líneas de comando, la generación de los resultados es extremadamente eficiente, lo que hace que sea relativamente mucho más difícil el análisis de dichos resultados que la generación de los datos en sí. Esto pone en relieve la importancia de la regla de economía de Unix: no sólo el costo relativo de la unidad de tiempo de CPU es al menos tres órdenes de magnitud menor al costo de la unidad de tiempo de un ingeniero sino que también el tiempo absoluto necesario para analizar resultados es mayor que para generarlos.
+Como veremos más adelante (por ejemplo en las @sec-mms-dif o en la @sec-azmy), el realizar estudios paramétricos sobre más de un parámetro la cantidad de resultados a analizar aumenta geométricamente. Debido a que FeenoX permite la flexibilidad de ser ejecutado en bucles y de pasar parámetros por líneas de comando, la generación de los resultados es extremadamente eficiente, lo que hace que sea relativamente mucho más difícil el análisis de dichos resultados que la generación de los datos en sí. Esto pone en relieve la importancia de la regla de economía de Unix: no sólo el costo relativo de la unidad de tiempo de CPU es al menos tres órdenes de magnitud menor al costo de la unidad de tiempo de un ingeniero sino que también el tiempo absoluto necesario para analizar resultados es mayor que para generarlos.
 :::
 
 
@@ -166,7 +166,7 @@ Está claro que para poder comparar soluciones se debe tener en cuenta el esfuer
  b. hacer más gruesa la malla de segundo orden.
 
 Por otro lado el patrón de la matriz también cambia (el ancho de banda es mayor en la malla de segundo orden) por lo que también cambia el esfuerzo necesario no sólo para construir la matriz sino también para invertirla, especialmente en términos de memoria.
-En algunos tipos de problemas (como por ejemplo elasticidad ver xxx), está demostrado que cualquier esfuerzo necesario para resolver un problema con elementos de segundo orden vale la pena ya que los elementos de primer orden, aún cuando la malla esté muy refinada, padecen del efecto numérico conocido como [_shear locking_]{lang=en-US} que arroja resultados poco precisos.
+En algunos tipos de problemas (como por ejemplo elasticidad ver @sec-parametric), está probado que cualquier esfuerzo necesario para resolver un problema con elementos de segundo orden vale la pena ya que los elementos de primer orden, aún cuando la malla esté muy refinada, padecen del efecto numérico conocido como [_shear locking_]{lang=en-US} que arroja resultados poco precisos.
 Pero en el caso de transporte (e incluso difusión) de neutrones no está claro que, para el mismo tamaño de problema, la utilización de elementos de alto orden sea más precisa que la de elementos de primer orden, más allá de la posibilidad de representar geometrías curvas con más precisión.
 
 De cualquier manera, presentamos entonces resultados para el problema de Reed con elementos unidimensionales de segundo orden.
@@ -188,15 +188,17 @@ Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden
 ```{.feenox include="reed2.fee"}
 ```
 
-
-::: {.remark}
-Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada hubiese implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE`.
-Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
-:::
-
 ```terminal
 $ for N in 2 4 8; do feenox reed2.fee $N; done
 $
 ```
 
 ![Diferencia entre flujos de primer y segundo orden en el problema de Reed](reed2-flux.svg){#fig-reed2-flux}
+
+::: {.remark}
+Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada hubiese implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE` (por ejemplo en la @sec-phwr).
+Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
+:::
+
+
+·

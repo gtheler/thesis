@@ -11,7 +11,7 @@ BC vacuum   vacuum
 
 SOLVE_PROBLEM
 
-# un poco de trigonometría
+# un poco de trigonometría de prescolar
 theta = $1*pi/180
 x'(d,x) = d*cos(theta) - x*sin(theta)
 y'(d,x) = d*sin(theta) + x*cos(theta)

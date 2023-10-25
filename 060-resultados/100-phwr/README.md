@@ -72,7 +72,7 @@ El archivo de entrada de FeenoX, una vez que separamos la secciones eficaces (y 
 A dos grupos, la malla de segundo orden da un poco más de 250k grados de libertad.
 Veámos cómo escala FeenoX en términos de tiempo y memoria al resolver este problem con diferente cantidad de procesadores en una misma computadora:
 
-```
+```terminal
 $ for i in 1 2 4 8 12; do mpirun -n $i feenox phwr-dif.fee; done
 size = 256964   time = 138.8 s   memory = 6.5 Gb
 [0/1 LIN54Z7SQ3] local memory = 6.5 Gb
@@ -139,15 +139,12 @@ Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión
 
 ## Ordenadas discretas con elementos de primer orden
 
-s2 primer orden
-```
-Info    : Done meshing 3D (Wall 0.376522s, CPU 0.372091s)
-Info    : 16120 nodes 109387 elements
-Info    : Writing 'phwr.msh'...
-Info    : Done writing 'phwr.msh'
-Info    : Stopped on Tue Oct 24 19:45:11 2023 (From start: Wall 0.691222s, CPU 0.684064s)
-$ feenox phwr-sn.fee --progress
-...........................^Cpid 28350: signal #2 caught, finnishing...
+Resolvamos ahora el mismo problema pero con ordenadas discretas.
+Comenzamos por $S_2$, que involucra ocho direcciones por cada grupo de energías.
+Para tener un tamaño de problema comparable utilizamos tetrahedros de primer orden.
+Estudiemos cómo cambia el tiempo de pared y la memoria con 1, 2, 4 y 8 procesos MPI:
+
+```terminal
 $ for i in 1 2 4 8; do mpirun -n $i feenox phwr-s2.fee; done
 size = 257920   time = 415.6 s   memory = 20.1 Gb
 [0/1 LIN54Z7SQ3] local memory = 20.1 Gb
@@ -171,17 +168,36 @@ size = 257920   time = 208.9 s   memory = 36.6 Gb
 $ 
 ``` 
 
+Resolver un problema formulado en S$_N$ es computacionalmente mucho más demandante porque las matrices resultantes no son simétricas y tienen una estructura compleja.
+Los requerimientos de memoria y CPU son mayores que para difusión. Incluso la escala de paralelización, aún cuando debemos notar nuevamente que hay mucho terreno para mejorar en FeenoX, es peor que en la sección anterior para un tamaño de problema similar.
+El esfuerzo necesario es más marcado para $N$ superiores.
+De hecho para una malla más gruesa todavía, dando lugar a un tamaño de problema menor, el tiempo y memoria necesario para resolver el problema con $S_4$ aumenta:
 
+```terminal
+$ mpiexec -n 1 feenox phwr-s4.fee
+size = 159168	time = 391.0 s	 memory = 20.0 Gb
+[0/1 LIN54Z7SQ3] local memory = 20.0 Gb
+$ mpiexec -n 2 feenox phwr-s4.fee
+size = 159168	time = 337.8 s	 memory = 25.1 Gb
+[0/2 LIN54Z7SQ3] local memory = 12.5 Gb
+[1/2 LIN54Z7SQ3] local memory = 12.5 Gb
+$ mpiexec -n 4 feenox phwr-s4.fee
+size = 159168	time = 282.2 s	 memory = 27.5 Gb
+[0/4 LIN54Z7SQ3] local memory = 7.7 Gb
+[1/4 LIN54Z7SQ3] local memory = 6.9 Gb
+[2/4 LIN54Z7SQ3] local memory = 6.1 Gb
+[3/4 LIN54Z7SQ3] local memory = 6.8 Gb
+$
 ```
-Info    : 3147 nodes 21982 elements
-Info    : Writing 'phwr0.msh'...
-Info    : Done writing 'phwr0.msh'
-Info    : Stopped on Tue Oct 24 20:07:35 2023 (From start: Wall 0.38859s, CPU 0.393357s)
-$ Qt: Session management error: networkIdsList argument is NULL
-bg
-bash: bg: job 1 already in background
-$ for i in 1 2 4; do mpirun -n $i feenox phwr-s4.fee; done
-```
 
+Lo que sí sigue siendo cierto es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
 
-mostrar que KSP es mucho más barato que EPS
+Para finalizar, debemos notar que al resolver problemas de critidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el @sec-esquemas en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
+Para resolver este tipo de problemas se necesita un solver lineal que pueda "invertir" la matriz de fisiones.
+Por un tema numérico, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan mejor si este solver linea es directo. Es conocido que los solvers directos son robustos pero no escalan bien. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un solver lineal usando opciones en la línea de comandos).
+Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales.
+
+En efecto, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétricas y el operador es elíptico.
+Esto lhace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un solver de Krylov tipo gradientes conjugados , tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
+Por otro lado, al resolver `neutron_sn`, aún para problemas con fuente se necesita un solver directo ya que de otra manera la convergencia es muy lenta.
+

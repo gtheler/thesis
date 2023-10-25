@@ -6,15 +6,15 @@
 
 ![Geometría del problema de Azmy](azmy-figure.svg){#fig-azmy-figure}
 
-Este problema adimensional fue introducido en 1988 en la referencia @azmy y re-visitado en la Tesis de Maestría @park.
+Este problema adimensional fue introducido en 1988 en el artículo @azmy y re-visitado en la tesis @park.
 Consiste en una geometría bi-dimensional muy sencilla, como ilustramos en la @fig-azmy-figure.
 En el paper original, este cuadrado se dividide en cuatro cuadrados de $5 \times 5$ donde se calculan los flujos medios, que es lo que hacemos en las dos secciones que siguen para comparar los resultados con las referencias.
 
 
 ## Malla estructurada uniforme de segundo orden
 
-Aprovechando que la geometría es un cuadrado empezamos resolviendo el problema con una malla estructurada y uniforme de segundo orden ().
-Mostramos el archivo de entrada de Gmsh para vincular los nombres de las entidades físicas con el archivo de entrada de FeenoX para mostrar cómo calculamos los valores medios de los flujos como pide el problema original:
+Aprovechando que la geometría es un cuadrado empezamos resolviendo el problema con una malla estructurada y uniforme de segundo orden (@fig-azmy-structured-mesh).
+Mostramos el archivo de entrada de Gmsh para vincular los nombres de las entidades físicas con el archivo de entrada de FeenoX y cómo calculamos los valores medios de los flujos como pide el problema original:
 
 ![Malla cuadrangular estructurada de segundo orden (quad9) para el problema de Azmy](azmy-structured-mesh.png){#fig-azmy-structured-mesh width=50%}
 
@@ -60,7 +60,7 @@ $
 Dado que es esperable que haya grandes gradientes en el flujo neutrónico en las interfaces entre la zona de la fuente y el reflector, podemos aprovechar la posibilidad de hacer un refinamiento local en mallas no estructuradas (@fig-azmy-mesh).
 Para ilustrar la flexiblidad de FeenoX, ahora no asignamos una entidad física a cada cuadrante sino que integramos el flujo con el funcional `integrate` dando explícitamente el dominio de integración como función de $x$ e $y$.
 
-![Malla triangular no estructurada de segundo orden (tri6) para el problema de Azmy](azmy-mesh.png){#fig-azmy-mesh width=50%}
+![Malla triangular no estructurada de primer orden (tri3) para el problema de Azmy](azmy-mesh.png){#fig-azmy-mesh width=50%}
 
 ```{.geo include="azmy.geo"}
 ```
@@ -139,10 +139,10 @@ Flujos angulares $\psi_g(x,y)$ en el problema de Azmy resuelto con malla no est
 
 ## Estudio paramétrico para analizar el "efecto rayo"
 
-En la tesis @park, el autor nota que este tipo de problemas es susceptible al artefacto numérico conocido como "efecto rayo" según el cual la discretización angular hace que algunas direcciones no estén bien representadas por el esquema de S$_N$.
+En la ref. @park, el autor nota que este tipo de problemas es susceptible al artefacto numérico conocido como "efecto rayo" según el cual la discretización angular hace que algunas direcciones no estén bien representadas por el esquema de S$_N$.
 Justamente en esa tesis se proponen formas para lidiar con este efecto. Incluso una de esas formas es discretizar la variable angular con funciones de forma similares a las usadas para discretizar el espacio @ray-effect.
 
-Para ilustrar el efecto, se toman perfiles de flujo a lo largo de la dirección $y$ a para diferentes valores constantes de $x$ sobre el reflector (donde el flujo es mucho menor que en la fuente como ilustramos en las figuras [-@fig-azmy-phi] y [-fig-azmy-psi].
+Para ilustrar el efecto, se toman perfiles de flujo a lo largo de la dirección $y$ para diferentes valores constantes de $x$ sobre el reflector (donde el flujo es mucho menor que en la fuente como ilustramos en las figuras [-@fig-azmy-phi] y [-@fig-azmy-psi].
 En particular, el autor investiga los siguientes tres valores de $x$
   
    a. $x=5.84375$
@@ -150,7 +150,7 @@ En particular, el autor investiga los siguientes tres valores de $x$
    c. $x=9.84375$
    
 Para poder entender lo que está pasando, queremos estudiar qué sucede con estos perfiles cuando las direcciones de S$_N$ de alguna manera "rotan" con respecto a la geometría.
-Como el código usa cuadraturas de nivel simétrico, no podemos rotar las direcciones. Debemos rotar la geometría.
+Como FeenoX usa cuadraturas de nivel simétrico, no podemos rotar las direcciones. Debemos rotar la geometría.
 Pero si rotamos un ángulo arbitrario $\theta$ el cuadrado original no vamos a poder poner las condiciones de simetría ya que se necesita que tanto la dirección incidente como la reflejada estén en el conjunto de cuadraturas.
 Por lo tanto necesitamos modelar la geometría completa de tamaño $20 \times 20$ con condiciones de contorno de vacío en los cuadro lados del cuadrado.
 
@@ -174,7 +174,7 @@ Para eso preparamos un archivo de entrada de Gmsh que
 ```
 
 Por otro lado, el archivo de entrada de FeenoX toma los tres parámetros a estudiar en la línea de comando.
-Una vez resuelto el problema neutrónico, define tres funciones de una única variable igual a los perfiles de flujo pedidos en la geometría original con $\theta = 0$ y los escribe en un archivo de texto ASCII listos para ser graficados con herramientas como Gnuplot o Pyxplot.
+Una vez resuelto el problema neutrónico, define tres funciones de una única variable igual a los perfiles de flujo pedidos en la geometría original con $\theta = 0$ y los escribe en un archivo de texto ASCII listos para ser graficados con herramientas como Gnuplot o Pyxplot:
 
 ```{.feenox include="azmy-full.fee"}
 ```
@@ -194,33 +194,33 @@ Finalmente podemos ver cómo cambian los perfiles con el ángulo $\theta$ para 
 El análisis detallado del efecto rayo en ordenadas discretas es un posible trabajo futuro derivado de esta tesis de doctorado.
 
 
-![$\theta=0$ and $N=4$ for different values of $c$](azmy-full-theta-0-sn-4.svg){#fig-azmy-full-1}
+![$\theta=0$ y $N=4$ para diferentes valores de $c$](azmy-full-theta-0-sn-4.svg){#fig-azmy-full-1}
 
-![$\theta=0$ and $N=8$ for different values of $c$](azmy-full-theta-0-sn-8.svg){#fig-azmy-full-2}
+![$\theta=0$ y $N=8$ para diferentes valores de $c$](azmy-full-theta-0-sn-8.svg){#fig-azmy-full-2}
 
-![$\theta=0$ and $N=12$ for different values of $c$](azmy-full-theta-0-sn-12.svg){#fig-azmy-full-3}
-
-
-![$\theta=0$ and $c=1.5$ for different values of $N](azmy-full-theta-0-c-1.5.svg){#fig-azmy-full-4}
-
-![$\theta=15$ and $c=1.5$ for different values of $N$](azmy-full-theta-15-c-1.5.svg){#fig-azmy-full-5}
-
-![$\theta=30$ and $c=1.5$ for different values of $N$](azmy-full-theta-30-c-1.5.svg){#fig-azmy-full-6}
-
-![$\theta=45$ and $c=1.5$ for different values of $N$](azmy-full-theta-45-c-1.5.svg){#fig-azmy-full-7}
+![$\theta=0$ y $N=12$ para diferentes valores de $c$](azmy-full-theta-0-sn-12.svg){#fig-azmy-full-3}
 
 
+![$\theta=0$ y $c=1.5$ para diferentes valores de $N](azmy-full-theta-0-c-1.5.svg){#fig-azmy-full-4}
 
-![$N=4$ and $c=1$ for different values of $\theta$](azmy-full-sn-4-c-1.svg){#fig-azmy-full-8}
+![$\theta=15$ y $c=1.5$ para diferentes valores de $N$](azmy-full-theta-15-c-1.5.svg){#fig-azmy-full-5}
 
-![$N=6$ and $c=1$ for different values of $\theta$](azmy-full-sn-6-c-1.svg){#fig-azmy-full-9}
+![$\theta=30$ y $c=1.5$ para diferentes valores de $N$](azmy-full-theta-30-c-1.5.svg){#fig-azmy-full-6}
 
-![$N=9$ and $c=1$ for different values of $\theta$](azmy-full-sn-8-c-1.svg){#fig-azmy-full-10}
+![$\theta=45$ y $c=1.5$ para diferentes valores de $N$](azmy-full-theta-45-c-1.5.svg){#fig-azmy-full-7}
 
 
 
-![$N=10$ and $c=1.5$ for different values of $\theta$](azmy-full-sn-10-c-1.5.svg){#fig-azmy-full-11}
+![$N=4$ y $c=1$ para diferentes valores de $\theta$](azmy-full-sn-4-c-1.svg){#fig-azmy-full-8}
 
-![$N=12$ and $c=2$ for different values of $\theta$](azmy-full-sn-12-c-2.svg){#fig-azmy-full-12}
+![$N=6$ y $c=1$ para diferentes valores de $\theta$](azmy-full-sn-6-c-1.svg){#fig-azmy-full-9}
+
+![$N=9$ y $c=1$ para diferentes valores de $\theta$](azmy-full-sn-8-c-1.svg){#fig-azmy-full-10}
+
+
+
+![$N=10$ y $c=1.5$ para diferentes valores de $\theta$](azmy-full-sn-10-c-1.5.svg){#fig-azmy-full-11}
+
+![$N=12$ y $c=2$ para diferentes valores de $\theta$](azmy-full-sn-12-c-2.svg){#fig-azmy-full-12}
 
 

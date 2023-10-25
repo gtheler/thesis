@@ -32,7 +32,7 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
    4   |  2.0  |  0.3  | 0.04  |  0    | 0.01  |   0   | Reflector
    5   |  2.0  |  0.3  | 0.04  |  0    | 0.055 |   0   | Refl. + Rod
 
-: {#tbl-iaea-xs2}
+: @anl7416 {#tbl-iaea-xs2}
 
 Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de buckling geométrico $B_g^2=0.8 \times 10^{-4}$.
  
@@ -54,7 +54,7 @@ El lector experimentado podrá notar que esta característica (que es parte de l
 :::
 
 ::: {.remark}
-Si bien las secciones eficaces con uniformes, la sección eficaz de absorción está dada por una expresión que es la suma de la sección eficas base más el producto del coeficiente de difusión $D_g$ por el buckling geométrico $B_g$. En lugar de volver a escribir la constante numérica correspondiente al material, escribimos $Dg(x,y)$ para que FeenoX reemplace el valor apropiado del coeficiente de difusión del material en cuestión por nosotros.
+Si bien las secciones eficaces con uniformes, la sección eficaz de absorción está dada por una expresión que es la suma de la sección eficas base más el producto del coeficiente de difusión $D_g$ por el buckling geométrico $B_g$. En lugar de volver a escribir la constante numérica correspondiente al material, escribimos $D_g(x,y)$ para que FeenoX reemplace el valor apropiado del coeficiente de difusión del material en cuestión por nosotros.
 :::
 
 
@@ -79,7 +79,7 @@ $
 ## Caso 2D con simetría 1/8
 
 Bien mirado, el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito, @park, @babcsany]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 
@@ -107,7 +107,7 @@ $
 
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
-Esto indica que el tamaño del problema es muy pequeño y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US] de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
+Esto indica que el tamaño del problema es muy pequeño y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US} de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
 Podemos verificar esta afirmación analizando la salida de la opcion `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
 
 ```terminal
@@ -115,13 +115,13 @@ $ feenox iaea-2dpwr.fee eighth --log_view
 grados de libertad =    1336
 keff =  1.02974
 [...]
-Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
-                        Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
- 0:      Main Stage: 2.0911e-03   7.7%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 1:            init: 2.1185e-04   0.8%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 2:           build: 9.7703e-03  36.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 3:           solve: 1.4487e-02  53.6%  1.9467e+07 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 4:            post: 4.8677e-04   1.8%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+Summary of Stages:   ----- Time ------  ----- Flop ------ 
+                        Avg     %Total     Avg     %Total 
+ 0:      Main Stage: 2.0911e-03   7.7%  0.0000e+00   0.0% 
+ 1:            init: 2.1185e-04   0.8%  0.0000e+00   0.0% 
+ 2:           build: 9.7703e-03  36.1%  0.0000e+00   0.0% 
+ 3:           solve: 1.4487e-02  53.6%  1.9467e+07 100.0% 
+ 4:            post: 4.8677e-04   1.8%  0.0000e+00   0.0% 
 [...]
 $
 ```
@@ -143,7 +143,7 @@ Con FeenoX es posible resolver fácilmente esta geometría con el mismo archivo 
 ::: {#fig-pwr-tipico-circ layout="[50,50]"}
 ![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr}
 
-![Malla para el caso 2D con simetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
+![Malla para imetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
 
 Un reactor PWR real y un modelo matemático
 :::
@@ -192,7 +192,7 @@ El archivo de entrada sigue siendo relativamente sencillo, sólo que ahora agreg
 ```{.feenox include="iaea-3dpwr.fee"}
 ```
 
-Como somos ingenieros y tenemos un trauma profesional con el tema de performance, comparamos la "ganancia" de usar simetría 1/8 con respecto al original de 1/4:
+Como somos ingenieros y tenemos un trauma profesional con el tema de performance, debemos comparar la "ganancia" de usar simetría 1/8 con respecto al original de 1/4:
 
 ```terminal
 $ feenox iaea-3dpwr.fee quarter
@@ -266,7 +266,7 @@ $
 
 
 
-## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$
+## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$ {#sec-iaea3d-s4}
 
 Para finalizar el caso, mostramos que FeenoX puede resolver no sólo este problema con el método de difusión sino también con ordenadas discretas.
 

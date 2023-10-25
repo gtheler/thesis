@@ -2,8 +2,8 @@
 
 > **TL;DR:** Estudios paramétricos y de optimización al estilo Unix.
 
-Este problema, inventado para escribir el artículo @enief2013-opt ilustra cómo generalizar las facilidades que provee FeenoX para realizar estudios paramétricos (tal como ya hemos hecho en casi todos los problemas anteriores) para dar un paso más allá y resolver un problema de optimización. Para eso comenzamos resolviendo numéricamente "el problema del pescadito^[Decidimos usar la palabra _pescadito_ en lugar de _pececito_ ya que es mucho más simpática. Además, es poco probable que un pez pueda sobrevivir nadando en un reactor líquido homogéneo de sales fundidas]", que es un clásico en la teoría de perturbaciones lineales.
-Agregamos luego un segundo pescadito que nada en forma opuesta al primero donde mostramos cómo aparecen los dos efectos de apantallamiento y anti-apantallamiento según las posiciones relativas de ambos pescaditos.
+Los tres problemas de esta sección---inventados para escribir el artículo @enief2013-opt---ilustra cómo generalizar las facilidades que provee FeenoX para realizar estudios paramétricos (tal como ya hemos hecho en casi todos los problemas anteriores) para dar un paso más allá y resolver un problema de optimización. Para eso comenzamos resolviendo numéricamente "el problema del pescadito^[Decidimos usar la palabra _pescadito_ en lugar de _pececito_ ya que es mucho más simpática. Además, es poco probable que un pez pueda sobrevivir nadando en un reactor líquido homogéneo de sales fundidas]", que es un clásico en la teoría de perturbaciones lineales.
+Agregamos luego un segundo pescadito que nada en forma diametralmente opuesta al primero donde mostramos cómo aparecen los dos efectos de apantallamiento y anti-apantallamiento según las posiciones relativas de ambos pescaditos.
 Pasamos finalmente a dejar dos pescaditos fijos y resolver la pregunta: ¿dónde tenemos que poner un tercer pescadito para que la reactividad neta sea mínima?
 
 ::: {.remark}
@@ -12,7 +12,7 @@ En los dos primeros problemas podríamos explotar la simetría para reducir el t
 
 ## Un pescadito: teoría de perturbaciones lineales {#sec-un-pescadito}
 
-Consideremos un reactor bi-dimensional circularde radio $A$ con centro en el origen del plano $x$-$y$ y con secciones eficaces macroscópicas homogéneas a un grupo de energías.
+Consideremos un reactor bi-dimensional circular de radio $A$ con centro en el origen del plano $x$-$y$ y con secciones eficaces macroscópicas homogéneas a un grupo de energías.
 Supongamos que un pescadito circular absorbente de radio $a$ puede moverse a lo largo del eje $x$ positivo.
 Un ejercicio clásico de análisis de reactores es dar la reactividad negativa introducida por el pescadito en función de la posición $x = r$ de su centro utilizando teoría de perturbaciones (es decir, suponiendo que $a \ll A$.
 

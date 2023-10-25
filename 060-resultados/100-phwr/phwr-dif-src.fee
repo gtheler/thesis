@@ -1,0 +1,10 @@
+PROBLEM neutron_diffusion 3D GROUPS 2
+READ_MESH phwr2.msh
+INCLUDE xs-src.fee
+SOLVE_PROBLEM
+
+WRITE_RESULTS FORMAT vtk
+
+mem_global = mpi_memory_global()
+PRINTF     "size = %g\ttime = %.1f s\t memory = %.1f Gb" total_dofs wall_time() mem_global
+PRINTF_ALL "local memory = %.1f Gb" mpi_memory_local()

@@ -2,11 +2,12 @@ import os
 import math
 import gmsh
 
-def create_mesh(vol, f):
+def create_mesh(vol, f100):
   gmsh.initialize()
   gmsh.option.setNumber("General.Terminal", 0)  
   
-  f = 0.01*f
+  f = 0.01*f100
+  # cuánto tiene que vale a para mantener el volumen constante?
   a = (vol / (1/8*4/3*math.pi*f**3 + 3*1/4*math.pi*f**2*(1-f) + 3*f*(1-f)**2 + (1-f)**3))**(1.0/3.0)
   
   internal = []
@@ -55,7 +56,7 @@ def create_mesh(vol, f):
   return
 
 
-for f in range(0,101,5):
-  create_mesh(100**3, f)
-  os.system("feenox cubesphere.fee %g"%(f))
+for f100 in range(0,101,5):
+  create_mesh(100**3, f100)
+  os.system("feenox cubesphere.fee %g"%(f100))
 

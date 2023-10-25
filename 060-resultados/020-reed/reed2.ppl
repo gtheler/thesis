@@ -1,11 +1,12 @@
 set preamble "\usepackage{amsmath}"
 
 set width 14*unit(cm)
+set size ratio 0.4
 set axis x arrow nomirrored #atzero
 set axis y arrow nomirrored
 
 set xrange [0:8]
-#set yrange [0:2]
+set yrange [-0.12:0.12]
 
 set grid
 set key above
@@ -13,7 +14,7 @@ set key above
 set terminal pdf
 
 set xlabel "non-dimensional $x$"
-set ylabel "differece between 1st and 2nd-order fluxes"
+set ylabel "difference between 1st and 2nd-order fluxes"
 
 set output "reed2-flux.pdf"
 plot \

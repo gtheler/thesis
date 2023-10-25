@@ -1,9 +1,3 @@
-# solve with
-
-# time mpiexec -n 12 feenox iaea-3dpwr-s4.fee --progress --eps_monitor --eps_converged_reason --eps_type=jd --st_type=precond  --st_ksp_type=gmres --st_pc_type=asm
-
-# mpiexec -n 4 feenox iaea-3dpwr-s4.fee --progress --eps_monitor
-
 PROBLEM neutron_sn 3D GROUPS 2 SN 4 #PROGRESS
 READ_MESH iaea-3dpwr-eighth-circular-s4.msh
 
