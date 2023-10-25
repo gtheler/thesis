@@ -105,7 +105,7 @@ tex(s1(x,y,z), "neutron-bunny-s1.tex");
 EOF
 ```
 
-No sólo le pedimos a Maxima que nos genere el archivo de entrada de FeenoX sino que también le pedimos que nos dé los macros TeX para documentar la fuente en esta tesis:
+No sólo le pedimos a Maxima que nos genere el archivo de entrada de FeenoX sino que también le pedimos que nos dé los macros TeX @texbook para documentar la fuente en esta tesis:
 
 $$
 \begin{aligned}

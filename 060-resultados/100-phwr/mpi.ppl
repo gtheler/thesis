@@ -1,0 +1,25 @@
+set preamble "\usepackage{amsmath}"
+
+set width 14*unit(cm)
+#set size ratio 0.5
+set axis x arrow nomirrored
+set axis y arrow nomirrored
+
+set xtics 1
+set xrange [0:9]
+set yrange [0:22]
+
+set grid
+set key top right
+
+set terminal pdf
+
+set xlabel "n\\'umero de procesos MPI"
+set ylabel "memoria RAM por proceso [Gb]"
+
+set output "mpi.pdf"
+
+plot "mpi-dif.dat" u 1:($3/$1) w lp pt 16 lt 1 lw 1 color blue ti "Difusi\\'on 257k DOFs",\
+     "mpi-s2.dat"  u 1:($3/$1) w lp pt 17 lt 2 lw 3 color green ti "S$_2$ 258k DOFs",\
+      "mpi-s4.dat" u 1:($3/$1) w lp pt 18 lt 3 lw 2 color red ti "S$_4$ 160k DOFs"
+

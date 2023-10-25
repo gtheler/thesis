@@ -189,14 +189,40 @@ size = 159168	time = 282.2 s	 memory = 27.5 Gb
 $
 ```
 
-Lo que sí sigue siendo cierto es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
+Lo que sí sigue siendo cierto, como mostramos en la @fig-mpi, es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
+
+![Disminución de la memoria por proceso MPI](mpi.svg){#fig-mpi}
 
 Para finalizar, debemos notar que al resolver problemas de critidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el @sec-esquemas en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
 Para resolver este tipo de problemas se necesita un solver lineal que pueda "invertir" la matriz de fisiones.
 Por un tema numérico, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan mejor si este solver linea es directo. Es conocido que los solvers directos son robustos pero no escalan bien. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un solver lineal usando opciones en la línea de comandos).
 Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales.
 
-En efecto, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétricas y el operador es elíptico.
-Esto lhace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un solver de Krylov tipo gradientes conjugados , tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
+::: {#tbl-mpi}
+Formulación     |  DOFs   | Problema  |   Build   |   Solve   |   Total   |   Mem.
+:---------------|:-------:|:---------:|----------:|----------:|----------:|----------:
+Difusión        |  257k   |   KSP     |     3.2   |     7.9   |    12.5   |    0.7
+                |         |   EPS     |     6.3   |    87.4   |    95.2   |    6.5
+S$_2$           |  257k   |   KSP     |    24.8   |   219.3   |   246.3   |   18.0
+                |         |   EPS     |    30.6   |   256.3   |   290.9   |   18.0
+S$_4$           |  256k   |   KSP     |    54.3   |   171.8   |   227.1   |   16.3
+                |         |   EPS     |           |           |           |     
+
+: {#tbl-mpi2}
+
+Tiempos para construir y resolver diferentes formulaciones para casos con fuentes (KSP) o de criticidad (EPS)
+:::
+
+
+En efecto, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétrica y el operador es elíptico.
+Esto hace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un solver de Krylov tipo gradientes conjugados, tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
 Por otro lado, al resolver `neutron_sn`, aún para problemas con fuente se necesita un solver directo ya que de otra manera la convergencia es muy lenta.
 
+
+
+
+
+
+::: {.remark}
+En la @sec-mms-dif hemos verificado solamente la primera fila de la tabla @tbl-mpi.
+:::

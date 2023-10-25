@@ -1,3 +1,9 @@
+ * XSs en figura de azmy hay que actualizar con textext @ inkscape
+ * fig two-zone-slab material AB
+ * revisar las citas bib
+
+ * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 
+ 
  * citar nuc eng & des point kinetics 
  * otros aspectos
    - Filosofía Unix
@@ -13,6 +19,7 @@
  * flujos escalares y corrientes en sn
  * explicar SUPG
  
+ * tablas con rowcols?
    
  * si pongo el abstract del sds/srs como meta no me lo expande dentro del div en-US
  * las crossrefs dentro de en-US todavía tienen "sección" en lugar de "section"
@@ -33,3 +40,6 @@
    
  * point kinetics with $\rho(z)$
 
+# TODOs
+
+ * performance
