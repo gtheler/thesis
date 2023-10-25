@@ -174,18 +174,28 @@ De hecho para una malla más gruesa todavía, dando lugar a un tamaño de proble
 
 ```terminal
 $ mpiexec -n 1 feenox phwr-s4.fee
-size = 159168	time = 391.0 s	 memory = 20.0 Gb
+size = 159168   time = 390.1 s   memory = 20.0 Gb
 [0/1 LIN54Z7SQ3] local memory = 20.0 Gb
 $ mpiexec -n 2 feenox phwr-s4.fee
-size = 159168	time = 337.8 s	 memory = 25.1 Gb
+size = 159168   time = 297.6 s   memory = 25.0 Gb
 [0/2 LIN54Z7SQ3] local memory = 12.5 Gb
 [1/2 LIN54Z7SQ3] local memory = 12.5 Gb
 $ mpiexec -n 4 feenox phwr-s4.fee
-size = 159168	time = 282.2 s	 memory = 27.5 Gb
+size = 159168   time = 276.7 s   memory = 27.5 Gb
 [0/4 LIN54Z7SQ3] local memory = 7.7 Gb
 [1/4 LIN54Z7SQ3] local memory = 6.9 Gb
-[2/4 LIN54Z7SQ3] local memory = 6.1 Gb
-[3/4 LIN54Z7SQ3] local memory = 6.8 Gb
+[2/4 LIN54Z7SQ3] local memory = 6.2 Gb
+[3/4 LIN54Z7SQ3] local memory = 6.6 Gb
+$ mpiexec -n 8 feenox phwr-s4.fee
+size = 159168   time = 153.3 s   memory = 33.7 Gb
+[0/8 LIN54Z7SQ3] local memory = 5.0 Gb
+[1/8 LIN54Z7SQ3] local memory = 4.7 Gb
+[2/8 LIN54Z7SQ3] local memory = 3.2 Gb
+[3/8 LIN54Z7SQ3] local memory = 3.5 Gb
+[4/8 LIN54Z7SQ3] local memory = 3.5 Gb
+[5/8 LIN54Z7SQ3] local memory = 4.8 Gb
+[6/8 LIN54Z7SQ3] local memory = 4.8 Gb
+[7/8 LIN54Z7SQ3] local memory = 4.3 Gb
 $
 ```
 
@@ -206,7 +216,7 @@ Difusión        |  257k   |   KSP     |     3.2   |     7.9   |    12.5   |    
 S$_2$           |  257k   |   KSP     |    24.8   |   219.3   |   246.3   |   18.0
                 |         |   EPS     |    30.6   |   256.3   |   290.9   |   18.0
 S$_4$           |  256k   |   KSP     |    54.3   |   171.8   |   227.1   |   16.3
-                |         |   EPS     |           |           |           |     
+                |         |   EPS     |    57.2   |   357.2   |   415.5   |   20.1
 
 : {#tbl-mpi2}
 
