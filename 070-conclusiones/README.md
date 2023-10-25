@@ -21,8 +21,10 @@
 
 importancia FOSS en ingenería
 
+multi-point con lagrange y/o direct elimination
 
 otros conjuntos de cuadraturas
+
 
 entender el efecto rayo y mitigarlo
 
