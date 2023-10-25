@@ -3,7 +3,7 @@ READ_MESH phwr2.msh
 INCLUDE xs.fee
 SOLVE_PROBLEM
 
-# WRITE_RESULTS FORMAT vtk
+WRITE_RESULTS FORMAT vtk
 
 mem_global = mpi_memory_global()
 PRINTF     "size = %g\ttime = %.1f s\t memory = %.1f Gb" total_dofs wall_time() mem_global
