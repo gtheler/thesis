@@ -1,9 +1,8 @@
 PROBLEM neutron_sn 3D GROUPS 2 SN 2
-READ_MESH phwr0.msh INTEGRATION reduced
+READ_MESH phwr.msh INTEGRATION reduced
 INCLUDE xs-src.fee
 SOLVE_PROBLEM
 
-mumps_icntl_14 = 100
 WRITE_RESULTS FORMAT vtk
 
 mem_global = mpi_memory_global()

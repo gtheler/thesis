@@ -1,5 +1,5 @@
-PROBLEM neutron_diffusion 3D GROUPS 2
-READ_MESH phwr2.msh INTEGRATION reduced
+PROBLEM neutron_sn 3D GROUPS 2 SN 4
+READ_MESH phwr0.msh INTEGRATION reduced
 INCLUDE xs-src.fee
 SOLVE_PROBLEM
 
