@@ -1,4 +1,3 @@
-
 # PHWR de siete canales y tres barras de control inclinadas {#sec-phwr}
 
 > **TL;DR:** Mallas no estructuradas, dependencias espaciales no triviales, escalabilidad en paralelo. Si el problema no "entra" en una computadora, lo podemos repartir entre varias.
@@ -74,38 +73,38 @@ Veámos cómo escala FeenoX en términos de tiempo y memoria al resolver este pr
 
 ```terminal
 $ for i in 1 2 4 8 12; do mpirun -n $i feenox phwr-dif.fee; done
-size = 256964   time = 138.8 s   memory = 6.5 Gb
+size = 256964   time = 94.6 s    memory = 6.5 Gb
 [0/1 LIN54Z7SQ3] local memory = 6.5 Gb
-size = 256964   time = 91.1 s    memory = 7.8 Gb
-[0/2 LIN54Z7SQ3] local memory = 4.3 Gb
-[1/2 LIN54Z7SQ3] local memory = 3.6 Gb
-size = 256964   time = 70.6 s    memory = 9.9 Gb
-[0/4 LIN54Z7SQ3] local memory = 3.0 Gb
+size = 256964   time = 61.5 s    memory = 7.9 Gb
+[0/2 LIN54Z7SQ3] local memory = 4.2 Gb
+[1/2 LIN54Z7SQ3] local memory = 3.7 Gb
+size = 256964   time = 49.7 s    memory = 9.5 Gb
+[0/4 LIN54Z7SQ3] local memory = 2.3 Gb
 [1/4 LIN54Z7SQ3] local memory = 2.4 Gb
-[2/4 LIN54Z7SQ3] local memory = 2.2 Gb
-[3/4 LIN54Z7SQ3] local memory = 2.2 Gb
-size = 256964   time = 76.1 s    memory = 12.8 Gb
+[2/4 LIN54Z7SQ3] local memory = 2.4 Gb
+[3/4 LIN54Z7SQ3] local memory = 2.4 Gb
+size = 256964   time = 46.2 s    memory = 12.9 Gb
 [0/8 LIN54Z7SQ3] local memory = 1.6 Gb
-[1/8 LIN54Z7SQ3] local memory = 1.9 Gb
-[2/8 LIN54Z7SQ3] local memory = 1.6 Gb
-[3/8 LIN54Z7SQ3] local memory = 1.6 Gb
-[4/8 LIN54Z7SQ3] local memory = 1.5 Gb
-[5/8 LIN54Z7SQ3] local memory = 1.6 Gb
-[6/8 LIN54Z7SQ3] local memory = 1.6 Gb
-[7/8 LIN54Z7SQ3] local memory = 1.4 Gb
-size = 256964   time = 67.4 s    memory = 14.9 Gb
-[0/12 LIN54Z7SQ3] local memory = 1.5 Gb
-[1/12 LIN54Z7SQ3] local memory = 1.3 Gb
-[2/12 LIN54Z7SQ3] local memory = 1.2 Gb
-[3/12 LIN54Z7SQ3] local memory = 1.3 Gb
-[4/12 LIN54Z7SQ3] local memory = 1.3 Gb
-[5/12 LIN54Z7SQ3] local memory = 1.1 Gb
+[1/8 LIN54Z7SQ3] local memory = 1.6 Gb
+[2/8 LIN54Z7SQ3] local memory = 1.9 Gb
+[3/8 LIN54Z7SQ3] local memory = 1.5 Gb
+[4/8 LIN54Z7SQ3] local memory = 1.6 Gb
+[5/8 LIN54Z7SQ3] local memory = 1.5 Gb
+[6/8 LIN54Z7SQ3] local memory = 1.5 Gb
+[7/8 LIN54Z7SQ3] local memory = 1.7 Gb
+size = 256964   time = 48.8 s    memory = 15.1 Gb
+[0/12 LIN54Z7SQ3] local memory = 1.3 Gb
+[1/12 LIN54Z7SQ3] local memory = 1.2 Gb
+[2/12 LIN54Z7SQ3] local memory = 1.1 Gb
+[3/12 LIN54Z7SQ3] local memory = 1.4 Gb
+[4/12 LIN54Z7SQ3] local memory = 1.5 Gb
+[5/12 LIN54Z7SQ3] local memory = 1.2 Gb
 [6/12 LIN54Z7SQ3] local memory = 1.1 Gb
 [7/12 LIN54Z7SQ3] local memory = 1.1 Gb
-[8/12 LIN54Z7SQ3] local memory = 1.0 Gb
-[9/12 LIN54Z7SQ3] local memory = 1.1 Gb
-[10/12 LIN54Z7SQ3] local memory = 1.4 Gb
-[11/12 LIN54Z7SQ3] local memory = 1.6 Gb
+[8/12 LIN54Z7SQ3] local memory = 1.2 Gb
+[9/12 LIN54Z7SQ3] local memory = 1.0 Gb
+[10/12 LIN54Z7SQ3] local memory = 1.6 Gb
+[11/12 LIN54Z7SQ3] local memory = 1.4 Gb
 $ 
 ```
 
@@ -146,25 +145,25 @@ Estudiemos cómo cambia el tiempo de pared y la memoria con 1, 2, 4 y 8 procesos
 
 ```terminal
 $ for i in 1 2 4 8; do mpirun -n $i feenox phwr-s2.fee; done
-size = 257920   time = 415.6 s   memory = 20.1 Gb
+size = 257920   time = 409.7 s   memory = 20.1 Gb
 [0/1 LIN54Z7SQ3] local memory = 20.1 Gb
-size = 257920   time = 294.6 s   memory = 25.6 Gb
-[0/2 LIN54Z7SQ3] local memory = 11.4 Gb
+size = 257920   time = 286.3 s   memory = 25.5 Gb
+[0/2 LIN54Z7SQ3] local memory = 11.5 Gb
 [1/2 LIN54Z7SQ3] local memory = 14.1 Gb
-size = 257920   time = 295.8 s   memory = 27.7 Gb
-[0/4 LIN54Z7SQ3] local memory = 7.5 Gb
-[1/4 LIN54Z7SQ3] local memory = 6.4 Gb
-[2/4 LIN54Z7SQ3] local memory = 6.9 Gb
-[3/4 LIN54Z7SQ3] local memory = 6.9 Gb
-size = 257920   time = 208.9 s   memory = 36.6 Gb
-[0/8 LIN54Z7SQ3] local memory = 6.0 Gb
-[1/8 LIN54Z7SQ3] local memory = 4.9 Gb
-[2/8 LIN54Z7SQ3] local memory = 4.5 Gb
-[3/8 LIN54Z7SQ3] local memory = 4.0 Gb
-[4/8 LIN54Z7SQ3] local memory = 3.7 Gb
-[5/8 LIN54Z7SQ3] local memory = 4.3 Gb
-[6/8 LIN54Z7SQ3] local memory = 4.4 Gb
-[7/8 LIN54Z7SQ3] local memory = 4.8 Gb
+size = 257920   time = 289.3 s   memory = 29.5 Gb
+[0/4 LIN54Z7SQ3] local memory = 7.6 Gb
+[1/4 LIN54Z7SQ3] local memory = 6.8 Gb
+[2/4 LIN54Z7SQ3] local memory = 7.2 Gb
+[3/4 LIN54Z7SQ3] local memory = 8.0 Gb
+size = 257920   time = 182.7 s   memory = 33.9 Gb
+[0/8 LIN54Z7SQ3] local memory = 4.5 Gb
+[1/8 LIN54Z7SQ3] local memory = 4.4 Gb
+[2/8 LIN54Z7SQ3] local memory = 4.4 Gb
+[3/8 LIN54Z7SQ3] local memory = 4.6 Gb
+[4/8 LIN54Z7SQ3] local memory = 4.3 Gb
+[5/8 LIN54Z7SQ3] local memory = 4.1 Gb
+[6/8 LIN54Z7SQ3] local memory = 3.7 Gb
+[7/8 LIN54Z7SQ3] local memory = 4.0 Gb
 $ 
 ``` 
 
