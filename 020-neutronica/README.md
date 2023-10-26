@@ -179,16 +179,15 @@ reactores tipo CANDU (@fig-arrays). Los canales están inmersos en un gran tanq
 que contiene el moderador líquido, que usualmente se mantiene más frío
 que el refrigerante con el objetivo de mejorar la moderación y aumentar
 así el factor de multiplicación infinito $k_\infty$ del núcleo. El
-elemento combustible está compuesto por un arreglo de barras
-individuales (37 en Atucha, 36 en CANDU) que contienen las pastillas de
+elemento combustible está compuesto por un arreglo de barras 37
+individuales que contienen las pastillas de
 dióxido de uranio recubiertas por un [cladding]{lang=en-US} de [zircalloy]{lang=en-US}.
 
 En los reactores de agua pesada la parada rápida del reactor se realiza
 mediante la inserción de las barras de control por gravedad tal como en los reactores de agua liviana.
 Pero el segundo sistema de extinción consiste en la inyección rápida de una solución
 líquida absorbente de neutrones en el tanque del moderador, que es un componente único de este tipo de reactores.
-En particular, para el caso de Atucha I y II se emplea ácido deuterobórico
-con boro enriquecido en su isótopo diez.
+En particular, para el caso de Atucha I y II se emplea ácido deuterobórico.
 
 
 ### Dos son compañía, tres son multitud
