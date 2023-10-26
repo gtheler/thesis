@@ -32,3 +32,5 @@ otras formulaciones, even parity, P_N, SP_N
 
 
 comparar difusión con ordenadas discretas
+
+medir eficiencia y mejorar performance

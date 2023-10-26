@@ -40,7 +40,7 @@ Está claro los desarrollos y ecuaciones expuestos en este capítulo son conocid
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
  a. A modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en el sentido de Séneca) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
- b. Abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería.
+ b. Abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería que explico en la @sec-licencia.
 
 
 \medskip

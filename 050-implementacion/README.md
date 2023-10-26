@@ -1899,6 +1899,71 @@ Hay varios otros aspectos de la implementación que, por cuestiones de límite d
 Por ejemplo la forma de calcular campos secundarios con entry points para diferentes PDEs u otros detalles de cómo se construyen los objetos algebraicos globales, etc.
 :::
 
+
+### Licencia libre y abierta {#sec-licencia}
+
+Quisiera enfatizar en esta sección la importancia del software libre y abierto en general y en ingeniería en particular.
+Lo primero que hay que decir es que "software libre" o "código abierto" no implica necesariamente el concepto de _gratuidad_.
+Afortunadamente, a diferencia de lo que sucede en inglés, en español los conceptos "libre" y "gratis" se denotan con palabras diferentes.
+Por lo tanto no debería haber tanta ambigüedad como la hay con el término [_free software_]{lang=en-US}. Sin embargo, más de una docena de años de experiencia me indican que esta diferencia no está suficientemente explicada, especialmente en el ambiente de la ingeniería mecánica donde también se confunden los conceptos de "elementos finitos" con "resolución de las ecuaciones de elasticidad con el método de elmentos finitos".
+
+Si bien estrictamente hablando los conceptos de "software libre" y "código abierto" provienen de etimologías y fundamentos diferentes, prácticamente hablando hacen referencia a los mismos conceptos. Y dentro de todos los conceptos asociados, es más importante es el de libertad ([freedom]{lang=en-US} en inglés): la licencia de un cierto software es libre y abierta si le otorga al usuario las cuatro libertades fundamentales @hack-rms:^[Cita textual de ["What is Free Software?"]{lang=en-US} de la [Free Software Foundation]{lang=en-US} que nos hace acordar a la explicación de la ley cero de la termodinámica: [_The reason they are numbered 0, 1, 2 and 3 is historical. Around 1990 there were three freedoms, numbered 1, 2 and 3. Then we realized that the freedom to run the program needed to be mentioned explicitly. It was clearly more basic than the other three, so it properly should precede them. Rather than renumber the others, we made it freedom 0._]{lang=en-US}]
+
+::: {lang=en-US}
+> 0. The freedom to run the program as you wish, for any purpose (freedom 0).
+> 1. The freedom to study how the program works, and change it so it does your computing as you wish (freedom 1). Access to the source code is a precondition for this.
+> 2. The freedom to redistribute copies so you can help others (freedom 2).
+> 3. The freedom to distribute copies of your modified versions to others (freedom 3). By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
+:::
+
+Es decir, la importancia de que el software libre es que el usuario que justamente hace uso del software para que una o más computadoras hagan una tarea, en particular resolver una ecuación diferencial en derivadas parciales, tiene la posibilidad de ver exactamente cómo es que ese software resuelve dichas ecuaciones. E incluso tiene la posibilidad de modicar el código para que las resuelva como él o ella quiere. Y acá viene el punto central de la idea. Por más que ese usuario no tenga los conocimientos necesario para modificar o incluso para entender el código fuente, tiene la _libertad_ de contratar a alguien para que lo haga.
+Es por eso que la idea de libertad es central: en el concepto "free software" la palabra _free_ se debe entender como en "free speech" y no como en "free beer" @faif.
+
+
+::: {.remark}
+Las libertades dos y tres son esencialmente importantes en el ámbito académico.
+:::
+
+Relacionado al movimiento de software libre, que tiene raíces en ideas éticas @gnu-manifesto, viene el concepto de código abierto que se basa en consideraciones más bien prácticas: "given enough eyeballs all bugs are shallow" @cathedral.
+De hecho esta idea aplica también perfectamente al software de ingeniería: la calidad de un solver open source debería ser, objetivamente hablando, superior a cualquier otra herramienta privativa (en el sentido de que _priva_ a los usuarios de las libertades básicas).
+
+
+Una vez explicados las bases del software libre y del código abierto, quiero volver a aclarar por qué aquellos que deciden usar este tipo de programas basándose en consideraciones de precios están equivocados.
+El argumento es que pueden usar solvers "gratuitos" que "hacen lo mismo" que solvers comerciales por los que hay que pagarles una licencia para poder usarlos al desarrollador o, peor aún, a un re-vendedor. Esto hace que este tipo de software, que elimina directamente la libertad básica cero sea clasificado como _privativo_, como ya explicamos en el párrafo anterior. Pero esto no quiere decir que
+
+ 1. haya que aceptar cualquier tipo de software libre
+ 2. el software libre no pueda ser "comercial"
+ 
+::: {.remark}
+Como explica técnicamente muy bien pero comunicacionalmente muy mal la Free Software Foundation, el software libre puede tener un modelo de negocios por detrás y ser efectivamente comercial. Por un lado no hay ningún conflicto ético entre intentar obtener rédito económico escribiendo software. Por otro lado, es incorrecto usar la palabra "comercial" como antónimo de "software libre".
+:::
+
+
+::: {.remark}
+Si un programa viene con su código fuente pero el desarrolador original pide que los usuarios firmen un NDA para poder ejecutarlo o impide que personas de cierta nacionalidad puedan usarlo, entonces puede llegar a ser de código abierto pero no es software libre ya que limita la libertad número cero.
+:::
+
+::: {.remark}
+Si un programa de cálculo viene con su código fuente pero éste está escrito en un dialecto de Fortran 77 ininteligible para alguien que haya nacido después de 1980, entonces no es software libre porque limita la libertad número uno.
+::: 
+
+
+Para redondear la idea, quisiera citar---una vez más---a Lucio Séneca, que ya nos la explicaba hace dos mil años en una carta a su discípulo Lucilio:
+
+> "A veces pensamos que sólo se compran las cosas por las que pagamos dinero y llamamos gratuitas a aquellas por las que terminamos sacrificando nuestras personas. Los productos que no estaríamos dispuestos a comprar si a cambio de ellos tuviéramos que entregar nuestra casa o un campo apacible o productivo, estamos muy resueltos a conseguirlos a costa de llenarnos de inquietudes, de peligros, de perder el honor, de perder nuestra libertad y nuestro tiempo; ... actuemos, pues, en todos nuestros proyectos y asuntos igual que solemos hacerlo siempre que acudimos a un negocio: consideremos a qué precio se ofrece el objeto que deseamos. Con frecuencia tiene el máximo costo aquel por el que no se paga ningún precio. Podría mostrarte muchos regalos cuya adquisición y aceptación nos ha arrebatado la libertad. Seríamos dueños de nosotros si ellos no fueran nuestros."
+
+Hay mucho (más de lo que debería) software de cálculo distribuido bajo licencias compatibles con el software libre pero cuya calidad deja mucho que desear y que sin embargo es usado por ingenieros con el equivocado concepto de gratuidad.
+Dejo entonces dos frases populares Argentinas para que cada uno de los amables lectores elijan de qué lado se acuestan (con respecto al software libre):
+
+> i. A caballo regalado no se le miran los dientes.
+> ii. Cuando la limosna es grande, hasta el santo desconfía.
+
+::: {.remark}
+El software FeenoX se distribuye bajo liencia GNU General Public License versión tres o posterior.
+Esto implica que además de las cuatro libertades, el usuario que recibe una copia del software tiene una restricción: no puede re-distribuir el software modificando la licencia. Este concepto, denominado [_copyleft_]{lang=en-US} (que es otro juego de palabras como lo son Unix, Bash, GNU, less, etc.) hace que el dueño del [_copyright_]{lang=en-US} (en este caso este que escribe) justamente lo use para evitar que alguien que no lo tenga pueda transformar FeenoX en software privativo.
+:::
+
+
 ### Filosofía Unix
 
 Por diseño, FeenoX ha sido escrito desde cero teniendo encuenta las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en la @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
@@ -1973,7 +2038,7 @@ SLEPc version      : SLEPc Release Version 3.16.2, Feb 01, 2022
 
 ### Simulación programática {#sec-simulacion-programatica}
 
-Personalmente no me gusta el término "simulación", pero el concepto de "simulación programática" es lo que se utiliza en la industria para indicar la posibilidad de realizar cálculos de ingeniería sin necesidad de una interfaz gráfica.
+Personalmente no me gusta el término "simulación",^[Buscar online el blog post "Say modeling not simulation" de 2017 para una explicación.]  pero el concepto de "simulación programática" es lo que se utiliza en la industria para indicar la posibilidad de realizar cálculos de ingeniería sin necesidad de una interfaz gráfica.
 En el mundo de software de ingeniería, esto involucra que los solvers provean
 
  a. interfaz en lenguaje de alto nivel, o
@@ -1984,6 +2049,7 @@ En FeenoX, esta idea está embebida en el diseño y se provee la "simulación pr
 De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personzaliados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin interveción manual para definir el problema. La base de diseño del solver fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo "point and click".
 
 El hecho de diseñar el software comenzando por la idea de simulación programática en lugar de una interfaz gráfica hace que desarrollar una o más interfaces gráficas sea mucho más sencillo que el camino inverso tomado por las compañías de software de cálculo que se han dado cuenta de las ventajas de la "simulación programática". Más aún, dado que FeenoX está diseñado para correr en la nube (@sec-cloud), es posible entonces desarrollar interfaces web en forma mucho más natural que si no se hubiesen tenido en cuenta todas estas consideraciones.
+La interfaz, web o desktop, tiene que hacer lo que haría un script programático pero en forma interactiva.
 
 ::: {.remark}
 En la lista de trabajos futuros se incluye el desarrollo de interfaces poder realizar definiciones y ejecutar instrucciones de FeenoX desde lenguajes de scripting, tal como hace Gmsh para Python y Julia.
@@ -2061,20 +2127,25 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
 
 ### Escalabilidad
 
-Paralelización 
+La idea de la escalabilidad de FeenoX viene de la posibilidad de resolver problemas arbitrariamente grandes mediante la paralelización con el estándar MPI [@intro-parallel;@mpi].
+Tal como mostramos y discutimos en el @cap-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidadd de procesos para un problema de tamaño fijo.
 
- - MPI, no openmp
- - hay un montón para hacer
- - Metis: gmsh o dmplex
+Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de decomposición de dominios. Pero, como también mostramos en el @cap-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
 
+::: {.remark}
+Siguiendo las recomendaciones (tanto escritas como orales) de los desarrolladores de PETSc, no se considera en ningún momento la implementación de paralelización basada en OpenMP^[No confundir con OpenMPI que es una de las varias implementaciones del estándar MPI y que sí es soportada por FeenoX.]. Por un lado no hay evidencia de que este tipo de paralelización basada en threads provea una mejor performance que la paralelización de MPI basada en procesos. Por otro lado, el incremento de la cantidad de threads de OpenMP nunca va a redundar en una disminución de la memoria necesaria para resolver un problema de tamaño fijo ya que los threads son locales y no pueden ser separados en diferentes hosts con diferentes características de memoria RAM.
+:::
 
+A modo de ilustración de las características de ejecución con MPI de FeenoX, consideremos el siguiente archivo de entrada (que es parte de los tests de FeenoX):
+
+```feenox
+PRINTF_ALL "Hello MPI World!"
 ```
-mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee
-```
 
-La instrucción `PRINTF_ALL` hace que todos los procesos escriban en la salida estándar los datos formateados con los especificadores de `printf` las variables indicadas, prefijando cada línea con la identificación del proceso y el nombre del _host_.
+La instrucción `PRINTF_ALL` hace que todos los procesos escriban en la salida estándar los datos formateados con los especificadores de `printf` las variables indicadas, prefijando cada línea con la identificación del proceso y el nombre del host.
+Al ejecutar FeenoX con este archivo de entrada con `mpiexec` en un servidor de AWS apropiadamente configurado para que pueda conectarse a otro y repartir la cantidad de procesos MPI obtendríamos por ejemplo:
 
-```
+```terminal
 ubuntu@ip-172-31-44-208:~/mpi/hello$ mpiexec --verbose --oversubscribe --hostfile hosts -np 4 ./feenox hello_mpi.fee 
 [0/4 ip-172-31-44-208] Hello MPI World!
 [1/4 ip-172-31-44-208] Hello MPI World!
@@ -2083,9 +2154,11 @@ ubuntu@ip-172-31-44-208:~/mpi/hello$ mpiexec --verbose --oversubscribe --hostfil
 ubuntu@ip-172-31-44-208:~/mpi/hello$ 
 ```
 
+Esto es, el host `ip-172-31-44-208` crea dos procesos de `feenox` y a su vez le pide al host `ip-172-31-34-195` que cree otros dos procesos. Estos podrán entonces resolver un problema en paralelo donde la carga de CPU y la memoria RAM se repartirán entre dos servidores diferentes.
+
 ![Geometría tutorial `t21` de Gmsh: dos cuadrados mallados con triángulos y descompuestos en 6 particiones.](t21.svg){#fig-t21 width=90%}
 
-Podemos utilizar el tutorial `t21` de Gmsh en el que se ilustra el concepto de DDM (descomposición de dominio o particionado de la malla^[Del inglés [_mesh partitioning_]{lang=en-US}.]) para mostrar cómo funciona la paralelización por MPI en FeenoX.
+Podemos utilizar el tutorial `t21` de Gmsh en el que se ilustra el concepto de DDM (descomposición de dominio o particionado de la malla^[Del inglés [_mesh partitioning_]{lang=en-US}.]) para mostrar otro aspecto de cómo funciona la paralelización por MPI en FeenoX.
 En efecto, consideremos la malla de la @fig-t21 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor númerico 2.
 
 ```feenox
