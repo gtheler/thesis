@@ -24,7 +24,7 @@ importancia FOSS en ingenería
 
 que no se quede en nada!
 
-Trabajos futuros (de otros autores bajo la forma de tesis o proyectos de ingeniería)
+Trabajos futuros (de otros autores bajo la forma de tesis académicas o proyectos de ingeniería indsutriales)
 
  * comparar cuantitativamente difusión con ordenadas discretas
  * agregar otros conjuntos de cuadraturas
@@ -70,7 +70,12 @@ Trabajos futuros (de otros autores bajo la forma de tesis o proyectos de ingenie
    - agregar tests
    - medir la cobertura del código
  * crear una comunidad
- 
+ * estudiar  compatibilidad de las xs homogeneizadas en celdas estructuradas con su uso en mallas no estructuradas
+   - barras de control
+   - nubes de boro
+   
+
+
  
    
 que quede en algo!
