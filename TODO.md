@@ -1,5 +1,6 @@
  * XSs en figura de azmy hay que actualizar con textext @ inkscape
  * fig two-zone-slab material AB
+ * revisar timing en laptop, integration reduced en tet4
  * revisar las citas bib
 
  * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 

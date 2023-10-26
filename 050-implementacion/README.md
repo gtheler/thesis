@@ -1896,7 +1896,12 @@ Finalizamos este capítulo pasando revista a algunos aspectos de diversa importa
 
 ::: {.remark}
 Hay varios otros aspectos de la implementación que, por cuestiones de límite de espacio y tiempo no explicamos.
-Por ejemplo la forma de calcular campos secundarios con entry points para diferentes PDEs u otros detalles de cómo se construyen los objetos algebraicos globales, etc.
+Por ejemplo,
+ * la forma de calcular campos secundarios con entry points para diferentes PDEs, incluyendo los algoritmos de extrapolación desde los puntos de Gauss a los nodos y promedidado sobre nodos
+ * detalles de cómo se construyen los objetos algebraicos globales
+ * la forma de poner las diferentes condiciones de contorno
+ * la creación de las matrices jacobianas para problemas no lineales
+ * etc.
 :::
 
 
@@ -1970,6 +1975,7 @@ Por diseño, FeenoX ha sido escrito desde cero teniendo encuenta las ideas de la
 En particular, son de especial aplicación a FeenoX las reglas de
 
  * composición (@sec-composition)
+ * separación (@sec-separation)
  * simplicidad (@sec-simplicity)
  * parsimonia (@sec-parsimony)
  * transparencia (@sec-transparency)
@@ -2049,7 +2055,12 @@ En FeenoX, esta idea está embebida en el diseño y se provee la "simulación pr
 De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personzaliados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin interveción manual para definir el problema. La base de diseño del solver fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo "point and click".
 
 El hecho de diseñar el software comenzando por la idea de simulación programática en lugar de una interfaz gráfica hace que desarrollar una o más interfaces gráficas sea mucho más sencillo que el camino inverso tomado por las compañías de software de cálculo que se han dado cuenta de las ventajas de la "simulación programática". Más aún, dado que FeenoX está diseñado para correr en la nube (@sec-cloud), es posible entonces desarrollar interfaces web en forma mucho más natural que si no se hubiesen tenido en cuenta todas estas consideraciones.
-La interfaz, web o desktop, tiene que hacer lo que haría un script programático pero en forma interactiva.
+La interfaz, web o desktop, tiene que hacer lo que haría un script programático (tal vez creando la malla y el archivo de entrada `.fee`) pero en forma interactiva.
+
+::: {.remark}
+La plataforma [CAEplex](https://www.caeplex.com) lanzada en 2017 provee una interfaz web para una versión anterior de Feenox que permite resolver problemas termomecánicos y modales en la nube directamente desde el navegador.
+Está 100% integrada en la plataforma CAD [Onshape](https://www.onshape.com), tiene varios miles de usuarios registrados y al momento de la escritura de esta tesis contiene más de diez mil casos resueltos por los usuarios.
+:::
 
 ::: {.remark}
 En la lista de trabajos futuros se incluye el desarrollo de interfaces poder realizar definiciones y ejecutar instrucciones de FeenoX desde lenguajes de scripting, tal como hace Gmsh para Python y Julia.
@@ -2254,6 +2265,25 @@ Cada fila de la matriz global $\mat{K}$ corresponde a un grado de libertad asoc
 
 ### Ejecución en la nube {#sec-cloud}
 
+cloud = infinite resources
+
+es como tener un generador diesel vs. tomar energía eléctrica de la red
+
+thin clients para que no sea tan tedioso el setup
+
+API first: ver slides de Don
+
+abstraction layer + backend
+
+console -> events -> observability
+
+"Desktop solvers design is opposed to cloud-first solvers"
+
+ - file I/O (upload/download)
+ - store results
+ - logging
+ - communication with front-end
+
 No es sólo poder hacer `mpirun` por SSH!
 
 Hay que poner todo en una red, configurar nfs, hostfiles, et.c
@@ -2265,7 +2295,8 @@ Pero además tener en cuenta interacción remota en tiempo de ejecución
    - en un email
    - en un whatsapp
    
-   
+docker friendly: autogen + configure + make
+100% user defined output
 
 
 GUIs
@@ -2290,6 +2321,9 @@ El código es GPLv3+. El + es por extensibilidad.
 
  
 ### Integración continua
+
+--versions
+
 
 Github actions
 

@@ -18,19 +18,59 @@
 :::::
 
 
+Cloud first
 
 importancia FOSS en ingenería
 
+que no se quede en nada!
 
-otros conjuntos de cuadraturas
+Trabajos futuros (de otros autores bajo la forma de tesis o proyectos de ingeniería)
 
-entender el efecto rayo y mitigarlo
-
-FEM sobre coordenada angular
-
-otras formulaciones, even parity, P_N, SP_N
-
-
-comparar difusión con ordenadas discretas
-
-medir eficiencia y mejorar performance
+ * comparar cuantitativamente difusión con ordenadas discretas
+ * agregar otros conjuntos de cuadraturas
+ * evitar o mitigar el efecto rayo
+ * discretizar la coordenada angular con fuciones de forma
+ * agregar otras formulaciones neutrónicas
+   - P$_N$
+   - SP$_N$
+   - even parity
+ * medir eficiencia y mejorar performance
+   - aplicar data-oriented programming
+ * estudiar métodos numéricos iterativos para S$_N$
+   - $p$-AMG
+ * escalabildiad por paralelización
+   - multi-node MPI
+ * desarrollo de interfaces y capas de abstracción
+   - web
+   - gráficas
+   - APIs para lenguajes de scripting
+   - clientes para cloud
+ * refinamiento automático de malla
+ * otras discretizaciones espaciales
+   - galerkin discontinuo
+   - volúmenes finitos
+ * aplicación a problemas de optimización
+   - recocido simulado
+   - algoritmos genéticos
+   - redes neuronales
+ * evaluar el uso de otros frameworks de PETSc
+   - DMplex
+   - PetscFem
+ * otras formas numéricas de poner condiciones multi-punto
+   - multiplicadores de Lagrange
+   - eliminación directa
+ * evaluar la posiblidad de realizar cálculos de celda
+   - probabilidad de colisiones
+ * otras PDEs
+   - elasticidad no lineal
+   - electromagnetismo
+   - acústica
+   - CFD
+ * mejorar la integración continua
+   - agregar tests
+   - medir la cobertura del código
+ * crear una comunidad
+ 
+ 
+   
+que quede en algo!

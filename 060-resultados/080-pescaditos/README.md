@@ -132,6 +132,10 @@ En particular, podemos usar la biblioteca de Python SciPy que provee acceso a al
 ```{.python include="tres.py"}
 ```
 
+::: {.remark}
+En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simuladom, algoritmos genéticos o incluso redes neuronales.
+:::
+
 La función `keff()` a optimizar es función de la posición $\vec{x}_3$ del tercer pescadito, cuyas dos componentes son pasadas como argumento al script de Bash que llama primero a Gmsh y luego a FeenoX para devolver el $k_\text{eff}(\vec{x}_3)$ para $\vec{x}_1$ y $\vec{x}_2$ fijos:
 
 ```{.bash include="tres.sh"}
