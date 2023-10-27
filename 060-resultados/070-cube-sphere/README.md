@@ -1,4 +1,4 @@
-# Estudios paramétricos: el reactor cubo-esfera {#sec-cubesphere}
+# Estudios paramétricos: el reactor cubo-esferoidal {#sec-cubesphere}
 
 > **TL;DR:** Experimento pensado para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada.
 

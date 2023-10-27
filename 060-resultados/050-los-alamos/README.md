@@ -1,6 +1,6 @@
 # Benchmarks de criticidad de Los Alamos {#sec-losalamos}
 
-> **TL;DR:** Estos problemas tienen proveen una manera de realizar una primerea verificación del código con el método de soluciones exactas.
+> **TL;DR:** Estos problemas proveen una manera de realizar una primerea verificación del código con el método de soluciones exactas.
 
 El proceso de verificación de un código numérico involucra justamente, verificar que las ecuaciones se estén resolviendo bien.^[Hay un juego de palabras en inglés que indica que verificación quiere decir ["are we solving the equations right?"]{lang=en-US} mientras que validación quiere decir ["are we solving the right equations?"]{lang=en-US}. En la @sec-mms-dif discutimos más en detalle este concepto.]
 La forma estricta de realizarlo es comparar alguna medida del error cometido en la solución numérica con respecto a la solución exacta de la ecuación que estamos resolviendo y mostrar que éste tiende a cero con el orden teórico según el método numérico empleado.
@@ -60,7 +60,7 @@ Para ilustrar cómo hemos obtenido la @tbl-la-inf mostramos a continuación el 
 ```{.feenox include="la-p74-URR-3-0-IN.fee"}
 ```
 
-![Secciones eficaces macroscópicas a tres grupos del material URR @losalamos.](xs3.png){#fig-xs3 width=70%}
+![Secciones eficaces macroscópicas a tres grupos del material URR @losalamos.](xs3.png){#fig-xs3 width=85%}
 
 Como las secciones eficaces son las mismas para varios problemas, cada material tiene un archivo separado que se incluye desde cada entrada principal. En este caso, a partir de los datos originales mostrados en la @fig-xs3, preparamos el archivo `URR.fee`:
 

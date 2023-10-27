@@ -81,6 +81,7 @@ El script `run.sh` realiza una inicialización y tres pasos:
 La @tbl-010-generar muestra el tiempo necesario para generar lo datos.
 La @tbl-010-interpolar muestra los errores y el tiempo necesario para interpolar los datos.
  
+::: {#tbl-010-generar}
  $n$ |    elementos   |     nodos      | tiempo de mallado [s] | tiempo de rellenado [s] 
 :---:|:--------------:|:--------------:|:---------------------:|:-----------------------:
  10  |  4.979 | 1.201 | 0,09 | 0,01
@@ -88,10 +89,14 @@ La @tbl-010-interpolar muestra los errores y el tiempo necesario para interpola
  30  |  123.264 | 22.992 | 1,19 | 0,26
  40  |  289.824 | 51.898 | 3,23 | 0,87
  50  |  560.473 | 98.243 | 7,04 | 1,85
+
+: {#tbl-010-generar2}
  
-: Tiempo necesario para generar los datos. {#tbl-010-generar}
+Tiempo necesario para generar los datos.
+:::
 
 
+::: {#tbl-010-interpolar}
  $n_1$ | $n_2$ | error $L_2$ | error $L_\infty$ | tiempo [s] 
 :-----:|:-----:|:-------------:|:------------------:|:----------:
 10 | 10 | $1.3 \times 10^{-2}$ | $6.2 \times 10^{-6}$ | 0.02
@@ -120,7 +125,10 @@ La @tbl-010-interpolar muestra los errores y el tiempo necesario para interpola
 50 | 40 | $3.2 \times 10^{-3}$ | $2.4 \times 10^{-2}$ | 3.74
 50 | 50 | $2.5 \times 10^{-3}$ | $7.3 \times 10^{-6}$ | 4.26
 
-: Errores y tiempos necesarios para interpolar los datos. {#tbl-010-interpolar}
+: {#tbl-010-interpolar2}
+ 
+Errores y tiempos necesarios para interpolar los datos. 
+:::
 
 ::: {.remark}
 El cálculo del error $L_\infty$ se hace sobre los nodos y sobre los puntos de Gauss.
@@ -133,7 +141,7 @@ Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho me
 
 Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como opsición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
-
+::: {#tbl-010-ansys}
                         |     Otro     |    FeenoX
 :-----------------------|:------------:|:------------:
  Tiempo                 |  $33.4$ seg    |    $7.24$ seg
@@ -141,7 +149,7 @@ Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-
  Dif. más negativa      |  $-2.509 \times 10^{-4}$  |  $-5.544 \times 10^{-3}$
  Dif. más positiva      |  $+1.477 \times 10^{-4}$  |  $+7.412 \times 10^{-4}$
 
-: Mapeo de $n_1 = 50$ (98.243 nodos) a $n_2 = 100$ (nodos 41.243 nodos) {#tbl-50-100-ansys}
+: De $n_1 = 50$ (98.243 nodos) a $n_2 = 100$ (nodos 41.243 nodos) {#tbl-50-100-ansys}
 
 
                         |     Otro     |    FeenoX
@@ -151,7 +159,10 @@ Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-
  Dif. más negativa      |  $-6.504 \times 10^{-5}$  |  $-5.164 \times 10^{-5}$
  Dif. más positiva      |  $+2.605 \times 10^{-5}$  |  $+3.196 \times 10^{-5}$
 
-: Mapeo de $n_1 = 100$ (nodos 41.243 nodos) a $n_2 = 50$ (98.243 nodos) {#tbl-100-50-ansys}
+: De $n_1 = 100$ (nodos 41.243 nodos) a $n_2 = 50$ (98.243 nodos) {#tbl-100-50-ansys}
+
+Comparación de tiempos de mapeo entre FeenoX y otra alternativa
+:::
 
 
 En el repositorio <https://github.com/gtheler/feenox-non-conformal-mesh-interpolation> se pueden encontrar más detalles sobre el análisis del mapeo no conforme propuesto por FeenoX.

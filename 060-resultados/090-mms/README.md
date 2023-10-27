@@ -175,7 +175,7 @@ Aún para mallas relativamente gruesas @fig-bunny-14, la diferencia entre el fl
 
 ![$\phi_\text{num}(\vec{x}) - \phi_\text{ref}(\vec{x})$ para $c=100$](3d/bunny-100-2.png){#fig-bunny-100-2}
 
-Flujo y error en el conejo de Stanford para diferentes mallas (tet4)
+Flujo y error en el conejo de Stanford para diferentes refinamientos (tet4)
 :::
 
 

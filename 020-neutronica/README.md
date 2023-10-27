@@ -569,18 +569,18 @@ Extensible
 
       
 
-La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga estas tres condiciones.
+La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga tres condiciones.
 Es por eso que:
 
 ---
-comment: poner referencias al SDS en los bullets
+comment: TODO poner referencias al SDS en los bullets
 ...
 
  1. Los esquemas numéricos desarrollados a lo largo del @sec-esquemas para resolver las ecuaciones de transporte y difusión de neutrones introducidas en el @sec-transporte-difusion se basan en formulaciones basadas en elementos finitos, que son intrínsecamente compatibles con mallas no estructuradas. 
  
  2. Tal como discutimos en el @sec-introduccion, el primer requerimiento de la herramienta computacional desarrollada es que sea [cloud first]{lang=en-US}. Los apéndices [-@sec-sds] y [-@sec-srs] describen los requerimientos y las especificaciones desde el punto de vista de desarrollo de software. En resumen, la herramienta...
  
-    * es libre ([_free as in freedom_]{lang=en-US} @faif) y abierta ([_open source_]{lang=en-US}), distribuida bajo licencia GPLv3+.
+    * es libre y abierta distribuida bajo licencia GPLv3+.
     * sigue la filosofía de programación Unix @raymond. Estrictamente hablando es un filtro de Unix que funciona como una función de transferencia entre
       a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
       b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
@@ -612,7 +612,7 @@ comment: poner referencias al SDS en los bullets
           * lenguajes de expansión de macros como M4
           * interfaces gráficas de usuario, especialmente basadas en web
  
- 3. El @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también contiene:
+ 3. El @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias con una arquitectura donde existe un _framework_ (ver @def-framework) general y un esquema de apuntadores a función con _entry points_ particulares para las diferentes ecuaciones a resolver. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también puede resolver:
 
      * ecuación de Laplace/Poisson (tanto estado estacionario como transitorio)
      * conducción de calor (tanto estado estacionario como transitorio, incluyendo conductividad no lineal dependiente de la temperatura)
@@ -637,28 +637,17 @@ comment: poner referencias al SDS en los bullets
           - integrales sobre el espacio
           - cálculo de extremos y valores medios
     
-    que es provista por el [framework]{lang=en-US} de matemática general de la herramienta.
+    Todos estos puntos están manejados por el [framework]{lang=en-US} de matemática general de la herramienta.
     Cada ecuación diferencial particular a resolver debe ser "provista" como un subdirectorio dentro de `src/pdes` conteniendo ciertas funciones en C capaces de generar las matrices y vectores elementales de la formulación de la ecuación diferencial según el método de elementos finitos.
 
-Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas tres características.
-El @sec-srs contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
-El @sec-sds contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. Aún quedan muchos aspectos por investigar e implementar, como por ejemplo
+Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas cuatro características distintivas del código desarrollado:
 
- * Esquemas espaciales basados en volúmenes finitos
- * Formulación de elementos finitos tipo Galerkin discontinuos
- * Otros esquemas de discretización débiles como mínimos cuadrados en lugar de Galerkin
- * Otras formulaciones neutrónicas
-   - $P_L$
-   - Even parity
-   - Probabilidad de colisiones
- * Capacidad de refinamiento de malla automático^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
- * Elementos de alto orden y refinamiento tipo $p$
- * Esquemas de solución $p$-multigrid @brown2022performance
- * Transitorios neutrónicos
- * Acople con otros códigos de cálculo a través de memoria compartida
- * Medición y optimización de performance computacional
- * Optimización de utilización de comunicación MPI
- * Integración de GUIs basados en web
- * Integración con APIs tipo REST para control remoto
+ a. Filosofía Unix, integración en scripts y simulación programática
+ b. Mallas no estructuradas
+ c. Ordenadas discretas (además de difusión)
+ d. Paralelización en varios nodos de cálculo con MPI
+
+El @sec-srs contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
+El @sec-sds contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. 
 
 Terminada la explicación del _por qué_ ([why]{lang=en-US}) pasemos entonces al _cómo_ ([how]{lang=en-US}).

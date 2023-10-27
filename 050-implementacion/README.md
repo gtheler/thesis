@@ -98,7 +98,7 @@ respectivamente.
 Y que no sólo es de código _abierto_ en el sentido de la OSI sino que también es _libre_ en el sentido de la _Free Software Foundation_ @faif.
 La diferencia entre código abierto y software libre es más sutil que práctica, ya que las definiciones técnicas prácticamente coinciden.
 El punto principal de que el código sea abierto es que permite obtener mejores resultados con mejor performance mientras más personas puedan estudiar el código, escrutarlo y eventualmente mejorarlo @cathedral. 
-Por otro lado, el software libre persigue un fin ético relacionado con la libertad de poder ejecutar, distribuir, modificar y distribuir las modificaciones del software recibido [@gnu-manifesto; @hack-rms].
+Por otro lado, el software libre persigue un fin ético relacionado con la libertad de poder ejecutar, distribuir, modificar y distribuir las modificaciones del software recibido [@gnu-manifesto; @hack-rms]. En la @sec-licencia discutimos los detalles de estas ideas.
 
 ::: {.remark}
 Ninguno de los dos conceptos, código abierto o software libre, se refiere a la idea de _precio_.
@@ -108,7 +108,7 @@ En Español no debería haber ninguna confusión. Pero en inglés, el sustantivo
 
 Tal como como Unix^[A principios de 1960, los Bell Labs en EEUU llegaron a desarrollar un sistema operativo que funcionaba bien, así que decidieron encarar MULTICS. Como terminó siendo una monstruosidad, empezaron UNIX que es lo que quedó bien.] @unix
 y C^[A fines de 1960, también en los Bell Labs, llegaron a desarrollar un un lenguaje de programación A que funcionaba bien, así que decidieron encarar B. Como terminó siendo una monstruosidad, empezaron C que es lo que quedó bien.], FeenoX es un "efecto de tercer sistema"^[Del inglés [_third-system effect_]{lang=en-US}.] @raymond.
-De hecho, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema.
+De hecho, esta diferencia entre el concepto de código abierto y software libre fue discutida en la referencia @enief-milonga-2014 durante el desarrollo de la segunda versión del sistema. Una vez más, la @sec-licencia provee una explicación de los conceptos fundamentales y, literalmente, de la filosofía detras de la idea de software libre.
 
 De las lecciones aprendidas en las dos primeras versiones, la primera un poco naïve pero funcional y la segunda más pretenciosa y compleja (apalancada en la funcionalidad de la primera), hemos convergido al diseño explicado en el SDS del @sec-sds donde definimos la filosofía de diseño del software y elegimos una de las infinitas formas de diseñar una herramienta computacional mencionadas al comienzo de este capítulo.
 Gran parte de este diseño está basado en la filosofía de programación Unix @raymond.
@@ -225,16 +225,10 @@ y usualmente en términos de la regla de simplicidad en la filosofía de Unix:
 :::
 
 
-Justamente, Fortran y C++ hacen fácil agregar complejidad innecesaria.
+Justa y efectivamente, Fortran y C++ hacen fácil agregar complejidad innecesaria.
 En C, no es fácil agregar complejidad innecesaria.
+Por lo tanto, como bien dice Linus Torvalds en la cita del comienzo del capítulo, si con esta decisión lo único que hacemos es evitar que se pueda agregar gratuitamente complejidad al código, esa ya sería una razón suficiente para tomarla.
 
----
-comment: |
-  **TODO**: feenox está en el medio y busca ser compacto:
-  mapdl es un quilombo de commons y no se entiende nada
-  reflex es un quilombo de visitors, interfaces, etc. y no se entiende nada
-  feenox es lo más straightforward
-...
 
 ### Construcción de los elementos globales
 
@@ -523,13 +517,13 @@ Por ejemplo, la lectura del archivo de malla es una instrucción y no una defini
  
  ii. el archivo con la malla en sí puede ser creado internamente por FeenoX con una instrucción previa `WRITE_MESH` y/o modificada en tiempo de ejecución
  
-    ```feenox
-    READ_MESH square.msh SCALE 1e-3
-    WRITE_MESH square_tmp.vtk
+   ```feenox
+   READ_MESH square.msh SCALE 1e-3
+   WRITE_MESH square_tmp.vtk
     
-    INPUT_FILE tmp PATH square_tmp.vtk
-    READ_MESH tmp
-    ```
+   INPUT_FILE tmp PATH square_tmp.vtk
+   READ_MESH tmp
+   ```
     
  iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver @sec-non-conformal.
 
@@ -1897,6 +1891,7 @@ Finalizamos este capítulo pasando revista a algunos aspectos de diversa importa
 ::: {.remark}
 Hay varios otros aspectos de la implementación que, por cuestiones de límite de espacio y tiempo no explicamos.
 Por ejemplo,
+
  * la forma de calcular campos secundarios con entry points para diferentes PDEs, incluyendo los algoritmos de extrapolación desde los puntos de Gauss a los nodos y promedidado sobre nodos
  * detalles de cómo se construyen los objetos algebraicos globales
  * la forma de poner las diferentes condiciones de contorno
@@ -1905,9 +1900,9 @@ Por ejemplo,
 :::
 
 
-### Licencia libre y abierta {#sec-licencia}
+  ### Licencia libre y abierta {#sec-licencia}
 
-Quisiera enfatizar en esta sección la importancia del software libre y abierto en general y en ingeniería en particular.
+Quisiera enfatizar en esta sección la importancia del software libre y abierto en general y al relacionado a cálculos de ingeniería en particular.
 Lo primero que hay que decir es que "software libre" o "código abierto" no implica necesariamente el concepto de _gratuidad_.
 Afortunadamente, a diferencia de lo que sucede en inglés, en español los conceptos "libre" y "gratis" se denotan con palabras diferentes.
 Por lo tanto no debería haber tanta ambigüedad como la hay con el término [_free software_]{lang=en-US}. Sin embargo, más de una docena de años de experiencia me indican que esta diferencia no está suficientemente explicada, especialmente en el ambiente de la ingeniería mecánica donde también se confunden los conceptos de "elementos finitos" con "resolución de las ecuaciones de elasticidad con el método de elmentos finitos".
@@ -1921,7 +1916,7 @@ Si bien estrictamente hablando los conceptos de "software libre" y "código abie
 > 3. The freedom to distribute copies of your modified versions to others (freedom 3). By doing this you can give the whole community a chance to benefit from your changes. Access to the source code is a precondition for this.
 :::
 
-Es decir, la importancia de que el software libre es que el usuario que justamente hace uso del software para que una o más computadoras hagan una tarea, en particular resolver una ecuación diferencial en derivadas parciales, tiene la posibilidad de ver exactamente cómo es que ese software resuelve dichas ecuaciones. E incluso tiene la posibilidad de modicar el código para que las resuelva como él o ella quiere. Y acá viene el punto central de la idea. Por más que ese usuario no tenga los conocimientos necesario para modificar o incluso para entender el código fuente, tiene la _libertad_ de contratar a alguien para que lo haga.
+Es decir, la importancia que el software libre es que el usuario que justamente hace uso del software para que una o más computadoras hagan una tarea, en particular resolver una ecuación diferencial en derivadas parciales, tiene la posibilidad de ver exactamente cómo es que ese software resuelve dichas ecuaciones. E incluso tiene la posibilidad de modicar el código para que las resuelva como él o ella quiere. Y acá viene el punto central de la idea. Por más que ese usuario no tenga los conocimientos necesario para modificar o incluso para entender el código fuente, tiene la _libertad_ de contratar a alguien para que lo haga por él o por ella.
 Es por eso que la idea de libertad es central: en el concepto "free software" la palabra _free_ se debe entender como en "free speech" y no como en "free beer" @faif.
 
 
@@ -1940,7 +1935,7 @@ El argumento es que pueden usar solvers "gratuitos" que "hacen lo mismo" que sol
  2. el software libre no pueda ser "comercial"
  
 ::: {.remark}
-Como explica técnicamente muy bien pero comunicacionalmente muy mal la Free Software Foundation, el software libre puede tener un modelo de negocios por detrás y ser efectivamente comercial. Por un lado no hay ningún conflicto ético entre intentar obtener rédito económico escribiendo software. Por otro lado, es incorrecto usar la palabra "comercial" como antónimo de "software libre".
+Como explica técnicamente muy bien pero comunicacionalmente muy mal la Free Software Foundation, el software libre puede tener un modelo de negocios por detrás y ser efectivamente comercial. No hay ningún conflicto ético entre intentar obtener rédito económico escribiendo software y la filosofía de libertad· que subyacen bajo el software libre. Luego, es incorrecto usar la palabra "comercial" como antónimo de "software libre".
 :::
 
 
@@ -1953,7 +1948,7 @@ Si un programa de cálculo viene con su código fuente pero éste está escrito 
 ::: 
 
 
-Para redondear la idea, quisiera citar---una vez más---a Lucio Séneca, que ya nos la explicaba hace dos mil años en una carta a su discípulo Lucilio:
+Para redondear la idea, quisiera citar---una vez más---a Lucio Séneca, que ya nos explicaba la relación entre gratuidad y libertad hace dos mil años durante la Roma Imperial en una carta a su discípulo Lucilio:
 
 > "A veces pensamos que sólo se compran las cosas por las que pagamos dinero y llamamos gratuitas a aquellas por las que terminamos sacrificando nuestras personas. Los productos que no estaríamos dispuestos a comprar si a cambio de ellos tuviéramos que entregar nuestra casa o un campo apacible o productivo, estamos muy resueltos a conseguirlos a costa de llenarnos de inquietudes, de peligros, de perder el honor, de perder nuestra libertad y nuestro tiempo; ... actuemos, pues, en todos nuestros proyectos y asuntos igual que solemos hacerlo siempre que acudimos a un negocio: consideremos a qué precio se ofrece el objeto que deseamos. Con frecuencia tiene el máximo costo aquel por el que no se paga ningún precio. Podría mostrarte muchos regalos cuya adquisición y aceptación nos ha arrebatado la libertad. Seríamos dueños de nosotros si ellos no fueran nuestros."
 
@@ -1980,7 +1975,7 @@ En particular, son de especial aplicación a FeenoX las reglas de
  * parsimonia (@sec-parsimony)
  * transparencia (@sec-transparency)
  * generación (@sec-generation)
- * diversidad (@sec-diversiy)
+ * diversidad (@sec-diversity)
 
 En particular, se hace especial énfasis en que el problema a resolver esté completamente definido en un archivo de texto tipo ASCII que pueda ser seguido con un sistema de control de versiones tipo Git.
 Las mallas, que no son amenas Git, _no_ son parte del archivo de entrada de FeenoX sino que son referidos a través de una ruta a un archivo separado. La idea es que la malla sea generada a partir de otro archivo ameno a Git, como por ejemplo los archivos de entrada de Gmsh o líneas de código en alguno de los lenguajes para los cuales Gmsh provee una API: Python, Julia, C y C++.
@@ -1991,7 +1986,7 @@ La decisión de utilizar bibliotecas numéricas libres, abiertas y bien establec
 No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el @sec-esquemas. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al solver neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
 
 ::: {.remark}
-El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un nuevo esquema de [_coarsening_] que, para algunos problemas con ciertas opciones de optimización en el compilador, es más rápido que en la versión 3.19.
+El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un nuevo esquema de [_coarsening_]{lang=en-US} que, para algunos problemas con ciertas opciones de optimización en el compilador, es más rápido que en la versión 3.19.
 :::
 
 ::: {.remark}
@@ -2116,7 +2111,7 @@ Pregunta mucho más difícil de responder pero mucho más valisoa y apropiada.
 En la @sec-architecture ilustramos brevemente esta idea. ¿Cuál es la combinación de herramientas que minimiza el costo total de resolver un laberinto arbitrario (@fig-maze-homer) en términos de tiempo de ingeniería más computación? 
 
 En relación directa a este concepto de economía de horas de ingeniería por horas de CPU está una de las ideas básicas del diseño de FeenoX. Estrictamente hablando es la regla del silencio de Unix pero fue una de las primeras lecciones aprendidas por este que escribe al trabajar en la industria nuclear con códigos escritos en la década de 1970.
-Como ya discutimos en el @sec-introducción, en esos años cada hora de CPU era mucho más cara que cada hora del ingeniero a cargo de un cálculo. Es por eso que la regla de diseño de esos códigos de cálculo era "escribir en la salida todo lo que se calcula" ya que de necesitar un resultado calculado que no formara o parte de la salida obligaría al ingeniero a volver a ejecutar el costoso cálculo.
+Como ya discutimos en el @sec-introduccion, en esos años cada hora de CPU era mucho más cara que cada hora del ingeniero a cargo de un cálculo. Es por eso que la regla de diseño de esos códigos de cálculo era "escribir en la salida todo lo que se calcula" ya que de necesitar un resultado calculado que no formara o parte de la salida obligaría al ingeniero a volver a ejecutar el costoso cálculo.
 Hoy en día la lógica es completamente opuesta y, en general, es mucho más conveniente volver a realizar un cálculo que tener que buscar agujas en pajares ASCII de varios megabytes de tamaño.
 Es por eso que en FeenoX la salida está 100% definida en el archivo de entrada. Y de no haber ninguna instrucción tipo `PRINT` o `WRITE_RESULTS` no habrá ninguna salida para el ingenierio.
 
@@ -2139,9 +2134,9 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
 ### Escalabilidad
 
 La idea de la escalabilidad de FeenoX viene de la posibilidad de resolver problemas arbitrariamente grandes mediante la paralelización con el estándar MPI [@intro-parallel;@mpi].
-Tal como mostramos y discutimos en el @cap-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidadd de procesos para un problema de tamaño fijo.
+Tal como mostramos y discutimos en el @sec-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidadd de procesos para un problema de tamaño fijo.
 
-Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de decomposición de dominios. Pero, como también mostramos en el @cap-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
+Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de decomposición de dominios. Pero, como también mostramos en el @sec-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
 
 ::: {.remark}
 Siguiendo las recomendaciones (tanto escritas como orales) de los desarrolladores de PETSc, no se considera en ningún momento la implementación de paralelización basada en OpenMP^[No confundir con OpenMPI que es una de las varias implementaciones del estándar MPI y que sí es soportada por FeenoX.]. Por un lado no hay evidencia de que este tipo de paralelización basada en threads provea una mejor performance que la paralelización de MPI basada en procesos. Por otro lado, el incremento de la cantidad de threads de OpenMP nunca va a redundar en una disminución de la memoria necesaria para resolver un problema de tamaño fijo ya que los threads son locales y no pueden ser separados en diferentes hosts con diferentes características de memoria RAM.
@@ -2311,12 +2306,20 @@ Client
 
  
 
-### Extensibildiad
+### Extensibilidad
 
  - `src/pdes/`
+   - + pdes
+   - EM
  - FVM
+   - high-order
  - truss1d
 
+transient neutronics
+
+cell level
+
+ 
 El código es GPLv3+. El + es por extensibilidad.
 
  
@@ -2324,12 +2327,17 @@ El código es GPLv3+. El + es por extensibilidad.
 
 --versions
 
+tests: make check
+
+valgrind
 
 Github actions
 
 TODO: code coverage?
 
 ### Documentación
+
+paper JOSS
 
 Markdown 
 
@@ -2338,6 +2346,8 @@ Pandoc:
  - HTML
  - PDF (a través de LaTeX)
  - Github Markdown (READMEs)
+ 
+parte de arriba de man page? 
  
 ![La página de manual de FeenoX de Unix al ejecutar `man feenox`](manpage.png){#fig-manpage}
 

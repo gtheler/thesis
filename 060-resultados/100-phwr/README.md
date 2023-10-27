@@ -131,7 +131,7 @@ La @fig-phwr-dif muestra la distribución de flujos rápido y térmico resultan
 
 ![$\phi_2$ a $z=z4$](phwr-dif-phi2-500.png){#fig-phwr-dif-phi2-500}
 
-Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión
+Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión. Todos los combustibles tienen el mismo quemado.
 :::
 
 
@@ -210,13 +210,13 @@ Es por eso también que los problemas sin fuentes independientes son más intens
 
 ::: {#tbl-mpi}
 Formulación     |  DOFs   | Problema  |   Build   |   Solve   |   Total   |   Mem.
-:---------------|:-------:|:---------:|----------:|----------:|----------:|----------:
-Difusión        |  257k   |   KSP     |     3.2   |     7.9   |    12.5   |    0.7
-                |         |   EPS     |     6.3   |    87.4   |    95.2   |    6.5
-S$_2$           |  257k   |   KSP     |    24.8   |   219.3   |   246.3   |   18.0
-                |         |   EPS     |    30.6   |   256.3   |   290.9   |   18.0
-S$_4$           |  256k   |   KSP     |    54.3   |   171.8   |   227.1   |   16.3
-                |         |   EPS     |    57.2   |   357.2   |   415.5   |   20.1
+:-------------------|:---------:|:------------:|------------:|------------:|------------:|------------:
+Difusión        |  257k   |   KSP     |     3.2 s  |     7.9 s  |    12.5 s   |    0.7 Gb
+                |         |   EPS     |     6.3 s  |    87.4 s  |    95.2 s   |    6.5 Gb
+S$_2$           |  257k   |   KSP     |    24.8 s  |   219.3 s  |   246.3 s   |   18.0 Gb
+                |         |   EPS     |    30.6 s  |   256.3 s  |   290.9 s   |   18.0 Gb
+S$_4$           |  256k   |   KSP     |    54.3 s  |   171.8 s  |   227.1 s   |   16.3 Gb
+                |         |   EPS     |    57.2 s  |   357.2 s  |   415.5 s   |   20.1 Gb
 
 : {#tbl-mpi2}
 

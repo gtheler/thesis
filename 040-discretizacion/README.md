@@ -1,4 +1,4 @@
-# Esquemas de discretización numérica {#sec-esquemas}
+F# Esquemas de discretización numérica {#sec-esquemas}
 
 ::::: {.chapterquote data-latex=""}
 ::: {lang=en-US}
@@ -966,11 +966,6 @@ para $i=2,\dots,N/2$.
 :::
 :::::
 
-::: {.remark}
-Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
-Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
-:::
-
 
 +---------:+:-------------------+---------:+:-------------------+
 |          | ```sn              |          | ```sn              |
@@ -1018,7 +1013,12 @@ Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores. Todos los números fueron generados por la herramienta descripta en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el @sec-implementacion por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+
+::: {.remark}
+Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
+Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
+:::
 
 
 
@@ -1260,8 +1260,8 @@ Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada so
 $$
 \begin{cases}
 -\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
-\hfill u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
-\hfill k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-poisson-fuerte}
 donde $\hat{\vec{n}}$ es la normal externa a la frontera $\partial U$ en el punto $\vec{x}$.
@@ -1607,8 +1607,8 @@ Si el problema a resolver tiene una condición de contorno no homogénea, digamo
 $$
 \begin{cases}
 -\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
-\hfill u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
-\hfill k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-no-homogeneo}
 entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que
