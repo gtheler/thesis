@@ -53,6 +53,6 @@ flux(x) := f * if(x < b, fluxA(x), fluxB(x))
 # esribimos keff (numerico) y k (analitico) vs. a
 PRINT a keff k keff-k
 
-# si quisiéramos, con estas líneas podemos comparar los flujos
+# si quisiéramos, con estas líneas podríamos comparar los flujos
 # PRINT_FUNCTION flux MIN 0 MAX a STEP a/1000 FILE_PATH two-zone-analytical.dat
 # PRINT_FUNCTION phi1 phi1(x)-flux(x)         FILE_PATH two-zone-numerical.dat
