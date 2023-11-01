@@ -1224,7 +1224,7 @@ en las que las incógnitas $\phi_g$ y $\psi_{mg}$ dependen solamente del espac
 En esta sección empleamos el método de elementos finitos [@zienkiewicz1] para discretizar la variable independiente espacial y obtener finalmente un sistema de ecuaciones algebraicas que nos permita resolver neutrónica a nivel de núcleo en forma numérica con una (o más) computadora(s) digital(es).
 
 Existe una gran cantidad de teoría matemática detrás del método de elementos finitos para resolver ecuaciones diferenciales a partir de formulaciones débiles o variacionales.
-Esencialmente el grueso de la literatura teórica [@quarteroni,@brennerscott,@pdes] se centra en probar
+Esencialmente el grueso de la literatura teórica [@quarteroni;@brennerscott;@pdes] se centra en probar
 
  1. que la formulación débil (@def-formulacion-debil) de una ecuación diferencial es formalmente correcta con respecto a derivabilidad e integrabilidad en el sentido de distribuciones sobre espacios de Hilbert,
  2. que soluciones continuas pero no necesariamente diferenciables en a lo más un sub-espacio de medida cero tienen sentido matemático, y

@@ -1,7 +1,10 @@
  * revisar timing en laptop, integration reduced en tet4
  * revisar las citas bib
+ * biblatex o citeproc?
  * ordenar bibtex por apellido?
+ * juntar todos los theler para que aparezcan juntos (habrá que ponerme como first author)
  * citar alan perez 
+ * arreglar sec-le10-other
  
  * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 
  
