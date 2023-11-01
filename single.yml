@@ -15,10 +15,9 @@ book:
     - index.md
     - front/resumen.md
     - front/abstract.md
-    - 050-implementacion/README.md
+    - 060-resultados/README.md
     
   appendices:
-    - 100-srs/README.md
     - bibliografia/README.md
 
 title-en: "Neutron transport in the cloud"
@@ -90,6 +89,8 @@ format:
     toc-title: "Tabla de contenidos"
     lof: false
     lot: false
+    cite-method: biblatex
+    biblatexoptions: sorting=nyt
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)

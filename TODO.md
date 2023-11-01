@@ -1,17 +1,12 @@
- * XSs en figura de azmy hay que actualizar con textext @ inkscape
- * fig two-zone-slab material AB
  * revisar timing en laptop, integration reduced en tet4
  * revisar las citas bib
  * ordenar bibtex por apellido?
+ * citar alan perez 
  
  * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 
  
  * citar nuc eng & des point kinetics 
  * otros aspectos
-   - Filosofía Unix
-   - simulacion programatica
-   - performance
-   - escalabilidad
    - ejecucion en la nube
    - extensibilidad
    - intregracion continua

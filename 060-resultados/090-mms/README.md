@@ -316,7 +316,7 @@ La expresión para la componente $y$ de la corriente de grupo 2 involucra una 
 
 
 
-::: {#fig-square-14 layout="[25,25,25,25]"}
+::: {#fig-square-14 layout="[1,-0.04,1,-0.04,1,-0.04,1]"}
 ![tri3 struct](2d/tri-struct.png){#fig-square-14-tri-struct}
 
 ![quad4 struct](2d/quad-struct.png){#fig-square-14-quad-struct}

@@ -16,7 +16,7 @@ Consideremos un reactor bi-dimensional circular de radio $A$ con centro en el o
 Supongamos que un pescadito circular absorbente de radio $a$ puede moverse a lo largo del eje $x$ positivo.
 Un ejercicio clásico de análisis de reactores es dar la reactividad negativa introducida por el pescadito en función de la posición $x = r$ de su centro utilizando teoría de perturbaciones (es decir, suponiendo que $a \ll A$.
 
-![Un pescadito de radio $a$ nada a lo largo del eje $x$ en un reactor homogéneo de radio $A$.](un-pescadito-geo.svg){#un-pescadito-geo width=60%}
+![Un pescadito de radio $a$ nada a lo largo del eje $x$ en un reactor homogéneo de radio $A$.](un-pescadito-geo.svg){#un-pescadito-geo width=50%}
 
 En esta sección vamos a obtener con FeenoX la reactividad neta introducida por el pescadito variando paramétricamente la posición $x$ de su centro. Para eso, comenzamos con un script de Bash que genera un archivo de texto `vars.geo` (que es incluido desde `un-pescadito.geo` para ubicar el círculo pequeño correspondiente al pescadito), genera una malla con Gmsh y luego resuelve la ecuación de difusión con FeenoX para diferentes posiciones $r$ del pescadito. La @fig-un-pescadito-mesh muestra la malla resultante para dos valores de $r$.
 
@@ -103,7 +103,7 @@ Se deja como ejercicio calcular la misma curva con teoría de perturbaciones.
 
 ## Dos pescaditos: estudio paramétrico no lineal {#sec-dos-pescaditos}
 
-![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=60%}
+![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=50%}
 
 Agregemos ahora otro pescadito nadando en forma diametralmente opuesta al primero (@fig-dos-pescaditos-geo).
 El script de Bash, el archivo de entrada de Gmsh y el de FeenoX son muy similares a los de la sección anterior por lo que no los mostramos.
@@ -153,7 +153,7 @@ Si FeenoX, tal como Gmsh, tuviese una interfaz Python (tarea que está planifica
 
 La ejecución del script de optimización muestra la reacitvidad mínima en `fun` y la posición óptima del tercer pescadito en `x`:
 
-```
+```terminal
 $ ./tres.py 
  final_simplex: (array([[ 3.55380249, -1.15953827],
        [ 3.41708565, -1.71419764],
@@ -169,10 +169,10 @@ $
 ```
 
 
-![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead.](tres-pescaditos.svg){#fig-tres-pescaditos}
+![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead @neldermead.](tres-pescaditos.svg){#fig-tres-pescaditos width=50%}
 
 
-::: {#fig-tres3d layout="[50,50]"}
+::: {#fig-tres3d layout="[1,-0.05,1]"}
 ![](tres3d-1.svg){#fig-tres3d-1}
 
 ![](tres3d-2.svg){#fig-tres3d-2}

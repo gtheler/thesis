@@ -19,7 +19,7 @@ El problema pide calcular varios puntos, incluyendo
  * potencias medias en cada canal
 
 
-![Caso 2D original del benchmark PWR de IAEA](iaea-2dpwr-figure.svg){#fig-iaea-2dpwr-figure width=80%}
+![Caso 2D original del benchmark PWR de IAEA](iaea-2dpwr-figure.svg){#fig-iaea-2dpwr-figure}
 
 
 ::: {#tbl-iaea-xs}

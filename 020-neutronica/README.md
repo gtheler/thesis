@@ -235,7 +235,7 @@ O bien se aplican técnicas de mallado no estructurado para obtener una malla qu
 Discretizaciones estructurada y no estructurada de un dominio espacial arbitrario.
 :::
 
-La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic graph*]{lang=en-US}.] (DAG).
+La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic graph*]{lang=en-US}.] (DAG) @LangeMitchellKnepleyGorman2015.
 
 La mayoría de las herramientas de neutrónica a nivel de núcleo utilizadas en la industria nuclear mundial soportan solamente mallas estructuradas @fig-mallaspce.
 Definitivamente todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
@@ -356,7 +356,11 @@ esquema de cálculo acoplado mapeando explícitamente (con un código desarrolla
 (@fig-cfd, $\sim$ 4.5 millones de celdas) a la malla de
 cálculo del código neutrónico (@fig-boropce, $\sim$ 200.000 celdas para
 $4\times 4 \times 20$).
-En la @sec-non-conformal del capítulo de resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
+
+::: {.remark}
+En la @sec-non-conformal-mapping del @sec-resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
+En la @sec-non-conformal resolvemos un problema termo-mecánico usando el mismo esquema.
+:::
 
 ### Celdas refinadas
 
@@ -585,9 +589,7 @@ comment: TODO poner referencias al SDS en los bullets
       a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
       b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
       
-      ```include
-      110-sds/transfer.md
-      ```
+      {{< include 110-sds/transfer.md >}}
       
     * no escribe (y muy probablemente ni siquiera calcule) un resultado si éste no se pide explícitamente como una salida.
     * los archivos de entrada deben...

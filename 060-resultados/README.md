@@ -28,7 +28,7 @@ Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-U
  
  Problema                                              |    a    |    b    |    c    |    d
 :------------------------------------------------------|:-------:|:-------:|:-------:|:-------:
- Mapeo en mallas no conformes ([-@sec-non-conformal])  |    ●    |    ●    |         |    ◓
+ Mapeo en mallas no conformes ([-@sec-non-conformal-mapping])  |    ●    |    ●    |         |    ◓
  El problema de Reed ([-@sec-reed])                    |    ○    |    ◓    |    ●    | 
  Benchmark PWR IAEA ([-@sec-2dpwr])                    |    ◓    |    ●    |         |    ◓
  El problema de Azmy ([-@sec-azmy])                    |    ●    |    ●    |    ●    |    ○
@@ -55,16 +55,16 @@ comment: |
 
 
 ::: {.remark} 
-Excepto el primer problema de la @sec-non-conformal, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.
-En el documento [Software Design Specifications]{lang=en-US} del @sec-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @sec-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, netrónica por difusión, neutrónica por ordenadas discretas).
+Excepto el primer problema de la @sec-non-conformal-mapping, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.
+En el documento [Software Design Specifications]{lang=en-US} del @sec-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @sec-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, neutrónica por difusión, neutrónica por ordenadas discretas).
 :::
 
 ::: {.remark}
-Todos los archivos necesarios para reproducir los resultados mostrados en este capítulo, junto con el fuente original de esta tesis en Markdown y los archivos de metadata necesarios para compilar a PDF y/o HTML a través de LaTeX, están dispnibles en <https://github.com/gtheler/thesis> bajo licencia CC-BY. Todas las herramientas utilizadas, incluyendo el sistema operativo, el mallador, el propio solver FeenoX, los post-procesadores, los graficadores, los generadores de documentación (y todas las bibliotecas de las cuales todo este software depende) son libres y/o de código abierto.
+Todos los archivos necesarios para reproducir los resultados mostrados en este capítulo, junto con el fuente original de esta tesis en Markdown y los archivos de metadata necesarios para compilar a PDF y/o HTML a través de LaTeX, están disponibles en <https://github.com/gtheler/thesis> bajo licencia CC-BY. Todas las herramientas utilizadas, incluyendo el sistema operativo, el mallador, el propio solver FeenoX, los post-procesadores, los graficadores, los generadores de documentación (y todas las bibliotecas de las cuales todo este software depende) son libres y/o de código abierto.
 :::
 
 ::: {.remark}
-Las mallas de los problemas resueltos en este capítulo son generadas con la herramienta de mallado Gmsh @gmsh y las vistas de post-procesamiento son creadas con la herramienta ParaView @paraview. Ambas son libres, abiertas y amenas a la simulación programática.
+Las mallas de los problemas resueltos en este capítulo (incluso la malla uniforme del caso i de la @sec-slab) ha sido generadas con la herramienta de mallado Gmsh @gmsh y las vistas de post-procesamiento han sido creadas con la herramienta ParaView @paraview. Ambas son libres, abiertas y amenas a la simulación programática.
 :::
 
 

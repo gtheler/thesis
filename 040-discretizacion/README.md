@@ -1,4 +1,4 @@
-F# Esquemas de discretización numérica {#sec-esquemas}
+# Esquemas de discretización numérica {#sec-esquemas}
 
 ::::: {.chapterquote data-latex=""}
 ::: {lang=en-US}

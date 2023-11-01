@@ -6,11 +6,13 @@ Richard Stallman dice en sus conferencias (incluso en castellano) "la mejor mane
 Como discutimos en el @sec-neutronica-phwr, los códigos neutrónicos de núcleo que usamos durante el completamiento de la Central Nuclear Atucha II solamente usaban mallas estructuradas. Además del inconveniente que esto supone para modelar barras de control invertidas, muy a menudo teníamos que lidiar un efecto numérico denominado "cúspide por dilución de secciones eficaces". Este efecto aparece cuando la posición de una barra de control no coincide con la interfaz entre dos celdas de cálculo y hay que de alguna manera "diluir" las secciones eficaces de la barra absorbente entre las secciones eficaces del tubo guía vacío en forma proporcional a la posición geométrica de la barra en la celda de cálculo.
 
 Es exactamente este efecto el que ilustramos en este ejemplo, pero en geometría tipo slab ya que dicho problema tiene solución analítca exacta (en difusión, que es lo que usaban los código en Atucha de cualquier manera).
-Efectivamente, consideremos un reactor en geometría slab a dos zonas:
+Efectivamente, consideremos un reactor en geometría slab a dos zonas, como ilustramos en la @fig-two-zone-slab:
 
  a. La zona\ $A$ tiene\ $k_\infty < 1$ y ocupa el intervalo $0<x=a$, y
  b. La zona\ $B$ tiene\ $k_\infty > 1$ y ocupa el intervalo $a<x<b$.
 
+![Slab a dos zonas, una $A$ con $k_\infty < 1$ y otra $B$ con $k_\infty > 1$](two-zone-slab.svg){#fig-two-zone-slab width=50%}
+ 
 Si 
  
  1. resolvemos el slab con un grupo de energías con aproximación de difusión,
@@ -39,10 +41,20 @@ Este problema no sólo tiene solución analítica para el factor $k_\text{eff}$
 De hecho una para $x<a$ y otra para $x>a$. Dicha solución no es relevante para este problema, pero por completitud dejamos comentadas las instrucciones de FeenoX para evaluarlo y escribirlo en un archivo de salida.
 :::
 
-Por otro lado, vamos a calcular $k_\text{eff}$ numéricamente de dos maneras diferentes, a saber
+Por otro lado, vamos a calcular $k_\text{eff}$ numéricamente de dos maneras diferentes, a saber:
 
   i. usando una malla no uniforme con $n$ elementos y $n+1$ nodos de forma tal que siempre haya un nodo exactamente en la interfaz $x=a$ para cualquier valor arbitrario de $b$, y
-  ii. con una malla uniforme con $n$ elementos de igual tamaño y $n+1$ nodos equiespaciados para emular el comportamiento de los solvers que no pueden manejar el caso i. Al elemento que contiene la interfaz $x=b$ le asignamos un pseudo material $AB$ cuyas secciones eficaces son un promedio pesado de las de $A$ y $B$ según la fracción geométrica que cada una de las zonas ocupa en el elemento. Es decir, si $b=100$ y $n=10$ entonces cada elemento tiene un ancho igual a 10. Si además $a=52$ entonces este material $AB$ tendrá un 20% del material $A$ y un 80% del material $B$.
+  ii. con una malla uniforme con $n$ elementos de igual tamaño y $n+1$ nodos equiespaciados para emular el comportamiento de los solvers que no pueden manejar el caso i. Si la interfaz coincide exactamente con uno de los nodos, entonces hay dos zonas bien definidas (@fig-dilucion2). Pero en general, esto no va a suceder (@fig-dilucion3). Entonces, al elemento que contiene la interfaz $x=b$ le asignamos un pseudo material $AB$ (@fig-dilucion4) cuyas secciones eficaces son un promedio pesado de las de $A$ y $B$ según la fracción geométrica que cada una de las zonas ocupa en el elemento. Es decir, si $b=100$ y $n=10$ entonces cada elemento tiene un ancho igual a 10. Si además $a=52$ entonces este material $AB$ tendrá un 20% del material $A$ y un 80% del material $B$.
+  
+::: {#fig-dilucion layout="[1,-0.05,1,-0.05,1]"}
+![$a$ coincide con un nodo](dilucion2.svg){#fig-dilucion2}
+
+![$a$ no coincide con un nodo](dilucion3.svg){#fig-dilucion3}
+
+![Pseudo-material $AB$](dilucion4.svg){#fig-dilucion4}
+
+Manejo de la interfaz en el caso ii de malla estructurada.
+:::
  
 Para ello, preparamos dos archivos de Gmsh. Primero `two-zone-slab-i.geo` para el caso no uniforme (que es más sencillo para Gmsh que el caso uniforme):
 

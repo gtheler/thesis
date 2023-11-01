@@ -101,6 +101,8 @@ format:
     toc-title: "Tabla de contenidos"
     lof: false
     lot: false
+    cite-method: biblatex
+    biblatexoptions: sorting=nyt
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)

@@ -191,7 +191,6 @@ Comencemos con $\theta=0$ (es decir la geometría original) para $N=4$, $N=8$ y
 Ahora fijemos $c$ y veamos qué pasa para diferentes ángulos. Algunos valores de $\theta$ son "peores" que otros. Parecería que $\theta=45º$ da la "mejor" solución (figuras [-@fig-azmy-full-4]--[-@fig-azmy-full-7]).
 Para un factor de refinamiento espacial fijo $c=1$ está claro que aumentar $N$ mejora los perfiles (figuras [-@fig-azmy-full-8]--[-@fig-azmy-full-10]).
 Finalmente podemos ver cómo cambian los perfiles con el ángulo $\theta$ para las mallas más finas (figuras [-@fig-azmy-full-11]--[-@fig-azmy-full-12]).
-El análisis detallado del efecto rayo en ordenadas discretas es un posible trabajo futuro derivado de esta tesis de doctorado.
 
 
 ![$\theta=0$ y $N=4$ para diferentes valores de $c$](azmy-full-theta-0-sn-4.svg){#fig-azmy-full-1}
@@ -224,3 +223,6 @@ El análisis detallado del efecto rayo en ordenadas discretas es un posible trab
 ![$N=12$ y $c=2$ para diferentes valores de $\theta$](azmy-full-sn-12-c-2.svg){#fig-azmy-full-12}
 
 
+::: {.remark}
+El análisis detallado del efecto rayo en ordenadas discretas es un posible trabajo futuro derivado de esta tesis de doctorado.
+:::

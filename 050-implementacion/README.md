@@ -155,7 +155,7 @@ Consiste en aproximadamente cuarenta y cinco mil líneas de código` organizadas
 ## Arquitectura del código
 
 Comencemos preguntándonos qué debemos tener en cuenta para implementar una herramienta computacional que permita resolver ecuaciones en derivadas parciales con aplicación en ingeniería utilizando el método de elementos finitos.
-Por el momento enfoquémonos en problemas lineales^[Si el problema fuese no lineal o incluso transitorio, la discusión de esta sección sigue siendo válida para la construcción de la matriz jacobiana global.] como los analizados en los dos capítulos anteriores.
+Por el momento enfoquémonos en problemas lineales^[Si el problema fuese no lineal o incluso transitorio, la discusión de esta sección seguiría siendo válida para la construcción de la matriz jacobiana global.] como los analizados en los dos capítulos anteriores.
 Las dos tareas principales son
 
  1. construir la matriz global de rigidez $\mat{K}$ y el vector $\vec{b}$ (o la matriz de masa $\mat{M}$), y
@@ -457,9 +457,7 @@ Entonces,
 
 En el @sec-neutronica-phwr mencionamos (y en el @sec-sds explicamos en detalle) que la herramienta desarrollada es una especie de "función de transferencia" entre uno o más archivos de entrada y cero o más archivos de salida (incluyendo la salida estándar `stdout`):
 
-```include
-110-sds/transfer.md
-```
+{{< transfer.md >}}
 
 Este archivo de entrada, que a su vez puede incluir otros archivos de entrada y/o hacer referencia a otros archivos de datos (incluyendo la malla en formato `.msh`) contiene palabras clave^[Del inglés [_keywords_]{lang=en-US}.] en inglés que, por decisión de diseño, deben 
 
@@ -525,7 +523,7 @@ Por ejemplo, la lectura del archivo de malla es una instrucción y no una defini
    READ_MESH tmp
    ```
     
- iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver @sec-non-conformal.
+ iii. en problemas complejos puede ser necesario leer varias mallas antes de resolver la PDE en cuestión, por ejemplo leer una distribución de temperaturas en una malla gruesa de primer orden para utilizarla al evaluar las propiedades de los materiales de la PDE que se quiere resolver. Ver @sec-non-conformal-mapping y @sec-non-conformal.
 
 Comencemos con un problema sencillo para luego agregar complejidad en forma incremental.
 A la luz de la discusión de este capítulo, preguntémonos ahora qué necesitamos para resolver un problema de conducción de calor estacionario sobre un dominio $U \mathbb{R}^D$ con un único material:
@@ -1900,7 +1898,7 @@ Por ejemplo,
 :::
 
 
-  ### Licencia libre y abierta {#sec-licencia}
+### Licencia libre y abierta {#sec-licencia}
 
 Quisiera enfatizar en esta sección la importancia del software libre y abierto en general y al relacionado a cálculos de ingeniería en particular.
 Lo primero que hay que decir es que "software libre" o "código abierto" no implica necesariamente el concepto de _gratuidad_.
@@ -1940,7 +1938,7 @@ Como explica técnicamente muy bien pero comunicacionalmente muy mal la Free Sof
 
 
 ::: {.remark}
-Si un programa viene con su código fuente pero el desarrolador original pide que los usuarios firmen un NDA para poder ejecutarlo o impide que personas de cierta nacionalidad puedan usarlo, entonces puede llegar a ser de código abierto pero no es software libre ya que limita la libertad número cero.
+Si un programa viene con su código fuente pero el desarrollador original pide que los usuarios firmen un NDA para poder ejecutarlo o impide que personas de cierta nacionalidad puedan usarlo, entonces puede llegar a ser de código abierto pero no es software libre ya que limita la libertad número cero.
 :::
 
 ::: {.remark}
@@ -1959,14 +1957,14 @@ Dejo entonces dos frases populares Argentinas para que cada uno de los amables l
 > ii. Cuando la limosna es grande, hasta el santo desconfía.
 
 ::: {.remark}
-El software FeenoX se distribuye bajo liencia GNU General Public License versión tres o posterior.
+El software FeenoX se distribuye bajo licencia GNU General Public License versión tres o posterior.
 Esto implica que además de las cuatro libertades, el usuario que recibe una copia del software tiene una restricción: no puede re-distribuir el software modificando la licencia. Este concepto, denominado [_copyleft_]{lang=en-US} (que es otro juego de palabras como lo son Unix, Bash, GNU, less, etc.) hace que el dueño del [_copyright_]{lang=en-US} (en este caso este que escribe) justamente lo use para evitar que alguien que no lo tenga pueda transformar FeenoX en software privativo.
 :::
 
 
 ### Filosofía Unix
 
-Por diseño, FeenoX ha sido escrito desde cero teniendo encuenta las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en la @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
+Por diseño, FeenoX ha sido escrito desde cero teniendo encuentra las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en la @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
 En particular, son de especial aplicación a FeenoX las reglas de
 
  * composición (@sec-composition)
@@ -1982,7 +1980,7 @@ Las mallas, que no son amenas Git, _no_ son parte del archivo de entrada de Feen
 
 Otro ejemplo de ideas de Unix implementadas en FeenoX es la posibilidad de realizar estudios paramétricos leyendo parámetros por la línea de comandos, como explicamos en la @sec-simulacion-programatica y que utilizamos extensivamente en el @sec-resultados. Esto permite que los parámetros a evaluar puedan ser generados por scripts de Bash (que es lo que mayormente usamos en esta tesis) pero también en Python (ver @sec-tres-pescaditos). 
 
-La decisión de utilizar bibliotecas numéricas libres, abiertas y bien establecidas también---de alguna manera---responde a un de las ideas de la filosofía Unix: do not repeat yourself!
+La decisión de utilizar bibliotecas numéricas libres, abiertas y bien establecidas también---de alguna manera---responde a un de las ideas de la filosofía Unix: [do not repeat yourself!]{lang=en-US}
 No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el @sec-esquemas. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al solver neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
 
 ::: {.remark}
@@ -2019,21 +2017,22 @@ Si se incluye la opción `-V` o `--versions` entonces se muestra más informaci�
 
 ```terminal
 gtheler@chalmers:~$ feenox -V
-FeenoX v0.3.264-ge4ee9c5 
+FeenoX v0.3.267-g07ffa9e 
 a cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool
 
-Last commit date   : Mon Oct 23 18:13:54 2023 -0300
-Build date         : Mon Oct 23 20:18:06 2023 -0300
+Last commit date   : Thu Oct 26 12:47:53 2023 -0300
+Build date         : Mon Oct 30 09:27:21 2023 -0300
 Build architecture : linux-gnu x86_64
-Compiler version   : gcc (Ubuntu 12.2.0-3ubuntu1) 12.2.0
-Compiler expansion : gcc -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi
+Compiler version   : gcc (Debian 12.2.0-14) 12.2.0
+Compiler expansion : gcc -Wl,-z,relro -I/usr/include/x86_64-linux-gnu/mpich -L/usr/lib/x86_64-linux-gnu -lmpich
 Compiler flags     : -O3 -flto=auto -no-pie
-Builder            : gtheler@chalmers
+Builder            : gtheler@tom
 GSL version        : 2.7.1
-SUNDIALS version   : 5.8.0
-PETSc version      : Petsc Release Version 3.16.6, Mar 30, 2022 
-PETSc options      : --build=x86_64-linux-gnu --prefix=/usr --includedir=${prefix}/include --mandir=${prefix}/share/man --infodir=${prefix}/share/info --sysconfdir=/etc --localstatedir=/var --with-option-checking=0 --with-silent-rules=0 --libdir=${prefix}/lib/x86_64-linux-gnu --runstatedir=/run --with-maintainer-mode=0 --with-dependency-tracking=0 --with-debugging=0 --shared-library-extension=_real --with-shared-libraries --with-pic=1 --with-cc=mpicc --with-cxx=mpicxx --with-fc=mpif90 --with-cxx-dialect=C++11 --with-opencl=1 --with-blas-lib=-lblas --with-lapack-lib=-llapack --with-scalapack=1 --with-scalapack-lib=-lscalapack-openmpi --with-ptscotch=1 --with-ptscotch-include=/usr/include/scotch --with-ptscotch-lib="-lptesmumps -lptscotch -lptscotcherr" --with-fftw=1 --with-fftw-include="[]" --with-fftw-lib="-lfftw3 -lfftw3_mpi" --with-yaml=1 --with-hdf5-include=/usr/include/hdf5/openmpi --with-hdf5-lib="-L/usr/lib/x86_64-linux-gnu/hdf5/openmpi -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lhdf5 -lmpi" --CXX_LINKER_FLAGS=-Wl,--no-as-needed --with-hypre=1 --with-hypre-include=/usr/include/hypre --with-hypre-lib=-lHYPRE --with-mumps=1 --with-mumps-include="[]" --with-mumps-lib="-ldmumps -lzmumps -lsmumps -lcmumps -lmumps_common -lpord" --with-suitesparse=1 --with-suitesparse-include=/usr/include/suitesparse --with-suitesparse-lib="-lspqr -lumfpack -lamd -lcholmod -lklu" --with-superlu=1 --with-superlu-include=/usr/include/superlu --with-superlu-lib=-lsuperlu --with-superlu_dist=1 --with-superlu_dist-include=/usr/include/superlu-dist --with-superlu_dist-lib=-lsuperlu_dist --with-ml=1 --with-ml-include=/usr/include/trilinos --with-ml-lib=-ltrilinos_ml --with-zoltan=1 --with-zoltan-include=/usr/include/trilinos --with-zoltan-lib=-ltrilinos_zoltan --prefix=/usr/lib/petscdir/petsc3.16/x86_64-linux-gnu-real --PETSC_ARCH=x86_64-linux-gnu-real CFLAGS="-g -O2 -ffile-prefix-map=/build/petsc-m7tQqm/petsc-3.16.6+dfsg1=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -fPIC" CXXFLAGS="-g -O2 -ffile-prefix-map=/build/petsc-m7tQqm/petsc-3.16.6+dfsg1=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -fPIC" FCFLAGS="-g -O2 -ffile-prefix-map=/build/petsc-m7tQqm/petsc-3.16.6+dfsg1=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -fPIC -ffree-line-length-0" FFLAGS="-g -O2 -ffile-prefix-map=/build/petsc-m7tQqm/petsc-3.16.6+dfsg1=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -fPIC -ffree-line-length-0" CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2" LDFLAGS="-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -fPIC" MAKEFLAGS=w
-SLEPc version      : SLEPc Release Version 3.16.2, Feb 01, 2022
+SUNDIALS version   : N/A
+PETSc version      : Petsc Release Version 3.20.0, Sep 28, 2023 
+PETSc arch         : double-int32-release
+PETSc options      : --download-eigen --download-hdf5 --download-hypre --download-metis --download-mumps --download-parmetis --download-scalapack --download-slepc --with-64-bit-indices=no --with-debugging=no --with-precision=double --with-scalar-type=real COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3
+SLEPc version      : SLEPc Development GIT revision: v3.19.2-150-g8cd5b338c  GIT Date: 2023-09-28 12:25:19 +0000
 ```
 :::
 
@@ -2047,13 +2046,13 @@ En el mundo de software de ingeniería, esto involucra que los solvers provean
  
 En la mayoría de los programas industriales el camino para proveer "simulación programática" es agregar abstracciones e interfaces a software existente, muchas veces diseñados e implementados hace varias décadas.
 En FeenoX, esta idea está embebida en el diseño y se provee la "simulación programática" de forma nativa.
-De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personzaliados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin interveción manual para definir el problema. La base de diseño del solver fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo "point and click".
+De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personalizados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin intervención manual para definir el problema. La base de diseño del solver fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo ["point and click"]{lang=en-US}.
 
 El hecho de diseñar el software comenzando por la idea de simulación programática en lugar de una interfaz gráfica hace que desarrollar una o más interfaces gráficas sea mucho más sencillo que el camino inverso tomado por las compañías de software de cálculo que se han dado cuenta de las ventajas de la "simulación programática". Más aún, dado que FeenoX está diseñado para correr en la nube (@sec-cloud), es posible entonces desarrollar interfaces web en forma mucho más natural que si no se hubiesen tenido en cuenta todas estas consideraciones.
 La interfaz, web o desktop, tiene que hacer lo que haría un script programático (tal vez creando la malla y el archivo de entrada `.fee`) pero en forma interactiva.
 
 ::: {.remark}
-La plataforma [CAEplex](https://www.caeplex.com) lanzada en 2017 provee una interfaz web para una versión anterior de Feenox que permite resolver problemas termomecánicos y modales en la nube directamente desde el navegador.
+La plataforma [CAEplex](https://www.caeplex.com) lanzada en 2017 provee una interfaz web para una versión anterior de FeenoX que permite resolver problemas termomecánicos y modales en la nube directamente desde el navegador.
 Está 100% integrada en la plataforma CAD [Onshape](https://www.onshape.com), tiene varios miles de usuarios registrados y al momento de la escritura de esta tesis contiene más de diez mil casos resueltos por los usuarios.
 :::
 
@@ -2065,12 +2064,12 @@ En la lista de trabajos futuros se incluye el desarrollo de interfaces poder rea
 
 ### Performance {#sec-performance}
 
-Lo primero que hay que decir es que hay mucho "room for improvemente" como dicen en inglés, especialmente en temas de performance.
+Lo primero que hay que decir es que hay mucho ["room for improvemente"]{lang=en-US} como dicen en inglés, especialmente en temas de performance.
 En general hay un balance entre requerimientos de CPU y memoria y cada caso debe ser tratado en forma particular.
 Por ejemplo, si se almacenan todas las matrices elementales $B_{gi]}$ en cada uno de los puntos de Gauss entonces la recuperación de campos secundarios es más rápida a costa de incrementar (tal vez significativamente) la cantidad de memoria RAM necesaria.
 
 Una de las premisas básicas de la optimización de código computacional es medir antes de intentar optimizar.
-Usando la bibliteca `benchmark` de Google^[Ver repositorio <https://github.com/seamplex/feenox-benchmark>.] es posible realizar mediciones de secciones del código de FeenoX para comparar diferentes propuestas de optimización como trabajos a futuro:
+Usando la biblioteca `benchmark` de Google^[Ver repositorio <https://github.com/seamplex/feenox-benchmark>.] es posible realizar mediciones de secciones del código de FeenoX para comparar diferentes propuestas de optimización como trabajos a futuro:
 
  - efecto de la posibilidad de que el compilar haga [_inlining_]{lang=en-US} de funciones usando [_link-time optimizations_]{lang=en-US}
  - eficiencia de acceso a memoria para reducir la cantidad de [_cache misses_]{lang=en-US}
@@ -2078,7 +2077,7 @@ Usando la bibliteca `benchmark` de Google^[Ver repositorio <https://github.com/s
  - estudiar pros y contras de usar el framework DMPlex @dmplex de PETSc para manejar la topología de las mallas no estructuradas
 
 Otro de los balances que involucra a la performance de un código es la generalidad vs. la particularidad.
-Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de todas las PDEs disponibles se quiere resolver involucra el esquema de apuntadores a función y de puntos de entrada discutidos en la @sec-entry. Esta generalidad hace que no se pueda hacer inlining de estas funciones ya que no se conocen en tiempo de compilación. Es por eso que tal vez se puede mejorar la eficiencia del código si la selección del tipo de PDE se pueda hacer en tiempo de compilación con macros apropiados que puedan optmimizar para
+Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de todas las PDEs disponibles se quiere resolver involucra el esquema de apuntadores a función y de puntos de entrada discutidos en la @sec-entry. Esta generalidad hace que no se pueda hacer inlining de estas funciones ya que no se conocen en tiempo de compilación. Es por eso que tal vez se puede mejorar la eficiencia del código si la selección del tipo de PDE se pueda hacer en tiempo de compilación con macros apropiados que puedan optimizar para
 
  * velocidad de ejecución
  * memoria
@@ -2087,33 +2086,33 @@ Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de toda
 por ejemplo generando diferentes ejecutables de FeenoX para particularizaciones de
 
  * el tipo de problema (para evitar apuntadores a función)
- * la dimension del problema (para poder usar arreglos de tamaño fijo en lugar de alocación dinámica de memoria)
+ * la dimensión del problema (para poder usar arreglos de tamaño fijo en lugar de alocación dinámica de memoria)
  * mallas con todos los tipos de elementos iguales (para evitar tener que pedir memoria dinámica elemento por elemento)
  * tamaño de variables de coma flotante (simple o doble precisión para optimizar memoria)
  * etc.
 
 
 ::: {.remark]
-Hay algunos estudios que muestran que para problemas de elasticidad lineal, FeenoX es tan o más rápido que otros programas de código abierto similares, incluso con todo el "room for improvement" de la versión actual.
+Hay algunos estudios que muestran que para problemas de elasticidad lineal, FeenoX es tan o más rápido que otros programas de código abierto similares, incluso con todo el ["room for improvement"]{lang=en-US} de la versión actual.
 :::
 
-Es preciso mecionar también que el tema de performance definido como "tiempo de ejecuión requerido para resolver un cierto problema" es, por lo menos, ambigüo y difícil de cuantificar.
+Es preciso mencionar también que el tema de performance definido como "tiempo de ejecución requerido para resolver un cierto problema" es, por lo menos, ambiguo y difícil de cuantificar.
 Por ejemplo, consideremos el sistema de templates de C++. Estrictamente hablando, es un lenguaje Turing completo en sí mismo.
 Por lo tanto, es posible escribir un solver para un problema particular (con la malla y condiciones de contorno embebidos en los templates) implementado 100% como templates de C++. En este caso inverosímil, el tiempo de ejecución sería cero ya que toda la complejidad numérica estaría puesta en la compilación y no en la ejecución.
 
 Si bien este experimento pensado es extremo, hay algunos puntos a tener en cuenta en casos reales.
 Consideremos el caso de solver algebraicos tipo multi-grid. El tiempo de CPU necesario para resolver un sistema de ecuaciones algebraicas  depende fuertemente de la calidad de la malla. Entonces cabe preguntarse: ¿vale la pena "gastar" tiempo de CPU optimizando la calidad de la malla para que el solver vaya más rápido? La respuesta va a depender de varias cuestiones, en particular si la misma malla va a ser usada una sola vez o hay varios problemas con diferentes condiciones de contorno que usan la misma malla.
-Una re-edición de la conocida conlusión de que no existe el "one size fits all".
+Una re-edición de la conocida conclusión de que no existe el ["one size fits all"]{lang=en-US}.
 
 Encima de todo este guiso de consideraciones tenemos la salsa de la regla de economía de Unix.
 ¿Vale la pena emplear una cantidad $x$ de horas de ingeniería para obtener un beneficio $y$ en términos de recursos computacionales?
-Pregunta mucho más difícil de responder pero mucho más valisoa y apropiada.
+Pregunta mucho más difícil de responder pero mucho más valiosa y apropiada.
 En la @sec-architecture ilustramos brevemente esta idea. ¿Cuál es la combinación de herramientas que minimiza el costo total de resolver un laberinto arbitrario (@fig-maze-homer) en términos de tiempo de ingeniería más computación? 
 
 En relación directa a este concepto de economía de horas de ingeniería por horas de CPU está una de las ideas básicas del diseño de FeenoX. Estrictamente hablando es la regla del silencio de Unix pero fue una de las primeras lecciones aprendidas por este que escribe al trabajar en la industria nuclear con códigos escritos en la década de 1970.
 Como ya discutimos en el @sec-introduccion, en esos años cada hora de CPU era mucho más cara que cada hora del ingeniero a cargo de un cálculo. Es por eso que la regla de diseño de esos códigos de cálculo era "escribir en la salida todo lo que se calcula" ya que de necesitar un resultado calculado que no formara o parte de la salida obligaría al ingeniero a volver a ejecutar el costoso cálculo.
 Hoy en día la lógica es completamente opuesta y, en general, es mucho más conveniente volver a realizar un cálculo que tener que buscar agujas en pajares ASCII de varios megabytes de tamaño.
-Es por eso que en FeenoX la salida está 100% definida en el archivo de entrada. Y de no haber ninguna instrucción tipo `PRINT` o `WRITE_RESULTS` no habrá ninguna salida para el ingenierio.
+Es por eso que en FeenoX la salida está 100% definida en el archivo de entrada. Y de no haber ninguna instrucción tipo `PRINT` o `WRITE_RESULTS` no habrá ninguna salida para el ingeniero.
 
 ::: {.remark}
 Debido a que "todo es una expresión", FeenoX puede saber luego de parsear el archivo de entrada cuáles de los resultados obtenidos son usados en alguna salida. De esta manera puede tomar decisiones sobre si necesita calcular ciertos parámetros secundarios o no. Por ejemplo, si la función `Jx1` no aparece en ninguna expresión (incluyendo instrucciones de salida como `PRINT` y `WRITE_MESH` pero también instrucciones sin salidas directas como `INTEGRATE` o `FIND_EXTREMA`) entonces no llamará a las funciones relacionadas al cálculo de corrientes en difusión. Lo mismo sucede para los flujos de calor en el problema térmico y para las tensiones y deformaciones en elasticidad. En este caso la diferencia es aún más importante porque se distinguen los seis componentes del tensor simétrico de Cauchy y las tres tensiones principales $\sigma_1$, $\sigma_2$ y $\sigma_3$ que son los autovalores de dicho tensor. Si el usuario necesita las tensiones principales, `sigma1`, `sigma2` o `sigma3` aparecerán en al menos una expresión del archivo de entrada. Si no aparecen (y el parser de FeenoX lo sabe perfectamente) entonces no se desperdician ciclos de CPU calculando resultados que no se utilizan.
@@ -2123,9 +2122,9 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
  
  * El algoritmo de construcción de las matrices elementales para S$_N$ es de lo más naïve y replica las ecuaciones algebraicas desarrolladas en el @sec-esquemas, lo que no suele ser una buena opción desde el punto de vista de análisis de algoritmos @knuth97. El tamaño de dichas matrices aumenta rápido con $N$ y son, a la vez, esencialmente ralas.
 
- * Aún cuando personalmente no comparta la idea de escribir nuevo código de cálculo en Fortran 77, debo reconocer que ésta tiene un punto interesante que debemos considerar. Dado que el modelo de memoria de Fortran 77 es muy limitado, el compilador puede hacer buenas optimizaciones automaticamente porque está seguro de que no hay apuntadores apuntando a lugares inapropiados o que puede haber ciertas condiciones que, aunque poco probables, no permitan emplear algoritmos rápidos o utilizar eficientemente los registros del procesador. Esto en C no sucede automáticamente y es responsabilidad del programador emplear apropiadamente palabras clave reservadas como `const` y `restrict` para lograr el mismo nivel de optimización. Se deja también este análisis parte de los trabajos futuros.
+ * Aún cuando personalmente no comparta la idea de escribir nuevo código de cálculo en Fortran 77, debo reconocer que ésta tiene un punto interesante que debemos considerar. Dado que el modelo de memoria de Fortran 77 es muy limitado, el compilador puede hacer buenas optimizaciones automáticamente porque está seguro de que no hay apuntadores apuntando a lugares inapropiados o que puede haber ciertas condiciones que, aunque poco probables, no permitan emplear algoritmos rápidos o utilizar eficientemente los registros del procesador. Esto en C no sucede automáticamente y es responsabilidad del programador emplear apropiadamente palabras clave reservadas como `const` y `restrict` para lograr el mismo nivel de optimización. Se deja también este análisis parte de los trabajos futuros.
 
- * Para ciertos tipo de problemas matemáticos es conocido que el empleo de GPUs en lugar de CPUs puede reducir costos de ejecución ya que, bien empleadas, las GPUs proveen un factor de reducción de tiempos de cálculo mayor al factor de incremento de costos operacionales.  Al utilizar PETSc, FeenoX puede correr los solvers algebraicos en GPU usando opciones en tiempo de ejecución. Si bien este concepto ha sido probado con éxito, se necesita más investigación para poder optimizar la ejeción en GPUs (o incluso en las nuevas APUs de reciente introducción en el mercado).
+ * Para ciertos tipo de problemas matemáticos es conocido que el empleo de GPUs en lugar de CPUs puede reducir costos de ejecución ya que, bien empleadas, las GPUs proveen un factor de reducción de tiempos de cálculo mayor al factor de incremento de costos operacionales.  Al utilizar PETSc, FeenoX puede correr los solvers algebraicos en GPU usando opciones en tiempo de ejecución. Si bien este concepto ha sido probado con éxito, se necesita más investigación para poder optimizar la ejecución en GPUs (o incluso en las nuevas APUs de reciente introducción en el mercado).
 
  * Las bibliotecas de álgebra de bajo nivel tipo BLAS pueden ganar mucha eficiencia si son capaces de aprovechar las instrucciones tipo SIMD de los procesadores. Para ello es necesario configurar y compilar correctamente PETSc y sus dependencias según la arquitectura sobre la cual se va a ejecutar FeenoX (que no siempre es la arquitectura donde se compila). Hay varias implementaciones de bibliotecas tipo BLAS que PETSc puede usar (por ejemplo OpenBLAS, ATLAS, Netlib, MKL, etc.) cada una con diferentes opciones de compilación y características de optimización.
  
@@ -2134,12 +2133,12 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
 ### Escalabilidad
 
 La idea de la escalabilidad de FeenoX viene de la posibilidad de resolver problemas arbitrariamente grandes mediante la paralelización con el estándar MPI [@intro-parallel;@mpi].
-Tal como mostramos y discutimos en el @sec-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidadd de procesos para un problema de tamaño fijo.
+Tal como mostramos y discutimos en el @sec-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidad de procesos para un problema de tamaño fijo.
 
-Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de decomposición de dominios. Pero, como también mostramos en el @sec-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
+Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de descomposición de dominios. Pero, como también mostramos en el @sec-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
 
 ::: {.remark}
-Siguiendo las recomendaciones (tanto escritas como orales) de los desarrolladores de PETSc, no se considera en ningún momento la implementación de paralelización basada en OpenMP^[No confundir con OpenMPI que es una de las varias implementaciones del estándar MPI y que sí es soportada por FeenoX.]. Por un lado no hay evidencia de que este tipo de paralelización basada en threads provea una mejor performance que la paralelización de MPI basada en procesos. Por otro lado, el incremento de la cantidad de threads de OpenMP nunca va a redundar en una disminución de la memoria necesaria para resolver un problema de tamaño fijo ya que los threads son locales y no pueden ser separados en diferentes hosts con diferentes características de memoria RAM.
+Siguiendo las recomendaciones (tanto escritas como orales) de los desarrolladores de PETSc, no se considera en ningún momento la implementación de paralelización basada en OpenMP^[No confundir con OpenMPI que es una de las varias implementaciones del estándar MPI y que sí es soportada por FeenoX.]. Por un lado no hay evidencia de que este tipo de paralelización basada en threads provea una mejor performance que la paralelización de MPI basada en procesos. Por otro lado, el incremento de la cantidad de threads de OpenMP nunca va a redundar en una disminución de la memoria necesaria para resolver un problema de tamaño fijo ya que los threads son locales y no pueden ser separados en diferentes [hosts]{lang=en-US} con diferentes características de memoria RAM.
 :::
 
 A modo de ilustración de las características de ejecución con MPI de FeenoX, consideremos el siguiente archivo de entrada (que es parte de los tests de FeenoX):
@@ -2165,7 +2164,7 @@ Esto es, el host `ip-172-31-44-208` crea dos procesos de `feenox` y a su vez le
 ![Geometría tutorial `t21` de Gmsh: dos cuadrados mallados con triángulos y descompuestos en 6 particiones.](t21.svg){#fig-t21 width=90%}
 
 Podemos utilizar el tutorial `t21` de Gmsh en el que se ilustra el concepto de DDM (descomposición de dominio o particionado de la malla^[Del inglés [_mesh partitioning_]{lang=en-US}.]) para mostrar otro aspecto de cómo funciona la paralelización por MPI en FeenoX.
-En efecto, consideremos la malla de la @fig-t21 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor númerico 2.
+En efecto, consideremos la malla de la @fig-t21 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor numérico 2.
 
 ```feenox
 READ_MESH t21.msh

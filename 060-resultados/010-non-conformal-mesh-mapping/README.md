@@ -1,4 +1,4 @@
-# Mapeo en mallas no conformes {#sec-non-conformal}
+# Mapeo en mallas no conformes {#sec-non-conformal-mapping}
 
 > **TL;DR:** Sobre la importancia de que FeenoX siga la filosofía Unix.
 
