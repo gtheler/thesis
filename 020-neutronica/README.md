@@ -179,7 +179,7 @@ reactores tipo CANDU (@fig-arrays). Los canales están inmersos en un gran tanq
 que contiene el moderador líquido, que usualmente se mantiene más frío
 que el refrigerante con el objetivo de mejorar la moderación y aumentar
 así el factor de multiplicación infinito $k_\infty$ del núcleo. El
-elemento combustible está compuesto por un arreglo de barras 37
+elemento combustible está compuesto por un arreglo de 37 barras
 individuales que contienen las pastillas de
 dióxido de uranio recubiertas por un [cladding]{lang=en-US} de [zircalloy]{lang=en-US}.
 
@@ -446,7 +446,7 @@ absorbentes. Este hecho es especialmente importante cuando hay
 interfaces entre materiales en donde se dan grandes discontinuidades en las
 secciones eficaces, que es justamente el objetivo de la evaluación del
 segundo sistema de extinción: el avance de una pluma de un absorbente
-neutrónico (ácido deuterobórico enriquecido en boro-10) a través de un
+neutrónico (ácido deuterobórico) a través de un
 medio difusivo (el agua pesada contenida en el tanque del moderador).
 
 En el @sec-transporte-difusion derivamos primeramente la ecuación de transporte de neutrones a partir de la conservación de neutrones. Luego derivamos la ecuación de difusión a partir de la de transporte y mostramos detalladamente las razones matemáticas de las aproximaciones necesarias para llegar a la ley de Fick para neutrones.

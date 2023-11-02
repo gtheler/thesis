@@ -101,8 +101,8 @@ format:
     toc-title: "Tabla de contenidos"
     lof: false
     lot: false
-    cite-method: biblatex
-    biblatexoptions: sorting=nyt
+    cite-method: citeproc
+    biblatexoptions: style=numeric,sortcites=true,sorting=nyt,backend=biber
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)
