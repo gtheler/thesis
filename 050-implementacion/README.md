@@ -2395,6 +2395,16 @@ Cada [commit]{lang=en-US} al repositorio tiene un [hash]{lang=en-US} asociado qu
 Más aún, la opción `-V` (o `--versions`) da no sólo el [hash]{lang=en-US} sino también la fecha y hora del último [commit]{lang=en-US} del repositorio utilizado para compilar el binario.
 De esta forma es posible vincular un ejecutable cualquiera encontrado "en la naturaleza"^[Del inglés [_in the wild_]{lang=en-US}.] con el estado instantáneo del código fuente a través del [hash]{lang=en-US} (ayudándose de la fecha reportada por `-V`).
 
+::: {.remark}
+A lo largo de la historia del desarrollo de las tres versiones del código hemos utilizado los siguientes sistemas de control de versiones
+
+ * Subversion `svn`
+ * Bazaar `bzr`
+ * Mercurial `hg`
+ 
+Al comienzo del desarrollo (2009) estuvimos a punto de emplear CVS, pero nos decidimos por `svn` por considerar que `cvs` era muy anticuado.
+:::
+
 Además del [target]{lang=en-US} `all` en el `Makefile` que compila el ejecutable, existe un [target]{lang=en-US} `check` que ejecuta una serie de scripts que corresponden al paso de test siguiendo el esquema de Autotools.
 Este consiste en un conjunto de casos de prueba. Cada uno de ellos ejecuta `feenox` con diferentes archivos de entrada y compara la salida con resultados pre-definidos. 
 Si la comparación no es exitosa (o si hay algún problema en tiempo de ejecución como por ejemplo un fallo de segmentación) entonces el test se marca como fallado.
@@ -2439,31 +2449,116 @@ Pero además, en caso de que algún commit en el branch `main` no pase los tests
 Si bien el comando `make check` ejecuta más de 350 casos, el código aún no está instrumentado para medir cuántas líneas son efectivamente "cubiertas" por los tests. Este trabajo de implementar lo que se conoce como medir el "[code coverage]{lang=en-US}" en la jerga de integración continua queda como trabajo a futuro (@sec-conclusiones).
 De la misma manera, también queda como trabajo a futuro diseñar un conjunto de tests que corran bajo la herramienta de desarrollo `valgrind` para detectar sistemáticamente potenciales problemas con el manejo de memoria, incluyendo
 
- * escritura en direcciones de memoria no reservadas,
- * des-referencias de punteros inválidos, y/o
+ * escrituras en direcciones de memoria no reservadas,
+ * des-referenciación de punteros inválidos, y/o
  * pérdidas de memoria^[Del inglés [_memory leaks_]{lang=en-US}.]
 
 
 ### Documentación
 
-paper JOSS
+El 100% de la documentación, incluyendo
 
-Markdown 
-
-Pandoc:
-
- - HTML
- - PDF (a través de LaTeX)
- - Github Markdown (READMEs)
+ * el sitio web [seamplex.com/feenox](https://seamplex.com/feenox/)
+ * el README del repositorio Git
+ * el manual descriptivo (en formato Texinfo)
+ * la referencia completa (en formato HTML y PDF)
+ * la página de manual de Unix (@fig-manpage)
+ * el [_Sofware Design Requirements_]{lang=en-US}
+ * el [_Sofware Design Specifications_]{lang=en-US}
+ * los ejemplos
+ * esta misma tesis
  
-parte de arriba de man page? 
- 
-![La página de manual de FeenoX de Unix al ejecutar `man feenox`](manpage.png){#fig-manpage}
+provienen de texto escrito en Markdown.
+Luego mediante scripts apropiados, se crean los distintos documentos en los formatos apropiados con la herramienta Pandoc.
 
- 
-SDS
+::: {#fig-manpage layout="[0.925,1.075]"}
 
-SRS
+![Gnome Terminal](manpage-gnome.png){#fig-manpage1}
+
+![Konsole](manpage.png){#fig-manpage2}
+
+La página de manual de FeenoX de Unix al ejecutar `man feenox`
+:::
+
+Toda la documentación en Markdown (aún el fuente del sitio web, incluyendo ejemplos, tutoriales, etc.) forma parte del repositorio de FeenoX. El script que genera los archivos finales en HTML y en PDF inserta en los footers de cada página el hash y la fecha del último commit. De esta manera, si aparece un PDF en Scribd, uno puede saber cabalmente a qué versión de FeenoX se refiere.
+
+El manual de referencia que indica los argumentos que toman las palabras clave, las variables especiales de cada PDE, las funciones internas, etc. provienen de comentarios especiales en el código fuente que comienzan con tres barras hacia adelante (en lugar de los comentarios regulares que usan dos barras). Estos comentarios incluyen meta-datos en un cierto formato que luego un script parsea y genera automáticamente texto en Markdown que luego es compilado al formato final.
+Por ejemplo,
+
+ * palabras clave
+ 
+    ```c
+    ///kw_pde+INTEGRATE+usage { <expression> | <function> }
+    ///kw_pde+INTEGRATE+detail Either an expression or a function of space $x$, $y$ and/or $z$ should be given.
+    ///kw_pde+INTEGRATE+detail If the integrand is a function, do not include the arguments, i.e. instead of `f(x,y,z)` just write `f`.
+    ///kw_pde+INTEGRATE+detail The results should be the same but efficiency will be different (faster for pure functions).
+      char *token = feenox_get_next_token(NULL);
+      if ((mesh_integrate->function = feenox_get_function_ptr(token)) == NULL) {
+        feenox_call(feenox_expression_parse(&mesh_integrate->expr, token));
+      }
+    ```
+
+ * funciones internas
+
+    ```c
+    ///fn+gammaf+desc Computes the Gamma function $\Gamma(x)$.
+    ///fn+gammaf+usage gammaf(x)
+    ///fn+gammaf+math \int_0^\infty t^{x-1} \cdot e^{-t} \, dt
+    ///fn+gammaf+plotx  1 5 1e-1   1 5 1   0 25 5  0.5 2.5
+    double feenox_builtin_gammaf(expr_item_t *f) {
+      double x = feenox_expression_eval(&f->arg[0]);
+      return (x <= 0) ? 1 : gsl_sf_gamma(x);
+    }
+    ```
+ * funcionales
+    
+    ```c
+    ///fu+derivative+usage derivative(f(x), x, a, [h], [p])
+    ///fu+derivative+desc Computes the derivative of the expression $f(x)$ 
+    ///fu+derivative+desc given in the first argument with respect to the variable $x$
+    ///fu+derivative+desc given in the second argument at the point $x=a$ given in
+    ///fu+derivative+desc the third argument using an adaptive scheme.
+    ///fu+derivative+desc The fourth optional argument $h$ is the initial width
+    ///fu+derivative+desc of the range the adaptive derivation method starts with. 
+    ///fu+derivative+desc The fifth optional argument $p$ is a flag that indicates
+    ///fu+derivative+desc whether a backward ($p < 0$), centered ($p = 0$) or forward ($p > 0$)
+    ///fu+derivative+desc stencil is to be used.
+    ///fu+derivative+desc This functional calls the GSL functions
+    ///fu+derivative+desc `gsl_deriv_backward`, `gsl_deriv_central` or `gsl_deriv_forward`
+    ///fu+derivative+desc according to the indicated flag $p$.
+    ///fu+derivative+desc Defaults are $h = (1/2)^{-10} \approx 9.8 \times 10^{-4}$ and $p = 0$.
+    ///fu+derivative+math \left. \frac{d}{dx} \Big[ f(x) \Big] \right|_{x = a} 
+    double feenox_builtin_derivative(expr_item_t *a, var_t *var_x) {
+    ```
+ * variables especiales de S$_N$
+    
+    ```c
+    ///va_neutron_sn+keff+desc The effective multiplication factor\ $k_\text{eff}$.
+      neutron_sn.keff = feenox_define_variable_get_ptr("keff");
+    
+    ///va_neutron_sn+sn_alpha+desc The stabilization parameter\ $\alpha$ for $S_N$.
+      neutron_sn.sn_alpha = feenox_define_variable_get_ptr("sn_alpha");
+      feenox_var_value(neutron_sn.sn_alpha) = 0.5;
+    ```
+
+dan lugar a la documentación final en PDF ilustrada en la @fig-manual.
+    
+::: {#fig-manual layout="[1,1]"}
+![`INTEGRATE`](integrate.png){#fig-integrate}
+
+![`gammaf`](gammaf.png){#fig-gammaf}
+
+![`derivative`](derivative.png){#fig-derivative.png}
+
+![`keff` y `sn_alpha`](snvars.png){#fig-snvars.png}
+
+Documentación en PDF a partir de comentarios especiales y meta-datos en el código fuente.
+:::
+
+
+Includes
+
+licencia de doc
 
 Contributing
 
