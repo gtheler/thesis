@@ -15,11 +15,8 @@ book:
     - index.md
     - front/resumen.md
     - front/abstract.md
-    - 060-resultados/README.md
-    
-  appendices:
-    - bibliografia/README.md
-
+    - 050-implementacion/README.md
+    - bibliografia/README.md    
 title-en: "Neutron transport in the cloud"
 keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"
 palabras_clave: "transporte de neutrones, difusión de neutrones, computación en la nube, computación de alto rendimiento, elementos finitos, mallas no estructuradas"    
@@ -89,8 +86,8 @@ format:
     toc-title: "Tabla de contenidos"
     lof: false
     lot: false
-    cite-method: biblatex
-    biblatexoptions: sorting=nyt
+    cite-method: citeproc
+    biblatexoptions: style=numeric,sortcites=true,sorting=nyt,backend=biber
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)

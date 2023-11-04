@@ -120,7 +120,7 @@ Estas características son distintivas del diseño e implementación propuestos 
 En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} del software con respecto a otras herramientas similares.
 
 ::: {.remark}
-El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/> bajo licencia GPLv3+.
+El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/> bajo licencia GPLv3+ (@sec-licencia).
 Consiste en aproximadamente cuarenta y cinco mil líneas de código` organizadas según la estructura de directorios mostrada en la figura~\ref{fig:tree}`{=latex}.·
 :::
 
@@ -174,7 +174,7 @@ Otra vez desde el punto de vista de la filosofía de programación Unix, la tare
 Cabe preguntarnos entonces cuál es el lenguaje de programación adecuado para implementar el diseño del SDS.
 Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son igualmente convenientes.
 Por ejemplo Assembly o BrainFuck son interesantes en sí mismos (por diferentes razones) pero para nada útiles para la tarea que tenemos que realizar.
-De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] a través de APIs que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
+De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] (ver @sec-cloud) a través de APIs^[Del inglés [_Application Programming Interface_]{lang=en-US}.] que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
 Para resumir una discusión mucho más compleja, los lenguajes candidatos para implementar la herramienta requerida por el SRS podrían ser
 
  a. Fortran
@@ -1957,8 +1957,24 @@ Dejo entonces dos frases populares Argentinas para que cada uno de los amables l
 > ii. Cuando la limosna es grande, hasta el santo desconfía.
 
 ::: {.remark}
-El software FeenoX se distribuye bajo licencia GNU General Public License versión tres o posterior.
-Esto implica que además de las cuatro libertades, el usuario que recibe una copia del software tiene una restricción: no puede re-distribuir el software modificando la licencia. Este concepto, denominado [_copyleft_]{lang=en-US} (que es otro juego de palabras como lo son Unix, Bash, GNU, less, etc.) hace que el dueño del [_copyright_]{lang=en-US} (en este caso este que escribe) justamente lo use para evitar que alguien que no lo tenga pueda transformar FeenoX en software privativo.
+El software FeenoX se distribuye bajo licencia [GNU General Public License]{lang=en-US} versión tres o, a elección del usuario, cualquier versión posterior que esté disponible al momento de recibir el software.
+Esto implica que además de las cuatro libertades, el usuario que recibe una copia del software tiene una restricción: no puede re-distribuir el software modificando la licencia. Todas las re-distribuciones, tanto con o sin modificaciones, deben ser realizadas bajo la misma licencia con la que fue recibida el software. Este concepto, denominado [_copyleft_]{lang=en-US} (que es otro juego de palabras como lo son Unix, Bash, GNU, less, etc.) hace que el dueño del [_copyright_]{lang=en-US} (en este caso este que escribe) justamente lo use para evitar que alguien que no lo tenga pueda transformar FeenoX en software privativo.
+:::
+
+::: {.remark}
+Siguiendo la recomendación de la organización GNU, al ejecutar `feenox` con la opción `-v` (o `--version`) no solamente se reporta la versión sino también el mensaje de derechos de copia y un resumen de la licencia:
+
+```terminal
+$ feenox -v
+FeenoX v0.3.270-g9d014eb 
+a cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool
+
+Copyright © 2009--2023 Seamplex, https://seamplex.com/feenox
+GNU General Public License v3+, https://www.gnu.org/licenses/gpl.html. 
+FeenoX is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+$ 
+```
 :::
 
 
@@ -2259,78 +2275,136 @@ Cada fila de la matriz global $\mat{K}$ corresponde a un grado de libertad asoc
 
 ### Ejecución en la nube {#sec-cloud}
 
-cloud = infinite resources
+::: {.remark}
+Esta sección podría ser una tesis académica completa (tal vez en el ámbito de tecnologías de informática y comunicaciones)  o un informe técnico industrial en sí misma.
+:::
 
-es como tener un generador diesel vs. tomar energía eléctrica de la red
+FeenoX es una herramienta computacional que ha sido diseñada, haciendo una analogía con el diseño web, como [_cloud first_]{lang=en-US} (también llamados [_API first_]{lang=en-US} en la industria del software) y no solamente como [_cloud friendly_]{lang=en-US}. Lo segundo quiere decir que la herramienta pueda ser ejecutada en servidores remotos de una forma más o menos sencilla. Pero la primera idea implica conceptos y decisiones de diseño más profundas, que explicamos en esta sección.
 
-thin clients para que no sea tan tedioso el setup
+Lo primero que hay que decir es que cuando nos referimos a la "nube", desde un punto de vista de computación de alta performance, estamos haciendo referencia a que en principio disponemos de infinitos recursos computacionales.
+Haciendo una analogía que termina muy rápido, comparar recursos computacionales [_on premise_]{lang=en-US} con la nube equivale a comparar la generación eléctrica mediante máquinas propias (¿un generador Diesel?) con la posibilidad de tomar energía de la red eléctrica.
+Esto es, para la mayoría de las aplicaciones, recurrir a recursos computacionales cloud debería ser la primera opción tanto desde el punto de vista técnico como económico.
 
-API first: ver slides de Don
+Para poder usufructuar estas ventajas que este tipo de hardware provee, es mandatorio que el software pueda ejecutarse no sólo en forma remota sino que también sea capaz de correr en forma distribuida.
+Entonces, hay que
 
-abstraction layer + backend
+ * tener todos los [hosts]{lang=en-US} en una red particular
+ * configurar sistemas de nombres de dominios
+ * diseñar sistemas de archivos de red compartidos
+ * etc.
 
-console -> events -> observability
+En lugar de tener que hacer todo este [set-up]{lang=en-US} en forma manual cada vez que se necesite realizar un cálculo de ingeniería, una implementación cloud completa implicaría el desarrollo de una serie de scripts encargados de lanzar y configurar las instancias necesarias para ejecutar dicha simulación.
+Estos scripts se suelen conocer como "[thin clients]{lang=en-US}", podrían simplemente encargarse de
 
-"Desktop solvers design is opposed to cloud-first solvers"
+ #. lanzar y configurar instancias remotas 
+ #. subir archivos de entrada a dichas instancias
+ #. ejecutar las herramientas computacionales (Gmsh, FeenoX, etc.)
+ #. bajar los resultados
+ 
+Pero también podrían diseñarse clientes más complejos que incluyan APIs relacionadas a la simulación en sí.
+Por ejemplo, que manejen temas como
 
- - file I/O (upload/download)
- - store results
- - logging
- - communication with front-end
+ * autenticación
+ * facturación de horas de CPU
+ * estimación de los recursos que deben ser lanzados en función del tipo y tamaño del problema a reducir
+ * estudios paramétricos
+ * lazos de optimización
+ * simulaciones condicionalmente encadenadas 
+ * etc.
 
-No es sólo poder hacer `mpirun` por SSH!
+Si bien esta tesis no abarca a estos clientes (que queda como trabajo a futuro), el diseño de FeenoX es tal que su desarrollo es perfectamente posible y eficiente. De hecho nos referimos a "clientes" en plural porque, tal como pide la regla de Unix de diversidad, no hay un único tipo de cliente posible sino que hay muchas dependiendo del tipo de problema a resolver. Y como FeenoX justamente es lo suficientemente flexible como para resolver no solamente diferentes PDEs sino también diferentes clases de problema (acoplados, paramétricos, de optimización, etc.) en diferentes entornos (muchos cálculos pequeños, pocos grandes, uno inmenso, etc.) bajo diferentes condiciones (en la academia por una sola persona, en la industria por un equipo, como una plataforma púiblica [_as a service_]{lang=en-US}, etc.) entonces es de esperar que no haya un cliente que pueda manejar todas las combinaciones en forma óptima.
+Pero sí lo que se ha tenido en cuenta en el diseño del código computacional de cálculo es que, una vez más siguiendo la filosofía Unix planteada implícitamente durante la década de 1970 [@unix] pero que sigue siendo extremadamente importante en la década de 2020 a la luz de la arquitectura que "la nube" fue tomando, se debe separar el [_back end_]{lang=en-US} de las capas de abstracción necesarias para llegar a los distintos [_front ends_]{lang=en-US} necesarios para su aplicación.
 
-Hay que poner todo en una red, configurar nfs, hostfiles, et.c
+::::: {.remark}
+Este párrafo no es trivial. Conozco de primera mano los esfuerzos realizados por una de las mayores empresas de software de cálculo del mundo (con facturación superior a los dos mil millones de dólares en 2022) que ha intentado agregar esta capa de abstracción a sus solvers existentes con una tasa de suceso tan baja que ha debido comprar una startup que estaba en mejores condiciones de hacerlo por más de cien millones de dólares.
+En una presentación del gerente encargado de la compra al comité de directores de la empresa (los famosos CxOs), una filmina^[Por supuesto que "filmina" es un anacronismo deliberado. Fue una presentación hecha en un software privativo que no quisiera nombrar para no alentar a nadie a que lo use. Pero justamente, mi opinión personal es que el hecho de que la política de la compañía era usar este software privativo para hacer presentaciones es el que la ha impedido lograr desarrollar la capa de abstracción por la que han debido comprar una startup que hacía sus presentaciones con los macros Beamer de LaTeX.] decía literalmente
 
-Pero además tener en cuenta interacción remota en tiempo de ejecución
+::: {lang=en-US}
+> Desktop solvers design is opposed to API-first solvers.
+:::
 
- * cómo reportar el estado del solver a demanda
-   - en un gui web
-   - en un email
-   - en un whatsapp
+:::::
+
+
+¿Qué implica todo esto de [API-first]{lang=en-US} para un solver neutrónico?
+Bueno, que además de leer uno o más archivos de entrada (o instrucciones en un lenguaje de alto nivel como Python a través de una API) que definan el problema a resolver como suele suceder en la mayoría de los solvers de uso masivo, hay que tener en cuenta que durante la ejecución propiamente dicha se debe poder interactuar con distintas clases de entidades, como por ejemplo
+
+ * una interfaz de usuario web
+ * un sistema de logueo distribuido y compartido
+ * un reportero de estado bajo demanda por email, sms, whatsapp, telegram, etc.
+ 
+Luego el back-end debe ser lo suficientemente flexible como para poder reportar su estado y sus eventos con un horizonte de observabilidad mucho mayor que el que se necesitaba en 1970 cuando se diseñaron muchas de las herramientas de uso nuclear (y no nuclear) industrial.
+
+Especialmente importante es el manejo y reporte de errores.
+Mi experiencia con la interfaz web CAEplex, que tiene casi cinco mil usuarios y más de quince mil proyectos resueltos al momento de esta escritura, es que los usuarios hacen gala de su denominación y usan el software de formas que no pueden ser tenidas en cuenta ni por un único desarrollador ni por un equipo de programadores profesionales.
+Algunas de estas formas tienen sentido y deben ser manejadas por el software.
+Pero la gran mayoría simplemente son entradas que no tienen sentido (y que justamente por eso no han sido tenidas en cuenta por los desarrolladores).
+Por lo tanto constantemente aparecen nuevos errores que deben ser reportados en forma humanamente entendible.
+Entonces tanto el back-end como la capa de abstracción deben ser, una vez más, lo suficientemente flexibles para manejar casos inesperados.
    
-docker friendly: autogen + configure + make
-100% user defined output
+Para terminar, resaltamos que una de las varias maneras de hacer el [_deployment_]{lang=en-US} involucra utilizar la tecnología de contenedores.
+FeenoX es completamente [Docker-friendly]{lang=en-US} en el sentido de que el código puede ser
 
+ * obtenido desde el repositorio
+ * compilado (con las opciones particulares de optimización apropiadas para el hardware donde se va a terminar ejecutando el binario) y
+ * ejecutado
 
-GUIs
+con líneas de comando estándar de Unix como mostramos en la @sec-integracion-continua.
 
- - web
- - desktop
- - mobile
- 
-Client
-
- - python to do the auth + versioning + launch + follow the execution + get results
 
  
 
-### Extensibilidad
+### Extensibilidad {#sec-extensibilidad}
 
- - `src/pdes/`
-   - + pdes
-   - EM
- - FVM
-   - high-order
- - truss1d
+Uno de los requerimientos del [_Sofware Design Requirements_]{lang=en-US} del @sec-sds es que la herramienta computacional desarrollada pueda ser extensible.
+El esquema por el cual es posible agregar nuevas ecuaciones diferenciales en derivadas parciales a resolver con el método de elementos finitos ya ha sido explicado durante este capítulo.
+Esta es una característica distintiva que no es común en el mundo del software de elementos finitos, excepto en aquellas herramientas avanzadas como FEniCSx que permiten dar la forma débil de la ecuación a resolver en el archivo de entrada @ufl.
 
-transient neutronics
+De todas maneras, si bien FeenoX tiene funcionalidades que no han sido discutidas en detalle en esta tesis (por ejemplo el hecho de poder resolver sistemas de ecuaciones algebraicas-diferenciales que mostramos brevemente en la @sec-cinetica-puntual), hay muchas otras características que serían deseables en una herramienta de este tipo que no están implementadas.
+Pero, en principio, la arquitectura del código permite que el desarrollo de temas como
 
-cell level
+ * solución de PDEs discretizadas espacialmente con volúmenes finitos en lugar de elementos finitos
+ * esquemas espaciales de alto orden
+ * manejo de elementos estructurales (beam, truss, shell, plates) para resolver problemas de elasticidad
+ * análisis modales con amortiguación que pueden dar lugar a soluciones complejas
+ * neutrónica cinético-espacial
 
+::: {.remark}
+El Ing. Nuclear Ramiro Vignolo ha desarrollado
+
+ a. una prueba de concepto para resolver neutrónica a nivel de celda con el método de probabilidad de colisiones y
+ b. un solver de redes termohidráulicas 1D en estado estacionario
  
-El código es GPLv3+. El + es por extensibilidad.
-
+en la segunda versión del código, mostrando que ya era posible la extensibilidad en la arquitectura anterior aún cuando todavía no era éste uno de los puntos de la base de diseño.
+:::
  
-### Integración continua
+En las conclusiones del @sec-conclusiones hacemos un listado extensivo de posibles características que podrían ser implementadas sin necesidad de realizar grandes refactorizaciones al código base.
+ 
+::: {.remark}
+Como ya hemos explicado en la @sec-licencia, FeenoX se distribuye bajo licencia GPLv3 o posterior.
+Técnicamente hablando (en el sentido leguleyo), el "o posterior" es por extensibilidad.
+:::
+ 
+### Integración continua {#sec-integracion-continua}
 
---versions
+Una de las tantas prácticas que se han puesto de moda en la última década en la industria del software que realmente agrega calidad al código resultante (al contrario que las otras modas como [scrum]{lang=en-US} y [agile]{lang=en-US}) es la llamada integración continua.
+Esta práctica involucra primero generar y luego automatizar muchos pasos de prueba del código antes de liberar públicamente las versiones.
+
+Como ya mencionamos, el desarrollo de FeenoX se realiza en un repositorio Git hosteado en Github, pero que puede ser clonado y replicado libremente (siguiendo la licencia GPLv3+).
+Cada [commit]{lang=en-US al repositorio tiene un [hash]{lang=en-US} asociado que, como también ya hemos mencionado, es reportado por el binario `feenox` tanto si se ejecuta sin argumentos como si se ejecuta con la opción `-v` (o `--version`).
+Más aún, la opción `-V` (o `--versions`) da no sólo el [hash]{lang=en-US} sino también la fecha y hora del último [commit]{lang=en-US del repositorio utilizado para compilar el binario.
+De esta forma es posible vincular un ejecutable cualquiera encontrado "en la naturaleza"^[Del inglés [_in the wild_]{lang=en-US}.] con el estado instantáneo del código fuente a través del [hash]{lang=en-US} (ayudándose de la fecha reportada por `-V`).
 
 tests: make check
 
-valgrind
+
+Cada uno de los [commits]{lang=en-US} unido (¿mergeado?) a la rama principal ([main branch]{lang=en-US}) pasa por 
 
 Github actions
+
+
+
+TODO: valgrind
 
 TODO: code coverage?
 

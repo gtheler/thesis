@@ -1,10 +1,7 @@
  * revisar timing en laptop, integration reduced en tet4
  * revisar las citas bib
- * biblatex o citeproc?
- * ordenar bibtex por apellido?
- * juntar todos los theler para que aparezcan juntos (habrá que ponerme como first author)
- * citar alan perez 
- * arreglar sec-le10-other
+
+ 
  
  * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 
  
@@ -14,6 +11,7 @@
    - extensibilidad
    - intregracion continua
    - documentacion
+
  * demostración alternativa de thm-A-spd en hughes
  * demostrar thm-A-monio-es-singular con la demostracion alternativa
  * flujos escalares y corrientes en sn
@@ -28,10 +26,10 @@
  * roman de frontmatter con emph
  * index?
  * zebra tables
- * CSL style 
 
  * FeenoX & Unix
  * terminar SDS
+ 
  * resolver transporte en 1d como Los Alamos (if one keeps the higher...)
  * apéndice con elementos
    1. dibujo con node ordering en Gmsh
