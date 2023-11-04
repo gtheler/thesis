@@ -39,7 +39,9 @@ Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAE
 :::
 
 
-En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando una versión anterior de FeenoX, incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia.
+En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando una versión anterior de FeenoX, incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia, que también resuelve el problema.
+En la presentación @milongaiaea2011 mostramos cómo habíamos resuelto el [benchmark]{lang=en-US} con la primera versión del código.
+
 En esta sección calculamos solamente el factor de multiplicación y la distribución espacial de flujos.
 En este caso vamos a prestar más atención al archivo de entrada de FeenoX que a la generación de la malla, que para este caso puede ser estructurada como mostramos en la @fig-iaea-2dpwr-quarter.
 

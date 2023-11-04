@@ -284,6 +284,8 @@ iaea3d con
 
 bunny y bunny-in-a-box
 
+
+es bastante molesto escribir temas de IT en español
     
 Esta problemática es (o debería ser) de interés para la industria
 nuclear argentina, teniendo en cuenta que al sus tres centrales

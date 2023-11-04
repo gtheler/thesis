@@ -167,7 +167,7 @@ En este sentido, nuestra herramienta se tiene que enfocar en el punto 1.
 Pero tenemos que definir quién va a hacer el punto 2 para que sepamos cómo es que tenemos que construir $\mat{K}$ y $\vec{b}$.
 
 Las bibliotecas PETSc [@petsc-user-ref;@petsc-efficient] junto con la extensión SLEPc [@slepc-manual;@slepc-toms] proveen exactamente lo que necesita una herramienta que satisfaga el SRS siguiendo la filosofía de diseño del SDS.
-De hecho, en 2010 seleccioné PETSc para la segunda versión del solver neutrónico por la única razón de que era una dependencia necesaria para resolver el problema de criticidad con SLEPc [@milongabase2010;@milongaiaea2011].
+De hecho, en 2010 seleccioné PETSc para la segunda versión del [solver]{lang=en-US} neutrónico por la única razón de que era una dependencia necesaria para resolver el problema de criticidad con SLEPc [@milongabase2010;@milongaiaea2011].
 Con el tiempo, resultó que PETSc proveía el resto de las herramientas necesarias para resolver numéricamente ecuaciones en derivadas parciales en forma portable y extensible.
 
 Otra vez desde el punto de vista de la filosofía de programación Unix, la tarea 1 consiste en un cemento de contacto^[En el sentido del inglés [_glue layer_]{lang=en-US}.] entre la definición del problema a resolver por parte del ingeniero usuario y la biblioteca matemática para resolver problemas ralos^[Del inglés [_sparse_]{lang=en-US}.] PETSc. 
@@ -429,16 +429,16 @@ Pero,
 
     Estas funciones de inicialización a su vez resuelven los apuntadores a función particulares para evaluar contribuciones elementales volumétricas en puntos de Gauss, condiciones de contorno, post-procesamiento, etc.
     
- b. El bloque `if` mostrado en el punto anterior es generado programáticamente a partir de un script (regla de Unix de generación) que analiza (_parsea_) el árbol del código fuente y, para cada subdirectorio en [`src/pdes`](https://github.com/seamplex/feenox/tree/main/src/pdes), genera un bloque `if` automáticamente. 
- Es fácil ver el patrón que siguen cada una de las líneas del listado en el punto a y escribir un script o macro para generarlo programáticamente.
+ b. El bloque `if` mostrado en el punto anterior es generado programáticamente a partir de un [script]{lang=en-US}  (regla de Unix de generación) que analiza (_parsea_) el árbol del código fuente y, para cada subdirectorio en [`src/pdes`](https://github.com/seamplex/feenox/tree/main/src/pdes), genera un bloque `if` automáticamente. 
+ Es fácil ver el patrón que siguen cada una de las líneas del listado en el punto a y escribir un [script]{lang=en-US}  o macro para generarlo programáticamente.
  
 Entonces,
 
  1. Si bien ese bloque sigue siendo feo, es generado y compilado por una máquina que no tiene el mismo sentido estético que nosotros.
  
- 2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo script que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular (ver @sec-performance).
+ 2. Reemplazamos la evaluación de $n$ condiciones `if` para llamar a una dirección de memoria fija para cada punto de Gauss para cada elemento por una des-referencia de un apuntador a función en cada puntos de Gauss de cada elemento. En términos de eficiencia, esto es similar (tal vez más eficiente) que un método virtual de C++. Esta des-referencia dinámica no permite que el compilador pueda hacer un `inline` de la función llamada, pero el gasto extra^[Del inglés [_overhead_]{lang=en-US}.] es muy pequeño. En cualquier caso, el mismo [script]{lang=en-US}  que parsea la estructura en `src/pdes` podría modificarse para generar un binario de FeenoX para cada PDE donde en lugar de llamar a un apuntador a función se llame directamente a las funciones propiamente dichas permitiendo optimización en tiempo de vinculación^[Del inglés [_link-time optimization_]{lang=en-US}.] que le permita al compilador hacer el `inline` de la función particular (ver @sec-performance).
  
- 3. El script que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (ver la discusión de la @sec-entry) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
+ 3. El [script]{lang=en-US}  que parsea la estructura de `src/pdes` en busca de los tipos de PDEs disponibles es parte del paso `autogen.sh` (ver la discusión de la @sec-entry) dentro del esquema `configure` + `make` de Autotools. Las PDEs soportadas por FeenoX puede ser extendidas agregando un nuevo subdirectorio dentro de `src/pdes` donde ya existen
  
     * [`laplace`](https://github.com/seamplex/feenox/tree/main/src/pdes/laplace)
     * [`thermal`](https://github.com/seamplex/feenox/tree/main/src/pdes/thermal)
@@ -760,23 +760,23 @@ $
 
 ### Puntos de entrada {#sec-entry}
 
-La compilación del código fuente usa el procedimiento recomendado por GNU donde el script `configure` genera los archivos de _make_^[Del inglés [_make files_]{lang=en-US}.] según
+La compilación del código fuente usa el procedimiento recomendado por GNU donde el [script]{lang=en-US}  `configure` genera los archivos de _make_^[Del inglés [_make files_]{lang=en-US}.] según
 
  a. la arquitectura del hardware (Intel, ARM, etc.)
  b. el sistema operativo (GNU/Linux, otras variantes, etc.)
  c. las dependencias disponibles (MPI, PETSc, SLEPc, GSL, etc.)
  
-A su vez, para generar este script `configure` se suele utilizar el conjunto de herramientas conocidas como Autotools.
-Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el script `configure` sino también otros archivos relacionados al proceso de compilación tales como los templates para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y los templates que indican dónde están los archivos fuente que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
-Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el script `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
+A su vez, para generar este [script]{lang=en-US}  `configure` se suele utilizar el conjunto de herramientas conocidas como Autotools.
+Estas herramientas generan, a partir de un conjunto de definiciones reducidas dadas en el lenguaje de macros M4, no sólo el [script]{lang=en-US}  `configure` sino también otros archivos relacionados al proceso de compilación tales como los templates para los makefiles. Estas definiciones reducidas (que justamente definen las arquitecturas y sistemas operativos soportados, las dependencias, etc.) usualmente se dan en un archivo de texto llamado `configure.ac` y los templates que indican dónde están los archivos fuente que se deben compilar en archivos llamados `Makefile.am` ubicados en uno o más subdirectorios.
+Éstos últimos se referencian desde `configure.ac` de forma tal que Autoconf y Automake trabajen en conjunto para generar el [script]{lang=en-US}  `configure`, que forma parte de la distribución del código fuente de forma tal que un usuario arbitrario pueda ejecutarlo y luego compilar el código con el comando `make`, que lee el `Makefile` generado por `configure`.
 
 
 Para poder implementar la idea de extensibilidad según la cual FeenoX podría resolver diferentes ecuaciones en derivadas parciales, le damos una vuelta más de tuerca a esta idea de generar archivos a partir de scripts.
-Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un script llamado `autogen.sh` (algunos autores prefieren llamarlo `bootstrap`).
+Para ello empleamos la idea de _bootstrapping_ (@fig-bootstrap), en la cual el archivo `configure.ac` y/o las plantillas `Makefile.am` son generadas a partir de un [script]{lang=en-US}  llamado `autogen.sh` (algunos autores prefieren llamarlo `bootstrap`).
 
 ![El concepto de `bootstrap` (también llamado `autogen.sh`).](bootstrap_marked.jpg){#fig-bootstrap width=35%}
 
-Este script `autogen.sh` detecta qué subdirectorios hay dentro del directorio `src/pdes` y, para cada uno de ellos, agrega unas líneas a un archivo fuente llamado `src/pdes/parse.c` que hace apuntar un cierto apuntador a función a una de las funciones definidas dentro del subdirectorio. En forma resumida,
+Este [script]{lang=en-US}  `autogen.sh` detecta qué subdirectorios hay dentro del directorio `src/pdes` y, para cada uno de ellos, agrega unas líneas a un archivo fuente llamado `src/pdes/parse.c` que hace apuntar un cierto apuntador a función a una de las funciones definidas dentro del subdirectorio. En forma resumida,
 
 ```bash
 for pde in *; do
@@ -1070,8 +1070,8 @@ Antes de construir y resolver las ecuaciones, se llama a su vez a los apuntadore
  * `feenox.pde.setup_ksp(KSP kps)`
  * `feenox.pde.setup_eps(EPS eps)`
 
-donde cada problema particular configura el precondicionador, el solver lineal y el solver de autovalores en caso de que el usuario no haya elegido algoritmos explícitamente en el archivo de entrada.
-Si el operador diferencial es elíptico y simétrico (por ejemplo para conducción de calor o elasticidad lineal) tal vez convenga usar por defecto un solver iterativo basado en gradientes conjugados pre-condicionado con multi-grilla geométrica-algebraica^[Del inglés [_geometric algeraic multi-grid_]{lang=en-US}.] @baker2009. En cambio para un operador hiperbólico no simétrico (por ejemplo S$_N$ multigrupo) es necesario un solver más robusto como LU.
+donde cada problema particular configura el precondicionador, el [solver]{lang=en-US} lineal y el [solver]{lang=en-US} de autovalores en caso de que el usuario no haya elegido algoritmos explícitamente en el archivo de entrada.
+Si el operador diferencial es elíptico y simétrico (por ejemplo para conducción de calor o elasticidad lineal) tal vez convenga usar por defecto un [solver]{lang=en-US} iterativo basado en gradientes conjugados pre-condicionado con multi-grilla geométrica-algebraica^[Del inglés [_geometric algeraic multi-grid_]{lang=en-US}.] @baker2009. En cambio para un operador hiperbólico no simétrico (por ejemplo S$_N$ multigrupo) es necesario un [solver]{lang=en-US} más robusto como LU.
 
 
 #### Construcción {#sec-construccion}
@@ -1923,7 +1923,7 @@ Las libertades dos y tres son esencialmente importantes en el ámbito académico
 :::
 
 Relacionado al movimiento de software libre, que tiene raíces en ideas éticas @gnu-manifesto, viene el concepto de código abierto que se basa en consideraciones más bien prácticas: "given enough eyeballs all bugs are shallow" @cathedral.
-De hecho esta idea aplica también perfectamente al software de ingeniería: la calidad de un solver open source debería ser, objetivamente hablando, superior a cualquier otra herramienta privativa (en el sentido de que _priva_ a los usuarios de las libertades básicas).
+De hecho esta idea aplica también perfectamente al software de ingeniería: la calidad de un [solver]{lang=en-US} open source debería ser, objetivamente hablando, superior a cualquier otra herramienta privativa (en el sentido de que _priva_ a los usuarios de las libertades básicas).
 
 
 Una vez explicados las bases del software libre y del código abierto, quiero volver a aclarar por qué aquellos que deciden usar este tipo de programas basándose en consideraciones de precios están equivocados.
@@ -1997,7 +1997,7 @@ Las mallas, que no son amenas Git, _no_ son parte del archivo de entrada de Feen
 Otro ejemplo de ideas de Unix implementadas en FeenoX es la posibilidad de realizar estudios paramétricos leyendo parámetros por la línea de comandos, como explicamos en la @sec-simulacion-programatica y que utilizamos extensivamente en el @sec-resultados. Esto permite que los parámetros a evaluar puedan ser generados por scripts de Bash (que es lo que mayormente usamos en esta tesis) pero también en Python (ver @sec-tres-pescaditos). 
 
 La decisión de utilizar bibliotecas numéricas libres, abiertas y bien establecidas también---de alguna manera---responde a un de las ideas de la filosofía Unix: [do not repeat yourself!]{lang=en-US}
-No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el @sec-esquemas. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al solver neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
+No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el @sec-esquemas. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al [solver]{lang=en-US} neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
 
 ::: {.remark}
 El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un nuevo esquema de [_coarsening_]{lang=en-US} que, para algunos problemas con ciertas opciones de optimización en el compilador, es más rápido que en la versión 3.19.
@@ -2062,10 +2062,10 @@ En el mundo de software de ingeniería, esto involucra que los solvers provean
  
 En la mayoría de los programas industriales el camino para proveer "simulación programática" es agregar abstracciones e interfaces a software existente, muchas veces diseñados e implementados hace varias décadas.
 En FeenoX, esta idea está embebida en el diseño y se provee la "simulación programática" de forma nativa.
-De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personalizados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin intervención manual para definir el problema. La base de diseño del solver fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo ["point and click"]{lang=en-US}.
+De hecho en el año 2018 se ha desarrollado un proyecto industrial con la versión 2 del código en el cual un fabricante de implantes de cadera personalizados necesitaba incluir un paso de cálculo mecánico en su workflow automatizado sin intervención manual para definir el problema. La base de diseño del [solver]{lang=en-US} fue perfecta para poder implementar dicho proyecto con una extrema satisfacción del cliente, acostumbrado a usar programas de cálculo tipo ["point and click"]{lang=en-US}.
 
 El hecho de diseñar el software comenzando por la idea de simulación programática en lugar de una interfaz gráfica hace que desarrollar una o más interfaces gráficas sea mucho más sencillo que el camino inverso tomado por las compañías de software de cálculo que se han dado cuenta de las ventajas de la "simulación programática". Más aún, dado que FeenoX está diseñado para correr en la nube (@sec-cloud), es posible entonces desarrollar interfaces web en forma mucho más natural que si no se hubiesen tenido en cuenta todas estas consideraciones.
-La interfaz, web o desktop, tiene que hacer lo que haría un script programático (tal vez creando la malla y el archivo de entrada `.fee`) pero en forma interactiva.
+La interfaz, web o desktop, tiene que hacer lo que haría un [script]{lang=en-US}  programático (tal vez creando la malla y el archivo de entrada `.fee`) pero en forma interactiva.
 
 ::: {.remark}
 La plataforma [CAEplex](https://www.caeplex.com) lanzada en 2017 provee una interfaz web para una versión anterior de FeenoX que permite resolver problemas termomecánicos y modales en la nube directamente desde el navegador.
@@ -2093,7 +2093,7 @@ Usando la biblioteca `benchmark` de Google^[Ver repositorio <https://github.com/
  - estudiar pros y contras de usar el framework DMPlex @dmplex de PETSc para manejar la topología de las mallas no estructuradas
 
 Otro de los balances que involucra a la performance de un código es la generalidad vs. la particularidad.
-Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de todas las PDEs disponibles se quiere resolver involucra el esquema de apuntadores a función y de puntos de entrada discutidos en la @sec-entry. Esta generalidad hace que no se pueda hacer inlining de estas funciones ya que no se conocen en tiempo de compilación. Es por eso que tal vez se puede mejorar la eficiencia del código si la selección del tipo de PDE se pueda hacer en tiempo de compilación con macros apropiados que puedan optimizar para
+Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de todas las PDEs disponibles se quiere resolver involucra el esquema de apuntadores a función y de puntos de entrada discutidos en la @sec-entry. Esta generalidad hace que no se pueda hacer [inlining]{lang=en-US} de estas funciones ya que no se conocen en tiempo de compilación. Es por eso que tal vez se puede mejorar la eficiencia del código si la selección del tipo de PDE se pueda hacer en tiempo de compilación con macros apropiados que puedan optimizar para
 
  * velocidad de ejecución
  * memoria
@@ -2102,7 +2102,7 @@ Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de toda
 por ejemplo generando diferentes ejecutables de FeenoX para particularizaciones de
 
  * el tipo de problema (para evitar apuntadores a función)
- * la dimensión del problema (para poder usar arreglos de tamaño fijo en lugar de alocación dinámica de memoria)
+ * la dimensión del problema (para poder usar arreglos de tamaño fijo en lugar de recurrir a reservación dinámica de memoria)
  * mallas con todos los tipos de elementos iguales (para evitar tener que pedir memoria dinámica elemento por elemento)
  * tamaño de variables de coma flotante (simple o doble precisión para optimizar memoria)
  * etc.
@@ -2114,10 +2114,10 @@ Hay algunos estudios que muestran que para problemas de elasticidad lineal, Feen
 
 Es preciso mencionar también que el tema de performance definido como "tiempo de ejecución requerido para resolver un cierto problema" es, por lo menos, ambiguo y difícil de cuantificar.
 Por ejemplo, consideremos el sistema de templates de C++. Estrictamente hablando, es un lenguaje Turing completo en sí mismo.
-Por lo tanto, es posible escribir un solver para un problema particular (con la malla y condiciones de contorno embebidos en los templates) implementado 100% como templates de C++. En este caso inverosímil, el tiempo de ejecución sería cero ya que toda la complejidad numérica estaría puesta en la compilación y no en la ejecución.
+Por lo tanto, es posible escribir un [solver]{lang=en-US} para un problema particular (con la malla y condiciones de contorno embebidos en los templates) implementado 100% como templates de C++. En este caso inverosímil, el tiempo de ejecución sería cero ya que toda la complejidad numérica estaría puesta en la compilación y no en la ejecución.
 
 Si bien este experimento pensado es extremo, hay algunos puntos a tener en cuenta en casos reales.
-Consideremos el caso de solver algebraicos tipo multi-grid. El tiempo de CPU necesario para resolver un sistema de ecuaciones algebraicas  depende fuertemente de la calidad de la malla. Entonces cabe preguntarse: ¿vale la pena "gastar" tiempo de CPU optimizando la calidad de la malla para que el solver vaya más rápido? La respuesta va a depender de varias cuestiones, en particular si la misma malla va a ser usada una sola vez o hay varios problemas con diferentes condiciones de contorno que usan la misma malla.
+Consideremos el caso de [solver]{lang=en-US} algebraicos tipo multi-grid. El tiempo de CPU necesario para resolver un sistema de ecuaciones algebraicas  depende fuertemente de la calidad de la malla. Entonces cabe preguntarse: ¿vale la pena "gastar" tiempo de CPU optimizando la calidad de la malla para que el [solver]{lang=en-US} vaya más rápido? La respuesta va a depender de varias cuestiones, en particular si la misma malla va a ser usada una sola vez o hay varios problemas con diferentes condiciones de contorno que usan la misma malla.
 Una re-edición de la conocida conclusión de que no existe el ["one size fits all"]{lang=en-US}.
 
 Encima de todo este guiso de consideraciones tenemos la salsa de la regla de economía de Unix.
@@ -2279,11 +2279,11 @@ Cada fila de la matriz global $\mat{K}$ corresponde a un grado de libertad asoc
 Esta sección podría ser una tesis académica completa (tal vez en el ámbito de tecnologías de informática y comunicaciones)  o un informe técnico industrial en sí misma.
 :::
 
-FeenoX es una herramienta computacional que ha sido diseñada, haciendo una analogía con el diseño web, como [_cloud first_]{lang=en-US} (también llamados [_API first_]{lang=en-US} en la industria del software) y no solamente como [_cloud friendly_]{lang=en-US}. Lo segundo quiere decir que la herramienta pueda ser ejecutada en servidores remotos de una forma más o menos sencilla. Pero la primera idea implica conceptos y decisiones de diseño más profundas, que explicamos en esta sección.
+FeenoX es una herramienta computacional que ha sido diseñada, haciendo una analogía con el diseño web, como [_cloud-first_]{lang=en-US} (también llamados [_API-first_]{lang=en-US} en la industria del software) y no solamente como [_cloud-friendly_]{lang=en-US}. Lo segundo quiere decir que la herramienta pueda ser ejecutada en servidores remotos de una forma más o menos sencilla. Pero la primera idea implica conceptos y decisiones de diseño más profundas, que explicamos en esta sección.
 
 Lo primero que hay que decir es que cuando nos referimos a la "nube", desde un punto de vista de computación de alta performance, estamos haciendo referencia a que en principio disponemos de infinitos recursos computacionales.
 Haciendo una analogía que termina muy rápido, comparar recursos computacionales [_on premise_]{lang=en-US} con la nube equivale a comparar la generación eléctrica mediante máquinas propias (¿un generador Diesel?) con la posibilidad de tomar energía de la red eléctrica.
-Esto es, para la mayoría de las aplicaciones, recurrir a recursos computacionales cloud debería ser la primera opción tanto desde el punto de vista técnico como económico.
+Esto es, para la mayoría de las aplicaciones, recurrir a recursos computacionales [cloud]{lang=en-US} debería ser la primera opción tanto desde el punto de vista técnico como económico.
 
 Para poder usufructuar estas ventajas que este tipo de hardware provee, es mandatorio que el software pueda ejecutarse no sólo en forma remota sino que también sea capaz de correr en forma distribuida.
 Entonces, hay que
@@ -2293,7 +2293,7 @@ Entonces, hay que
  * diseñar sistemas de archivos de red compartidos
  * etc.
 
-En lugar de tener que hacer todo este [set-up]{lang=en-US} en forma manual cada vez que se necesite realizar un cálculo de ingeniería, una implementación cloud completa implicaría el desarrollo de una serie de scripts encargados de lanzar y configurar las instancias necesarias para ejecutar dicha simulación.
+En lugar de tener que hacer todo este [set-up]{lang=en-US} en forma manual cada vez que se necesite realizar un cálculo de ingeniería, una implementación [cloud]{lang=en-US} completa implicaría el desarrollo de una serie de scripts encargados de lanzar y configurar las instancias necesarias para ejecutar dicha simulación.
 Estos scripts se suelen conocer como "[thin clients]{lang=en-US}", podrían simplemente encargarse de
 
  #. lanzar y configurar instancias remotas 
@@ -2326,7 +2326,7 @@ En una presentación del gerente encargado de la compra al comité de directores
 :::::
 
 
-¿Qué implica todo esto de [API-first]{lang=en-US} para un solver neutrónico?
+¿Qué implica todo esto de [API-first]{lang=en-US} para un [solver]{lang=en-US} neutrónico?
 Bueno, que además de leer uno o más archivos de entrada (o instrucciones en un lenguaje de alto nivel como Python a través de una API) que definan el problema a resolver como suele suceder en la mayoría de los solvers de uso masivo, hay que tener en cuenta que durante la ejecución propiamente dicha se debe poder interactuar con distintas clases de entidades, como por ejemplo
 
  * una interfaz de usuario web
@@ -2373,7 +2373,7 @@ Pero, en principio, la arquitectura del código permite que el desarrollo de tem
 El Ing. Nuclear Ramiro Vignolo ha desarrollado
 
  a. una prueba de concepto para resolver neutrónica a nivel de celda con el método de probabilidad de colisiones y
- b. un solver de redes termohidráulicas 1D en estado estacionario
+ b. un [solver]{lang=en-US} de redes termohidráulicas 1D en estado estacionario
  
 en la segunda versión del código, mostrando que ya era posible la extensibilidad en la arquitectura anterior aún cuando todavía no era éste uno de los puntos de la base de diseño.
 :::
@@ -2391,22 +2391,58 @@ Una de las tantas prácticas que se han puesto de moda en la última década en 
 Esta práctica involucra primero generar y luego automatizar muchos pasos de prueba del código antes de liberar públicamente las versiones.
 
 Como ya mencionamos, el desarrollo de FeenoX se realiza en un repositorio Git hosteado en Github, pero que puede ser clonado y replicado libremente (siguiendo la licencia GPLv3+).
-Cada [commit]{lang=en-US al repositorio tiene un [hash]{lang=en-US} asociado que, como también ya hemos mencionado, es reportado por el binario `feenox` tanto si se ejecuta sin argumentos como si se ejecuta con la opción `-v` (o `--version`).
-Más aún, la opción `-V` (o `--versions`) da no sólo el [hash]{lang=en-US} sino también la fecha y hora del último [commit]{lang=en-US del repositorio utilizado para compilar el binario.
+Cada [commit]{lang=en-US} al repositorio tiene un [hash]{lang=en-US} asociado que, como también ya hemos mencionado, es reportado por el binario `feenox` tanto si se ejecuta sin argumentos como si se ejecuta con la opción `-v` (o `--version`).
+Más aún, la opción `-V` (o `--versions`) da no sólo el [hash]{lang=en-US} sino también la fecha y hora del último [commit]{lang=en-US} del repositorio utilizado para compilar el binario.
 De esta forma es posible vincular un ejecutable cualquiera encontrado "en la naturaleza"^[Del inglés [_in the wild_]{lang=en-US}.] con el estado instantáneo del código fuente a través del [hash]{lang=en-US} (ayudándose de la fecha reportada por `-V`).
 
-tests: make check
+Además del [target]{lang=en-US} `all` en el `Makefile` que compila el ejecutable, existe un [target]{lang=en-US} `check` que ejecuta una serie de scripts que corresponden al paso de test siguiendo el esquema de Autotools.
+Este consiste en un conjunto de casos de prueba. Cada uno de ellos ejecuta `feenox` con diferentes archivos de entrada y compara la salida con resultados pre-definidos. 
+Si la comparación no es exitosa (o si hay algún problema en tiempo de ejecución como por ejemplo un fallo de segmentación) entonces el test se marca como fallado.
+Muchos de estos casos de prueba resuelven problemas cuyo resultado es conocido, sea porque tiene solución analítica o porque su solución numérica está bien establecida. Pero otros casos son arbitrarios y el resultado "de referencia" se utiliza para saber si alguna modificación posterior a la introducción de dicho test hace que el código arroje un resultado diferente. En el caso de que uno de estos casos---conocidos como "tests de regresión"^[Del inglés [_regression tests_]{lang=en-US}.]---falle, se debe 
 
+ 1. identificar el commit que hace que el test falle (el procedimiento usual es usar la facilidad de "bisección" de Git)
+ 2. analizar si la falla del test es debido a un error en el commit o debido a que el resultado de referencia era incorrecto
+ 3. modificar el código o el resultado de referencia
+ 4. volver a ejecutar el target `check`
+ 
+Empleando la característica "Actions" de Github, cuando cada uno de las ramas secundarias se une (¿mergea?) a la rama principal ([main branch]{lang=en-US}) se crea un servidor virtual básico con Ubuntu y luego, en forma automática,
 
-Cada uno de los [commits]{lang=en-US} unido (¿mergeado?) a la rama principal ([main branch]{lang=en-US}) pasa por 
+ 1. se clona el repositorio
+ 
+    ```terminal
+    git clone https://github.com/seamplex/feenox
+    ```
+ 
+ 2. se instalan las dependencias necesarias desde Apt
+ 
+    ```terminal
+    sudo apt-get install -y libgsl-dev libsundials-dev petsc-dev slepc-dev gmsh
+    ```
+    
+ 3. se hace el [bootstrapping]{lang=en-US} (@fig-bootstrap), configuración y compilación del código 
+ 
+    ```terminal
+    ./autogen.sh && ./configure && make
+    ```
+    
+ 4. se ejecuta el conjunto de tests y, en caso de al menos uno falle, se reporta el archivo de [log]{lang=en-US}
 
-Github actions
+    ```terminal
+    make check || (cat ./test-suite.log && exit 1)
+    ```
 
+![Historial de commits en Github indicando tests pasados y fallados.](actions.png){#fig-actions width=70%}
+     
+De esta manera, cualquier persona del mundo puede ver a través de la interfaz de Github los commits en los cuales al menos unos de los tests ha fallado (@fig-actions).
+Pero además, en caso de que algún commit en el branch `main` no pase los tests, la plataforma le envía un correo electrónico a los administradores del proyecto avisándole de esta situación para que se puedan tomar las decisiones apropiadas.
 
+Si bien el comando `make check` ejecuta más de 350 casos, el código aún no está instrumentado para medir cuántas líneas son efectivamente "cubiertas" por los tests. Este trabajo de implementar lo que se conoce como medir el "[code coverage]{lang=en-US}" en la jerga de integración continua queda como trabajo a futuro (@sec-conclusiones).
+De la misma manera, también queda como trabajo a futuro diseñar un conjunto de tests que corran bajo la herramienta de desarrollo `valgrind` para detectar sistemáticamente potenciales problemas con el manejo de memoria, incluyendo
 
-TODO: valgrind
+ * escritura en direcciones de memoria no reservadas,
+ * des-referencias de punteros inválidos, y/o
+ * pérdidas de memoria^[Del inglés [_memory leaks_]{lang=en-US}.]
 
-TODO: code coverage?
 
 ### Documentación
 
