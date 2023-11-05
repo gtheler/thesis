@@ -9,13 +9,12 @@ metadata-files:
 book:
   title: "Transporte de neutrones en la nube"
   author: "Mg. Ing. Germán Theler"
-  date: 2023-04-09
   output-file: "phd-theler"
   chapters:
     - index.md
     - front/resumen.md
     - front/abstract.md
-    - 050-implementacion/README.md
+    - 060-resultados/README.md
     - bibliografia/README.md    
 title-en: "Neutron transport in the cloud"
 keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"

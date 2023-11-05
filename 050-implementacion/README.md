@@ -1936,6 +1936,12 @@ El argumento es que pueden usar solvers "gratuitos" que "hacen lo mismo" que sol
 Como explica técnicamente muy bien pero comunicacionalmente muy mal la Free Software Foundation, el software libre puede tener un modelo de negocios por detrás y ser efectivamente comercial. No hay ningún conflicto ético entre intentar obtener rédito económico escribiendo software y la filosofía de libertad· que subyacen bajo el software libre. Luego, es incorrecto usar la palabra "comercial" como antónimo de "software libre".
 :::
 
+::: {.remark}
+El gerente de ingeniería de una compañía americana que fabrica aleaciones de aluminio especiales con coeficiente de expansión negativo se contactó conmigo porque FeenoX le parecía una herramienta muy interesante para su empresa.
+Hasta ese momento, FeenoX solamente podía realizar cálculos con un único coeficiente de expansión térmica isotrópico. Pero esta compañía necesitaba realizar cálculos con coeficientes de expansión ortotrópicos. Luego de una propuesta de consultoría, agregué la funcionalidad requerida a cambio de un cierto pago a satisfacción del cliente, con la condición de que el código resultante fuese incorporado a la base de FeenoX con licencia GPLv3+.
+En forma similar, el autor de la tesis de doctorado @vitor me obsequió una botella de cachaça a cambio de haber distribuido el software milonga (la versión anterior de FeenoX) bajo una licencia abierta.
+Por lo tanto, de primera mano puedo afirmar que el software libre no es incompatible con la idea de software "comercial".
+:::
 
 ::: {.remark}
 Si un programa viene con su código fuente pero el desarrollador original pide que los usuarios firmen un NDA para poder ejecutarlo o impide que personas de cierta nacionalidad puedan usarlo, entonces puede llegar a ser de código abierto pero no es software libre ya que limita la libertad número cero.
@@ -1957,7 +1963,7 @@ Dejo entonces dos frases populares Argentinas para que cada uno de los amables l
 > ii. Cuando la limosna es grande, hasta el santo desconfía.
 
 ::: {.remark}
-El software FeenoX se distribuye bajo licencia [GNU General Public License]{lang=en-US} versión tres o, a elección del usuario, cualquier versión posterior que esté disponible al momento de recibir el software.
+El software FeenoX se distribuye bajo licencia [[GNU General Public License]{lang=en-US}](https://www.gnu.org/licenses/gpl-3.0.html) versión tres o, a elección del usuario, cualquier versión posterior que esté disponible al momento de recibir el software.
 Esto implica que además de las cuatro libertades, el usuario que recibe una copia del software tiene una restricción: no puede re-distribuir el software modificando la licencia. Todas las re-distribuciones, tanto con o sin modificaciones, deben ser realizadas bajo la misma licencia con la que fue recibida el software. Este concepto, denominado [_copyleft_]{lang=en-US} (que es otro juego de palabras como lo son Unix, Bash, GNU, less, etc.) hace que el dueño del [_copyright_]{lang=en-US} (en este caso este que escribe) justamente lo use para evitar que alguien que no lo tenga pueda transformar FeenoX en software privativo.
 :::
 
@@ -2485,6 +2491,18 @@ Toda la documentación en Markdown (aún el fuente del sitio web, incluyendo eje
 El manual de referencia que indica los argumentos que toman las palabras clave, las variables especiales de cada PDE, las funciones internas, etc. provienen de comentarios especiales en el código fuente que comienzan con tres barras hacia adelante (en lugar de los comentarios regulares que usan dos barras). Estos comentarios incluyen meta-datos en un cierto formato que luego un script parsea y genera automáticamente texto en Markdown que luego es compilado al formato final.
 Por ejemplo,
 
+::: {#fig-manual layout="[1,1]"}
+![`INTEGRATE`](integrate.png){#fig-integrate}
+
+![`gammaf`](gammaf.png){#fig-gammaf}
+
+![`derivative`](derivative.png){#fig-derivative.png}
+
+![`keff` y `sn_alpha`](snvars.png){#fig-snvars.png}
+
+Documentación en PDF a partir de comentarios especiales y meta-datos en el código fuente.
+:::
+
  * palabras clave
  
     ```c
@@ -2543,26 +2561,11 @@ Por ejemplo,
 
 dan lugar a la documentación final en PDF ilustrada en la @fig-manual.
     
-::: {#fig-manual layout="[1,1]"}
-![`INTEGRATE`](integrate.png){#fig-integrate}
 
-![`gammaf`](gammaf.png){#fig-gammaf}
+Como algunos párrafos de documentación aparecen en más de un único lugar en la documentación entonces hay un esquema de inclusión de archivos de Markdown manejado por un filtros escritos en Lua. Por ejemplo un pequeño ejemplo puede aparacer en el README, en la descripción en Texinfo, en el SDS y en el manual de referencia.
+Las instrucciones para clonar el repositorio y hacer el bootstrapping, configuración y compilación están en el README principal (que a su vez es el index de la página web), en las instrucciones de compilación detalladas y en la sección de "downloads" de la página web.
 
-![`derivative`](derivative.png){#fig-derivative.png}
-
-![`keff` y `sn_alpha`](snvars.png){#fig-snvars.png}
-
-Documentación en PDF a partir de comentarios especiales y meta-datos en el código fuente.
+::: {.remark}
+La documentación de FeenoX se distribuye bajo los términos de la [[GNU Free Documentation License v1.3]{lang=en-US}](https://www.gnu.org/licenses/fdl-1.3.html), o cualquier versión posterior.
 :::
-
-
-Includes
-
-licencia de doc
-
-Contributing
-
-Code of conduct
-
-
 
