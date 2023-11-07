@@ -17,7 +17,7 @@ Según la referencia @roache,
 > “The code author defines precisely what continuum partial differential equations and continuum boundary conditions are being solved, and convincingly demonstrates that they are solved correctly, i.e., usually with some order of accuracy, and always consistently, so that as some measure of discretization (e.g. the mesh increments), the code produces a solution to the continuum equations; this is Verification.”
 :::
 
-Más aún, según la referencia @sandia dice
+Más aún, según la referencia @sandia-mms dice
 
 ::: {lang=en-US}
 > ... we recommend that, when possible, one should demonstrate that the equations are solved to the theoretical order-of-accuracy of the discretization method.
@@ -37,7 +37,7 @@ Y es razonable que esto sea así porque, de alguna manera, resolver la ecuación
 
 El método de soluciones fabricadas (o MMS por sus siglas en inglés) propone recorrer el camino inverso: partir de una solución conocida (es decir, fabricada _ad hoc_) y preguntarnos cuál es la fuente necesaria para dar lugar a ese flujo. Este camino es mucho más sencillo ya que involucra "derivar" la fuente dos veces, y es el método que ilustramos en esta sección.
 
-Por otro lado, @sandia también dice que hay que asegurarse "probar" todas las características del software, incluyendo
+Por otro lado, @sandia-mms también dice que hay que asegurarse "probar" todas las características del software, incluyendo
 
  * condiciones de contorno
  * tipos de elementos
@@ -46,7 +46,7 @@ Por otro lado, @sandia también dice que hay que asegurarse "probar" todas las c
  * etc.
  
 lo que rápidamente da lugar a una explosión combinatoria de parámetros.
-Siguen diciendo los autores de @sandia 
+Siguen diciendo los autores de @sandia-mms 
  
 ::: {lang=en-US}
 > To ensure that all code options relevant to code Verification are tested, one must design a suite of coverage tests. Fortunately, this is not as daunting as it may seem at first. If a code has options, the number of coverage tests needed to verify the code is determined by the number of mutually exclusive options, i.e., there is no combinatorial explosion of tests to run. For example, suppose a code has two solver options and three constitutive relationship (CR) options. Then only three coverage tests are needed to check all options. Test\ (1): Solver\ 1 with CR1, Test\ (2): Solver\ 2 with CR2,Test (3): Solver\ 1 or\ 2 with CR3. One does not need to perform a test involving the combination, for example, Solver\ 1 and CR2 because Test\ 1 will ascertain whether of not Solver\ 1 is working correctly, while Test\ 2 will ascertain whether or not CR2 is working correctly. 

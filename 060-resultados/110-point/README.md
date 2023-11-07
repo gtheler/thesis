@@ -62,13 +62,13 @@ La @fig-xenon muestra el flujo y la posición de la barra de control. Se puede 
 ## Mapas de diseño
 
 Finalizamos recuperando unos resultados derivados de mi tesis de maestría @theler2008 publicados en 2010 @stability-nucengdes.
-Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escruta como modelos 0-dimensionales.
+Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escruta como modelos de capacitancia concentrada^[Del inglés [_lumped capacitance_]{lang=en-US}.] 0-dimensionales.
 El estudio de consiste en barrer paramétricamente el espacio de coeficientes de reactividad $[\alpha_c, \alpha_f]$, perturbar el estado del sistema dinámico ($\Delta T_f = 2~\text{ºC}$) y marcar con un color la potencia luego de un minuto para obtener mapas de estabilidad tipo Lyapunov.
 
 ```{.feenox include="point.fee"}
 ```
 
-Para barrer el espacio de parámetros usamos series de números cuasi-aleatorios de forma tal de poder realizar ejecuciones sucesivas que van "rellenado" dicho espacio como ilustramos en la @fig-map:
+Para barrer el espacio de parámetros usamos series de números cuasi-aleatorios @halton de forma tal de poder realizar ejecuciones sucesivas que van llenando densamente dicho espacio como ilustramos en la @fig-map:
 
 ```{.bash include="point.sh"}
 ```

@@ -3,7 +3,7 @@
 > **TL;DR:** Estos problemas proveen una manera de realizar una primerea verificación del código con el método de soluciones exactas.
 
 El proceso de verificación de un código numérico involucra justamente, verificar que las ecuaciones se estén resolviendo bien.^[Hay un juego de palabras en inglés que indica que verificación quiere decir ["are we solving the equations right?"]{lang=en-US} mientras que validación quiere decir ["are we solving the right equations?"]{lang=en-US}. En la @sec-mms-dif discutimos más en detalle este concepto.]
-La forma estricta de realizarlo es comparar alguna medida del error cometido en la solución numérica con respecto a la solución exacta de la ecuación que estamos resolviendo y mostrar que éste tiende a cero con el orden teórico según el método numérico empleado.
+La forma estricta de realizarlo es comparar alguna medida del error cometido en la solución numérica con respecto a la solución exacta de la ecuación que estamos resolviendo y mostrar que éste tiende a cero con el orden teórico según el método numérico empleado @oberkampf.
 En particular, la incógnita primaria de una ecuación en derivadas parciales discretizada con el método de elementos finitos debe ir a cero con un order superior en una unidad al orden de los elementos utilizados. Las incógnitas secundarias, con el mismo orden.
 Es decir, los desplazamientos en elasticidad y las temperaturas en conducción de calor deben converger a cero como $h^3$ y las tensiones y los flujos de calor como $h^2$ si $h$ es el tamaño característico de los elementos de segundo orden utilizados para discretizar el dominio del problema.
 

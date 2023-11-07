@@ -42,6 +42,7 @@ Notar que a diferencia de los estudios paramétricos realizados hasta el momento
 que genera una sucesión (determinística) de números cuasi-aleatorios que, eventualmente, llena densamente un hipercubo @sobol.
 En los lazos paramétricos crecientes, si se desea aumentar la densidad del barrio hay que volver a calcular todo el intervalo nuevamente.
 En una serie de números cuasi-aleatorios, es posible agregar nuevos puntos a los ya calculados dando un _offset_ inicial.
+En la @sec-cinetica-puntual esta característica de las serie cuasi-aleatorias es más evidente ya que allí barremos densamente un espacio de parámetro bi-dimensional.
 Por ejemplo, podemos barrer el intervalo $[0,1]$ con tres puntos con el archivo `steps.fee` como
 
 ```terminal
