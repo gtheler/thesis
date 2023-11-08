@@ -61,9 +61,16 @@ the neutron transport equation",
 	year = "2021",
  language = "english",
  hyphenation = "english",
-
 }
 
+@PhDThesis{ criekingen,
+	title = "Mixed-Hybrid Discretization Methods for the Linear Transport Equation",
+	author = "Serge {Van Criekingen}",
+	school = "Northwestern University",
+	year = "2004",
+ language = "english",
+ hyphenation = "english",
+}
 
 
 
@@ -304,7 +311,9 @@ the neutron transport equation",
   title     = {{ParaView}: An End-User Tool for Large Data Visualization},
   year      = {2005},
   note      = {{ISBN}~978-0123875822},
-}
+ language = "english",
+ hyphenation = "english"
+ }
 
 @TechReport{petsc-user-ref,
   Author = {Satish Balay and Shrirang Abhyankar and Mark~F. Adams and Steven Benson and Jed Brown
@@ -318,7 +327,9 @@ the neutron transport equation",
   Number = {ANL-21/39 - Revision 3.19},
   Doi = {10.2172/1968587},
   Institution = {Argonne National Laboratory},
-  Year = {2023}
+  Year = {2023},
+ language = "english",
+ hyphenation = "english"
 }
 @InProceedings{petsc-efficient,
   Author = {Satish Balay and William D. Gropp and Lois Curfman McInnes and Barry F. Smith},
@@ -327,7 +338,10 @@ the neutron transport equation",
   Editor = {E. Arge and A. M. Bruaset and H. P. Langtangen},
   Pages = {163--202},
   Publisher = {Birkh{\"{a}}user Press},
-  Year = {1997}
+  Year = {1997},
+ language = "english",
+ hyphenation = "english"
+  
 }
 @Article{slepc-toms,
    author = "Vicente Hernandez and Jose E. Roman and Vicente Vidal",
@@ -337,23 +351,55 @@ the neutron transport equation",
    number = "3",
    pages = "351--362",
    year = "2005",
-   doi = "10.1145/1089014.1089019"
+   doi = "10.1145/1089014.1089019",
+ language = "english",
+ hyphenation = "english"
+   
 }
 @TechReport{slepc-manual,
    author = "J. E. Roman and C. Campos and L. Dalcin and E. Romero and A. Tomas",
    title = "{SLEPc} Users Manual",
    number = "DSIC-II/24/02 - Revision 3.19",
    institution = "D. Sistemes Inform\`atics i Computaci\'o, Universitat Polit\`ecnica de Val\`encia",
-   year = "2023"
+   year = "2023",
+ language = "english",
+ hyphenation = "english"
+   
 }
 
-@misc{dmplex,
-      title={Flexible, Scalable Mesh and Data Management using PETSc DMPlex}, 
-      author={Michael Lange and Matthew G. Knepley and Gerard J. Gorman},
-      year={2015},
-      eprint={1505.04633},
+
+
+@misc{brown2022performance,
+      title={Performance Portable Solid Mechanics via Matrix-Free $p$-Multigrid}, 
+      author={Jed Brown and Valeria Barra and Natalie Beams and Leila Ghaffari and Matthew Knepley and William Moses and Rezgar Shakeri and Karen Stengel and Jeremy L. Thompson and Junchao Zhang},
+      year={2022},
+      eprint={2204.01722},
       archivePrefix={arXiv},
-      primaryClass={cs.MS}
+      primaryClass={cs.MS},
+      doi = "10.48550/arXiv.2204.01722",
+ language = "english",
+ hyphenation = "english"
+}
+
+
+@article{pcpatch,
+author = {Farrell, Patrick E. and Knepley, Matthew G. and Mitchell, Lawrence and Wechsung, Florian},
+title = {PCPATCH: Software for the Topological Construction of Multigrid Relaxation Methods},
+year = {2021},
+issue_date = {September 2021},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {47},
+number = {3},
+issn = {0098-3500},
+url = {https://doi.org/10.1145/3445791},
+doi = {10.1145/3445791},
+abstract = {Effective relaxation methods are necessary for good multigrid convergence. For many equations, standard Jacobi and Gau\ss{}–Seidel are inadequate, and more sophisticated space decompositions are required; examples include problems with semidefinite terms or saddle point structure. In this article, we present a unifying software abstraction, PCPATCH, for the topological construction of space decompositions for multigrid relaxation methods. Space decompositions are specified by collecting topological entities in a mesh (such as all vertices or faces) and applying a construction rule (such as taking all degrees of freedom in the cells around each entity). The software is implemented in PETSc and facilitates the elegant expression of a wide range of schemes merely by varying solver options at runtime. In turn, this allows for the very rapid development of fast solvers for difficult problems.},
+journal = {ACM Trans. Math. Softw.},
+month = {jun},
+articleno = {25},
+numpages = {22},
+keywords = {Multigrid, parameter-robust preconditioning, subspace correction, relaxation, finite elements -2pt}
 }
 
 @manual {gsl,
@@ -811,7 +857,7 @@ numpages = {2}
 
 
 
-@article{LangeMitchellKnepleyGorman2015,
+@article{dmplex,
 title     = {Efficient mesh management in {Firedrake} using {PETSc-DMPlex}},
 author    = {Michael Lange and Lawrence Mitchell and Matthew G. Knepley and Gerard J. Gorman},
 journal   = {SIAM Journal on Scientific Computing},
@@ -825,6 +871,20 @@ petsc_uses={DMPlex},
  langid = "english",
  language = "english",
 }
+
+@article{kirby2004,
+  title   = {Algorithm 839: FIAT, a New Paradigm for Computing Finite Element Basis Functions},
+  journal = {ACM Transactions on Mathematical Software},
+  author  = {Robert C. Kirby},
+  volume  = {30},
+  number  = {4},
+  pages   = {502--516},
+  doi     = {10.1145/1039813.1039820},
+  year    = {2004},
+ langid = "english",
+ language = "english",
+}
+
 
 @article{neldermead,
     author = {Nelder, J. A. and Mead, R.},

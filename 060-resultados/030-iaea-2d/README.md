@@ -81,7 +81,7 @@ $
 ## Caso 2D con simetría 1/8
 
 Bien mirado, el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 

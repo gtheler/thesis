@@ -1,4 +1,4 @@
-# Conclusiones y trabajos futuros {#sec-conclusiones}
+# Conclusiones {#sec-conclusiones}
 
 ::::: {.chapterquote data-latex=""}
 ::: {lang=en-US}
@@ -12,88 +12,115 @@
 >
 > > Dejo a los varios porvenires (no a todos) mi jardín de senderos que se bifurcan.
 >
-> Devolví en silencio la hoja
+> Devolví en silencio la hoja.
 >
 > _Jorge Luis Borges, El jardín de senderos que se bifurcan, 1941_
 :::::
 
 
+ * why
+ * how
+ * what
+ 
+ 
+
 Cloud first
 
-importancia FOSS en ingenería
+unix
 
-que no se quede en nada!
 
-Trabajos futuros (de otros autores bajo la forma de tesis académicas o proyectos de ingeniería indsutriales)
+UNfair advantage
 
- * comparar cuantitativamente difusión con ordenadas discretas
- * agregar otros conjuntos de cuadraturas
- * evitar o mitigar el efecto rayo
- * discretizar la coordenada angular con fuciones de forma
- * agregar otras formulaciones neutrónicas
+ 1. programatic
+ 2. unstructured grids
+ 3. sn
+ 4. mpi
+ 
+ 
+
+importancia FOSS en ingeniería
+
+
+
+## Trabajos futuros
+
+Es mi deseo que esta tesis dispare un jardín de senderos que se bifurquen para que las ideas y/o las implementaciones discutidas a lo largo de estos cientos de páginas (físicas en la Biblioteca Falicov, lógicas en su versión PDF o web en su versión HTML) no caigan en el ostracismo. En principio, muchos de las tareas pendientes pueden ser encaradas como trabajos académicos y/o proyectos de ingeniería industriales. En algún sentido, el trabajo "futuro" relacionado al gerenciamiento (sea académico o industrial) es más desafiante que los trabajos técnicos listados a continuación ya no sólo que involucran el [management]{lang=en-US} de los tres vértices del tradicional triángulo de proyectos
+
+ - costos
+ - alcance
+ - calidad
+ 
+sino también, en proyeectos nucleares también hay que lidiar con
+
+ - recursos humanos especialmente particulares
+ - gigantezcas inercias organizacionales
+ - impredecibles limitaciones políticas
+  
+todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremandamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global:
+
+ * comparación cualitativa de difusión con ordenadas discretas
+   - en trabajos académicos de investigación
+   - en modelos de interés industrial
+   - incorporación de FeenoX en cadenas de cálculo existentes
+ * evaluación de otros conjuntos de cuadraturas no necesariamente de nivel simétrico
+ * estudios de formas de evitar o mitigar el efecto rayo
+ * discretización de la coordenada angular con funciones de forma tipo elementos finitos
+ * incorporación de otras formulaciones neutrónicas
    - P$_N$
    - SP$_N$
-   - even parity
- * medir eficiencia y mejorar performance
-   - aplicar data-oriented programming
- * estudiar métodos numéricos iterativos para S$_N$
-   - $p$-AMG
- * escalabildiad por paralelización
-   - multi-node MPI
+   - [even parity]{lang=en-US}
+   - probabilidad de colisiones para cálculo de celda
+ * instrumentación del código para evaluar su eficiencia y mejorar su performance tanto en CPU como en memoria
+   - evaluación de la posibilidad de aplicar el paradigma [data-oriented programming]{lang=en-US}
+ * estudio de factibilidad de utilizar métodos numéricos iterativos para S$_N$
+   - [$p$-assisted algebraic multi-grid]{lang=en-US} @brown2022performance
+   - [PCPATCH]{lang=en-US} @pcpatch
+ * mejoramiento de la escalabilidad por paralelización
+   - optimización de [multi-node MPI]{lang=en-US}
+   - análisis de algoritmos de descomposición de dominio para aplicaciones en reactores nucleares
+   - evaluación de la utilización de DMPLEX para la distribución
  * desarrollo de interfaces y capas de abstracción
-   - web
-   - gráficas
-   - APIs para lenguajes de scripting
-   - clientes para cloud
- * refinamiento automático de malla
- * otras discretizaciones espaciales
-   - galerkin discontinuo
+   - plataforma web 
+   - interfaces gráficas de usuario (GUIs)
+   - APIs para lenguajes de scripting (Python, Julia, etc.)
+   - ["thin clients"]{lang=en-US} para ejecución en la nube 
+ * refinamiento automático de malla^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
+ * investigación de otras discretizaciones espaciales
+   - elementos de alto orden
+   - formulaciones mixtas
+   - Galerkin discontinuo
    - volúmenes finitos
- * aplicación a problemas de optimización
+   - basada en PetscFE @kirby2004
+ * aplicaciones a problemas de optimización
    - recocido simulado
    - algoritmos genéticos
    - redes neuronales
- * evaluar el uso de otros frameworks de PETSc
-   - DMplex
-   - PetscFem
- * otras formas numéricas de poner condiciones multi-punto
+   - optimización topológica @perezwinter
+ * implementación de otras formas numéricas de prescribir condiciones de contorno de Dirichlet multi-punto
    - multiplicadores de Lagrange
    - eliminación directa
- * evaluar la posiblidad de realizar cálculos de celda
-   - probabilidad de colisiones
- * otras PDEs
+ * otras ecuaciones
    - elasticidad no lineal
    - electromagnetismo
-   - acústica
+   - mecánica de fluidos
+   - termohidráulica 1D
    - CFD
- * mejorar la integración continua
+   - aplicaciones a biotecnología
+   - acústica
+   - etc.
+ * mejoramiento de la integración continua
    - agregar tests
    - medir la cobertura del código
- * crear una comunidad
- * estudiar  compatibilidad de las xs homogeneizadas en celdas estructuradas con su uso en el esquema multi-escala con mallas no estructuradas a nivel de núcleo
+   - analizar sistemáticamente el código con analizadores de memoria
+ * análisis y estudio de compatibilidad de las secciones eficaces homogeneizadas en celdas estructuradas con su uso en el esquema multi-escala con mallas no estructuradas a nivel de núcleo
+   - ensambles de elementos combustibles
    - barras de control
-   - nubes de boro
-   
-
-Aún quedan muchos aspectos por investigar e implementar, como por ejemplo
-
- * Esquemas espaciales basados en volúmenes finitos
- * Formulación de elementos finitos tipo Galerkin discontinuos
- * Otros esquemas de discretización débiles como mínimos cuadrados en lugar de Galerkin
- * Otras formulaciones neutrónicas
-   - $P_L$
-   - Even parity
-   - Probabilidad de colisiones
- * Capacidad de refinamiento de malla automático^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
- * Elementos de alto orden y refinamiento tipo $p$
- * Esquemas de solución $p$-multigrid @brown2022performance
- * Transitorios neutrónicos
- * Acople con otros códigos de cálculo a través de memoria compartida
- * Medición y optimización de performance computacional
- * Optimización de utilización de comunicación MPI
- * Integración de GUIs basados en web
- * Integración con APIs tipo REST para control remoto
-
- 
-   
-que quede en algo!
+   - nubes de boro en inyección de emergencia
+ * acoplamiento con otros códigos de cálculo
+   - comunicadores MPI 
+   - memoria compartida
+   - sockets TCP
+   - archivo intermedios en almacenamiento tipo RAM-disks
+ * creación de comunidades libres y abiertas
+   - académica
+   - industrial
