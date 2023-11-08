@@ -2152,7 +2152,7 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
  
 
 
-### Escalabilidad
+### Escalabilidad {#sec-escalabilidad}
 
 La idea de la escalabilidad de FeenoX viene de la posibilidad de resolver problemas arbitrariamente grandes mediante la paralelización con el estándar MPI [@intro-parallel;@mpi].
 Tal como mostramos y discutimos en el @sec-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidad de procesos para un problema de tamaño fijo.
@@ -2321,6 +2321,8 @@ Por ejemplo, que manejen temas como
 Si bien esta tesis no abarca a estos clientes (que queda como trabajo a futuro), el diseño de FeenoX es tal que su desarrollo es perfectamente posible y eficiente. De hecho nos referimos a "clientes" en plural porque, tal como pide la regla de Unix de diversidad, no hay un único tipo de cliente posible sino que hay muchas dependiendo del tipo de problema a resolver. Y como FeenoX justamente es lo suficientemente flexible como para resolver no solamente diferentes PDEs sino también diferentes clases de problema (acoplados, paramétricos, de optimización, etc.) en diferentes entornos (muchos cálculos pequeños, pocos grandes, uno inmenso, etc.) bajo diferentes condiciones (en la academia por una sola persona, en la industria por un equipo, como una plataforma púiblica [_as a service_]{lang=en-US}, etc.) entonces es de esperar que no haya un cliente que pueda manejar todas las combinaciones en forma óptima.
 Pero sí lo que se ha tenido en cuenta en el diseño del código computacional de cálculo es que, una vez más siguiendo la filosofía Unix planteada implícitamente durante la década de 1970 [@unix] pero que sigue siendo extremadamente importante en la década de 2020 a la luz de la arquitectura que "la nube" fue tomando, se debe separar el [_back end_]{lang=en-US} de las capas de abstracción necesarias para llegar a los distintos [_front ends_]{lang=en-US} necesarios para su aplicación.
 
+![Ilustración conceptual de la diferencia entre un [_front end_]{lang=en-US} y un [_back end_]{lang=en-US} ©bluecoders.](front-back.png){#fig-front-back width=40%}
+
 ::::: {.remark}
 Este párrafo no es trivial. Conozco de primera mano los esfuerzos realizados por una de las mayores empresas de software de cálculo del mundo (con facturación superior a los dos mil millones de dólares en 2022) que ha intentado agregar esta capa de abstracción a sus solvers existentes con una tasa de suceso tan baja que ha debido comprar una startup que estaba en mejores condiciones de hacerlo por más de cien millones de dólares.
 En una presentación del gerente encargado de la compra al comité de directores de la empresa (los famosos CxOs), una filmina^[Por supuesto que "filmina" es un anacronismo deliberado. Fue una presentación hecha en un software privativo que no quisiera nombrar para no alentar a nadie a que lo use. Pero justamente, mi opinión personal es que el hecho de que la política de la compañía era usar este software privativo para hacer presentaciones es el que la ha impedido lograr desarrollar la capa de abstracción por la que han debido comprar una startup que hacía sus presentaciones con los macros Beamer de LaTeX.] decía literalmente
@@ -2396,7 +2398,9 @@ Técnicamente hablando (en el sentido leguleyo), el "o posterior" es por extensi
 Una de las tantas prácticas que se han puesto de moda en la última década en la industria del software que realmente agrega calidad al código resultante (al contrario que las otras modas como [scrum]{lang=en-US} y [agile]{lang=en-US}) es la llamada integración continua.
 Esta práctica involucra primero generar y luego automatizar muchos pasos de prueba del código antes de liberar públicamente las versiones.
 
-Como ya mencionamos, el desarrollo de FeenoX se realiza en un repositorio Git hosteado en Github, pero que puede ser clonado y replicado libremente (siguiendo la licencia GPLv3+).
+![Ladsgroup, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](git-fire.jpg){#fig-git-fire width=40%}
+
+Como ya mencionamos, el desarrollo de FeenoX se realiza en un repositorio Git hosteado en Github (@fig-git-fire), pero que puede ser clonado y replicado libremente (siguiendo la licencia GPLv3+).
 Cada [commit]{lang=en-US} al repositorio tiene un [hash]{lang=en-US} asociado que, como también ya hemos mencionado, es reportado por el binario `feenox` tanto si se ejecuta sin argumentos como si se ejecuta con la opción `-v` (o `--version`).
 Más aún, la opción `-V` (o `--versions`) da no sólo el [hash]{lang=en-US} sino también la fecha y hora del último [commit]{lang=en-US} del repositorio utilizado para compilar el binario.
 De esta forma es posible vincular un ejecutable cualquiera encontrado "en la naturaleza"^[Del inglés [_in the wild_]{lang=en-US}.] con el estado instantáneo del código fuente a través del [hash]{lang=en-US} (ayudándose de la fecha reportada por `-V`).
@@ -2460,7 +2464,7 @@ De la misma manera, también queda como trabajo a futuro diseñar un conjunto de
  * pérdidas de memoria^[Del inglés [_memory leaks_]{lang=en-US}.]
 
 
-### Documentación
+### Documentación {#sec-documentacion}
 
 El 100% de la documentación, incluyendo
 

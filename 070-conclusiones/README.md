@@ -17,29 +17,33 @@
 > _Jorge Luis Borges, El jardín de senderos que se bifurcan, 1941_
 :::::
 
+Durante esta extensa tesis hemos recorrido los tres aspectos en el orden
 
- * why
- * how
- * what
+ 1. ¿por qué? (@sec-introduccion y @sec-neutronica-phwr)
+ 2. ¿cómo? (@sec-transporte-difusion y @sec-esquemas)
+ 3. ¿qué? (@sec-implementacion y @sec-conclusiones)
  
+La idea del desarollo se basa en comenzar con un documento ficticio de (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
+FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).
+Este enfonque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barerra de potencia, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencieas.
+
+En general, en términos de emprendedurismo, el _unfair advantage_ consiste en que...
+
+ * es software libre y abierto, con la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
+ * la herramienta es [_cloud-first_]{lang=en-US} y no solamente [_cloud-friendly_]{lang=en-US} (@sec-cloud)
+ * puede escalar arbitrariamente con MPI (@sec-escalabilidad)
+ * es un back end diseñado para poder ser manejado con diferentes front ends (@fig-front-back)
+ * sigue la filosofía de diseño Unix (@sec-unix) que es perfectamente aplicable al concepto de [_cloud-first_]{lang=en-US}
+ * provee una interfaz amena a la simulación programática (@sec-simulacion-programatica)
+ * es extremadamente flexible y puede resolver una gran variedad de problemas, desde los más simples con propiedades uniformes hasta los más complejos donde las propiedades de los materiales pueden depender del espacio de maneras no triviales (@sec-resultados)
+ * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un solver desde cero
+
+En particular, para las aplicaciones de neutrónica a nivel de núcleo sus características distintivas son
+
+ 1. trabaja sobre malas no estructuradas
+ 2. puede resolver transporte mediante el método de ordenadas discretas S$_N$
+ 3. es capaz de resolver problemas de tamaño arbitrario haciendo descomposición de dominio y resolviendo cada parte en un proceso MPI
  
-
-Cloud first
-
-unix
-
-
-UNfair advantage
-
- 1. programatic
- 2. unstructured grids
- 3. sn
- 4. mpi
- 
- 
-
-importancia FOSS en ingeniería
-
 
 
 ## Trabajos futuros
@@ -124,3 +128,4 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
  * creación de comunidades libres y abiertas
    - académica
    - industrial
+ * evaluación de generación de empredimientos tipo [start up]{lang=en-US} susceptible de ser incubados en CITES

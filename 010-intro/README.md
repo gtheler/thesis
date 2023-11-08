@@ -13,3 +13,10 @@
 > _Germán Theler, La Singularidad, 2006_
 :::
 
+::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[45,-10,45]"}
+![](iaea-3dpwr-eighth-circular-flux-s4-1.png){#fig-iaea-3dpwr-eighth-flux-s4-1}
+
+![](iaea-3dpwr-eighth-circular-flux-s4-2.png){#fig-iaea-3dpwr-eighth-flux-s4-2}
+
+Flujos rápidos y térmicos del benchmark de 3D PWR de IAEA resuelto con S$_4$ con simetría 1/8 y reflector circular
+:::
