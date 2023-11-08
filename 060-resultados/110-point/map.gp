@@ -6,6 +6,7 @@ set xlabel "coeficiente de reactividad del combustible [1/K]"
 set ylabel "coeficiente de reactividad del refrigerante [1/K]"
 set xrange [-50e-5:+50e-5]
 set yrange [-50e-5:+50e-5]
+set cbrange [0:4]
 set size square
 set output "map.png"
 plot "point.dat" palette pt 44, "xaxis" w l lt 9, "yaxis" w l lt 9
