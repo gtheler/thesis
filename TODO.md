@@ -5,13 +5,6 @@
  
  * "Sobre la verificación de un solver neutrónico con el método de soluciones fabricadas" 
  
- * citar nuc eng & des point kinetics 
- * otros aspectos
-   - ejecucion en la nube
-   - extensibilidad
-   - intregracion continua
-   - documentacion
-
  * demostración alternativa de thm-A-spd en hughes
  * demostrar thm-A-monio-es-singular con la demostracion alternativa
  * flujos escalares y corrientes en sn
@@ -36,4 +29,3 @@
    2. shape functions & derivatives: LaTeX commands
    3. Guass points como Markdown tables
    
- * point kinetics with $\rho(z)$

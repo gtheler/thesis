@@ -79,7 +79,7 @@ $ ./point.sh 2048 4096
 $
 ```
 
-![Mapa de estabilidad de Lyapunov con los mismos parámetros que en @stability-nucengdes resuelto con FeenoX utilizando series de números pseudo-aleatorios que van "rellenando" el espacio de parámetros.](map.png){#fig-map}
+![Mapa de estabilidad de Lyapunov con los mismos parámetros que en @stability-nucengdes resuelto con FeenoX utilizando series de números pseudo-aleatorios que van "rellenando" incremental y densamente el espacio de parámetros.](map.png){#fig-map}
 
 
 

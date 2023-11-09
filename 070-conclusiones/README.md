@@ -17,30 +17,47 @@
 > _Jorge Luis Borges, El jardín de senderos que se bifurcan, 1941_
 :::::
 
-Durante esta extensa tesis hemos recorrido los tres aspectos en el orden
+
+Con esta tesis de alguna manera cerramos dos lazos:
+
+ a. Un estrictamente personal que involucra un poco más de quince años abarcando
+ 
+    - la tesis de grado sobre control de lazos de convección natural caóticos @theler2007
+    - la tesis de maestría sobre inestabilidades no lineales en el problema acoplado termohidráulico-neutrónico @theler2008
+    - este extenso trabajo, medido tanto en años como en cantidad de texto.
+ 
+ b. Otro más general en el que agregamos el nivel de núcleo a las dos tesis de doctorado
+ 
+    - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián
+    - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani
+
+En ella hemos recorrido los tres aspectos en el no tan tradicional pero bastante útil orden 
 
  1. ¿por qué? (@sec-introduccion y @sec-neutronica-phwr)
  2. ¿cómo? (@sec-transporte-difusion y @sec-esquemas)
- 3. ¿qué? (@sec-implementacion y @sec-conclusiones)
+ 3. ¿qué? (@sec-implementacion y @sec-resultados)
  
-La idea del desarollo se basa en comenzar con un documento ficticio de (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
+La idea del desarrollo se basa en comenzar con un documento ficticio de (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
 FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).
-Este enfonque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barerra de potencia, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencieas.
+Este enfoque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barrera de potencia, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencias.
 
-En general, en términos de emprendedurismo, el _unfair advantage_ consiste en que...
 
- * es software libre y abierto, con la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
- * la herramienta es [_cloud-first_]{lang=en-US} y no solamente [_cloud-friendly_]{lang=en-US} (@sec-cloud)
+En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US} consiste en que el software...
+
+ * es libre y abierto, con la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
+ * está pensado como [_cloud-first_]{lang=en-US} y no solamente [_cloud-friendly_]{lang=en-US} (@sec-cloud)
  * puede escalar arbitrariamente con MPI (@sec-escalabilidad)
  * es un back end diseñado para poder ser manejado con diferentes front ends (@fig-front-back)
  * sigue la filosofía de diseño Unix (@sec-unix) que es perfectamente aplicable al concepto de [_cloud-first_]{lang=en-US}
  * provee una interfaz amena a la simulación programática (@sec-simulacion-programatica)
  * es extremadamente flexible y puede resolver una gran variedad de problemas, desde los más simples con propiedades uniformes hasta los más complejos donde las propiedades de los materiales pueden depender del espacio de maneras no triviales (@sec-resultados)
- * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un solver desde cero
+ * es a los programas tradicionales (CalculiX, CodeAster) y a las bibliotecas de elementos finitos (Sparselizard, MoFEM) lo que [Markdown]{lang=en-US} es a procesadores de texto (Word, Google Docs) y a sistemas de tipografía (TeX)
+ * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un [solver]{lang=en-US} desde cero
+ 
 
 En particular, para las aplicaciones de neutrónica a nivel de núcleo sus características distintivas son
 
- 1. trabaja sobre malas no estructuradas
+ 1. trabaja sobre mallas no estructuradas
  2. puede resolver transporte mediante el método de ordenadas discretas S$_N$
  3. es capaz de resolver problemas de tamaño arbitrario haciendo descomposición de dominio y resolviendo cada parte en un proceso MPI
  
@@ -54,13 +71,13 @@ Es mi deseo que esta tesis dispare un jardín de senderos que se bifurquen para 
  - alcance
  - calidad
  
-sino también, en proyeectos nucleares también hay que lidiar con
+sino también, en proyectos nucleares también hay que lidiar con
 
  - recursos humanos especialmente particulares
- - gigantezcas inercias organizacionales
+ - gigantescas inercias organizacionales
  - impredecibles limitaciones políticas
   
-todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremandamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global:
+todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremadamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global:
 
  * comparación cualitativa de difusión con ordenadas discretas
    - en trabajos académicos de investigación
@@ -123,9 +140,9 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
  * acoplamiento con otros códigos de cálculo
    - comunicadores MPI 
    - memoria compartida
-   - sockets TCP
-   - archivo intermedios en almacenamiento tipo RAM-disks
+   - [sockets]{lang=en-US} TCP
+   - archivo intermedios en almacenamiento tipo [RAM-disks]{lang=en-US}
  * creación de comunidades libres y abiertas
    - académica
    - industrial
- * evaluación de generación de empredimientos tipo [start up]{lang=en-US} susceptible de ser incubados en CITES
+ * evaluación de generación de emprendimientos tipo [start up]{lang=en-US} susceptibles de ser incubados en CITES
