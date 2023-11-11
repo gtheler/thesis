@@ -33,9 +33,9 @@
  
     Durante el desarrollo de este tipo de proyectos se suelen identificar muchas ideas y tareas que podrían llevarse a cabo para generar nuevas oportunidades técnicas y comerciales. Pero la mayoría de las veces vienen nuevos proyectos con clientes diferentes y necesidades ortogonales. Las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
 
- 3. En el ambiente de emprendedurismo, hay [start-ups]{lang=en-US} relacionadas a temas de modelado numéricos de fenómenos complejos con interés en ingeniería. Excepto que los fundadores tengan habilidades excepcionales como las de Henry Ford que en lugar de crear "caballos más rápido" desarrolló una industria global desde cero, los casos de éxito están relacionados a tecnologías no muy disruptivas en sí mismas que termina en una adquisición por parte de una gran compañía existente, con sus inercias e idiosincrasias corporativas. Más aún, en el ámbito nuclear las regulaciones y la financiación de nuevas instalaciones es tan complicada que necesariamente deben involucrarse instituciones oficiales que complican mucho más aún la dinámica característica de las [start-ups]{lang=en-US}. El ímpetu se va difundiendo en organigramas rígidos poco amenos a la innovación. La mayoría de las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
+ 3. En el ambiente de emprendedurismo, hay [start-ups]{lang=en-US} relacionadas a temas de modelado numéricos de fenómenos complejos con interés en ingeniería. A menos que los fundadores tengan habilidades excepcionales como las de Henry Ford que en lugar de crear "caballos más rápido" desarrolló una industria global desde cero, los casos de éxito están relacionados a tecnologías no muy disruptivas en sí mismas que termina en una adquisición por parte de una gran compañía existente, con sus inercias e idiosincrasias corporativas. Más aún, en el ámbito nuclear las regulaciones y la financiación de nuevas instalaciones es tan complicada que necesariamente deben involucrarse instituciones oficiales que complican mucho más aún la dinámica característica de las [start-ups]{lang=en-US}. El ímpetu se va difundiendo en organigramas rígidos poco amenos a la innovación. La mayoría de las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
  
-Habiendo explorado profesionalmente cada uno de estos tres puntos durante los últimos quince años, he decido escribir esta tesis de doctorado en forma excepcional---en el sentido de "excepción". Empezando por la edad al momento de entregar y defender etsa tesis y siguiendo por la forma de encarar los trabajos.
+Habiendo explorado profesionalmente cada uno de estos tres puntos durante los últimos quince años, he decido escribir esta tesis de doctorado en forma atípica y excepcional---en el sentido de "excepción". Empezando por la edad al momento de entregar y defender etsa tesis y siguiendo por la forma de encarar los trabajos.
 Los desarrollos aquí descriptos han sido claramente inspirados por estos tres puntos, pero fueron realizados en forma completamente independiente de ellos.
 Es esta una tesis escrita durante los fines de semana por un profesional de la industria del software de cálculo numérico sin los condicionamientos particulares de la academia, la industria ni el emprendedurismo.
 Representa entonces, una manera de poder evaluar---dentro de las capacidades y responsabilidades que me atañen---la diferencia entre lo urgente y lo importante como propone Mafalda (@fig-mafalda).
@@ -57,18 +57,18 @@ que son justamente las dos mitades del título y los temas profesionales en los 
 
  a. Por qué
  
-   * @sec-introduccion Introducción
-   * @sec-neutronica-phwr Neutrónica de núcleo en un PHWR
+   * [@sec-introduccion]: Introducción
+   * [@sec-neutronica-phwr]: Neutrónica de núcleo en un PHWR
 
  b. Cómo
  
-   * @sec-transporte-difusion Transporte y difusión de neutrones
-   * @sec-esquemas Esquemas de discretización numérica
+   * [@sec-transporte-difusion]: Transporte y difusión de neutrones
+   * [@sec-esquemas]: Esquemas de discretización numérica
 
  c. Qué
  
-   * @sec-implementacion Implementación computacional
-   * @sec-resultados Resultados
+   * [@sec-implementacion]: Implementación computacional
+   * [@sec-resultados]: Resultados
 
 Debo reconocer que la extensión de esta tesis es mayor de la que me hubiese gustado.
 Pero también es cierto he necesitado escribir todo este texto ya que de esta forma he podido entender y procesar toda la información necesaria para hacer aportes originales a mis cuarenta años.
