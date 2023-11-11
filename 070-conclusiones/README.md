@@ -63,7 +63,7 @@ En particular, para las aplicaciones de neutrónica a nivel de núcleo sus carac
  
 
 
-## Trabajos futuros
+## Trabajos futuros {#sec-trabajos-futuros}
 
 Es mi deseo que esta tesis dispare un jardín de senderos que se bifurquen para que las ideas y/o las implementaciones discutidas a lo largo de estos cientos de páginas (físicas en la Biblioteca Falicov, lógicas en su versión PDF o web en su versión HTML) no caigan en el ostracismo. En principio, muchos de las tareas pendientes pueden ser encaradas como trabajos académicos y/o proyectos de ingeniería industriales. En algún sentido, el trabajo "futuro" relacionado al gerenciamiento (sea académico o industrial) es más desafiante que los trabajos técnicos listados a continuación ya no sólo que involucran el [management]{lang=en-US} de los tres vértices del tradicional triángulo de proyectos
 

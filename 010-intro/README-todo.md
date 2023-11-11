@@ -16,22 +16,6 @@
 
 
 
-why: 1 & 2, personal
-
-how: 3 & 4, already known pero digerido como séneca
-
-what: 5 & 6, nuevo (contribución)
-
-
-FOSS! importancia en ingeniería
-
- free: academia
- 
- open source: industria
- 
- libertad de verificar
-
-
 Suele suceder que cuando un profesional se pasa unos cuantos años
 trabajando en un cierto problema, comienza a dar por sentadas muchas de
 situaciones que el resto de las personas no tiene por qué siquiera
@@ -58,7 +42,6 @@ La parte de la industria nuclear está en @sec-neutronica-phwr.
 La parte de industria de software computacional está más abajo.
 El disparador de mi perfil en @sec-history.
 
-hay mucho escrito porque es la forma de digerir lo que uno lee (séneca)
 
 Motivación:
 no hay forma de que haya innovación en una organización rígida (CNEA, NASA, si me apurás INVAP).
@@ -68,9 +51,6 @@ Tuvo que pagar 130MUSD por Onscale, una startup flexible de unas 40 personas.
 Academia vs. startups: objetivos diferentes, focos diferentes. Una lástima porque hay un montón para aportar de cada lado.
 
 Para mí: la figura 3 de la página 42 del Stammler mostraba un límite técnico de la época, pero quedó como un límite psicológico. Stammler dice que las XS son "uniformes" es cada "mesh".
-
-
-citar tesis chaboncito
 
 TL;DR: mezcla de 
 
@@ -93,27 +73,6 @@ el que sabe cómo poner una condición de contorno de flujo de calor por radiaci
 
 
 
-El SDS/SRS es único
-citar presentación de Ashish en PETSc2023
-
- * Scalable cloud-native thermo-mechanical solvers using PETSc, 
-Ashish Patel, Jeremy Theler, Francesc Levrero-Florencio, Nabil Abboud, Mohammad Sarraf Joshaghani, Scott McClennan
-Ansys, Inc.
-
- 
- citar phd vitor
-
-El arquetipo de las presentaciones a congresos de mecom son:
-
- 1. esto es lo que tiene de malo resolver el problema x con el enfoque tradicional
- 2. esta es mi propuesta para resolver el problema x
- 3. como el problema x es muy complicado, resolvemos el y que es más sencillo: da lo mismo y mi forma es mejor
- 4. TODO: resolver el problema x
- 
-Esta tesis es exactamente igual.
-Ojalá no pase lo mismo.
-
- 
 Lo que traigo/aporto:
 
  * experiencia en programación basic desde 1991
@@ -147,34 +106,8 @@ Lo que traigo/aporto:
    - M&A
  * marketing y ventas (vender para comer)
 
-Fortran ok en 1954 para salir de assembly pero ya no
-C: perfecto! inlining, smart compilers
-C++: C con macros, a lo sumo C++20/23 templates, visitors, optional, cosas locas
-
-Trade-off entre object-oriented y data oriented
-
-ejemplo: Linux está en C, hand-written containers, monolithic but well written (high quality code)
-can be done if done right
-
-objetivo central: poder ver qué tan bien funciona difusión
-
 transient: pasar de G=2 a G=2+6 es un overkill
 pero de G=N(N+2) + 6 está bien
-
-
-
- 
-GPL: charlas Stallman
-
-src/pdes
-
-MMS
-
-CI/CD
-
-unit testing
-
-doc in markdown as comments -> pandoc, pdf, mobile-friendly html
 
 
 SRS/SDS: rationale
@@ -183,16 +116,9 @@ SRS/SDS: rationale
 cerrar el lazo Nacho/Chaco
 
 
-cloud native != cloud enabled or cloud friendly
-
-**más énfasis**! API, ver presentación Don, pervasive
-
-
 
 ilustrar LE-10 vs aster/elmer/calculix e iaea3d pwr vs parcs
 
-
-iaea 2d: @unstructured-stni
 
 
 Paralelización @intro-parallel
@@ -297,57 +223,4 @@ absorbente en el tanque del moderador. Más aún, situaciones similares
 ---aunque diferentes en cada caso--- se pueden llegar a encontrar en
 reactores de investigación, tecnología en la cual Argentina es un
 reconocido líder mundial.
-
-En los últimos años se han completado dos Tesis de Doctorado en el
-Instituto Balseiro relacionadas a la presente.
-La primera consiste en el desarrollo y
-aplicación de nuevas bibliotecas de secciones eficaces con especial
-énfasis en el scattering debido al agua pesada [@nacho]. La segunda
-introduce una metodología de análisis neutrónico del celdas de reactores
-de agua pesada [@chaco]. Consideramos que es pertinente contribuir al
-desarrollo de las capacidades científico-tecnológicas en ingeniería
-nuclear al estudiar la resolución de problemas neutrónicos a nivel de
-núcleo teniendo en cuenta las particularidades propias de los reactores
-de agua pesada.
-
-Finalmente, a modo personal debo notar que en el Proyecto Integrador de
-mi Carerra de Ingeniería Nuclear traté temas de control en loops de
-convección natural caóticos [@theler2007] y en la Tesis de Maestrías en
-Ingeniería traté temas de inestabilidades termohidráulicas en presencia
-de una fuente de potencia de origen neutrónico [@theler2008]. Poder
-realizar una tesis de doctorado en temas de neutrónica de nivel de
-núcleo me permite cerrar en forma académica el lazo
-termohidráulica-neutrónica-control, que fue también el eje de mi
-participación profesional en el completamiento de la Central Nuclear
-Atucha II.
-
-
-Resumiendo lo discutido hasta el momento, este es un trabajo académico
-con interés industrial que amalgama matemática, programación y física de
-reactores teniendo en cuenta siempre un criterio ingenieril para juzgar
-aproximaciones e interpretar resultados. Si bien los ingenieros solemos
-recurrir al método científico y a las herramientas que nos proveen las
-ciencias duras, nuestra profesión es en verdad un caso de optimización:
-resolver problemas de la mejora manera posible con el menor costo
-asociado. Por eso es que estudiamos métodos numéricos, técnicas de
-programación, generamos bibliotecas de secciones eficaces para agua
-pesada, desarrollamos metodologías para análisis de celdas y resolvemos
-la ecuación de transporte de neutrones sobre mallas no estructuradas.
-Pero a veces entran otros factores en juego, y los problemas se
-resuelven aún contradiciendo lo que dicen los libros de texto. Podría
-suceder que, pongamos por caso, aunque un exhaustivo estudio
-técnico-económico indique que no es conveniente enriquecer ligeramente
-el combustible de una central de agua pesada, puede darse el caso de que
-la máquina de recambio de combustible tenga inconvenientes operacionales
-por lo que deba ser necesario disminuir la tasa de recambios. O puede
-darse el caso que alguien diseñe e implemente una lógica de movimiento
-de barras de control en función de resultados neutrónicos preliminares e
-incorrectos. O que una vez crítico y operativo el reactor, uno diseñe un
-protocolo para determinar experimentalmente el coeficiente de
-reactividad por efecto Doppler en el combustible [@doppler2013] y luego
-los resultados indiquen que los códigos de cálculo utilizados durante
-años no habían tenido en cuenta correctamente las resonancia de
-absorción en la periferia de las pastillas.
-
-
 
