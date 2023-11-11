@@ -1,11 +1,11 @@
-# Estudios paramétricos: el reactor cubo-esfera {#sec-cubesphere}
+# Estudios paramétricos: el reactor cubo-esferoidal {#sec-cubesphere}
 
 > **TL;DR:** Experimento pensado para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada.
 
 Todos sabemos que, a volumen constante, un reactor desnudo esférico tiene un factor de multiplicación efectivo mayor que un reactor cúbico (@fig-cube-and-sphere).
 De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamete dicho $k_\text{eff}$.
 
-::: {#fig-cube-and-sphere layout="[50,50]"}
+::: {#fig-cube-and-sphere layout="[1,-0.05,1]"}
 ![Reactor cúbico](cubesphere-0.png){#fig-cubesphere-0}
 
 ![Reactor esférico](cubesphere-100.png){#fig-cubesphere-100}
@@ -14,7 +14,7 @@ Un octavo de dos reactores desnudos
 :::
 
  
-::: {#fig-cube-morph-sphere layout="[33,33,33]"}
+::: {#fig-cube-morph-sphere layout="[1,-0.025,1,-0.025,1]"}
 ![75% cubo/25% esfera](cubesphere-25.png){#fig-cubesphere-25}
 
 ![50% cubo/50% esfera](cubesphere-50.png){#fig-cubesphere-50}
@@ -25,7 +25,7 @@ Transformación continua entre un cubo y una esfera
 :::
 
 Pero, ¿qué pasa a medida que el cubo se va transformando en una esfera?
-Es decir, ¿cómo cambia $k_\text{eff}$ a medida que redondeamos los bordes del cubo como en la @fig-cube-morph-sphere? Trabajo para Gmsh & Feenox. Comencemos con el archivo de entrada de FeenoX, que es realmente sencillo:
+Es decir, ¿cómo cambia $k_\text{eff}$ a medida que redondeamos los bordes del cubo como en la @fig-cube-morph-sphere? Trabajo para Gmsh & FeenoX. Comencemos con el archivo de entrada de FeenoX, que es realmente sencillo:
 
 ```{.feenox include="cubesphere.fee"}
 ```

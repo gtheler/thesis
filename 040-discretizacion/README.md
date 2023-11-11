@@ -966,11 +966,6 @@ para $i=2,\dots,N/2$.
 :::
 :::::
 
-::: {.remark}
-Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
-Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
-:::
-
 
 +---------:+:-------------------+---------:+:-------------------+
 |          | ```sn              |          | ```sn              |
@@ -1018,7 +1013,12 @@ Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico. Las direcciones con el mismo entero corresponden a permutaciones de los mismos cosenos directores. Todos los números fueron generados por la herramienta descripta en el @sec-implementacion por lo que sería posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el @sec-implementacion por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+
+::: {.remark}
+Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
+Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
+:::
 
 
 
@@ -1224,7 +1224,7 @@ en las que las incógnitas $\phi_g$ y $\psi_{mg}$ dependen solamente del espac
 En esta sección empleamos el método de elementos finitos [@zienkiewicz1] para discretizar la variable independiente espacial y obtener finalmente un sistema de ecuaciones algebraicas que nos permita resolver neutrónica a nivel de núcleo en forma numérica con una (o más) computadora(s) digital(es).
 
 Existe una gran cantidad de teoría matemática detrás del método de elementos finitos para resolver ecuaciones diferenciales a partir de formulaciones débiles o variacionales.
-Esencialmente el grueso de la literatura teórica [@quarteroni,@brennerscott,@pdes] se centra en probar
+Esencialmente el grueso de la literatura teórica [@quarteroni;@brennerscott;@pdes] se centra en probar
 
  1. que la formulación débil (@def-formulacion-debil) de una ecuación diferencial es formalmente correcta con respecto a derivabilidad e integrabilidad en el sentido de distribuciones sobre espacios de Hilbert,
  2. que soluciones continuas pero no necesariamente diferenciables en a lo más un sub-espacio de medida cero tienen sentido matemático, y
@@ -1260,8 +1260,8 @@ Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada so
 $$
 \begin{cases}
 -\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
-\hfill u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
-\hfill k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+u(\vec{x}) = 0 & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-poisson-fuerte}
 donde $\hat{\vec{n}}$ es la normal externa a la frontera $\partial U$ en el punto $\vec{x}$.
@@ -1607,8 +1607,8 @@ Si el problema a resolver tiene una condición de contorno no homogénea, digamo
 $$
 \begin{cases}
 -\text{div} \Big[ k(\vec{x}) \cdot \text{grad} \left[ u(\vec{x}) \right] \Big] = f(\vec{x}) & \forall\vec{x} \in U \\
-\hfill u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
-\hfill k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
+u(\vec{x}) = g(\vec{x}) & \forall \vec{x} \in \Gamma_D \\
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = p(\vec{x}) & \forall \vec{x} \in \Gamma_N
 \end{cases}
 $$ {#eq-no-homogeneo}
 entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que

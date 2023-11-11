@@ -4,8 +4,15 @@
 
 En esta último sección del capítulo resolvemos un problema 100% inventado, desde la geometría (@fig-phwr-geo) hasta las secciones eficaces.
 La geometría es adimensional "tipo" PHWR con siete canales verticales dentro de un tanque moderador y tres barras de control inclinadas.
-De la misma manera, las secciones eficaces con inventandas.
-Por ejemplo, para el moderador el invento incluye una dependencia con un perfil (lineal) de la temperatura del moderador en función de la coordenada vertical:
+
+::: {.remark}
+La tesis de doctorado @haykel trata sobre el modelado de barras de control inclinadas, incluyendo cálculo a nivel de celda y a nivel de núcleo. En el nivel de celda se tiene en cuenta la geometría continua para calcular secciones eficaces macroscópicas. Pero luego estas secciones eficaces son usadas a nivel de núcleo en una malla estructurada obteniendo los mismos dibujos tipo "Lego" que mostramos en la @fig-mallaspce del @sec-neutronica-phwr.
+Este problema propone tener en cuenta la inclinación de las barras en el cálculo de núcleo.
+Queda como trabajo futuro el análisis de la forma correcta de generar las secciones eficaces con cálculo a nivel de celda para garantizar la consistencia del esquema de cálculo multi-escala.
+:::
+
+Luego, en esta sección las secciones eficaces son, tal como la geometría, 100% inventadas.
+Más aún, para el moderador el invento incluye una dependencia con un perfil (lineal) de la temperatura del moderador en función de la coordenada vertical:
 
 ```feenox
 Tmod0 = 100
@@ -29,6 +36,20 @@ MATERIAL moderator {
   nuSigma_f2=0
 }
 ```
+
+::: {.remark}
+Según la idea de evitar complejidad innecesaria, las secciones eficaces de los canales combustibles son uniformes.
+Pero una aplicación real, éstas deberían depender de...
+
+ * el quemado
+ * la concentración de venenos
+ * la temperatura del combustible
+ * la temperatura del refrigerante
+ * la densidad del refrigerante
+ 
+Todas estas dependencias se pueden dar en forma similar a la dependencia de las XS del moderador con una mezcla de expresiones algebraicas (@sec-pemdas) e interpolación de funciones dadas por puntos de una o más variables (@sec-funciones).
+Incluso se pueden diseñar esquemas de acople con códigos externos e intercambiar información a través de memoria compartida @vitor.
+:::
  
 ::: {#fig-phwr-geo layout="[40,-15,40]"}
 ![](phwr-geo.png){#fig-phwr-geo1}
@@ -41,8 +62,6 @@ MATERIAL moderator {
 
 Geometría de un PHWR inventado con 7 canales verticales y 3 barras de control.
 :::
-
-
 
 
 
@@ -131,7 +150,7 @@ La @fig-phwr-dif muestra la distribución de flujos rápido y térmico resultan
 
 ![$\phi_2$ a $z=z4$](phwr-dif-phi2-500.png){#fig-phwr-dif-phi2-500}
 
-Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión
+Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión. Todos los combustibles tienen el mismo quemado.
 :::
 
 
@@ -210,13 +229,13 @@ Es por eso también que los problemas sin fuentes independientes son más intens
 
 ::: {#tbl-mpi}
 Formulación     |  DOFs   | Problema  |   Build   |   Solve   |   Total   |   Mem.
-:---------------|:-------:|:---------:|----------:|----------:|----------:|----------:
-Difusión        |  257k   |   KSP     |     3.2   |     7.9   |    12.5   |    0.7
-                |         |   EPS     |     6.3   |    87.4   |    95.2   |    6.5
-S$_2$           |  257k   |   KSP     |    24.8   |   219.3   |   246.3   |   18.0
-                |         |   EPS     |    30.6   |   256.3   |   290.9   |   18.0
-S$_4$           |  256k   |   KSP     |    54.3   |   171.8   |   227.1   |   16.3
-                |         |   EPS     |    57.2   |   357.2   |   415.5   |   20.1
+:-------------------|:---------:|:------------:|------------:|------------:|------------:|------------:
+Difusión        |  257k   |   KSP     |     3.2 s  |     7.9 s  |    12.5 s   |    0.7 Gb
+                |         |   EPS     |     6.3 s  |    87.4 s  |    95.2 s   |    6.5 Gb
+S$_2$           |  257k   |   KSP     |    24.8 s  |   219.3 s  |   246.3 s   |   18.0 Gb
+                |         |   EPS     |    30.6 s  |   256.3 s  |   290.9 s   |   18.0 Gb
+S$_4$           |  256k   |   KSP     |    54.3 s  |   171.8 s  |   227.1 s   |   16.3 Gb
+                |         |   EPS     |    57.2 s  |   357.2 s  |   415.5 s   |   20.1 Gb
 
 : {#tbl-mpi2}
 

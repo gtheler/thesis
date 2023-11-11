@@ -179,16 +179,15 @@ reactores tipo CANDU (@fig-arrays). Los canales están inmersos en un gran tanq
 que contiene el moderador líquido, que usualmente se mantiene más frío
 que el refrigerante con el objetivo de mejorar la moderación y aumentar
 así el factor de multiplicación infinito $k_\infty$ del núcleo. El
-elemento combustible está compuesto por un arreglo de barras
-individuales (37 en Atucha, 36 en CANDU) que contienen las pastillas de
+elemento combustible está compuesto por un arreglo de 37 barras
+individuales que contienen las pastillas de
 dióxido de uranio recubiertas por un [cladding]{lang=en-US} de [zircalloy]{lang=en-US}.
 
 En los reactores de agua pesada la parada rápida del reactor se realiza
 mediante la inserción de las barras de control por gravedad tal como en los reactores de agua liviana.
 Pero el segundo sistema de extinción consiste en la inyección rápida de una solución
 líquida absorbente de neutrones en el tanque del moderador, que es un componente único de este tipo de reactores.
-En particular, para el caso de Atucha I y II se emplea ácido deuterobórico
-con boro enriquecido en su isótopo diez.
+En particular, para el caso de Atucha I y II se emplea ácido deuterobórico.
 
 
 ### Dos son compañía, tres son multitud
@@ -236,7 +235,7 @@ O bien se aplican técnicas de mallado no estructurado para obtener una malla qu
 Discretizaciones estructurada y no estructurada de un dominio espacial arbitrario.
 :::
 
-La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic graph*]{lang=en-US}.] (DAG).
+La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic graph*]{lang=en-US}.] (DAG) [@petsc-user-ref;@dmplex].
 
 La mayoría de las herramientas de neutrónica a nivel de núcleo utilizadas en la industria nuclear mundial soportan solamente mallas estructuradas @fig-mallaspce.
 Definitivamente todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
@@ -357,7 +356,11 @@ esquema de cálculo acoplado mapeando explícitamente (con un código desarrolla
 (@fig-cfd, $\sim$ 4.5 millones de celdas) a la malla de
 cálculo del código neutrónico (@fig-boropce, $\sim$ 200.000 celdas para
 $4\times 4 \times 20$).
-En la @sec-non-conformal del capítulo de resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
+
+::: {.remark}
+En la @sec-non-conformal-mapping del @sec-resultados mostramos el enfoque propuesto para tratar mallas no conformes a partir de las lecciones aprendidas.
+En la @sec-non-conformal resolvemos un problema termo-mecánico usando el mismo esquema.
+:::
 
 ### Celdas refinadas
 
@@ -443,7 +446,7 @@ absorbentes. Este hecho es especialmente importante cuando hay
 interfaces entre materiales en donde se dan grandes discontinuidades en las
 secciones eficaces, que es justamente el objetivo de la evaluación del
 segundo sistema de extinción: el avance de una pluma de un absorbente
-neutrónico (ácido deuterobórico enriquecido en boro-10) a través de un
+neutrónico (ácido deuterobórico) a través de un
 medio difusivo (el agua pesada contenida en el tanque del moderador).
 
 En el @sec-transporte-difusion derivamos primeramente la ecuación de transporte de neutrones a partir de la conservación de neutrones. Luego derivamos la ecuación de difusión a partir de la de transporte y mostramos detalladamente las razones matemáticas de las aproximaciones necesarias para llegar a la ley de Fick para neutrones.
@@ -570,25 +573,23 @@ Extensible
 
       
 
-La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga estas tres condiciones.
+La propuesta de esta tesis es entonces desarrollar una herramienta computacional que esencialmente satisfaga tres condiciones.
 Es por eso que:
 
 ---
-comment: poner referencias al SDS en los bullets
+comment: TODO poner referencias al SDS en los bullets
 ...
 
  1. Los esquemas numéricos desarrollados a lo largo del @sec-esquemas para resolver las ecuaciones de transporte y difusión de neutrones introducidas en el @sec-transporte-difusion se basan en formulaciones basadas en elementos finitos, que son intrínsecamente compatibles con mallas no estructuradas. 
  
  2. Tal como discutimos en el @sec-introduccion, el primer requerimiento de la herramienta computacional desarrollada es que sea [cloud first]{lang=en-US}. Los apéndices [-@sec-sds] y [-@sec-srs] describen los requerimientos y las especificaciones desde el punto de vista de desarrollo de software. En resumen, la herramienta...
  
-    * es libre ([_free as in freedom_]{lang=en-US} @faif) y abierta ([_open source_]{lang=en-US}), distribuida bajo licencia GPLv3+.
+    * es libre y abierta distribuida bajo licencia GPLv3+.
     * sigue la filosofía de programación Unix @raymond. Estrictamente hablando es un filtro de Unix que funciona como una función de transferencia entre
       a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
       b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
       
-      ```include
-      110-sds/transfer.md
-      ```
+      {{< include 110-sds/transfer.md >}}
       
     * no escribe (y muy probablemente ni siquiera calcule) un resultado si éste no se pide explícitamente como una salida.
     * los archivos de entrada deben...
@@ -613,7 +614,7 @@ comment: poner referencias al SDS en los bullets
           * lenguajes de expansión de macros como M4
           * interfaces gráficas de usuario, especialmente basadas en web
  
- 3. El @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también contiene:
+ 3. El @sec-implementacion describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias con una arquitectura donde existe un _framework_ (ver @def-framework) general y un esquema de apuntadores a función con _entry points_ particulares para las diferentes ecuaciones a resolver. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también puede resolver:
 
      * ecuación de Laplace/Poisson (tanto estado estacionario como transitorio)
      * conducción de calor (tanto estado estacionario como transitorio, incluyendo conductividad no lineal dependiente de la temperatura)
@@ -638,28 +639,17 @@ comment: poner referencias al SDS en los bullets
           - integrales sobre el espacio
           - cálculo de extremos y valores medios
     
-    que es provista por el [framework]{lang=en-US} de matemática general de la herramienta.
+    Todos estos puntos están manejados por el [framework]{lang=en-US} de matemática general de la herramienta.
     Cada ecuación diferencial particular a resolver debe ser "provista" como un subdirectorio dentro de `src/pdes` conteniendo ciertas funciones en C capaces de generar las matrices y vectores elementales de la formulación de la ecuación diferencial según el método de elementos finitos.
 
-Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas tres características.
-El @sec-srs contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
-El @sec-sds contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. Aún quedan muchos aspectos por investigar e implementar, como por ejemplo
+Finalmente, el @sec-resultados muestra algunos resultados que no podrían ser obtenidos por herramientas que no tengan al menos una de estas cuatro características distintivas del código desarrollado:
 
- * Esquemas espaciales basados en volúmenes finitos
- * Formulación de elementos finitos tipo Galerkin discontinuos
- * Otros esquemas de discretización débiles como mínimos cuadrados en lugar de Galerkin
- * Otras formulaciones neutrónicas
-   - $P_L$
-   - Even parity
-   - Probabilidad de colisiones
- * Capacidad de refinamiento de malla automático^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
- * Elementos de alto orden y refinamiento tipo $p$
- * Esquemas de solución $p$-multigrid @brown2022performance
- * Transitorios neutrónicos
- * Acople con otros códigos de cálculo a través de memoria compartida
- * Medición y optimización de performance computacional
- * Optimización de utilización de comunicación MPI
- * Integración de GUIs basados en web
- * Integración con APIs tipo REST para control remoto
+ a. Filosofía Unix, integración en scripts y simulación programática
+ b. Mallas no estructuradas
+ c. Ordenadas discretas (además de difusión)
+ d. Paralelización en varios nodos de cálculo con MPI
+
+El @sec-srs contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
+El @sec-sds contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. 
 
 Terminada la explicación del _por qué_ ([why]{lang=en-US}) pasemos entonces al _cómo_ ([how]{lang=en-US}).

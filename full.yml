@@ -9,7 +9,6 @@ metadata-files:
 book:
   title: "Transporte de neutrones en la nube"
   author: "Mg. Ing. Germán Theler"
-  date: 2023-04-09
   output-file: "phd-theler"
   chapters:
     - index.md
@@ -21,7 +20,7 @@ book:
     - 040-discretizacion/README.md
     - 050-implementacion/README.md
     - 060-resultados/README.md
-    - 090-conclusiones/README.md
+    - 070-conclusiones/README.md
     - bibliografia/README.md
     
   appendices:
@@ -30,7 +29,6 @@ book:
     - 110-sds/feenox-unix.md
     - 110-sds/feenox-history.md    
     - 110-sds/feenox-FAQ.md
-    - bibliografia/README.md
 
 title-en: "Neutron transport in the cloud"
 keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"
@@ -101,6 +99,8 @@ format:
     toc-title: "Tabla de contenidos"
     lof: false
     lot: false
+    cite-method: citeproc
+    biblatexoptions: style=numeric,sortcites=true,sorting=nyt,backend=biber
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)

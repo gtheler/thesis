@@ -10,13 +10,15 @@ Pasamos finalmente a dejar dos pescaditos fijos y resolver la pregunta: ¿dónde
 En los dos primeros problemas podríamos explotar la simetría para reducir el tamaño del problema pero preferimos resolver la geometría completa para ilustrar mejor el problema. Ya hemos discutido la reducción del número total de grados de libertad en la @sec-2dpwr.
 :::
 
+
+
 ## Un pescadito: teoría de perturbaciones lineales {#sec-un-pescadito}
 
 Consideremos un reactor bi-dimensional circular de radio $A$ con centro en el origen del plano $x$-$y$ y con secciones eficaces macroscópicas homogéneas a un grupo de energías.
 Supongamos que un pescadito circular absorbente de radio $a$ puede moverse a lo largo del eje $x$ positivo.
 Un ejercicio clásico de análisis de reactores es dar la reactividad negativa introducida por el pescadito en función de la posición $x = r$ de su centro utilizando teoría de perturbaciones (es decir, suponiendo que $a \ll A$.
 
-![Un pescadito de radio $a$ nada a lo largo del eje $x$ en un reactor homogéneo de radio $A$.](un-pescadito-geo.svg){#un-pescadito-geo width=60%}
+![Un pescadito de radio $a$ nada a lo largo del eje $x$ en un reactor homogéneo de radio $A$.](un-pescadito-geo.svg){#un-pescadito-geo width=50%}
 
 En esta sección vamos a obtener con FeenoX la reactividad neta introducida por el pescadito variando paramétricamente la posición $x$ de su centro. Para eso, comenzamos con un script de Bash que genera un archivo de texto `vars.geo` (que es incluido desde `un-pescadito.geo` para ubicar el círculo pequeño correspondiente al pescadito), genera una malla con Gmsh y luego resuelve la ecuación de difusión con FeenoX para diferentes posiciones $r$ del pescadito. La @fig-un-pescadito-mesh muestra la malla resultante para dos valores de $r$.
 
@@ -40,6 +42,7 @@ Notar que a diferencia de los estudios paramétricos realizados hasta el momento
 que genera una sucesión (determinística) de números cuasi-aleatorios que, eventualmente, llena densamente un hipercubo @sobol.
 En los lazos paramétricos crecientes, si se desea aumentar la densidad del barrio hay que volver a calcular todo el intervalo nuevamente.
 En una serie de números cuasi-aleatorios, es posible agregar nuevos puntos a los ya calculados dando un _offset_ inicial.
+En la @sec-cinetica-puntual esta característica de las serie cuasi-aleatorias es más evidente ya que allí barremos densamente un espacio de parámetro bi-dimensional.
 Por ejemplo, podemos barrer el intervalo $[0,1]$ con tres puntos con el archivo `steps.fee` como
 
 ```terminal
@@ -103,7 +106,7 @@ Se deja como ejercicio calcular la misma curva con teoría de perturbaciones.
 
 ## Dos pescaditos: estudio paramétrico no lineal {#sec-dos-pescaditos}
 
-![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=60%}
+![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=50%}
 
 Agregemos ahora otro pescadito nadando en forma diametralmente opuesta al primero (@fig-dos-pescaditos-geo).
 El script de Bash, el archivo de entrada de Gmsh y el de FeenoX son muy similares a los de la sección anterior por lo que no los mostramos.
@@ -127,10 +130,19 @@ Supongamos ahora que agregamos un tercer pescadito. Por alguna razón, los prime
 
 Una forma de resolver este problema con FeenoX es proceder de la misma manera que en las secciones anteriores pero en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta determinística ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
 
+::: {.remark}
+En la reciente tesis de maestría @perezwinter se emplea FeenoX para resolver la ecuación de calor y, mediante un script en Python, optimizar topológicamente el reflector de un reactor nuclear integrado desde el punto de vista. Esa tesis, junto con esta sección, ayuda a ilustrar el punto que queremos enfatizar sobre la flexibilidad en el diseño de FeenoX para ser utilizada como una herramienta de optimización. 
+:::
+
+
 En particular, podemos usar la biblioteca de Python SciPy que provee acceso a algoritmos de optimización y permite con muy pocas líneas de Python implementar el bucle de optimización:
 
 ```{.python include="tres.py"}
 ```
+
+::: {.remark}
+En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simuladom, algoritmos genéticos o incluso redes neuronales.
+:::
 
 La función `keff()` a optimizar es función de la posición $\vec{x}_3$ del tercer pescadito, cuyas dos componentes son pasadas como argumento al script de Bash que llama primero a Gmsh y luego a FeenoX para devolver el $k_\text{eff}(\vec{x}_3)$ para $\vec{x}_1$ y $\vec{x}_2$ fijos:
 
@@ -149,7 +161,7 @@ Si FeenoX, tal como Gmsh, tuviese una interfaz Python (tarea que está planifica
 
 La ejecución del script de optimización muestra la reacitvidad mínima en `fun` y la posición óptima del tercer pescadito en `x`:
 
-```
+```terminal
 $ ./tres.py 
  final_simplex: (array([[ 3.55380249, -1.15953827],
        [ 3.41708565, -1.71419764],
@@ -165,10 +177,10 @@ $
 ```
 
 
-![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead.](tres-pescaditos.svg){#fig-tres-pescaditos}
+![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead @neldermead.](tres-pescaditos.svg){#fig-tres-pescaditos width=50%}
 
 
-::: {#fig-tres3d layout="[50,50]"}
+::: {#fig-tres3d layout="[1,-0.05,1]"}
 ![](tres3d-1.svg){#fig-tres3d-1}
 
 ![](tres3d-2.svg){#fig-tres3d-2}
