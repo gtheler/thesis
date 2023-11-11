@@ -1,6 +1,6 @@
 # Benchmarks de criticidad de Los Alamos {#sec-losalamos}
 
-> **TL;DR:** Estos problemas proveen una manera de realizar una primerea verificación del código con el método de soluciones exactas.
+> **TL;DR:** Estos problemas proveen una manera de realizar una primera verificación del código con el método de soluciones exactas.
 
 El proceso de verificación de un código numérico involucra justamente, verificar que las ecuaciones se estén resolviendo bien.^[Hay un juego de palabras en inglés que indica que verificación quiere decir ["are we solving the equations right?"]{lang=en-US} mientras que validación quiere decir ["are we solving the right equations?"]{lang=en-US}. En la @sec-mms-dif discutimos más en detalle este concepto.]
 La forma estricta de realizarlo es comparar alguna medida del error cometido en la solución numérica con respecto a la solución exacta de la ecuación que estamos resolviendo y mostrar que éste tiende a cero con el orden teórico según el método numérico empleado @oberkampf.
@@ -82,7 +82,7 @@ Para ello podemos crear un script de Bash que llame a cada uno de los archivos d
 ```{.bash include="losalamos.sh"}
 ```
 
-![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que amentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
+![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que aumentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
 
-La @fig-losalamos muestra, de forma poco rigurosa, que en en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
+La @fig-losalamos muestra, de forma poco rigurosa, que en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
 Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisotrópico y con más de dos grupos de energías.

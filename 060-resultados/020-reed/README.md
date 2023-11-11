@@ -3,8 +3,8 @@
 > **TL;DR:** Este problema tiene más curiosidad histórica que numérica. Es uno de los problemas más sencillos no triviales que podemos encontrar y sirve para mostrar que para tener en cuenta regiones vacías no se puede utilizar una formulación de difusión.
 
 Este caso, que data de 1971 @reed, es de los más sencillos que FeenoX puede resolver.
-Por lo tanto, por base de diseño, el archivo de entrada también debe ser sencilo.
-Aprovechamos, entonces, la sencillez de este primer problema para explicar en detalle cómo generar la malla con Gmsh y cómo preparar este archivo de entrada en forma apropiadada.
+Por lo tanto, por base de diseño, el archivo de entrada también debe ser sencillo.
+Aprovechamos, entonces, la sencillez de este primer problema para explicar en detalle cómo generar la malla con Gmsh y cómo preparar este archivo de entrada en forma apropiada.
 
 
 ![El problema de Reed @reed](reed-problem.svg){#fig-reed-problem}
@@ -17,15 +17,15 @@ El problema de Reed consiste en una geometría tipo slab adimensional para $0 < 
  d. $5 < x < 6 \mapsto$ Source 2
  e. $6 < x < 8 \mapsto$ Reflector
 
- * Las fuentes de neutrones son independientes y no hay materiales físiles (ni fisionables), por lo que el problema a resolver es un sistema lineal de ecuaciones (KSP)
+ * Las fuentes de neutrones son independientes y no hay materiales físiles (ni fisionables), por lo que el problema a resolver es un sistema lineal de ecuaciones (KSP) y no un problema de autovalores (EPS)
  * El material "vaccum" tiene secciones eficaces nulas, lo que implica que no puede utilizarse la aproximación de difusión ya que el coeficiente $D(x)$ estaría mal definido.
  * Se espera que haya gradientes espaciales grandes en las interfaces entre materiales, por lo que vamos a refinar localizadamente alrededor de los puntos $x=2$, $x=3$, $x=5$ y $x=6$.
- * Como mencionamos en la @def-petrov-galerkin, la ecuación de transporte es hiperbólica y necesita un término de estabilización en el término convectivo. FeenoX implementa un método tipo SUPG controlado por un factor $\alpha$ que puede ser definido explícitamente en el archivo de entrada a través de la variable especial `sn_alpha`. Por defecto, $\alpha = 1/2$.
+ * Como mencionamos en la @def-petrov-galerkin, la ecuación de transporte es hiperbólica y necesita un término de estabilización en el término convectivo. FeenoX implementa un método tipo SUPG (@def-petrov-galerkin) controlado por un factor $\alpha$ que puede ser definido explícitamente en el archivo de entrada a través de la variable especial `sn_alpha`. Por defecto, $\alpha = 1/2$.
  * La condición de contorno en $x=0$ es tipo simetría, lo que implica que FeenoX utilice el método de penalidad para implementarla. Es posible elegir el peso en el archivo de entrada con la variable especial `penalty_weight`. Valores altos implican mayor precisión en la condición de contorno pero peor condicionamiento de la matriz global.
  * La condición de contorno en $x=8$ es vacío, lo que corresponde a una condición de Dirichlet para las direcciones entrantes.
 
 
-Podemos generar la geometría del problema con el siguiente archivo de entrada de Gmsh:
+Podemos generar la geometría y la malla del problema `reed.msh` (que luego será leída por FeenoX) con el siguiente archivo de entrada de Gmsh:
 
 ```{.geo include="reed.geo"}
 ```
@@ -54,7 +54,7 @@ Este (sencillo) archivo de entrada tiene 6 secciones bien definidas:
      ```feenox
      PRINT_FUNCTION psi1 psi1.1 psi1.2 psi1.3 psi1.4
      ```
-     dará un error de parseo si `$1` es 2 (pero funcionará bien si `$1` es 4` tal como ya explicamos en la página~\pageref{psi11}`{=latex}).
+     dará un error de parseo si `$1` es 2 (pero funcionará bien si `$1` es 4 ` tal como ya explicamos en la página~\pageref{psi11}`{=latex}).
      En problemas multidimensionales, la instrucción `WRITE_RESULTS` se hará cargo del problema porque escribirá automáticamente en el archivo de salida (en formato Gmsh o VTK) la cantidad correcta de flujos angulares definidos.
      Otra forma de tener como salida los flujos angulares es reemplazar la instrucción `PRINT_FUNCTION` por
 
@@ -63,7 +63,7 @@ Este (sencillo) archivo de entrada tiene 6 secciones bien definidas:
      ```
      y preparar diferentes archivos `print-2.fee`, `print-4.fee`, `print-6.fee`, etc. cada uno conteniendo la instrucción `PRINT_FUNCTION` con la cantidad apropiada de argumentos para cada $N$.
 
-La ejecución propiamente dicha de este problema involucra entonces invocar a Gmsh para generar la malla `reed.msh` a partir de `reed.geo` y luego invocar a FeenoX con el archivo de entrada `reed.fee` y el valor de $N$ deseado a continuación. Como queremos construir un gráfico con el perfil de flujo escalar, redireccionamos cada una de las salidas estándar de la diferentes ejecuciones de FeenoX a diferentes archivos ASCII:
+La ejecución propiamente dicha de este problema involucra entonces invocar a Gmsh para generar la malla `reed.msh` a partir de `reed.geo` y luego invocar a FeenoX con el archivo de entrada `reed.fee` y el valor de $N$ deseado a continuación. Como queremos construir un gráfico con el perfil de flujo escalar, redireccionamos cada una de las salidas estándar de las diferentes ejecuciones de FeenoX a diferentes archivos ASCII:
 
 ```terminal
 $ gmsh -1 reed.geo
@@ -92,7 +92,7 @@ $ feenox reed.fee 4 > reed-s4.csv
 $ feenox reed.fee 8 > reed-s8.csv
 ```
 
-Podemos darle una vuelta de tuerca más a la filosofía Unix y remplazar las últimas tres llamadas explícitas a feenox por un bucle de Bash.
+Podemos darle una vuelta de tuerca más a la filosofía Unix y reemplazar las últimas tres llamadas explícitas a feenox por un bucle de Bash.
 Incluso aprovechamos para ordenar las líneas en orden creciente según la primera columna para poder graficar "con líneas":
 
 ```terminal
@@ -152,14 +152,14 @@ Efecto del factor de estabilización $\alpha$
 
 
 ::: {.remark}
-Como veremos más adelante (por ejemplo en las @sec-mms-dif o en la @sec-azmy), el realizar estudios paramétricos sobre más de un parámetro la cantidad de resultados a analizar aumenta geométricamente. Debido a que FeenoX permite la flexibilidad de ser ejecutado en bucles y de pasar parámetros por líneas de comando, la generación de los resultados es extremadamente eficiente, lo que hace que sea relativamente mucho más difícil el análisis de dichos resultados que la generación de los datos en sí. Esto pone en relieve la importancia de la regla de economía de Unix: no sólo el costo relativo de la unidad de tiempo de CPU es al menos tres órdenes de magnitud menor al costo de la unidad de tiempo de un ingeniero sino que también el tiempo absoluto necesario para analizar resultados es mayor que para generarlos.
+Como veremos más adelante (por ejemplo en la @sec-mms-dif o en la @sec-azmy), el realizar estudios paramétricos sobre más de un parámetro la cantidad de resultados a analizar aumenta geométricamente. Debido a que FeenoX permite la flexibilidad de ser ejecutado en bucles y de pasar parámetros por líneas de comando, la generación de los resultados es extremadamente eficiente, lo que hace que sea relativamente mucho más difícil el análisis de dichos resultados que la generación de los datos en sí. Esto pone en relieve la importancia de la regla de economía de Unix: no sólo el costo relativo de la unidad de tiempo de CPU es al menos tres órdenes de magnitud menor al costo de la unidad de tiempo de un ingeniero sino que también el tiempo absoluto necesario para analizar resultados es mayor que para generarlos.
 :::
 
 
 
 ## Efecto del orden de los elementos
 
-Para finalizar el estudio de este primer problema sencillo volvemos a resolver el mismo problema pero utilizando elementos de segundo orden.
+Para finalizar el estudio de este primer problema neutrónico sencillo volvemos a resolver el mismo caso pero utilizando elementos de segundo orden.
 Está claro que para poder comparar soluciones se debe tener en cuenta el esfuerzo computacional que cada método necesita. Para el mismo tamaño de elemento, el tamaño del problema para una malla de segundo orden es mucho más grande que para una malla de primer orden. Por lo tanto, lo primero que hay que hacer es
 
  a. refinar la malla de primer orden, o
@@ -188,6 +188,12 @@ Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden
 ```{.feenox include="reed2.fee"}
 ```
 
+::: {.remark}
+No hay una definición o instrucción específica que le indique a FeenoX el orden de los elementos a usar.
+Se lee la malla y se usan los elementos definidos allí. En los casos anteriores, los elementos de mayor orden eran líneas de dos nodos (a.k.a. line2). En este caso, son líneas de tres nodos (a.k.a. line3).
+:::
+
+
 ```terminal
 $ for N in 2 4 8; do feenox reed2.fee $N; done
 $
@@ -197,8 +203,6 @@ $
 
 ::: {.remark}
 Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada hubiese implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE` (por ejemplo en la @sec-phwr).
-Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
+Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales y de condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
 :::
 
-
-·

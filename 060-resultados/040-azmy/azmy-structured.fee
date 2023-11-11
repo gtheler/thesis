@@ -6,11 +6,13 @@ READ_MESH $0.msh
 MATERIAL src S1=1 Sigma_t1=1 Sigma_s1.1=0.5
 MATERIAL abs S1=0 Sigma_t1=2 Sigma_s1.1=0.1
 
+# vinculación entre grupos físicos 2D y materiales
 PHYSICAL_GROUP llq MATERIAL src
 PHYSICAL_GROUP lrq MATERIAL abs
 PHYSICAL_GROUP urq MATERIAL abs
 PHYSICAL_GROUP ulq MATERIAL abs
 
+# vinculación entre grupos físicos 1D y condiciones de contorno
 BC mirror   mirror
 BC vacuum   vacuum
 

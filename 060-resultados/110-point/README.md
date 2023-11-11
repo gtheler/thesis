@@ -62,8 +62,8 @@ La @fig-xenon muestra el flujo y la posición de la barra de control. Se puede 
 ## Mapas de diseño
 
 Finalizamos recuperando unos resultados derivados de mi tesis de maestría @theler2008 publicados en 2010 @stability-nucengdes.
-Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escruta como modelos de capacitancia concentrada^[Del inglés [_lumped capacitance_]{lang=en-US}.] 0-dimensionales.
-El estudio de consiste en barrer paramétricamente el espacio de coeficientes de reactividad $[\alpha_c, \alpha_f]$, perturbar el estado del sistema dinámico ($\Delta T_f = 2~\text{ºC}$) y marcar con un color la potencia luego de un minuto para obtener mapas de estabilidad tipo Lyapunov.
+Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escrita como modelos de capacitancia concentrada^[Del inglés [_lumped capacitance_]{lang=en-US}.] 0-dimensionales.
+El estudio consiste en barrer paramétricamente el espacio de coeficientes de reactividad $[\alpha_c, \alpha_f]$, perturbar el estado del sistema dinámico ($\Delta T_f = 2~\text{ºC}$) y marcar con un color la potencia luego de un minuto para obtener mapas de estabilidad tipo Lyapunov.
 
 ```{.feenox include="point.fee"}
 ```
@@ -79,7 +79,7 @@ $ ./point.sh 2048 4096
 $
 ```
 
-![Mapa de estabilidad de Lyapunov con los mismos parámetros que en @stability-nucengdes resuelto con FeenoX utilizando series de números pseudo-aleatorios que van "rellenando" incremental y densamente el espacio de parámetros.](map.png){#fig-map}
+![Mapa de estabilidad de Lyapunov similar al obtenido en la referencia @stability-nucengdes resuelto con FeenoX utilizando series de números pseudo-aleatorios que van "rellenando" incremental y densamente el espacio de parámetros.](map.png){#fig-map}
 
 
 

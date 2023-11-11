@@ -2,7 +2,7 @@
 # El problema de Azmy {#sec-azmy}
 
 > **TL;DR:** Este problema ilustra el "efecto rayo" de la formulación de ordenadas discretas en dos dimensiones.
-> Para estudiar completamente el efecto se necesita o rotar la geometría con respecto a las direcciones de S$_N$.
+> Para estudiar completamente el efecto se necesita rotar la geometría con respecto a las direcciones de S$_N$.
 
 ![Geometría del problema de Azmy](azmy-figure.svg){#fig-azmy-figure}
 
@@ -152,7 +152,7 @@ En particular, el autor investiga los siguientes tres valores de $x$
 Para poder entender lo que está pasando, queremos estudiar qué sucede con estos perfiles cuando las direcciones de S$_N$ de alguna manera "rotan" con respecto a la geometría.
 Como FeenoX usa cuadraturas de nivel simétrico, no podemos rotar las direcciones. Debemos rotar la geometría.
 Pero si rotamos un ángulo arbitrario $\theta$ el cuadrado original no vamos a poder poner las condiciones de simetría ya que se necesita que tanto la dirección incidente como la reflejada estén en el conjunto de cuadraturas.
-Por lo tanto necesitamos modelar la geometría completa de tamaño $20 \times 20$ con condiciones de contorno de vacío en los cuadro lados del cuadrado.
+Por lo tanto necesitamos modelar la geometría completa de tamaño $20 \times 20$ con condiciones de contorno de vacío en los cuatro lados del cuadrado.
 
 Además del ángulo $\theta \leq 45°$ de rotación de la geometría alrededor del eje $z$ saliendo de la pantalla (o papel si usted está leyendo esta tesis analógicamente), también queremos estudiar qué pasa si variamos la densidad de mallado espacial y angular.
 Por eso recurrimos a un estudio paramétrico sobre

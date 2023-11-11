@@ -12,6 +12,9 @@ set terminal pdf
 set xlabel "tiempo $t$ [segundos]"
 set ylabel "reactividad $\\rho$ [PCM]"
 
+set xtics 10
+set mxtics 5
+
 set key top right
 
 # set title "Inverse point kinetic reactor equations with $\phi(t)$ given in a file"
@@ -20,8 +23,11 @@ set output "inverse.pdf"
 plot "inverse-dae.dat"      u 1:(1e5*$3)  w l  lw 4 lt 2 pt 1 color  red   ti "DAEs",\
      "inverse-integral.dat" u 1:(1e5*$2)  w l  lw 2 lt 1 pt 17 color cyan  ti "Integral"
 
-set xrange [9.75:10.25]
-set yrange [9.5:10.1]
+set xrange [9.7:10.3]
+set yrange [9.4:10.1]
+set xtics 0.1
+set mxtics 0.02
+
 set key bottom right
 set output "inverse-zoom.pdf"
 

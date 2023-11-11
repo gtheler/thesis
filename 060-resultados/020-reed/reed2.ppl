@@ -13,8 +13,8 @@ set key above
 
 set terminal pdf
 
-set xlabel "non-dimensional $x$"
-set ylabel "difference between 1st and 2nd-order fluxes"
+set xlabel "posici\\'on axial adimensional $x$"
+set ylabel "diferencia entre primer y segundo orden"
 
 set output "reed2-flux.pdf"
 plot \

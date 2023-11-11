@@ -12,13 +12,13 @@ def create_mesh(vol, f100):
   
   internal = []
   gmsh.model.add("cubesphere")
-  if (f < 1):
+  if (f100 < 1):
     # a cube
     gmsh.model.occ.addBox(0, 0, 0, a, a, a, 1)
     internal = [1,3,5]
     external = [2,4,6]
 
-  elif (f > 99):
+  elif (f100 > 99):
     # a sphere
     gmsh.model.occ.addSphere(0, 0, 0, a, 1, 0, math.pi/2, math.pi/2)
     internal = [2,3,4]

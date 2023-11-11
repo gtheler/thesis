@@ -2,7 +2,7 @@
 
 > **TL;DR:** Mallas no estructuradas, dependencias espaciales no triviales, escalabilidad en paralelo. Si el problema no "entra" en una computadora, lo podemos repartir entre varias.
 
-En esta último sección del capítulo resolvemos un problema 100% inventado, desde la geometría (@fig-phwr-geo) hasta las secciones eficaces.
+En esta última sección del capítulo resolvemos un problema 100% inventado, desde la geometría (@fig-phwr-geo) hasta las secciones eficaces.
 La geometría es adimensional "tipo" PHWR con siete canales verticales dentro de un tanque moderador y tres barras de control inclinadas.
 
 ::: {.remark}
@@ -39,7 +39,7 @@ MATERIAL moderator {
 
 ::: {.remark}
 Según la idea de evitar complejidad innecesaria, las secciones eficaces de los canales combustibles son uniformes.
-Pero una aplicación real, éstas deberían depender de...
+Pero en una aplicación real, éstas deberían depender de...
 
  * el quemado
  * la concentración de venenos
@@ -82,13 +82,13 @@ Malla con elementos curvos tet10 para el PHWR inventado
 :::
 
 Resolvemos primero las ecuaciones de difusión a dos grupos sobre una malla con elementos curvos tet10 (@fig-phwr-mesh).
-El archivo de entrada de FeenoX, una vez que separamos la secciones eficaces (y hemos puesta toda la complejidad en la geometría y en la malla) es extremadamente sencillo:
+El archivo de entrada de FeenoX, una vez que separamos la secciones eficaces (y hemos puesto toda la complejidad en la geometría y en la malla) es extremadamente sencillo:
 
 ```{.feenox include="phwr-dif.fee"}
 ```
 
 A dos grupos, la malla de segundo orden da un poco más de 250k grados de libertad.
-Veámos cómo escala FeenoX en términos de tiempo y memoria al resolver este problem con diferente cantidad de procesadores en una misma computadora:
+Veamos cómo escala FeenoX en términos de tiempo y memoria al resolver este problema con diferente cantidad de procesadores en una misma computadora:
 
 ```terminal
 $ for i in 1 2 4 8 12; do mpirun -n $i feenox phwr-dif.fee; done
@@ -128,7 +128,7 @@ $
 ```
 
 Si bien el "tiempo de pared" disminuye, no lo hace tanto como debería ya que todavía hay mucho lugar para optimización en FeenoX, especialmente en paralelización por MPI. Pero las características básicas están.
-Más importante aún es el comportamiento de la memoria: a medida que usamos más procesos (o "ranks" en terminología de MPI), la memoria requerida en cada rank disminuye sensiblemente. Esto implica que FeenoX puede, en principio, resolver problemas arbitrariamente grandes si se dispone de sufientes computadoras que puedan ser interconectadas por MPI, que era una de las premisas de esta tesis.
+Más importante aún es el comportamiento de la memoria: a medida que usamos más procesos (o "ranks" en terminología de MPI), la memoria requerida en cada rank disminuye sensiblemente. Esto implica que FeenoX puede, en principio, resolver problemas arbitrariamente grandes si se dispone de suficientes computadoras que puedan ser interconectadas por MPI, que era una de las premisas de esta tesis.
 La @fig-phwr-dif muestra la distribución de flujos rápido y térmico resultantes.
 
 
@@ -189,7 +189,7 @@ $
 Resolver un problema formulado en S$_N$ es computacionalmente mucho más demandante porque las matrices resultantes no son simétricas y tienen una estructura compleja.
 Los requerimientos de memoria y CPU son mayores que para difusión. Incluso la escala de paralelización, aún cuando debemos notar nuevamente que hay mucho terreno para mejorar en FeenoX, es peor que en la sección anterior para un tamaño de problema similar.
 El esfuerzo necesario es más marcado para $N$ superiores.
-De hecho para una malla más gruesa todavía, dando lugar a un tamaño de problema menor, el tiempo y memoria necesario para resolver el problema con $S_4$ aumenta:
+De hecho para una malla más gruesa todavía, dando lugar a un tamaño de problema menor, obtenemos:
 
 ```terminal
 $ mpiexec -n 1 feenox phwr-s4.fee
@@ -218,13 +218,14 @@ size = 159168   time = 153.3 s   memory = 33.7 Gb
 $
 ```
 
-Lo que sí sigue siendo cierto, como mostramos en la @fig-mpi, es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
+Esto es, para el mismo número de grados de libertad totales el tiempo y memoria necesario para resolver el problema con $S_4$ aumenta.
+De todas maneras, lo que sí sigue siendo cierto, como mostramos en la @fig-mpi, es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
 
 ![Disminución de la memoria por proceso MPI](mpi.svg){#fig-mpi}
 
 Para finalizar, debemos notar que al resolver problemas de critidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el @sec-esquemas en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
-Para resolver este tipo de problemas se necesita un solver lineal que pueda "invertir" la matriz de fisiones.
-Por un tema numérico, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan mejor si este solver linea es directo. Es conocido que los solvers directos son robustos pero no escalan bien. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un solver lineal usando opciones en la línea de comandos).
+Para resolver este tipo de problemas se necesita un [solver]{lang=en-US} lineal que pueda "invertir" la matriz de fisiones.
+Por un tema numérico, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan mejor si este [solver]{lang=en-US} lineal es directo. Es conocido que los solvers directos son robustos pero no escalan bien. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un [solver]{lang=en-US} lineal usando opciones en la línea de comandos).
 Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales.
 
 ::: {#tbl-mpi}
@@ -239,19 +240,16 @@ S$_4$           |  256k   |   KSP     |    54.3 s  |   171.8 s  |   227.1 s   | 
 
 : {#tbl-mpi2}
 
-Tiempos para construir y resolver diferentes formulaciones para casos con fuentes (KSP) o de criticidad (EPS)
+Tiempos necesarios para construir y resolver diferentes formulaciones para casos con fuentes (KSP) o de criticidad (EPS)
 :::
 
 
-En efecto, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétrica y el operador es elíptico.
-Esto hace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un solver de Krylov tipo gradientes conjugados, tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
-Por otro lado, al resolver `neutron_sn`, aún para problemas con fuente se necesita un solver directo ya que de otra manera la convergencia es muy lenta.
-
-
-
+En efecto, como vemos en la @tbl-mpi, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétrica y el operador es elíptico.
+Esto hace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un [solver]{lang=en-US} de Krylov tipo gradientes conjugados, tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
+Por otro lado, al resolver `neutron_sn`, aún para problemas con fuente se necesita un [solver]{lang=en-US} directo ya que de otra manera la convergencia es muy lenta.
 
 
 
 ::: {.remark}
-En la @sec-mms-dif hemos verificado solamente la primera fila de la tabla @tbl-mpi.
+En la @sec-mms-dif hemos verificado solamente la primera fila de la @tbl-mpi.
 :::

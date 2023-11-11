@@ -35,7 +35,7 @@ Mallas para un pescadito de radio $a=2$ nadando dos posiciones $x=r$, $y=0$ en
 ```
 
 ::: {.remark}
-Notar que a diferencia de los estudios paramétricos realizados hasta el momento que involucraban una serie creciente de valores, en este caso el bucle `for` de Bash se realiza sobre la salida del archivo de FeenoX `steps.fee` 
+Notar que a diferencia de los estudios paramétricos realizados hasta el momento que involucraban una serie creciente de valores, en este caso el bucle `for` de Bash se realiza sobre la salida del archivo de FeenoX `steps.fee`:
 
 ```{.feenox include="steps.fee"}
 ```
@@ -100,9 +100,6 @@ $
 
 ![Curva "S" de reactividad negativa introducida por un pescadito en un reactor circular.](un-pescadito.svg){#fig-un-pescadito}
 
-::: {.remark}
-Se deja como ejercicio calcular la misma curva con teoría de perturbaciones.
-:::
 
 ## Dos pescaditos: estudio paramétrico no lineal {#sec-dos-pescaditos}
 
@@ -131,7 +128,7 @@ Supongamos ahora que agregamos un tercer pescadito. Por alguna razón, los prime
 Una forma de resolver este problema con FeenoX es proceder de la misma manera que en las secciones anteriores pero en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta determinística ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
 
 ::: {.remark}
-En la reciente tesis de maestría @perezwinter se emplea FeenoX para resolver la ecuación de calor y, mediante un script en Python, optimizar topológicamente el reflector de un reactor nuclear integrado desde el punto de vista. Esa tesis, junto con esta sección, ayuda a ilustrar el punto que queremos enfatizar sobre la flexibilidad en el diseño de FeenoX para ser utilizada como una herramienta de optimización. 
+En la reciente tesis de maestría @perezwinter se emplea FeenoX para resolver la ecuación de calor y, mediante un script en Python, optimizar topológicamente el reflector de un reactor nuclear integrado. Esa tesis, junto con esta sección, ayuda a ilustrar el punto que queremos enfatizar sobre la flexibilidad en el diseño de FeenoX para ser utilizada como una herramienta de optimización. 
 :::
 
 
@@ -141,7 +138,7 @@ En particular, podemos usar la biblioteca de Python SciPy que provee acceso a al
 ```
 
 ::: {.remark}
-En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simuladom, algoritmos genéticos o incluso redes neuronales.
+En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simulado, algoritmos genéticos o incluso redes neuronales.
 :::
 
 La función `keff()` a optimizar es función de la posición $\vec{x}_3$ del tercer pescadito, cuyas dos componentes son pasadas como argumento al script de Bash que llama primero a Gmsh y luego a FeenoX para devolver el $k_\text{eff}(\vec{x}_3)$ para $\vec{x}_1$ y $\vec{x}_2$ fijos:
@@ -159,7 +156,7 @@ La función `keff()` a optimizar es función de la posición $\vec{x}_3$ del te
 Si FeenoX, tal como Gmsh, tuviese una interfaz Python (tarea que está planificada e incluso tenida en cuenta en la base de diseño de FeenoX) entonces la función `keff(x3)` a minimizar sería más elegante que la propuesta, que involucra hacer un `fork()+exec()` para invocar a un script de Bash que hace otros dos `fork()+exec()` para ejecutar `gmsh` y `feenox`.
 :::
 
-La ejecución del script de optimización muestra la reacitvidad mínima en `fun` y la posición óptima del tercer pescadito en `x`:
+La ejecución del script de optimización muestra la reactividad mínima en `fun` y la posición óptima del tercer pescadito en `x`. Podemos ver los pasos intermedios en la @fig-tres-pescaditos y [-@fig-tres3d].
 
 ```terminal
 $ ./tres.py 

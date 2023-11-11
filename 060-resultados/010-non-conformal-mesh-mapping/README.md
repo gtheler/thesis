@@ -27,15 +27,15 @@ Este procedimiento no es exactamente el necesario para realizar cálculos acopla
 
 ::: {#fig-cube-interp layout="[45,-10,45]"}
 
-![$n=10$](cube-20-10.png)
+![$n=10$](cube-20-10.png){#fig-cube-20-10}
 
-![$n=20$](cube-10-20.png)
+![$n=20$](cube-10-20.png){#fig-cube-10-20}
 
 
 Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes mallas
 :::
 
-El script `run.sh` realiza una inicialización y tres pasos:
+El script `run.sh` realiza una inicialización (0) y tres pasos (1--3):
 
  0. Lee de la línea de comandos la función $f(x,y,z)$. Si no se provee ninguna, utiliza
  
@@ -43,13 +43,17 @@ El script `run.sh` realiza una inicialización y tres pasos:
     f(x,y,z) = 1 + x \cdot \sqrt{y} + 2 \cdot \log(1+y+z) + \cos(x z) \cdot e^{y \cdot z}
     $$
 
- 1. Crea cinco mallas con $n=10, 20, 30, 40, 50$ elementos por lado a partir del cubo base.
-   Cada una de estas cinco mallas `cube-n.msh` (donde `n` es 10, 20, 30, 40 o 50) es leída por FeenoX y se crea un archivo nuevo llamado `cube-n-src.msh` con un campo escalar `f` definido sobre los nodos según el argumento pasado por `run.sh` a FeenoX en `$1` (@fig-cube-interp):
+ 1. Llama a Gmsh con el archivo de entrada `cube.geo` para crear cinco mallas con $n=10, 20, 30, 40, 50$ elementos por lado a partir del cubo base con diferentes valores del parámetro `-clscale`:
+ 
+    ```{.geo include="cube.geo"}
+    ```
+ 
+    Cada una de estas cinco mallas `cube-n.msh` (donde `n` es 10, 20, 30, 40 o 50) es leída por FeenoX y se crea un archivo nuevo llamado `cube-n-src.msh` con un campo escalar `f` definido sobre los nodos según el argumento pasado por `run.sh` a FeenoX en `$1` (@fig-cube-interp):
  
     ```{.feenox include="create.fee"}
     ```
     
- 2. Para cada combinación $n_1=10,\dots,50$ y $n_2=10,\dots,50$, lee la malla `cube-n1-src.msh` con el campo escalar `f` y define una función $f(x,y,z)$ definida por puntos en los nodos de la malla de entrada. Entonces escribe un archivo de salida VTK llamado `cube-n1-n2-dst.vtk` con dos campos escalares nodales:
+ 2. Para cada combinación $n_1=10,\dots,50$ y $n_2=10,\dots,50$, lee la malla `cube-n1-src.msh` con el campo escalar `f` y define una función $f(x,y,z)$ definida por puntos en los nodos de la malla de entrada. Entonces escribe un archivo de salida VTK llamado `cube-n1-n2-dst.vtk` con dos campos escalares nodales sobre la malla de salida `cube-$3.msh`:
 
     1. la función $f(x,y,z)$ de la malla de entrada interpolada en la malla de salida
     2. el valor absoluto de la diferencia entre la $f(x,y,z)$ interpolada y la expresión algebraica original de referencia:
@@ -139,7 +143,7 @@ Recordar la @fig-sine.
 Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho menores.
 :::
 
-Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como opsición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
+Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como oposición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
 ::: {#tbl-010-ansys}
                         |     Otro     |    FeenoX
@@ -149,7 +153,7 @@ Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-
  Dif. más negativa      |  $-2.509 \times 10^{-4}$  |  $-5.544 \times 10^{-3}$
  Dif. más positiva      |  $+1.477 \times 10^{-4}$  |  $+7.412 \times 10^{-4}$
 
-: De $n_1 = 50$ (98.243 nodos) a $n_2 = 100$ (nodos 41.243 nodos) {#tbl-50-100-ansys}
+: De $n_1 = 50$ (98.243 nodos) a $n_2 = 100$ (nodos 741.243 nodos) {#tbl-50-100-ansys}
 
 
                         |     Otro     |    FeenoX
@@ -159,7 +163,7 @@ Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-
  Dif. más negativa      |  $-6.504 \times 10^{-5}$  |  $-5.164 \times 10^{-5}$
  Dif. más positiva      |  $+2.605 \times 10^{-5}$  |  $+3.196 \times 10^{-5}$
 
-: De $n_1 = 100$ (nodos 41.243 nodos) a $n_2 = 50$ (98.243 nodos) {#tbl-100-50-ansys}
+: De $n_1 = 100$ (741.243 nodos) a $n_2 = 50$ (98.243 nodos) {#tbl-100-50-ansys}
 
 Comparación de tiempos de mapeo entre FeenoX y otra alternativa
 :::

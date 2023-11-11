@@ -1,6 +1,6 @@
 # Estudios paramétricos: el reactor cubo-esferoidal {#sec-cubesphere}
 
-> **TL;DR:** Experimento pensado para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada.
+> **TL;DR:** Experimento pensado para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada, mientras que elementos curvos de segundo orden pueden discretizar superficies cónicas exactamente.
 
 Todos sabemos que, a volumen constante, un reactor desnudo esférico tiene un factor de multiplicación efectivo mayor que un reactor cúbico (@fig-cube-and-sphere).
 De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamete dicho $k_\text{eff}$.
@@ -36,7 +36,7 @@ Dado que hay cuestiones no triviales, como por ejemplo el hecho de que el kernel
 ```{.python include="cubesphere.py"}
 ```
 
-Al ejecutar directamente este script the Python tenemos el $k_\text{eff}$ en función de $f$ (la última columna muestra el volumen de la malla para verificar que estamos manteniéndolo razonablemente constante para todos los valores de $f$) que graficamos en la @fig-cubesphere:
+Al ejecutar directamente este script de Python tenemos el $k_\text{eff}$ en función de $f$ (la última columna muestra el volumen de la malla para verificar que estamos manteniéndolo razonablemente constante para todos los valores de $f$) que graficamos en la @fig-cubesphere:
 
 ```terminal
 $ python cubesphere.py | tee cubesphere.dat 

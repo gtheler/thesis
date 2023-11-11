@@ -1,3 +1,4 @@
+# steps.fee: genera secuencias de números
 DEFAULT_ARGUMENT_VALUE 1 0   # min
 DEFAULT_ARGUMENT_VALUE 2 1   # max
 DEFAULT_ARGUMENT_VALUE 3 1   # steps

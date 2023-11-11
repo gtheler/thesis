@@ -64,7 +64,7 @@ Todos los archivos necesarios para reproducir los resultados mostrados en este c
 :::
 
 ::: {.remark}
-Las mallas de los problemas resueltos en este capítulo (incluso la malla uniforme del caso i de la @sec-slab) ha sido generadas con la herramienta de mallado Gmsh @gmsh y las vistas de post-procesamiento han sido creadas con la herramienta ParaView @paraview. Ambas son libres, abiertas y amenas a la simulación programática.
+Las mallas de los problemas resueltos en este capítulo (incluso la malla uniforme del caso i de la @sec-slab) han sido generadas con la herramienta de mallado Gmsh @gmsh y las vistas de post-procesamiento han sido creadas con la herramienta ParaView @paraview. Ambas son libres, abiertas y amenas a la simulación programática.
 :::
 
 

@@ -2,7 +2,7 @@
 
 > **TL;DR:** El problema original de 1976 propone resolver un cuarto de núcleo cuando en realidad la simetría es 1/8.
 
-Este problema fue propuesto por Argonne National Laboratory @anl7416 y luego adoptado por la IAEA como un benchmkar estándar para validar códigos de difusión. Está compuesto
+Este problema fue propuesto por Argonne National Laboratory @anl7416 y luego adoptado por la IAEA como un benchmark estándar para validar códigos de difusión. Está compuesto
 
  a. por un problema 2D que representa un cuarto de una geometría típica de PWR sobre el plano $x$-$y$ más un buckling geométrico para tener en cuenta las pérdidas en la dirección $z$, y
  b. un problema completamente tridimensional de un cuarto de núcleo
@@ -32,7 +32,7 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
    4   |  2.0  |  0.3  | 0.04  |  0    | 0.01  |   0   | Reflector
    5   |  2.0  |  0.3  | 0.04  |  0    | 0.055 |   0   | Refl. + Rod
 
-: @anl7416 {#tbl-iaea-xs2}
+: Datos originales de @anl7416 {#tbl-iaea-xs2}
 
 Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de buckling geométrico $B_g^2=0.8 \times 10^{-4}$.
  
@@ -51,14 +51,17 @@ En este caso vamos a prestar más atención al archivo de entrada de FeenoX que 
 ```
 
 ::: {.remark}
-Hay una relación bi-unívoca bastate clara entre la definición del problema en el reporte @anl7416 y el archivo de entrada necesario para resolverlo con FeenoX.
+Hay una relación bi-unívoca bastante clara entre la definición del problema en el reporte @anl7416 y el archivo de entrada necesario para resolverlo con FeenoX.
 El lector experimentado podrá notar que esta característica (que es parte de la base de diseño del software) no es común en otros solvers, ni neutrónicos ni termo-mecánicos.
 :::
 
 ::: {.remark}
-Si bien las secciones eficaces con uniformes, la sección eficaz de absorción está dada por una expresión que es la suma de la sección eficas base más el producto del coeficiente de difusión $D_g$ por el buckling geométrico $B_g$. En lugar de volver a escribir la constante numérica correspondiente al material, escribimos $D_g(x,y)$ para que FeenoX reemplace el valor apropiado del coeficiente de difusión del material en cuestión por nosotros.
+Si bien las secciones eficaces son uniformes, la sección eficaz de absorción está dada por una expresión que es la suma de la sección eficaz base más el producto del coeficiente de difusión $D_g$ por el buckling geométrico $B_g$. En lugar de volver a escribir la constante numérica correspondiente al material, escribimos $D_g(x,y)$ para que FeenoX reemplace el valor apropiado del coeficiente de difusión del material en cuestión por nosotros.
 :::
 
+::: {.remark}
+Tal como en el problema de Reed de la sección anterior donde teníamos elementos de tipo punto para definir condiciones de contorno, en este caso bi-dimensional la malla contiene elementos uni-dimensionales donde se aplican las condiciones de contorno. Los elementos que discretizan las líneas $x=0$ e $y=0$ tienen asignado (en el archivo de entrada de Gmsh no mostrado) el nombre "mirror" y los que discretizan el borde externo del reflector, el nombre "mirror". Estos dos nombres son usados en la instrucción `BC` del archivo de entrada de FeenoX para indicar qué clase de condición de contorno hay que aplicarle a cada grupo de elementos de dimensión topológica menor a la del problema.
+:::
 
 ```terminal
 $ gmsh -2 iaea-2dpwr-quarter.geo
@@ -81,7 +84,7 @@ $
 ## Caso 2D con simetría 1/8
 
 Bien mirado, el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas no estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 
@@ -133,10 +136,10 @@ En efecto, se necesitan menos de 10 milisegundos para construir las matrices del
 
 ## Caso 2D con reflector circular
 
-Mirando un poco más en detalle la geometría, hay un detalle que también puede ser considerado con mallas no estruturadas:
+Mirando un poco más en detalle la geometría, hay un detalle que también puede ser considerado con mallas no estructuradas:
 la superficie exterior del reflector.
 En efecto, en una geometría tipo PWR cada uno de los canales proyecta un cuadrado en la sección transversal.
-Pero el reflector sigue la forma del recipiente presión que es un cilindro (@fig-pwr).
+Pero el reflector sigue la forma del recipiente de presión que es un cilindro (@fig-pwr).
 Con FeenoX es posible resolver fácilmente esta geometría con el mismo archivo de entrada con la malla de la @fig-iaea-2dpwr-eighth-circular que incluye una mezcla de
 
  a. zonas estructuradas y no estructuradas, y
@@ -145,7 +148,7 @@ Con FeenoX es posible resolver fácilmente esta geometría con el mismo archivo 
 ::: {#fig-pwr-tipico-circ layout="[50,50]"}
 ![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr}
 
-![Malla para imetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
+![Malla para simetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
 
 Un reactor PWR real y un modelo matemático
 :::
@@ -170,7 +173,7 @@ $
 ## Caso 3D con simetría 1/8, reflector circular resuelto con difusión
 
 Pasemos ahora a un caso tri-dimensional.
-El problema original es una extensión sobre el eje $z$ de la geometría son simetría 1/4 y reflector no circular.
+El problema original es una extensión sobre el eje $z$ de la geometría con simetría 1/4 y reflector no circular.
 Como ya vimos en 2D, podemos tener simetría 1/8 y reflector cilíndrico.
 Ya que estamos en 3D, podemos preparar la geometría con una herramienta tipo CAD como es usual en análisis de ingeniería tipo CAE.
 En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape.]
@@ -187,6 +190,7 @@ La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mal
 
 
 Malla para el problema 3D PWR IAEA con simetría 1/8 y reflector circular con elementos tet10 de segundo orden.
+Cada color indica un material diferente de la @tbl-iaea-xs, incluyendo el material número 5 "barras de control en el reflector superior".
 :::
 
 El archivo de entrada sigue siendo relativamente sencillo, sólo que ahora agregamos un poco más de información a la salida:
@@ -231,7 +235,7 @@ La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al red
 
 ![](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
 
-Flujos rápidos y térmicos del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
+Flujos rápido y térmico del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
 :::
 
 Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:
@@ -265,7 +269,9 @@ geometry = quarter
 $ 
 ```
 
-
+::: {.remark}
+El tiempo de pared escala en forma relativamente lineal con la cantidad de procesos MPI.
+:::
 
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$ {#sec-iaea3d-s4}
@@ -351,7 +357,7 @@ La distribución de flujos ya la mostramos en el @sec-introduccion en la @fig-
 
 ::: {.remark}
 La malla es ligeramente más gruesa y de menor orden que en los casos resueltos con difusión en la sección anterior.
-De todas maneras, la cantidad de grados de libertad al caso `quarter` de difusión.
+De todas maneras, la cantidad de grados de libertad es comparable al caso `quarter` de difusión.
 Pero los recursos computacionales requeridos para resolver un problema de autovalores proveniente de una discretización de ordenadas discretas son significativamente mayores que para difusión.
 :::
 

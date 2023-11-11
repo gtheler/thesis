@@ -42,7 +42,7 @@ Por otro lado, @sandia-mms también dice que hay que asegurarse "probar" todas l
  * condiciones de contorno
  * tipos de elementos
  * solvers algebraicos
- * modelos de materials
+ * modelos de materiales
  * etc.
  
 lo que rápidamente da lugar a una explosión combinatoria de parámetros.
@@ -161,7 +161,7 @@ $ pyxplot
 ```
 
 ::: {.remark}
-Aún para mallas relativamente gruesas @fig-bunny-14, la diferencia entre el flujo numérico y la solución manufacturada es muy pequeña para ser observada a simple vista. Es necesario calcular la integral de los errores y ajustar el orden de convergencia para realmente verificar el código.
+Aún para mallas relativamente gruesas como la de la @fig-bunny-14, la diferencia entre el flujo numérico y la solución manufacturada es muy pequeña para ser observada a simple vista. Es necesario calcular la integral de los errores y ajustar el orden de convergencia para realmente verificar el código.
 :::
 
 
@@ -204,7 +204,7 @@ Sigma_s2_1(x,y) = 0
 ```
 
 Como ahora la geometría es más sencilla, además de fijar solamente condiciones de Dirichlet en los cuadro lados del cuadrado vamos a poner dos condiciones de Dirichlet y dos de Neumann.
-Necesitamos entonces, además de las dos fuentes volumétricas $S1(x,y)$ y $S2(x,y)$, que Maxima nos calcule las dos componentes de la dos corrientes para que las podamos usar como condiciones de contorno:
+Necesitamos entonces, además de las dos fuentes volumétricas $S1(x,y)$ y $S2(x,y)$, que Maxima nos calcule las dos componentes de las dos corrientes para que las podamos usar como condiciones de contorno:
 
 ```bash
 phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
@@ -238,7 +238,7 @@ stringout("neutron-square-j2y.txt", -D2(x,y) * diff(phi2_mms(x,y),y));
 EOF
 ```
  
-El archivo de entrada de FeenoX continua de la siguiente manera
+El archivo de entrada de FeenoX continúa de la siguiente manera
 
 ```feenox
 READ_MESH square-$2-$3-$4.msh DIMENSIONS 2
@@ -260,7 +260,7 @@ SOLVE_PROBLEM   # this line should be self-explanatory
 ```
 para terminar calculando el error $e_2$ (y el error $e_\infty$ que ni siquiera discutimos por falta de espacio-tiempo) en forma similar al caso del conejo.
 
-Los dos archivos con condiciones de contorno son el ya conococido 100% Dirichlet:
+Los dos archivos con condiciones de contorno son el ya conocido 100% Dirichlet:
 
 ```{.feenox include="2d/neutron-square-bc-dirichlet.fee"}
 ```
@@ -270,9 +270,9 @@ y el nuevo caso 50% Dirichlet 50% Neumann, donde en los lados `bottom` y `right
 ```
 
 Como ahora nuestra geometría es más sencilla podemos utilizar algoritmos de mallado estructurados.
-Incluso podemos estudiar qué sucede si usamos triángulos y cuadrángulos, de primer y segundo orden y completos (quad8) o incompletos (quad9). Con los dos tipos de condiciones de contorno, que podrían ser muchas más combinaciones de porcentajes de Dirichlet y Neumann. ¡Bienvenida la explosión combinatoria!
+Incluso podemos estudiar qué sucede si usamos triángulos y cuadrángulos, de primer y segundo orden y completos (quad8) o incompletos (quad9), como someramente ilustramos en la @fig-square-14. Con los dos tipos de condiciones de contorno, que podrían ser muchas más combinaciones de porcentajes de Dirichlet y Neumann. ¡Bienvenida la explosión combinatoria!
 
-El resto del trabajo consiste en ejecutar el script de Bash y dejar que Maxima haga la manipulación simbólica:
+El resto del trabajo consiste en ejecutar el script de Bash y dejar que Maxima haga la manipulación simbólica y luego obtener los resultados de la @fig-neutron-square-e2.
 
 ```terminal
 $ ./run.sh 
