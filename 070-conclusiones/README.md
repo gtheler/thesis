@@ -45,10 +45,6 @@ multi-point con lagrange y/o direct elimination
 
 En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US} consiste en que el software...
 
-<<<<<<< HEAD
-
-entender el efecto rayo y mitigarlo
-=======
  * es libre y abierto, con la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
  * está pensado como [_cloud-first_]{lang=en-US} y no solamente [_cloud-friendly_]{lang=en-US} (@sec-cloud)
  * puede escalar arbitrariamente con MPI (@sec-escalabilidad)
@@ -59,8 +55,6 @@ entender el efecto rayo y mitigarlo
  * es a los programas tradicionales (CalculiX, CodeAster) y a las bibliotecas de elementos finitos (Sparselizard, MoFEM) lo que [Markdown]{lang=en-US} es a procesadores de texto (Word, Google Docs) y a sistemas de tipografía (TeX)
  * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un [solver]{lang=en-US} desde cero
  
->>>>>>> 4cb0ae96fca455dc950d532d1aea650d32d6cb5c
-
 En particular, para las aplicaciones de neutrónica a nivel de núcleo sus características distintivas son
 
  1. trabaja sobre mallas no estructuradas
