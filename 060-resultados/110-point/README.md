@@ -3,7 +3,7 @@
 > **TL;DR:** Ilustración del hecho de que FeneoX puede resolver ecuaciones diferenciales ordinarias además de en derivadas parciales.
 
 Además de ecuaciones en derivadas parciales, FeenoX puede resolver sistemas de ecuaciones diferenciales ordinarias y de ecuaciones algebraicas-diferenciales.
-En esta sección extra ilustramos rápidamente las funcionalidades.
+En esta sección extra ilustramos rápidamente las funcionalidades, aplicadas a las ecuaciones de cinética puntual de reactores.
 Todos los casos usan los siguientes parámetros cinéticos:
 
 ```{.feenox include="parameters.fee"}
@@ -12,10 +12,13 @@ Todos los casos usan los siguientes parámetros cinéticos:
 
 ## Cinética puntual directa con reactividad vs. tiempo
 
-Este primer ejemplo resuelve cinética puntual con una reactividad $\rho(t)$ dada por una "tabla" (@fig-reactivity-from-table):
+Este primer ejemplo resuelve cinética puntual con una reactividad $\rho(t)$ dada por una "tabla", es decir, una función de un único argumento (el tiempo $t$) definida por pares de puntos $[t,\rho(t)]$ e interpolada linealmente:
 
 ```{.feenox include="reactivity-from-table.fee"}
 ```
+
+La @fig-reactivity-from-table muestra el nivel de flujo $\phi(t)$ y la reactividad $\rho(t)$ tal como la utilizó FeenoX para resolver el sistema dinámico definido con la palabra clave `PHASE_SPACE` (que es un sustantivo).
+
 
 ![Flujo y reactividad directa](reactivity-from-table.svg){#fig-reactivity-from-table}
 
@@ -33,6 +36,8 @@ Ahora tomamos la salida $\phi(t)$ del caso anterior y resolvemos cinética inver
 
     ```{.feenox include="inverse-dae.fee"}
     ```
+
+Obtenemos entonces la @fig-inverse. El caso 2 es "adaptivo" en el sentido de que dependiendo del error tolerado y de las derivadas temporales de las variables del espacio de las fases, el esfuerzo computacional se adapta automáticamente a través del paso de tiempo $\Delta t$ con el que se resuelve el sistema DAE. Por defecto, el método es Adams-Bashforth de orden variable (implementado por la biblioteca SUNDIALS @sundials).
     
 ::: {#fig-inverse layout="[1]"}
 ![$t \in [0,100]$](inverse.svg){#fig-inverse1}
@@ -42,7 +47,7 @@ Ahora tomamos la salida $\phi(t)$ del caso anterior y resolvemos cinética inver
 Reactividad calculada mediante cinética inversa de dos maneras diferentes
 :::
     
-    
+
 
 ## Control de inestabilidades de xenón
 
@@ -62,7 +67,7 @@ La @fig-xenon muestra el flujo y la posición de la barra de control. Se puede 
 ## Mapas de diseño
 
 Finalizamos recuperando unos resultados derivados de mi tesis de maestría @theler2008 publicados en 2010 @stability-nucengdes.
-Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escrita como modelos de capacitancia concentrada^[Del inglés [_lumped capacitance_]{lang=en-US}.] 0-dimensionales.
+Consiste en cinética puntual de un reactor de investigación con retroalimentación termohidráulica por temperatura del refrigerante y del combustible escrita como modelos de capacitancia concentrada^[Del inglés [_lumped capacitance_]{lang=en-US}.] cero-dimensionales.
 El estudio consiste en barrer paramétricamente el espacio de coeficientes de reactividad $[\alpha_c, \alpha_f]$, perturbar el estado del sistema dinámico ($\Delta T_f = 2~\text{ºC}$) y marcar con un color la potencia luego de un minuto para obtener mapas de estabilidad tipo Lyapunov.
 
 ```{.feenox include="point.fee"}
@@ -79,8 +84,11 @@ $ ./point.sh 2048 4096
 $
 ```
 
-![Mapa de estabilidad de Lyapunov similar al obtenido en la referencia @stability-nucengdes resuelto con FeenoX utilizando series de números pseudo-aleatorios que van "rellenando" incremental y densamente el espacio de parámetros.](map.png){#fig-map}
 
+::: {#fig-map-stability layout-ncol=1}
+![Estabilidad de Lyapunov utilizando series de números pseudo-aleatorios que van "rellenando" incremental y densamente el espacio de parámetros.](map.svg){#fig-map}
 
+![Figuras originales de la referencia @stability-nucengdes](figs-ned.png){#fig-ned}
 
-
+Mapas de estabilidad de cinética puntual con realimentación termohidráulica
+:::

@@ -20,7 +20,7 @@
 
 Con esta tesis de alguna manera cerramos dos lazos:
 
- a. Un estrictamente personal que involucra un poco más de quince años abarcando
+ a. Uno estrictamente personal que involucra un poco más de quince años abarcando
  
     - la tesis de grado sobre control de lazos de convección natural caóticos @theler2007
     - la tesis de maestría sobre inestabilidades no lineales en el problema acoplado termohidráulico-neutrónico @theler2008
@@ -142,7 +142,7 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
    - memoria compartida
    - [sockets]{lang=en-US} TCP
    - archivo intermedios en almacenamiento tipo [RAM-disks]{lang=en-US}
- * creación de comunidades libres y abiertas
+ * creación de comunidades libres, abiertas y anti-frágiles
    - académica
    - industrial
  * evaluación de generación de emprendimientos tipo [start up]{lang=en-US} susceptibles de ser incubados en CITES

@@ -1,10 +1,8 @@
 INCLUDE parameters.fee   # parámetros cinéticos
 PHASE_SPACE phi c rho    # espacio de fases
-
 end_time = 100           # tiempo final
 
-# condiciones iniciales
-rho_0 = 0               
+rho_0 = 0                # condiciones iniciales
 phi_0 = 1
 c_0[i] = phi_0 * beta[i]/(Lambda*lambda[i])
 
@@ -14,12 +12,11 @@ FUNCTION react(t) DATA {   0    0
                            10  10
                            30  10
                            35   0
-                           100   0   }
+                           100  0   }
 
 # sistema de DAEs
 rho = 1e-5*react(t)
 phi_dot = (rho-Beta)/Lambda * phi + vecdot(lambda, c)
 c_dot[i] = beta[i]/Lambda * phi - lambda[i]*c[i]
 
-# salida: phi y rho vs. tiempo
-PRINT t phi rho
+PRINT t phi rho    # salida: phi y rho vs. tiempo

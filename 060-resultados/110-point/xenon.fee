@@ -6,12 +6,10 @@ FUNCTION setpoint(t) DATA {
 2000  0.8
 5000  0.8
 10000 1
-20000 1
-}
+20000 1 }
 
-# tiempo final = último tiempo de setpoint(t)
-end_time = vecmax(vec_setpoint_t)
-max_dt = 1
+end_time = vecmax(vec_setpoint_t)  # tiempo final = último tiempo de setpoint(t)
+max_dt = 1                         # no dejamos que dt aumente demasiado
 
 # importancia de la barra de control como función de la inserción
 FUNCTION rodworth(z) INTERPOLATION akima DATA {
@@ -36,27 +34,24 @@ sigmaX = 2.203206E-04    # microscopic XS of neutron absorption for Xe-134
 PHASE_SPACE rho phi c I X
 INITIAL_CONDITIONS_MODE FROM_VARIABLES
 
-# estado estacionario
-z_0 = 0.5
+z_0 = 0.5                # estado estacionario
 phi_0 = 1
 c_0[i] = phi_0 * beta[i]/(Lambda*lambda[i])
 I_0 = gammaI*phi_0/lambdaI
 X_0 = (gammaX + gammaI)/(lambdaX + sigmaX*phi_0) * phi_0
 rho_bias_0 = -rodworth(z_0) - GammaX*X_0
 
-# DAEs
+# --- DAEs ------------------------------
 rho = rho_bias + rodworth(z) + GammaX*X
-
 phi_dot = (rho-Beta)/Lambda * phi + vecdot(lambda, c)
 c_dot[i] = beta[i]/Lambda * phi - lambda[i]*c[i]
 
 I_dot = gammaI * phi - lambdaI * I
 X_dot = gammaX * phi + lambdaI * I - lambdaX * X - sigmaX * phi * X
 
-
-# sistema de control
-# move the control rod if power error exceeds a dead band of 0.3%
-vrod = 1/500    # one 500th of core per second
+# --- sistema de control ----------------
+# movemos la barra de control si el error excede una banda muerta del 0.3%
+vrod = 1/500    # 1/500-avos de núcleo por segundo
 band = 3e-3
 error = phi - setpoint(t)
 z = z_0 + integral_dt(vrod*((error>(+band))-(error<(-band))))

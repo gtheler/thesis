@@ -16,27 +16,27 @@
 
  1. Muchas veces, en los congresos académicos sobre métodos numéricos y aplicaciones uno puede ver un esquema similar al siguiente:
 
-    a. Se muestra el estado del arte y describe las falencias de un cierto algoritmo tradicional.
+    a. Se muestra el estado del arte y se describen las falencias de un cierto algoritmo tradicional.
     b. Se propone una nueva idea o metodología para mejorar el estado del arte.
     c. Se aplican las novedades a un caso sencillo donde, efectivamente, la eficiencia o la precisión mejora sensiblemente.
-    d. Se indica que los próximos pasos serán resolver no ya problemas canónicos sino a problemas de interés industrial.
+    d. Se indica que los próximos pasos serán resolver no ya problemas canónicos sino problemas de interés industrial.
 
     Pero también muchas veces, el nuevo desarrollo nunca llega efectivamente a la industria.
-    El ímpetu de la investigación se va difundiendo en nuevas asignaciones de fondos de investigación se enfocan en otras áreas y en gente cambia de ideas, se jubila, etc. Las aplicaciones quedan en una lista de tareas "por hacer" ([TO-DOs]{lang=en-US}).
+    El ímpetu de la investigación se va difundiendo a lo ancho de nuevas asignaciones de fondos de investigación que se enfocan en otras áreas, de gente cambia de ideas, se jubila, etc. Las aplicaciones quedan en una lista de tareas "por hacer" ([TO-DOs]{lang=en-US}).
 
  2. Los proyectos de ingeniería industriales están indefectiblemente restringidos por los tres vértices del triángulo de gerenciamiento de proyectos costos-alcance-calidad.
  Cualquier tarea de tipo de I+D+i en temas de modelado numérico debe necesariamente 
 
     a. Ser pagada por el cliente.
-    b. Ser aceptada por el cliente (o por quien el cliente designe, incluyendo agencias de regulación).
+    b. Ser aprobada por el cliente (o por quien el cliente designe, incluyendo agencias de regulación).
     c. Ser gerenciada de forma tal que los costos sean menores a los precios de venta.
  
     Durante el desarrollo de este tipo de proyectos se suelen identificar muchas ideas y tareas que podrían llevarse a cabo para generar nuevas oportunidades técnicas y comerciales. Pero la mayoría de las veces vienen nuevos proyectos con clientes diferentes y necesidades ortogonales. Las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
 
- 3. En el ambiente de emprendedurismo, hay [start-ups]{lang=en-US} relacionadas a temas de modelado numéricos de fenómenos complejos con interés en ingeniería. A menos que los fundadores tengan habilidades excepcionales como las de Henry Ford que en lugar de crear "caballos más rápido" desarrolló una industria global desde cero, los casos de éxito están relacionados a tecnologías no muy disruptivas en sí mismas que termina en una adquisición por parte de una gran compañía existente, con sus inercias e idiosincrasias corporativas. Más aún, en el ámbito nuclear las regulaciones y la financiación de nuevas instalaciones es tan complicada que necesariamente deben involucrarse instituciones oficiales que complican mucho más aún la dinámica característica de las [start-ups]{lang=en-US}. El ímpetu se va difundiendo en organigramas rígidos poco amenos a la innovación. La mayoría de las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
+ 3. En el ambiente de emprendedurismo, hay [start ups]{lang=en-US} relacionadas a temas de modelado numéricos de fenómenos complejos con interés en ingeniería. A menos que los fundadores tengan habilidades excepcionales como las de Henry Ford que en lugar de desarrollar "caballos más rápidos" creó una industria global desde cero, los casos de éxito están relacionados a tecnologías no muy disruptivas en sí mismas que termina en una adquisición por parte de una gran compañía existente, con sus inercias e idiosincrasias corporativas. Más aún, en el ámbito nuclear las regulaciones y la financiación de nuevas instalaciones es tan complicada que necesariamente deben involucrarse entidades oficiales que complican mucho más aún la dinámica característica de las [start-ups]{lang=en-US}. El ímpetu se va difundiendo en organigramas rígidos poco amenos a la innovación. La mayoría de las ideas quedan en una lista de [TO-DOs]{lang=en-US}.
  
-Habiendo explorado profesionalmente cada uno de estos tres puntos durante los últimos quince años, he decido escribir esta tesis de doctorado en forma atípica y excepcional---en el sentido de "excepción". Empezando por la edad al momento de entregar y defender etsa tesis y siguiendo por la forma de encarar los trabajos.
-Los desarrollos aquí descriptos han sido claramente inspirados por estos tres puntos, pero fueron realizados en forma completamente independiente de ellos.
+Habiendo explorado profesionalmente con bastante detalle cada uno de estos tres puntos durante los últimos quince años, he decido escribir esta tesis de doctorado en forma atípica y excepcional---en el sentido de "excepción". Empezando por mi edad al momento de entregar y defender esta tesis y siguiendo por la forma de encarar los trabajos.
+Los desarrollos aquí descriptos han sido claramente inspirados por estos tres puntos, pero fueron realizados en forma completamente independiente de estos tres ámbitos.
 Es esta una tesis escrita durante los fines de semana por un profesional de la industria del software de cálculo numérico sin los condicionamientos particulares de la academia, la industria ni el emprendedurismo.
 Representa entonces, una manera de poder evaluar---dentro de las capacidades y responsabilidades que me atañen---la diferencia entre lo urgente y lo importante como propone Mafalda (@fig-mafalda).
 
@@ -55,26 +55,26 @@ El contenido general de esta tesis es una mezcla de
  
 que son justamente las dos mitades del título y los temas profesionales en los que me desempeñé en la academia, industria y emprendedurismo. Este contenido está distribuido en seis capítulos, incluido este, ordenados según el orden de presentación "por qué", "cómo" y "qué":
 
- a. Por qué
+ a. ¿Por qué?
  
    * [@sec-introduccion]: Introducción
    * [@sec-neutronica-phwr]: Neutrónica de núcleo en un PHWR
 
- b. Cómo
+ b. ¿Cómo?
  
    * [@sec-transporte-difusion]: Transporte y difusión de neutrones
    * [@sec-esquemas]: Esquemas de discretización numérica
 
- c. Qué
+ c. ¿Qué?
  
    * [@sec-implementacion]: Implementación computacional
    * [@sec-resultados]: Resultados
 
-Debo reconocer que la extensión de esta tesis es mayor de la que me hubiese gustado.
-Pero también es cierto he necesitado escribir todo este texto ya que de esta forma he podido entender y procesar toda la información necesaria para hacer aportes originales a mis cuarenta años.
-Los dos primeros capítulos contienen apreciaciones un tanto subjetivas pero basadas en experiencia sólida.
-Los siguientes dos capítulos contienen desarrollos matemáticos harto conocidos pero, como allí se menciona, funcionan como una amalgama uniforme de varias fuentes de forma tal de generar una base teórica del desarrollo en sí mismo.
-Los últimos dos capítulos contienen el núcleo de la contribución original.
+Debo reconocer que la extensión de esta tesis es mayor que la que me hubiese gustado que tenga.
+Pero también es cierto que he necesitado escribir todo este texto (y ecuaciones) ya que de esta forma he podido entender y procesar toda la información necesaria para hacer aportes originales a mis cuarenta años.
+Los dos primeros capítulos ([why]{lang=en-US}) contienen apreciaciones un tanto subjetivas pero basadas en experiencia sólida.
+Los siguientes dos capítulos ([how]{lang=en-US}) contienen desarrollos matemáticos harto conocidos pero, como allí se menciona, funcionan como una amalgama uniforme de varias fuentes de forma tal de generar una base teórica del desarrollo en sí mismo, y de permitirme "digerir" el cuerpo teórico detrás de los métodos numéricos relacionados al transporte de neutrones a nivel de núcleo.
+Los últimos dos capítulos ([what]{lang=en-US}) contienen el núcleo de la contribución original.
 
 \medskip
 
@@ -95,25 +95,26 @@ Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo 
  PHILCO 213      |         $ 78,000          |     2       |  Sep 65
  UNIVAC 1108     |         $ 45,000          |     2       |  Aug 65
 
-: [The new high speed computers in 1965, table 3 of @computadoras65. Costs are expressed in 1965 USD and may vary by a factor of two. One USD dollar in 1965 is worth 16.21 in 2023.]{lang=en-US} {#tbl-1965a}
+: [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a}
 
-[Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US}
+Tabla "Las nuevas computadoras de alta velocidad de 1965" número de la referencia @computadoras65. Los costos están expresados en dólares americanos de 1965 y pueden variar en un factor de dos. Un dólar de 1965 vale USD 16.20 en 2023
 :::
 
 Cuando el sistema operativo Unix fue introducido a principios de la década de 1970 @unix, los diseñadores ya habían previsto un gran descenso en los costos del [hardware]{lang=en-US} y un corrimiento de costos de CPU a ingeniería.
-De hecho una de las 17 reglas de la filosofía de Unix en las que se basa largamente el diseño de la herramienta computacional objeto de esta tesis (@sec-unix) se denomina "Regla de Economía" que indica que el [software]{lang=en-US} debe ser diseñado pensando en que es mucho más cara la hora de ingeniería de la persona que usa el programa que la hora del [hardware]{lang=en-US} que lo ejecuta.
+De hecho una de las 17 reglas de la filosofía de Unix en las que se basa largamente el diseño de la herramienta computacional objeto de esta tesis (@sec-unix) se denomina "Regla de Economía" que indica que el [software]{lang=en-US} debe ser diseñado pensando en que el tiempo de la persona que usa el programa es mucho más valioso que el del [hardware]{lang=en-US} que lo ejecuta.
 Hoy en día, alquilar una hora de CPU de una computadora razonablemente rápida y con suficiente memoria para realizar cálculos nucleares estándar sale menos de 0,15 USD. Un servidor con 16Gb de RAM disponible 100% del tiempo se puede conseguir por veinte dólares al mes.
 
-La forma de diseñar software de cálculo debe ser, entonces radicalmente diferente.
-En el @sec-implementacion discutimos en detalle todas estas particularidades, pero el ejemplo clásico se reduce a aquellos programas de cálculo (sobretodo termohidráulicos) en los que la salida está compuesta exactamente por todas y cada una de los resultados obtenidos, incluyendo distribuciones espaciales y temporales. Esta decisión de diseño tiene sentido cuando tener que volver a realizar un cálculo porque un cierto valor requerido no forma parte de la salida es muy caro.
-Pero esto implica que el ingeniero a cargo del cálculo debe buscar y filtrar solamente aquellos resultados necesarios en medio de un pajar de información a un costo horario miles de veces superior a volver a realizar el cálculo pidiendo explícitamente el resultado requerido.
+La forma de diseñar software de cálculo hoy en día debe ser, entonces, radicalmente diferente a la usada décadas atrás.
+En el @sec-implementacion discutimos en detalle todas estas particularidades, pero el ejemplo clásico se reduce a aquellos programas de cálculo (sobretodo termohidráulicos) en los que la salida está compuesta exactamente por todos y cada una de los resultados obtenidos, incluyendo distribuciones espaciales y temporales. Esta decisión de diseño tiene sentido cuando tener que volver a realizar un cálculo porque un cierto valor requerido no forma parte de la salida es muy caro.
+Pero esto implica que el ingeniero a cargo del cálculo debe buscar y filtrar solamente aquellos resultados necesarios en medio de un pajar de información a un costo horario miles de veces superior a volver a realizar el cálculo pidiendo explícitamente el resultado requerido, y nada más.
 
-El diseño del sistema operativo Unix (y del lenguaje de programación C estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, el diseño es tan sólido que aunque en la década de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["XXX for Windows"]{lang=en-US}), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será necesariamente menor al 100%.
+El diseño del sistema operativo Unix (y del lenguaje de programación C, estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, la arquitectura es tan sólida que aunque en las décadas de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["XXX for Windows"]{lang=en-US}), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será menor al 100%.
+En terminología de [start ups]{lang=en-US}: "[rent, don't buy]{lang=en-US}".
 
-En este sentido, la herramienta computacional de cálculo desarrollada desde cero en esta tesis fue diseñada para ser ejecutada en la nube. Como explicamos en detalle en la @sec-cloud, haciendo un paralelismo con la nomenclatura de interfaces web donde hay diseños [mobile friendly]{lang=en-US} y [mobile first]{lang=en-US}, decimos que es [cloud first]{lang=en-US} y no solamente [cloud friendly]{lang=en-US}.
+En este sentido, la herramienta computacional de cálculo desarrollada desde cero en esta tesis para resolver ecuaciones diferenciales en derivadas parciales fue diseñada para ser ejecutada _nativamente_ en la nube. Como explicamos en detalle en la @sec-cloud, haciendo un paralelismo con la nomenclatura de interfaces web donde hay diseños [mobile friendly]{lang=en-US} y [mobile first]{lang=en-US}, decimos que la herramienta es [cloud first]{lang=en-US} y no solamente [cloud friendly]{lang=en-US}.
 
-A lo largo de otro paso profesional por el punto 2 en la industria la consultoría y del desarrollo de software, conocí que un esquema usual de contratación entre un cliente y un proveedor de software consiste en que el primero prepara un documento titulado ["Software Requirements Specifications"]{lang=en-US} listando justamente los requerimientos técnicos que el software a comprar debe cumplir como una especie de pliego técnico particular. Entonces los potenciales proveedores preparan un documento de ["Software Design Specifications"]{lang=en-US} en el que explican técnicamente cómo planean cumplir con los requerimientos. Una especie de oferta técnica al pliego.
-Teniendo en cuenta esta experiencia (más la experiencia de los tres puntos del comienzo del capítulo), he decidido entonces organizar el diseño de una nueva herramienta escribiendo primero un SRS ficticio (pero plausible), pidiendo lo que me gustaría que una herramienta computacional [cloud first]{lang=en-US} cumpla.
+A lo largo de otro paso profesional por el punto 2 en la industria de la consultoría y del desarrollo de software, conocí que un esquema usual de contratación entre un cliente y un proveedor de software consiste en que el primero prepara un documento titulado ["Software Requirements Specifications"]{lang=en-US} listando justamente los requerimientos técnicos que el software a comprar debe cumplir como una especie de pliego técnico particular. Entonces los potenciales proveedores preparan un documento de ["Software Design Specifications"]{lang=en-US} en el que explican técnicamente cómo planean cumplir con los requerimientos. Una especie de oferta técnica al pliego.
+Teniendo en cuenta estas consideraciones (más la experiencia de los tres puntos del comienzo del capítulo), he decidido entonces organizar el diseño de una nueva herramienta partiendo primero de un SRS ficticio (pero plausible), pidiendo lo que me gustaría que una herramienta computacional [cloud first]{lang=en-US} cumpla.
 A partir de estos requerimientos, empecé a estudiar la forma de cumplirlos, implementarlos y documentarlos en un SDS.
 Ambos documentos forman parte de los apéndices de esta tesis (@sec-srs y @sec-sds).
 
@@ -124,7 +125,7 @@ La forma de implementar esta característica se basa en un esquema de apuntadore
 
 Combinando estos requerimientos del SDS, considero que la contribución es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
    
-   
+Neutrónica
 
 ::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[45,-10,45]"}
 ![](iaea-3dpwr-eighth-circular-flux-s4-1.png){#fig-iaea-3dpwr-eighth-flux-s4-1}

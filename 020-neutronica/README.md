@@ -298,7 +298,7 @@ Esto es, una absorción total de los neutrones que llegan a una fracción del vo
 
 ![Cálculo fluidodinámico de la evolución temporal de la pluma de boro en el tanque del moderador de Atucha I realizada por ingenieros de NA-SA con técnicas CFD sobre una malla no estructurada de aproximadamente 4.5 millones de celdas @enief-2014-cpl. Se pueden observar los huecos en la distribución espacial generados por la presencia de los canales.](cfd.png){#fig-cfd}
 
-![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce width=65%}
+![Mapeo de la distribución instantánea de boro a una malla de cálculo del código neutrónico de núcleo de $4 \times 4 \times 20$ ($\sim$ 200.000 celdas) @enief-2014-cpl. No es posible observar la presencia de los canales.](boropce.png){#fig-boropce width=75%}
 
 
 ### Dos por uno en D$_2$O

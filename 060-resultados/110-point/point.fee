@@ -15,14 +15,11 @@ IF in_static
  P_star = 18.8e6       # watts
  T_in = 37             # grados C 
  hA_core = 1.17e6      # watt/grado
-
  mc_fuel = 47.7e3      # joule/grado
  mc_cool = 147e3       # joule/grado
  mflow_cool = 520      # kg/seg
-
  c_cool = 4.18e3 * 147e3/mc_cool       # joule/kg
 ENDIF
-
 
 PHASE_SPACE phi c T_cool T_fuel rho
 end_time = 60
@@ -37,7 +34,6 @@ T_fuel_star = 1/(hA_core) * (P_star + hA_core*T_cool_star)
 
 T_cool_0 = T_cool_star + Delta_T_cool
 T_fuel_0 = T_fuel_star + Delta_T_fuel
-
 INITIAL_CONDITIONS_MODE FROM_VARIABLES
 
 rho = 0
