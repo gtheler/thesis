@@ -1,0 +1,147 @@
+lang: es-AR
+keep-md: true
+metadata-files:
+  - _date.yml.local
+
+project:
+  type: book
+  
+book:
+  title: "Transporte de neutrones en la nube"
+  author: "Mg. Ing. Germán Theler"
+  output-file: "phd-theler"
+  chapters:
+    - index.md
+    - front/resumen.md
+    - front/abstract.md
+    - 010-intro/README.md
+    - 020-neutronica/README.md
+    - 030-transporte-y-difusion/README.md
+    - 040-discretizacion/README.md
+    - 050-implementacion/README.md
+    - 060-resultados/README.md
+    - 070-conclusiones/README.md
+    - bibliografia/README.md
+    
+  appendices:
+    - 100-srs/README.md
+    - 110-sds/README.md
+    - 110-sds/feenox-unix.md
+    - 110-sds/feenox-history.md    
+    - 110-sds/feenox-FAQ.md
+
+title-en: "Neutron transport in the cloud"
+keywords: "core-level neutron transport, neutron diffusion, cloud computing, high-performance computing, finite elements, unstructured grids"
+palabras_clave: "transporte de neutrones, difusión de neutrones, computación en la nube, computación de alto rendimiento, elementos finitos, mallas no estructuradas"    
+
+filters:
+  - lua/include-files.lua
+  - lua/include-code-files.lua
+  - lua/code-style.lua
+  - lua/not-in-format.lua
+  - lua/only-in-format.lua
+  - lua/img-width.lua
+
+bibliography:
+ - bibliografia/bibliografia.bib
+ - bibliografia/monografias.bib
+ - bibliografia/congresos.bib
+ - bibliografia/internacionales.bib
+ - bibliografia/nacionales.bib
+ - bibliografia/informes.bib
+
+csl: ieee.csl
+license: "CC BY"
+appendix-style: plain
+
+crossref:
+  sec-prefix: sección
+  fig-prefix: figura
+  tbl-prefix: tabla
+  eq-prefix: ecuación
+  thm-prefix: teorema
+  cor-prefix: corolario
+  def-prefix: definición
+
+format:
+  html:
+    lang: es-AR
+    default-image-extension: svg
+    theme: cosmo
+    html-math-method: katex
+    include-in-header: 
+      - file: style.html
+    syntax-definition: feenox.xml
+    toc: true
+    number-sections: true
+    cap-location: bottom
+    fig-cap-location: bottom
+    tbl-cap-location: bottom
+    
+  epub:
+    lang: es-AR
+    default-image-extension: svg
+    theme: default
+    html-math-method: mathml
+    toc: true
+    number-sections: true
+    epub-title-page: true
+    code-overflow: wrap
+      
+  pdf:
+    lang: es-AR
+    documentclass: scrbook
+    classoption: table
+    pdf-engine: xelatex
+    keep-tex: true
+    default-image-extension: pdf
+    papersize: a4
+    fontsize: 12pt
+    mainfont: LinLibertineO
+    sansfont: Carlito
+    monofont: DejaVuSansMono
+    cap-location: bottom
+    fig-align: center
+    url-style: tt
+    colorlinks: true
+    listings: true
+    geometry:
+      - top=30mm
+      - bindingoffset=0mm
+      - footskip=12mm
+      - headsep=8mm
+      - headheight=29pt
+      - marginparwidth=0pt
+      - left=20mm
+      - right=20mm
+      - bottom=30mm
+      - foot=20mm
+    toc: false
+    toc-title: "Tabla de contenidos"
+    lof: false
+    lot: false
+    cite-method: citeproc
+    biblatexoptions: style=numeric,sortcites=true,sorting=nyt,backend=biber
+    include-in-header: 
+      - text: |
+          % quotes with a bar in the left (like bootstrap)
+          \usepackage{mdframed}
+          \global\mdfdefinestyle{exampledefault}{linecolor=gray,linewidth=2pt,leftmargin=0.5cm,rightmargin=0.5cm,topline=false,bottomline=false,rightline=false}
+          \renewenvironment{quote}{\begin{mdframed}[style=exampledefault]}{\end{mdframed}}
+          %
+          \usepackage{algorithm2e}
+          \renewcommand{\algorithmcfname}{Algoritmo}
+          \usepackage{lipsum}
+          \usepackage{bigints}
+          \include{ibthesis.tex}
+          \usepackage{scrlayer-scrpage}
+          %\lehead{\leftmark}
+          %\rohead{\leftmark}
+          \usepackage{caption}
+          \captionsetup[table]{name=Tabla}
+    include-before-body:
+      - file: syntax-feenox.tex
+      - file: syntax-geo.tex
+      - file: syntax.tex
+      - file: math.tex
+    
