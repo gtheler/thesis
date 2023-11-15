@@ -23,6 +23,10 @@
 :::
 :::::
 
+
+{{< include ../math-macros.md >}}
+
+
 En el capitulo anterior hemos arribado a formulaciones matemáticas que modelan los procesos físicos de transporte y difusión de neutrones en estado estacionario mediante ecuaciones integro-diferenciales.
 Bajo las suposiciones que explicitamos al comienzo del @sec-transporte-difusion y asumiendo que las secciones eficaces macroscópicas son funciones del espacio y de la energía conocidas, estas ecuaciones son _exactas_.
 Para la ecuación de difusión, que es de segundo orden pero más sencilla de resolver, llegamos a

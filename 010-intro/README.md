@@ -5,11 +5,13 @@
 > | --- Supongamos que van 48’ del segundo tiempo y su equipo está atacando. ¿Qué prefiere? ¿Que le den un córner o un lateral?
 > | --- ¿Qué pregunta es esa? Un córner, porque tengo una chance de llegar al área.
 > | --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana entrenamos laterales con sandías. Cuando llega el domingo, (lo mira a Antonio Carrizo) ¿sabés hasta donde tiramos la pelota?
-> | _Juan Carlos Calabró, 1993_
+> 
+> _Juan Carlos Calabró, 1993_
 
 > Lo que yo daba por obvio dejó de serlo de un día para otro, concretando un choque que
 > ---debo admitir--- ha vuelto a sucederme muchas veces desde entonces.
 > Si hoy no me detengo a pensar un momento, vivo  convencido de que todo el mundo es ingeniero nuclear o doctor en física.
+>
 > _Germán Theler, La Singularidad, 2006_
 :::
 
@@ -124,72 +126,43 @@ Otra característica, explicada en detalla en el @sec-implementacion, es que la
 La forma de implementar esta característica se basa en un esquema de apuntadores a función resueltos en tiempo de ejecución según el tipo de problema que se requiere resolver definido en el archivo de entrada.
 
 Combinando estos requerimientos del SDS, considero que la contribución es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
-   
-Neutrónica
+Más aún, teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
+A modo de ejemplo de la clase de contribución que propongo, consideremos la @fig-iaea-3dpwr-eighth-circular-flux-s4. Ella muestra el resultado de haber resuelto el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA (analizado y discutido en detalle en la @sec-2dpwr) pero...
 
-::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[45,-10,45]"}
-![](iaea-3dpwr-eighth-circular-flux-s4-1.png){#fig-iaea-3dpwr-eighth-flux-s4-1}
+ 1. con una simetría 1/8 en lugar de la simetría 1/4 original,
+ 2. con un reflector cilíndrico en lugar de un reflector compuesto por planos paralelos a los ejes cartesianos,
+ 3. resuelto con una formulación S$_4$ de ordenadas discretas en lugar de la original de difusión, y
+ 4. en paralelo utilizando cuatro procesos MPI.
 
-![](iaea-3dpwr-eighth-circular-flux-s4-2.png){#fig-iaea-3dpwr-eighth-flux-s4-2}
+::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[1,1]"}
+![Flujo rápido $\phi_1$](iaea-3dpwr-eighth-circular-flux-s4-1.png){#fig-iaea-3dpwr-eighth-flux-s4-1}
 
-Flujos rápidos y térmicos del benchmark de 3D PWR de IAEA resuelto con S$_4$ con simetría 1/8 y reflector circular
+![Flujo térmico $\phi_2$](iaea-3dpwr-eighth-circular-flux-s4-2.png){#fig-iaea-3dpwr-eighth-flux-s4-2}
+
+Flujos del benchmark de 3D PWR resuelto con S$_4$ con simetría 1/8 y reflector circular
 :::
 
 
+Cada uno de estos cuatro puntos está detalladamente explicado en el cuerpo de la tesis y, junto con
+ 
+  * la capacidad de extender el área de los problemas a resolver agregando nuevas formulaciones de ecuaciones discretizadas con el método de elementos finitos (ver el @sec-sds para ejemplos por fuera de la neutrónica de núcleo)
+  * el diseño [cloud first]{lang=en-US} que permite realizar lo que se conoce como "simulación programática" sin necesidad de interactuar
+  * la discretización del dominio utilizando mallas no estructuradas, potencialmente realizando descomposición de dominio
+  * la posibilidad de escalar en paralelo mediante MPI y poder resolver problemas de tamaño arbitrario
+  
+constituyen el [unfair advantage]{lang=en-US}---en el sentido del [canvas]{lang=en-US} de modelo de negocios---de la herramienta desarrollada.
+
+Pero es la combinación de todos ellos la que configura la propuesta de la tesis, minuciosamente explicada en la @sec-propuestas: poder disponer de una herramienta computacional que permita resolver problemas de neutrónica a nivel de núcleo de tamaño arbitrario a través de la escalabilidad en paralelo basado en el estándar MPI. Lo importante es que, como mostramos en el @sec-resultados, al hacer una descomposición del dominio y de alguna manera "repartir" la carga computacional en varios procesos, para un problema de tamaño fijo, la cantidad de memoria RAM que cada proceso necesita disminuye a medida que aumentamos la cantidad de zonas en las que descomponemos el dominio. Esto hace posible resolver problemas formulados con S$_N$ en mallas no estructuradas en principio de tamaño arbitrario y, eventualmente, poder compararlos con la aproximación de difusión que es computacionalmente mucho menos demandante. Para ello se necesita sobrepasar las limitaciones de las herramientas neutrónicas tradicionales (@sec-limitaciones), que es lo que proponemos en esta tesis.
+
+::: {.remark}
+Este trabajo sólo se enfoca en el desarrollo de la herramienta necesaria para realizar la comparación.
+Un estudio cuantitativo de la eficiencia de diferentes esquemas numéricos para hacer ingeniería neutrónica de núcleo implicaría un proyecto de ingeniería de varios hombre-años más sus costos asociados.
+En la @sec-trabajos-futuros listamos algunos de los trabajos futuros que podría derivar de las bases sentadas en esta tesis.
+:::
 
 
-
-
-En los últimos años se han completado dos Tesis de Doctorado en el
-Instituto Balseiro relacionadas a la presente.
-La primera consiste en el desarrollo y
-aplicación de nuevas bibliotecas de secciones eficaces con especial
-énfasis en el scattering debido al agua pesada [@nacho]. La segunda
-introduce una metodología de análisis neutrónico del celdas de reactores
-de agua pesada [@chaco]. Consideramos que es pertinente contribuir al
-desarrollo de las capacidades científico-tecnológicas en ingeniería
-nuclear al estudiar la resolución de problemas neutrónicos a nivel de
-núcleo teniendo en cuenta las particularidades propias de los reactores
-de agua pesada.
-
-Finalmente, a modo personal debo notar que en el Proyecto Integrador de
-mi Carerra de Ingeniería Nuclear traté temas de control en loops de
-convección natural caóticos [@theler2007] y en la Tesis de Maestrías en
-Ingeniería traté temas de inestabilidades termohidráulicas en presencia
-de una fuente de potencia de origen neutrónico [@theler2008]. Poder
-realizar una tesis de doctorado en temas de neutrónica de nivel de
-núcleo me permite cerrar en forma académica el lazo
-termohidráulica-neutrónica-control, que fue también el eje de mi
-participación profesional en el completamiento de la Central Nuclear
-Atucha II.
-
-
-Resumiendo lo discutido hasta el momento, este es un trabajo académico
-con interés industrial que amalgama matemática, programación y física de
-reactores teniendo en cuenta siempre un criterio ingenieril para juzgar
-aproximaciones e interpretar resultados. Si bien los ingenieros solemos
-recurrir al método científico y a las herramientas que nos proveen las
-ciencias duras, nuestra profesión es en verdad un caso de optimización:
-resolver problemas de la mejora manera posible con el menor costo
-asociado. Por eso es que estudiamos métodos numéricos, técnicas de
-programación, generamos bibliotecas de secciones eficaces para agua
-pesada, desarrollamos metodologías para análisis de celdas y resolvemos
-la ecuación de transporte de neutrones sobre mallas no estructuradas.
-Pero a veces entran otros factores en juego, y los problemas se
-resuelven aún contradiciendo lo que dicen los libros de texto. Podría
-suceder que, pongamos por caso, aunque un exhaustivo estudio
-técnico-económico indique que no es conveniente enriquecer ligeramente
-el combustible de una central de agua pesada, puede darse el caso de que
-la máquina de recambio de combustible tenga inconvenientes operacionales
-por lo que deba ser necesario disminuir la tasa de recambios. O puede
-darse el caso que alguien diseñe e implemente una lógica de movimiento
-de barras de control en función de resultados neutrónicos preliminares e
-incorrectos. O que una vez crítico y operativo el reactor, uno diseñe un
-protocolo para determinar experimentalmente el coeficiente de
-reactividad por efecto Doppler en el combustible [@doppler2013] y luego
-los resultados indiquen que los códigos de cálculo utilizados durante
-años no habían tenido en cuenta correctamente las resonancia de
-absorción en la periferia de las pastillas.
-
+Finalmente, a modo personal debo notar que en el Proyecto Integrador de mi Carerra de Ingeniería Nuclear traté temas de control en [loops]{lang=en-US} de convección natural caóticos [@theler2007] y en la Tesis de Maestría en Ingeniería traté temas de inestabilidades termohidráulicas en presencia
+de una fuente de potencia de origen neutrónico [@theler2008].
+Poder realizar una tesis de doctorado en temas de neutrónica de nivel de núcleo me permite cerrar en forma académica el lazo termohidráulica-neutrónica-control, que fue también el eje de mi participación profesional en el completamiento de la Central Nuclear Atucha II.
 
 

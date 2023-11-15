@@ -33,9 +33,9 @@ Con esta tesis de alguna manera cerramos dos lazos:
 
 En ella hemos recorrido los tres aspectos en el no tan tradicional pero bastante útil orden 
 
- 1. ¿por qué? (@sec-introduccion y @sec-neutronica-phwr)
- 2. ¿cómo? (@sec-transporte-difusion y @sec-esquemas)
- 3. ¿qué? (@sec-implementacion y @sec-resultados)
+ 1. ¿Por qué? (@sec-introduccion y @sec-neutronica-phwr)
+ 2. ¿Cómo? (@sec-transporte-difusion y @sec-esquemas)
+ 3. ¿Qué? (@sec-implementacion y @sec-resultados)
  
 La idea del desarrollo se basa en comenzar con un documento ficticio de (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
 FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).

@@ -37,6 +37,7 @@
 :::
 :::::
 
+{{< include ../math-macros.md >}}
 
 Hay virtualmente infinitas maneras de diseñar un programa para que una computadora realice una determinada tarea.
 Y otras infinitas maneras de implementarlo. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/) (ver @sec-faq para una explicación del nombre), fue diseñada siguiendo un patrón frecuente en la industria de software:

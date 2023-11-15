@@ -230,12 +230,12 @@ La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al red
 ![Comparación entre la salida `--log_view` del caso 1/4 y 1/8 con el mismo reflector](uno-dos){#fig-uno-dos width=80%}
 
 
-::: {#fig-iaea-3dpwr-eighth-circular-flux layout="[45,-10,45]"}
-![](iaea-3dpwr-eighth-circular-flux-1.png){#fig-iaea-3dpwr-eighth-flux1}
+::: {#fig-iaea-3dpwr-eighth-circular-flux layout="[1,1]"}
+![Flujo rápido $\phi_1$](iaea-3dpwr-eighth-circular-flux-1.png){#fig-iaea-3dpwr-eighth-flux1}
 
-![](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
+![Flujo térmico $\phi_2$](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
 
-Flujos rápido y térmico del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
+Flujos del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
 :::
 
 Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:

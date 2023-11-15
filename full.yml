@@ -68,6 +68,7 @@ format:
     default-image-extension: svg
     theme: cosmo
     html-math-method: katex
+      
   pdf:
     documentclass: scrbook
     classoption: table
@@ -122,6 +123,7 @@ format:
       - file: syntax-feenox.tex
       - file: syntax-geo.tex
       - file: syntax.tex
+      - file: math.tex
     
   epub:
     default-image-extension: svg

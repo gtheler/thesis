@@ -8,7 +8,8 @@
 > | it was the age of foolishness,
 > | it was the epoch of belief,
 > | it was the epoch of incredulity...
-> | _Charles Dickens, A Tale of Two Cities, 1859_
+> 
+> _Charles Dickens, A Tale of Two Cities, 1859_
 
 > In an enterprise such as the development nuclear physics
 > the difference between ideas, hopes, suggestions and theoretical
@@ -469,7 +470,7 @@ cometido.
 
 
 
-## Limitaciones de la formulación neutrónica actual
+## Limitaciones de la formulación neutrónica actual {#sec-limitaciones}
 
 El enfoque propuesto para evaluar la efectividad del segundo sistema de apagado de un reactor tipo Atucha involucra los siguientes pasos:
 

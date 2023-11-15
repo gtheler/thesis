@@ -85,7 +85,7 @@ function transclude (cb)
     if line:sub(1,2) ~= '//' then
       local fh = io.open(line)
       if not fh then
-        io.stderr:write("Cannot open file " .. line .. " | Skipping includes\n")
+        io.stderr:write("Cannot open include file " .. line .. " | Skipping includes\n")
       else
         local contents = pandoc.read(fh:read '*a', format).blocks
         last_heading_level = 0

@@ -18,3 +18,5 @@ sn
 index_files
 diff.*
 old.tex
+site_libs/
+math-macros.md

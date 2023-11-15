@@ -24,6 +24,7 @@
 > _Lucio Séneca, Carta a Lucilio sobre la importancia de escribir, siglo I d.C._
 :::
 
+{{< include ../math-macros.md >}}
 
 En este capítulo introducimos las ecuaciones que modelan el transporte de neutrones en el núcleo de un reactor nuclear con los siguientes objetivos:
 

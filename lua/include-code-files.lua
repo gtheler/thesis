@@ -14,8 +14,18 @@ local function transclude (cb)
     local content = ""
     local fh = io.open(cb.attributes.include)
     if not fh then
-      io.stderr:write("Cannot open file " .. cb.attributes.include .. " | Skipping includes\n")
-    else
+--       try changing the pwd 
+      dirsep = package .config :sub( 1, 1 )
+      cwd = cb.attributes.include
+      delimeter = { cwd :find( dirsep, 2 ) }
+      attempt = "." .. cwd :sub( delimeter [1] or 1 )
+
+      fh = io.open(attempt)
+      if not fh then
+        io.stderr:write("Cannot open code file " .. cb.attributes.include .. " | Skipping includes\n")
+      end
+    end
+    if fh then
       local number = 1
       local start = 1
 

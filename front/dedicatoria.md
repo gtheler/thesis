@@ -20,7 +20,3 @@
 
 \thispagestyle{empty}
 \frontmatter
-
-```include
-math.md
-```
