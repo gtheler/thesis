@@ -68,6 +68,8 @@ format:
     default-image-extension: svg
     theme: cosmo
     html-math-method: katex
+    include-in-header: 
+      - file: style.html
       
   pdf:
     documentclass: scrbook

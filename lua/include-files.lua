@@ -84,9 +84,24 @@ function transclude (cb)
   for line in cb.text:gmatch('[^\n]+') do
     if line:sub(1,2) ~= '//' then
       local fh = io.open(line)
+      
+      local handle = io.popen("pwd")
+      local result = handle:read("*a")
+      handle:close()
+      
       if not fh then
-        io.stderr:write("Cannot open include file " .. line .. " | Skipping includes\n")
-      else
+--      try changing the pwd 
+        dirsep = package .config :sub( 1, 1 )
+        cwd = line
+        delimeter = { cwd :find( dirsep, 2 ) }
+        line = "." .. cwd :sub( delimeter [1] or 1 )
+
+        fh = io.open(line)
+        if not fh then
+          io.stderr:write("Cannot open include file " .. line .. " | Skipping includes\n")
+        end
+      end
+      if fh then
         local contents = pandoc.read(fh:read '*a', format).blocks
         last_heading_level = 0
         -- recursive transclusion
