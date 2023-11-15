@@ -1,32 +1,27 @@
-pdf:
+hash:
 	./hash.sh
+
+pdf: hash
 	cp math-for-latex.md math-macros.md
-	cp full.yml _quarto.yml
-	quarto render --to pdf
+	quarto render --to pdf --no-clean
 	mv _book/phd-theler.pdf _book/phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf
 	cd _book; ln -s phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf phd-theler.pdf
 
-single:
-	./hash.sh
-	cp math-for-latex.md math-macros.md
-	cp single.yml _quarto.yml
-	quarto render --to pdf
-	mv _book/phd-theler.pdf _book/phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf
-	cd _book; ln -s phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").pdf phd-theler.pdf
-
-
-html:
+html: hash
 	./hash.sh
 	cp math-for-katex.md math-macros.md
-	cp full.yml _quarto.yml
-	quarto render --to html
+	quarto render --to html --no-clean
+
+epub: hash
+	cp math-for-latex.md math-macros.md
+	quarto render --to epub3 --no-clean
+	mv _book/phd-theler.epub _book/phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").epub
+	cd _book; ln -s phd-theler-$(shell grep git_hash _date.yml.local | cut -f2 -d: | tr -d " ").epub phd-theler.epub
 
 	
 clean:
 	rm -rf _book
 
-.PHONY: pdf clean
+.PHONY: all pdf clean hash
 
 all: pdf
-
-full: all
