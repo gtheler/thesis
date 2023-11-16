@@ -55,7 +55,7 @@ El contenido general de esta tesis es una mezcla de
  i. física de neutrones y reactores a nivel de núcleo
  ii. programación en computación de alto rendimiento
  
-que son justamente las dos mitades del título y los temas profesionales en los que me desempeñé en la academia, industria y emprendedurismo. Este contenido está distribuido en seis capítulos, incluido este, ordenados según el orden de presentación "por qué", "cómo" y "qué":
+que son justamente las dos mitades del título y los temas profesionales en los que me desempeñé en la academia, en la industria y en el mundo del emprendedurismo. Este contenido está distribuido en seis capítulos, incluido este, ordenados según el orden de presentación "por qué", "cómo" y "qué":
 
  a. ¿Por qué?
  
@@ -110,7 +110,7 @@ La forma de diseñar software de cálculo hoy en día debe ser, entonces, radica
 En el @sec-implementacion discutimos en detalle todas estas particularidades, pero el ejemplo clásico se reduce a aquellos programas de cálculo (sobretodo termohidráulicos) en los que la salida está compuesta exactamente por todos y cada una de los resultados obtenidos, incluyendo distribuciones espaciales y temporales. Esta decisión de diseño tiene sentido cuando tener que volver a realizar un cálculo porque un cierto valor requerido no forma parte de la salida es muy caro.
 Pero esto implica que el ingeniero a cargo del cálculo debe buscar y filtrar solamente aquellos resultados necesarios en medio de un pajar de información a un costo horario miles de veces superior a volver a realizar el cálculo pidiendo explícitamente el resultado requerido, y nada más.
 
-El diseño del sistema operativo Unix (y del lenguaje de programación C, estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, la arquitectura es tan sólida que aunque en las décadas de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["XXX for Windows"]{lang=en-US}), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será menor al 100%.
+El diseño del sistema operativo Unix (y del lenguaje de programación C, estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, la arquitectura es tan sólida que aunque en las décadas de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["XXX for Windows"]{lang=en-US} que, en mi humilde opinión, ha sido perjudicial para la salud de la comunidad de la mecánica computacional), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será menor al 100%.
 En terminología de [start ups]{lang=en-US}: "[rent, don't buy]{lang=en-US}".
 
 En este sentido, la herramienta computacional de cálculo desarrollada desde cero en esta tesis para resolver ecuaciones diferenciales en derivadas parciales fue diseñada para ser ejecutada _nativamente_ en la nube. Como explicamos en detalle en la @sec-cloud, haciendo un paralelismo con la nomenclatura de interfaces web donde hay diseños [mobile friendly]{lang=en-US} y [mobile first]{lang=en-US}, decimos que la herramienta es [cloud first]{lang=en-US} y no solamente [cloud friendly]{lang=en-US}.
@@ -122,22 +122,34 @@ Ambos documentos forman parte de los apéndices de esta tesis (@sec-srs y @sec-s
 
 Además del requerimiento de que la herramienta desarrollada corra en la nube, se requiere también que el software desarrollado sea libre y abierto. Este punto es de especial importancia tanto en la academia como en la industria (por diferentes razones en cada caso) y sus implicancias son usualmente ignoradas, especialmente en la industria nuclear. En la @sec-licencia explicamos las razones de dicha importancia.
 
-Otra característica, explicada en detalla en el @sec-implementacion, es que la arquitectura del código es tal que sea extensible en el sentido de que se puedan agregar nuevas formulaciones de ecuaciones a resolver en forma razonablemente sencilla sin necesidad de tener que escribir un nuevo solver para cada ecuación.
+Otra característica, explicada en detalla en el @sec-implementacion, es que la arquitectura del código es tal que sea extensible en el sentido de que se puedan agregar nuevas formulaciones de ecuaciones a resolver en forma razonablemente sencilla sin necesidad de tener que escribir un nuevo [solver]{lang=en-US} para cada ecuación.
 La forma de implementar esta característica se basa en un esquema de apuntadores a función resueltos en tiempo de ejecución según el tipo de problema que se requiere resolver definido en el archivo de entrada.
 
-Un requerimimento importante es que la herramienta sea escalable en paralelo para permitir resolver problemas realtivamente grandes con discretizaciones relativamente finas.
-En form abstracta, la idea de paralelización de un código de cálculo se suele asociar a la posibilidad de obtener resultados en forma más rápida que en el caso serie sin paralelizar ya que, en principio, al disponer de más unidades de procesamiento es posible realizar más operaciones de coma flotante por unidad de tiempo.
+Un requerimiento importante es que la herramienta sea escalable en paralelo para permitir resolver problemas relativamente grandes con discretizaciones relativamente finas.
+En forma abstracta, la idea de paralelización de un código de cálculo se suele asociar a la posibilidad de obtener resultados en forma más rápida que en el caso serie sin paralelizar ya que, en principio, al disponer de más unidades de procesamiento es posible realizar más operaciones de coma flotante por unidad de tiempo.
 Pero desde el punto de vista de esta tesis, el principal objetivo no es el tiempo de cálculo sino la cantidad de memoria necesaria para poder resolver un cierto problema, como explicamos a continuación.
+En forma particular, y sin entrar en detalles técnicos, existen esencialmente tres tipos de paralelismo @intro-parallel:
 
-En forma particular, y sin entrar en detalles técnicos, existen tres tecnologías diferentes de atacar el problema de paralelizar código computacional cuyo objetivo es resolver ecuaciones matemáticas @intro-parallel
+Sistemas de memoria compartida (OpenMP)
 
- i. Múltiples threads (OpenMP)
- ii. Múltiples procesos (MPI)
- iii. Múltiples pipelines (GPU)
+:   múltiples unidades de procesamiento vinculadas a un único espacio de direcciones de memoria.
 
-En el caso
+Sistemas distribuidos (MPI)
+
+:   múltiples unidades computacionales, cada una con sus unidades de procesamiento y memoria, conectadas entre sí a través de redes de alta velocidad
+
+Unidades de procesamiento gráfico (GPU)
+
+:   utilizadas como co-procesadores para resolver problemas numéricamente intensivos
+
+
+Tanto en el caso OpenMP como GPU, los [threads]{lang=en-US} que corren en paralelo comparten la memoria física de acceso aleatorio (RAM). Entonces mientras mayor sea el problema, más memoria se necesitará. Eventualmente, para algún cierto tamaño de problema crítico, se llegará a un límite de memoria  que no se podrá franquear.
+Pero en el caso de MPI @mpi, como los procesos paralelos pueden estar en diferentes computadoras físicas (o no), la memoria total disponible se puede hacer arbitrariamente grande agregando nuevos [hosts]{lang=en-US} al sistema distribuido. En efecto, en el @sec-resultados mostramos que para un tamaño de problema fijo la memoria por proceso MPI disminuye monótonamente con la cantidad de procesos.
+Al combinar esta capacidad con el requerimiento de que la herramienta pueda correr en la nube, en principio se podrían resolver problemas de tamaño arbitrario si se pudieran alquilar suficientes instancias [cloud]{lang=en-US}.
+
+
  
-Combinando estos requerimientos del SDS, considero que la contribución es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
+Combinando estos requerimientos del SRS (@sec-srs) y la forma en la que se abordan desde el punto de vista del diseño en el SDS (@sec-sds) e implementación (@sec-implementacion), considero que la contribución de esta tesis es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
 Más aún, teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
 A modo de ejemplo de la clase de contribución que propongo, consideremos la @fig-iaea-3dpwr-eighth-circular-flux-s4. Ella muestra el resultado de haber resuelto el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA (analizado y discutido en detalle en la @sec-2dpwr) pero...
 
@@ -164,7 +176,7 @@ Cada uno de estos cuatro puntos está detalladamente explicado en el cuerpo de l
   
 constituyen el [unfair advantage]{lang=en-US}---en el sentido del [canvas]{lang=en-US} de modelo de negocios---de la herramienta desarrollada.
 
-Pero es la combinación de todos ellos la que configura la propuesta de la tesis, minuciosamente explicada en la @sec-propuestas: poder disponer de una herramienta computacional que permita resolver problemas de neutrónica a nivel de núcleo de tamaño arbitrario a través de la escalabilidad en paralelo basado en el estándar MPI. Lo importante es que, como mostramos en el @sec-resultados, al hacer una descomposición del dominio y de alguna manera "repartir" la carga computacional en varios procesos, para un problema de tamaño fijo, la cantidad de memoria RAM que cada proceso necesita disminuye a medida que aumentamos la cantidad de zonas en las que descomponemos el dominio. Esto hace posible resolver problemas formulados con S$_N$ en mallas no estructuradas en principio de tamaño arbitrario y, eventualmente, poder compararlos con la aproximación de difusión que es computacionalmente mucho menos demandante. Para ello se necesita sobrepasar las limitaciones de las herramientas neutrónicas tradicionales (@sec-limitaciones), que es lo que proponemos en esta tesis.
+Pero es la combinación de todos ellos la que configura la propuesta de la tesis, minuciosamente explicada en la @sec-propuestas: poder disponer de una herramienta computacional que permita resolver problemas de neutrónica a nivel de núcleo de tamaño arbitrario a través de la escalabilidad en paralelo basado en el estándar MPI. Lo importante es que, como mostramos en el @sec-resultados, al hacer una descomposición del dominio y de alguna manera "repartir" la carga computacional---especialmente la memoria RAM que usualmente es el recurso limitante---en varios procesos. Esto hace posible resolver problemas formulados con S$_N$ en mallas no estructuradas en principio de tamaño arbitrario y, eventualmente, poder compararlos con la aproximación de difusión que es computacionalmente mucho menos demandante. Para ello se necesita sobrepasar las limitaciones de las herramientas neutrónicas tradicionales (@sec-limitaciones), que es lo que proponemos en esta tesis.
 
 ::: {.remark}
 Este trabajo sólo se enfoca en el desarrollo de la herramienta necesaria para realizar la comparación.
