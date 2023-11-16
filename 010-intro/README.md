@@ -16,7 +16,7 @@
 :::
 
 
- 1. Muchas veces, en los congresos académicos sobre métodos numéricos y aplicaciones uno puede ver un esquema similar al siguiente:
+ 1. En los congresos académicos sobre métodos numéricos y aplicaciones, muchas veces uno puede ver un esquema similar al siguiente:
 
     a. Se muestra el estado del arte y se describen las falencias de un cierto algoritmo tradicional.
     b. Se propone una nueva idea o metodología para mejorar el estado del arte.
@@ -125,6 +125,18 @@ Además del requerimiento de que la herramienta desarrollada corra en la nube, s
 Otra característica, explicada en detalla en el @sec-implementacion, es que la arquitectura del código es tal que sea extensible en el sentido de que se puedan agregar nuevas formulaciones de ecuaciones a resolver en forma razonablemente sencilla sin necesidad de tener que escribir un nuevo solver para cada ecuación.
 La forma de implementar esta característica se basa en un esquema de apuntadores a función resueltos en tiempo de ejecución según el tipo de problema que se requiere resolver definido en el archivo de entrada.
 
+Un requerimimento importante es que la herramienta sea escalable en paralelo para permitir resolver problemas realtivamente grandes con discretizaciones relativamente finas.
+En form abstracta, la idea de paralelización de un código de cálculo se suele asociar a la posibilidad de obtener resultados en forma más rápida que en el caso serie sin paralelizar ya que, en principio, al disponer de más unidades de procesamiento es posible realizar más operaciones de coma flotante por unidad de tiempo.
+Pero desde el punto de vista de esta tesis, el principal objetivo no es el tiempo de cálculo sino la cantidad de memoria necesaria para poder resolver un cierto problema, como explicamos a continuación.
+
+En forma particular, y sin entrar en detalles técnicos, existen tres tecnologías diferentes de atacar el problema de paralelizar código computacional cuyo objetivo es resolver ecuaciones matemáticas @intro-parallel
+
+ i. Múltiples threads (OpenMP)
+ ii. Múltiples procesos (MPI)
+ iii. Múltiples pipelines (GPU)
+
+En el caso
+ 
 Combinando estos requerimientos del SDS, considero que la contribución es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
 Más aún, teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
 A modo de ejemplo de la clase de contribución que propongo, consideremos la @fig-iaea-3dpwr-eighth-circular-flux-s4. Ella muestra el resultado de haber resuelto el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA (analizado y discutido en detalle en la @sec-2dpwr) pero...
@@ -132,7 +144,7 @@ A modo de ejemplo de la clase de contribución que propongo, consideremos la @f
  1. con una simetría 1/8 en lugar de la simetría 1/4 original,
  2. con un reflector cilíndrico en lugar de un reflector compuesto por planos paralelos a los ejes cartesianos,
  3. resuelto con una formulación S$_4$ de ordenadas discretas en lugar de la original de difusión, y
- 4. en paralelo utilizando cuatro procesos MPI.
+ 4. en paralelo utilizando cuatro procesos independientes.
 
 ::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[1,1]"}
 ![Flujo rápido $\phi_1$](iaea-3dpwr-eighth-circular-flux-s4-1.png){#fig-iaea-3dpwr-eighth-flux-s4-1}
@@ -148,7 +160,7 @@ Cada uno de estos cuatro puntos está detalladamente explicado en el cuerpo de l
   * la capacidad de extender el área de los problemas a resolver agregando nuevas formulaciones de ecuaciones discretizadas con el método de elementos finitos (ver el @sec-sds para ejemplos por fuera de la neutrónica de núcleo)
   * el diseño [cloud first]{lang=en-US} que permite realizar lo que se conoce como "simulación programática" sin necesidad de interactuar
   * la discretización del dominio utilizando mallas no estructuradas, potencialmente realizando descomposición de dominio
-  * la posibilidad de escalar en paralelo mediante MPI y poder resolver problemas de tamaño arbitrario
+  * la posibilidad de escalar en paralelo mediante y poder resolver problemas de tamaño arbitrario
   
 constituyen el [unfair advantage]{lang=en-US}---en el sentido del [canvas]{lang=en-US} de modelo de negocios---de la herramienta desarrollada.
 
