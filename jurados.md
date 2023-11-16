@@ -1,17 +1,16 @@
 internos
- * enzo dari
+ * enzo 
  * chaco
- * palito
+ * ariel márquez
  * alexis weir
  * federico teruel
- * mariano cantero
- * edmundo lopazo
- * ariel márquez
+ * edmundo lopasso
 
 
 externos
 
  * nacho marquez
+ * men?
  * santiago urquiza
  * ezequiel fogliatto
  * santiago serebrinsky
