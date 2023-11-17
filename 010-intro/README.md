@@ -82,20 +82,20 @@ Los últimos dos capítulos ([what]{lang=en-US}) contienen el núcleo de la cont
 
 Durante mi paso por la industria nuclear en el completamiento de la Central Nuclear Atucha II (punto 2) he tenido la experiencia de emplear herramientas computacionales de cálculo neutrónico, termohidráulico y de control @dypra-stni.
 Por razones que no viene al caso analizar, aún en la década de 2010, mucho del software empleado había sido diseñado originalmente varias décadas antes cuando los paradigmas computacionales eran radicalmente diferentes.
-Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo de la hora de CPU de las computadoras usualmente utilizadas para cálculos nucleares en 1965 @computadoras65.
+Por ejemplo, la @tbl-1965a muestra un punto central de este paradigma: el costo de la hora de CPU de las computadoras usualmente utilizadas para cálculos nucleares en 1965 @computadoras65.
 
 ::: {#tbl-1965}
- Computer | Monthly Rental  | Relative Speed | First Delivery 
+     Computer    |       Monthly Rental     | Relative Speed | First Delivery 
 :----------------|:------------------------:|:-----------:|:-----------:
- CDC 3800        |         $ 50,000          |     1       |  Jan 66
- CDC 6600        |         $ 80,000          |     6       |  Sep 64
- CDC 6800        |         $ 85,000          |     20      |  Jul 67
- GE 635          |         $ 55,000          |     1       |  Nov 64
- IBM 360/62      |         $ 58,000          |     1       |  Nov 65
- IBM 360/70      |         $ 80,000          |     2       |  Nov 65
- IBM 360/92      |         $ 142,000         |     20      |  Nov 66
- PHILCO 213      |         $ 78,000          |     2       |  Sep 65
- UNIVAC 1108     |         $ 45,000          |     2       |  Aug 65
+ CDC 3800        |         $ 50,000         |     1       |  Jan 66
+ CDC 6600        |         $ 80,000         |     6       |  Sep 64
+ CDC 6800        |         $ 85,000         |     20      |  Jul 67
+ GE 635          |         $ 55,000         |     1       |  Nov 64
+ IBM 360/62      |         $ 58,000         |     1       |  Nov 65
+ IBM 360/70      |         $ 80,000         |     2       |  Nov 65
+ IBM 360/92      |         $ 142,000        |     20      |  Nov 66
+ PHILCO 213      |         $ 78,000         |     2       |  Sep 65
+ UNIVAC 1108     |         $ 45,000         |     2       |  Aug 65
 
 : [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a}
 
@@ -147,6 +147,13 @@ Tanto en el caso OpenMP como GPU, los [threads]{lang=en-US} que corren en parale
 Pero en el caso de MPI @mpi, como los procesos paralelos pueden estar en diferentes computadoras físicas (o no), la memoria total disponible se puede hacer arbitrariamente grande agregando nuevos [hosts]{lang=en-US} al sistema distribuido. En efecto, en el @sec-resultados mostramos que para un tamaño de problema fijo la memoria por proceso MPI disminuye monótonamente con la cantidad de procesos.
 Al combinar esta capacidad con el requerimiento de que la herramienta pueda correr en la nube, en principio se podrían resolver problemas de tamaño arbitrario si se pudieran alquilar suficientes instancias [cloud]{lang=en-US}.
 
+::: {.remark}
+La biblioteca PETSc @petsc-user-ref, que es la que usa la herramienta desarrollada en esta tesis para resolver los problemas ralos que resultan de discretizar ecuaciones diferenciales en derivadas parciales, basa su esquema de paralelización en el paradigma MPI. Sus desarrolladores manifiestan expresamente---tanto en forma escrita a través de correos electrónicos como en forma oral en las reuniones anuales de usuarios @reflex-petsc---que no hay ninguna razón técnica para preferir el paradigma OpenMP sobre el MPI. Si bien hay esfuerzos para soportar OpenMP en PETSc, estos esfuerzos apuntan a dar soporte a código existente que pueda aprovechar las ventajas de PETSc. Pero los desarrolladores recomiendan diseñar código nuevo basando en MPI por sobre OpenMP.
+:::
+
+::: {.remark}
+Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HIP, SYCL, Kokkos, etc.) que pueden  descargar^[En el sentido del inglés [_offload_]{lang=en-US}.] operaciones de álgebra elemental en tiempo de ejecución con opciones de línea de comando. Una de las ventajas particulares de la filosofía Unix de hacer una sola cosa bien y re-utilizar las cosas que ya están bien hechas es que la herramienta desarrollada en esta tesis tiene soporte para GPU "gratis".
+:::
 
  
 Combinando estos requerimientos del SRS (@sec-srs) y la forma en la que se abordan desde el punto de vista del diseño en el SDS (@sec-sds) e implementación (@sec-implementacion), considero que la contribución de esta tesis es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
