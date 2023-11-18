@@ -36,7 +36,7 @@ Revisión
 ```
 ![](by)
 
-Este trabajo se distribuye bajo licencia [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/")
+Tesis distribuida bajo licencia [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/")
 ```{=latex}
 \end{centering}
 ```

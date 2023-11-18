@@ -1,5 +1,4 @@
- * revisar timing en laptop, integration reduced en tet4
- * revisar las citas bib
+* revisar las citas bib
 
  
  
@@ -15,10 +14,8 @@
  * si pongo el abstract del sds/srs como meta no me lo expande dentro del div en-US
  * las crossrefs dentro de en-US todavía tienen "sección" en lugar de "section"
  * custom chapters no funcionan con scrbook
- * decir de qué versión de FeenoX son los apéndices
  * roman de frontmatter con emph
  * index?
- * zebra tables
 
  * FeenoX & Unix
  * terminar SDS
