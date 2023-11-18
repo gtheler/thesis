@@ -121,7 +121,6 @@ format:
     lof: false
     lot: false
     cite-method: citeproc
-    biblatexoptions: style=numeric,sortcites=true,sorting=nyt,backend=biber
     include-in-header: 
       - text: |
           % quotes with a bar in the left (like bootstrap)
