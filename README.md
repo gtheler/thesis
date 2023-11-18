@@ -1,8 +1,19 @@
-# Ecuaciones diferenciales en la nube: aplicación al transporte de neutrones
+# Transporte de neutrones en la nube
 
 A PhD thesis written in markdown.
 
-# Dependencias
+> [!NOTE]
+> This is a PhD Thesis for an [Argentinian university](https://www.ib.edu.ar/english_version/Instituto_Balseiro.php).
+> It is legally required to be written in Spanish.
+> The Abstract and the appendices are in English, though.
+
+## Abstract
+
+
+
+## Compilation
+
+To compile, the following dependencies are needed
 
  * Git
  * Quarto
@@ -10,35 +21,16 @@ A PhD thesis written in markdown.
  * XeLaTeX
  * Inkscape
 
-# Compilar a PDF
-
-```
-make
-```
-
-o
+Compile to PDF, HTML and/or epub with make
 
 ```
 make pdf
-```
-
-generan `_book/phd-theler.pdf`.
-
-# Compilar a HTML
-
-```
 make html
+make epub
 ```
 
-genera `_book/index.html`.
-
-# Caveats
-
- * El hash del último commit va a parar al footer del PDF y al index del HTML
- * Trato de no usar un custom template porque seguro que en algún momento pandoc lo cambia y deja de compilar
- * No me termina de convencer el estilo IEEE de CSL
  
-# License
+## License
  
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 

@@ -6,10 +6,14 @@
 
 \vspace{0.75cm plus 0.5cm}
 
-* state the problem
-* say why it's an interesting problem
-* say what your solution achieves
-* say what follows from your solution
+
+---
+comment: |
+  * state the problem
+  * say why it's an interesting problem
+  * say what your solution achieves
+  * say what follows from your solution
+...
 
 \vspace{\fill}
 

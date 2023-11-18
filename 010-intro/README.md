@@ -97,7 +97,7 @@ Por ejemplo, la @tbl-1965a muestra un punto central de este paradigma: el costo
  PHILCO 213      |         $ 78,000         |     2       |  Sep 65
  UNIVAC 1108     |         $ 45,000         |     2       |  Aug 65
 
-: [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a}
+: Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated. {#tbl-1965a}
 
 Tabla "Las nuevas computadoras de alta velocidad de 1965" número de la referencia @computadoras65. Los costos están expresados en dólares americanos de 1965 y pueden variar en un factor de dos. Un dólar de 1965 vale USD 16.20 en 2023
 :::
