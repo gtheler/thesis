@@ -4,7 +4,7 @@
 > | En su programa de televisión junto a Antonio Carrizo, el personaje de “El Contra” le pregunta a un invitado DT:
 > | --- Supongamos que van 48’ del segundo tiempo y su equipo está atacando. ¿Qué prefiere? ¿Que le den un córner o un lateral?
 > | --- ¿Qué pregunta es esa? Un córner, porque tengo una chance de llegar al área.
-> | --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana entrenamos laterales con sandías. Cuando llega el domingo, (lo mira a Antonio Carrizo) ¿sabés hasta donde tiramos la pelota?
+> | --- Con el lateral también. Nosotros allá en Villa Dálmine, durante la semana entrenamos laterales con sandías. Cuando llega el domingo, (lo mira a Antonio Carrizo) ¿sabés hasta dónde tiramos la pelota?
 > 
 > _Juan Carlos Calabró, 1993_
 
@@ -19,8 +19,8 @@
  1. En los congresos académicos sobre métodos numéricos y aplicaciones, muchas veces uno puede ver un esquema similar al siguiente:
 
     a. Se muestra el estado del arte y se describen las falencias de un cierto algoritmo tradicional.
-    b. Se propone una nueva idea o metodología para mejorar el estado del arte.
-    c. Se aplican las novedades a un caso sencillo donde, efectivamente, la eficiencia o la precisión mejora sensiblemente.
+    b. Se propone una nueva idea o metodología para mejorar dicho estado del arte.
+    c. Se aplican las novedades a un caso sencillo donde, efectivamente, la eficiencia o la precisión mejoran sensiblemente.
     d. Se indica que los próximos pasos serán resolver no ya problemas canónicos sino problemas de interés industrial.
 
     Pero también muchas veces, el nuevo desarrollo nunca llega efectivamente a la industria.

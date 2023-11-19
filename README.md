@@ -1,17 +1,29 @@
-# Transporte de neutrones en la nube
+# Neutron transport in the cloud
 
-A PhD thesis written in markdown.
+A PhD in Nuclear Engineering thesis written in markdown and tracked with Git which generates
+
+ * PDF
+ * HTML
+ * ePub3
+
+The hash and date of the Git commit use to compile the document goes into
+
+ * the abstract page in all formats
+ * each of the PDF's page footers
+ * the name of the file in PDF and ePub formats
 
 > [!NOTE]
 > This is a PhD Thesis for an [Argentinian university](https://www.ib.edu.ar/english_version/Instituto_Balseiro.php).
 > It is legally required to be written in Spanish.
 > The Abstract and the appendices are in English, though.
 
+
+
 ## Abstract
 
-**Neutron transport in the cloud**
 
-by Jeremy Theler
+_by Jeremy Theler_
+
 
 Traditional core-level neutronic computational tools are focused on solving the multigroup neutron diffusion equation over structured hexahedral grids. 
 While this approach might be reasonable for light-water power reactors, cores where the moderator is separated from the coolant---such as heavy-water power plants and research reactors---cannot be represented accurately with structured grids.
