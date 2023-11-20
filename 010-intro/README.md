@@ -24,7 +24,7 @@
     d. Se indica que los próximos pasos serán resolver no ya problemas canónicos sino problemas de interés industrial.
 
     Pero también muchas veces, el nuevo desarrollo nunca llega efectivamente a la industria.
-    El ímpetu de la investigación se va difundiendo a lo ancho de nuevas asignaciones de fondos de investigación que se enfocan en otras áreas, de gente cambia de ideas, se jubila, etc. Las aplicaciones quedan en una lista de tareas "por hacer" ([TO-DOs]{lang=en-US}).
+    El ímpetu de la investigación se va difundiendo a lo ancho de nuevas asignaciones de fondos de investigación que se enfocan en otras áreas, de gente que cambia de ideas, se jubila, etc. Las aplicaciones quedan en una lista de tareas "por hacer" ([TO-DOs]{lang=en-US}).
 
  2. Los proyectos de ingeniería industriales están indefectiblemente restringidos por los tres vértices del triángulo de gerenciamiento de proyectos costos-alcance-calidad.
  Cualquier tarea de tipo de I+D+i en temas de modelado numérico debe necesariamente 

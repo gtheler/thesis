@@ -210,7 +210,7 @@ de cinética espacial capaz de incorporar distribuciones
 espacio-temporales de propiedades, en particular concentración de boro
 en el moderador, calculadas a partir de técnicas de dinámica de fluidos computacional,^[Del inglés [*Computational fluid dynamics*]{lang=en-US}.] conocidas por sus siglas como CFD.
 
-### Gloriosa la discretitud del alfabeto
+### La gloriosa discretitud del alfabeto
 
 El punto principal de esta tesis es que las herramientas de neutrónica de núcleo al final del día lo que hacen es utilizar computadores digitales para resolver ecuaciones diferenciales en derivadas parciales. Para ello es necesario discretizar el dominio espacial de la ecuación diferencial en derivadas parciales para obtener una cantidad finita de ecuaciones diferenciales ordinarias. La forma de discretizar el dominio depende de la formulación espacial discretizada. Los tres esquemas más comunes son
 
@@ -239,7 +239,7 @@ Discretizaciones estructurada y no estructurada de un dominio espacial arbitrari
 La principal diferencia técnica entre estas dos clases de mallas reside en que en el primer caso la topología se da implícitamente con una cantidad mínima de información, como  por ejemplo número de celdas en cada dirección cartesiana o un vector de tamaños de celdas en cada dirección si la malla no es uniforme. En cambio, en el caso de mallas no estructuradas es necesario dar una lista explícita y completa indicando qué nodos definen qué celdas para poder obtener la topología y saber, por ejemplo, cómo es la conectividad de las celdas. Una forma eficiente de proveer esta conectividad es construir un grafo dirigido acíclico^[Del inglés [*directed acyclic graph*]{lang=en-US}.] (DAG) [@petsc-user-ref;@dmplex].
 
 La mayoría de las herramientas de neutrónica a nivel de núcleo utilizadas en la industria nuclear mundial soportan solamente mallas estructuradas @fig-mallaspce.
-Definitivamente todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
+En particular, todas las herramientas de neutrónica a nivel de núcleo empleadas en el análisis de seguridad de reactores tipo Atucha utilizan mallas estructuradas para resolver la ecuación de difusión de neutrones.
 Por lo tanto, cuando hablemos de neutrónica en lo que resta del capítulo solamente aparecerán mallas estructuradas hasta que discutamos las propuestas de esta tesis de doctorado en la @sec-propuestas.
 
 ::: {#fig-mallaspce layout="[50,50]"}
