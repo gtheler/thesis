@@ -2,13 +2,13 @@
 
 A PhD in Nuclear Engineering thesis written in markdown and tracked with Git which generates
 
- * PDF
- * HTML
- * ePub3
+ * [PDF](https://seamplex.com/thesis/pdf/)
+ * [HTML](https://seamplex.com/thesis/html/)
+ * [ePub](https://seamplex.com/thesis/epub/) (best viewed with [KOReader](https://koreader.rocks/))
 
 The hash and date of the Git commit use to compile the document goes into
 
- * the abstract page in all formats
+ * the [abstract page](https://seamplex.com/thesis/html/front/abstract.html) in all formats
  * each of the PDF's page footers
  * the name of the file in PDF and ePub formats
 
