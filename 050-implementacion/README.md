@@ -122,7 +122,7 @@ En la jerga de emprendedurismo, serían las [_unfair advantages_]{lang=en-US} de
 
 ::: {.remark}
 El código fuente de FeenoX está en Github en <https://github.com/seamplex/feenox/> bajo licencia GPLv3+ (@sec-licencia).
-Consiste en aproximadamente cuarenta y cinco mil líneas de código` organizadas según la estructura de directorios mostrada en la figura~\ref{fig:tree}`{=latex}.·
+Consiste en aproximadamente cuarenta y cinco mil líneas de código `organizadas según la estructura de directorios mostrada en la figura~\ref{fig:tree}`{=latex}.·
 :::
 
 ```{=latex}

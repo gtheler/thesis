@@ -45,7 +45,7 @@ To compile, the following dependencies are needed
  * Git
  * Quarto
  * Pandoc
- * XeLaTeX
+ * XeLaTeX (make sure you also install the language package for hyphenation patterns, in this case `texlive-lang-spanish`)
  * Inkscape
 
 Compile to PDF, HTML and/or epub with make
