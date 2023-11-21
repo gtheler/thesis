@@ -735,7 +735,7 @@ $$
 \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{U^{\prime}(t+\Delta t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  - \int_{U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right]
 $$ {#eq-integral_dos_dominios}
 
-Notamos que
+Notemos que
 
 $$
 \lim_{\Delta t \rightarrow 0} U^{\prime}(t+\Delta t) = U^{\prime}(t) + v(E) \cdot \omegaversor \cdot \Delta t
