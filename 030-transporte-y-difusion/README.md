@@ -55,7 +55,7 @@ Para ello, vamos a suponer que [@lewis]
  #. los neutrones son partículas clásicas, es decir, podemos conocer tanto su posición como su momento con precisión arbitraria independientemente del principio de Heisenberg,
  #. los neutrones viajan en línea recta entre colisiones,
  #. no existen interacciones neutrón-neutrón,
- #. la colisión entre un neutrón incidente y un núcleo blanco es instantáneas,
+ #. la colisión entre un neutrón incidente y un núcleo blanco es instantánea,
  #. las propiedades de los materiales son 
     a. continuas en la posición, es decir, la densidad en un diferencial de volumen es uniforme aún cuando sepamos que los materiales están compuestos por átomos individuales, e
     b. isotrópicas, es decir, no hay ninguna dirección preferencial,
@@ -152,7 +152,7 @@ $$
 
 Las ideas presentadas son válidas para un único isótopo libre de cualquier influencia externa.
 En los reactores nucleares reales, por un lado existen efectos no lineales como por ejemplo el hecho de los átomos de hidrógeno o deuterio y los de oxígeno no están libres en la molécula de agua.
-Esto hace que las secciones eficaces de el todo (i.e. de un conjunto de átomos enlazados covalentemente) no sean iguales a la suma algebraica de las partes y debamos calcular las secciones eficaces macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs).
+Esto hace que las secciones eficaces del todo (i.e. de un conjunto de átomos enlazados covalentemente) no sean iguales a la suma algebraica de las partes y debamos calcular las secciones eficaces macroscópicas con una metodología más apropiada (ver @sec-evaluacionxs).
 Por otro lado, justamente en los reactores nucleares las reacciones que interesan son las que dan como resultado la transmutación de materiales por lo que continuamente la densidad atómica $n$ de todos los isótopos varía con el
 tiempo. En este trabajo, no vamos a tratar con la dependencia de las secciones eficaces con el tiempo explícitamente sino que llegado el caso, como discutimos en la @sec-multiescala, daremos la dependencia implícitamente a través de otras propiedades intermedias tales como la evolución del quemado del combustible y/o la concentración de xenón 135 en las pastillas de de dióxido de uranio en forma cuasi-estática.
 
@@ -587,12 +587,12 @@ Como discutimos más adelante en la @sec-problemas-steady-state, en cálculos e
 En el caso particular en el que no haya una fuente externa de neutrones sino que todas las fuentes se deban a fisiones la probabilidad de que el
 reactor esté exactamente crítico es cero.
 Para poder realizar cálculos estacionarios y además tener una idea de la distancia a la criticidad debemos recurrir a un reactor crítico asociado, cuya forma más usual es el *reactor crítico asociado en $k$* introducido más adelante en la @def-keff.
-En este caso, dividimos las fuentes de fisión se artificialmente por un número real $k_\text{eff} \sim 1$ que pasa a ser una incógnita del problema y cuya diferencia relativa con respecto a la unidad da una idea de la distancia a la criticidad del reactor original.
+En este caso, dividimos arbitrariamente las fuentes de fisión por un número real $k_\text{eff} \sim 1$ que pasa a ser una incógnita del problema y cuya diferencia relativa con respecto a la unidad da una idea de la distancia a la criticidad del reactor original.
 
 ## Flujos y ritmos de reacción
 
 El problema central del cálculo de reactores es la determinación de la distribución espacial y temporal de los neutrones dentro del núcleo de
-un rector nuclear. En esta sección desarrollamos la matemática para el caso de $\vec{x} \in \mathbb{R}^3$. En casos particulares aclaramos cómo
+un reactor nuclear. En esta sección desarrollamos la matemática para el caso de $\vec{x} \in \mathbb{R}^3$. En casos particulares aclaramos cómo
 debemos proceder para problemas en una y en dos dimensiones.
 
 ::: {#def-N}
