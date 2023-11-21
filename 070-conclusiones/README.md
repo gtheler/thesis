@@ -37,11 +37,10 @@ En ella hemos recorrido los tres aspectos en el no tan tradicional pero bastante
  2. ¿Cómo? (@sec-transporte-difusion y @sec-esquemas)
  3. ¿Qué? (@sec-implementacion y @sec-resultados)
  
-La idea del desarrollo se basa en comenzar con un documento ficticio de (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
+La idea del desarrollo se basa en comenzar con un documento ficticio (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
 FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).
-Este enfoque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barrera de potencia, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencias.
+Este enfoque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barrera de potencial, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencias.
 
-multi-point con lagrange y/o direct elimination
 
 En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US} consiste en que el software...
 
