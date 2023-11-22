@@ -61,6 +61,12 @@ En particular, para las aplicaciones de neutrónica a nivel de núcleo sus carac
  3. es capaz de resolver problemas de tamaño arbitrario haciendo descomposición de dominio y resolviendo cada parte en un proceso MPI
  
 
+De hecho, en el @sec-neutronica-phwr repasamos una de las motivaciones de escribir una herramienta computacional que pueda superar las limitaciones de los códigos tradicionales.
+Con dicho fin, en el @sec-transporte-difusion amalgamamos la literatura existente sobre transporte de neutrones para obtener las ecuaciones en derivadas parciales que debemos resolver.
+Y en el @sec-esquemas desarrollamos una de las posibles discretizaciones numéricas para poder resolver efectivamente nuetrónica a nivel de núcleo con una (o más) computadoras digitales.
+Justamente, en el @sec-implementacion discutimos y mostramos una de las virtualmente infinitas maneras de diseñar e implementar una herramienta computacional capaz de resolver estas ecuaciones discretizadas.
+Finalmente, en el @sec-resultados mostramos diez problemas que necesitan al menos una de las características distintivas de FeenoX para poder ser resueltos en forma satisfactoria.
+ 
 
 ## Trabajos futuros {#sec-trabajos-futuros}
 
