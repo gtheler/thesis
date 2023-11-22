@@ -31,7 +31,7 @@ Con esta tesis de alguna manera cerramos dos lazos:
     - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián
     - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani
 
-En ella hemos recorrido los tres aspectos en el no tan tradicional pero bastante útil orden 
+En ella hemos recorrido los tres aspectos en el no tan tradicional y poco académico pero bastante útil orden 
 
  1. ¿Por qué? (@sec-introduccion y @sec-neutronica-phwr)
  2. ¿Cómo? (@sec-transporte-difusion y @sec-esquemas)
