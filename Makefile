@@ -1,4 +1,4 @@
-all: pdf
+all: pdf html epub
 
 pdf: hash
 	cp math-for-latex.md math-macros.md
