@@ -436,7 +436,7 @@ página 125 del libro clásico de Lamarsh @lamarsh:
  1. el medio es infinito
  2. el medio es uniforme, de forma tal que todas las secciones eficaces son constantes, independientemente de la posición
  3. no hay fuentes de neutrones
- 4. el [scattering]{lang=en-US}^[El término en español "dispersión" nos parece menos apropiado que el original en inglés [scattering]{lang=en-US}.] es isotrópico en el sistema de coordenadas del *laboratorio*^[De *la planta* o *la central* serían mejores términos para el caso tratado en este trabajo.]
+ 4. el [scattering]{lang=en-US}^[El término castellano "dispersión" nos parece menos apropiado que el original en inglés [scattering]{lang=en-US}.] es isotrópico en el sistema de coordenadas del *laboratorio*^[De *la planta* o *la central* serían mejores términos para el caso tratado en este trabajo.]
  5. el flujo neutrónico es una función levemente dependiente de la posición
  6. el flujo neutrónico no es un función del tiempo.
 

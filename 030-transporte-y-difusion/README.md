@@ -166,7 +166,7 @@ A partir de este momento suponemos que conocemos las secciones eficaces macrosc�
 ### Dispersión de neutrones {#sec-scattering}
 
 Cuando un neutrón que viaja en una cierta dirección $\omegaversor$ con una energía $E$ colisiona con un núcleo blanco en una reacción de
-dispersión o [*scattering*]{lang=en-US},^[El término español “dispersión” como traducción del concepto de “[scattering]{lang=en-US}” no es muy feliz. A partir este punto, durante el resto de esta tesis usamos solamente la palabra [*scattering*]{lang=en-US} para referirnos a este concepto.] tanto el neutrón como el núcleo blanco intercambian energía. En este caso podemos pensar que luego de la colisión, el neutrón incidente se ha transformado en otro neutrón emitido en una nueva dirección $\omegaprimaversor$ con una nueva energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el concepto que sigue.
+dispersión o [*scattering*]{lang=en-US},^[Como ya hemos dicho, el término español “dispersión” como traducción del concepto de “[scattering]{lang=en-US}” no es muy feliz. A partir este punto, durante el resto de esta tesis usamos solamente la palabra [*scattering*]{lang=en-US} para referirnos a este concepto.] tanto el neutrón como el núcleo blanco intercambian energía. En este caso podemos pensar que luego de la colisión, el neutrón incidente se ha transformado en otro neutrón emitido en una nueva dirección $\omegaprimaversor$ con una nueva energía $E^\prime$. Para tener este efecto en cuenta, utilizamos el concepto que sigue.
 
 ::: {#def-sigmasdif}
 
