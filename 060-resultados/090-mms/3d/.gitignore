@@ -3,6 +3,8 @@ old
 *.dat
 *.txt
 *.vtk
+neutron-bunny-s1.tex
+
 neutron-*.pdf
 neutron*-fits.ppl
 

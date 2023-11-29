@@ -7,7 +7,7 @@ elems="tet4 tet10"
 declare -A cs
 
 cs["tet4"]="20 24 28 36 40 44 48 54 60 64"
-cs["tet10"]="12 16 20 24 28 32 36 40 44 48"
+cs["tet10"]="16 20 24 28 32 36 40 44 48"
 
 
 # set this flag to 1 if you want to create one VTK for each run
