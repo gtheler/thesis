@@ -4,7 +4,7 @@
 > No debemos tan sólo escribir ni tan sólo leer.
 > Hay que acudir a la vez a lo uno y a lo otro, y combinar ambos ejercicios a fin de que, cuantos pensamientos ha recogido la lectura los reduzca a la unidad. 
 > [...] Debemos actuar como las abejas. Las abejas revolotean de aquí para allá y van comiendo en las flores idóneas para elaborar la miel.
-> Luego el botín conseguido lo ordenan y distribuyen por los panales.
+> El botín conseguido lo ordenan y distribuyen por los panales.
 > Te recuerdo que también nosotros tenemos que imitar a las abejas y distinguir cuántas ideas acumulamos de diversas lecturas, pues se conservan mejor diferenciadas.
 > Luego, aplicando la atención y los recursos de nuestro ingenio, debemos fundir en sabor único aquellos diversos jugos de suerte que aún cuando se muestre el modelo del que han sido tomados, no obstante, aparezca distinto de la fuente de inspiración.
 > [...]
@@ -17,7 +17,7 @@
 > Prestémosle fiel asentimiento y apropiémonos de [lo que leemos] para que resulte una cierta unidad de muchos elementos.
 > Esa conducta es la que tiene que observar nuestra alma.
 > Oculte todas las ayudas recibidas y muestre solamente lo propio que realizó.
-> Aunque se aprecie en ti la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
+> Aunque se aprecie en tí la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
 > [...]
 > ¿Cómo lograr esto te preguntas? Con una constante aplicación.
 >
