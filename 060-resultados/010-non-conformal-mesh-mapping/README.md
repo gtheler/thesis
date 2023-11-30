@@ -2,6 +2,8 @@
 
 > **TL;DR:** Sobre la importancia de que FeenoX siga la filosofía Unix.
 
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
 Este primer caso no resuelve ninguna PDE pero sirve para ilustrar...
 
  1. las ideas de la filosofía Unix [@raymond; @unix], en particular programas que...

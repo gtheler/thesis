@@ -2,6 +2,9 @@
 
 > **TL;DR:** Estudios paramétricos y de optimización al estilo Unix.
 
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+
 Los tres problemas de esta sección---inventados para escribir el artículo @enief2013-opt---ilustra cómo generalizar las facilidades que provee FeenoX para realizar estudios paramétricos (tal como ya hemos hecho en casi todos los problemas anteriores) para dar un paso más allá y resolver un problema de optimización. Para eso comenzamos resolviendo numéricamente "el problema del pescadito^[Decidimos usar la palabra _pescadito_ en lugar de _pececito_ ya que es mucho más simpática. Además, es poco probable que un pez pueda sobrevivir nadando en un reactor líquido homogéneo de sales fundidas]", que es un clásico en la teoría de perturbaciones lineales.
 Agregamos luego un segundo pescadito que nada en forma diametralmente opuesta al primero donde mostramos cómo aparecen los dos efectos de apantallamiento y anti-apantallamiento según las posiciones relativas de ambos pescaditos.
 Pasamos finalmente a dejar dos pescaditos fijos y resolver la pregunta: ¿dónde tenemos que poner un tercer pescadito para que la reactividad neta sea mínima?

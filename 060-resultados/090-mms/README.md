@@ -2,6 +2,7 @@
 
 > **TL;DR:** Para verificar los métodos numéricos con el método de soluciones fabricadas se necesita un solver que permita definir propiedades materiales en función del espacio a través de expresiones algebraicas.
 
+\renewcommand{\vec}[1]{\mathbf{#1}}
 
 Como mencionamos brevemente en la @sec-losalamos, la verificación de códigos de cálculo involucra mostrar que dicho código resuelve correctamente las ecuaciones que debe resolver.
 La forma de hacerlo es calcular alguna medida del error cometido por el método numérico implementado en el código, por ejemplo el error $L_2$
