@@ -2,7 +2,7 @@
 
 ::: {.chapterquote data-latex=""}
 > No debemos tan sólo escribir ni tan sólo leer.
-> Hay que acudir a la vez a lo uno y a lo otro, y combinar ambos ejercicios a fin de que, cuantos pensamientos ha recogido la lectura los reduzca a la unidad. 
+> Hay que acudir a la vez a lo uno y a lo otro, y combinar ambos ejercicios a fin de que, cuantos pensamientos ha recogido la lectura, los reduzca a la unidad. 
 > [...] Debemos actuar como las abejas. Las abejas revolotean de aquí para allá y van comiendo en las flores idóneas para elaborar la miel.
 > El botín conseguido lo ordenan y distribuyen por los panales.
 > Te recuerdo que también nosotros tenemos que imitar a las abejas y distinguir cuántas ideas acumulamos de diversas lecturas, pues se conservan mejor diferenciadas.
@@ -15,8 +15,7 @@
 > Asimilémoslos. De otra suerte, irán al acervo de la memoria y no al de la inteligencia.
 > [...]
 > Prestémosle fiel asentimiento y apropiémonos de [lo que leemos] para que resulte una cierta unidad de muchos elementos.
-> Esa conducta es la que tiene que observar nuestra alma.
-> Oculte todas las ayudas recibidas y muestre solamente lo propio que realizó.
+> [...]
 > Aunque se aprecie en tí la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
 > [...]
 > ¿Cómo lograr esto te preguntas? Con una constante aplicación.
