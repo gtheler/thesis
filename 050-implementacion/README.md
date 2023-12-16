@@ -1448,7 +1448,7 @@ for (unsigned int g = 0; g < neutron_diffusion.groups; g++) {
 }
 ```
 
-En S$_N$, la cantidad de grados de libertadad por nodo es el producto entre $M$ y $G$. Las funciones, como mostramos en la sec-parseo, son `psi1.1`, `psi2.1`, etc. donde el primer índice es $g$ y el segundo es $m$.
+En S$_N$, la cantidad de grados de libertadad por nodo es el producto entre $M$ y $G$. Las funciones, como mostramos en la @sec-parseo, son `psi1.1`, `psi2.1`, etc. donde el primer índice es $g$ y el segundo es\ $m$.
 
 ::: {.remark}
 En la notación matemática de los capítulos [-@sec-transporte-difusion] y [-@sec-esquemas] es más natural escribir $\psi_{mg}$ para la dirección $m$ y el grupo $g$.
@@ -1764,7 +1764,7 @@ La determinación de qué puntos $\vec{x}_i$ están dentro de la hiper-bola de 
 
 Si los puntos de definición están en una grilla multidimensional estructurada rectangularmente (no necesariamente con incrementos uniformes), entonces FeenoX puede detectar la topología implícita y realizar una interpolación local a partir de los vértices del hiper-cubo que contiene el punto de evaluación $\vec{x} \in \mathbb{R}^n$. Esta interpolación local es similar a la explicada a continuación para el caso de topología explícita mediante una generalización de las funciones de forma para los elementos producto-tensor de primer orden a una dimensión arbitraria $k$.
 
-Por ejemplo, si se tiene el siguiente archivo con tres columnas
+Por ejemplo, si tenemos el siguiente archivo con tres columnas
 
  1. $x_i$
  2. $y_i$
@@ -1833,7 +1833,7 @@ En este caso, dada una función $f(\vec{x})$, el procedimiento para evaluarla en
 La forma particular de implementar los puntos 1 y 2 (especialmente el 1) es crucial en términos de perfomance.
 FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, resolvemos un sistema de ecuaciones de tamaño $J$ para encontrar las coordenadas locales $\symbf{\xi}$.
 
-De esta manera, si en lugar de tener los puntos de definición completamente estructurado` de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
+De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
