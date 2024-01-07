@@ -175,7 +175,7 @@ Otra vez desde el punto de vista de la filosofía de programación Unix, la tare
 Cabe preguntarnos entonces cuál es el lenguaje de programación adecuado para implementar el diseño del SDS.
 Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son igualmente convenientes.
 Por ejemplo Assembly o BrainFuck son interesantes en sí mismos (por diferentes razones) pero para nada útiles para la tarea que tenemos que realizar.
-De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] (ver @sec-cloud) a través de APIs^[Del inglés [_Application Programming Interface_]{lang=en-US}.] que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
+De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clientsmpiexec_]{lang=en-US}.] (ver @sec-cloud) a través de APIs^[Del inglés [_Application Programming Interface_]{lang=en-US}.] que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
 Para resumir una discusión mucho más compleja, los lenguajes candidatos para implementar la herramienta requerida por el SRS podrían ser
 
  a. Fortran
@@ -2195,7 +2195,7 @@ INTEGRATE 1 RESULT two
 PRINTF_ALL "%g" two
 ```
 
-En este caso, la instrucción `INTEGRATE` se calcula en paralelo donde cada proceso calcula una integral local y antes de pasar a la siguiente instrucción, todos los procesos hacen una operación de reducción mediante la cual se suman todas las contribuciones y todos los procesos obtienen el valor global en la variable `two`:
+En este caso, la instrucción `INTEGRATE` se calcula en paralelo donde cada proceso calcula una integral local y antes de pasar a la siguiente instrucción, todos los procesos hacen una operación de reducción mediante la cual se suman todas las contribuciones y todos los procesos obtienen el valor global en la variable `two`:
 
 ```terminal
 $ mpiexec -n 2 feenox t21.fee 
