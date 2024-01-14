@@ -175,7 +175,7 @@ Otra vez desde el punto de vista de la filosofía de programación Unix, la tare
 Cabe preguntarnos entonces cuál es el lenguaje de programación adecuado para implementar el diseño del SDS.
 Aún cuando ya mencionamos que cualquier lenguaje Turing-completo es capaz de resolver un sistema de ecuaciones algebraicas, está claro que no todos son igualmente convenientes.
 Por ejemplo Assembly o BrainFuck son interesantes en sí mismos (por diferentes razones) pero para nada útiles para la tarea que tenemos que realizar.
-De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clients_]{lang=en-US}.] (ver @sec-cloud) a través de APIs^[Del inglés [_Application Programming Interface_]{lang=en-US}.] que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
+De la misma manera, en el otro lado de la distancia con respecto al hardware, lenguajes de alto nivel como Python también quedan fuera de la discusión por cuestiones de eficiencia computacional. A lo sumo, estos lenguajes interpretados podrían servir para proveer clientes finos^[Del inglés [_thin clientsmpiexec_]{lang=en-US}.] (ver @sec-cloud) a través de APIs^[Del inglés [_Application Programming Interface_]{lang=en-US}.] que puedan llegar a simplificar la definición del (o los) problema(s) que tenga que resolver FeenoX.
 Para resumir una discusión mucho más compleja, los lenguajes candidatos para implementar la herramienta requerida por el SRS podrían ser
 
  a. Fortran
@@ -1448,7 +1448,7 @@ for (unsigned int g = 0; g < neutron_diffusion.groups; g++) {
 }
 ```
 
-En S$_N$, la cantidad de grados de libertadad por nodo es el producto entre $M$ y $G$. Las funciones, como mostramos en la sec-parseo, son `psi1.1`, `psi2.1`, etc. donde el primer índice es $g$ y el segundo es $m$.
+En S$_N$, la cantidad de grados de libertadad por nodo es el producto entre $M$ y $G$. Las funciones, como mostramos en la @sec-parseo, son `psi1.1`, `psi2.1`, etc. donde el primer índice es $g$ y el segundo es\ $m$.
 
 ::: {.remark}
 En la notación matemática de los capítulos [-@sec-transporte-difusion] y [-@sec-esquemas] es más natural escribir $\psi_{mg}$ para la dirección $m$ y el grupo $g$.
@@ -1764,7 +1764,7 @@ La determinación de qué puntos $\vec{x}_i$ están dentro de la hiper-bola de 
 
 Si los puntos de definición están en una grilla multidimensional estructurada rectangularmente (no necesariamente con incrementos uniformes), entonces FeenoX puede detectar la topología implícita y realizar una interpolación local a partir de los vértices del hiper-cubo que contiene el punto de evaluación $\vec{x} \in \mathbb{R}^n$. Esta interpolación local es similar a la explicada a continuación para el caso de topología explícita mediante una generalización de las funciones de forma para los elementos producto-tensor de primer orden a una dimensión arbitraria $k$.
 
-Por ejemplo, si se tiene el siguiente archivo con tres columnas
+Por ejemplo, si tenemos el siguiente archivo con tres columnas
 
  1. $x_i$
  2. $y_i$
@@ -1833,7 +1833,7 @@ En este caso, dada una función $f(\vec{x})$, el procedimiento para evaluarla en
 La forma particular de implementar los puntos 1 y 2 (especialmente el 1) es crucial en términos de perfomance.
 FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, resolvemos un sistema de ecuaciones de tamaño $J$ para encontrar las coordenadas locales $\symbf{\xi}$.
 
-De esta manera, si en lugar de tener los puntos de definición completamente estructurado` de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
+De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology).
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
@@ -2195,7 +2195,7 @@ INTEGRATE 1 RESULT two
 PRINTF_ALL "%g" two
 ```
 
-En este caso, la instrucción `INTEGRATE` se calcula en paralelo donde cada proceso calcula una integral local y antes de pasar a la siguiente instrucción, todos los procesos hacen una operación de reducción mediante la cual se suman todas las contribuciones y todos los procesos obtienen el valor global en la variable `two`:
+En este caso, la instrucción `INTEGRATE` se calcula en paralelo donde cada proceso calcula una integral local y antes de pasar a la siguiente instrucción, todos los procesos hacen una operación de reducción mediante la cual se suman todas las contribuciones y todos los procesos obtienen el valor global en la variable `two`:
 
 ```terminal
 $ mpiexec -n 2 feenox t21.fee 
