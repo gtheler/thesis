@@ -19,6 +19,7 @@ The hash and date of the Git commit use to compile the document goes into
 
 
 
+
 ## Abstract
 
 
@@ -43,11 +44,26 @@ This work sets a basis over which further numerical studies comparing S$_N$ and 
 To compile, the following dependencies are needed
 
  * Git
- * Quarto
+ * Quarto 
  * Pandoc
  * XeLaTeX (make sure you also install the language package for hyphenation patterns, in this case `texlive-lang-spanish`)
  * Inkscape
 
+> [!NOTE]
+> Recent Quarto versions do not work.
+> Use version 1.3.450
+>
+> ```
+> $ wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.3.450/quarto-1.3.450-linux-amd64.deb
+> $ sudo gdebi quarto-1.3.450-linux-amd64.deb
+> $ quarto --version
+> 1.3.450
+> $
+> ``` 
+
+> The Abstract and the appendices are in English, though.
+ 
+ 
 Compile to PDF, HTML and/or epub with make
 
 ```

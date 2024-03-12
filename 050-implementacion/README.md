@@ -458,7 +458,9 @@ Entonces,
 
 En el @sec-neutronica-phwr mencionamos (y en el @sec-sds explicamos en detalle) que la herramienta desarrollada es una especie de "función de transferencia" entre uno o más archivos de entrada y cero o más archivos de salida (incluyendo la salida estándar `stdout`):
 
-{{< transfer.md >}}
+```include
+110-sds/transfer.md
+```
 
 Este archivo de entrada, que a su vez puede incluir otros archivos de entrada y/o hacer referencia a otros archivos de datos (incluyendo la malla en formato `.msh`) contiene palabras clave^[Del inglés [_keywords_]{lang=en-US}.] en inglés que, por decisión de diseño, deben 
 
@@ -1990,13 +1992,13 @@ $
 Por diseño, FeenoX ha sido escrito desde cero teniendo encuentra las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en la @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
 En particular, son de especial aplicación a FeenoX las reglas de
 
- * composición (@sec-composition)
- * separación (@sec-separation)
- * simplicidad (@sec-simplicity)
- * parsimonia (@sec-parsimony)
- * transparencia (@sec-transparency)
- * generación (@sec-generation)
- * diversidad (@sec-diversity)
+ * composición (@sec-unix-composition)
+ * separación (@sec-unix-separation)
+ * simplicidad (@sec-unix-simplicity)
+ * parsimonia (@sec-unix-parsimony)
+ * transparencia (@sec-unix-transparency)
+ * generación (@sec-unix-generation)
+ * diversidad (@sec-unix-diversity)
 
 En particular, se hace especial énfasis en que el problema a resolver esté completamente definido en un archivo de texto tipo ASCII que pueda ser seguido con un sistema de control de versiones tipo Git.
 Las mallas, que no son amenas Git, _no_ son parte del archivo de entrada de FeenoX sino que son referidos a través de una ruta a un archivo separado. La idea es que la malla sea generada a partir de otro archivo ameno a Git, como por ejemplo los archivos de entrada de Gmsh o líneas de código en alguno de los lenguajes para los cuales Gmsh provee una API: Python, Julia, C y C++.

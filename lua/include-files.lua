@@ -94,7 +94,7 @@ function transclude (cb)
         dirsep = package .config :sub( 1, 1 )
         cwd = line
         delimeter = { cwd :find( dirsep, 2 ) }
-        line = "." .. cwd :sub( delimeter [1] or 1 )
+        line = "./" .. cwd :sub( delimeter [1] or 1 )
 
         fh = io.open(line)
         if not fh then

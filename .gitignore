@@ -19,3 +19,6 @@ diff.*
 old.tex
 site_libs/
 math-macros.md
+
+*.pdf.md
+*.html.md

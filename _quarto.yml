@@ -15,7 +15,6 @@ book:
     - front/resumen.md
     - front/abstract.md
     - 010-intro/README.md
-    - 020-neutronica/README.md
     - 030-transporte-y-difusion/README.md
     - 040-discretizacion/README.md
     - 050-implementacion/README.md
