@@ -392,7 +392,7 @@ Este resultado se explica ya que dado un ángulo $\omegaversor$ fijo, para cada
 
 \medskip
 
-Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco (condición que se da si el blanco está fijo en el marco de referencia del reactor sin posibilidad de moverse por efectos térmicos), entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
+Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco, entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
 Siguiendo el desarrollo de la referencia [@stammler], la sección eficaz diferencial es
 
 $$
