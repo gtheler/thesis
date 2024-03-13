@@ -14,7 +14,7 @@ for i in sds licensing transfer lorenz nafems-le10 mazes laplace nafems-le11 bin
   cp ${dir}/doc/${i}.md .
 done
 
-for i in caeplex-ipad; do
+for i in caeplex-ipad jurassicpark; do
   cp ${dir}/doc/${i}.jpg .
 done
 

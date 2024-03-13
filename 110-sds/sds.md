@@ -15,19 +15,19 @@ documentclass: report
 
 [FeenoX](https://www.seamplex.com/feenox/) is a cloud-first computational tool aimed at solving engineering problems with a particular design basis.
 
-### "Cloud first" vs. "cloud friendly" 
+### "Cloud first" vs. "cloud friendly" {#cloud-first .unnumbered}
 
 ```include
 cloud-first.md
 ```
 
-### Unfair advantage
+### Unfair advantage {.unnumbered}
 
 ```include
 word-md-tex.md
 ```
 
-### Licensing
+### Licensing {.unnumbered}
 
 ```include
 licensing.md
