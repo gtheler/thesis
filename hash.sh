@@ -32,7 +32,7 @@ git_hash: ${dateedtf}--${hash}
 format:
   pdf:
     include-in-header: 
-      - text: \\cfoot{${dateedtf}--${hash}}
+      - text: \\cfoot{\\tiny{${dateedtf}--${hash}}}
       - text: \\fecha{${monthyear^}}
 book:
   date: ${dateedtf}
