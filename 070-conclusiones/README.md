@@ -28,12 +28,12 @@ Con esta tesis de alguna manera cerramos dos lazos:
  
  b. Otro más general en el que agregamos el nivel de núcleo a las dos tesis de doctorado
  
-    - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián
-    - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani
+    - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián @nacho
+    - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani @chaco
 
 En ella hemos recorrido los tres aspectos en el no tan tradicional y poco académico pero bastante útil orden 
 
- 1. ¿Por qué? (@sec-introduccion y @sec-neutronica-phwr)
+ 1. ¿Por qué? (@sec-introduccion)
  2. ¿Cómo? (@sec-transporte-difusion y @sec-esquemas)
  3. ¿Qué? (@sec-implementacion y @sec-resultados)
  
@@ -61,7 +61,7 @@ En particular, para las aplicaciones de neutrónica a nivel de núcleo sus carac
  3. es capaz de resolver problemas de tamaño arbitrario haciendo descomposición de dominio y resolviendo cada parte en un proceso MPI
  
 
-De hecho, en el @sec-neutronica-phwr repasamos una de las motivaciones de escribir una herramienta computacional que pueda superar las limitaciones de los códigos tradicionales.
+De hecho, en el @sec-introduccion repasamos las motivaciones para escribir una herramienta computacional que pueda superar las limitaciones de los códigos neutrónicos tradicionales.
 Con dicho fin, en el @sec-transporte-difusion amalgamamos la literatura existente sobre transporte de neutrones para obtener las ecuaciones en derivadas parciales que debemos resolver.
 Y en el @sec-esquemas desarrollamos una de las posibles discretizaciones numéricas para poder resolver efectivamente nuetrónica a nivel de núcleo con una (o más) computadoras digitales.
 Justamente, en el @sec-implementacion discutimos y mostramos una de las virtualmente infinitas maneras de diseñar e implementar una herramienta computacional capaz de resolver estas ecuaciones discretizadas.
@@ -150,4 +150,4 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
  * creación de comunidades libres, abiertas y anti-frágiles
    - académica
    - industrial
- * evaluación de generación de emprendimientos tipo [start up]{lang=en-US} susceptibles de ser incubados en CITES
+ * evaluación de generación de emprendimientos tipo [start up]{lang=en-US} susceptibles de ser invertidos y desarrollados en incubadoras como CITES.

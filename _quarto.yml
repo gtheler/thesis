@@ -70,7 +70,8 @@ format:
     html-math-method: katex
     include-in-header: 
       - file: style.html
-    syntax-definition: feenox.xml
+    syntax-definitions:
+      - feenox.xml
     toc: true
     number-sections: true
     cap-location: bottom

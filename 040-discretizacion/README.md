@@ -4635,24 +4635,24 @@ $$
 En la herramienta computacional desarrolladad, la matriz de estabilización SUPG $\mat{P}_{MGc}$ se calcula de la siguiente manera:
 
 ```c
-  int MG = neutron_sn.directions * neutron_sn.groups;
-  double tau = feenox_var_value(neutron_sn.sn_alpha) * e->type->size(e);
-  
-  gsl_matrix *H_G = feenox_fem_compute_H_Gc_at_gauss(e, q, feenox.pde.mesh->integration);
-  gsl_matrix *B = feenox_fem_compute_B_at_gauss(e, q, feenox.pde.mesh->integration);
-  feenox_call(gsl_matrix_memcpy(neutron_sn.P, H_G));
-  for (unsigned int j = 0; j < neutron_sn.n_nodes; j++) {
-    int MGj = MG*j;
-    for (unsigned int m = 0; m < neutron_sn.directions; m++) {
-      for (unsigned int d = 0; d < feenox.pde.dim; d++) {
-        double value = tau * neutron_sn.Omega[m][d] * gsl_matrix_get(B, d, j);
-        for (unsigned int g = 0; g < neutron_sn.groups; g++) {
-          int diag = sn_dof_index(m,g);
-          gsl_matrix_add_to_element(neutron_sn.P, diag, MGj + diag, value);
-        }
+int MG = neutron_sn.directions * neutron_sn.groups;
+double tau = feenox_var_value(neutron_sn.sn_alpha) * e->type->size(e);
+
+gsl_matrix *H_G = feenox_fem_compute_H_Gc_at_gauss(e, q, feenox.pde.mesh->integration);
+gsl_matrix *B = feenox_fem_compute_B_at_gauss(e, q, feenox.pde.mesh->integration);
+feenox_call(gsl_matrix_memcpy(neutron_sn.P, H_G));
+for (unsigned int j = 0; j < neutron_sn.n_nodes; j++) {
+  int MGj = MG*j;
+  for (unsigned int m = 0; m < neutron_sn.directions; m++) {
+    for (unsigned int d = 0; d < feenox.pde.dim; d++) {
+      double value = tau * neutron_sn.Omega[m][d] * gsl_matrix_get(B, d, j);
+      for (unsigned int g = 0; g < neutron_sn.groups; g++) {
+        int diag = sn_dof_index(m,g);
+        gsl_matrix_add_to_element(neutron_sn.P, diag, MGj + diag, value);
       }
     }
   }
+}
 ```
 :::
 

@@ -40,7 +40,7 @@
 {{< include ../math-macros.md >}}
 
 Hay virtualmente infinitas maneras de diseñar un programa para que una computadora realice una determinada tarea.
-Y otras infinitas maneras de implementarlo. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/) (ver @sec-faq para una explicación del nombre), fue diseñada siguiendo un patrón frecuente en la industria de software:
+Y otras infinitas maneras de implementarlo. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/) @feenox-2024 (ver @sec-faq para una explicación del nombre), fue diseñada siguiendo un patrón frecuente en la industria de software:
 
  1. el "cliente" define un documento denominado [_Sofware Design Requirements_]{lang=en-US}, y
  2. el "proveedor" indica cómo cumplirá esos requerimientos en un [_Sofware Design Specifications_]{lang=en-US}. Una vez que ambas partes están de acuerdo, se comienza con el proyecto de ingeniería en sí con [_kick-off meetings_]{lang=en-US}, certificaciones de avance, órdenes de cambio, etc.
@@ -410,22 +410,22 @@ Pero,
  a. este _único_ bloque de condiciones `if` se ejecutan una sola vez en el momento de analizar gramaticalmente^[Del inglés [_parse_]{lang=en-US}.] el archivo de entrada y lo que hacen es resolver un apuntador a función a la dirección de memoria de una rutina de inicialización particular que el framework debe llamar antes de comenzar a construir $\mat{K}$ y $\vec{b}$:
  
     ```c
-      if (strcasecmp(token, "laplace") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_laplace;
-      } else if (strcasecmp(token, "mechanical") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_mechanical;
-      } else if (strcasecmp(token, "modal") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_modal;
-      } else if (strcasecmp(token, "neutron_diffusion") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_diffusion;
-      } else if (strcasecmp(token, "neutron_sn") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_sn;
-      } else if (strcasecmp(token, "thermal") == 0) {
-        feenox.pde.init_parser_particular = feenox_problem_init_parser_thermal;
-      } else {
-        feenox_push_error_message("unknown problem type '%s'", token);
-        return FEENOX_ERROR;
-      }
+    if (strcasecmp(token, "laplace") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_laplace;
+    } else if (strcasecmp(token, "mechanical") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_mechanical;
+    } else if (strcasecmp(token, "modal") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_modal;
+    } else if (strcasecmp(token, "neutron_diffusion") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_diffusion;
+    } else if (strcasecmp(token, "neutron_sn") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_neutron_sn;
+    } else if (strcasecmp(token, "thermal") == 0) {
+      feenox.pde.init_parser_particular = feenox_problem_init_parser_thermal;
+    } else {
+      feenox_push_error_message("unknown problem type '%s'", token);
+      return FEENOX_ERROR;
+    }
     ```
 
     Estas funciones de inicialización a su vez resuelven los apuntadores a función particulares para evaluar contribuciones elementales volumétricas en puntos de Gauss, condiciones de contorno, post-procesamiento, etc.
@@ -803,22 +803,22 @@ done
 Esto generaría el bloque de `if`s feo que ya mencionamos en `parse.c`
 
 ```c
-  if (strcasecmp(token, "laplace") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_laplace;
-  } else if (strcasecmp(token, "mechanical") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_mechanical;
-  } else if (strcasecmp(token, "modal") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_modal;
-  } else if (strcasecmp(token, "neutron_diffusion") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_diffusion;
-  } else if (strcasecmp(token, "neutron_sn") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_sn;
-  } else if (strcasecmp(token, "thermal") == 0) {
-    feenox.pde.parse_problem = feenox_problem_parse_problem_thermal;
-  } else {
-    feenox_push_error_message("unknown problem type '%s'", token);
-    return FEENOX_ERROR;
-  }
+if (strcasecmp(token, "laplace") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_laplace;
+} else if (strcasecmp(token, "mechanical") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_mechanical;
+} else if (strcasecmp(token, "modal") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_modal;
+} else if (strcasecmp(token, "neutron_diffusion") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_diffusion;
+} else if (strcasecmp(token, "neutron_sn") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_neutron_sn;
+} else if (strcasecmp(token, "thermal") == 0) {
+  feenox.pde.parse_problem = feenox_problem_parse_problem_thermal;
+} else {
+  feenox_push_error_message("unknown problem type '%s'", token);
+  return FEENOX_ERROR;
+}
 ```
 
 que son llamadas desde el parser general luego de haber leído la definición `PROBLEM`.

@@ -42,9 +42,7 @@ Los desarrollos aquí descriptos han sido claramente inspirados por estos tres p
 Es esta una tesis escrita durante los fines de semana por un profesional de la industria del software de cálculo numérico sin los condicionamientos particulares de la academia, la industria ni el emprendedurismo.
 Representa entonces, una manera de poder evaluar---dentro de las capacidades y responsabilidades que me atañen---la diferencia entre lo urgente y lo importante como propone Mafalda (@fig-mafalda).
 
----
-comment: Como muestra del sentido de excepción al que he hecho referencia, el @sec-resultados en la ciudad de Las Vegas donde tuve la oportunidad de viajar  específicamente para dedicarme a esa parte de la tesis. Tengo un mercedes, mi esposa un BMW y un hijo que tuvo leucemia y quedó discapacitado. Así que vayan tomándole el peso.
-...
+
 
 ![Mafalda, lo urgente y lo importante.](mafalda.png){#fig-mafalda}
 
@@ -79,7 +77,7 @@ Los últimos dos capítulos ([what]{lang=en-US}) contienen el núcleo de la cont
 
 ## Cien años de programación
 
-Durante mi paso por la industria nuclear en el completamiento de la Central Nuclear Atucha II (punto 2) he tenido la experiencia de emplear herramientas computacionales de cálculo neutrónico, termohidráulico y de control @dypra-stni.
+Durante mi paso por la industria nuclear en el completamiento de la Central Nuclear Atucha II (el segundo punto de los tres con los que comienza este capítulo) he tenido la experiencia de emplear herramientas computacionales de cálculo neutrónico, termohidráulico y de control @dypra-stni.
 Por razones que no viene al caso analizar, aún en la década de 2010, mucho del software empleado había sido diseñado originalmente varias décadas antes cuando los paradigmas computacionales eran radicalmente diferentes.
 Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo de la hora de CPU de las computadoras usualmente utilizadas para cálculos nucleares en 1965 @computadoras65.
 
@@ -101,7 +99,7 @@ Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo 
 
 : [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a}
 
-Tabla "Las nuevas computadoras de alta velocidad de 1965" número de la referencia @computadoras65. Los costos están expresados en dólares americanos de 1965 y pueden variar en un factor de dos. Un dólar de 1965 equivale a USD 10 de 2024.
+Tabla "Las nuevas computadoras de alta velocidad de 1965" de la referencia @computadoras65. Los costos están expresados en dólares americanos de 1965 y pueden variar en un factor de dos. Un dólar de 1965 equivale a USD 10 de 2024.
 :::
 
 
@@ -184,7 +182,7 @@ Cada uno de estos cuatro puntos está detalladamente explicado en el cuerpo de l
   * la discretización del dominio utilizando mallas no estructuradas, potencialmente realizando descomposición de dominio
   * la posibilidad de escalar en paralelo mediante y poder resolver problemas de tamaño arbitrario
   
-constituyen el [unfair advantage]{lang=en-US}---en el sentido del [canvas]{lang=en-US} de modelo de negocios---de la herramienta desarrollada.
+constituyen el [unfair advantage]{lang=en-US}---en el sentido del [canvas]{lang=en-US} de modelo de negocios---de la herramienta desarrollada @feenox-2024.
 
 Pero es la combinación de todos ellos la que configura la propuesta de la tesis, minuciosamente explicada en la @sec-propuestas: poder disponer de una herramienta computacional que permita resolver problemas de neutrónica a nivel de núcleo de tamaño arbitrario a través de la escalabilidad en paralelo basado en el estándar MPI. Lo importante es que, como mostramos en el @sec-resultados, al hacer una descomposición del dominio y de alguna manera "repartir" la carga computacional---especialmente la memoria RAM que usualmente es el recurso limitante---en varios procesos. Esto hace posible resolver problemas formulados con S$_N$ en mallas no estructuradas en principio de tamaño arbitrario y, eventualmente, poder compararlos con la aproximación de difusión que es computacionalmente mucho menos demandante. Para ello se necesita sobrepasar las limitaciones de las herramientas neutrónicas tradicionales (@sec-limitaciones), que es lo que proponemos en esta tesis.
 
