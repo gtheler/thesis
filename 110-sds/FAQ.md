@@ -16,11 +16,36 @@ In increasing order of complexity and comprehensiveness, these resources explain
  * The [examples](https://www.seamplex.com/feenox/examples) will give a brief overview of what FeenoX can do.
  * The [tutorials](https://www.seamplex.com/feenox/tutorials) will walk your through how to use FeenoX to solve problems.
  * The [README](https://www.seamplex.com/feenox/) in the [GitHub repository](https://github.com/seamplex/feenox/) has a brief introduction (after explaining why).
+ * Theler, J. (2024). FeenoX: a cloud-first finite-element(ish) computational engineering tool. Journal of Open Source Software, 9(95), 5846. <https://doi.org/10.21105/joss.05846>
  * There is also a [description](https://www.seamplex.com/feenox/feenox-desc.html) in the [documentation](https://seamplex.com/feenox/doc/).
  * FeenoX is an "offer" to a fictitious "tender" for a computational tool. The RFQ is the [Software Requirements Specification](https://www.seamplex.com/feenox/srs.pdf) and the explanation of how FeenoX addresses each requirement is the [Software Design Specification](https://www.seamplex.com/feenox/doc/srs.pdf).
  * This [presentation from August 2021]((https://www.seamplex.com/feenox/2021-feenox.pdf)) explains the SRS/SDS pair. The sources and the examples can be found in [this Github repository](https://github.com/gtheler/2021-presentation). There is a [recording of the presentation]((https://youtu.be/-RJ5qn7E9uE)) (audio is in Spanish).
  * Finally the [manual](https://www.seamplex.com/feenox/feenox-manual.pdf) will be the ultimate guide.
 
+
+# How should I cite FeenoX?
+
+If you use FeenoX and need to cite it, use this [BiBTeX](https://www.bibtex.org/) entry that points to [the 2024 paper in JOSS](https://joss.theoj.org/papers/10.21105/joss.05846):
+
+```bib
+@article{feenox-2024,
+author = {Theler, Jeremy},
+doi = {10.21105/joss.05846},
+journal = {Journal of Open Source Software},
+month = mar,
+number = {95},
+pages = {5846},
+title = {{FeenoX: a cloud-first finite-element(ish) computational engineering tool}},
+url = {https://joss.theoj.org/papers/10.21105/joss.05846},
+volume = {9},
+year = {2024}
+}
+```
+
+If you are not using BiBTeX (which you should), just use the plain-text APA format:
+
+
+Theler, J. (2024). FeenoX: a cloud-first finite-element(ish) computational engineering tool. Journal of Open Source Software, 9(95), 5846. <https://doi.org/10.21105/joss.05846>
 
 
 # What does FeenoX mean?
@@ -35,9 +60,15 @@ It does not mean anything particular, but
  * With some luck one can read "Finite ElEments NO-X"
  * With mode luck, "FrEE" (as in "free speech")
 
+# How should FeenoX be pronounced.
+
+It would be something like _fee_-_naaks_: /fiːnɒks/
+But whatever works for you is fine. 
+ 
 ```include
 double-click.md
 ```
+
 
 # How do I create input decks for FeenoX?
 

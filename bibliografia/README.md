@@ -10,3 +10,7 @@
 
 ::: {#refs}
 :::
+
+```{=latex}
+\includepdf[pages={1-},frame,scale=0.85,pagecommand={\pagestyle{plain}}]{bibliografia/10.21105.joss.05846.pdf}
+```

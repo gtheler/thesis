@@ -138,6 +138,7 @@ format:
           %\rohead{\leftmark}
           \usepackage{caption}
           \captionsetup[table]{name=Tabla}
+          \usepackage{pdfpages}
     include-before-body:
       - file: syntax-feenox.tex
       - file: syntax-geo.tex

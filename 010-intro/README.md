@@ -159,7 +159,10 @@ Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HI
  
 Combinando estos requerimientos del SRS (@sec-srs) y la forma en la que se abordan desde el punto de vista del diseño en el SDS (@sec-sds) e implementación (@sec-implementacion), considero que la contribución de esta tesis es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
 Más aún, teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
-A modo de ejemplo de la clase de contribución que propongo, consideremos la @fig-iaea-3dpwr-eighth-circular-flux-s4. Ella muestra el resultado de haber resuelto el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA (analizado y discutido en detalle en la @sec-2dpwr) pero...
+A modo de ejemplo de la clase de contribución que propongo, consideremos el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA en 1976 (@fig-iaea3d-orig). La @fig-iaea-3dpwr-eighth-circular-flux-s4 muestra el resultado de haber resuelto el problema pero...
+
+![Formulación original del benchmark PWR 3D de IAEA. Resolvemos en detalle este problema en la @sec-2dpwr.](iaea3d-orig){#fig-iaea3d-orig}
+
 
  1. con una simetría 1/8 en lugar de la simetría 1/4 original,
  2. con un reflector cilíndrico en lugar de un reflector compuesto por planos paralelos a los ejes cartesianos,

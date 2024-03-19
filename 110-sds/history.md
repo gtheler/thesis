@@ -36,7 +36,7 @@ During my years of undergraduate student (circa 2004--2007), whenever I had to s
 Of course, each option had its pros and its cons. But none provided the combination of advantages I was looking for, namely flexibility (option one), efficiency (option two) and reduced input work (partially given by option three). Back in those days I ended up wandering between options one and two, depending on the type of problem I had to solve. However, even though one can, with some effort, make the code read some parameters from a text file, any other drastic change usually requires a modification in the source code---some times involving a substantial amount of work---and a further recompilation of the code. This was what I most disliked about this way of working, but I could nevertheless live with it.
 
 Regardless of this situation, during my last year of Nuclear Engineering, the tipping point came along.
-Here's a slightly-fictionalized of a dialog between myself and the teacher at the computer lab, as it might have happened (or not):
+Here's a slightly-fictionalized of a dialog between myself and the teacher at the computer lab (Dr E.), as it might have happened (or not):
 
 >   
 > --- (Prof.) Open MATLAB.™  
