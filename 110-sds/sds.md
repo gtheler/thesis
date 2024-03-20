@@ -2322,6 +2322,7 @@ The version is composed of three dot-separted integers:
  #. the revision (individual commits from last tag)
 
 The `autogen.sh` script builds this string at compile time, which is stored in a header and finally embedded into the executable.
+The major $m$ and minor $n$ integers are read from the git tag formatted as `vm.n`, which is bumped manually by adding an annotated tag to a particular commit. The revision is computed automatically with `git describe` as the number of commits in the main branch from the tag to the last commit. The hash is also added to avoid ambiguities in case the repository is forked and diverged from the official one.
 Periodically, source and binary tarballs are built (using automated scripts in the `dist` subdirectory) and published online.
 
 Given the input-file scheme thoroughfully explained in @sec-input---especially the separation of the problem formulation from the mesh data--the input files can be tracked with Git (or any other VCS) as well, therefore enhancing traceability of results and data governance.
@@ -2359,6 +2360,54 @@ double rhs = -h*Tref;
 then the `make check` step will detect it:
 
 ```terminal
+$ make check
+Making check in src
+make[1]: Entering directory '/home/gtheler/codigos/feenox/src'
+make[1]: Nothing to be done for 'check'.
+make[1]: Leaving directory '/home/gtheler/codigos/feenox/src'
+make[1]: Entering directory '/home/gtheler/codigos/feenox'
+cp -r src/feenox .
+make  check-TESTS
+make[2]: Entering directory '/home/gtheler/codigos/feenox'
+make[3]: Entering directory '/home/gtheler/codigos/feenox'
+XFAIL: tests/abort.sh
+PASS: tests/algebraic_expr.sh
+PASS: tests/annulus-modal.sh
+PASS: tests/uo2-pellet.sh
+PASS: tests/arguments.sh
+[...]
+PASS: tests/t21.sh
+FAIL: tests/thermal-1d.sh
+PASS: tests/thermal-2d.sh
+FAIL: tests/thermal-3d.sh
+XFAIL: tests/thermal-slab-no-k.sh
+XFAIL: tests/thermal-slab-wrong-bc.sh
+FAIL: tests/thermal-radiation.sh
+PASS: tests/transient-mesh.sh
+PASS: tests/trig.sh
+[...]
+============================================================================
+Testsuite summary for feenox 1.0.7
+============================================================================
+# TOTAL: 75
+# PASS:  64
+# SKIP:  2
+# XFAIL: 6
+# FAIL:  3
+# XPASS: 0
+# ERROR: 0
+============================================================================
+See ./test-suite.log
+Please report to jeremy@seamplex.com
+============================================================================
+make[3]: *** [Makefile:1723: test-suite.log] Error 1
+make[3]: Leaving directory '/home/gtheler/codigos/feenox'
+make[2]: *** [Makefile:1831: check-TESTS] Error 2
+make[2]: Leaving directory '/home/gtheler/codigos/feenox'
+make[1]: *** [Makefile:2585: check-am] Error 2
+make[1]: Leaving directory '/home/gtheler/codigos/feenox'
+make: *** [Makefile:1608: check-recursive] Error 1
+$ 
 ```
 
 ## Bug reporting and tracking
