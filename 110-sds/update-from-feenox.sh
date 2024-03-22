@@ -18,7 +18,7 @@ for i in caeplex-ipad jurassicpark; do
   cp ${dir}/doc/${i}.jpg .
 done
 
-for i in cantilever-tet cantilever-hex nafems-le1-struct-metis nafems-le1-unstruct-metis two-squares-temperature two-squares-conductivity nureg cne caeplex-progress highlighting-kate highlighting-vim mechanical-square-temperature mechanical-square-uniform fins-temp utf8-kate utf8-shell thermal-square-temperature mechanical-square-temperature-from-msh nafems-le10 maze-homer maze12 maze3 gmsh-maze maze-sigma maze-delta maze-theta maze-big laplace-square-gmsh laplace-square-paraview nafems-le11-problem nafems-le11-temperature nafems-le11-sigmaz nafems-le10-caeplex front-back; do
+for i in cantilever-tet cantilever-hex nafems-le1-struct-metis nafems-le1-unstruct-metis two-squares-temperature two-squares-conductivity nureg cne caeplex-progress highlighting-kate highlighting-vim mechanical-square-temperature mechanical-square-uniform fins-temp utf8-kate utf8-shell thermal-square-temperature mechanical-square-temperature-from-msh nafems-le10 maze-homer maze12 maze3 gmsh-maze maze-sigma maze-delta maze-theta maze-big laplace-square-gmsh laplace-square-paraview nafems-le11-problem nafems-le11-temperature nafems-le11-sigmaz nafems-le10-caeplex front-back issues manpage manpage-gnome integrate-html integrate-man integrate-md integrate-pdf; do
   cp ${dir}/doc/${i}.png .
 done 
 
