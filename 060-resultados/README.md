@@ -18,7 +18,7 @@
 
 \vspace{-1cm plus 0.5cm minus 0.5cm}
 
-En este capítulo mostramos diez problemas resueltos con la herramienta computacional FeenoX descripta en el @sec-implementacion que ilustran algunas de sus características particulares.
+En este capítulo mostramos diez problemas resueltos con la herramienta computacional FeenoX descripta en el [capítulo @sec-implementacion] que ilustran algunas de sus características particulares.
 Cada uno de estos diez problemas no puede ser resuelto con un [solver]{lang=en-US} neutrónico a nivel núcleo que no soporte alguno de los cuatro puntos distintivos de FeenoX:
 
  a. Filosofía Unix, integración en scripts y simulación programática

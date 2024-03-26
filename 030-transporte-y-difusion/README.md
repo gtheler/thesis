@@ -27,7 +27,7 @@
 
 En este capítulo introducimos las ecuaciones que modelan el transporte de neutrones en el núcleo de un reactor nuclear con los siguientes objetivos:
 
- 1. Fijar la matemática de las ecuaciones continuas sobre las que se basa la implementación computacional detallada en el @sec-implementacion de las ecuaciones de neutrónica discretizadas derivadas en el @sec-esquemas.
+ 1. Fijar la matemática de las ecuaciones continuas sobre las que se basa la implementación computacional detallada en el [capítulo @sec-implementacion] de las ecuaciones de neutrónica discretizadas derivadas en el [capítulo @sec-esquemas].
  2. Declarar las suposiciones, aproximaciones y limitaciones de los modelos matemáticos utilizados.
  3. Definir una nomenclatura consistente para el resto de la tesis, incluyendo los nombres de las variables en el código fuente.
 
@@ -284,7 +284,7 @@ $$
 
 Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ en la @eq-sigmasmu es recurrir a una expansión en polinomios de Legendre.
 En efecto, para una cierta posición $\vec{x}$ y dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmasmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable.
-Entonces podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). En particular, aparece para que en la @eq-sigmastys0 ambos miembros tengan coeficientes unitaros. Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a expresiones finales igualmente válidas, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el @sec-implementacion. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. La referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendre.]
+Entonces podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). En particular, aparece para que en la @eq-sigmastys0 ambos miembros tengan coeficientes unitaros. Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a expresiones finales igualmente válidas, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el [capítulo @sec-implementacion]. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. La referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendre.]
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\mu)
@@ -1406,7 +1406,7 @@ $${#eq-qfiso}
 Ni la @eq-qsiso ni la @eq-qfiso dependen de la dirección $\omegaversor$.
 :::
 
-### Ecuación de transporte linealmente anisotrópica en estado estacionario
+### Transporte linealmente anisotrópico en estado estacionario
 
 En esta tesis hacemos foco en el caso
 
@@ -2306,6 +2306,6 @@ A partir de biblioctecas de secciones eficaces microscópica se procede a realiz
 
 ### Cálculo a nivel núcleo
 
-Este nivel de cálculo es el punto central de esta tesis, especialmente en el @sec-esquemas y en el @sec-resultados.
+Este nivel de cálculo es el punto central de esta tesis, especialmente en los capítulos [-@sec-esquemas] y [-@sec-resultados].
 Las secciones eficaces macroscópicas que son los coeficientes de las ecuaciones de ordenadas discretas y difusión de neutrones multigrupo se suponene funciones conocidas del espacio.
 

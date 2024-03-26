@@ -33,9 +33,9 @@ Con esta tesis de alguna manera cerramos dos lazos:
 
 En ella hemos recorrido los tres aspectos en el no tan tradicional y poco académico pero bastante útil orden 
 
- 1. ¿Por qué? (@sec-introduccion)
- 2. ¿Cómo? (@sec-transporte-difusion y @sec-esquemas)
- 3. ¿Qué? (@sec-implementacion y @sec-resultados)
+ 1. ¿Por qué? ([cap. @sec-introduccion])
+ 2. ¿Cómo? ([cap. @sec-transporte-difusion] y [-@sec-esquemas])
+ 3. ¿Qué? ([cap. @sec-implementacion] y [-@sec-resultados])
  
 La idea del desarrollo se basa en comenzar con un documento ficticio (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
 FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).
@@ -50,7 +50,7 @@ En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US}
  * es un back end diseñado para poder ser manejado con diferentes front ends (@fig-front-back)
  * sigue la filosofía de diseño Unix (@sec-unix) que es perfectamente aplicable al concepto de [_cloud-first_]{lang=en-US}
  * provee una interfaz amena a la simulación programática (@sec-simulacion-programatica)
- * es extremadamente flexible y puede resolver una gran variedad de problemas, desde los más simples con propiedades uniformes hasta los más complejos donde las propiedades de los materiales pueden depender del espacio de maneras no triviales (@sec-resultados)
+ * es extremadamente flexible y puede resolver una gran variedad de problemas, desde los más simples con propiedades uniformes hasta los más complejos donde las propiedades de los materiales pueden depender del espacio de maneras no triviales ([capítulo @sec-resultados])
  * es a los programas tradicionales (CalculiX, CodeAster) y a las bibliotecas de elementos finitos (Sparselizard, MoFEM) lo que [Markdown]{lang=en-US} es a procesadores de texto (Word, Google Docs) y a sistemas de tipografía (TeX)
  * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un [solver]{lang=en-US} desde cero
  
@@ -62,10 +62,10 @@ En particular, para las aplicaciones de neutrónica a nivel de núcleo sus carac
  
 
 De hecho, en el @sec-introduccion repasamos las motivaciones para escribir una herramienta computacional que pueda superar las limitaciones de los códigos neutrónicos tradicionales.
-Con dicho fin, en el @sec-transporte-difusion amalgamamos la literatura existente sobre transporte de neutrones para obtener las ecuaciones en derivadas parciales que debemos resolver.
-Y en el @sec-esquemas desarrollamos una de las posibles discretizaciones numéricas para poder resolver efectivamente nuetrónica a nivel de núcleo con una (o más) computadoras digitales.
-Justamente, en el @sec-implementacion discutimos y mostramos una de las virtualmente infinitas maneras de diseñar e implementar una herramienta computacional capaz de resolver estas ecuaciones discretizadas.
-Finalmente, en el @sec-resultados mostramos diez problemas que necesitan al menos una de las características distintivas de FeenoX para poder ser resueltos en forma satisfactoria.
+Con dicho fin, en el [capítulo @sec-transporte-difusion] amalgamamos la literatura existente sobre transporte de neutrones para obtener las ecuaciones en derivadas parciales que debemos resolver.
+Y en el [capítulo @sec-esquemas] desarrollamos una de las posibles discretizaciones numéricas para poder resolver efectivamente nuetrónica a nivel de núcleo con una (o más) computadoras digitales.
+Justamente, en el [capítulo @sec-implementacion] discutimos y mostramos una de las virtualmente infinitas maneras de diseñar e implementar una herramienta computacional capaz de resolver estas ecuaciones discretizadas.
+Finalmente, en el [capítulo @sec-resultados] mostramos diez problemas que necesitan al menos una de las características distintivas de FeenoX para poder ser resueltos en forma satisfactoria.
  
 
 ## Trabajos futuros {#sec-trabajos-futuros}

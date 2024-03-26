@@ -1,4 +1,4 @@
-# Slab a dos zonas, efecto cúspide por dilución de XSs {#sec-slab}
+# Slab a dos zonas: efecto cúspide por dilución de XSs {#sec-slab}
 
 > **TL;DR:** Este problema ilustra el error cometido al analizar casos multi-material con mallas estructuradas donde la interfaz no coincide con los nodos de la malla (y la flexibilidad de FeenoX para calcular y comparar soluciones analíticas con soluciones numéricas).
 

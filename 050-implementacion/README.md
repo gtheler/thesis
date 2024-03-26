@@ -2003,10 +2003,10 @@ En particular, son de especial aplicación a FeenoX las reglas de
 En particular, se hace especial énfasis en que el problema a resolver esté completamente definido en un archivo de texto tipo ASCII que pueda ser seguido con un sistema de control de versiones tipo Git.
 Las mallas, que no son amenas Git, _no_ son parte del archivo de entrada de FeenoX sino que son referidos a través de una ruta a un archivo separado. La idea es que la malla sea generada a partir de otro archivo ameno a Git, como por ejemplo los archivos de entrada de Gmsh o líneas de código en alguno de los lenguajes para los cuales Gmsh provee una API: Python, Julia, C y C++.
 
-Otro ejemplo de ideas de Unix implementadas en FeenoX es la posibilidad de realizar estudios paramétricos leyendo parámetros por la línea de comandos, como explicamos en la @sec-simulacion-programatica y que utilizamos extensivamente en el @sec-resultados. Esto permite que los parámetros a evaluar puedan ser generados por scripts de Bash (que es lo que mayormente usamos en esta tesis) pero también en Python (ver @sec-tres-pescaditos). 
+Otro ejemplo de ideas de Unix implementadas en FeenoX es la posibilidad de realizar estudios paramétricos leyendo parámetros por la línea de comandos, como explicamos en la @sec-simulacion-programatica y que utilizamos extensivamente en el [capítulo @sec-resultados]. Esto permite que los parámetros a evaluar puedan ser generados por scripts de Bash (que es lo que mayormente usamos en esta tesis) pero también en Python (ver @sec-tres-pescaditos). 
 
 La decisión de utilizar bibliotecas numéricas libres, abiertas y bien establecidas también---de alguna manera---responde a un de las ideas de la filosofía Unix: [do not repeat yourself!]{lang=en-US}
-No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el @sec-esquemas. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al [solver]{lang=en-US} neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
+No tiene ningún sentido ponerse a programar los métodos numéricos necesarios para resolver las ecuaciones algebraicas discretizadas desarrolladas en el [capítulo @sec-esquemas]. No sólo el trabajo ya está hecho y disponible en forma libre y abierta sino que es muy poco probable que el código propio sea más eficiente que el código de PETSc y SLEPc que involucra varios años-hombre de matemáticos y programadores profesionales. Más aún, si algún investigador (que tal vez es uno de estos mismos matemáticos o programadores) descubre algún método o algoritmo más eficiente, una actualización de la biblioteca proveería al [solver]{lang=en-US} neutrónico con estos nuevos métodos incrementando su performance casi automáticamente.
 
 ::: {.remark}
 El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un nuevo esquema de [_coarsening_]{lang=en-US} que, para algunos problemas con ciertas opciones de optimización en el compilador, es más rápido que en la versión 3.19.
@@ -2135,7 +2135,7 @@ Pregunta mucho más difícil de responder pero mucho más valiosa y apropiada.
 En la @sec-architecture ilustramos brevemente esta idea. ¿Cuál es la combinación de herramientas que minimiza el costo total de resolver un laberinto arbitrario (@fig-maze-homer) en términos de tiempo de ingeniería más computación? 
 
 En relación directa a este concepto de economía de horas de ingeniería por horas de CPU está una de las ideas básicas del diseño de FeenoX. Estrictamente hablando es la regla del silencio de Unix pero fue una de las primeras lecciones aprendidas por este que escribe al trabajar en la industria nuclear con códigos escritos en la década de 1970.
-Como ya discutimos en el @sec-introduccion, en esos años cada hora de CPU era mucho más cara que cada hora del ingeniero a cargo de un cálculo. Es por eso que la regla de diseño de esos códigos de cálculo era "escribir en la salida todo lo que se calcula" ya que de necesitar un resultado calculado que no formara o parte de la salida obligaría al ingeniero a volver a ejecutar el costoso cálculo.
+Como ya discutimos en el [capítulo @sec-introduccion], en esos años cada hora de CPU era mucho más cara que cada hora del ingeniero a cargo de un cálculo. Es por eso que la regla de diseño de esos códigos de cálculo era "escribir en la salida todo lo que se calcula" ya que de necesitar un resultado calculado que no formara o parte de la salida obligaría al ingeniero a volver a ejecutar el costoso cálculo.
 Hoy en día la lógica es completamente opuesta y, en general, es mucho más conveniente volver a realizar un cálculo que tener que buscar agujas en pajares ASCII de varios megabytes de tamaño.
 Es por eso que en FeenoX la salida está 100% definida en el archivo de entrada. Y de no haber ninguna instrucción tipo `PRINT` o `WRITE_RESULTS` no habrá ninguna salida para el ingeniero.
 
@@ -2145,7 +2145,7 @@ Debido a que "todo es una expresión", FeenoX puede saber luego de parsear el ar
 
 De todas maneras no está de más estudiar detalladamente las formas de reducir el consumo de recursos computacionales para resolver un cierto problema de ingeniería, especialmente si el código va a ser usado masivamente en la nube. A la larga, esto repercurtirá en menores costosy en menor consumo energético. Algunos puntos para continuar estudiando:
  
- * El algoritmo de construcción de las matrices elementales para S$_N$ es de lo más naïve y replica las ecuaciones algebraicas desarrolladas en el @sec-esquemas, lo que no suele ser una buena opción desde el punto de vista de análisis de algoritmos @knuth97. El tamaño de dichas matrices aumenta rápido con $N$ y son, a la vez, esencialmente ralas.
+ * El algoritmo de construcción de las matrices elementales para S$_N$ es de lo más naïve y replica las ecuaciones algebraicas desarrolladas en el [capítulo @sec-esquemas], lo que no suele ser una buena opción desde el punto de vista de análisis de algoritmos @knuth97. El tamaño de dichas matrices aumenta rápido con $N$ y son, a la vez, esencialmente ralas.
 
  * Aún cuando personalmente no comparta la idea de escribir nuevo código de cálculo en Fortran 77, debo reconocer que ésta tiene un punto interesante que debemos considerar. Dado que el modelo de memoria de Fortran 77 es muy limitado, el compilador puede hacer buenas optimizaciones automáticamente porque está seguro de que no hay apuntadores apuntando a lugares inapropiados o que puede haber ciertas condiciones que, aunque poco probables, no permitan emplear algoritmos rápidos o utilizar eficientemente los registros del procesador. Esto en C no sucede automáticamente y es responsabilidad del programador emplear apropiadamente palabras clave reservadas como `const` y `restrict` para lograr el mismo nivel de optimización. Se deja también este análisis parte de los trabajos futuros.
 
@@ -2158,9 +2158,9 @@ De todas maneras no está de más estudiar detalladamente las formas de reducir 
 ### Escalabilidad {#sec-escalabilidad}
 
 La idea de la escalabilidad de FeenoX viene de la posibilidad de resolver problemas arbitrariamente grandes mediante la paralelización con el estándar MPI [@intro-parallel;@mpi].
-Tal como mostramos y discutimos en el @sec-resultados, el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidad de procesos para un problema de tamaño fijo.
+Tal como mostramos y discutimos en el [capítulo @sec-resultados], el hecho de que la ejecución en paralelo haga que el tiempo real necesario para obtener los resultados de resolver una ecuación en derivadas parciales es secundario con respecto al hecho de que la memoria por proceso MPI disminuye a medida que aumenta la cantidad de procesos para un problema de tamaño fijo.
 
-Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de descomposición de dominios. Pero, como también mostramos en el @sec-resultados, la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
+Dicho esto, hay mucho trabajo por hacer en relación a la optimización de las ejecuciones en paralelo y en la interacción con bibliotecas de descomposición de dominios. Pero, como también mostramos en el [capítulo @sec-resultados], la funcionalidad básica de ejecución en paralelo se encuentra disponible en la versión actual de FeenoX.
 
 ::: {.remark}
 Siguiendo las recomendaciones (tanto escritas como orales) de los desarrolladores de PETSc, no se considera en ningún momento la implementación de paralelización basada en OpenMP^[No confundir con OpenMPI que es una de las varias implementaciones del estándar MPI y que sí es soportada por FeenoX.]. Por un lado no hay evidencia de que este tipo de paralelización basada en threads provea una mejor performance que la paralelización de MPI basada en procesos. Por otro lado, el incremento de la cantidad de threads de OpenMP nunca va a redundar en una disminución de la memoria necesaria para resolver un problema de tamaño fijo ya que los threads son locales y no pueden ser separados en diferentes [hosts]{lang=en-US} con diferentes características de memoria RAM.
@@ -2310,7 +2310,7 @@ Estos scripts se suelen conocer como "[thin clients]{lang=en-US}", podrían simp
  #. ejecutar las herramientas computacionales (Gmsh, FeenoX, etc.)
  #. bajar los resultados
  
-Pero también podrían diseñarse clientes más complejos que incluyan APIs relacionadas a la simulación en sí.
+Pero también podrían diseñarse clientes (y servidores) más complejos que incluyan llamadas a APIs tipo REST relacionadas a la simulación en sí.
 Por ejemplo, que manejen temas como
 
  * autenticación
@@ -2389,7 +2389,7 @@ El Ing. Nuclear Ramiro Vignolo ha desarrollado
 en la segunda versión del código, mostrando que ya era posible la extensibilidad en la arquitectura anterior aún cuando todavía no era éste uno de los puntos de la base de diseño.
 :::
  
-En las conclusiones del @sec-conclusiones hacemos un listado extensivo de posibles características que podrían ser implementadas sin necesidad de realizar grandes refactorizaciones al código base.
+En las conclusiones del [capítulo @sec-conclusiones] hacemos un listado extensivo de posibles características que podrían ser implementadas sin necesidad de realizar grandes refactorizaciones al código base.
  
 ::: {.remark}
 Como ya hemos explicado en la @sec-licencia, FeenoX se distribuye bajo licencia GPLv3 o posterior.
@@ -2459,7 +2459,7 @@ Empleando la característica "Actions" de Github, cuando cada uno de las ramas s
 De esta manera, cualquier persona del mundo puede ver a través de la interfaz de Github los commits en los cuales al menos unos de los tests ha fallado (@fig-actions).
 Pero además, en caso de que algún commit en el branch `main` no pase los tests, la plataforma le envía un correo electrónico a los administradores del proyecto avisándole de esta situación para que se puedan tomar las decisiones apropiadas.
 
-Si bien el comando `make check` ejecuta más de 350 casos, el código aún no está instrumentado para medir cuántas líneas son efectivamente "cubiertas" por los tests. Este trabajo de implementar lo que se conoce como medir el "[code coverage]{lang=en-US}" en la jerga de integración continua queda como trabajo a futuro (@sec-conclusiones).
+Si bien el comando `make check` ejecuta más de 350 casos, el código aún no está instrumentado para medir cuántas líneas son efectivamente "cubiertas" por los tests. Este trabajo de implementar lo que se conoce como medir el "[code coverage]{lang=en-US}" en la jerga de integración continua queda como trabajo a futuro ([capítulo @sec-conclusiones]).
 De la misma manera, también queda como trabajo a futuro diseñar un conjunto de tests que corran bajo la herramienta de desarrollo `valgrind` para detectar sistemáticamente potenciales problemas con el manejo de memoria, incluyendo
 
  * escrituras en direcciones de memoria no reservadas,

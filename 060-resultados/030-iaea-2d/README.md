@@ -353,7 +353,7 @@ average memory = 1.6 Gb
  global memory = 19.4 Gb
 ```
 
-La distribución de flujos ya la mostramos en el @sec-introduccion en la @fig-iaea-3dpwr-eighth-circular-flux-s4.
+La distribución de flujos ya la mostramos en la @fig-iaea-3dpwr-eighth-circular-flux-s4 del [capítulo @sec-introduccion].
 
 ::: {.remark}
 La malla es ligeramente más gruesa y de menor orden que en los casos resueltos con difusión en la sección anterior.

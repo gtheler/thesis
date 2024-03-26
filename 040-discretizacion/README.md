@@ -28,7 +28,7 @@
 
 
 En el capitulo anterior hemos arribado a formulaciones matemáticas que modelan los procesos físicos de transporte y difusión de neutrones en estado estacionario mediante ecuaciones integro-diferenciales.
-Bajo las suposiciones que explicitamos al comienzo del @sec-transporte-difusion y asumiendo que las secciones eficaces macroscópicas son funciones del espacio y de la energía conocidas, estas ecuaciones son _exactas_.
+Bajo las suposiciones que explicitamos al comienzo del [capítulo @sec-transporte-difusion] y asumiendo que las secciones eficaces macroscópicas son funciones del espacio y de la energía conocidas, estas ecuaciones son _exactas_.
 Para la ecuación de difusión, que es de segundo orden pero más sencilla de resolver, llegamos a
 
 $$ \tag{\ref{eq-difusion-ss}}
@@ -65,7 +65,7 @@ sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por sei
  * uno para la energía $E$.
 
  
-El objetivo de este capítulo es transformar estas dos ecuaciones diferenciales en derivadas parciales en sistemas de ecuaciones algebraicas de tamaño finito de forma tal que las podamos resolver con una herramienta computacional, cuya implementación describimos en el @sec-implementacion.
+El objetivo de este capítulo es transformar estas dos ecuaciones diferenciales en derivadas parciales en sistemas de ecuaciones algebraicas de tamaño finito de forma tal que las podamos resolver con una herramienta computacional, cuya implementación describimos en el [capítulo @sec-implementacion].
 Este proceso involucra inherentemente aproximaciones relacionadas a la discretización de la energía $E$, la dirección $\omegaversor$ y el espacio $\vec{x}$, por lo que las soluciones a las ecuaciones diferenciales que podamos encontrar numéricamente serán solamente aproximaciones a las soluciones matemáticas reales.
 Según discutimos en la @sec-metodos-numericos, estas aproximaciones serán mejores a medida que aumentemos la cantidad de entidades discretas. Pero al mismo tiempo aumentan los recursos y costos de ingeniería asociados.
 
@@ -237,7 +237,7 @@ Finalmente, como en cualquier evaluación técnico-económica, intervienen situa
  * ¿Cómo son los costos asociados a la capacitación de los ingenieros que tienen que obtener $\varphi$ con cada método numérico?
 
 Está claro que el análisis de todas estas combinaciones están fuera del alcance de esta tesis.
-De todas maneras, la herramienta computacional cuya implementación describimos en detalle en el @sec-implementacion permite evaluar todos estos aspectos y muchos otros ya que, en forma resumida
+De todas maneras, la herramienta computacional cuya implementación describimos en detalle en el [capítulo @sec-implementacion] permite evaluar todos estos aspectos y muchos otros ya que, en forma resumida
 
  1. Está diseñado para ser ejecutado nativamente en la nube.^[Del inglés [*cloud native*]{lang=en-US} como contrapartida a  [*cloud friendly*]{lang=en-US} o [*cloud enabled*]{lang=en-US}.]
  2. Permite discretizar el dominio espacial utilizando mallas no estructuradas.^[Del inglés [*unstructured grids*]{lang=en-US}.]
@@ -1017,7 +1017,7 @@ para $i=2,\dots,N/2$.
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el @sec-implementacion por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 ::: {.remark}
 Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
@@ -1234,7 +1234,7 @@ Esencialmente el grueso de la literatura teórica [@quarteroni;@brennerscott;@pd
  2. que soluciones continuas pero no necesariamente diferenciables en a lo más un sub-espacio de medida cero tienen sentido matemático, y
  3. que el esquema numérico es consistente (@def-consistencia), estable (@def-estabilidad) y convergente (@def-convergencia).
 
-De la misma manera que el @sec-transporte-difusion esencialmente repetimos teoría matemática ya conocida a partir de diferentes fuente pero "digerida" a lo Séneca de forma tal de unificar nomenclaturas y criterios, en este hacemos lo mismo por cuestiones de consistencia. Mostramos algunos resultados conocidos y derivamos con algún cierto nivel de detalle razonable (teniendo en cuenta que es ésta una tesis de Ingeniería y no de Matemática) el problema de aproximación de Galerkin a partir de la formulación débil de un problema en derivadas parciales.
+De la misma manera que el [capítulo @sec-transporte-difusion], esencialmente repetimos teoría matemática ya conocida a partir de diferentes fuente pero "digerida" a lo Séneca de forma tal de unificar nomenclaturas y criterios, en este hacemos lo mismo por cuestiones de consistencia. Mostramos algunos resultados conocidos y derivamos con algún cierto nivel de detalle razonable (teniendo en cuenta que es ésta una tesis de Ingeniería y no de Matemática) el problema de aproximación de Galerkin a partir de la formulación débil de un problema en derivadas parciales.
 Dejamos la derivación completa incluyendo la teoría de análisis funcional necesaria para demostrar completamente todos los resultados del método de elementos finitos en las referencias [@brennerscott; @quarteroni; @hughes].
 En la monografía @monografia escrita durante el plan de formación de este doctorado se muestra una derivación de la formulación en elementos finitos de la ecuación de difusión multigrupo de forma menos formal pero más intuitiva. Incluso se comparan los resultados numéricos obtenidos con dicha formulación con los obtenidos con una formulación basada en volúmenes finitos @bookevol.
 
@@ -1657,7 +1657,7 @@ $$
 ```
 Si bien este procedimiento es matemáticamente correcto, no parece sencillo encontrar una función $u_g \in H^1_g$ apropiada para una condición de contorno arbitraria $g(\vec{x})$.
 En la @sec-fem mostramos en un espacio vectorial de dimensión finita el procedimiento es más sencillo.
-En el @sec-implementacion que sigue mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
+En el [capítulo @sec-implementacion] que sigue mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
 :::
 
 #### Condiciones de contorno de Robin {#sec-robin}
@@ -2611,7 +2611,7 @@ $$
 para cualquier función $f(\vec{x}) : U \mapsto \mathbb{R}$ integrable.
 
 La idea básica del método de elementos finitos (al menos para problemas lineales) es justamente concentrarse en escribir las integrales que definen la matriz de rigidez y el vector del miembro derecho en cada uno de los elementos $e_i$ para luego "ensamblar" estos objetos globales a partir de las contribuciones elementales.
-Justamente, este proceso de enfocarse en los elementos es muy eficiente desde del punto de vista computacional ya que se presta perfectamente para ser realizado en forma paralela como mostramos en el @sec-implementacion.
+Justamente, este proceso de enfocarse en los elementos es muy eficiente desde del punto de vista computacional ya que se presta perfectamente para ser realizado en forma paralela como mostramos en el [capítulo @sec-implementacion].
 
 Para fijar ideas, supongamos por un momento que tenemos el siguiente elemento triangular en el plano $x$-$y$:
 
@@ -4659,7 +4659,7 @@ for (unsigned int j = 0; j < neutron_sn.n_nodes; j++) {
 
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
-Si bien en el @sec-transporte-difusion hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
+Si bien en el [capítulo @sec-transporte-difusion] hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
 Tal como hemos hecho en este capítulo, al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
 
  #. Medio no multiplicativo con fuentes independientes,
