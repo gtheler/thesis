@@ -1106,8 +1106,11 @@ De esta manera, es posbile generar las direcciones $\boldsymbol{\hat{\Omega}}_m
 \end{algorithm}
 ```
 
-donde el símbolo ampersand `&` indica el
-operador binario `AND` y el signo de pregunta `?` el operador ternario de decisión.
+donde
+
+ * el símbolo ampersand `&` indica el operador binario `AND` y
+ * el signo de pregunta `?` el operador ternario de decisión.
+
 :::
 
 El cálculo detallado de los pesos está fuera del alcance de esta tesis.
@@ -3230,7 +3233,7 @@ $$
 \sum_{q=1}^Q 
 \underbrace{\omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|}_{\text{cuadratura numérica sobre $e_c$}}
 \underbrace{\left\{ \mat{B}_i^T(\symbf{\xi}_q) \cdot k(\vec{x}_q) \cdot \mat{B}_i(\symbf{\xi}_q) \right\}}_{\text{discretización del operador $-\text{div}(k \cdot \nabla u)$}}
-$$
+$$ {#eq-KiwqdetJiBiTkBi}
 con
 
  i. la matriz de coordenadas $\mat{C}_i$
@@ -3260,7 +3263,7 @@ con
      =
      \sum_{j=1}^{J_i} h_j(\symbf{\xi}_q) \cdot \vec{x}_j
      \quad \in \mathbb{R}^{D} \\
-     $$
+     $$ {#eq-xqhjxj}
 
  iii. la matriz canónica de funciones de forma $\mat{H}_c$
 
@@ -3295,14 +3298,15 @@ con
 
     $$
     \mat{J}_i(\symbf{\xi}_q) = \mat{B}_c(\symbf{\xi}_q) \cdot \mat{C}_i \quad \in \mathbb{R}^{D \times D}
-    $$
+    $$ {#eq-JiBcCi}
 
  vi. la matriz de derivadas reales $\mat{B}_i$ del elemento real $e_i$
 
      $$
      \mat{B}_i(\symbf{\xi}_q) = \mat{J}_i^{-T}(\symbf{\xi}_q) \cdot  \mat{B}_c(\symbf{\xi}_q)
      =
-     \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J_i} $$
+     \left[ \mat{B}_c^T(\symbf{\xi}_q) \cdot \mat{C}_i^T \right]^{-1} \cdot \mat{B}_c(\symbf{\xi}_q) \quad \in \mathbb{R}^{D \times J_i}
+     $$ {#eq-BiJiTBc}
 :::
 
 ::: {#def-bi-volumetrico-poisson}
@@ -3314,7 +3318,7 @@ $$
 \sum_{q=1}^Q
 \underbrace{\omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|}_{\text{cuadratura numérica sobre $e_c$}}
 \underbrace{\left\{\mat{H}_c^T(\symbf{\xi}_q) \cdot f(\vec{x}_q)\right\}}_{\text{discretización del miembro derecho $f$}}
-$$
+$$ {#eq-biwqdetJiHcTf}
 :::
 
 ::: {.remark}
@@ -3432,7 +3436,7 @@ $$
 &\approx
 \sum_{q=1}^Q \omega_q^{(D-1)} \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big|  \cdot \left\{ \mat{H}_{c^\prime}^T(\symbf{\xi}_q) \cdot p(\vec{x}_q) \right\}
 \end{aligned}
-$$
+$$ {#eq-biwqdetJHctp}
 donde la matriz $\mat{H}_{c^\prime}$ es la del elemento canónico superficial $e_{c^\prime}^{(D-1)}$ y el jacobiano $\mat{J}_i$ es el que le corresponde al elemento superficial $e_{i^\prime}^{(D-1)}$, ambos de dimensión $D-1$.
 :::
 
@@ -4193,7 +4197,7 @@ $$
 \mat{K}_i &= 
 \sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right]
 \end{aligned}
-$$
+$$ {#eq-wqdetJiLiAiFi}
 
 a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $GJ \times GJ$
 
@@ -4619,7 +4623,7 @@ $$
 \mat{K}_i &= 
 \sum_{q=1}^Q \omega_q \cdot \Big|\det{\left[\mat{J}_i\left(\symbf{\xi}_q\right)\right]}\Big| \cdot \left[ \mat{L}_i(\symbf{\xi}_q) + \mat{A}_i(\symbf{\xi}_q) - \mat{F}_i(\symbf{\xi}_q)\right]
 \end{aligned}
-$$
+$$ {#eq-KiwqdetJiBiTkBiSN}
 
 a partir de las matrices elementales de pérdidas, absorciones y fisiones de tamaño $MGJ \times MGJ$
 
@@ -4766,7 +4770,7 @@ Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo pil
 
 ### Medio multiplicativo sin fuentes independientes {#sec-multiplicativo-sin-fuente}
 
-En ausencia de fuentes independientes, las ecuación de transporte y difusión continuas se pueden escribir genéricamente como @stammler
+En ausencia de fuentes independientes, podemos escribir las ecuaciones de transporte y difusión continuas genéricamente como @stammler
 
 $$
 \frac{\partial \varphi}{\partial t} = \mathcal{L}\left[\varphi(\vec{x},\omegaversor, E,t)\right]
@@ -4809,7 +4813,7 @@ El signo de $\alpha_0$ determina si la población neutrónica
  c. aumenta con el tiempo ($\alpha_0 > 0$).
  
 La probabilidad de que en un sistema multiplicativo sin una fuente independiente (es decir, un reactor nuclear de fisión) el primer autovalor $\alpha_0$ sea exactamente cero para poder tener una solución de estado estacionario no trivial es cero.
-Para tener una solución matemática no trivial, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
+Para tener una solución matemática no nula, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
 Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
 
  a. geométrico (por ejemplo la posición de una barra de control), o
@@ -4852,7 +4856,7 @@ ecuaciones que modelan un medio multiplicativo sin fuentes externas.
 Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
 Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
 trivial, y viceversa.
-El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no trivial.
+El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no nula.
 :::
 
 Al no haber fuentes independientes, todos los términos están multiplicados por la incógnita y la ecuación es homogénea.

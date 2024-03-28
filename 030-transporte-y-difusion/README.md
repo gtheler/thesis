@@ -39,8 +39,8 @@ Para eso desarrollamos lógica y matemáticamente algunas ideas partiendo de def
 Está claro los desarrollos y ecuaciones expuestos en este capítulo son conocidos desde los albores de la física de reactores allá por mediados del siglo XX.
 Sin embargo, he decidido volver a deducir una vez más las ecuaciones de transporte y difusión a partir de conceptos de conservación de neutrones manteniendo muchos pasos matemáticos intermedios por dos razones:
 
- a. A modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en el sentido de Séneca) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
- b. Abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería que explico en la @sec-licencia.
+ a. a modo de escribir una especie de diario estoico como el de Marco Aurelio en el cual digiero (en el sentido de Séneca) la teoría de transporte de neutrones desarrollada a mediados del siglo XX, y
+ b. abrigando la esperanza de que una condensación homogeneizada^[[*Pun intended*]{lang=en-US}.] de varios libros de neutrónica atraiga estudiantes de grado que estén buscando una fuente de información y que, por contigüidad, éstos aprendan sobre la importancia del software libre y abierto en ingeniería que explico en la @sec-licencia.
 
 
 \medskip
@@ -392,7 +392,7 @@ Este resultado se explica ya que dado un ángulo $\omegaversor$ fijo, para cada
 
 \medskip
 
-Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco, entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
+Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero en el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco, entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
 Siguiendo el desarrollo de la referencia [@stammler], la sección eficaz diferencial es
 
 $$
