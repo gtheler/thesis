@@ -39,7 +39,7 @@ Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes mallas
 
 El script `run.sh` realiza una inicialización (0) y tres pasos (1--3):
 
- 0. Lee de la línea de comandos la función $f(x,y,z)$. Si no se provee ninguna, utiliza
+ 0. Lee como un string el primer argumento `$1` en la línea de comandos después del archivo de entrada^[Notar que el hecho de que los argumentos estén disponibles en el input como `$1`, `$2`, etc. (o incluso como `${1}`, ${2}`, etc.) coincide con la sintaxis de Bash, lo que sigue la regla de Unix de sorpresa mínima (@sec:unix-least-surprise).] la función $f(x,y,z)$. Si no se provee ninguna, utiliza como [default]{lang=en-US}
  
     $$
     f(x,y,z) = 1 + x \cdot \sqrt{y} + 2 \cdot \log(1+y+z) + \cos(x z) \cdot e^{y \cdot z}
@@ -145,7 +145,7 @@ Recordar la @fig-sine.
 Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho menores.
 :::
 
-Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como oposición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
+Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como oposición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes como un servicio de post-venta.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
 ::: {#tbl-010-ansys}
                         |     Otro     |    FeenoX

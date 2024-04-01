@@ -18,10 +18,10 @@ El problema de Reed consiste en una geometría tipo slab adimensional para $0 < 
  e. $6 < x < 8 \mapsto$ Reflector
 
  * Las fuentes de neutrones son independientes y no hay materiales físiles (ni fisionables), por lo que el problema a resolver es un sistema lineal de ecuaciones (KSP) y no un problema de autovalores (EPS)
- * El material "vaccum" tiene secciones eficaces nulas, lo que implica que no puede utilizarse la aproximación de difusión ya que el coeficiente $D(x)$ estaría mal definido.
+ * El material "vacuum" tiene secciones eficaces nulas, lo que implica que no puede utilizarse la aproximación de difusión ya que el coeficiente $D(x)$ estaría mal definido.
  * Se espera que haya gradientes espaciales grandes en las interfaces entre materiales, por lo que vamos a refinar localizadamente alrededor de los puntos $x=2$, $x=3$, $x=5$ y $x=6$.
  * Como mencionamos en la @def-petrov-galerkin, la ecuación de transporte es hiperbólica y necesita un término de estabilización en el término convectivo. FeenoX implementa un método tipo SUPG (@def-petrov-galerkin) controlado por un factor $\alpha$ que puede ser definido explícitamente en el archivo de entrada a través de la variable especial `sn_alpha`. Por defecto, $\alpha = 1/2$.
- * La condición de contorno en $x=0$ es tipo simetría, lo que implica que FeenoX utilice el método de penalidad para implementarla. Es posible elegir el peso en el archivo de entrada con la variable especial `penalty_weight`. Valores altos implican mayor precisión en la condición de contorno pero peor condicionamiento de la matriz global.
+ * La condición de contorno en $x=0$ es tipo simetría, lo que implica que FeenoX utilice el método de penalidad para implementarla. Es posible elegir el peso en el archivo de entrada con la variable especial `penalty_weight`. Valores altos implican mayor precisión en la condición de contorno pero peor condicionamiento de la matriz global de rigidez $\mat{K}$.
  * La condición de contorno en $x=8$ es vacío, lo que corresponde a una condición de Dirichlet para las direcciones entrantes.
 
 
@@ -29,7 +29,7 @@ Podemos generar la geometría y la malla del problema `reed.msh` (que luego ser�
 
 ```{.geo include="reed.geo"}
 ```
-lo que da lugar a 81 nodos distribuidos como ilustramos en la @fig-reed-mesh.
+lo que da lugar a 81 nodos distribuidos heterogéneamos como ilustramos en la @fig-reed-mesh.
 
 ![81 nodos y 80 elementos tipo línea para el problema de Reed.](reed-mesh.svg){#fig-reed-mesh}
 
@@ -44,11 +44,11 @@ Este (sencillo) archivo de entrada tiene 6 secciones bien definidas:
     a. el tipo de PDE a resolver (`neutron_sn`)
     b. la dimensión del dominio (`DIM 1`)
     c. la cantidad de grupos de energía (`GROUPS 1`)
-    d. el orden $N$ en S$_N$ (`SN $1`) a leer como el primer argumento en la línea de comando de invocación del ejecutable `feenox` luego del archivo de entrada `reed.fee`
- 2. Instrucción para leer la malla (`READ_MESH` es un verbo seguido de un sustantivo)
+    d. el orden $N$ en S$_N$ (`SN $1`) a leer como el primer argumento en la línea de comando de invocación del ejecutable `feenox` luego del archivo de entrada `reed.fee`.
+ 2. Instrucción para leer la malla (`READ_MESH` es un verbo seguido de un sustantivo).
  3. Definición de los nombres y propiedades de los materiales (`MATERIAL` es un sustantivo). Si los nombres de los materiales en el archivo de entrada de FeenoX coinciden con el nombre de las entidades físicas cuya dimensión es la del problema (líneas físicas en este caso unidimensional) entonces éstas se asocian implícitamente a los materiales. En cualquier caso, se puede hacer una asociación explícita con tantas palabras clave `LABEL` como sea necesario para cada material.
- 4. Definición de condiciones de contorno (`BC` quiere decir [_boundary condition_]{lang=en-US} que es un sustantivo adjetivado). De la misma manera, si el nombre de la condición de contorno coincide con el nombre de entidades físicas de dimensión menor a la dimensión del problema en la malla, la asociación se hace implícitamente. Igualmente, se pueden agregar palabras clave `LABEL`.
- 5. Instrucción para indicar que FeenoX debe resolver el problema. En este caso sencillo esta instrucción debe venir luego de leer la malla y antes de escribir el resultado. En casos ligeramente más complejos como estudiamos a continuación donde cambiamos los valores por defecto de las variables `sn_alpha` y `penalty_weight`, la instrucción `SOLVE_PROBLEM` debe venir luego de las instrucciones de asignación.
+ 4. Definición de condiciones de contorno (`BC` es sigla de [_boundary condition_]{lang=en-US} que es un sustantivo adjetivado). De la misma manera, si el nombre de la condición de contorno coincide con el nombre de entidades físicas de dimensión menor a la dimensión del problema en la malla, la asociación se hace implícitamente. En forma similar, se pueden agregar palabras clave `LABEL`.
+ 5. Instrucción para indicar que FeenoX debe resolver el problema (`SOLVE_PROBLEM` es un verbo). En este caso sencillo esta instrucción debe venir luego de leer la malla y antes de escribir el resultado. En casos ligeramente más complejos como estudiamos a continuación donde cambiamos los valores por defecto de las variables `sn_alpha` y `penalty_weight`, la instrucción `SOLVE_PROBLEM` debe venir luego de estas instrucciones de asignación.
  6. Instrucción para escribir en la salida estándar una columna con la posición de los nodos (en este caso un único valor para $x$) y el flujo escalar $\phi$ evaluado en $x$. Podríamos haber pedido los flujos angulares $\psi_{mg}$ a continuación para obtener más columnas de datos, pero dado que el parámetro $N$ se lee desde la línea de comandos no podemos saber al momento de preparar el archivo de entrada cuántos flujos angulares van a estar definidos. Por ejemplo, si `$1` es 2 entonces `psi1.1` y `psi1.2` están definidas pero `psi1.3` no lo estará por lo que la línea
 
      ```feenox

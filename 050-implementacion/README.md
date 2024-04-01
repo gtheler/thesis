@@ -2055,10 +2055,18 @@ El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un 
 :::
 
 ::: {.remark}
-Justamente, la versión 3.20 de PETSc incluye contribuciones (corrección de bugs principalmente) por parte autor de esta tesis (@fig-petsc320).
+Justamente, las versiones 3.20 y 3.21 de PETSc incluyen contribuciones (corrección de bugs y tests de nuevos features) por parte autor de esta tesis (@fig-petsc).
 
-![[Anuncio de lanzamiento de PETSc 3.20 (29 de septiembre de 2023)](https://lists.mcs.anl.gov/pipermail/petsc-announce/2023/000113.html) con la lista de personas que han contribuido a la base del código, incluyendo al autor de esta tesis.](petsc320.svg){#fig-petsc320}
+
+::: {#fig-petsc layout="[1,-0.03,1]"}
+
+![[PETSc 3.20---29 de septiembre de 2023](https://lists.mcs.anl.gov/pipermail/petsc-announce/2023/000113.html)](petsc320.svg){#fig-petsc320}
+
+![[PETSc 3.21---29 de marzo de 2024](https://lists.mcs.anl.gov/pipermail/petsc-announce/2024/000115.html)](petsc321.svg){#fig-petsc321}
+
+Anuncio de lanzamiento de PETSc con la lista de personas que han contribuido a la base del código, incluyendo al autor de esta tesis.
 :::
+
 
 ::: {.remark}
 Al ejecutar `feenox` sin ninguna opción ni archivo de entrada, éste reportará en la terminal su versión---que incluye el hash del último commit del repositorio Git usado para compilar el ejecutable:
