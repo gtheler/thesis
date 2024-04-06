@@ -484,7 +484,7 @@ Este archivo de entrada, que a su vez puede incluir otros archivos de entrada y/
  
 Estas [keywords]{lang=en-US} pueden ser
  
- a. definiciones (sustantivos)
+ a. definiciones^[La etimología de la palabra "definición" proviene de "dar fin", es decir, "dar límite" o delimitar qué es lo que queda dentro de la definición y qué no.]  (sustantivos)
  
     * qué PDE hay que resolver
     * propiedades materiales
