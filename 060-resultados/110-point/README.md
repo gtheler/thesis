@@ -4,7 +4,7 @@
 
 Además de ecuaciones en derivadas parciales, FeenoX puede resolver sistemas de ecuaciones diferenciales ordinarias y de ecuaciones algebraicas-diferenciales.
 En esta sección extra ilustramos rápidamente las funcionalidades, aplicadas a las ecuaciones de cinética puntual de reactores.
-Todos los casos usan los siguientes parámetros cinéticos:
+Todos los casos usan los siguientes parámetros cinéticos, definido en un archivo `parameters.fee` e includio en los inputs de cada una de las secciones que siguen:
 
 ```{.feenox include="parameters.fee"}
 ```
@@ -12,7 +12,7 @@ Todos los casos usan los siguientes parámetros cinéticos:
 
 ## Cinética puntual directa con reactividad vs. tiempo
 
-Este primer ejemplo resuelve cinética puntual con una reactividad $\rho(t)$ dada por una "tabla", es decir, una función de un único argumento (el tiempo $t$) definida por pares de puntos $[t,\rho(t)]$ e interpolada linealmente:
+Este primer ejemplo resuelve cinética puntual con una reactividad $\rho(t)$ dada por una "tabla",^[Recordar que uno de los puntos centrales de la filosofía de diseño de FeenoX es evitar el ambigüo y anacrónico concepto de "tabla" en favor de "función definida por puntos".] es decir, una función de un único argumento (el tiempo $t$) definida por pares de puntos $[t,\rho(t)]$ e interpolada linealmente:
 
 ```{.feenox include="reactivity-from-table.fee"}
 ```
@@ -37,7 +37,7 @@ Ahora tomamos la salida $\phi(t)$ del caso anterior y resolvemos cinética inver
     ```{.feenox include="inverse-dae.fee"}
     ```
 
-Obtenemos entonces la @fig-inverse. El caso 2 es "adaptivo" en el sentido de que dependiendo del error tolerado y de las derivadas temporales de las variables del espacio de las fases, el esfuerzo computacional se adapta automáticamente a través del paso de tiempo $\Delta t$ con el que se resuelve el sistema DAE. Por defecto, el método es Adams-Bashforth de orden variable (implementado por la biblioteca SUNDIALS @sundials).
+Obtenemos entonces la @fig-inverse. El caso 2 es "adaptivo" en el sentido de que dependiendo del error tolerado y de las derivadas temporales de las variables del espacio de las fases en función de $t$, el esfuerzo computacional se adapta automáticamente a través del paso de tiempo $\Delta t$ con el que se resuelve el sistema DAE. Por defecto, el método es Adams-Bashforth de orden variable (implementado por la biblioteca SUNDIALS @sundials), donde justamente el orden de integración se ajusta dinámicamente también dependiendo del error.
     
 ::: {#fig-inverse layout="[1]"}
 ![$t \in [0,100]$](inverse.svg){#fig-inverse1}

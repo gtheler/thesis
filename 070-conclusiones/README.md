@@ -99,6 +99,7 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
  * instrumentación del código para evaluar su eficiencia y mejorar su performance tanto en CPU como en memoria
    - evaluación de la posibilidad de aplicar el paradigma [data-oriented programming]{lang=en-US}
  * estudio de factibilidad de utilizar métodos numéricos iterativos para S$_N$
+   - análisis de pre-condicionadores alternativos
    - [$p$-assisted algebraic multi-grid]{lang=en-US} @brown2022performance
    - [PCPATCH]{lang=en-US} @pcpatch
  * mejoramiento de la escalabilidad por paralelización
