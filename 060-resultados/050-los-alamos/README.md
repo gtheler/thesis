@@ -75,7 +75,9 @@ La definición de los grupos en la referencia @losalamos es opuesta a la de la 
 ## Casos de medio finito
 
 La forma de "verificar" que FeenoX resuelve razonablemente bien problemas de transporte de neutrones con dependencia espacial es entonces
-crear una malla con el tamaño indicado como crítico en cada problema y mostrar que el factor de multiplicación efectivo $k_\text{eff}$ obtenido se acerca a la unidad a medida que aumentamos el tamaño del problema discretizado, sea por refinar la malla espacial o por aumentar el número $N$ de ordenadas discretas. 
+
+ 1. crear una malla con el tamaño indicado como crítico en cada problema, y
+ 2. mostrar que el factor de multiplicación efectivo $k_\text{eff}$ obtenido se acerca a la unidad a medida que aumentamos el tamaño del problema discretizado, sea por refinar la malla espacial o por aumentar el número $N$ de ordenadas discretas. 
 
 Para ello podemos crear un script de Bash que llame a cada uno de los archivos de entrada de cada problema, luego de haber creado mallas con diferente refinamiento, con valores de $N$ sucesivos:
 
@@ -84,5 +86,5 @@ Para ello podemos crear un script de Bash que llame a cada uno de los archivos d
 
 ![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que aumentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
 
-La @fig-losalamos muestra, de forma poco rigurosa, que en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
+La @fig-losalamos muestra---en forma poco rigurosa---que en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
 Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisotrópico y con más de dos grupos de energías.

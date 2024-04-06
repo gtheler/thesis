@@ -18,7 +18,7 @@ El problema de Reed consiste en una geometría tipo slab adimensional para $0 < 
  e. $6 < x < 8 \mapsto$ Reflector
 
  * Las fuentes de neutrones son independientes y no hay materiales físiles (ni fisionables), por lo que el problema a resolver es un sistema lineal de ecuaciones (KSP) y no un problema de autovalores (EPS)
- * El material "vacuum" tiene secciones eficaces nulas, lo que implica que no puede utilizarse la aproximación de difusión ya que el coeficiente $D(x)$ estaría mal definido.
+ * El material "[vacuum]{lang=en-US}´" tiene secciones eficaces nulas, lo que implica que no puede utilizarse la aproximación de difusión ya que el coeficiente $D(x)$ estaría mal definido.
  * Se espera que haya gradientes espaciales grandes en las interfaces entre materiales, por lo que vamos a refinar localizadamente alrededor de los puntos $x=2$, $x=3$, $x=5$ y $x=6$.
  * Como mencionamos en la @def-petrov-galerkin, la ecuación de transporte es hiperbólica y necesita un término de estabilización en el término convectivo. FeenoX implementa un método tipo SUPG (@def-petrov-galerkin) controlado por un factor $\alpha$ que puede ser definido explícitamente en el archivo de entrada a través de la variable especial `sn_alpha`. Por defecto, $\alpha = 1/2$.
  * La condición de contorno en $x=0$ es tipo simetría, lo que implica que FeenoX utilice el método de penalidad para implementarla. Es posible elegir el peso en el archivo de entrada con la variable especial `penalty_weight`. Valores altos implican mayor precisión en la condición de contorno pero peor condicionamiento de la matriz global de rigidez $\mat{K}$.
@@ -29,7 +29,7 @@ Podemos generar la geometría y la malla del problema `reed.msh` (que luego ser�
 
 ```{.geo include="reed.geo"}
 ```
-lo que da lugar a 81 nodos distribuidos heterogéneamos como ilustramos en la @fig-reed-mesh.
+lo que da lugar a 81 nodos distribuidos heterogéneamente como ilustramos en la @fig-reed-mesh.
 
 ![81 nodos y 80 elementos tipo línea para el problema de Reed.](reed-mesh.svg){#fig-reed-mesh}
 
@@ -160,17 +160,17 @@ Como veremos más adelante (por ejemplo en la @sec-mms-dif o en la @sec-azmy),
 ## Efecto del orden de los elementos
 
 Para finalizar el estudio de este primer problema neutrónico sencillo volvemos a resolver el mismo caso pero utilizando elementos de segundo orden.
-Está claro que para poder comparar soluciones se debe tener en cuenta el esfuerzo computacional que cada método necesita. Para el mismo tamaño de elemento, el tamaño del problema para una malla de segundo orden es mucho más grande que para una malla de primer orden. Por lo tanto, lo primero que hay que hacer es
+Está claro que para poder comparar soluciones debemos tener en cuenta el esfuerzo computacional que cada método necesita. Para el mismo tamaño de elemento, el tamaño del problema para una malla de segundo orden es mucho más grande que para una malla de primer orden. Por lo tanto, lo primero que hay que hacer es
 
  a. refinar la malla de primer orden, o
  b. hacer más gruesa la malla de segundo orden.
 
-Por otro lado el patrón de la matriz también cambia (el ancho de banda es mayor en la malla de segundo orden) por lo que también cambia el esfuerzo necesario no sólo para construir la matriz sino también para invertirla, especialmente en términos de memoria.
-En algunos tipos de problemas (como por ejemplo elasticidad ver @sec-parametric), está probado que cualquier esfuerzo necesario para resolver un problema con elementos de segundo orden vale la pena ya que los elementos de primer orden, aún cuando la malla esté muy refinada, padecen del efecto numérico conocido como [_shear locking_]{lang=en-US} que arroja resultados poco precisos.
+Por otro lado el patrón de la matriz también aumenta (el ancho de banda es mayor en la malla de segundo orden) por lo que también cambia el esfuerzo necesario no sólo para construir la matriz sino también para invertirla, especialmente en términos de memoria.
+En algunos tipos de problemas (como por ejemplo elasticidad ver @sec-parametric), está probado que cualquier esfuerzo necesario para resolver un problema con elementos de segundo orden vale la pena ya que los elementos de primer orden---aún cuando la malla esté muy refinada---padecen del efecto numérico conocido como [_shear locking_]{lang=en-US} que arroja resultados poco precisos.
 Pero en el caso de transporte (e incluso difusión) de neutrones no está claro que, para el mismo tamaño de problema, la utilización de elementos de alto orden sea más precisa que la de elementos de primer orden, más allá de la posibilidad de representar geometrías curvas con más precisión.
 
 De cualquier manera, presentamos entonces resultados para el problema de Reed con elementos unidimensionales de segundo orden.
-Primeramente le pedimos a Gmsh que nos prepare una malla más gruesa aún pero de orden dos. Esto da 53 nodos, tal como la malla `reed-coarse.msh` de la sección anterior:
+Primeramente le pedimos a Gmsh que nos prepare una malla más gruesa aún que la anterior, pero de orden dos. Esto da 53 nodos, tal como la malla `reed-coarse.msh` de la sección anterior:
 
 ```terminal
 $ gmsh -1 reed.geo -order 2 -clscale 5 -o reed-coarser2.msh
@@ -183,14 +183,22 @@ Info    : Stopped on Fri Oct 20 13:45:05 2023 (From start: Wall 0.0102896s, CPU 
 $
 ```
 
-Ahora preparamos este archivo de entrada que utiliza esta malla de segundo orden, resuelve el problema de Reed y luego lee el flujo obtenido en la sección anterior para $\alpha=1$ y escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$ para obtener la\ @fig-reed2-flux.
+Ahora preparamos este archivo de entrada que
+
+ * utiliza esta malla de segundo orden,
+ * resuelve el problema de Reed
+ * lee el flujo obtenido en la sección anterior para $\alpha=1$, y
+ * escribe la diferencia algebraica entre los dos flujos escalares en función de $x$ con un paso espacial $\Delta x=10^{-3}$
+ 
+para obtener la\ @fig-reed2-flux.
 
 ```{.feenox include="reed2.fee"}
 ```
 
 ::: {.remark}
 No hay una definición o instrucción específica que le indique a FeenoX el orden de los elementos a usar.
-Se lee la malla y se usan los elementos definidos allí. En los casos anteriores, los elementos de mayor orden eran líneas de dos nodos (a.k.a. line2). En este caso, son líneas de tres nodos (a.k.a. line3).
+El [solver]{lang=en-US} lee la malla con la instrucción `READ_MESH` y emplea los elementos allí definidos, que pueden ser de primero o segundo orden.
+En los casos anteriores, los elementos de mayor orden eran líneas de dos nodos (a.k.a. line2). En este caso, son líneas de tres nodos (a.k.a. line3).
 :::
 
 
@@ -202,7 +210,7 @@ $
 ![Diferencia entre flujos de primer y segundo orden en el problema de Reed](reed2-flux.svg){#fig-reed2-flux}
 
 ::: {.remark}
-Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada hubiese implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE` (por ejemplo en la @sec-phwr).
-Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales y de condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE` como corresponde.
+Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada habría implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE` (por ejemplo en la @sec-phwr).
+Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales y de condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE`, que es para lo que fue diseñada.
 :::
 

@@ -1,20 +1,24 @@
 # Estudios paramétricos: el reactor cubo-esferoidal {#sec-cubesphere}
 
-> **TL;DR:** Experimento pensado para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada, mientras que elementos curvos de segundo orden pueden discretizar superficies cónicas exactamente.
+> **TL;DR:** Un "experimento pensado" para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada, mientras que elementos curvos de segundo orden pueden discretizar superficies cónicas exactamente.
 
-Todos sabemos que, a volumen constante, un reactor desnudo esférico tiene un factor de multiplicación efectivo mayor que un reactor cúbico (@fig-cube-and-sphere).
-De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamete dicho $k_\text{eff}$.
+::: {#fig-cube-and-sphere layout="[1,-0.1,1]"}
+![Reactor cúbico](cubesphere-0.png){#fig-cubesphere-0 width=90%}
 
-::: {#fig-cube-and-sphere layout="[1,-0.05,1]"}
-![Reactor cúbico](cubesphere-0.png){#fig-cubesphere-0}
-
-![Reactor esférico](cubesphere-100.png){#fig-cubesphere-100}
+![Reactor esférico](cubesphere-100.png){#fig-cubesphere-100 width=90%}
  
 Un octavo de dos reactores desnudos
 :::
 
+Todos sabemos que, a volumen constante, un reactor desnudo esférico tiene un factor de multiplicación efectivo mayor que un reactor cúbico (@fig-cube-and-sphere).
+De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamete dicho $k_\text{eff}$.
+
+
  
-::: {#fig-cube-morph-sphere layout="[1,-0.025,1,-0.025,1]"}
+Pero, ¿qué pasa a medida que el cubo se va transformando en una esfera?
+Es decir, ¿cómo cambia $k_\text{eff}$ a medida que redondeamos los bordes del cubo como en la @fig-cube-morph-sphere? Trabajo para Gmsh & FeenoX. Comencemos con el archivo de entrada de FeenoX, que es realmente sencillo:
+
+::: {#fig-cube-morph-sphere layout="[1,-0.05,1,-0.05,1]"}
 ![75% cubo/25% esfera](cubesphere-25.png){#fig-cubesphere-25}
 
 ![50% cubo/50% esfera](cubesphere-50.png){#fig-cubesphere-50}
@@ -23,9 +27,6 @@ Un octavo de dos reactores desnudos
  
 Transformación continua entre un cubo y una esfera
 :::
-
-Pero, ¿qué pasa a medida que el cubo se va transformando en una esfera?
-Es decir, ¿cómo cambia $k_\text{eff}$ a medida que redondeamos los bordes del cubo como en la @fig-cube-morph-sphere? Trabajo para Gmsh & FeenoX. Comencemos con el archivo de entrada de FeenoX, que es realmente sencillo:
 
 ```{.feenox include="cubesphere.fee"}
 ```

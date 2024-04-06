@@ -1,6 +1,6 @@
 # Verificación con el método de soluciones fabricadas {#sec-mms-dif}
 
-> **TL;DR:** Para verificar los métodos numéricos con el método de soluciones fabricadas se necesita un solver que permita definir propiedades materiales en función del espacio a través de expresiones algebraicas.
+> **TL;DR:** Para verificar los algoritmos numéricos de un código con el método de soluciones fabricadas se necesita que dicho código permita definir propiedades materiales en función del espacio a través de expresiones algebraicas arbitrarias.
 
 \renewcommand{\vec}[1]{\mathbf{#1}}
 
@@ -34,7 +34,7 @@ La forma de hacer esto es
 
 De todas maneras, para mostrar que el error tiende a cero necesitamos tener una expresión algebraica para la solución exacta de la ecuación que queremos resolver. Es decir, necesitamos conocer $\phi_\text{ref}(\vec{x})$ en la @eq-mms-e2.
 Está claro que si conociéramos esta expresión para un caso general, esta tesis no tendría razón de ser.
-Y es razonable que esto sea así porque, de alguna manera, resolver la ecuación de difusión de neutrones involucra "integrar" dos veces la fuente de neutrones. 
+Y es razonable que no exista esta expresión porque, de alguna manera, resolver la ecuación de difusión de neutrones involucra "integrar" dos veces la fuente de neutrones. 
 
 El método de soluciones fabricadas (o MMS por sus siglas en inglés) propone recorrer el camino inverso: partir de una solución conocida (es decir, fabricada _ad hoc_) y preguntarnos cuál es la fuente necesaria para dar lugar a ese flujo. Este camino es mucho más sencillo ya que involucra "derivar" la fuente dos veces, y es el método que ilustramos en esta sección.
 
@@ -46,7 +46,7 @@ Por otro lado, @sandia-mms también dice que hay que asegurarse "probar" todas l
  * modelos de materiales
  * etc.
  
-lo que rápidamente da lugar a una explosión combinatoria de parámetros.
+lo que rápidamente da lugar a una explosión combinatoria de parámetros como la que apareció en la @sec-azmy.
 Siguen diciendo los autores de @sandia-mms 
  
 ::: {lang=en-US}
@@ -59,7 +59,7 @@ En las dos secciones que siguen lo aplicamos al problema de difusión de neutron
 
 ::: {.remark}
 Para verificar un código con el método de MMS es condición necesaria que el código permita definir fuentes a través de expresiones algebraicas.
-Es también recomendable que permita realizar estudios paramétricos con cierta facilidad y automatización razonable.
+Es también recomendable que permita realizar estudios paramétricos con cierta facilidad y automatización razonable @garcar2023.
 :::
 
 ## Stanford bunny a un grupo {#sec-mms-3d}
@@ -106,7 +106,7 @@ tex(s1(x,y,z), "neutron-bunny-s1.tex");
 EOF
 ```
 
-No sólo le pedimos a Maxima que nos genere el archivo de entrada de FeenoX sino que también le pedimos que nos dé los macros TeX @texbook para documentar la fuente en esta tesis:
+No sólo le pedimos a Maxima que nos genere el archivo de entrada de FeenoX sino que también le podemos pedir que nos dé los macros TeX @texbook para documentar la fuente en esta tesis:
 
 $$
 \begin{aligned}
@@ -123,7 +123,7 @@ S(x,y,z) =&
 \end{aligned}
 $$
 
-Lo siguiente es completar el script de Bash para generar las mallas apropiadas y graficar los resultados automáticamente.
+Lo siguiente es completar el script de Bash para generar las mallas apropiadas y graficar los resultados automáticamente:
 
 ```terminal
 $ ./run.sh 
@@ -204,8 +204,8 @@ Sigma_a2(x,y) = 1e-3
 Sigma_s2_1(x,y) = 0
 ```
 
-Como ahora la geometría es más sencilla, además de fijar solamente condiciones de Dirichlet en los cuadro lados del cuadrado vamos a poner dos condiciones de Dirichlet y dos de Neumann.
-Necesitamos entonces, además de las dos fuentes volumétricas $S1(x,y)$ y $S2(x,y)$, que Maxima nos calcule las dos componentes de las dos corrientes para que las podamos usar como condiciones de contorno:
+Como ahora la geometría es más sencilla, además de fijar solamente condiciones de Dirichlet en los cuatro lados del cuadrado vamos a poner dos condiciones de Dirichlet y dos de Neumann.
+Necesitamos entonces---además de las dos fuentes volumétricas $S1(x,y)$ y $S2(x,y)$---que Maxima nos calcule las dos componentes de las dos corrientes para que las podamos usar como condiciones de contorno:
 
 ```bash
 phi1_mms=$(grep "phi1_mms(x,y) =" neutron-square.fee | sed 's/=/:=/')
@@ -273,7 +273,11 @@ y el nuevo caso 50% Dirichlet 50% Neumann, donde en los lados `bottom` y `right
 Como ahora nuestra geometría es más sencilla podemos utilizar algoritmos de mallado estructurados.
 Incluso podemos estudiar qué sucede si usamos triángulos y cuadrángulos, de primer y segundo orden y completos (quad8) o incompletos (quad9), como someramente ilustramos en la @fig-square-14. Con los dos tipos de condiciones de contorno, que podrían ser muchas más combinaciones de porcentajes de Dirichlet y Neumann. ¡Bienvenida la explosión combinatoria!
 
-El resto del trabajo consiste en ejecutar el script de Bash y dejar que Maxima haga la manipulación simbólica y luego obtener los resultados de la @fig-neutron-square-e2.
+El resto del trabajo consiste en
+
+ 1. ejecutar el script de Bash,
+ 2. dejar que Maxima haga la manipulación simbólica, y
+ 3. obtener con FeenoX los resultados de la @fig-neutron-square-e2.
 
 ```terminal
 $ ./run.sh 
@@ -326,7 +330,7 @@ La expresión para la componente $y$ de la corriente de grupo 2 involucra una 
 
 ![$\Delta \phi_2$ quad4 unstruct](2d/quad-frontal.png){#fig-square-14-quad-unstruct}
 
-Flujos y diferencias en el cuadrado con cuatro tipos de mallas para el caso con condiciones de Neumann
+Flujos y diferencias en el cuadrado con cuatro tipos de mallas para el caso con condiciones de Neumann.
 :::
 
 

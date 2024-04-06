@@ -39,7 +39,7 @@ Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAE
 :::
 
 
-En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando una versión anterior de FeenoX, incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia, que también resuelve el problema.
+En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando la segundo versión de la implementación (denominada milonga), incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia, donde también resolvemos el problema.
 En la presentación @milongaiaea2011 mostramos cómo habíamos resuelto el [benchmark]{lang=en-US} con la primera versión del código.
 
 En esta sección calculamos solamente el factor de multiplicación y la distribución espacial de flujos.
@@ -60,7 +60,7 @@ Si bien las secciones eficaces son uniformes, la sección eficaz de absorción e
 :::
 
 ::: {.remark}
-Tal como en el problema de Reed de la sección anterior donde teníamos elementos de tipo punto para definir condiciones de contorno, en este caso bi-dimensional la malla contiene elementos uni-dimensionales donde se aplican las condiciones de contorno. Los elementos que discretizan las líneas $x=0$ e $y=0$ tienen asignado (en el archivo de entrada de Gmsh no mostrado) el nombre "mirror" y los que discretizan el borde externo del reflector, el nombre "mirror". Estos dos nombres son usados en la instrucción `BC` del archivo de entrada de FeenoX para indicar qué clase de condición de contorno hay que aplicarle a cada grupo de elementos de dimensión topológica menor a la del problema.
+Tal como en el problema de Reed de la sección anterior donde teníamos elementos de tipo punto para definir condiciones de contorno, en este caso bi-dimensional la malla contiene elementos de dimensión uno (tipo líneas) donde se aplican las condiciones de contorno. Los elementos que discretizan las líneas $x=0$ e $y=0$ tienen asignado (en el archivo de entrada de Gmsh no mostrado) el nombre "[vacuum]{lang=en-US}" y los que discretizan el borde externo del reflector, el nombre "[mirror]{lang=en-US}". Estos dos nombres son usados en las dos instrucciones `BC` del archivo de entrada de FeenoX para indicar qué clase de condición de contorno hay que aplicarle a cada grupo de elementos de dimensión topológica menor a la del problema.
 :::
 
 ```terminal
@@ -83,8 +83,8 @@ $
 
 ## Caso 2D con simetría 1/8
 
-Bien mirado, el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2023 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas no estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Como deslizamos en el [capítulo @sec-introduccion], bien mirado el problema no tiene simetría 1/4 sino simetría 1/8.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2024 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas no estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 
@@ -108,7 +108,7 @@ $
 ```
 
 
-![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=80%}
+![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8. La imagen del flujo rápido corresponde a una rotación de 45º de la malla.](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=70%}
 
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
@@ -172,11 +172,11 @@ $
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con difusión
 
-Pasemos ahora a un caso tri-dimensional.
+Pasemos ahora al caso tri-dimensional.
 El problema original es una extensión sobre el eje $z$ de la geometría con simetría 1/4 y reflector no circular.
 Como ya vimos en 2D, podemos tener simetría 1/8 y reflector cilíndrico.
 Ya que estamos en 3D, podemos preparar la geometría con una herramienta tipo CAD como es usual en análisis de ingeniería tipo CAE.
-En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape.]
+En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape para realizar cálculos termo-mecánicos.]
 La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mallada con Gmsh con elementos de segundo orden arroja la malla de la @fig-iaea-3dpwr-eighth-circular-mesh.
 
 ![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
@@ -270,13 +270,15 @@ $
 ```
 
 ::: {.remark}
-El tiempo de pared escala en forma relativamente lineal con la cantidad de procesos MPI.
+El tiempo real o "de pared" escala en forma relativamente lineal con la cantidad de procesos MPI.
 :::
 
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$ {#sec-iaea3d-s4}
 
 Para finalizar el caso, mostramos que FeenoX puede resolver no sólo este problema con el método de difusión sino también con ordenadas discretas.
+Este archivo de entrada calcula la distribución de flujos que ya hemos mostramos en la @fig-iaea-3dpwr-eighth-circular-flux-s4 del [capítulo @sec-introduccion].
+
 
 
 ```{.feenox include="iaea-3dpwr-s4.fee"}
@@ -353,7 +355,6 @@ average memory = 1.6 Gb
  global memory = 19.4 Gb
 ```
 
-La distribución de flujos ya la mostramos en la @fig-iaea-3dpwr-eighth-circular-flux-s4 del [capítulo @sec-introduccion].
 
 ::: {.remark}
 La malla es ligeramente más gruesa y de menor orden que en los casos resueltos con difusión en la sección anterior.

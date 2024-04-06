@@ -23,14 +23,19 @@ Un ejercicio clásico de análisis de reactores es dar la reactividad negativa i
 
 ![Un pescadito de radio $a$ nada a lo largo del eje $x$ en un reactor homogéneo de radio $A$.](un-pescadito-geo.svg){#un-pescadito-geo width=50%}
 
-En esta sección vamos a obtener con FeenoX la reactividad neta introducida por el pescadito variando paramétricamente la posición $x$ de su centro. Para eso, comenzamos con un script de Bash que genera un archivo de texto `vars.geo` (que es incluido desde `un-pescadito.geo` para ubicar el círculo pequeño correspondiente al pescadito), genera una malla con Gmsh y luego resuelve la ecuación de difusión con FeenoX para diferentes posiciones $r$ del pescadito. La @fig-un-pescadito-mesh muestra la malla resultante para dos valores de $r$.
+En esta sección vamos a obtener con FeenoX la reactividad neta introducida por el pescadito variando paramétricamente la posición $r \in [0:A-a]$ de su centro $x=r$, $y=0$. Para eso, comenzamos con un script de Bash que...
+
+  1. genera un archivo de texto `vars.geo` (que es incluido desde `un-pescadito.geo` para ubicar el círculo pequeño correspondiente al pescadito),
+  2. crea una malla no estructurada con Gmsh (@fig-un-pescadito-mesh)
+  3. resuelve la ecuación de difusión con FeenoX para diferentes posiciones $r$ del pescadito.
+  
 
 ::: {#fig-un-pescadito-mesh layout="[45,-10,45]"}
 ![$r=20$](un-pescadito-20.png){#fig-un-pescadito-20}
 
 ![$r=40$](un-pescadito-40.png){#fig-un-pescadito-40}
  
-Mallas para un pescadito de radio $a=2$ nadando dos posiciones $x=r$, $y=0$ en un reactor de radio $A=50$.
+Mallas para un pescadito rojo de radio $a=2$ nadando dos posiciones $x=r$, $y=0$ en un reactor celeste de radio $A=50$.
 :::
 
 
@@ -58,7 +63,7 @@ $
 
 Si luego del estudio quisiéramos agregar cuatro puntos más, comenzamos con el offset 3 para obtener 
 
-```
+```terminal
 $ feenox steps.fee 0 1 4 3
 0.375
 0.875
@@ -128,7 +133,7 @@ Efecto de apantallamiento y anti-apantallamiento
 
 Supongamos ahora que agregamos un tercer pescadito. Por alguna razón, los primeros dos pescaditos están fijos en dos posiciones arbitrarias $[x_1,y_1]$ y $[x_2,y_2]$. Tenemos que poner el tercer pescadito en una posición $[x_3,y_3]$ de forma tal de hacer que la reactividad total sea lo menor posible.^[Reemplazar "pescadito" por "lanza de inyección de boro de emergencia" para pasar de un problema puramente académico a un problema de interés en ingeniería nuclear.]
 
-Una forma de resolver este problema con FeenoX es proceder de la misma manera que en las secciones anteriores pero en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta determinística ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
+Una forma de resolver este problema con FeenoX es atacarlo en forma similar a la manera en que procedimos que en las secciones anteriores. Pero ahora en lugar de variar la posición del tercer pescadito en forma paramétrica según una receta determinística ya conocida de antemano, utilizar un algoritmo de optimización que decida la nueva posición del tercer pescadito en función de la historia de posiciones y los valores de reactividad calculados por FeenoX en cada paso.
 
 ::: {.remark}
 En la reciente tesis de maestría @perezwinter se emplea FeenoX para resolver la ecuación de calor y, mediante un script en Python, optimizar topológicamente el reflector de un reactor nuclear integrado. Esa tesis, junto con esta sección, ayuda a ilustrar el punto que queremos enfatizar sobre la flexibilidad en el diseño de FeenoX para ser utilizada como una herramienta de optimización. 
@@ -141,7 +146,7 @@ En particular, podemos usar la biblioteca de Python SciPy que provee acceso a al
 ```
 
 ::: {.remark}
-En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simulado, algoritmos genéticos o incluso redes neuronales.
+En forma deliberada hemos mostrado en este caso un driver script muy sencillo para mostrar que realmente es posible realizar un cálculo de optimización con muy poco código extra. Sin embargo, el esquema propuesto también funciona para otros algoritmos de optimización más complejos como recocido simulado, algoritmos genéticos o incluso aquellos basados en redes neuronales.
 :::
 
 La función `keff()` a optimizar es función de la posición $\vec{x}_3$ del tercer pescadito, cuyas dos componentes son pasadas como argumento al script de Bash que llama primero a Gmsh y luego a FeenoX para devolver el $k_\text{eff}(\vec{x}_3)$ para $\vec{x}_1$ y $\vec{x}_2$ fijos:
@@ -177,7 +182,7 @@ $
 ```
 
 
-![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead @neldermead.](tres-pescaditos.svg){#fig-tres-pescaditos width=50%}
+![Pasos intermedios del problema de optimización de los tres pescaditos resuelto con el algoritmo de Nelder-Mead @neldermead.](tres-pescaditos.svg){#fig-tres-pescaditos width=65%}
 
 
 ::: {#fig-tres3d layout="[1,-0.05,1]"}

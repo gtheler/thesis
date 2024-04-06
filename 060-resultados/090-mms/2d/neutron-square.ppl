@@ -25,6 +25,8 @@ load "neutron-square-fits.ppl"
 # set output "neutron-square-einf.pdf"
 # load "neutron-square-einf.ppl"
 
+set size ratio 1
+
 # set yrange [2e-3:0.1]
 set ylabel "$e_2 = \sqrt{\int \left[\phi(x,y)-\phi_\text{mms}(x,y)\right]^2 \, dx \, dy}$"
 #set title "FeenoX---Square--$e_2$"

@@ -37,13 +37,13 @@ Lo que hay que hacer para obtener su valor es resolver esta ecuación implícita
 :::
 
 ::: {.remark}
-Este problema no sólo tiene solución analítica para el factor $k_\text{eff}$ sino que también el flujo $\phi(x)$ tiene una expresión algebraica.
+Este problema no sólo tiene solución analítica para el factor $k_\text{eff}$ sino que también el flujo $\phi(x)$ tiene una expresión algebraica por trozos para $0 < x < a$ y para $a < x < b$.
 De hecho una para $x<a$ y otra para $x>a$. Dicha solución no es relevante para este problema, pero por completitud dejamos comentadas las instrucciones de FeenoX para evaluarlo y escribirlo en un archivo de salida.
 :::
 
 Por otro lado, vamos a calcular $k_\text{eff}$ numéricamente de dos maneras diferentes, a saber:
 
-  i. usando una malla no uniforme con $n$ elementos y $n+1$ nodos de forma tal que siempre haya un nodo exactamente en la interfaz $x=a$ para cualquier valor arbitrario de $b$, y
+  i. usando una malla no uniforme con $n$ elementos y $n+1$ nodos de forma tal que siempre haya un nodo _exactamente_ en la interfaz $x=a$ para cualquier valor arbitrario de $b$, y
   ii. con una malla uniforme con $n$ elementos de igual tamaño y $n+1$ nodos equiespaciados para emular el comportamiento de los solvers que no pueden manejar el caso i. Si la interfaz coincide exactamente con uno de los nodos, entonces hay dos zonas bien definidas (@fig-dilucion2). Pero en general, esto no va a suceder (@fig-dilucion3). Entonces, al elemento que contiene la interfaz $x=a$ le asignamos un pseudo material $AB$ (@fig-dilucion4) cuyas secciones eficaces son un promedio pesado de las de $A$ y $B$ según la fracción geométrica que cada una de las zonas ocupa en el elemento. Es decir, si $b=100$ y $n=10$ entonces cada elemento tiene un ancho igual a 10. Si además $a=52$ entonces este material $AB$ tendrá un 20% del material $A$ y un 80% del material $B$.
   
 ::: {#fig-dilucion layout="[1,-0.05,1,-0.05,1]"}
@@ -81,13 +81,18 @@ Ahora preparamos este archivo de entrada de FeenoX que es de los más complicado
 ```{.feenox include="two-zone-slab.fee"}
 ```
 
-La ejecución necesita un argumento que puede ser `i` o `ii` según sea el punto que queremos resolver: malla no uniforme o uniforme, respectivamente.
+La ejecución necesita un argumento que puede ser `i` o `ii` según sea el punto que queremos resolver:
+
+
+ i. malla no uniforme
+ ii malla uniforme
+ 
 Cada uno de los dos puntos usa una malla diferente, que luego explicamos cómo generamos.
 Luego incluimos el mismo archivo `ab.geo` con la información geométrica que ya incluyeron los archivos de entradas de Gmsh.
 Como la sintaxis de asignación de variables es igual en Gmsh que en Feenox, podemos incluirlo directamente (el punto y coma al finalizar la línea es opcional en FeenoX).
 
 
-Luego definimos las secciones eficaces de los dos materiales asignando variables y finalmente calculamos las secciones eficaces del pseudo-material $AB$ utilizando las facilidades algebraicas que nos da FeenoX.
+A continuación definimos las secciones eficaces de los dos materiales asignando variables y finalmente calculamos las secciones eficaces del pseudo-material $AB$ utilizando las facilidades algebraicas que nos provee FeenoX.
 Ponemos condiciones de contorno nulas, resolvemos el problema y tenemos en la variable especial `keff` el factor de multiplicación efectiva para una posición `a` de la interfaz en un slab de ancho `b` en el caso `i` (no uniforme) o `ii` (uniforme).
 
 Lo que queremos ahora es comparar este `keff` numérico con el $k_\text{eff}$ analítico para cuantificar los errores producidos por los métodos `i` y `ii`.
@@ -98,12 +103,20 @@ Hemos necesitado resolver numéricamente la @eq-two-zone para obtener el $k_\t
 La búsqueda numérica de la raíz de la ecuación es un algoritmo que puede continuar hasta que el error cometido sea arbitrariamente pequeño, por lo que `k` es _analítico_ y `keff` _numérico_. 
 :::
  
-Nos falta un archivo más para completar el estudio, que es un script que haga el barrido de $a$ en un cierto intervalo, y llame a Gmsh y a FeenoX para los casos i y ii:
+Nos falta un archivo más para completar el estudio, que es un script que haga el barrido de $a$ en un cierto intervalo, y llame a Gmsh y a FeenoX para los casos _i_ y _ii_:
 
 ```{.bash include="two-zone-slab.sh"}
 ```
 
 Estamos entonces en condiciones de ejecutar este script para poder graficar los errores de ambos métodos:
+
+::: {#fig-two-zone-slab layout="[100]"}
+![Factor de multiplicación](two-zone-slab-keff.svg){#fig-two-zone-slab-keff}
+
+![Error con respecto a la solución analítica](two-zone-slab-error.svg){#fig-two-zone-slab-error}
+
+Efecto "cúspide": comparación entre los $k_\text{eff}$ obtenidos en los puntos _i_ y _ii_ con respecto a la solución analítica.
+:::
 
 
 ```terminal
@@ -127,13 +140,6 @@ $
 ```
 
 
-::: {#fig-two-zone-slab layout="[100]"}
-![Factor de multiplicación](two-zone-slab-keff.svg){#fig-two-zone-slab-keff}
-
-![Error con respecto a la solución analítica](two-zone-slab-error.svg){#fig-two-zone-slab-error}
-
-Comparación entre los $k_\text{eff}$ obtenidos en los puntos i y ii con respecto a la solución analítica.
-:::
 
 La @fig-two-zone-slab ilustra cabalmente el punto de Richard Stallman: en lugar de lidiar con cómo corregir el efecto "cúspide" (por ejemplo modificando la posición de la barra de control artificalmente para reducirlo) es mucho más efectivo evitarlo en primer lugar.
 

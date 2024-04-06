@@ -6,7 +6,7 @@
 
 ![Geometría del problema de Azmy](azmy-figure.svg){#fig-azmy-figure}
 
-Este problema adimensional fue introducido en 1988 en el artículo @azmy y re-visitado en la tesis @park.
+Este problema adimensional fue introducido en 1988 en el artículo @azmy y re-visitado en la tesis de maestría @park.
 Consiste en una geometría bi-dimensional muy sencilla, como ilustramos en la @fig-azmy-figure.
 En el paper original, este cuadrado se dividide en cuatro cuadrados de $5 \times 5$ donde se calculan los flujos medios, que es lo que hacemos en las dos secciones que siguen para comparar los resultados con las referencias.
 
