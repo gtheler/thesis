@@ -19,7 +19,7 @@ Con esta tesis de alguna manera cerramos dos lazos:
     - la tesis de maestría sobre inestabilidades no lineales en el problema acoplado termohidráulico-neutrónico @theler2008
     - este extenso trabajo, medido tanto en tiempo de desarrollo (principalmente entendiendo qué es lo que _no_ hay que hacer) como en cantidad de texto.
  
- b. Otro más general en el que agregamos el nivel de núcleo a las dos tesis de doctorado
+ b. Otro más general en el que agregamos el nivel de núcleo a las dos tesis de doctorado del Instituto Balseiro
  
     - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián @nacho
     - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani @chaco
@@ -102,7 +102,7 @@ El listado de trabajos futuros sugeridos incluye
  * desarrollo de interfaces y capas de abstracción
    - plataforma web 
    - interfaces gráficas de usuario (GUIs)
-   - APIs para lenguajes de scripting (Python, Julia, etc.)
+   - APIs para lenguajes de [scripting]{lang=en-US} (Python, Julia, etc.)
    - ["thin clients"]{lang=en-US} para ejecución en la nube 
  * refinamiento automático de malla^[Del inglés [*Automatic Mesh Refinement*]{lang=en-US}]
  * investigación de otras discretizaciones espaciales

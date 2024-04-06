@@ -11,7 +11,7 @@ Un octavo de dos reactores desnudos
 :::
 
 Todos sabemos que, a volumen constante, un reactor desnudo esférico tiene un factor de multiplicación efectivo mayor que un reactor cúbico (@fig-cube-and-sphere).
-De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamete dicho $k_\text{eff}$.
+De hecho a un grupo de energía con aproximación de  difusión podemos calcular explícitamente dicho $k_\text{eff}$.
 
 
  
@@ -32,7 +32,7 @@ Transformación continua entre un cubo y una esfera
 ```
 
 En efecto, la mayor complejidad está en generar la malla para una fracción $0 < f < 1$ de "esfericidad" (de forma que $f=0$ sea un cubo y $f=1$ sea una esfera) para un volumen $V$ constante.
-Dado que hay cuestiones no triviales, como por ejemplo el hecho de que el kernel geométrico OpenCASCADE no permite hacer una operación tipo "fillet" de forma tal que se eliminen las caras planas originales (que es justamente lo que sucede para $f=1$) es mejor generar la malla usando la interfaz Python de Gmsh en lugar de un archivo de entrada:
+Dado que hay cuestiones no triviales, como por ejemplo el hecho de que el kernel geométrico OpenCASCADE no permite hacer una operación tipo ["fillet"]{lang=en-US} de forma tal que se eliminen las caras planas originales (que es justamente lo que sucede para $f=1$) es mejor generar la malla usando la interfaz Python de Gmsh en lugar de un archivo de entrada:
  
 ```{.python include="cubesphere.py"}
 ```

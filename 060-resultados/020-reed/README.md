@@ -211,6 +211,6 @@ $
 
 ::: {.remark}
 Dado que las propiedades de los materiales y las condiciones de contorno fueron siempre iguales para todos los casos resueltos en esta sección, una gestión más eficiente de los archivos de entrada habría implicado que creáramos un archivo separado con las palabras clave `MATERIAL` y `BC` para luego incluir dicho archivo desde cada uno de los archivos de entrada con la palabra clave `INCLUDE` (por ejemplo en la @sec-phwr).
-Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explíctamente la definición de materiales y de condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE`, que es para lo que fue diseñada.
+Como este es el primer problema neutrónico resuelto con FeenoX en esta tesis, hemos elegido dejar explícitamente la definición de materiales y de condiciones de contorno. En secciones siguientes vamos a utilizar la palabra clave `INCLUDE`, que es para lo que fue diseñada.
 :::
 

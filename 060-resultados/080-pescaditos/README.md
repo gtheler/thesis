@@ -113,7 +113,7 @@ $
 
 ![Dos pescaditos de radio $a$ nadan a lo largo del eje $x$ en forma diametralmente opuesta.](dos-pescaditos-geo.svg){#fig-dos-pescaditos-geo width=50%}
 
-Agregemos ahora otro pescadito nadando en forma diametralmente opuesta al primero (@fig-dos-pescaditos-geo).
+Agreguemos ahora otro pescadito nadando en forma diametralmente opuesta al primero (@fig-dos-pescaditos-geo).
 El script de Bash, el archivo de entrada de Gmsh y el de FeenoX son muy similares a los de la sección anterior por lo que no los mostramos.
 Ahora al graficar la curva de reactividad en función de $r$ y compararla con el doble de la reactividad introducida por un único pescadito calculada en la sección anterior (@fig-dos-pescaditos) vemos los dos efectos explicados en el capítulo 14 de la referencia clásica @lamarsh (@fig-lamarsh-14-5).
 Si los pescaditos están lejos entre sí sus reactividades negativas son más efectivas porque se anti-apantallan. Pero al acercarse, se apantallan y la reactividad neta es menor que por separado.
@@ -129,7 +129,7 @@ Efecto de apantallamiento y anti-apantallamiento
 :::
 
 
-## Tres pescadtos: optimización {#sec-tres-pescaditos}
+## Tres pescaditos: optimización {#sec-tres-pescaditos}
 
 Supongamos ahora que agregamos un tercer pescadito. Por alguna razón, los primeros dos pescaditos están fijos en dos posiciones arbitrarias $[x_1,y_1]$ y $[x_2,y_2]$. Tenemos que poner el tercer pescadito en una posición $[x_3,y_3]$ de forma tal de hacer que la reactividad total sea lo menor posible.^[Reemplazar "pescadito" por "lanza de inyección de boro de emergencia" para pasar de un problema puramente académico a un problema de interés en ingeniería nuclear.]
 

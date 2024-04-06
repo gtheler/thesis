@@ -16,7 +16,7 @@ Este primer caso no resuelve ninguna PDE pero sirve para ilustrar...
  
 Una aplicación de esta segunda característica es leer una distribución espacial de temperaturas calculadas por un solver térmico (el mismo FeenoX podría servir) y utilizarlas para construir la matriz de rigidez de otro problema (por ejemplo elasticidad lineal para problemas termo-mecánicos o transporte o difusión de neutrones para neutrónica realimentada con termohidráulica). En este caso, los puntos de evaluación son los puntos de Gauss de los elementos de la segunda malla.
 
-En este problema comenzamos escribiendo una función $f(x,y,z)$ definida algebraicamente en los nodos de un cubo unitario $[0,1]\times[0,1]\times[0,1]$ creado en Gmsh con la instrucción `Box` que llama a la primitiva apropiada del núcleo^[En el sentido del inglés [_kernel_]{lang=en-US}.] [OpenCASCADE]{lang=en-US}:
+En este problema comenzamos escribiendo una función $f(x,y,z)$ definida algebráicamente en los nodos de un cubo unitario $[0,1]\times[0,1]\times[0,1]$ creado en Gmsh con la instrucción `Box` que llama a la primitiva apropiada del núcleo^[En el sentido del inglés [_kernel_]{lang=en-US}.] [OpenCASCADE]{lang=en-US}:
 
 ```{.geo include="cube.geo"}
 ```
@@ -41,7 +41,7 @@ Función $f(\vec{x})$ evaluada en el cubo unitario para dos diferentes mallas
 
 El script `run.sh` realiza una inicialización (0) y tres pasos (1--3):
 
- 0. Lee como un string el primer argumento `$1` en la línea de comandos después del archivo de entrada^[Notar que el hecho de que los argumentos estén disponibles en el input como `$1`, `$2`, etc. (o incluso como `${1}`, `${2}`, etc.) coincide con la sintaxis de Bash, lo que sigue la regla de Unix de sorpresa mínima (@sec-unix-least-surprise).] la función $f(x,y,z)$. Si no se provee ningún argumento, utiliza como [default]{lang=en-US}
+ 0. Lee como un [string]{lang=en-US} el primer argumento `$1` en la línea de comandos después del archivo de entrada^[Notar que el hecho de que los argumentos estén disponibles en el input como `$1`, `$2`, etc. (o incluso como `${1}`, `${2}`, etc.) coincide con la sintaxis de Bash, lo que sigue la regla de Unix de sorpresa mínima (@sec-unix-least-surprise).] la función $f(x,y,z)$. Si no se provee ningún argumento, utiliza como [default]{lang=en-US}
  
     $$
     f(x,y,z) = 1 + x \cdot \sqrt{y} + 2 \cdot \log(1+y+z) + \cos(x z) \cdot e^{y \cdot z}
@@ -147,7 +147,7 @@ Recordar la @fig-sine.
 Si $f(\vec{x})$ fuese lineal o incluso polinómica, los errores serían mucho menores.
 :::
 
-Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como oposición a "software libre" o "ćodigo abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes como un servicio de post-venta.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
+Para finalizar este primer caso, las tablas [-@tbl-50-100-ansys] y [-@tbl-100-50-ansys] muestran los errores y los tiempos necesarios para realizar el mismo mapeo entre FeenoX y una biblioteca que forma parte de una solución comercial^[El término "comercial" no está siendo usado como oposición a "software libre" o "código abierto". Como discutimos en la @sec-licencia, es éste un error común. Pero de ninguna manera que un software sea comercial implica que no pueda ser libre o abierto. La palabra "comercial" solamente indica que la herramienta con la que comparamos FeenoX forma parte de una biblioteca que se vende comercialmente, hay clientes que pagan por usarla y hay personas que dan soporte técnico a los clientes como un servicio de post-venta.] vendida por unas de las empresas de software de elementos finitos con mayor participación el el mercado mundial.
 
 ::: {#tbl-010-ansys}
                         |     Otro     |    FeenoX

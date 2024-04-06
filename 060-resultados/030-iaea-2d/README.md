@@ -2,9 +2,9 @@
 
 > **TL;DR:** El problema original de 1976 propone resolver un cuarto de núcleo cuando en realidad la simetría es 1/8.
 
-Este problema fue propuesto por Argonne National Laboratory @anl7416 y luego adoptado por la IAEA como un benchmark estándar para validar códigos de difusión. Está compuesto
+Este problema fue propuesto por [Argonne National Laboratory]{lang=en-US} @anl7416 y luego adoptado por la IAEA como un benchmark estándar para validar códigos de difusión. Está compuesto
 
- a. por un problema 2D que representa un cuarto de una geometría típica de PWR sobre el plano $x$-$y$ más un buckling geométrico para tener en cuenta las pérdidas en la dirección $z$, y
+ a. por un problema 2D que representa un cuarto de una geometría típica de PWR sobre el plano $x$-$y$ más un [buckling]{lang=en-US} geométrico para tener en cuenta las pérdidas en la dirección $z$, y
  b. un problema completamente tridimensional de un cuarto de núcleo
 
 ## Caso 2D original
@@ -34,7 +34,7 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
 
 : Datos originales de @anl7416 {#tbl-iaea-xs2}
 
-Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de buckling geométrico $B_g^2=0.8 \times 10^{-4}$.
+Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de [buckling]{lang=en-US} geométrico $B_g^2=0.8 \times 10^{-4}$.
  
 :::
 
@@ -84,7 +84,7 @@ $
 ## Caso 2D con simetría 1/8
 
 Como deslizamos en el [capítulo @sec-introduccion], bien mirado el problema no tiene simetría 1/4 sino simetría 1/8.
-Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2024 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el paper @unstructured-stni justamente ilustra el hecho de que las mallas no estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
+Sucede que para poder explotar dicha simetría se necesita una malla no estructurada, que ni en 1976 ni en 2024 (excepto algunos casos puramente académicos como [@chaboncito; @park; @babcsany; @criekingen]) es una característica de los solvers neutrónicos de nivel de núcleo. De hecho el [paper]{lang=en-US} @unstructured-stni justamente ilustra el hecho de que las mallas no estructuradas permiten reducir la cantidad de grados de libertad necesarios para resolver un cierto problema.
 
 ![Malla para el caso 2D original con simetría 1/8](iaea-2dpwr-eighth.png){#fig-iaea-2dpwr-eighth width=50%}
 
@@ -113,7 +113,7 @@ $
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
 Esto indica que el tamaño del problema es muy pequeño y el tiempo necesario para construir las matrices y resolverlas es despreciable frente al [overhead]{lang=en-US} de cargar un ejecutable, inicializar bibliotecas compartidas, etc.
-Podemos verificar esta afirmación analizando la salida de la opcion `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
+Podemos verificar esta afirmación analizando la salida de la opción `--log_view` que le indica a PETSc que agregue una salida con datos de performance:
 
 ```terminal
 $ feenox iaea-2dpwr.fee eighth --log_view
@@ -363,6 +363,6 @@ Pero los recursos computacionales requeridos para resolver un problema de autova
 :::
 
 ::: {.remark}
-Este caso pone en relieve la importancia de la paralelización por MPI: reducir el tiempo de cálculo es un beneficio secudario (que aún debe optimizarse en FeenoX) en comparación con la reducción de la memoria por nodo necesaria para resolver un problema de autovalores con un solver lineal directo.
+Este caso pone en relieve la importancia de la paralelización por MPI: reducir el tiempo de cálculo es un beneficio secundario (que aún debe optimizarse en FeenoX) en comparación con la reducción de la memoria por nodo necesaria para resolver un problema de autovalores con un solver lineal directo.
 En el caso del solver iterativo, está claro que se intercambia velocidad por memoria.
 :::

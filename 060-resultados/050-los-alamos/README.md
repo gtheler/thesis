@@ -1,4 +1,4 @@
-# Benchmarks de criticidad de Los Alamos {#sec-losalamos}
+# [Benchmarks]{lang=en-US} de criticidad de Los Alamos {#sec-losalamos}
 
 > **TL;DR:** Estos problemas proveen una manera de realizar una primera verificación del código con el método de soluciones exactas.
 
@@ -11,7 +11,7 @@ Una de las dificultades de la verificación consiste en encontrar la solución d
 
 
  * problemas a uno, dos, tres y seis grupos de energía
- * scattering isotrópico y linealmente anisotrópico
+ * scattering isotrópico y linealmente anisótropo
  * geometrías
    - de medio infinito
    - de slab en 1D
@@ -87,4 +87,4 @@ Para ello podemos crear un script de Bash que llame a cada uno de los archivos d
 ![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que aumentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
 
 La @fig-losalamos muestra---en forma poco rigurosa---que en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
-Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisotrópico y con más de dos grupos de energías.
+Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisótropo y con más de dos grupos de energías.

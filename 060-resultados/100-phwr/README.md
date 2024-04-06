@@ -128,7 +128,7 @@ $
 ```
 
 Si bien el tiempo de pared disminuye, no lo hace tanto como debería ya que todavía hay mucho lugar para optimización en FeenoX, especialmente en paralelización por MPI. Pero podemos observar que el comportamiento es esencialmente el esperado.
-Más importante aún es el comportamiento de la memoria: a medida que usamos más procesos (o "ranks" en terminología de MPI), la memoria requerida en cada uno disminuye sensiblemente. Esto implica que FeenoX puede---en principio---resolver problemas arbitrariamente grandes si se dispone de suficientes computadoras que puedan ser interconectadas por MPI, que era una de las premisas de esta tesis.^[Quedan como trabajos futuros el análisis de convergencia de otros pre-condicionadores y el estudio de escalabilidad en paralelo de problemas tipo S_$N$ (@sec-trabajos-futuros}).]
+Más importante aún es el comportamiento de la memoria: a medida que usamos más procesos (o ["ranks"]{lang=en-US} en terminología de MPI), la memoria requerida en cada uno disminuye sensiblemente. Esto implica que FeenoX puede---en principio---resolver problemas arbitrariamente grandes si se dispone de suficientes computadoras que puedan ser interconectadas por MPI, que era una de las premisas de esta tesis.^[Quedan como trabajos futuros el análisis de convergencia de otros pre-condicionadores y el estudio de escalabilidad en paralelo de problemas tipo S_$N$ (@sec-trabajos-futuros}).]
 La @fig-phwr-dif muestra la distribución de flujos rápido y térmico resultantes.
 
 
@@ -223,7 +223,7 @@ De todas maneras, lo que sí sigue siendo cierto, como mostramos en la @fig-mpi
 
 ![Disminución de la memoria por proceso MPI](mpi.svg){#fig-mpi}
 
-Para finalizar, debemos notar que al resolver problemas de critidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el [capítulo @sec-esquemas] en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
+Para finalizar, debemos notar que al resolver problemas de criticidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el [capítulo @sec-esquemas] en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
 Para resolver este tipo de problemas se necesita un [solver]{lang=en-US} lineal que pueda "invertir"^[En el sentido de resolver un problema lineal, no de calcular explícitamente la inversa densa de una matriz rala.] la matriz de fisiones.
 Debido a razones técnicas relacionadas a la teoría de métodos numéricos, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan significativamente mejor si este [solver]{lang=en-US} lineal es directo. Es conocido que los solvers directos son robustos pero no son escalables. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un [solver]{lang=en-US} lineal usando opciones en la línea de comandos).
 Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales (o eventualmente no lineales con un esquema tipo Newton-Raphson).
@@ -245,7 +245,7 @@ Tiempos necesarios para construir y resolver diferentes formulaciones para casos
 
 
 En efecto, como vemos en la @tbl-mpi, en el caso de difusión con fuentes independientes, la matriz de rigidez es simétrica y el operador es elíptico.
-Esto hace que sea muy eficiente usar un precondicionador geométrico-algebraico multi-grilla (GAMG) combinado con un [solver]{lang=en-US} de Krylov tipo gradientes conjugados, tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
+Esto hace que sea muy eficiente usar un pre-condicionador geométrico-algebraico multi-grilla (GAMG) combinado con un [solver]{lang=en-US} de Krylov tipo gradientes conjugados, tanto en términos de CPU como de memoria. Justamente esa combinación es el _default_ para problemas tipo `neutron_diffusion` en FeenoX.
 Por otro lado, al resolver `neutron_sn`, aún para problemas con fuente se necesita un [solver]{lang=en-US} directo ya que de otra manera la convergencia es muy lenta con un impacto directo en la cantidad de memoria necesaria.
 
 

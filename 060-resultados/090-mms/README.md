@@ -62,7 +62,7 @@ Para verificar un código con el método de MMS es condición necesaria que el c
 Es también recomendable que permita realizar estudios paramétricos con cierta facilidad y automatización razonable @garcar2023.
 :::
 
-## Stanford bunny a un grupo {#sec-mms-3d}
+## [Stanford bunny]{lang=en-US} a un grupo {#sec-mms-3d}
 
 Consideremos un reactor con la forma del conejo de Stanford (@fig-bunny-orig) con secciones eficaces adimensionales uniformes $D=1$ y $\Sigma_a=0.05$.
 La ecuación de difusión es entonces
