@@ -42,8 +42,8 @@
 Hay virtualmente infinitas maneras $\aleph_0$ de diseñar un programa para que una computadora realice una determinada tarea.
 Y otras infinitas maneras $\aleph_1$ de implementarlas. La herramienta computacional desarrollada en esta tesis, denominada [FeenoX](https://www.seamplex.com/feenox/) @feenox-2024 (ver @sec-faq para una explicación del nombre), fue diseñada siguiendo un patrón frecuente en la industria de software:
 
- 1. el "cliente" define un documento denominado [_Sofware Design Requirements_]{lang=en-US}, y
- 2. el "proveedor" indica cómo cumplirá esos requerimientos en un [_Sofware Design Specifications_]{lang=en-US}.
+ 1. el "cliente" define un documento denominado [_Sofware Requirements Specification_]{lang=en-US}, y
+ 2. el "proveedor" indica cómo cumplirá esos requerimientos en un [_Sofware Design Specification_]{lang=en-US}.
  
 Una vez que ambas partes están de acuerdo, se comienza con el proyecto de ingeniería en sí con [_kick-off meetings_]{lang=en-US}, certificaciones de avance, órdenes de cambio, etc.
 
@@ -366,7 +366,7 @@ Entonces, la segunda conclusión es que si nuestra herramienta fuese capaz de pr
 entonces podríamos resolver ecuaciones diferenciales arbitrarias discretizadas espacialmente con el método de elementos finitos.
 
       
-### Polimorfismo con apuntadores a función 
+### Polimorfismo con apuntadores a función {#sec-polimorfismo}
 
 Según la discusión de la sección anterior, podemos diferenciar entre dos partes del código:
 
@@ -2372,9 +2372,9 @@ Por ejemplo, que manejen temas como
  * etc.
 
 Si bien esta tesis no abarca a estos clientes (que queda como trabajo a futuro), el diseño de FeenoX es tal que su desarrollo es perfectamente posible y eficiente. De hecho nos referimos a "clientes" en plural porque, tal como pide la regla de Unix de diversidad (@sec-unix-diversity), no hay un único tipo de cliente posible sino que hay muchas dependiendo del tipo de problema a resolver. Y como FeenoX justamente es lo suficientemente flexible como para resolver no solamente diferentes PDEs sino también diferentes clases de problema (acoplados, paramétricos, de optimización, etc.) en diferentes entornos (muchos cálculos pequeños, pocos grandes, uno inmenso, etc.) bajo diferentes condiciones (en la industria por una sola persona, en la academia por un equipo, como una plataforma pública [_as a service_]{lang=en-US}, etc.) entonces es de esperar que no haya un cliente que pueda manejar todas las combinaciones en forma óptima.
-Pero sí lo que se ha tenido en cuenta en el diseño del código computacional de cálculo es que, una vez más siguiendo la filosofía Unix planteada implícitamente durante la década de 1970 [@unix] pero que sigue siendo extremadamente importante en la década de 2020 a la luz de la arquitectura que "la nube" fue tomando, se debe separar el [_back end_]{lang=en-US} de las capas de abstracción necesarias para llegar a los distintos [_front ends_]{lang=en-US} necesarios para su aplicación (regla de separación, @sec-unix-separation).
+Pero sí lo que se ha tenido en cuenta en el diseño del código computacional de cálculo es que, una vez más siguiendo la filosofía Unix planteada implícitamente durante la década de 1970 [@unix] pero que sigue siendo extremadamente importante en la década de 2020 a la luz de la arquitectura que "la nube" fue tomando, se debe separar el [_back end_]{lang=en-US} de las capas de abstracción necesarias para llegar a los distintos [_front ends_]{lang=en-US} (@fig-front-back5) necesarios para su aplicación (regla de separación, @sec-unix-separation) .
 
-![Ilustración conceptual de la diferencia entre un [_front end_]{lang=en-US} y un [_back end_]{lang=en-US} ©bluecoders.](front-back.png){#fig-front-back width=40%}
+![Ilustración conceptual de la diferencia entre un [_front end_]{lang=en-US} y un [_back end_]{lang=en-US} ©bluecoders.](front-back.png){#fig-front-back5 width=40%}
 
 ::::: {.remark}
 Este párrafo no es trivial. Conozco de primera mano los esfuerzos realizados por una de las empresas de software de cálculo más grandes del mundo (con facturación superior a los 2 mil millones de dólares en 2022 y comprada por 38 mil millones en 2024) que ha intentado agregar esta capa de abstracción a sus solvers existentes con una tasa de suceso tan baja que ha debido comprar una startup que estaba en mejores condiciones de hacerlo por más de cien millones de dólares.
@@ -2526,8 +2526,8 @@ El 100% de la documentación, incluyendo
  * el manual descriptivo (en formato Texinfo)
  * la referencia completa (en formato HTML y PDF)
  * la página de manual de Unix (@fig-manpage)
- * el [_Sofware Design Requirements_]{lang=en-US}
- * el [_Sofware Design Specifications_]{lang=en-US}
+ * el [_Sofware Requirements Specification_]{lang=en-US}
+ * el [_Sofware Design Specification_]{lang=en-US}
  * los ejemplos
  * esta misma tesis
  

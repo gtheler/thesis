@@ -4913,4 +4913,4 @@ En este caso el flujo está completamente determinado por la dependencia (explí
 
 \bigskip
 
-Terminada la explicación del _cómo_ (en los capítulos [-@sec-transporte-difusion] y [-@sec-esquemas]), pasemos entonces al _qué_ (en los dos capítulos que siguen).
+Terminada la explicación del _cómo_ en estos capítulos [-@sec-transporte-difusion] y [-@sec-esquemas], pasemos entonces al _qué_ en los dos capítulos que siguen.

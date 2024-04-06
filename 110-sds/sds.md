@@ -1,7 +1,7 @@
 ---
-title: FeenoX Software Design Specifications
+title: FeenoX Software Design Specification
 lang: en-US
-abstract: This Software Design Specifications (SDS) document applies to an imaginary [Software Requirement Specifications](./srs.md) (SRS) document issued by a fictitious agency asking for vendors to offer a free and open source cloud-based computational tool to solve engineering problems. The latter can be seen as a “Request for Quotation” and the former as an offer for the fictitious tender. Each section  of this SDS addresses one section of the SRS. The original text from the SRS is shown quoted at the very beginning before the actual SDS content.
+abstract: This Software Design Specification (SDS) document applies to an imaginary [Software Requirements Specification](./srs.md) (SRS) document issued by a fictitious agency asking for vendors to offer a free and open source cloud-based computational tool to solve engineering problems. The latter can be seen as a “Request for Quotation” and the former as an offer for the fictitious tender. Each section  of this SDS addresses one section of the SRS. The original text from the SRS is shown quoted at the very beginning before the actual SDS content.
 number-sections: true
 toc: true
 documentclass: report
@@ -2495,8 +2495,8 @@ Other pieces of documentation in markdown which then are converted to HTML & PDF
 
  * [The FeenoX manual](https://github.com/seamplex/feenox/blob/main/feenox-desc.md)
  * [The FeenoX description](https://github.com/seamplex/feenox/blob/main/feenox-desc.md) (converted to Texinfo as well)
- * [Software Requirements Specifications](https://github.com/seamplex/feenox/blob/main/srs.md)
- * [Software Design Specifications](https://github.com/seamplex/feenox/blob/main/sds.md)
+ * [Software Requirements Specification](https://github.com/seamplex/feenox/blob/main/srs.md)
+ * [Software Design Specification](https://github.com/seamplex/feenox/blob/main/sds.md)
  * [Frequently Asked Questions](https://github.com/seamplex/feenox/blob/main/FAQ.md)
  * [FeenoX Unix man page](https://github.com/seamplex/feenox/blob/main/feenox.1.md)
  * [History](https://github.com/seamplex/feenox/blob/main/history.md)

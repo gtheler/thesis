@@ -1,5 +1,4 @@
 INCLUDE parameters.fee
-
 FUNCTION setpoint(t) DATA {
 0     1
 1000  1
@@ -18,17 +17,14 @@ FUNCTION rodworth(z) INTERPOLATION akima DATA {
 0.4  -3.253021e+01*1e-5*10
 0.6  -7.418505e+01*1e-5*10   
 0.8  -1.103352e+02*1e-5*10   
-1    -1.285819e+02*1e-5*10  
-}
+1    -1.285819e+02*1e-5*10  }
 
 # constantes para el xenón
 gammaX = 1.4563E10       # xenon-135 direct fission yield
 gammaI = 1.629235E11     # iodine-135 direction fission yield
 GammaX = -3.724869E-17   # xenon-135 reactivity coefficiente
-
 lambdaX = 2.09607E-05    # xenon-135 decay constant
 lambdaI = 2.83097E-05    # iodine-135 decay constant
-
 sigmaX = 2.203206E-04    # microscopic XS of neutron absorption for Xe-134
 
 PHASE_SPACE rho phi c I X
@@ -45,7 +41,6 @@ rho_bias_0 = -rodworth(z_0) - GammaX*X_0
 rho = rho_bias + rodworth(z) + GammaX*X
 phi_dot = (rho-Beta)/Lambda * phi + vecdot(lambda, c)
 c_dot[i] = beta[i]/Lambda * phi - lambda[i]*c[i]
-
 I_dot = gammaI * phi - lambdaI * I
 X_dot = gammaX * phi + lambdaI * I - lambdaX * X - sigmaX * phi * X
 

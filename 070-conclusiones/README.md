@@ -1,13 +1,6 @@
 # Conclusiones {#sec-conclusiones}
 
 ::::: {.chapterquote data-latex=""}
-::: {lang=en-US}
-> | A good hockey player plays where the puck is.
-> | A great hockey player plays where the puck is going to be.
-> |
-> | _Wayne Gretzky_
-:::
-
 > Leí con incomprensión y fervor estas palabras que con minucioso pincel redactó un hombre de mi sangre:
 >
 > > Dejo a los varios porvenires (no a todos) mi jardín de senderos que se bifurcan.
@@ -24,7 +17,7 @@ Con esta tesis de alguna manera cerramos dos lazos:
  
     - la tesis de grado sobre control de lazos de convección natural caóticos @theler2007
     - la tesis de maestría sobre inestabilidades no lineales en el problema acoplado termohidráulico-neutrónico @theler2008
-    - este extenso trabajo, medido tanto en años como en cantidad de texto.
+    - este extenso trabajo, medido tanto en tiempo de desarrollo (principalmente entendiendo qué es lo que _no_ hay que hacer) como en cantidad de texto.
  
  b. Otro más general en el que agregamos el nivel de núcleo a las dos tesis de doctorado
  
@@ -37,44 +30,44 @@ En ella hemos recorrido los tres aspectos en el no tan tradicional y poco acadé
  2. ¿Cómo? ([cap. @sec-transporte-difusion] y [-@sec-esquemas])
  3. ¿Qué? ([cap. @sec-implementacion] y [-@sec-resultados])
  
-La idea del desarrollo se basa en comenzar con un documento ficticio (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente (que podría ser una entidad pública, un laboratorio o una compañía privada) especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser adoptada.
-FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specifications]{lang=en-US} (@sec-sds).
-Este enfoque es muy común en la industrial del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barrera de potencial, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas cosas y todos terminan enriqueciendo sus capacidades y experiencias.
+La idea del desarrollo se basa en comenzar con un documento ficticio (pero plausible) con un [Software Requirements Specification]{lang=en-US} (@sec-srs) en el cual un cliente---que podría ser una entidad pública, un laboratorio o una compañía privada---especifica un pliego de condiciones técnicas que debe tener una herramienta computacional para ser comprada o financiada.
+FeenoX aparece como una "oferta" a dicho pliego, con un [Software Design Specification]{lang=en-US} (@sec-sds).
+Este enfoque es muy común en la industria del software. Lo conocí justamente trabajando como consultor independiente donde de alguna manera estuve obligado interactuar con profesionales de otros ámbitos que "hablan otro idioma". Una vez franqueada la primera barrera de potencial, la interacción es sumamente fructífera ya que no todas las profesiones dan por sentadas las mismas suposiciones y todos terminan enriqueciendo sus capacidades y experiencias.
 
 
-En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US} consiste en que el software...
+En general, en términos de emprendedurismo, el [_unfair advantage_]{lang=en-US} consiste en que el la herramienta...
 
- * es libre y abierto, con la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
- * está pensado como [_cloud-first_]{lang=en-US} y no solamente [_cloud-friendly_]{lang=en-US} (@sec-cloud)
- * puede escalar arbitrariamente con MPI (@sec-escalabilidad)
- * es un back end diseñado para poder ser manejado con diferentes front ends (@fig-front-back)
+ * es libre y abierta @feenox-2024---remarcando la importancia que esto tiene tanto en la academia como en la industria (@sec-licencia)
+ * está pensada como [_cloud-first_]{lang=en-US}, concepto que no solamente implica [_cloud-friendliness_]{lang=en-US} (@sec-cloud)
+ * puede escalar arbitrariamente en paralelo apalancándose en el estándar MPI (@sec-escalabilidad)
+ * es un [back end]{lang=en-US} diseñado para poder ser manejado con diferentes [front ends]{lang=en-US} (@fig-front-back5)
  * sigue la filosofía de diseño Unix (@sec-unix) que es perfectamente aplicable al concepto de [_cloud-first_]{lang=en-US}
  * provee una interfaz amena a la simulación programática (@sec-simulacion-programatica)
  * es extremadamente flexible y puede resolver una gran variedad de problemas, desde los más simples con propiedades uniformes hasta los más complejos donde las propiedades de los materiales pueden depender del espacio de maneras no triviales ([capítulo @sec-resultados])
- * es a los programas tradicionales (CalculiX, CodeAster) y a las bibliotecas de elementos finitos (Sparselizard, MoFEM) lo que [Markdown]{lang=en-US} es a procesadores de texto (Word, Google Docs) y a sistemas de tipografía (TeX)
- * está diseñado para que sea posible agregar más tipos de PDEs sin tener que escribir un [solver]{lang=en-US} desde cero
+ * es a los programas tradicionales (CalculiX, CodeAster) y a las bibliotecas de elementos finitos (Sparselizard, MoFEM) lo que [Markdown]{lang=en-US} es a procesadores de texto (Word, Google Docs) y a sistemas de tipografía (TeX), respectivamente (@sec-introduction)
+ * está diseñada para que sea posible agregar más tipos de PDEs sin tener que escribir un [solver]{lang=en-US} desde cero (@sec-polimorfismo)
  
-En particular, para las aplicaciones de neutrónica a nivel de núcleo sus características distintivas son
+En particular, para las aplicaciones de neutrónica a nivel de núcleo sus características distintivas son que...
 
  1. trabaja sobre mallas no estructuradas
  2. puede resolver transporte mediante el método de ordenadas discretas S$_N$
  3. es capaz de resolver problemas de tamaño arbitrario haciendo descomposición de dominio y resolviendo cada parte en un proceso MPI
  
 
-De hecho, en el @sec-introduccion repasamos las motivaciones para escribir una herramienta computacional que pueda superar las limitaciones de los códigos neutrónicos tradicionales.
+En el [capítulo @sec-introduccion] repasamos las motivaciones para escribir una herramienta computacional que pueda superar las limitaciones de los códigos neutrónicos tradicionales.
 Con dicho fin, en el [capítulo @sec-transporte-difusion] amalgamamos la literatura existente sobre transporte de neutrones para obtener las ecuaciones en derivadas parciales que debemos resolver.
-Y en el [capítulo @sec-esquemas] desarrollamos una de las posibles discretizaciones numéricas para poder resolver efectivamente nuetrónica a nivel de núcleo con una (o más) computadoras digitales.
+Y en el [capítulo @sec-esquemas] desarrollamos posibles discretizaciones numéricas para poder resolver efectivamente neutrónica a nivel de núcleo con una (o más) computadoras digitales.
 Justamente, en el [capítulo @sec-implementacion] discutimos y mostramos una de las virtualmente infinitas maneras de diseñar e implementar una herramienta computacional capaz de resolver estas ecuaciones discretizadas.
 Finalmente, en el [capítulo @sec-resultados] mostramos diez problemas que necesitan al menos una de las características distintivas de FeenoX para poder ser resueltos en forma satisfactoria.
  
 
 ## Trabajos futuros {#sec-trabajos-futuros}
 
-Es mi deseo que esta tesis dispare un jardín de senderos que se bifurquen para que las ideas y/o las implementaciones discutidas a lo largo de estos cientos de páginas (físicas en la Biblioteca Falicov, lógicas en su versión PDF o web en su versión HTML) no caigan en el ostracismo. En principio, muchos de las tareas pendientes pueden ser encaradas como trabajos académicos y/o proyectos de ingeniería industriales. En algún sentido, el trabajo "futuro" relacionado al gerenciamiento (sea académico o industrial) es más desafiante que los trabajos técnicos listados a continuación ya no sólo que involucran el [management]{lang=en-US} de los tres vértices del tradicional triángulo de proyectos
+Es mi deseo que esta tesis dispare un jardín de senderos que se bifurquen para que las ideas y/o las implementaciones discutidas a lo largo de estos cientos de páginas (físicas en la Biblioteca Falicov, lógicas en su versión PDF o web en su versión HTML) no caigan en el ostracismo. En principio, muchas de las tareas pendientes pueden ser encaradas como trabajos académicos y/o proyectos de ingeniería industriales. En algún sentido, el trabajo "futuro" relacionado al gerenciamiento (sea académico o industrial) es más desafiante que los trabajos técnicos listados a continuación ya no sólo que involucran el [management]{lang=en-US} de los tres vértices del tradicional triángulo de proyectos
 
- - costos
- - alcance
- - calidad
+ a. costos
+ b. alcance
+ c. calidad
  
 sino también, en proyectos nucleares también hay que lidiar con
 
@@ -82,12 +75,12 @@ sino también, en proyectos nucleares también hay que lidiar con
  - gigantescas inercias organizacionales
  - impredecibles limitaciones políticas
   
-todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremadamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global:
+todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremadamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global.
+El listado de trabajos futuros sugeridos incluye
 
- * comparación cualitativa de difusión con ordenadas discretas
+ * comparación cuantitativa entre la aproximación de difusión y e método de ordenadas discretas
    - en trabajos académicos de investigación
    - en modelos de interés industrial
-   - incorporación de FeenoX en cadenas de cálculo existentes
  * evaluación de otros conjuntos de cuadraturas no necesariamente de nivel simétrico
  * estudios de formas de evitar o mitigar el efecto rayo
  * discretización de la coordenada angular con funciones de forma tipo elementos finitos
@@ -104,8 +97,8 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
    - [PCPATCH]{lang=en-US} @pcpatch
  * mejoramiento de la escalabilidad por paralelización
    - optimización de [multi-node MPI]{lang=en-US}
-   - análisis de algoritmos de descomposición de dominio para aplicaciones en reactores nucleares
-   - evaluación de la utilización de DMPLEX para la distribución
+   - análisis de algoritmos de descomposición de dominio para aplicaciones en reactores nucleares de potencia
+   - evaluación de la utilización de DMPlex para la distribución de la malla @dmplex
  * desarrollo de interfaces y capas de abstracción
    - plataforma web 
    - interfaces gráficas de usuario (GUIs)
@@ -136,19 +129,20 @@ todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que l
    - acústica
    - etc.
  * mejoramiento de la integración continua
-   - agregar tests
-   - medir la cobertura del código
-   - analizar sistemáticamente el código con analizadores de memoria
- * análisis y estudio de compatibilidad de las secciones eficaces homogeneizadas en celdas estructuradas con su uso en el esquema multi-escala con mallas no estructuradas a nivel de núcleo
+   - nuevos tests
+   - medición de la cobertura del código
+   - análisis sistemático del código con analizadores de memoria tipo [valgrind]{lang=en-US}
+ * estudio de compatibilidad de las secciones eficaces homogeneizadas en celdas estructuradas con su uso en el esquema multi-escala (@sec-multiescala) con mallas no estructuradas a nivel de núcleo
    - ensambles de elementos combustibles
    - barras de control
    - nubes de boro en inyección de emergencia
+ * evaluación de la posibilidad de incorporar FeenoX a cadenas de cálculo neutrónico industriales
  * acoplamiento con otros códigos de cálculo
    - comunicadores MPI 
    - memoria compartida
    - [sockets]{lang=en-US} TCP
    - archivo intermedios en almacenamiento tipo [RAM-disks]{lang=en-US}
  * creación de comunidades libres, abiertas y anti-frágiles
-   - académica
-   - industrial
+   - académicas
+   - industriales
  * evaluación de generación de emprendimientos tipo [start up]{lang=en-US} susceptibles de ser invertidos y desarrollados en incubadoras como CITES.
