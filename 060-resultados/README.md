@@ -56,7 +56,7 @@ comment: |
 
 ::: {.remark} 
 Excepto el primer problema de la @sec-non-conformal-mapping, este capítulo se centra en resolver neutrónica a nivel de núcleo tanto con difusión como con ordenadas discretas.
-En el documento [Software Design Specification]{lang=en-US} del @sec-sds se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del @sec-srs. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, neutrónica por difusión, neutrónica por ordenadas discretas).
+En el documento [Software Design Specification]{lang=en-US} del [apéndice @sec-sds] se pueden encontrar otro tipo de problemas que ilustran cómo FeenoX resuelve los requerimientos del [apéndice @sec-srs]. En la [página web de FeenoX](https://www.seamplex.com/feenox), en particular en el apartado de ejemplos, se pueden encontrar más problemas resueltos divididos por tipo de ecuación en derivadas parciales (conducción de calor, elasticidad lineal, análisis modal, neutrónica por difusión, neutrónica por ordenadas discretas).
 :::
 
 ::: {.remark}

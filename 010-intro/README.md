@@ -115,7 +115,7 @@ La forma de diseñar software de cálculo hoy en día debe ser, entonces, radica
 En el [capítulo @sec-implementacion] discutimos en detalle todas estas particularidades, pero el ejemplo clásico se reduce a aquellos programas de cálculo (sobretodo termohidráulicos) en los que la salida está compuesta exactamente por todos y cada una de los resultados calculados, incluyendo distribuciones espaciales y temporales. Esta decisión de diseño tiene sentido cuando es muy caro tener que volver a realizar un cálculo porque un cierto valor requerido no forma parte de la salida.
 Pero esto implica que el ingeniero a cargo del cálculo debe buscar y filtrar solamente aquellos resultados necesarios en medio de un pajar de información a un costo horario miles de veces superior a tener que volver a realizar el cálculo pidiendo explícitamente el resultado requerido, y nada más.
 
-El diseño del sistema operativo Unix (y del lenguaje de programación C, estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, la arquitectura es tan sólida que aunque en las décadas de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["XXX for Windows"]{lang=en-US} que, en mi humilde opinión, ha sido perjudicial para la salud de la comunidad de la mecánica computacional), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será menor al 100%.
+El diseño del sistema operativo Unix (y del lenguaje de programación C, estrechamente relacionado) ha dado en el clavo en muchos aspectos técnicos que hacen que su tecnología esté vigente como nunca más de cincuenta años después de las decisiones de diseño. Tanto es así que prácticamente todos los servidores públicos de Internet funcionan sobre alguna variante de este diseño. Más aún, la arquitectura es tan sólida que aunque en las décadas de 1990 y 2000 hayan aparecido muchas herramientas de cálculo basadas en Windows (la invasión del ["X for Windows"]{lang=en-US} que, en mi humilde opinión, ha sido perjudicial para la salud de la comunidad de la mecánica computacional), se ha probado que es técnica y económicamente  mucho más eficiente recurrir a un esquema de alquiler de recursos computacionales (la nube pública) en lugar de recurrir a comprar y mantener servidores propios ([on premise]{lang=en-US}). Desde el punto de vista económico, lo segundo implica costos de capital mientras que lo primero son costos de operación. Desde el punto de vista técnico, no tiene ningún sentido comprar hardware cuyo nivel de utilización será menor al 100%.
 En terminología de [start ups]{lang=en-US}: "[rent, don't buy]{lang=en-US}".
 
 En este sentido, la herramienta computacional de cálculo desarrollada desde cero en esta tesis para resolver ecuaciones diferenciales en derivadas parciales fue diseñada para ser ejecutada _nativamente_ en la nube. Como explicamos en detalle en la @sec-cloud, haciendo un paralelismo con la nomenclatura de interfaces web donde hay diseños [mobile friendly]{lang=en-US} y [mobile first]{lang=en-US}, decimos que la herramienta es [cloud first]{lang=en-US} y no solamente [cloud friendly]{lang=en-US}.
@@ -125,7 +125,7 @@ Teniendo en cuenta estas consideraciones (más la experiencia de los tres puntos
 A partir de estos requerimientos, empecé a estudiar la forma de cumplirlos, implementarlos y documentarlos en un SDS.
 Ambos documentos forman parte de los apéndices de esta tesis ([apéndices @sec-srs] y [-@sec-sds]).
 
-Además del requerimiento de que la herramienta desarrollada corra en la nube, se requiere también que el software desarrollado sea libre y abierto. Este punto es de especial importancia tanto en la academia como en la industria (por diferentes razones en cada caso) y sus implicancias son usualmente ignoradas, especialmente en la industria nuclear. En la @sec-licencia explicamos las razones de dicha importancia.
+Además del requerimiento de que la herramienta desarrollada corra en la nube, se requiere también que el software desarrollado sea libre y abierto. Este punto es de especial importancia tanto en la academia como en la industria (por diferentes razones en cada caso) y sus implicaciones son usualmente ignoradas, especialmente en la industria nuclear. En la @sec-licencia explicamos las razones de dicha importancia.
 
 Otra característica, explicada en detalle en el [capítulo @sec-implementacion], es que la arquitectura del código fue diseñada en forma tal que sea extensible en el sentido de poder agregar nuevas formulaciones de ecuaciones a resolver en forma razonablemente sencilla sin necesidad de tener que escribir un nuevo [solver]{lang=en-US} para cada ecuación.
 La forma de implementar esta característica se basa en un esquema de apuntadores a función resueltos en tiempo de ejecución según el tipo de problema que se requiere resolver definido en el archivo de entrada.
@@ -157,12 +157,12 @@ La biblioteca PETSc @petsc-user-ref, que es la que usa la herramienta desarrolla
 :::
 
 ::: {.remark}
-Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HIP, SYCL, Kokkos, etc.) que pueden  descargar^[En el sentido del inglés [_offload_]{lang=en-US}.] operaciones de álgebra elemental en tiempo de ejecución con opciones de línea de comando. Una de las ventajas particulares de la filosofía Unix de hacer una sola cosa bien y re-utilizar las cosas que ya están bien hechas es que la herramienta desarrollada en esta tesis tiene soporte para GPU "gratis" aprovechando estas interfaces
+Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HIP, SYCL, Kokkos, etc.) que pueden  descargar^[En el sentido del inglés [*offload*]{lang=en-US}.] operaciones de álgebra elemental en tiempo de ejecución con opciones de línea de comando. Una de las ventajas particulares de la filosofía Unix de hacer una sola cosa bien y re-utilizar las cosas que ya están bien hechas es que la herramienta desarrollada en esta tesis tiene soporte para GPU "gratis" aprovechando estas interfaces
 :::
 
  
-Combinando estos requerimientos del SRS (@sec-srs) y la forma en la que se abordan desde el punto de vista del diseño en el SDS (@sec-sds) e implementación ([capítulo @sec-implementacion]), considero que la contribución de esta tesis es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
-Esto es más remarcable aún teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
+Combinando estos requerimientos del SRS ([apéndice @sec-srs]) y la forma en la que se abordan desde el punto de vista del diseño en el SDS ([apéndice @sec-sds]) e implementación ([capítulo @sec-implementacion]), considero que la contribución de esta tesis es original ya que no tengo conocimiento de la existencia de un software similar que cubra las mismas características requeridas.
+Esto es más notable aún teniendo en cuenta que el objeto principal de estudio de esta tesis es la neutrónica a nivel de núcleo, resuelta tanto con difusión como con ordenadas discretas sobre mallas no estructuradas. 
 A modo de ejemplo de la clase de contribución que propongo, consideremos el [Benchmark PWR 3D]{lang=en-US} propuesto por la IAEA en 1976 @anl7416. La @fig-iaea-3dpwr-eighth-circular-flux-s4 muestra el resultado de haber resuelto el problema pero...
 
 ::: {#fig-iaea-3dpwr-eighth-circular-flux-s4 layout="[1,1]"}
@@ -185,7 +185,7 @@ Benchmark PWR 3D de IAEA @anl7416 para ilustrar las características distintivas
 
 Cada uno de estos cuatro puntos está detalladamente explicado en el cuerpo de la tesis y, junto con
  
-  i. la capacidad de extender el área de los problemas a resolver agregando nuevas formulaciones de ecuaciones discretizadas con el método de elementos finitos (ver el @sec-sds para ejemplos por fuera de la neutrónica de núcleo)
+  i. la capacidad de extender el área de los problemas a resolver agregando nuevas formulaciones de ecuaciones discretizadas con el método de elementos finitos (ver el [apéndice @sec-sds] para ejemplos por fuera de la neutrónica de núcleo)
   ii. el diseño [cloud first]{lang=en-US} que permite realizar lo que se conoce como "simulación programática" sin necesidad de interactuar
   iii. la discretización del dominio utilizando mallas no estructuradas, potencialmente realizando descomposición de dominio
   iv. la posibilidad de escalar en paralelo mediante y poder resolver problemas de tamaño arbitrario
@@ -201,15 +201,14 @@ En la @sec-trabajos-futuros listamos algunos de los trabajos futuros que podrí
 :::
 
 
-Finalmente, a modo personal debo notar que en el Proyecto Integrador de mi Carerra de Ingeniería Nuclear traté temas de control en [loops]{lang=en-US} de convección natural caóticos [@theler2007] y en la Tesis de Maestría en Ingeniería traté temas de inestabilidades termohidráulicas en presencia
-de una fuente de potencia de origen neutrónico [@theler2008].
+Finalmente, a modo personal debo notar que en el Proyecto Integrador de mi Carerra de Ingeniería Nuclear traté temas de control en [loops]{lang=en-US} de convección natural caóticos [@theler2007] y en la Tesis de Maestría en Ingeniería traté temas de inestabilidades termohidráulicas en presencia de una fuente de potencia de origen neutrónico [@theler2008].
 Poder realizar una tesis de doctorado en temas de neutrónica de nivel de núcleo me permite cerrar en forma académica el lazo termohidráulica-neutrónica-control, que fue también el eje de mi participación profesional en el completamiento de la Central Nuclear Atucha II.
 
 
 
 ## Historia de dos reactores {#sec-neutronica-phwr}
 
-El reactor de la Central Nuclear Atucha I fue puesto en condición crítica el 13 de enero de 1974, constituyendo así la primera planta de generación nucleoeléctrica instalada en América Latina. Es un reactor térmico de 357 MWe brutos, moderado por agua pesada con canales combustibles verticales refrigerados también por agua pesada a la misma presión que el moderador pero a diferente temperatura. Debido a que el combustible es uranio natural, la poca reactividad en exceso hace que el reactor deba tener un recambio de combustible continuo. Para ello existe una máquina de recambio que opera verticalmente sobre la tapa superior del reactor extrayendo elementos combustibles gastados e introduciendo frescos a un ritmo aproximado de uno por día. El resto del tiempo la máquina opera haciendo un mezclado^[En el sentido del inglés [_shuffling_]{lang=en-US}.] para homogeneizar el quemado de los combustibles y optimizar el quemado de extracción final. Dado que la parte superior del recipiente de presión debe quedar libre para que trabaje la máquina de recambio, los mecanismos de control de reactividad tanto primarios (las barras de control) como secundarios (sistema de inyección de boro de emergencia) deben entrar el núcleo en forma oblicua a los canales combustibles, configurando un diseño esencialmente único en el mundo.
+El reactor de la Central Nuclear Atucha I fue puesto en condición crítica el 13 de enero de 1974, constituyendo así la primera planta de generación nucleoeléctrica instalada en América Latina. Es un reactor térmico de 357 MWe brutos, moderado por agua pesada con canales combustibles verticales refrigerados también por agua pesada a la misma presión que el moderador pero a diferente temperatura. Debido a que el combustible es uranio natural, la poca reactividad en exceso hace que el reactor deba tener un recambio de combustible continuo. Para ello existe una máquina de recambio que opera verticalmente sobre la tapa superior del reactor extrayendo elementos combustibles gastados e introduciendo frescos a un ritmo aproximado de uno por día. El resto del tiempo la máquina opera haciendo un mezclado^[En el sentido del inglés [*shuffling*]{lang=en-US}.] para homogeneizar el quemado de los combustibles y optimizar el quemado de extracción final. Dado que la parte superior del recipiente de presión debe quedar libre para que trabaje la máquina de recambio, los mecanismos de control de reactividad tanto primarios (las barras de control) como secundarios (sistema de inyección de boro de emergencia) deben entrar el núcleo en forma oblicua a los canales combustibles, configurando un diseño esencialmente único en el mundo.
 
 Atucha II tiene un diseño similar aunque genera más del doble de potencia, 745 MWe brutos. Debido a una combinación de causas que quedan fuera del alcance de cualquier análisis, el contrato de construcción se firmó en 1980 pero la obra no se terminó hasta 2014. Detalles más detalles menos, el diseño del reactor es similar al de Atucha I (@fig-rpv).
 
@@ -392,7 +391,7 @@ En él se involucra a un código de planta, a
 un modelo de la lógica de control y protección del reactor y a un código
 de cinética espacial capaz de incorporar distribuciones
 espacio-temporales de propiedades, en particular concentración de boro
-en el moderador, calculadas a partir de técnicas de dinámica de fluidos computacional,^[Del inglés [*Computational fluid dynamics*]{lang=en-US}.] conocidas por sus siglas como CFD.
+en el moderador, calculadas a partir de técnicas de dinámica de fluidos computacional,^[Del inglés [*Computational Fluid Dynamics*]{lang=en-US}.] conocidas por sus siglas como CFD.
 
 ### La gloriosa discretitud del alfabeto
 
@@ -437,7 +436,7 @@ Mallas _estructuradas_ del código neutrónico utilizado en el esquema acoplado 
 
 
 
-### Multifísica multiescala
+### Multi-física multi-escala
 
 En cualquiera de los dos casos ilustrados en la @fig-acopleboro
 para la evaluación de la neutrónica asociada
@@ -599,7 +598,7 @@ mezcla de combustible y refrigerante. Más aún, el hecho de que la
 concentración $c_{b1}$ sea diferente de la nominal (i.e. $c_b=0$) hará
 que el código de núcleo modifique todas las secciones eficaces
 macroscópicas de la celda 1, incluso las relacionadas a la fisión cuando
-en realidad no hay materiales físiles ni fisionables en ella por el simple hecho de tener secciones eficaces macroscópicas homogeneizadas teniendo en cuenta una celda con "un poco de combustible y un poco de moderador".
+en realidad no hay materiales fisibles ni fisionables en ella por el simple hecho de tener secciones eficaces macroscópicas homogeneizadas teniendo en cuenta una celda con "un poco de combustible y un poco de moderador".
 
 ### Neutrones difundidos
 
@@ -636,7 +635,7 @@ medio difusivo (el agua pesada contenida en el tanque del moderador).
 
 En el [capítulo @sec-transporte-difusion] derivamos primeramente la ecuación de transporte de neutrones a partir de la conservación de neutrones. Luego derivamos la ecuación de difusión a partir de la de transporte y mostramos detalladamente las razones matemáticas de las aproximaciones necesarias para llegar a la ley de Fick para neutrones.
 Pero este enfoque solamente involucra aproximaciones del orden de "el cociente $a/b \ll 1$" o "despreciando términos de orden superior" sin tener parámetros numéricos para su evaluación.
-La implicancia física de estas suposiciones y aproximaciones solamente puede ser evaluada resolviendo un mismo problema con las dos ecuaciones y evaluando la diferencia obtenida en las soluciones. Este es justamente uno de los aportes de esta tesis de doctorado.
+La implicación física de estas suposiciones y aproximaciones solamente puede ser evaluada resolviendo un mismo problema con las dos ecuaciones y evaluando la diferencia obtenida en las soluciones. Este es justamente uno de los aportes de esta tesis de doctorado.
 
 \medskip
 
@@ -738,17 +737,17 @@ Paralelizable
 
      * modelar reactores de investigación sin sufrir el “efecto escalera” de la @fig-dominio-estructurado
      * evitar efectos numéricos tales como la dilución de secciones eficaces en los extremos de las barras de control
-     * facilitar la resolución de problemas tipo benchmark en geometrías cilíndricas o esféricas
+     * facilitar la resolución de problemas tipo [benchmark]{lang=en-US} en geometrías cilíndricas o esféricas
      * resolver problemas abstractos tales como dominios con forma de conejo o una transición entre un cubo y una esfera
-   
+
 Flexible
 
 :   en el número de computadoras a utilizar dependiendo del tamaño del problema y en la forma de definir tanto la entrada como la salida de datos, haciendo especial énfasis en la necesidad de trabajar en entornos de nube pública.
 
     Un problema de tamaño arbitrario en principio requeriría una cantidad también arbitraria de computadoras para ser resuelto.
-    Una herramienta computacional diseñada para correr en un clúster de cálculo de tamaño fijo no cumpliría esta condición, por lo que debe ser posible explotar la oferta de servidores públicos en la nube. Luego la herramienta computacional debe ser diseñada desde el comienzo para operar en la nube (i.e. [cloud-first]{lang=en-US}) en lugar de que sea solamente "posible" su ejecución en la nube (i.e. [cloud-friendly]{lang=en-US}). Hay sutiles pero importantes diferencias entre estos dos conceptos, discutidos en la @sec-cloud, tales como
-    
-     * necesidad de proveer una interfaz pública tipo RESTfulAPI 
+    Una herramienta computacional diseñada para correr en un [cluster]{lang=en-US} de cálculo de tamaño fijo no cumpliría esta condición, por lo que debe ser posible explotar la oferta de servidores públicos en la nube. Luego la herramienta computacional debe ser diseñada desde el comienzo para operar en la nube (i.e. [cloud-first]{lang=en-US}) en lugar de que sea solamente "posible" su ejecución en la nube (i.e. [cloud-friendly]{lang=en-US}). Hay sutiles pero importantes diferencias entre estos dos conceptos, discutidos en la @sec-cloud, tales como
+
+     * necesidad de proveer una interfaz pública tipo RESTful API 
      * capacidad de definir, lanzar y post-procesar cálculos con interfaces web
      * posibilidad de reportar el estado del cálculo y, eventualmente, errores en forma remota
  
@@ -758,7 +757,7 @@ Extensible
 :   para poder modificar o agregar modelos matemáticos que eventualmente ayuden a mejorar la calidad, precisión y exactitud de los resultados obtenidos.
  
     Está claro que teniendo acceso al código fuente de una herramienta computacional, en principio siempre es posible modificar y/o agregar nuevas formulaciones y/o modelos matemáticos. Sin embargo, el concepto de extensibilidad implica que se hayan tenido en cuenta posibles mecanismos de extensión en el diseño de la arquitectura del código de forma tal que el esfuerzo necesario para lograr extender la funcionalidad sea razonable. 
-    Más aún, bajo el espíritu académico de un trabajo de doctorado, la herramienta debe calificar como _software libre_ en el concepto de la Free Software Foundation de forma tal de que cualquier investigador o profesional pueda modificarla y/o extenderla para poder resolver problemas planteados como ecuaciones diferenciales parciales de la mejor manera posible.
+    Más aún, bajo el espíritu académico de un trabajo de doctorado, la herramienta debe calificar como _software libre_ en el concepto de la [Free Software Foundation]{lang=en-US} de forma tal de que cualquier investigador o profesional pueda modificarla y/o extenderla para poder resolver problemas planteados como ecuaciones diferenciales parciales de la mejor manera posible.
       
 
       
@@ -802,8 +801,8 @@ Es por eso que:
           * los sistemas de control de versiones distribuidos como Git
           * lenguajes de expansión de macros como M4
           * interfaces gráficas de usuario, especialmente basadas en web
- 
- 3. El [capítulo @sec-implementacion] describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias con una arquitectura donde existe un _framework_ (ver @def-framework) general y un esquema de apuntadores a función con _entry points_ particulares para las diferentes ecuaciones a resolver. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también puede resolver:
+
+ 3. El [capítulo @sec-implementacion] describe en detalle la arquitectura elegida para permitir resolver ecuaciones diferenciales en derivadas parciales arbitrarias con una arquitectura donde existe un _framework_ (ver @def-framework) general y un esquema de apuntadores a función con [_entry points_]{lang=en-US} particulares para las diferentes ecuaciones a resolver. De hecho las ecuaciones de difusión de neutrones y transporte por el método $S_N$ son casos particulares de otras formulaciones que la herramienta también puede resolver:
 
      * ecuación de Laplace/Poisson (tanto estado estacionario como transitorio)
      * conducción de calor (tanto estado estacionario como transitorio, incluyendo conductividad no lineal dependiente de la temperatura)
@@ -838,7 +837,7 @@ Finalmente, el [capítulo @sec-resultados] muestra algunos resultados que no pod
  c. Ordenadas discretas (además de difusión)
  d. Paralelización en varios nodos de cálculo con MPI
 
-Siguiendo una metodología que apunta a explicitar las especificaciones para reducir las incertezas en cuanto al alcance de proyectos de desarrollo de software industriales, el @sec-srs contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
-El @sec-sds contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. 
+Siguiendo una metodología que apunta a explicitar las especificaciones para reducir las incertezas en cuanto al alcance de proyectos de desarrollo de software industriales, el [apéndice @sec-srs] contiene un [Software Requirements Specification]{lang=en-US}, que es un documento estándar en la industria del software, ficticio pero razonable que actúa como un pliego de especificaciones técnicas para una herramienta computacional genérica que bien podría haber sido escrito por una entidad pública o privada que necesite realizar cálculos de ingeniería en la nube.
+El [apéndice @sec-sds] contiene el [Software Design Specification]{lang=en-US} de la herramienta desarrollada en esta tesis, que es el documento que de alguna manera "resuelve" las especificaciones del SRS con una propuesta en particular. Este apéndice actúa como una propuesta básica al pliego planteado por el SDS. 
 
 Terminada la explicación del _por qué_ ([why]{lang=en-US}) pasemos entonces al _cómo_ ([how]{lang=en-US}).

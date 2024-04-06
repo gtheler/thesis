@@ -16,7 +16,7 @@
 > [...]
 > Prestémosle fiel asentimiento y apropiémonos de [lo que leemos] para que resulte una cierta unidad de muchos elementos.
 > [...]
-> Aunque se aprecie en tí la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
+> Aunque se aprecie en ti la semejanza con algún maestro que ha calado profundamente en tu alma por la admiración, quiero que te asemejes a él como un hijo, no como un retrato.
 > [...]
 > ¿Cómo lograr esto te preguntas? Con una constante aplicación.
 >
@@ -104,7 +104,7 @@ En este trabajo no consideramos una dependencia explícita con el tiempo $t$.
 
 Una forma de incorporar el concepto de sección eficaz macroscópica es
 pensar que ésta proviene del producto de una sección eficaz
-microscópica $\sigma_k$ (con unidades de área) y una densidad atómica $n$ (con unidades de inversa de volúmen) del medio
+microscópica $\sigma_k$ (con unidades de área) y una densidad atómica $n$ (con unidades de inversa de volumen) del medio
 
 $$
 \Sigma_k [\text{cm}^{-1}] = \sigma_k [\text{cm}^2] \cdot n [\text{cm}^{-3}]
@@ -284,7 +284,7 @@ $$
 
 Una forma de tener en cuenta la dependencia de $\Sigma_s$ con $\mu$ en la @eq-sigmasmu es recurrir a una expansión en polinomios de Legendre.
 En efecto, para una cierta posición $\vec{x}$ y dos energías $E$ y $E^\prime$ fijas, la sección eficaz $\Sigma_s$ de la @eq-sigmasmu depende de un único escalar $-1 \leq \mu \leq 1$ sin presentar singularidades, es decir es una función de cuadrado integrable.
-Entonces podemos escribir^[El coeficiente $(2\ell+1)/2$ aparace para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). En particular, aparece para que en la @eq-sigmastys0 ambos miembros tengan coeficientes unitaros. Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a expresiones finales igualmente válidas, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el [capítulo @sec-implementacion]. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. La referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendre.]
+Entonces podemos escribir^[El coeficiente $(2\ell+1)/2$ aparece para que las expresiones que siguen sean consistentes con los usos y costumbres históricos de la evaluación de secciones eficaces (@sec-evaluacionxs) y de códigos de celda (@sec-celda). En particular, aparece para que en la @eq-sigmastys0 ambos miembros tengan coeficientes unitarios. Es posible dar otras definiciones y desarrollar consistentemente la matemática para llegar a expresiones finales igualmente válidas, pero ello modificaría la definición de los coeficientes de la expansión dados por el @cor-Pell y haría que las secciones eficaces calculadas a nivel de celda no puedan ser introducidas directamente en la entrada del código de núcleo que describimos en el [capítulo @sec-implementacion]. En particular, arribar a la @eq-sigmas0 es de interés para la consistencia de las secciones eficaces entre códigos de diferente nivel. La referencia [@lewis] utiliza otra forma de expandir el kernel de [scattering]{lang=en-US} que resulta en un factor dos de diferencia con respecto a la @eq-coeflegendre.]
 
 $$
 \Sigma_s(\vec{x}, \mu, E \rightarrow E^\prime) = \sum_{\ell=0}^{\infty} \frac{2\ell + 1}{2} \, \Sigma_{s_\ell}(\vec{x}, E \rightarrow E^{\prime}) \cdot P_\ell(\mu)
@@ -342,7 +342,7 @@ $$
 \int_{-1}^{+1} \Sigma_s(\vec{x},\mu, E \rightarrow E^\prime) \, d\mu
 $$ {#eq-isotropico1}
 
-Si tenemos [scattering]{lang=en-US} isotrópico en el marco de referencia del laboratorio,^[Como ya dijimos, esta nomenclatura es puramente académica. Una expresión más apropiada según la potencial aplicación industrial de los conceptos desarrollados en esta tesis sería "marco de referencia de *la central nuclear*".] entonces
+Si tenemos [scattering]{lang=en-US} isótropo en el marco de referencia del laboratorio,^[Como ya dijimos, esta nomenclatura es puramente académica. Una expresión más apropiada según la potencial aplicación industrial de los conceptos desarrollados en esta tesis sería "marco de referencia de *la central nuclear*".] entonces
 
  a. el integrando del miembro izquierdo de la @eq-isotropico1 no depende de $\omegaprimaversor$ y puede salir fuera de la integral, y
  b. $\Sigma_s(\vec{x},\mu, E \rightarrow E^\prime)$ no depende de $\mu$ y el único coeficiente $\Sigma_{s_\ell}$ diferente de cero es el correspondiente a $\ell=0$ con lo que
@@ -360,7 +360,7 @@ Reemplazando la @eq-isotropico2 en la [-@eq-isotropico1] y sacando $\Sigma_s(
 $$
 \Sigma_s(\vec{x}, \omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime) \cdot 4\pi = \Sigma_{s_0}(\vec{x}, E \rightarrow E^\prime)
 $$
-con lo que la sección eficaz diferencial (@def-sigmasdif) para [scattering]{lang=en-US} isotrópico en el sistema del reactor es igual al coeficiente $\Sigma_{s_0}$ dividido $4\pi$
+con lo que la sección eficaz diferencial (@def-sigmasdif) para [scattering]{lang=en-US} isótropo en el sistema del reactor es igual al coeficiente $\Sigma_{s_0}$ dividido $4\pi$
 
 
 $$
@@ -392,7 +392,7 @@ Este resultado se explica ya que dado un ángulo $\omegaversor$ fijo, para cada
 
 \medskip
 
-Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isotrópico pero en el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco, entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
+Si en cambio el [scattering]{lang=en-US} resulta ser completamente elástico e isótropo pero en el marco de referencia del centro de masa del sistema compuesto por el neutrón incidente y el núcleo blanco, entonces a cada energía de salida $E^\prime$ le corresponde un único ángulo de [scattering]{lang=en-US} $\mu$ a través de las leyes clásicas de conservación de energía y momento lineal.
 Siguiendo el desarrollo de la referencia [@stammler], la sección eficaz diferencial es
 
 $$
@@ -415,7 +415,7 @@ siendo $A$ es el número de masa del núcleo blanco.
 Llamamos a la magnitud $\mu_0$ coseno medio de [scattering]{lang=en-US}.
 
 ::: {.remark}
-Esta nomenclatura para $\mu_0$ es general pero la expresión matemática dada por la @eq-mu0-isotropico-com es particular para el caso de [scattering]{lang=en-US} elástico e isotrópico en el marco de referencia del centro de masa.
+Esta nomenclatura para $\mu_0$ es general pero la expresión matemática dada por la @eq-mu0-isotropico-com es particular para el caso de [scattering]{lang=en-US} elástico e isótropo en el marco de referencia del centro de masa.
 En la @eq-mu0 generalizamos la definición para cualquier tipo de [scattering]{lang=en-US}.
 :::
 
@@ -444,13 +444,13 @@ Estas dos ideas nos permiten introducir los siguientes conceptos.
 
 ::: {#def-scattering-isotropico}
 
-## scattering isotrópico
+## scattering isótropo
 
-Decimos que hay *[scattering]{lang=en-US} isotrópico* (a partir de ahora siempre nos
+Decimos que hay *[scattering]{lang=en-US} isótropo* (a partir de ahora siempre nos
 vamos a referir al marco de referencia del reactor) cuando los
 coeficientes de la expansión de la sección eficaz diferencial de
 [scattering]{lang=en-US} $\Sigma_s(\vec{x}, \mu,  E \rightarrow E^\prime)$ en
-polinomios de Legendre son todos nulos excepto el correpondiente
+polinomios de Legendre son todos nulos excepto el correspondiente
 a $\ell=0$. En este caso, la sección eficaz diferencial no depende del
 ángulo y vale la [@eq-sigmas0]:
 
@@ -462,10 +462,10 @@ $$
 
 ::: {#def-scattering-linealmente-anisotropico}
 
-## scattering linealmente anisotrópico
+## scattering linealmente anisótropo
 
 Si además de $\Sigma_{s_0}$ resulta que el único otro coeficiente diferente de cero es $\Sigma_{s_1}$
-correspondiente a $\ell=1$ entonces decimos que el [scattering]{lang=en-US} es *linealmente anisotrópico*, y la
+correspondiente a $\ell=1$ entonces decimos que el [scattering]{lang=en-US} es *linealmente anisótropo*, y la
 sección eficaz diferencial es la suma de la sección eficaz total más un
 coeficiente multiplicado por el coseno del ángulo de [scattering]{lang=en-US}:
 
@@ -494,19 +494,19 @@ $$
 $$ {#eq-mu0}
 :::
 
-En el caso de [scattering]{lang=en-US} general, i.e. no necesariamente isotrópico en algún marco de referencia y no necesarimente elástico, debemos conocer entonces
+En el caso de [scattering]{lang=en-US} general, i.e. no necesariamente isótropo en algún marco de referencia y no necesariamente elástico, debemos conocer entonces
 
  a. la dependencia explícita de $\Sigma_s$ con $\omegaversor \rightarrow \omegaprimaversor$ (que puede ser aproximada
 mediante evaluaciones discretas), o
  b. una cierta cantidad de coeficientes $\Sigma_{s_\ell}$ de su desarrollo en polinomios de Legendre sobre $\mu$.
  
-En esta tesis trabajamos a lo más con [scattering]{lang=en-US} linealmente anisotrópico.
+En esta tesis trabajamos a lo más con [scattering]{lang=en-US} linealmente anisótropo.
 Esto es, suponemos que la sección eficaz diferencial de [scattering]{lang=en-US} está dada por la @eq-scatteringanisotropico y suponemos que conocemos tanto $\Sigma_{s_0}$ como $\Sigma_{s_1}$ en función del espacio y de los grupos de energías discretizados antes de resolver la ecuación de transporte a nivel de núcleo (ver @sec-multiescala).
 
 ### Fisión de neutrones {#sec-fision}
 
 Cuando un núcleo pesado se fisiona en dos núcleos más pequeños, ya sea debido a una fisión espontánea o a una fisión inducida por la absorción
-de un neutrón, se liberan además de los productos de fisión propiamente dichos y radiación $\gamma$ debida al reacomodamiento de los niveles
+de un neutrón, se liberan además de los productos de fisión propiamente dichos y radiación $\gamma$ debida al re-acomodamiento de los niveles
 energéticos de los nucleones que intervienen en la reacción, entre dos y tres neutrones.
 Llamamos $\nu(\vec{x}, E)$ a la cantidad promedio de neutrones liberados por cada fisión.
 El valor numérico de $2 < \nu < 3$ depende de la energía $E$ del neutrón incidente y de la composición del material combustible el punto $\vec{x}$.
@@ -663,7 +663,7 @@ $$
 R_k (\vec{x}, E, t) \, d^3\vec{x} \, dE = \Sigma_k(\vec{x}, E) \cdot \phi(\vec{x}, E, t) \, d^3\vec{x} \, dE
 $$ {#eq-ritmo-de-reaccion}
 con lo que el producto $R_t = \Sigma_t \phi$ da una expresión simple para la distribución del ritmo de reacciones totales por unidad de
-volúmen y de energía.
+volumen y de energía.
 :::
 
 ::: {#def-corriente}
@@ -739,7 +739,7 @@ Notemos que
 $$
 \lim_{\Delta t \rightarrow 0} U^{\prime}(t+\Delta t) = U^{\prime}(t) + v(E) \cdot \omegaversor \cdot \Delta t
 $$
-para cada punto $\vec{x} \in U^{\prime}(t)$. Además, como ni $v(E)$ ni $\hat{\Omega}_i$ dependen de $\vec{x}$ ya que la velocidad es constante y la dirección está fija, entonces el cambio de coordendas
+para cada punto $\vec{x} \in U^{\prime}(t)$. Además, como ni $v(E)$ ni $\hat{\Omega}_i$ dependen de $\vec{x}$ ya que la velocidad es constante y la dirección está fija, entonces el cambio de coordenadas
 
 $$
 \vec{x}^\prime = \vec{x} + v(E) \cdot \omegaversor \cdot \Delta t
@@ -783,7 +783,7 @@ N(x,y,z) +
 \end{gathered}
 $$
 
-Reordenando términos y diviendo por $\Delta t$
+Reordenando términos y dividiendo por $\Delta t$
 
 $$
 \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} 
@@ -965,7 +965,7 @@ Los datos necesarios para resolver la ecuación de transporte de neutrones son:
  * El espectro de fisión\ $\chi$ en función de la energía\ $E$ del neutrón emitido, en caso de que $\nu\Sigma_f \neq 0$.
  * La sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ como función tanto de la energía $E^\prime$ del neutrón incidente como de la energía $E$ del neutrón saliente, y del ángulo de [scattering]{lang=en-US} entre la dirección entrante $\omegaprimaversor$ y la dirección saliente $\omegaversor$.
    - Esta dependencia es usualmente dada como coeficientes $\Sigma_{s_\ell}$ de la expansión en polinomios de Legendre para $\ell=0,\dots,L$ sobre el escalar $\mu = \omegaprimaversor \cdot \omegaversor$.
-   - Para [scattering]{lang=en-US} isotrópico en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
+   - Para [scattering]{lang=en-US} isótropo en el marco de referencia del reactor, el único coeficiente diferente de cero es $\Sigma_{s_0}$ correspondiente a $\ell = 0$.
  * La fuente independiente de neutrones $s$ como función del espacio $\vec{x}$, la energía $E$ y de la dirección $\omegaversor$.
    - Si no hay fuentes externas, este término es cero.
  * El parámetro constante $m$, que es la masa en reposo del neutrón
@@ -1019,7 +1019,7 @@ Si bien esta expresión ya es suficiente para evaluar el término de [scattering
 expandiendo en una base apropiada el flujo angular $\psi$, de la misma manera en la que desarrollamos $\Sigma_s$ en una serie de polinomios de Legendre sobre el parámetro $\mu$.
 
 Para ello, notamos que $\psi$ depende angularmente de un versor dirección $\omegaversor = [\hat{\Omega}_x \, \hat{\Omega}_y \, \hat{\Omega}_z]^T$ (u $\omegaprimaversor$ en el caso de la @eq-qs1).
-Esta vez, la base de expansión apropiada no son los polinomios de Legrende (que toman un único argumento escalar $\mu$) sino la generada^[Del inglés [*spanned*]{lang=en-US}.] por los armónicos esféricos reales, ilustrados en la @fig-harmonics.
+Esta vez, la base de expansión apropiada no son los polinomios de Legendre (que toman un único argumento escalar $\mu$) sino la generada^[Del inglés [*spanned*]{lang=en-US}.] por los armónicos esféricos reales, ilustrados en la @fig-harmonics.
 
 
 ::: {#thm-harmonics}
@@ -1140,8 +1140,8 @@ q_s(\vec{x}, \omegaversor, E, t) =
 \sum_{m=-\ell}^{+\ell} \Psi_\ell^m (\vec{x}, E^{\prime}, t) \cdot Y_\ell^{m}(\omegaversor)  \right] \, dE^{\prime}
 $${#eq-qs3}
 
-Esta @eq-qs3 refleja la forma en la que incide la fuente de [scattering]{lang=en-US} en el balance global de neutrones: el modo $\ell$ de la expansión en polinomios de Legendre de la sección diferencial $\Sigma_s$ de [scattering]{lang=en-US} contribuye sólo a través de los modos de grado $\ell$ de la expansión en armónicos esféricos del flujo angular $\psi$. En particular, para [scattering]{lang=en-US} isotrópico sólo el término para $\ell=0$ y $m=0$ contribuye a la fuente de [scattering]{lang=en-US} $q_s$.
-De la misma manera, para [scattering]{lang=en-US} linealmente anisotrópico además sólo contribuyen los tres términos
+Esta @eq-qs3 refleja la forma en la que incide la fuente de [scattering]{lang=en-US} en el balance global de neutrones: el modo $\ell$ de la expansión en polinomios de Legendre de la sección diferencial $\Sigma_s$ de [scattering]{lang=en-US} contribuye sólo a través de los modos de grado $\ell$ de la expansión en armónicos esféricos del flujo angular $\psi$. En particular, para [scattering]{lang=en-US} isótropo sólo el término para $\ell=0$ y $m=0$ contribuye a la fuente de [scattering]{lang=en-US} $q_s$.
+De la misma manera, para [scattering]{lang=en-US} linealmente anisótropo además sólo contribuyen los tres términos
 con $\ell=1$ y $m=-1,0,+1$.
 
 \medskip
@@ -1264,7 +1264,7 @@ para $i=x,y,z$ y $j=x,y,z$.
 ::: {#thm-omega-i-j-k}
 La integral del producto de una cantidad impar de cosenos es cero
 $$
- \int_{4\pi} \hat{\Omega}_x^r \cdot \hat{\Omega}_y^s \cdot \hat{\Omega}_z^t \, d\omegaversor = 0 \quad \text{si $r$, $s$ ó $t$ es impar}
+ \int_{4\pi} \hat{\Omega}_x^r \cdot \hat{\Omega}_y^s \cdot \hat{\Omega}_z^t \, d\omegaversor = 0 \quad \text{si $r$, $s$ o $t$ es impar}
 $$
 :::
 
@@ -1364,7 +1364,7 @@ $$
 \end{gathered}
 $$ {#eq-qsfacil}
 que es una ecuación mucho más útil---desde el punto de vista computacional---que la @eq-qs, que da un expresión demasiado general y muy difícil de evaluar.
-Esto es especialmente importante si podemos despreciar los términos para $\ell>1$ y suponer a lo más [scattering]{lang=en-US} linealmente anisotrópico (@def-scattering-linealmente-anisotropico).
+Esto es especialmente importante si podemos despreciar los términos para $\ell>1$ y suponer a lo más [scattering]{lang=en-US} linealmente anisótropo (@def-scattering-linealmente-anisotropico).
 En este caso entonces
 
 $$
@@ -1376,7 +1376,7 @@ $$
 \end{gathered}
 $${#eq-qslinealaniso}
 
-Más aún, para el caso particular de [scattering]{lang=en-US} isotrópico (@def-scattering-isotropico), $q_s$ se reduce a
+Más aún, para el caso particular de [scattering]{lang=en-US} isótropo (@def-scattering-isotropico), $q_s$ se reduce a
 
 $$
 \begin{gathered}
@@ -1387,7 +1387,7 @@ $$
 $${#eq-qsiso}
 
 
-Para completar la sección, notamos que dado que la fuente de neutrones debida a fisiones se asume isotrópica en el marco de referencia del reactor, su evaluación es similar a esta última @eq-qsiso. En efecto, el término de fisiones de la ecuación de transporte @eq-transporte es
+Para completar la sección, notamos que dado que la fuente de neutrones debida a fisiones se asume isótropa en el marco de referencia del reactor, su evaluación es similar a esta última @eq-qsiso. En efecto, el término de fisiones de la ecuación de transporte @eq-transporte es
 
 $$
 q_f(\vec{x}, \omegaversor, E, t) = \frac{\chi(E)}{4\pi} \int_{0}^{\infty} \int_{4\pi} \nu\Sigma_f(\vec{x}, E^\prime) \cdot \psi(\vec{x}, \omegaprimaversor, E^\prime, t) \, d\omegaprimaversor \, dE^\prime 
@@ -1406,12 +1406,12 @@ $${#eq-qfiso}
 Ni la @eq-qsiso ni la @eq-qfiso dependen de la dirección $\omegaversor$.
 :::
 
-### Transporte linealmente anisotrópico en estado estacionario
+### Transporte linealmente anisótropo en estado estacionario
 
 En esta tesis hacemos foco en el caso
 
  1. estacionario, y
- 2. con [scattering]{lang=en-US} linealmente anisotrópico (a lo más)
+ 2. con [scattering]{lang=en-US} linealmente anisótropo (a lo más)
 
 En estas condiciones, la ecuación de transporte queda
  
@@ -1429,7 +1429,7 @@ $$
 $$ {#eq-transporte-linealmente-anisotropica}
 
 
-Si el scattering es isotrópico entonces $\Sigma_{s_1}=0$ y el segundo término del miembro derecho se anula.
+Si el scattering es isótropo entonces $\Sigma_{s_1}=0$ y el segundo término del miembro derecho se anula.
 
 ### Condiciones iniciales y de contorno {#sec-bctransporte}
 
@@ -1690,7 +1690,7 @@ $$
 \end{gathered}
 $${#eq-difusionporomega}
 
-Analicemos en las seis subsecciones que siguen los términos de esta expresión un por uno, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
+Analicemos en las seis sub-secciones que siguen los términos de esta expresión un por uno, teniendo en cuenta los desarrollos matemáticos que hemos realizado a lo largo de todo el capítulo.
 
 #### Derivada temporal
 
@@ -1900,7 +1900,7 @@ v_3 =&
 $$
 
 Los veintisiete términos tienen al menos un coseno dirección elevado a un potencia impar, por lo que por el @thm-omega-i-j-k su integral sobre $4\pi$ es igual a cero.
-Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente anisotrópico como
+Entonces, podemos aproximar el término de advección bajo la suposición de que el flujo angular es linealmente anisótropo como
 
 
 $$
@@ -1984,7 +1984,7 @@ $$
 $$ {#eq-difusion5}
 ya que el integrando es el producto de una factor que no depende del ángulo por el versor ${\omegaversor}$.
 En forma equivalente, estamos evaluando el momento de orden $\ell=1$ de una fuente de fisión.
-Dado que ésta es isotrópica, el único momento diferente de cero es el de orden $\ell=0$.
+Dado que ésta es isótrópa, el único momento diferente de cero es el de orden $\ell=0$.
 
 #### Fuentes independientes
 
@@ -2047,11 +2047,11 @@ Para arribar finalmente a la ecuación de difusión necesitamos tres nuevas supo
  
      a. no haya fuentes independientes, o
      
-     b. que la fuente independiente sea isotrópica de forma tal que los tres coeficientes\ $s_\ell^m$ de la\ @eq-difusion5 sean iguales a cero.
+     b. que la fuente independiente sea isótropa de forma tal que los tres coeficientes\ $s_\ell^m$ de la\ @eq-difusion5 sean iguales a cero.
 
  iii. Que
  
-      a. el scattering sea isotrópico (en el marco de referencia del reactor), o
+      a. el scattering sea isótropo (en el marco de referencia del reactor), o
       b. que 
 
          $$
@@ -2093,10 +2093,10 @@ D(\vec{x}, E) = \frac{1}{3 \left[ \Sigma_t(\vec{x}, E) - \mu_0(\vec{x}, E) \cdot
 $$ {#eq-D}
 es tal que, si
 
- #. el flujo angular es linealmente anisotrópico $\psi \simeq (\phi + 3\vec{J})/4\pi$
+ #. el flujo angular es linealmente anisótropo $\psi \simeq (\phi + 3\vec{J})/4\pi$
  #. el problema es estacionario o $3/v  \cdot \partial \vec{J}/\partial t \ll \nabla \phi$
  #. no hay fuentes independientes o éstas son isotrópicas
- #. el scattering es isotrópico o el in-[scattering]{lang=en-US} es similar al out-[scattering]{lang=en-US} $\int \Sigma_{s_1}(E^\prime \rightarrow E) \cdot \vec{J}(E^\prime) \, dE^\prime \simeq  \int \Sigma_{s_1}(E \rightarrow E^\prime) \cdot \vec{J}(E) \, dE^\prime$
+ #. el scattering es isótropo o el in-[scattering]{lang=en-US} es similar al out-[scattering]{lang=en-US} $\int \Sigma_{s_1}(E^\prime \rightarrow E) \cdot \vec{J}(E^\prime) \, dE^\prime \simeq  \int \Sigma_{s_1}(E \rightarrow E^\prime) \cdot \vec{J}(E) \, dE^\prime$
  
 entonces se cumple la *Ley de Fick*
 
@@ -2145,7 +2145,7 @@ que es una ecuación integro-diferencial elíptica en derivadas parciales de seg
  4. el tiempo $t$.
 
 ::: {.remark}
-La incógnita de la ecuación de difusión es el fujo escalar\ $\phi$ que no depende de\ $\omegaversor$.
+La incógnita de la ecuación de difusión es el flujo escalar\ $\phi$ que no depende de\ $\omegaversor$.
 :::
 
 Los datos de entrada para la ecuación de difusión de neutrones son:
@@ -2153,7 +2153,7 @@ Los datos de entrada para la ecuación de difusión de neutrones son:
  * Las secciones eficaces $\Sigma_t$ y $\nu\Sigma_f$ como función del espacio $\vec{x}$ y de la energía $E$.
  * El espectro de fisión $\chi$ en función de la energía $E$.
  * El coeficiente de difusión\ $D$ como función del espacio $\vec{x}$ y de la energía $E$.
- * La fuente independiente de neutrones $s$, que debe ser isotrópica.
+ * La fuente independiente de neutrones $s$, que debe ser isótropa.
  * El parámetro constante $m$, que es la masa en reposo del neutrón.
 
 ::: {.remark}
@@ -2284,10 +2284,10 @@ La ecuación de transporte @eq-transporte describe completamente la interacció
  a. la población neutrónica sea lo suficientemente grande como para que podamos asumir que el flujo angular $\psi$ es determinista, y
  a. se cumplan las siete suposiciones listadas al comienzo del capítulo` (página~\pageref{siete})`{=latex}.
 
-Los coeficientes tanto de la ecuación de transporte como de la ecuación de difusión son las secciones eficaces macroscópicas de los materiales presentes en el dominio $U$, que en principio son el producto de la sección eficaz microscópica por la densidad volumétrica de cada uno de los isótopos que component dichos materiales.
+Los coeficientes tanto de la ecuación de transporte como de la ecuación de difusión son las secciones eficaces macroscópicas de los materiales presentes en el dominio $U$, que en principio son el producto de la sección eficaz microscópica por la densidad volumétrica de cada uno de los isótopos que componen dichos materiales.
 
 Un neutrón nacido por fisión tiene una energía de aproximadamente 2 MeV, y cuando llega al equilibrio térmico con el medio puede alcanzar una energía de 0.02 eV. Esto es, la variable independiente $E$ usualmente abarca ocho órdenes de magnitud.
-Recordando la @fig-sigmas, las secciones eficaces microscópicas pueden cambiar cinco o incluso seis órdenes de magnitude en este rango de energías, abarcando resonancias extremadamente difíciles de modelar matemáticamente.
+Recordando la @fig-sigmas, las secciones eficaces microscópicas pueden cambiar cinco o incluso seis órdenes de magnitud en este rango de energías, abarcando resonancias extremadamente difíciles de modelar matemáticamente.
 
 Estas variaciones hace que sea prácticamente imposible resolver directamente la ecuación de transporte para obtener la dependencia del flujo angular $\psi$ con el espacio, la dirección, la energía y eventualmente el tiempo sobre el dominio $U$ a partir de las secciones eficaces microscópicas y de las concentraciones volumétricas de los isótopos.
 En la práctica se recurre a un esquema multi-escala, donde primero se evalúan y procesan las secciones eficaces microscópicas experimentales. Luego se evalúan celdas típicas de los componentes de los reactores nucleares (elementos combustibles, barras de control, etc.) para obtener secciones eficaces condensadas que finalmente son los coeficientes de la ecuación de transporte (o difusión) utilizada para realizar un cálculo a nivel de núcleo.^[En el sentido del inglés [*core*]{lang=en-US}.]
@@ -2302,10 +2302,10 @@ A partir de mediciones experimentales, los datos se procesan de forma tal de que
 ### Cálculo a nivel celda {#sec-celda}
 
 Este nivel de cálculo es el punto central del trabajo de doctorado de la referencia @chaco.
-A partir de biblioctecas de secciones eficaces microscópica se procede a realizar cálculos de transporte de forma tal de calcular secciones eficaces macroscópicas a pocos grupos de energía que puedan ser usadas como los coeficientes de las ecuaciones de transporte utilizadas en el cálculo a nivel de núcleo.
+A partir de bibliotecas de secciones eficaces microscópica se procede a realizar cálculos de transporte de forma tal de calcular secciones eficaces macroscópicas a pocos grupos de energía que puedan ser usadas como los coeficientes de las ecuaciones de transporte utilizadas en el cálculo a nivel de núcleo.
 
 ### Cálculo a nivel núcleo
 
 Este nivel de cálculo es el punto central de esta tesis, especialmente en los capítulos [-@sec-esquemas] y [-@sec-resultados].
-Las secciones eficaces macroscópicas que son los coeficientes de las ecuaciones de ordenadas discretas y difusión de neutrones multigrupo se suponene funciones conocidas del espacio.
+Las secciones eficaces macroscópicas que son los coeficientes de las ecuaciones de ordenadas discretas y difusión de neutrones multigrupo se suponen funciones conocidas del espacio.
 

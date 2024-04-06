@@ -43,7 +43,7 @@ $$ \tag{\ref{eq-difusion-ss}}
 $$
 
 
-y para la ligeramente más compleja ecuación de transporte linealmente anisotrópica obtuvimos
+y para la ligeramente más compleja ecuación de transporte linealmente anisótropa obtuvimos
 
 $$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
 \begin{gathered}
@@ -58,7 +58,7 @@ $$ \tag{\ref{eq-transporte-linealmente-anisotropica}}
 \end{gathered}
 $$ 
 
-sobre un espacio de fases generado^[Del ingés [*spanned*]{lang=en-US}.] por seis escalares independientes:
+sobre un espacio de fases generado^[Del inglés [*spanned*]{lang=en-US}.] por seis escalares independientes:
 
  * tres para el espacio $\vec{x}$,
  * dos para la dirección $\omegaversor$ y
@@ -376,7 +376,7 @@ $$
 Necesitamos una doble integral sobre $E$ y sobre $E^\prime$ porque $\Sigma_{s_0}(\vec{x}, E^{\prime} \rightarrow E)$ es una sección eficaz diferencial y tiene unidades de inversa de longitud por inversa de ángulo sólido por inversa de energía.
 :::
 
-Un análisis similar para el término de [scattering]{lang=en-US} linealmente anisotrópico
+Un análisis similar para el término de [scattering]{lang=en-US} linealmente anisótropo
 
 $$
 \int_{E_{g-1}}^{E_g} \frac{3 \cdot \omegaversor}{4\pi} \cdot 
@@ -391,7 +391,7 @@ $$
 \frac{\displaystyle \int_{E_{g-1}}^{E_g} \int_{E^\prime_{g-1}}^{E^\prime_g} \Sigma_{s_1}(\vec{x}, E^{\prime} \rightarrow E) \cdot \vec{J}(\vec{x},E^\prime) \,dE}{\displaystyle \int_{E^\prime_{g-1}}^{E^\prime_g} \vec{J}(\vec{x},E^\prime) \, dE^\prime}
 $$
 a menos que tanto numerador como denominador tengan sus elementos proporcionales entre sí y la división se tome como elemento a elemento.
-Usualmente se desprecia la diferencia entre corriente y flujo y podemos utilizar el flujo para pesar el término de [scattering]{lang=en-US} anisotrópico:
+Usualmente se desprecia la diferencia entre corriente y flujo y podemos utilizar el flujo para pesar el término de [scattering]{lang=en-US} anisótropo:
 
 $$
 \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \approx
@@ -422,7 +422,7 @@ $$
 :::
 
 ::: {#def-s0-g}
-Definimos el momento de orden cero de las fuentes independentes del grupo $g$ como
+Definimos el momento de orden cero de las fuentes independientes del grupo $g$ como
 
 $$
 s_{0g}(\vec{x}) = \int_{E_g}^{E_{g-1}} s_0(\vec{x}, E) \, dE
@@ -442,7 +442,7 @@ y las ecuaciones
  * [-@eq-nusigmaf-phig] (ritmo de fisiones)
  * [-@eq-chig] (espectro de fisiones)
  * [-@eq-sigmas0-phig] (scattering isotrópico)
- * [-@eq-sigmas1-Jg] (scattering linealmente anisotrópico)
+ * [-@eq-sigmas1-Jg] (scattering linealmente anisótropo)
 
 obtenemos las $G$ ecuaciones de transporte multigrupo
 
@@ -517,7 +517,7 @@ Nuevamente el acople entre volúmenes de control es algebraico y no necesariamen
 
 ## de cuadratura sobre la esfera unitaria
 
-La integral de una función escalar $f(\omegaversor)$ de cuadrado integrable sobre todas las direcciones $\omegaversor$ es igual a $4\pi$ veces la suma de un conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m = 1$, mutiplicados por $M$ valores medios $\left\langle f(\omegaversor)\right\rangle_m$ asociados a $M$ direcciones $\omegaversor_m$ donde cada una de las cuales tiene asociada también una porción $\Delta \omegaversor_m$ de la esfera unitaria tal que su unión es $4\pi$ y su intersección es cero:
+La integral de una función escalar $f(\omegaversor)$ de cuadrado integrable sobre todas las direcciones $\omegaversor$ es igual a $4\pi$ veces la suma de un conjunto de $M$ pesos $w_m$ normalizados tal que $\sum w_m = 1$, multiplicados por $M$ valores medios $\left\langle f(\omegaversor)\right\rangle_m$ asociados a $M$ direcciones $\omegaversor_m$ donde cada una de las cuales tiene asociada también una porción $\Delta \omegaversor_m$ de la esfera unitaria tal que su unión es $4\pi$ y su intersección es cero:
 
 $$
 \int_{4\pi} f(\omegaversor) \, d\omegaversor = 4\pi \cdot \sum_{w=1}^M w_m \cdot \left\langle f(\omegaversor)\right\rangle_m
@@ -622,7 +622,7 @@ $$
  \underbrace{\int_{\omegaversor_m} \left\{ \omegaversor \cdot \text{grad} \left[ \psi_g(\vec{x}, \omegaversor) \right] \right\} \, d\omegaversor}_\text{advección} +
  \underbrace{\int_{\omegaversor_m} \left\{ \Sigma_{t g}(\vec{x}) \cdot \psi_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor}_\text{absorción total} = \\
  \underbrace{\bigintsss_{\omegaversor_m} \left\{ \sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \cdot \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{scattering isotrópico} + \\
- \underbrace{\bigintsss_{\omegaversor_m} \left\{ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right\} \, d\omegaversor}_\text{scattering linealmente anisotrópico} +\\
+ \underbrace{\bigintsss_{\omegaversor_m} \left\{ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right\} \, d\omegaversor}_\text{scattering linealmente anisótropo} +\\
  \underbrace{\bigintsss_{\omegaversor_m} \left\{ \chi_g \cdot \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x}) \cdot   \sum_{m^\prime=1} w_{m^\prime} \cdot \psi_{m^\prime g^\prime}(\vec{x}) \right\}  \, d\omegaversor}_\text{fisión} +
  \underbrace{\int_{\omegaversor_m} \left\{ s_g(\vec{x}, \omegaversor)  \right\} \, d\omegaversor  }_\text{fuentes independientes}
 \end{gathered}
@@ -657,7 +657,7 @@ $$
 $$
 
 ::: {#def-mean-omega}
-Llamamos $\omegaversor_m$ a la direccion que resulta ser el valor medio $\left\langle \omegaversor \right\rangle_{\omegaversor_m}$ de todas las direcciones integradas en el area $\Delta \omegaversor_m$ sobre la esfera unitaria, es decir
+Llamamos $\omegaversor_m$ a la dirección que resulta ser el valor medio $\left\langle \omegaversor \right\rangle_{\omegaversor_m}$ de todas las direcciones integradas en el área $\Delta \omegaversor_m$ sobre la esfera unitaria, es decir
 
 $$
 \omegaversor_m = \left\langle \omegaversor \right\rangle_{\omegaversor_m} =
@@ -724,7 +724,7 @@ $$
 $$ {#eq-sn-scattering-isotropico}
 ya que el integrando no depende de $\omegaversor$.
 
-El integrando del término de [scattering]{lang=en-US} linealmente anisotrópico sí depende de $\omegaversor$.
+El integrando del término de [scattering]{lang=en-US} linealmente anisótropo sí depende de $\omegaversor$.
 
 $$
 \bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
@@ -740,7 +740,7 @@ $$
 \end{gathered}
 $$
 
-Una vez mas, la integral sobre $\omegaversor_m$ ya la hemos resuelto (exactamente) en el\ @cor-int-omega, y es igual a $\omegaversor_m \cdot \Delta \omegaversor_m$. Entonces el término de [scattering]{lang=en-US} linealmente anisotrópico es aproximadamente igual a
+Una vez mas, la integral sobre $\omegaversor_m$ ya la hemos resuelto (exactamente) en el\ @cor-int-omega, y es igual a $\omegaversor_m \cdot \Delta \omegaversor_m$. Entonces el término de [scattering]{lang=en-US} linealmente anisótropo es aproximadamente igual a
 $$
 \begin{gathered}
 \bigintsss_{\omegaversor_m} \left[ \frac{3 \cdot \omegaversor}{4\pi} \cdot \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \cdot \sum_{m^\prime=1} \int_{\omegaversor_{m^\prime}} \psi_{g^\prime}(\vec{x},\omegaversor^\prime) \cdot \omegaversor^\prime \, d\omegaversor^\prime   \right] \, d\omegaversor
@@ -786,9 +786,9 @@ Juntemos ahora las ecuaciones
  * [-@eq-sn-adveccion] (advección)
  * [-@eq-sn-absorciones] (absorciones)
  * [-@eq-sn-scattering-isotropico] ([scattering]{lang=en-US} isotrópico)
- * [-@eq-sn-scattering-anisotropico] ([scattering]{lang=en-US} linealmente anisotrópico)
+ * [-@eq-sn-scattering-anisotropico] ([scattering]{lang=en-US} linealmente anisótropo)
  * [-@eq-sn-fisiones] (fisiones)
- * [-@eq-sn-fuentes] (fuentes independentes)
+ * [-@eq-sn-fuentes] (fuentes independientes)
  
 para re-escribir la\ @eq-trasporte-integrado-omegam como
 
@@ -828,7 +828,7 @@ Todos los operadores integrales que estaban presentes en la\ @eq-transporte-line
 La única aproximación numérica que tuvimos que hacer para obtener la\ @eq-transporte-sn a partir de la @eq-transportemultigrupo fue suponer que el flujo angular $\psi_g$ es uniforme a trozos en cada segmento de área $\Delta \omegaversor_m$ en los términos de
 
  a. absorciones totales (@eq-sn-absorciones), y
- b. scattering linealmente anisotrópico (@eq-sn-scattering-anisotropico).
+ b. scattering linealmente anisótropo (@eq-sn-scattering-anisotropico).
  
 Por ejemplo, la @fig-constant-per-fraction ilustra un caso en el que cada octante de la esfera unitaria está dividido en tres áreas iguales, dando lugar a $M = 3 \times 8 = 24$ direcciones. En cada una de las áreas mostradas, asumimos que el flujo angular $\psi(\vec{x},\omegaversor)$ es uniformemente igual a $\psi_{mg}(\vec{x})$, siendo $\vec{x}$ en este caso la posición del centro de la esfera unidad. Esta suposición es usual en los esquemas basados en el método de volúmenes finitos.
 :::
@@ -903,7 +903,7 @@ Direcciones de cuadratura de nivel simétrico para S$_2$, S$_4$ y S$_6$ en el 
 
 
 
-::::: {#thm-un-solo-coseno-idependiente}
+::::: {#thm-un-solo-coseno-independiente}
 
 En la cuadratura de nivel simétrico, no todos los $N/2$ posibles cosenos directores son independientes.
 Para S$_2$ hay una única dirección posible.
@@ -1020,8 +1020,8 @@ para $i=2,\dots,N/2$.
 : Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 ::: {.remark}
-Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un clúster alrededor de los polos.
-Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un clúster alrededor del centro de cada octante.
+Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un cluster alrededor de los polos.
+Si el primer coseno director $\mu_1$ es cercano a $1/\sqrt{3}$, las direcciones tienden a formar un cluster alrededor del centro de cada octante.
 :::
 
 
@@ -1089,7 +1089,7 @@ Para extender las $N(N+2)/8$ direcciones a los demás cuadrantes, podemos notar 
 
 entonces el desarrollo binario del índice $n$ tiene tres bits y éstos indican si hubo un cambio de signo o no en cada uno de los tres ejes con
 respecto al primer cuadrante, que corresponde a $n=0$.
-De esta manera, es posbile generar las direcciones $\boldsymbol{\hat{\Omega}}_m$ para $m=N(N+2)/8+1, N(N+2)$ a partir de las direcciones del primer cuadrante $\boldsymbol{\hat{\Omega}}_j$ para $j=1,N(N+2)/8$ con el siguiente algoritmo
+De esta manera, es posible generar las direcciones $\boldsymbol{\hat{\Omega}}_m$ para $m=N(N+2)/8+1, N(N+2)$ a partir de las direcciones del primer cuadrante $\boldsymbol{\hat{\Omega}}_j$ para $j=1,N(N+2)/8$ con el siguiente algoritmo
 
 ```{=latex}
 \DontPrintSemicolon
@@ -1108,7 +1108,7 @@ De esta manera, es posbile generar las direcciones $\boldsymbol{\hat{\Omega}}_m
 
 donde
 
- * el símbolo ampersand `&` indica el operador binario `AND` y
+ * el símbolo "et" `&` indica el operador binario `AND` y
  * el signo de pregunta `?` el operador ternario de decisión.
 
 :::
@@ -1246,7 +1246,7 @@ Si se pudiera intercambiar en toda la literatura existente (y en las clases, sem
 :::
 
 
-Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de Poisson generalizada.^[En en apéndice @sec-sds`, más precisamente en la página~\pageref{placemat},`{=latex} mostramos cómo aprovechar la elipticidad del operador de Laplace para resolver un laberinto arbitrario.]
+Comenzamos ilustrando la aplicación el método de elementos finitos a un operador elíptico escalar, en particular a la ecuación de Poisson generalizada.^[En en [apéndice @sec-sds]`, más precisamente en la página~\pageref{placemat},`{=latex} mostramos cómo aprovechar la elipticidad del operador de Laplace para resolver un laberinto arbitrario.]
 Para este caso introducimos las ideas básicas de
 
  i. la  formulación débil o variacional (@sec-poisson),
@@ -1262,7 +1262,7 @@ Pero además el operador es parabólico de primer orden y la formulación numér
 
 Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada sobre un dominio espacial $D$-dimensional $U \in \mathbb{R}^D$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
 
-![El dominio espacial $U \in \mathbb{R}^2$ de la @fig-dominio con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cyan) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
+![El dominio espacial $U \in \mathbb{R}^2$ de la @fig-dominio con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cian) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
 
 $$
 \begin{cases}
@@ -1474,13 +1474,13 @@ $$ {#eq-a-B-poisson}
 ::: {.remark}
 En la formulación débil la derivabilidad es más laxa que en la formulación fuerte.
 De ahí su nombre: las funciones deben cumplir requerimientos más débiles.
-Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmulas de Green, los requerimimentos de derivabildiad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-@eq-poisson-debil] sólo involucra el gradiente.
+Por un lado, al involucrar una operación de integración sobre el dominio y aplicar fórmulas de Green, los requerimientos de derivabilidad disminuyen un grado: en la formulación fuerte [-@eq-poisson-fuerte], $u$ tiene que ser derivable dos veces ya que el operador es esencialmente el laplaciano mientras que en la formulación débil [-@eq-poisson-debil] sólo involucra el gradiente.
 De hecho, ni siquiera hace falta que las funciones sean tan derivables según en el lugar dónde aparecen en la formulación ya que las las integrales deben tomarse según el sentido de Lebesgue y no según el sentido de como Riemann: todas las funciones dentro de las integrales pueden ser discontinuas en un sub-espacio de medida nula.
 En efecto, la formulación débil del problema de conducción de calor con conductividad discontinua en interfaces materiales está bien definida. Por un lado las interfaces materiales son un sub-espacio de medida nula y por otro la conductividad $k(\vec{x})$ no tiene aplicado ningún operador diferencial sino que es integrado (en el sentido de Lebesgue) sobre el dominio espacial $U$.
 :::
 
 ::: {.remark}
-La formulación débil de la ecuación de conducción de calor derivada en la @eq-poisson-debil incluye la posiblidad de que la conductividad $k(\vec{x})$ pueda depender del espacio e incluso ser discontinua en interfaces materiales. 
+La formulación débil de la ecuación de conducción de calor derivada en la @eq-poisson-debil incluye la posibilidad de que la conductividad $k(\vec{x})$ pueda depender del espacio e incluso ser discontinua en interfaces materiales. 
 Más aún, la derivación propuesta puede ser extendida para el caso no lineal en el cual la conductividad pueda depender de la incógnita $k(u)$. Ver por ejemplo el problema de conducción de calor no lineal del @sec-simple.
 :::
 
@@ -1515,9 +1515,9 @@ $$
 
 ::: {#def-a-bilineal}
 
-## operador bilineal
+## operador bi-lineal
 
-Un operador $\mathcal{a}(v,u) : V \times V \mapsto \mathbb{R}$ es bilineal si
+Un operador $\mathcal{a}(v,u) : V \times V \mapsto \mathbb{R}$ es bi-lineal si
 
 $$
 \mathcal{a}(\alpha \cdot v_1 + \beta \cdot v_2, u) = \alpha \cdot \mathcal{a}(v_1,u) + \beta \cdot \mathcal{a}(v_2,u)
@@ -1588,8 +1588,8 @@ $$
 $$
 siendo
 
- a. $V$ un subespacio de $H^1(U)$,
- b. $\mathcal{a} : V \times V \mapsto \mathbb{R}$ un operador continuo, bilineal y coercivo, y
+ a. $V$ un sub-espacio de $H^1(U)$,
+ b. $\mathcal{a} : V \times V \mapsto \mathbb{R}$ un operador continuo, bi-lineal y coercivo, y
  c. $\mathcal{B} : V \mapsto \mathbb{R}$ un funcional continuo y lineal
  
 entonces la solución $u$ existe y es única.
@@ -1625,7 +1625,7 @@ H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^{D} \,d^D\v
 $$
 
 Este planteo, además de ser poco elegante al romper la simetría entre $u$ y $v$, tiene un problema insalvable: $H^1_g$ es un conjunto^[Técnicamente es un [_affine manifold_]{lang=en-US}.] pero no un espacio ya que la suma de dos funciones $u_1 \in H^1_g$ y $u_2 \in H^1_g$ no están en $H^1_g$ sino en $H^1_{2g}$.
-Esto hace que no podamos escribir fácilmente a la incógnita $u$ como una combinacion lineal de una base, que es lo primero que hacemos en la @sec-galerkin que sigue.
+Esto hace que no podamos escribir fácilmente a la incógnita $u$ como una combinación lineal de una base, que es lo primero que hacemos en la @sec-galerkin que sigue.
 
 Una alternativa es considerar una función continua $u_g \in H^1_g$ y escribir
 
@@ -1633,7 +1633,7 @@ $$
 u_h(\vec{x}) = u(\vec{x}) - u_g(\vec{x})
 $$ {#eq-uh-u-ug}
 donde $u_h \in H^1_0$, es decir, se anula en $\Gamma_D$ (el subíndice $h$ quiere decir "homogénea").
-Si el operador $\mathcal{a}$ es bilineal, entonces podemos escribir el problema
+Si el operador $\mathcal{a}$ es bi-lineal, entonces podemos escribir el problema
 
 $$
 \text{encontrar~} u \in V: \quad
@@ -1700,7 +1700,7 @@ Usando las ideas desarrolladas en la sección anterior, podemos definir una disc
 
 ## problema de Galerkin
 
-Sea $V_N$ un subespacio de $V = H^1_0(U)$ de dimensión finita $N$.
+Sea $V_N$ un sub-espacio de $V = H^1_0(U)$ de dimensión finita $N$.
 Llamamos _problema de Galerkin_ a
 
 $$
@@ -1723,7 +1723,7 @@ $$
 v_N(\vec{x}) = \sum_{i=1}^N v_i \cdot h_i(\vec{x})
 $$ {#eq-vn-expansion}
 
-Para $\mathcal{a}$ bilineal y $\mathcal{B}$ lineal,
+Para $\mathcal{a}$ bi-lineal y $\mathcal{B}$ lineal,
 
 $$
 \begin{aligned}
@@ -1796,7 +1796,7 @@ Si el operador $\mathcal{a}$ es simétrico entonces la matriz $\mat{A}$ tambi�
 :::
 
 ::::: {#thm-A-spd}
-Si el operador $\mathcal{a}$ es bilineal y coercivo entonces la matriz $\mat{A}$ es definida positiva.
+Si el operador $\mathcal{a}$ es bi-lineal y coercivo entonces la matriz $\mat{A}$ es definida positiva.
 
 ::: {.proof}
 
@@ -1823,7 +1823,7 @@ Ver @hughes para una demostración alternativa.
 
 ## existencia y unicidad
 
-Si el operador $\mathcal{a}$ es bilineal y coercivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
+Si el operador $\mathcal{a}$ es bi-lineal y coercivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
 
 ::: {.proof}
 Por el @thm-A-spd la matriz $\mat{A}$ es definida positiva. Luego es invertible y la @eq-Au $\mat{A} \cdot \vec{u} = \vec{b}$ tiene solución única.
@@ -1871,19 +1871,19 @@ Restando miembro a miembro
 $$
 \mathcal{a}(u_N, v_N) - \mathcal{a}(u, v_N) = 0
 $$
-de donde se sigue la tesis por la bilinealidad.
+de donde se sigue la tesis por la bi-linealidad.
 :::
 :::::
 
 ::: {.remark}
-El error $u - u_N$ cometido por la aproximación de Galerkin es ortogonal al subespacio $V_N$ en la norma
+El error $u - u_N$ cometido por la aproximación de Galerkin es ortogonal al sub-espacio $V_N$ en la norma
 
 $$
 ||v||_{\mathcal{a}} = \sqrt{\mathcal{a}(v,v)}
 $$
 Es decir, la solución aproximada $u_N$ es
 
- 1. La proyección ortogonal de la solución exacta $u$ en el subespacio $V_N$.
+ 1. La proyección ortogonal de la solución exacta $u$ en el sub-espacio $V_N$.
  2. La solución que minimiza la distancia $||u -u_N||_{\mathcal{a}}$.
 :::
 
@@ -1906,7 +1906,7 @@ $$
 
 La primera equivalencia está probada por el @thm-equivalencia-fuerte-debil.
 No hay ninguna aproximación involucrada. Solamente hay que marcar que la equivalencia se mantiene en todo el dominio $U$ excepto en, a lo más, un sub-conjunto de medida cero.
-La aproximación entre la formulación débil y el problema de Galerkin es la idea central del método numérico: pasar de una espacio vectorial $V$ de dimensión infinita a un espacio vectorial $V_N$ de dimensión finita. La equivalencia entre Galerkin y un sistema lineal de ecuaciones algebraicas (que puede ser resuelto con una computadora digital) funciona siempre y cuando el operador $a(u,v)$ sea coercivo y bilineal. Para problemas no lineales (por ejemplo para el caso en el que $k$ dependiera de $u$) la última equivalencia se reemplaza por una formulación vectorial no lineal $\vec{F}(\vec{u})=0$. En la @sec-nomult-src mencionamos brevemente cómo formular y resolver este tipo de problemas.
+La aproximación entre la formulación débil y el problema de Galerkin es la idea central del método numérico: pasar de una espacio vectorial $V$ de dimensión infinita a un espacio vectorial $V_N$ de dimensión finita. La equivalencia entre Galerkin y un sistema lineal de ecuaciones algebraicas (que puede ser resuelto con una computadora digital) funciona siempre y cuando el operador $a(u,v)$ sea coercivo y bi-lineal. Para problemas no lineales (por ejemplo para el caso en el que $k$ dependiera de $u$) la última equivalencia se reemplaza por una formulación vectorial no lineal $\vec{F}(\vec{u})=0$. En la @sec-nomult-src mencionamos brevemente cómo formular y resolver este tipo de problemas.
 :::
 
 
@@ -2337,7 +2337,7 @@ ya que $\mat{A}$ es definida positiva por el @thm-A-spd.
 
 ::: {.remark}
 Aún cuando la matriz $\mat{A}$ sea simétrica, la matriz de rigidez $\mat{K}$ (@eq-K) no lo es.
-Sin embargo, es posible realizar el procedimiento de reemplazar filas por ceros excepto en la diagonal agregando operaciones extra de reemplazo de columans por ceros excepto en la diagonal mientras al mismo tiempo se realizan operaciones equivalentes sobre el vector $\vec{f}$ del miembro derecho de forma tal de obtener un sistema de ecuaciones equivalente donde la matriz sea simétrica. Estos detalles forman parte de la implementación computacional y no de la teoría detrás del método numérico.
+Sin embargo, es posible realizar el procedimiento de reemplazar filas por ceros excepto en la diagonal agregando operaciones extra de reemplazo de columnas por ceros excepto en la diagonal mientras al mismo tiempo se realizan operaciones equivalentes sobre el vector $\vec{f}$ del miembro derecho de forma tal de obtener un sistema de ecuaciones equivalente donde la matriz sea simétrica. Estos detalles forman parte de la implementación computacional y no de la teoría detrás del método numérico.
 :::
 
 ::: {.remark}
@@ -2368,7 +2368,7 @@ $$
 
 Ahora,
 
- 1. volvemos a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bilinealidad de $a$
+ 1. volvemos a pasar $\mathcal{a}(u_g,v)$ al miembro izquierdo aprovechando la bi-linealidad de $a$
 
     $$
     \mathcal{a}(u_h+u_g,v) = \mathcal{a}(u,v) = \mathcal{B}(v)
@@ -2673,7 +2673,7 @@ Lo importante del ejemplo es que la matriz de rigidez elemental
  
 En este caso en particular, dado que las funciones de forma son lineales con respecto a las variables espaciales entonces la matriz $\mat{B}(\vec{x})$ es uniforme y puede salir fuera de la integral.
 Para otras topologías de elementos (por ejemplo cuadrángulos) o para elementos de órdenes superiores (en los que se agregan nodos sobre los lados o sobre el seno del elemento), las funciones de forma tendrán una dependencia más compleja y sus derivadas dependerán de $\vec{x}$ por lo que efectivamente habrá que integrar el producto $\mat{B}^T(\vec{x}) k(\vec{x}) \mat{B}(\vec{x})$ sobre el triángulo.
-Si bien en general es posible utilizar cualquier método de cuadratura numérica (incluyendo métodos adaptivos), la forma usual de calcular estas integrales es utilizando el método de integración de Gauss que consiste en disponer de una cantidad pre-fijada $Q$ de pares de pesos $\omega_q$ y puntos espaciales $\vec{x}_q$ tales que
+Si bien en general es posible utilizar cualquier método de cuadratura numérica (incluyendo métodos adaptativos), la forma usual de calcular estas integrales es utilizando el método de integración de Gauss que consiste en disponer de una cantidad pre-fijada $Q$ de pares de pesos $\omega_q$ y puntos espaciales $\vec{x}_q$ tales que
 
 $$
 \int_e \vec{F}(\vec{x}) \, d^D \vec{x} \approx \sum_{q=1}^Q \omega_q \cdot \vec{F}(\vec{x}_q)
@@ -3017,7 +3017,7 @@ $$ {#eq-B}
 
 
 ::: {.remark}
-Si el problema es tri-dimensional, el elemento canónico $e_{c_i}$ es el tetrahedro de dimensión $D=3$ cuyos $J_i=4$ vértices tienen coordenadas $\symbf{\xi}_1=[0,0,0]$, $\symbf{\xi}_2=[1,0,0]$, $\symbf{\xi}_3=[0,1,0]$ y $\symbf{\xi}_4=[0,0,1]$.
+Si el problema es tri-dimensional, el elemento canónico $e_{c_i}$ es el tetraedro de dimensión $D=3$ cuyos $J_i=4$ vértices tienen coordenadas $\symbf{\xi}_1=[0,0,0]$, $\symbf{\xi}_2=[1,0,0]$, $\symbf{\xi}_3=[0,1,0]$ y $\symbf{\xi}_4=[0,0,1]$.
 Entonces
 
  a. las $J_i=4$ funciones de forma son
@@ -3112,7 +3112,7 @@ siguen siendo válidas.
 
 
 ::: {.remark}
-Además de triángulos (tetrahedros) se podrían haber utiliado elementos cuadrangulares (hexahédricos, prismáticos o piramidales), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$ para $j=1,\dots,J$. Las relaciones matriciales [-@eq-relaciones] seguirían siendo válidas.
+Además de triángulos (tetrahedros) se podrían haber utilizado elementos cuadrangulares (hexaédricos, prismáticos o piramidales), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$ para $j=1,\dots,J$. Las relaciones matriciales [-@eq-relaciones] seguirían siendo válidas.
 :::
 
 
@@ -3145,7 +3145,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
  1. la topología del elemento $e_i$
      - segmento para $D=1$
      - triángulo o cuadrángulo para $D=2$
-     - tetrahedro, hexahedro, prisma o pirámide para $D=3$
+     - tetraedro, hexaedro, prisma o pirámide para $D=3$
  2. las $J_i$ funciones de forma $h_j(\symbf{\xi})$ del elemento canónico $e_c$ en el espacio $\symbf{\xi} \in \mathbb{R}^D$ con las cuales construimos la matriz canónica $\mat{H}_c$
  
     $$
@@ -3164,7 +3164,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     $$
  
  4. el conjunto de $Q$ pares de pesos y ubicaciones de puntos de Gauss $(\omega_q, \symbf{\xi}_q)$ del elemento canónico $e_c$
- 5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J_i$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$ del elmento $e_i$
+ 5. las coordenadas reales $\vec{x}_j \in \mathbb{R}^D$ de los $J_i$ nodos que definen el elemento real $e_i$ con los que construimos la matriz de coordenadas $\mat{C}_i$ del elemento $e_i$
  
     $$
     \mat{C}_i
@@ -3196,7 +3196,7 @@ Para un problema de dimensión $D$, para cada elemento $e_i$ del dominio discr
     \end{aligned}
     $$
     
-    necesarias para evaluar $k(\vec{x}_q)$ y $f(\vec{x}_q)$ dentro de cada térmiono de la suma de la cuadratura numérica,
+    necesarias para evaluar $k(\vec{x}_q)$ y $f(\vec{x}_q)$ dentro de cada término de la suma de la cuadratura numérica,
 
 entonces estamos en condiciones de evaluar la matriz $K_i \in \mathbb{R}^{J_i \times J_i}$ de rigidez elemental correspondiente al elemento $e_i$ para la formulación en elementos finitos^[Estrictamente hablando, esta no es _la_ formulación sino que es _una_ de las varias formulaciones posibles. De todas maneras es la más usual y eficiente.] de la ecuación generalizada de Poisson como
 
@@ -3504,7 +3504,7 @@ D(\vec{x}) \cdot \Big[ \text{grad} \left[ \phi(\vec{x}) \right] \cdot \hat{\vec{
 $$
 
 ::: {.remark}
-Si la fontera $\Gamma_D$ tiene una condición de simetría entonces $p(\vec{x}) = 0$ y las contribuciones superficiales al vector $\vec{b}$ son idénticamente cero.
+Si la frontera $\Gamma_D$ tiene una condición de simetría entonces $p(\vec{x}) = 0$ y las contribuciones superficiales al vector $\vec{b}$ son idénticamente cero.
 :::
 
 ::: {.remark}
@@ -3525,7 +3525,7 @@ al operador $\mathcal{a}(\phi, v)$.
 :::
 
 ::: {.remark}
-El operador bilineal $a(\phi,v) : V \times V \mapsto \mathbb{R}$ discretizado para este problema es
+El operador bi-lineal $a(\phi,v) : V \times V \mapsto \mathbb{R}$ discretizado para este problema es
 
 $$
 \begin{aligned}
@@ -3552,7 +3552,7 @@ El operador de la @eq-a-dif-uno es coercivo si $\Sigma_{t}(\vec{x})  - \Sigma_
 Pero puede dejar de serlo si la desigualdad no se cumple.
 En efecto, la desigualdad implica $k_\text{\infty} < 1$.
 Siguiendo razonamientos físicos, podemos decir que el operador es coercivo sólo si el factor de multiplicación $k_\text{eff} < 1$.
-Esto es, un medio multiplicativo crítico o supercrítico con una fuente independiente no tiene solución de estado estacionario.
+Esto es, un medio multiplicativo crítico o super-crítico con una fuente independiente no tiene solución de estado estacionario.
 :::
 
 Podemos escribir entonces la matriz de rigidez elemental $K_i$ volumétrica del problema de difusión de neutrones a un grupo de energías como
@@ -3697,7 +3697,7 @@ $$
  \Sigma_{s_0 1 \rightarrow 2}(\vec{x}) & \Sigma_{s_0 2 \rightarrow 2}(\vec{x}) \\
 \end{bmatrix}
 $$
-y la matrix $\mat{X} \in \mathbb{R}^{2 \times 2}$ de nu-fisiones
+y la matriz $\mat{X} \in \mathbb{R}^{2 \times 2}$ de nu-fisiones
 
 $$
 \mat{X}(\vec{x}) =
@@ -4335,7 +4335,7 @@ $$
 
 
 ::: {.remark}
-El operador bilineal $\mathcal{a}\big([\phi_1~\dots~\phi_G]^T, [v_1~\dots~v_G]\big) : V^G \times V^G \mapsto \mathbb{R}$ para $G>1$ es
+El operador bi-lineal $\mathcal{a}\big([\phi_1~\dots~\phi_G]^T, [v_1~\dots~v_G]\big) : V^G \times V^G \mapsto \mathbb{R}$ para $G>1$ es
 
 $$
 \begin{aligned}
@@ -4428,7 +4428,7 @@ $$
 \underbrace{\omegaversor_m \cdot \text{grad} \left[ \psi_{mg}(\vec{x}) \right]}_\text{advección}  +
 \underbrace{\Sigma_{t g}(\vec{x}) \cdot \psi_{mg}(\vec{x})}_\text{absorciones} = 
 \underbrace{\sum_{g=1}^G \Sigma_{s_0 g^\prime \rightarrow g}(\vec{x})  \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})}_\text{scattering isotrópico}  + \\
-\underbrace{3 \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \sum_{m^\prime=1} w_{m^\prime} \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \psi_{m^\prime g^\prime}(\vec{x})}_\text{scattering anisotrópico} + 
+\underbrace{3 \sum_{g=1}^G \Sigma_{s_1 g^\prime \rightarrow g}(\vec{x}) \sum_{m^\prime=1} w_{m^\prime} \left( \omegaversor_{m} \cdot \omegaversor_{m^\prime} \right) \psi_{m^\prime g^\prime}(\vec{x})}_\text{scattering anisótropo} + 
 \underbrace{\chi_g \sum_{g^\prime=1}^G \nu\Sigma_{fg^\prime}(\vec{x})   \sum_{m^\prime=1} w_{m^\prime} \psi_{m^\prime g^\prime}(\vec{x})}_\text{fisiones} + 
 \underbrace{s_{mg}(\vec{x})}_\text{fuentes}
 \end{gathered}
@@ -4475,7 +4475,7 @@ $$
 d^D \vec{x}
 $$
 
-Re-escribimos el vector $\Omega_{m} \cdot \nabla \psi_{mg}$ como el producto de una matriz constante con los cosenos directores $\mat{D}$ de tamaño $MG \times MGD$ y un vector $\boldsymbol{\psi}^\prime \in \mathbb{R}^{MG}ˇ$ de derivadas parciales de los $MG$ flujos angulares con respecto a las $D$ coordenadas
+Re-escribimos el vector $\Omega_{m} \cdot \nabla \psi_{mg}$ como el producto de una matriz constante con los cosenos directores $\mat{D}$ de tamaño $MG \times MGD$ y un vector $\boldsymbol{\psi}^\prime \in \mathbb{R}^{MG}$ de derivadas parciales de los $MG$ flujos angulares con respecto a las $D$ coordenadas
 
 $$
 \begin{bmatrix}
@@ -4553,7 +4553,7 @@ Una forma de recuperar la coercividad del operador $\mathcal{a}$ y poder obtene
 
 ## problema de Petrov-Galerkin
 
-Sea $V_N$ un subespacio de $V = H^1_0(U)$ y sea $V^\prime_N$ un subespacio de $V^\prime = H^{\prime 1}_0(U)$, ambos de dimensión finita $N$
+Sea $V_N$ un sub-espacio de $V = H^1_0(U)$ y sea $V^\prime_N$ un sub-espacio de $V^\prime = H^{\prime 1}_0(U)$, ambos de dimensión finita $N$
 Llamamos _problema de Petrov-Galerkin_ a
 
 $$
@@ -4636,7 +4636,7 @@ $$
 $$
 
 ::: {.remark}
-En la herramienta computacional desarrolladad, la matriz de estabilización SUPG $\mat{P}_{MGc}$ se calcula de la siguiente manera:
+En FeenoX, la matriz de estabilización SUPG $\mat{P}_{MGc}$ se calcula de la siguiente manera:
 
 ```c
 int MG = neutron_sn.directions * neutron_sn.groups;
@@ -4725,10 +4725,10 @@ donde
  * $N$ es el tamaño del problema discretizado, que es el producto de 
    a. la cantidad $J$ de incógnitas espaciales (cantidad de nodos en elementos finitos y cantidad de celdas en volúmenes finitos),
    b. la cantidad $G$ de grupos de energía, y
-   c. la cantidad $M$ de direcciones discretas (sólo para el método de ordenadas discetas).
+   c. la cantidad $M$ de direcciones discretas (sólo para el método de ordenadas discretas).
 
  
-El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá evaluar en forma aproximadad (en el sentido de la @sec-metodos-numericos) la función $\psi$ ó $\phi$ en función
+El vector $\symbf{\varphi}_N \in \mathbb{R}^N$ es la incógnita, que luego de resolver el sistema permitirá evaluar en forma aproximada (en el sentido de la @sec-metodos-numericos) la función $\psi$ ó $\phi$ en función
 de $\vec{x}$, $E$ y eventualmente $\omegaversor$ para todo punto del espacio $\vec{x}$ dependiendo de la discretización espacial.
 
 ::: {.remark}
@@ -4747,7 +4747,7 @@ La forma más eficiente de resolver estos problemas es utilizar variaciones del 
 $$
 \symbf{\varphi}_{Nk+1} = \symbf{\varphi}_{Nk} - \mat{J}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})^{-1} \cdot \mathcal{F}_N(\symbf{\varphi}_{Nk}, \Sigma_{Nk})
 $$
-para los pasos $k=0,1,\dots$, donde $\mat{J}_N$ es la matrix jacobiana de la función $\mathcal{F}_N$.
+para los pasos $k=0,1,\dots$, donde $\mat{J}_N$ es la matriz jacobiana de la función $\mathcal{F}_N$.
 Dado que la inversa de una matriz rala es densa, es prohibitivo evaluar (¡y almacenar!) explícitamente $\mat{J}_N^{-1}$.
 En la práctica, la iteración de Newton se implementa mediante los siguientes dos pasos:
 
@@ -4766,7 +4766,7 @@ Si bien solamente una fracción $\beta$ de todos los neutrones nacidos por fisi
 
 
 El tipo de problema discretizado es esencialmente similar al caso del medio no multiplicativo con fuentes de la sección anterior, sólo que ahora la matriz $\mat{A}_N(\Sigma_N)$ contiene información sobre las fuentes de fisión, que son lineales con la incógnita $\symbf{\varphi}_N$.
-Estos casos se encuentran al estudiar sistemas subcríticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
+Estos casos se encuentran al estudiar sistemas sub-críticos como por ejemplo piletas de almacenamiento de combustibles gastados o procedimientos de puesta a crítico de reactores.
 
 ### Medio multiplicativo sin fuentes independientes {#sec-multiplicativo-sin-fuente}
 
@@ -4854,7 +4854,7 @@ La utilidad del factor $k_\text{eff}$ queda reflejada en la siguiente definici�
 Llamamos *factor de multiplicación efectivo* al número real $k_\text{eff}$ por el cual dividimos la fuente de fisiones de las
 ecuaciones que modelan un medio multiplicativo sin fuentes externas.
 Al nuevo medio al cual se le han dividido sus fuentes de fisión por $k_\text{eff}$ lo denominamos *reactor crítico asociado en $k$*.
-Si $k_\text{eff}>1$ entonces el reactor original estaba supercrítico ya que hubo que disminuir sus fisiones para encontrar una solución no
+Si $k_\text{eff}>1$ entonces el reactor original estaba super-crítico ya que hubo que disminuir sus fisiones para encontrar una solución no
 trivial, y viceversa.
 El flujo solución de las ecuaciones es el flujo del reactor crítico asociado en $k$ y no del original, ya que si el original no estaba crítico entonces éste no tiene solución estacionaria no nula.
 :::
@@ -4880,7 +4880,7 @@ Sin embargo se puede probar [@henry] que, para el caso $\lambda=1/k_{\text{eff
 Tanto el problema continuo como el discretizado en la @eq-eigen son matemáticamente homogéneos.
 Esta característica define dos propiedades importantes:
 
- 1. El autovector $\symbf{\varphi}_N$ (es decir el flujo neutronico) está definido a menos de una constante multiplicativa y es independiente del factor de multiplicación $k_{\text{eff}N}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia térmica total $P$ del reactor y se normaliza el flujo de forma tal que
+ 1. El autovector $\symbf{\varphi}_N$ (es decir el flujo neutrónico) está definido a menos de una constante multiplicativa y es independiente del factor de multiplicación $k_{\text{eff}N}$. Para poder comparar soluciones debemos normalizar el flujo de alguna manera. Usualmente se define la potencia térmica total $P$ del reactor y se normaliza el flujo de forma tal que
     
     $$
     P = \int_{U} \int_0^\infty e\Sigma_f(\vec{x}, E) \cdot \phi(\vec{x}, E) \, dE \, d^3\vec{x}
