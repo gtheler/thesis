@@ -1877,7 +1877,7 @@ $$
 La forma particular de implementar los puntos 1 y 2 (especialmente el 1) es crucial en términos de performance.
 FeenoX busca el elemento $e_i$ con una combinación de un $k$-d [tree]{lang=en-US} para encontrar el nodo más cercano al punto $\vec{x}$ y una lista de elementos asociados a cada nodo. Una vez encontrado el elemento $e_i$, resuelve un sistema de ecuaciones de tamaño $k$ (posiblemente no lineal) para encontrar las coordenadas locales $\symbf{\xi} \in \mathbb{R}^k$.
 
-De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology), entonces todavía podemos evaluar $f(\vec{x})$ en cualquier punto arbitrario $\vec{x} \in [0,1] \times [0,1]$ para obtener la fig-2dinterp-topology:
+De esta manera, si en lugar de tener los puntos de definición completamente estructurado `de la página~\pageref{3cols}`{=latex} tuviésemos la misma información pero en lugar de incluir el punto de definición $f(0,0)=0$ tuviésemos $f(0.5,0.5)=0.25$ pero con la topología asociada (@fig-2d-interpolation-topology), entonces todavía podemos evaluar $f(\vec{x})$ en cualquier punto arbitrario $\vec{x} \in [0,1] \times [0,1]$ para obtener la @fig-2dinterp-topology:
 
 ```feenox
 READ_MESH 2d-interpolation-topology.msh DIM 2 READ_FUNCTION f
@@ -1967,7 +1967,7 @@ Es por eso que la idea de libertad es central: en el concepto ["free software"]{
 Las libertades dos y tres son esencialmente importantes en el ámbito académico.
 :::
 
-Relacionado al movimiento de software libre, que tiene raíces en ideas éticas @gnu-manifesto, viene el concepto de código abierto que se basa en consideraciones más bien prácticas: ["given enough eyeballs all bugs are shallow"]]{lang=en-US} @cathedral.
+Relacionado al movimiento de software libre, que tiene raíces en ideas éticas @gnu-manifesto, viene el concepto de código abierto que se basa en consideraciones más bien prácticas: ["given enough eyeballs all bugs are shallow"]{lang=en-US} @cathedral.
 De hecho esta idea aplica también perfectamente al software de ingeniería: la calidad de un [solver]{lang=en-US} [open source]{lang=en-US} debería ser, objetivamente hablando, superior a cualquier otra herramienta privativa (en el sentido de que _priva_ a los usuarios de las libertades básicas).
 
 
@@ -2056,6 +2056,7 @@ El autor del precondicionador GAMG de PETSc implementó en la versión 3.20 un 
 
 ::: {.remark}
 Justamente, las versiones 3.20 y 3.21 de PETSc incluyen contribuciones (corrección de [bugs]{lang=en-US} y tests de nuevos [features]{lang=en-US}) por parte autor de esta tesis (@fig-petsc).
+:::
 
 
 ::: {#fig-petsc layout="[1,-0.03,1]" layout-valign="bottom"}
@@ -2426,7 +2427,7 @@ Pero, en principio, la arquitectura del código permite que el desarrollo de tem
 
  * solución de PDEs discretizadas espacialmente con volúmenes finitos en lugar de elementos finitos
  * esquemas espaciales de alto orden
- * manejo de elementos estructurales ([beam, truss, shell, plate]]{lang=en-US}) para resolver problemas de elasticidad
+ * manejo de elementos estructurales ([beam, truss, shell, plate]{lang=en-US}) para resolver problemas de elasticidad
  * análisis modales con amortiguación que pueden dar lugar a soluciones complejas
  * neutrónica cinético-espacial
 

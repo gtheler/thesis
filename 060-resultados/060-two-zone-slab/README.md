@@ -85,7 +85,7 @@ La ejecución necesita un argumento que puede ser `i` o `ii` según sea el punto
 
 
  i. malla no uniforme
- ii malla uniforme
+ ii. malla uniforme
  
 Cada uno de los dos puntos usa una malla diferente, que luego explicamos cómo generamos.
 Luego incluimos el mismo archivo `ab.geo` con la información geométrica que ya incluyeron los archivos de entradas de Gmsh.

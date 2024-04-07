@@ -48,7 +48,7 @@ Pero en una aplicación real, éstas deberían depender de...
  * la densidad del refrigerante
  
 Todas estas dependencias se pueden dar en forma similar a la dependencia de las XS del moderador con una mezcla de expresiones algebraicas (@sec-pemdas) e interpolación de funciones dadas por puntos de una o más variables (@sec-funciones).
-Incluso se pueden diseñar esquemas de acople con códigos externos e intercambiar información a través de memoria compartida [@vitor;enief-2013-cpl] o de mensajes MPI.
+Incluso se pueden diseñar esquemas de acople con códigos externos e intercambiar información a través de memoria compartida [@vitor;@enief-2013-cpl] o de mensajes MPI.
 :::
  
 ::: {#fig-phwr-geo layout="[40,-15,40]"}
@@ -225,7 +225,7 @@ De todas maneras, lo que sí sigue siendo cierto, como mostramos en la @fig-mpi
 
 Para finalizar, debemos notar que al resolver problemas de criticidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el [capítulo @sec-esquemas] en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
 Para resolver este tipo de problemas se necesita un [solver]{lang=en-US} lineal que pueda "invertir"^[En el sentido de resolver un problema lineal, no de calcular explícitamente la inversa densa de una matriz rala.] la matriz de fisiones.
-Debido a razones técnicas relacionadas a la teoría de métodos numéricos, los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan significativamente mejor si este [solver]{lang=en-US} lineal es directo. Es conocido que los solvers directos son robustos pero no son escalables. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un [solver]{lang=en-US} lineal usando opciones en la línea de comandos).
+Los algoritmos para resolver problemas de  autovalores provistos en la biblioteca SLEPc funcionan significativamente mejor si este [solver]{lang=en-US} lineal es directo. Es conocido que los solvers directos son robustos pero no son escalables. Por lo tanto, los problemas resueltos con FeenoX (usando las opciones por defecto) suelen ser robustos pero no escalan bien (de hecho en la @sec-iaea3d-s4 hemos resuelto un problema de criticidad con un [solver]{lang=en-US} lineal usando opciones en la línea de comandos).
 Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales (o eventualmente no lineales con un esquema tipo Newton-Raphson).
 
 ::: {#tbl-mpi}

@@ -108,7 +108,7 @@ $
 ```
 
 
-![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8. La imagen del flujo rápido corresponde a una rotación de 45 grados de la malla.](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=70%}
+![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8 resuelto con difusión. La imagen del flujo rápido corresponde a una rotación de 45 grados de la malla.](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=70%}
 
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
@@ -235,7 +235,7 @@ La @fig-uno-dos muestra que ahora sí tenemos una ganancia significativa al red
 
 ![Flujo térmico $\phi_2$](iaea-3dpwr-eighth-circular-flux-2.png){#fig-iaea-3dpwr-eighth-flux2}
 
-Flujos del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular
+Flujos del benchmark de 3D PWR de IAEA con simetría 1/8 y reflector circular obtenidos con la formulación de difusión.
 :::
 
 Podemos investigar un poco qué sucede si quisiéramos resolver el problema en paralelo:
