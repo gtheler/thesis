@@ -1542,7 +1542,8 @@ $$
 \mathrm{div} \left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right) + \psi \cdot \mathrm{div} ( \omegaversor )
 $$
 
-Por la @eq-grad-solo-x el operador diferencial actúa sólo sobre las coordenadas espaciales, entonces $\text{div} ( \omegaversor ) = 0$. Luego
+Por la @eq-grad-solo-x el operador diferencial actúa solamente sobre las coordenadas espaciales.
+Entonces $\text{div} ( \omegaversor ) = 0$. Luego
 
 $$
 \mathrm{div}\left(\omegaversor \cdot \psi \right) = \omegaversor \cdot \mathrm{grad} \left( \psi \right)

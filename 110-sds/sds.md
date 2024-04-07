@@ -1136,7 +1136,7 @@ Of course these kind of FeenoX-generated tables can be inserted verbatim into Ma
 
 
 ::: {#fig-latex-tables layout-ncol=1}
-![A multi-billion-dollar agency using the Windows philosophy (presumably mouse-based copy and paste into Word)](nureg.png)
+![A multi-billion-dollar agency using the Windows philosophy (presumably mouse-based copy and pasted into Word)](nureg.png){#fig-nureg}
 
 ![A small third-world consulting company using the Unix philosophy (FeenoX+AWK+LaTeX)](cne.png){#fig-cne}
 
@@ -1147,7 +1147,7 @@ Results of the same fatigue problem solved using two different philosophies.
 It should be noted that all of the programs and tools mentioned to be interoperable with FeenoX are [free and open source software](https://en.wikipedia.org/wiki/Free_and_open-source_software).
 This is not a requirement from the SRS, but is indeed a nice-to-have feature.
  
-# Interfaces
+# Interfaces {#sec-interfaces}
 
  
 > ```include
@@ -2399,7 +2399,7 @@ make: *** [Makefile:1608: check-recursive] Error 1
 $ 
 ```
 
-## Bug reporting and tracking
+## Bug reporting and tracking {#sec-bug-reporting}
 
 
 > ```include

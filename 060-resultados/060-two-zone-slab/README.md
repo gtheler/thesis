@@ -110,7 +110,7 @@ Nos falta un archivo más para completar el estudio, que es un script que haga e
 
 Estamos entonces en condiciones de ejecutar este script para poder graficar los errores de ambos métodos:
 
-::: {#fig-two-zone-slab layout="[100]"}
+::: {#fig-two-zone-slab-results layout="[100]"}
 ![Factor de multiplicación](two-zone-slab-keff.svg){#fig-two-zone-slab-keff}
 
 ![Error con respecto a la solución analítica](two-zone-slab-error.svg){#fig-two-zone-slab-error}
@@ -141,5 +141,5 @@ $
 
 
 
-La @fig-two-zone-slab ilustra cabalmente el punto de Richard Stallman: en lugar de lidiar con cómo corregir el efecto "cúspide" (por ejemplo modificando la posición de la barra de control artificialmente para reducirlo) es mucho más efectivo evitarlo en primer lugar.
+La @fig-two-zone-slab-results ilustra cabalmente el punto de Richard Stallman: en lugar de lidiar con cómo corregir el efecto "cúspide" (por ejemplo modificando la posición de la barra de control artificialmente para reducirlo) es mucho más efectivo evitarlo en primer lugar.
 

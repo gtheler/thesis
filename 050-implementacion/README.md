@@ -1760,7 +1760,7 @@ Este pequeño archivo de entrada---que además muestra que una función definida
 
 ::: {#fig-sine layout="[45,-10,45]"}
 
-![](sine.svg){#fig-sine}
+![](sine.svg){#fig-sine1}
 
 ![](sine-error.svg){#fig-sine-error}
 
@@ -1849,7 +1849,7 @@ para obtener la @fig-2dinterp.
 
 ![$g(x,y)$ (`shepard`)](g.svg){#fig-g1}
 
-![$g(x,y)$ (`shepard`)](g.png){#fig-f2}
+![$g(x,y)$ (`shepard`)](g.png){#fig-g2}
 
 ![$h(x,y)$ (`rectangular`)](h.svg){#fig-h1}
 
@@ -2236,10 +2236,10 @@ ubuntu@ip-172-31-44-208:~/mpi/hello$
 
 Esto es, el [host]{lang=en-US} `ip-172-31-44-208` crea dos procesos de `feenox` y a su vez le pide a `ip-172-31-34-195` que cree otros dos procesos. Estos podrán entonces resolver un problema en paralelo donde la carga de CPU y la memoria RAM se repartirán entre dos servidores diferentes.
 
-![Geometría tutorial `t21` de Gmsh: dos cuadrados mallados con triángulos y descompuestos en 6 particiones.](t21.svg){#fig-t21 width=90%}
+![Geometría tutorial `t21` de Gmsh: dos cuadrados mallados con triángulos y descompuestos en 6 particiones.](t21.svg){#fig-t215 width=90%}
 
 Podemos utilizar el tutorial `t21` de Gmsh en el que se ilustra el concepto de DDM (descomposición de dominio o partición de la malla^[Del inglés [_mesh partitioning_]{lang=en-US}.]) para mostrar otro aspecto de cómo funciona la paralelización por MPI en FeenoX.
-En efecto, consideremos la malla de la @fig-t21 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos que queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor numérico 2:
+En efecto, consideremos la malla de la @fig-t215 que consiste en dos cuadrados adimensionales de tamaño $1 \times 1$ y supongamos que queremos integrar la constante 1 sobre la superficie para obtener como resultado el valor numérico 2:
 
 ```feenox
 READ_MESH t21.msh

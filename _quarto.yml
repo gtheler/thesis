@@ -132,7 +132,7 @@ format:
           \renewcommand{\algorithmcfname}{Algoritmo}
           \usepackage{lipsum}
           \usepackage{bigints}
-          \include{ibthesis.tex}
+          \input{ibthesis.tex}
           \usepackage{scrlayer-scrpage}
           %\lehead{\leftmark}
           %\rohead{\leftmark}

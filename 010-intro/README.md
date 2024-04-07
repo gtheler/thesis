@@ -83,12 +83,12 @@ Los últimos dos capítulos ([what]{lang=en-US}) contienen el núcleo de la cont
 
 Durante mi paso por la industria nuclear en el completamiento de la Central Nuclear Atucha II (el punto 2 `de la página~\pageref{puntodos}`{=latex}) he tenido la experiencia de emplear herramientas computacionales de cálculo neutrónico, termohidráulico y de control @dypra-stni.
 Por razones que no viene al caso analizar, aún en la década de 2010, mucho del software empleado había sido diseñado originalmente varias décadas antes cuando los paradigmas computacionales eran radicalmente diferentes.
-Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo de la hora de CPU de las computadoras usualmente utilizadas para cálculos nucleares en 1965 @computadoras65.
+Por ejemplo, la @tbl-1965-intro muestra un punto central de este paradigma: el costo de la hora de CPU de las computadoras usualmente utilizadas para cálculos nucleares en 1965 @computadoras65.
 
 
 
 
-::: {#tbl-1965}
+::: {#tbl-1965-intro}
  Computer | Monthly Rental  | Relative Speed | First Delivery 
 :----------------|:------------------------:|:-----------:|:-----------:
  CDC 3800        |         $ 50,000         |     1       |  Jan 66
@@ -101,7 +101,7 @@ Por ejemplo, la @tbl-1965 muestra un punto central de este paradigma: el costo 
  PHILCO 213      |         $ 78,000         |     2       |  Sep 65
  UNIVAC 1108     |         $ 45,000         |     2       |  Aug 65
 
-: [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a}
+: [Relative speed is expressed with reference to IBM 7030. Data for computers expected to appear after 1965 was estimated.]{lang=en-US} {#tbl-1965a-intro}
 
 Tabla "Las nuevas computadoras de alta velocidad de 1965" de la referencia @computadoras65. Los costos están expresados en dólares americanos de 1965 y pueden variar en un factor de dos. Un dólar de 1965 equivale a USD 10 de 2024.
 :::

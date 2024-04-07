@@ -485,7 +485,7 @@ El coeficiente de difusión $D_g$ del grupo $g$ proviene de calcular las secci
 
 $$
 D_g(\vec{x}) = \frac{1}{3 \left[ \Sigma_{tg}(\vec{x}) - \mu_{0g}(\vec{x}) \cdot \Sigma_{s_t g}(\vec{x}) \right]}
-$$ {#eq-D}
+$$
 :::
 
 ::: {.remark}
@@ -1540,7 +1540,7 @@ $$
 :::
 
 
-::: {#def-a-simetrico}
+::: {#def-a-coercivo}
 
 ## operador coercivo
 
@@ -3012,7 +3012,7 @@ por lo que
 
 $$
 \mat{B}(\symbf{\xi}) = \left[ \mat{B}_c^T(\symbf{\xi}) \cdot \mat{C}^T\right]^{-1} \cdot \mat{B}_c(\symbf{\xi})
-$$ {#eq-B}
+$$
 
 
 
