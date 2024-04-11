@@ -17,7 +17,8 @@ The hash and date of the Git commit use to compile the document goes into
 > It is legally required to be written in Spanish.
 > The Abstract and the appendices are in English, though.
 
-
+ * See the main publication in JOSS: <https://doi.org/10.21105/joss.05846>
+ * Check out the FeenoX webpage: <https://www.seamplex.com/feenox/>
 
 
 ## Abstract
@@ -27,17 +28,16 @@ _by Jeremy Theler_
 
 
 Traditional core-level neutronic computational tools are focused on solving the multigroup neutron diffusion equation over structured hexahedral grids. 
-While this approach might be reasonable for light-water power reactors, cores where the moderator is separated from the coolant---such as heavy-water power plants and research reactors---cannot be represented accurately with structured grids.
-In this work, we show how a free and open-source cloud-first large-scale parallel computational tool aimed at solving partial differential equations spatially discretized using the finite element method can be used to solve core-level neutronics using the multigroup discrete ordinates S$_N$ angular scheme.
-This tool, named FeenoX and developed from scratch using the Unix programming philosophy, can solve generic PDEs by providing a mechanism based on arbitrary entry points using C function pointers which provide the elemental objects for the FEM formulation.
-It also allows to scale in parallel using the MPI standard in a way suitable to be launched over several cloud servers.
-This way, in principle, arbitrarily large problems can be split into several hosts overcoming the usual RAM limitations.
+While this approach might be reasonable for light-water power reactors, cores where the moderator is separated from the coolant---such as heavy-water power plants and some research reactors---cannot be represented accurately with structured grids, especially if the control rods are slanted.
+In this work, we show how a free and open-source cloud-first large-scale parallel computational tool aimed at solving partial differential equations spatially discretized using the finite element method can be used to solve core-level neutronics using the multigroup discrete ordinates S$_N$ angular scheme.
+This tool, named FeenoX and developed from scratch using the Unix programming philosophy, can solve generic PDEs by providing a mechanism based on arbitrary entry points using C function pointers which build the elemental objects for the FEM formulation.
+It also allows to scale in parallel using the MPI standard in a way which is suitable to be launched on several cloud servers.
+This way, in principle, large problems can be split into several hosts using domain decomposition techniques overcoming the usual RAM limitations.
 Two of the PDEs that the initial version of the code can solve include multigroup neutron diffusion and neutron transport using the discrete ordinates method.
 
-This thesis explains the mathematics of the neutron transport equation, how the diffusion approximation can be derived from the former and the numerical discretization in angle and space for both of these equations. It also discusses the design and implementation of FeenoX that fulfills a fictitious (but plausible) set of requirement specifications (SRS) by proposing a "request for quotation" (SDS) explaining how the design and implementation addresses each of the tender requirements.
-In the results chapter, ten neutronic problems are solve. All of them need at least one of the unfair advantages that FeenoX's features configure: 1. programmatic simulation (that derives from the Unix philosophy); 2. unstructured grids; 3. discrete ordinates; 4. parallelization using MPI.
-This work sets a basis over which further numerical studies comparing S$_N$ and diffusion schemes for advanced core-level reactor analysis.
-
+This thesis explains the mathematics of the neutron transport equation, how the diffusion approximation can be derived from the former and two of the many possible numerical discretizations in angle and space for both equations. It also discusses the design and implementation of the tool FeenoX, that fulfills a fictitious (but plausible) set of requirement specifications (SRS) by proposing a design document (SDS) explaining how the developed tool addresses each of the tender requirements.
+In the results chapter, ten neutronic problems are solved. All of them need at least one of the unfair advantages that FeenoX's features configure: 1. programmatic simulation (that derives from the Unix philosophy); 2. unstructured grids; 3. discrete ordinates; 4. parallelization using MPI.
+This work sets a basis for further numerical studies comparing S$_N$ and diffusion schemes for advanced core-level reactor analysis.
 
 ## Compilation
 
@@ -60,8 +60,6 @@ To compile, the following dependencies are needed
 > 1.3.450
 > $
 > ``` 
-
-> The Abstract and the appendices are in English, though.
  
  
 Compile to PDF, HTML and/or epub with make

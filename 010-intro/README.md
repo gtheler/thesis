@@ -75,7 +75,7 @@ que son justamente las dos mitades del título y los temas profesionales en los 
 
 Debo reconocer que la extensión de esta tesis es mayor que la que me hubiese gustado que tenga.
 Pero también es cierto que he necesitado escribir todo este texto (y ecuaciones) ya que de esta forma he podido entender y procesar toda la información necesaria para hacer aportes originales a mis cuarenta años.
-El primer capítulos ([why]{lang=en-US}) contienen apreciaciones un tanto subjetivas pero basadas en experiencia sólida.
+El primer capítulo ([why]{lang=en-US}) contiene apreciaciones un tanto subjetivas pero basadas en experiencia sólida.
 Los siguientes dos capítulos ([how]{lang=en-US}) contienen desarrollos matemáticos harto conocidos pero, como allí se menciona, funcionan como una amalgama uniforme de varias fuentes de forma tal de generar una base teórica del desarrollo en sí mismo, y de permitirme "digerir" el cuerpo teórico detrás de los métodos numéricos relacionados al transporte de neutrones a nivel de núcleo.
 Los últimos dos capítulos ([what]{lang=en-US}) contienen el núcleo de la contribución original.
 
