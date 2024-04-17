@@ -1,6 +1,16 @@
 # Conclusiones {#sec-conclusiones}
 
 ::::: {.chapterquote data-latex=""}
+> Lejos está de mí la presunción de pretender dictar aquí el método que cada uno debe seguir para dirigir bien su razón.
+> Sólo quiero mostrar el camino que he elegido para conducir la mía; porque los que se erigen en preceptores deben creerse más dotados que aquellos a quienes pretender aleccionar.
+> Entonces ofrezco este escrito como una historia o fábula, algunos de cuyos ejemplos pueden seguirse, en tanto otros pueden ser desechados, tomando cada uno lo que le aproveche.
+> Por eso pienso que este discurso, ha de ser útil para muchos y no hacer daño a nadie.
+>
+> _René Descartes, Discurso del método, 1637_
+:::::
+
+
+::::: {.chapterquote data-latex=""}
 > Leí con incomprensión y fervor estas palabras que con minucioso pincel redactó un hombre de mi sangre:
 >
 > > Dejo a los varios porvenires (no a todos) mi jardín de senderos que se bifurcan.
@@ -9,6 +19,8 @@
 >
 > _Jorge Luis Borges, El jardín de senderos que se bifurcan, 1941_
 :::::
+
+
 
 
 Con esta tesis de alguna manera cerramos dos lazos:
