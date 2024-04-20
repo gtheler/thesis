@@ -739,6 +739,7 @@ Paralelizable
      * evitar efectos numéricos tales como la dilución de secciones eficaces en los extremos de las barras de control
      * facilitar la resolución de problemas tipo [benchmark]{lang=en-US} en geometrías cilíndricas o esféricas
      * resolver problemas abstractos tales como dominios con forma de conejo o una transición entre un cubo y una esfera
+     * utilizar la misma malla para CFD y para neutrónica
 
 Flexible
 
