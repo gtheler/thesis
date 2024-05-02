@@ -157,7 +157,7 @@ La biblioteca PETSc @petsc-user-ref, que es la que usa la herramienta desarrolla
 :::
 
 ::: {.remark}
-Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HIP, SYCL, Kokkos, etc.) que pueden  descargar^[En el sentido del inglés [*offload*]{lang=en-US}.] operaciones de álgebra elemental en tiempo de ejecución con opciones de línea de comando. Una de las ventajas particulares de la filosofía Unix de hacer una sola cosa bien y re-utilizar las cosas que ya están bien hechas es que la herramienta desarrollada en esta tesis tiene soporte para GPU "gratis" aprovechando estas interfaces
+Con respecto a GPU, PETSc provee interfaces para los SDKs más comunes (CUDA, HIP, SYCL, Kokkos, etc.) que pueden  descargar^[En el sentido del inglés [*offload*]{lang=en-US}.] operaciones de álgebra elemental en tiempo de ejecución con opciones de línea de comando. Una de las ventajas particulares de la filosofía Unix de hacer una sola cosa bien y re-utilizar las cosas que ya están bien hechas es que la herramienta desarrollada en esta tesis tiene soporte para GPU "gratis" aprovechando estas interfaces.
 :::
 
  
@@ -659,10 +659,10 @@ El enfoque propuesto para evaluar la efectividad del segundo sistema de apagado 
 
  1. Realizar un cálculo tipo CFD para obtener la distribución espacio-temporal de concentración de ácido deuterobórico sobre una malla detallada teniendo en cuenta la geometría de
  
-  * el tanque del moderador
-  * los canales combustibles
-  * los tubos guía de barras de control
-  * las lanzas de inyección de boro
+     * el tanque del moderador
+     * los canales combustibles
+     * los tubos guía de barras de control
+     * las lanzas de inyección de boro
  
  2. Convertir dicha distribución a una malla estructurada para que esa información pueda ser tenida en cuenta por las herramientas neutrónicas disponibles.
  
