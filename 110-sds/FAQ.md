@@ -18,7 +18,6 @@ In increasing order of complexity and comprehensiveness, these resources explain
  * The [README](https://www.seamplex.com/feenox/) in the [GitHub repository](https://github.com/seamplex/feenox/) has a brief introduction (after explaining why).
  * Theler, J. (2024). FeenoX: a cloud-first finite-element(ish) computational engineering tool. Journal of Open Source Software, 9(95), 5846. <https://doi.org/10.21105/joss.05846>
  
-   [![DOI](https://joss.theoj.org/papers/10.21105/joss.05846/status)](https://doi.org/10.21105/joss.05846)    
  
  * There is also a [description](https://www.seamplex.com/feenox/feenox-desc.html) in the [documentation](https://seamplex.com/feenox/doc/).
  * FeenoX is an "offer" to a fictitious "tender" for a computational tool. The RFQ is the [Software Requirements Specification](https://www.seamplex.com/feenox/srs.pdf) and the explanation of how FeenoX addresses each requirement is the [Software Design Specification](https://www.seamplex.com/feenox/doc/srs.pdf).

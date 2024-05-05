@@ -43,7 +43,7 @@ sed -i 's/ig:/ig-/g' *.md
 sed -i 's/ec:/ec-/g' *.md
 sed -i 's/tbl:/tbl-/g' *.md
 
-grep -v status.svg FAQ.md > tmp
+grep -v joss.05846/status FAQ.md > tmp
 mv tmp FAQ.md
 
 sed 's/sds-appendices.md//' sds.md | grep -v "sec-download" | grep -vi "sec-le10-other" > tmp
