@@ -1550,7 +1550,6 @@ Throughout the FeenoX repository and documentation the extension `.fee` is used,
     ```
     
     would read a mesh file whose name is the same as the FeenoX input file, without the `.fee` extension.
-    
 
 ::: {#fig-highlighting layout-ncol=2}
 ![Kate](highlighting-kate.png)
