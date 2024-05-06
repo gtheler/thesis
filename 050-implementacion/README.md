@@ -238,7 +238,7 @@ En C, no es fácil agregar complejidad innecesaria.
 Por lo tanto, como bien dice Linus Torvalds una vez más en la cita del comienzo del capítulo, si con esta decisión lo único que pudiésemos hacer es evitar que se pueda agregar gratuitamente complejidad al código, esa ya sería una razón suficiente para tomarla.
 
 
-### Construcción de los elementos globales
+### Construcción de los objetos globales
 
 Habiendo decidido entonces construir la matriz $\mat{K}$ y el vector $\vec{b}$ como una "[glue layer]{lang=en-US}" implementada en C utilizando una estructura de datos que PETSc pueda entender, preguntémonos ahora qué necesitamos para construir estos objetos.
 Para simplificar el argumento, supongamos por ahora que queremos resolver la ecuación generalizada de Poisson de la @sec-poisson. La matriz global $\mat{K}$ proviene de ensamblar las matrices elementales $\mat{K}_i$ para todos los elementos volumétricos $e_i$ según la @def-Ki-poisson. De la misma manera, el vector global $\vec{b}_i$ proviene de ensamblar las contribuciones elementales $\vec{b}_i$ tanto de los elementos volumétricos (@def-bi-volumetrico-poisson) como de los elementos de superficie con condiciones de contorno naturales (@def-bi-superficial-poisson).
@@ -390,7 +390,7 @@ Esto es, no se debe necesitar intervención del usuario luego de la ejecución.
 Entonces, este archivo de entrada debe justamente definir qué clase de ecuación se debe resolver.
 Como el tipo de ecuación se lee en tiempo de ejecución, el framework debe poder ser capaz de llamar a una u otra (u otra) función que le provea la información particular que necesita: por ejemplo las expresiones entre llaves para la matriz de rigidez y para las condiciones de contorno.
 
-Una posible implementación (ingenua) sería 
+Una posible implementación (ingenua) sería hacer, para cada punto de Gauss de cada uno de los elementos, 
 
 ```{=latex}
 \DontPrintSemicolon
@@ -402,7 +402,7 @@ Una posible implementación (ingenua) sería
 \end{algorithm}
 ```
 
-De la misma manera, necesitaríamos bloques `if` de este tipo para
+De la misma manera, necesitaríamos bloques `if` (o `switch`) de este tipo para
 
  * inicializar el problema
  * evaluar condiciones de contorno
