@@ -90,7 +90,7 @@ sino también, en proyectos nucleares también hay que lidiar con
 todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremadamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global.
 El listado de trabajos futuros sugeridos incluye
 
- * comparación cuantitativa entre la aproximación de difusión y e método de ordenadas discretas
+ * comparación cuantitativa entre la aproximación de difusión y el método de ordenadas discretas
    - en trabajos académicos de investigación
    - en modelos de interés industrial
  * evaluación de otros conjuntos de cuadraturas no necesariamente de nivel simétrico
