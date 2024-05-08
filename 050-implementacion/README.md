@@ -2039,6 +2039,9 @@ En particular, son de especial aplicación a FeenoX las reglas de
  * simplicidad (@sec-unix-simplicity)
  * parsimonia (@sec-unix-parsimony)
  * transparencia (@sec-unix-transparency)
+ * mínima sorpresa (@sec-unix-least-surprise)
+ * silencio (@sec-unix-silence)
+ * economía (@sec-unix-economy)
  * generación (@sec-unix-generation)
  * diversidad (@sec-unix-diversity)
 
