@@ -36,7 +36,7 @@ Con esta tesis de alguna manera cerramos dos lazos:
     - "Desarrollo y aplicaciones de nuevas bibliotecas de secciones eficaces neutrónicas para H$_2$O, D$_2$O y HDO" de José Ignacio Márquez Damián @nacho
     - "Metodología de análisis neutrónico de celdas de reactores de agua pesada" de Héctor Lestani @chaco
 
-En ella hemos recorrido los tres aspectos en el no tan tradicional y poco académico pero bastante útil orden 
+En ella hemos recorrido los tres aspectos en el no tan tradicional y poco académico pero---a veces---útil orden 
 
  1. ¿Por qué? ([cap. @sec-introduccion])
  2. ¿Cómo? ([cap. @sec-transporte-difusion] y [-@sec-esquemas])
@@ -90,6 +90,7 @@ sino también, en proyectos nucleares también hay que lidiar con
 todos con sus con sus egos y complicaciones, usualmente fruto del hecho de que la industria nuclear extremadamente inestable ya que depende casi exclusivamente de financiamiento y/o incentivos gubernamentales, tanto a nivel local como global.
 El listado de trabajos futuros sugeridos incluye
 
+ * implementación de las ecuaciones de transporte y difusión transitorias, i.e. cinética neutrónica espacial
  * comparación cuantitativa entre la aproximación de difusión y el método de ordenadas discretas
    - en trabajos académicos de investigación
    - en modelos de interés industrial
