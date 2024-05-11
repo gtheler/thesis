@@ -39,7 +39,7 @@ Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAE
 :::
 
 
-En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando la segundo versión de la implementación (denominada milonga), incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia, donde también resolvemos el problema.
+En la referencia @unstructured-stni hemos resuelto completamente el problema utilizando la segunda versión de la implementación (denominada milonga), incluso utilizando triángulos y cuadrángulos, diferentes algoritmos y densidades de mallado, etc. Más aún, esa versión era capaz de resolver la ecuación de difusión tanto con elementos como con volúmenes finitos tal como explicamos en la monografía @monografia, donde también resolvemos el problema.
 En la presentación @milongaiaea2011 mostramos cómo habíamos resuelto el [benchmark]{lang=en-US} con la primera versión del código.
 
 En esta sección calculamos solamente el factor de multiplicación y la distribución espacial de flujos.
