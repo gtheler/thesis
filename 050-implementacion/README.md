@@ -931,7 +931,7 @@ int (*setup_ksp)(KSP ksp);
 int (*setup_eps)(EPS eps);
 int (*setup_ts)(TS ksp);
 
-// build·
+// build
 int (*element_build_volumetric)(element_t *e);
 int (*element_build_volumetric_at_gauss)(element_t *e, unsigned int q);
 
