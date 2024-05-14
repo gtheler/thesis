@@ -10,7 +10,7 @@ set grid
 set mytics 100
 set terminal pdf
 
-set xlabel "Porcentage de redondeo [\%]"
+set xlabel "Porcentaje de redondeo [\%]"
 set ylabel "Reactividad $\rho$ [PCM]"
 
 set output "cubesphere.pdf"
