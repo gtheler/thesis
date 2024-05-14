@@ -279,6 +279,8 @@ El resto del trabajo consiste en
  2. dejar que Maxima haga la manipulación simbólica, y
  3. obtener con FeenoX los resultados de la @fig-neutron-square-e2.
 
+La siguiente mímica de terminal ilustra la ejecución a través del script `run.sh`: 
+ 
 ```terminal
 $ ./run.sh 
 # manufactured solution (input)
@@ -316,7 +318,7 @@ $
 ```
 
 ::: {.remark}
-La expresión para la componente $y$ de la corriente de grupo 2 involucra una secante hiperbólica que Feenox puede evaluar sin inconvenientes.
+La expresión para la componente $y$ de la corriente de grupo 2 involucra una secante hiperbólica---que proviene de la derivada de una tangente hiperbólica---que FeenoX puede evaluar sin inconvenientes como una de las funciones internas, tales como `log()`, `exp()`, `sin()`, `cos()`, `atan()`, `atan2()`, `random()`, etc.
 :::
 
 
