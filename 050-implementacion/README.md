@@ -520,6 +520,14 @@ while (ip != last) {
 }
 ```
 
+Por ejemplo, en
+
+```feenox
+f(x) = x^2
+PRINT f(1/2) f(1) f(2)
+```
+
+la primera línea es una definición (dada por el signo `=`) y la segunda es una instrucción (verbo `PRINT`).
 
 En particular, la lectura del archivo de malla es una instrucción y no una definición porque
 
