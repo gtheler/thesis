@@ -54,11 +54,11 @@ Incluso se pueden diseñar esquemas de acople con códigos externos e intercambi
 ::: {#fig-phwr-geo layout="[40,-15,40]"}
 ![](phwr-geo.png){#fig-phwr-geo1}
 
-![](phwr-geo-cad3){#fig-phwr-geo-cad1}
+![](phwr-geo-cad3.png){#fig-phwr-geo-cad1}
 
-![](phwr-geo-cad2){#fig-phwr-geo-cad2}
+![](phwr-geo-cad2.png){#fig-phwr-geo-cad2}
 
-![](phwr-geo-cad1){#fig-phwr-geo-cad3}
+![](phwr-geo-cad1.png){#fig-phwr-geo-cad3}
 
 Geometría de un PHWR inventado con 7 canales verticales y 3 barras de control
 :::
@@ -229,14 +229,14 @@ Los algoritmos para resolver problemas de  autovalores provistos en la bibliotec
 Es por eso también que los problemas sin fuentes independientes son más intensivos computacionalmente que los problemas con fuentes, que pueden ser resueltos como un sistema de ecuaciones lineales (o eventualmente no lineales con un esquema tipo Newton-Raphson).
 
 ::: {#tbl-mpi}
-Formulación     |  DOFs   | Problema  |   Build   |   Solve   |   Total   |   Mem.
+Formulación         |   DOFs    |   Problema   |   Build     |   Solve     |   Total     |   Mem.
 :-------------------|:---------:|:------------:|------------:|------------:|------------:|------------:
-Difusión        |  257k   |   KSP     |     3.2 s  |     7.9 s  |    12.5 s   |    0.7 Gb
-                |         |   EPS     |     6.3 s  |    87.4 s  |    95.2 s   |    6.5 Gb
-S$_2$           |  257k   |   KSP     |    24.8 s  |   219.3 s  |   246.3 s   |   18.0 Gb
-                |         |   EPS     |    30.6 s  |   256.3 s  |   290.9 s   |   18.0 Gb
-S$_4$           |  256k   |   KSP     |    54.3 s  |   171.8 s  |   227.1 s   |   16.3 Gb
-                |         |   EPS     |    57.2 s  |   357.2 s  |   415.5 s   |   20.1 Gb
+Difusión            |   257k    |   KSP        |     4.6 s   |     1.2 s   |     7.7 s   |    0.7 Gb
+                    |           |   EPS        |     6.3 s   |    87.4 s   |    95.2 s   |    6.5 Gb
+S$_2$               |   258k    |   KSP        |    24.8 s   |   219.3 s   |   246.3 s   |   18.0 Gb
+                    |           |   EPS        |    30.6 s   |   256.3 s   |   290.9 s   |   18.0 Gb
+S$_4$               |   160k    |   KSP        |    54.3 s   |   171.8 s   |   227.1 s   |   16.3 Gb
+                    |           |   EPS        |    57.2 s   |   357.2 s   |   415.5 s   |   20.1 Gb
 
 : {#tbl-mpi2}
 

@@ -141,6 +141,7 @@ El listado de trabajos futuros sugeridos incluye
    - aplicaciones a biotecnología
    - acústica
    - etc.
+ * estudio de implementación de solvers basados en GPUs/APUs
  * mejoramiento de la integración continua
    - nuevos tests
    - medición de la cobertura del código
