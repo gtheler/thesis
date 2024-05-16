@@ -1,0 +1,352 @@
+KSP Object: 1 MPI process
+  type: gmres
+    restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+    happy breakdown tolerance 1e-30
+  maximum iterations=10000, initial guess is zero
+  tolerances: relative=1e-06, absolute=1e-50, divergence=10000.
+  left preconditioning
+  using PRECONDITIONED norm type for convergence test
+PC Object: 1 MPI process
+  type: gamg
+    type is MULTIPLICATIVE, levels=4 cycles=v
+      Cycles per PCApply=1
+      Using externally compute Galerkin coarse grid matrices
+      GAMG specific options
+        Threshold for dropping small values in graph on each level =   0.   0.   0.   0.  
+        Threshold scaling factor for each level not specified = 1.
+        AGG specific options
+          Number of levels of aggressive coarsening 1
+          Square graph aggressive coarsening
+          Number smoothing steps 1
+        Complexity:    grid = 1.01213    operator = 1.03247
+  Coarse grid solver -- level 0 -------------------------------
+    KSP Object: (mg_coarse_) 1 MPI process
+      type: preonly
+      maximum iterations=10000, initial guess is zero
+      tolerances: relative=1e-05, absolute=1e-50, divergence=10000.
+      left preconditioning
+      using NONE norm type for convergence test
+    PC Object: (mg_coarse_) 1 MPI process
+      type: bjacobi
+        number of blocks = 1
+        Local solver information for first block is in the following KSP and PC objects on rank 0:
+        Use -mg_coarse_ksp_view ::ascii_info_detail to display information for all blocks
+        KSP Object: (mg_coarse_sub_) 1 MPI process
+          type: preonly
+          maximum iterations=1, initial guess is zero
+          tolerances: relative=1e-05, absolute=1e-50, divergence=10000.
+          left preconditioning
+          using NONE norm type for convergence test
+        PC Object: (mg_coarse_sub_) 1 MPI process
+          type: lu
+            out-of-place factorization
+            tolerance for zero pivot 2.22045e-14
+            using diagonal shift on blocks to prevent zero pivot [INBLOCKS]
+            matrix ordering: nd
+            factor fill ratio given 5., needed 1.
+              Factored matrix follows:
+                Mat Object: (mg_coarse_sub_) 1 MPI process
+                  type: seqaij
+                  rows=6, cols=6, bs=2
+                  package used to perform factorization: petsc
+                  total: nonzeros=36, allocated nonzeros=36
+                    using I-node routines: found 2 nodes, limit used is 5
+          linear system matrix = precond matrix:
+          Mat Object: (mg_coarse_sub_) 1 MPI process
+            type: seqaij
+            rows=6, cols=6, bs=2
+            total: nonzeros=36, allocated nonzeros=36
+            total number of mallocs used during MatSetValues calls=0
+              using I-node routines: found 2 nodes, limit used is 5
+      linear system matrix = precond matrix:
+      Mat Object: (mg_coarse_sub_) 1 MPI process
+        type: seqaij
+        rows=6, cols=6, bs=2
+        total: nonzeros=36, allocated nonzeros=36
+        total number of mallocs used during MatSetValues calls=0
+          using I-node routines: found 2 nodes, limit used is 5
+  Down solver (pre-smoother) on level 1 -------------------------------
+    KSP Object: (mg_levels_1_) 1 MPI process
+      type: chebyshev
+        Chebyshev polynomial of first kind
+        eigenvalue targets used: min 0.129179, max 1.42096
+        eigenvalues provided (min 0.252772, max 1.29179) with transform: [0. 0.1; 0. 1.1]
+      maximum iterations=2, nonzero initial guess
+      tolerances: relative=1e-05, absolute=1e-50, divergence=10000.
+      left preconditioning
+      using NONE norm type for convergence test
+    PC Object: (mg_levels_1_) 1 MPI process
+      type: jacobi
+        type DIAGONAL
+      linear system matrix = precond matrix:
+      Mat Object: 1 MPI process
+        type: seqaij
+        rows=112, cols=112, bs=2
+        total: nonzeros=10752, allocated nonzeros=10752
+        total number of mallocs used during MatSetValues calls=0
+          using I-node routines: found 55 nodes, limit used is 5
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 2 -------------------------------
+    KSP Object: (mg_levels_2_) 1 MPI process
+      type: chebyshev
+        Chebyshev polynomial of first kind
+        eigenvalue targets used: min 0.183068, max 2.01375
+        eigenvalues provided (min 0.0784585, max 1.83068) with transform: [0. 0.1; 0. 1.1]
+      maximum iterations=2, nonzero initial guess
+      tolerances: relative=1e-05, absolute=1e-50, divergence=10000.
+      left preconditioning
+      using NONE norm type for convergence test
+    PC Object: (mg_levels_2_) 1 MPI process
+      type: jacobi
+        type DIAGONAL
+      linear system matrix = precond matrix:
+      Mat Object: 1 MPI process
+        type: seqaij
+        rows=3000, cols=3000, bs=2
+        total: nonzeros=465688, allocated nonzeros=465688
+        total number of mallocs used during MatSetValues calls=0
+          using I-node routines: found 1499 nodes, limit used is 5
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  Down solver (pre-smoother) on level 3 -------------------------------
+    KSP Object: (mg_levels_3_) 1 MPI process
+      type: chebyshev
+        Chebyshev polynomial of first kind
+        eigenvalue targets used: min 0.773661, max 8.51027
+        eigenvalues provided (min 0.231635, max 7.73661) with transform: [0. 0.1; 0. 1.1]
+      maximum iterations=2, nonzero initial guess
+      tolerances: relative=1e-05, absolute=1e-50, divergence=10000.
+      left preconditioning
+      using NONE norm type for convergence test
+    PC Object: (mg_levels_3_) 1 MPI process
+      type: jacobi
+        type DIAGONAL
+      linear system matrix = precond matrix:
+      Mat Object: K_bc 1 MPI process
+        type: seqaij
+        rows=256964, cols=256964, bs=2
+        total: nonzeros=14674240, allocated nonzeros=14674240
+        total number of mallocs used during MatSetValues calls=0
+          using I-node routines: found 128482 nodes, limit used is 5
+  Up solver (post-smoother) same as down solver (pre-smoother)
+  linear system matrix = precond matrix:
+  Mat Object: K_bc 1 MPI process
+    type: seqaij
+    rows=256964, cols=256964, bs=2
+    total: nonzeros=14674240, allocated nonzeros=14674240
+    total number of mallocs used during MatSetValues calls=0
+      using I-node routines: found 128482 nodes, limit used is 5
+size = 256964	time = 10.6 s	 memory = 0.6 Gb
+[0/1 LIN54Z7SQ3] local memory = 0.6 Gb
+****************************************************************************************************************************************************************
+***                                WIDEN YOUR WINDOW TO 160 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document                                 ***
+****************************************************************************************************************************************************************
+
+------------------------------------------------------------------ PETSc Performance Summary: ------------------------------------------------------------------
+
+/home/jtheler/feenox/feenox-intel on a intel named LIN54Z7SQ3 with 1 processor(s), by jtheler on Thu May 16 12:37:36 2024
+Using Petsc Release Version 3.21.1, Apr 26, 2024 
+
+                         Max       Max/Min     Avg       Total
+Time (sec):           9.203e+00     1.000   9.203e+00
+Objects:              0.000e+00     0.000   0.000e+00
+Flops:                9.970e+09     1.000   9.970e+09  9.970e+09
+Flops/sec:            1.083e+09     1.000   1.083e+09  1.083e+09
+MPI Msg Count:        0.000e+00     0.000   0.000e+00  0.000e+00
+MPI Msg Len (bytes):  0.000e+00     0.000   0.000e+00  0.000e+00
+MPI Reductions:       0.000e+00     0.000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
+ 0:      Main Stage: 4.0117e-01   4.4%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 1:            init: 4.1608e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 2:           build: 3.4839e+00  37.9%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 3:           solve: 5.3056e+00  57.7%  9.9699e+09 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 4:            post: 7.6641e-03   0.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flop: Max - maximum over all processors
+                  Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   AvgLen: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flop in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flop over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flop                              --- Global ---  --- Stage ----  Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   AvgLen  Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+
+--- Event Stage 1: init
+
+
+--- Event Stage 2: build
+
+MatConvert             1 1.0 5.0258e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+MatAssemblyBegin       1 1.0 7.3993e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         1 1.0 7.3426e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  8  0  0  0  0  21  0  0  0  0     0
+MatSetValues      354395 1.0 2.8490e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 31  0  0  0  0  82  0  0  0  0     0
+MatZeroEntries         1 1.0 3.2056e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecCopy                1 1.0 1.2242e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyBegin       2 1.0 1.3393e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyEnd         2 1.0 1.5294e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSetValues       97431 1.0 1.3640e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+
+--- Event Stage 3: solve
+
+MatMult              692 1.0 2.6117e+00 1.0 7.88e+09 1.0 0.0e+00 0.0e+00 0.0e+00 28 79  0  0  0  49 79  0  0  0  3019
+MatMultAdd           153 1.0 8.1865e-02 1.0 2.30e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  2  0  0  0   2  2  0  0  0  2813
+MatMultTranspose     153 1.0 9.3264e-02 1.0 2.30e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  2  0  0  0   2  2  0  0  0  2470
+MatSolve              51 1.0 3.5578e-05 1.0 3.37e+03 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0    95
+MatLUFactorSym         1 1.0 7.7084e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum         1 1.0 2.2545e-06 1.0 1.29e+02 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0    57
+MatScale               9 1.0 6.4798e-03 1.0 1.21e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1866
+MatResidual          153 1.0 5.1475e-01 1.0 1.55e+09 1.0 0.0e+00 0.0e+00 0.0e+00  6 16  0  0  0  10 16  0  0  0  3002
+MatAssemblyBegin      30 1.0 2.9179e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd        30 1.0 1.7161e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatSetValues      783343 1.0 1.1049e-01 1.0 4.31e+06 1.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   2  0  0  0  0    39
+MatGetRow        1170401 1.0 2.6143e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetRowIJ            1 1.0 8.6806e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetOrdering         1 1.0 2.1864e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatCoarsen             3 1.0 1.3791e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                7 1.0 9.9601e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAXPY                6 1.0 1.0503e-01 1.0 4.31e+06 1.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   2  0  0  0  0    41
+MatTranspose           5 1.0 3.3024e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatMatMultSym          3 1.0 5.8471e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+MatMatMultNum          3 1.0 4.3959e-02 1.0 6.29e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   1  1  0  0  0  1430
+MatPtAPSymbolic        3 1.0 2.2213e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0   4  0  0  0  0     0
+MatPtAPNumeric         3 1.0 5.2643e-01 1.0 4.41e+08 1.0 0.0e+00 0.0e+00 0.0e+00  6  4  0  0  0  10  4  0  0  0   838
+MatTrnMatMultSym       1 1.0 1.0496e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 11  0  0  0  0  20  0  0  0  0     0
+MatGetSymTransR        3 1.0 3.6634e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecMDot               79 1.0 5.0626e-02 1.0 3.65e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  4  0  0  0   1  4  0  0  0  7214
+VecNorm               84 1.0 2.5235e-03 1.0 3.19e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 12654
+VecScale              84 1.0 4.3282e-03 1.0 1.60e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3689
+VecCopy              464 1.0 1.6745e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet               363 1.0 5.3534e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY                6 1.0 4.7514e-04 1.0 2.06e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  4340
+VecAYPX              918 1.0 3.9615e-02 1.0 1.06e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   1  1  0  0  0  2679
+VecAXPBYCZ           306 1.0 1.7858e-02 1.0 1.33e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0  1  0  0  0  7427
+VecMAXPY              84 1.0 5.6665e-02 1.0 3.96e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  4  0  0  0   1  4  0  0  0  6982
+VecPointwiseMult     645 1.0 3.7286e-02 1.0 5.59e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   1  1  0  0  0  1500
+VecNormalize          84 1.0 6.9256e-03 1.0 4.79e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  6916
+KSPSetUp               9 1.0 5.4408e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               1 1.0 2.9297e+00 1.0 9.07e+09 1.0 0.0e+00 0.0e+00 0.0e+00 32 91  0  0  0  55 91  0  0  0  3097
+KSPGMRESOrthog        79 1.0 1.0334e-01 1.0 7.30e+08 1.0 0.0e+00 0.0e+00 0.0e+00  1  7  0  0  0   2  7  0  0  0  7069
+PCSetUp_GAMG+          1 1.0 2.3727e+00 1.0 8.95e+08 1.0 0.0e+00 0.0e+00 0.0e+00 26  9  0  0  0  45  9  0  0  0   377
+ PCGAMGCreateG         3 1.0 2.4989e-01 1.0 1.14e+07 1.0 0.0e+00 0.0e+00 0.0e+00  3  0  0  0  0   5  0  0  0  0    45
+ GAMG Coarsen          6 1.0 1.0777e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 12  0  0  0  0  20  0  0  0  0     0
+  GAMG MIS/Agg         3 1.0 1.0635e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 12  0  0  0  0  20  0  0  0  0     0
+ PCGAMGProl            3 1.0 1.1187e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+  GAMG Prol-col        3 1.0 7.7414e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+  GAMG Prol-lift       3 1.0 1.0584e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ PCGAMGOptProl         3 1.0 2.8037e-01 1.0 4.43e+08 1.0 0.0e+00 0.0e+00 0.0e+00  3  4  0  0  0   5  4  0  0  0  1579
+  GAMG smooth          3 1.0 1.4288e-01 1.0 6.79e+07 1.0 0.0e+00 0.0e+00 0.0e+00  2  1  0  0  0   3  1  0  0  0   475
+ PCGAMGCreateL         3 1.0 7.4858e-01 1.0 4.41e+08 1.0 0.0e+00 0.0e+00 0.0e+00  8  4  0  0  0  14  4  0  0  0   589
+  GAMG PtAP            3 1.0 7.4858e-01 1.0 4.41e+08 1.0 0.0e+00 0.0e+00 0.0e+00  8  4  0  0  0  14  4  0  0  0   589
+PCGAMG Squ l00         1 1.0 1.0496e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 11  0  0  0  0  20  0  0  0  0     0
+PCGAMG Gal l00         1 1.0 7.3099e-01 1.0 4.19e+08 1.0 0.0e+00 0.0e+00 0.0e+00  8  4  0  0  0  14  4  0  0  0   573
+PCGAMG Opt l00         1 1.0 1.0004e-01 1.0 6.09e+07 1.0 0.0e+00 0.0e+00 0.0e+00  1  1  0  0  0   2  1  0  0  0   609
+PCGAMG Gal l01         1 1.0 1.7507e-02 1.0 2.19e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1252
+PCGAMG Opt l01         1 1.0 2.3668e-03 1.0 1.91e+06 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   808
+PCGAMG Gal l02         1 1.0 7.5573e-05 1.0 9.78e+04 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1294
+PCGAMG Opt l02         1 1.0 4.9163e-05 1.0 4.35e+04 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   884
+PCSetUp                2 1.0 2.3728e+00 1.0 8.95e+08 1.0 0.0e+00 0.0e+00 0.0e+00 26  9  0  0  0  45  9  0  0  0   377
+PCSetUpOnBlocks       51 1.0 9.2420e-05 1.0 1.29e+02 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     1
+PCApply               51 1.0 2.3302e+00 1.0 6.88e+09 1.0 0.0e+00 0.0e+00 0.0e+00 25 69  0  0  0  44 69  0  0  0  2953
+
+--- Event Stage 4: post
+
+BuildTwoSided          1 1.0 6.4022e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin        1 1.0 1.4646e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+VecScatterEnd          1 1.0 3.2871e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFSetGraph             1 1.0 2.0455e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  27  0  0  0  0     0
+SFSetUp                1 1.0 2.0283e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  26  0  0  0  0     0
+SFPack                 1 1.0 8.6395e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFUnpack               1 1.0 6.4898e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+------------------------------------------------------------------------------------------------------------------------
+
+Object Type          Creations   Destructions. Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+              Matrix     0              1
+              Viewer     0              1
+
+--- Event Stage 1: init
+
+              Matrix     1              0
+              Vector     2              0
+
+--- Event Stage 2: build
+
+              Matrix     1              0
+              Vector     2              1
+
+--- Event Stage 3: solve
+
+           Container     6              3
+              Matrix    32             25
+      Matrix Coarsen     3              3
+              Vector   124             67
+       Krylov Solver     9              3
+      Preconditioner     9              3
+              Viewer     2              1
+         PetscRandom     3              3
+           Index Set     9              6
+    Distributed Mesh     7              3
+   Star Forest Graph    14              6
+     Discrete System     7              3
+           Weak Form     7              3
+
+--- Event Stage 4: post
+
+              Vector     2              2
+           Index Set     1              1
+   Star Forest Graph     1              1
+========================================================================================================================
+Average time to get PetscTime(): 1.21941e-08
+#PETSc Option Table entries:
+-eps_view # (source: command line)
+-ksp_view # (source: command line)
+-log_view # (source: command line)
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
+Configure options: --download-mumps --download-scalapack --download-slepc --with-blaslapackdir=/opt/intel/oneapi/mkl/latest --with-mpi-dir=/opt/intel/oneapi/mpi/latest --with-debugging=no COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3
+-----------------------------------------
+Libraries compiled on 2024-05-16 10:59:35 on LIN54Z7SQ3 
+Machine characteristics: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Using PETSc directory: /home/jtheler/libs/petsc-3.21.1
+Using PETSc arch: intel
+-----------------------------------------
+
+Using C compiler: /opt/intel/oneapi/mpi/latest/bin/mpiicc  -fPIC -Wall -Wwrite-strings -Wno-unknown-pragmas -fstack-protector -Qunused-arguments -fvisibility=hidden -O3  
+Using Fortran compiler: /opt/intel/oneapi/mpi/latest/bin/mpiifort  -fPIC -O3    
+-----------------------------------------
+
+Using include paths: -I/home/jtheler/libs/petsc-3.21.1/include -I/home/jtheler/libs/petsc-3.21.1/intel/include -I/opt/intel/oneapi/mpi/latest/include
+-----------------------------------------
+
+Using C linker: /opt/intel/oneapi/mpi/latest/bin/mpiicc
+Using Fortran linker: /opt/intel/oneapi/mpi/latest/bin/mpiifort
+Using libraries: -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/intel/lib -L/home/jtheler/libs/petsc-3.21.1/intel/lib -lpetsc -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/intel/lib -L/home/jtheler/libs/petsc-3.21.1/intel/lib -fortlib -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib/release -L/opt/intel/oneapi/mpi/latest/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib -L/opt/intel/oneapi/mpi/latest/lib -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -L/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/lib -L/opt/intel/oneapi/compiler/2023.2.1/linux/lib -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11 -Wl,-rpath,/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -L/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -L/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib/release -L/opt/intel/oneapi/mpi/2021.9.0/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib -L/opt/intel/oneapi/mpi/2021.9.0/lib -Wl,-rpath,/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -L/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -L/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -L/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -Wl,-rpath,/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -L/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -L/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lopenblas -lX11 -lmpicxx -lmpifort -lmpi -ldl -lrt -lpthread -lsvml -lirng -lstdc++ -limf -lm -lgcc_s -lirc -lirc_s
+-----------------------------------------
+
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-eps_view (no value) source: command line

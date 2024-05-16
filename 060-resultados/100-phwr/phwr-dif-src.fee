@@ -1,4 +1,4 @@
-PROBLEM neutron_diffusion 3D GROUPS 2
+PROBLEM neutron_diffusion 3D GROUPS 2 PRECONDITIONER gamg LINEAR_SOLVER gmres
 READ_MESH phwr2.msh INTEGRATION reduced
 INCLUDE xs-src.fee
 SOLVE_PROBLEM
