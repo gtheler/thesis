@@ -73,7 +73,7 @@ ST Object: 1 MPI process
                 INFOG(25) (after factorization: number of pivots modified by static pivoting): 0
                 INFOG(28) (after factorization: number of null pivots encountered): 0
                 INFOG(29) (after factorization: effective number of entries in the factors (sum over all processors)): 2131900416
-                INFOG(30, 31) (after solution: size in Mbytes of memory used during solution phase): 21443, 21443
+                INFOG(30, 31) (after solution: size in Mbytes of memory used during solution phase): 21446, 21446
                 INFOG(32) (after analysis: type of analysis done): 1
                 INFOG(33) (value used for ICNTL(8)): 7
                 INFOG(34) (exponent of the determinant if determinant is requested): 0
@@ -89,7 +89,7 @@ ST Object: 1 MPI process
       total: nonzeros=109836288, allocated nonzeros=109836288
       total number of mallocs used during MatSetValues calls=0
         using I-node routines: found 33160 nodes, limit used is 5
-size = 159168	time = 744.2 s	 memory = 27.0 Gb
+size = 159168	time = 738.3 s	 memory = 27.0 Gb
 [0/1 LIN54Z7SQ3] local memory = 27.0 Gb
 ****************************************************************************************************************************************************************
 ***                                WIDEN YOUR WINDOW TO 160 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document                                 ***
@@ -97,14 +97,14 @@ size = 159168	time = 744.2 s	 memory = 27.0 Gb
 
 ------------------------------------------------------------------ PETSc Performance Summary: ------------------------------------------------------------------
 
-/home/jtheler/feenox/feenox-intel on a intel named LIN54Z7SQ3 with 1 processor(s), by jtheler on Thu May 16 13:11:58 2024
-Using Petsc Release Version 3.21.1, Apr 26, 2024 
+/home/jtheler/feenox/feenox-intel on a release-intel named LIN54Z7SQ3 with 1 process, by jtheler on Thu May 16 20:52:48 2024
+Using Petsc Development GIT revision: v3.21.1-175-gcef0416bfaf  GIT Date: 2024-05-15 19:29:27 +0000
 
                          Max       Max/Min     Avg       Total
-Time (sec):           7.441e+02     1.000   7.441e+02
+Time (sec):           7.383e+02     1.000   7.383e+02
 Objects:              0.000e+00     0.000   0.000e+00
 Flops:                5.060e+11     1.000   5.060e+11  5.060e+11
-Flops/sec:            6.800e+08     1.000   6.800e+08  6.800e+08
+Flops/sec:            6.853e+08     1.000   6.853e+08  6.853e+08
 MPI Msg Count:        0.000e+00     0.000   0.000e+00  0.000e+00
 MPI Msg Len (bytes):  0.000e+00     0.000   0.000e+00  0.000e+00
 MPI Reductions:       0.000e+00     0.000
@@ -115,11 +115,11 @@ Flop counting convention: 1 flop = 1 real number operation of type (multiply/div
 
 Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
                         Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
- 0:      Main Stage: 5.8245e-01   0.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 1:            init: 1.7413e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 2:           build: 1.3674e+02  18.4%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 3:           solve: 6.0677e+02  81.5%  5.0596e+11 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 4:            post: 1.2334e-02   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 0:      Main Stage: 5.8085e-01   0.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 1:            init: 1.7313e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 2:           build: 1.3890e+02  18.8%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 3:           solve: 5.9881e+02  81.1%  5.0596e+11 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 4:            post: 1.2224e-02   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
 
 ------------------------------------------------------------------------------------------------------------------------
 See the 'Profiling' chapter of the users' manual for details on interpreting output.
@@ -149,58 +149,58 @@ Event                Count      Time (sec)     Flop                             
 
 --- Event Stage 2: build
 
-MatConvert             2 1.0 7.2406e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
-MatAssemblyBegin       2 1.0 1.7485e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatAssemblyEnd         2 1.0 1.7216e+01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0  13  0  0  0  0     0
-MatSetValues      354978 1.0 1.2501e+02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 17  0  0  0  0  91  0  0  0  0     0
-MatZeroEntries         2 1.0 2.9377e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecAssemblyBegin       1 1.0 8.3084e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecAssemblyEnd         1 1.0 6.0347e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatConvert             2 1.0 7.2929e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatAssemblyBegin       2 1.0 1.1822e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 1.7102e+01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0  12  0  0  0  0     0
+MatSetValues      354978 1.0 1.2706e+02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 17  0  0  0  0  91  0  0  0  0     0
+MatZeroEntries         2 1.0 3.0714e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyBegin       1 1.0 1.7775e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyEnd         1 1.0 5.7044e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
 
 --- Event Stage 3: solve
 
-MatMult              111 1.0 1.5099e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3296
-MatSolve             111 1.0 1.4049e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3369
-MatLUFactorSym         1 1.0 8.4733e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatLUFactorNum         1 1.0 4.5381e+02 1.0 5.63e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    12
-MatConvert             2 1.0 7.2465e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatGetValues          12 1.0 1.1312e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatView                2 1.0 1.5915e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatAXPY                2 1.0 1.7676e-01 1.0 4.39e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2486
-VecCopy              113 1.0 9.7661e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecSetRandom           1 1.0 1.1728e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-EPSSetUp               1 1.0 4.5514e+02 1.0 5.85e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
-EPSSolve               1 1.0 6.0632e+02 1.0 5.06e+11 1.0 0.0e+00 0.0e+00 0.0e+00 81 100  0  0  0 100 100  0  0  0   834
-STSetUp                1 1.0 4.5513e+02 1.0 5.85e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
-STComputeOperatr       2 1.0 9.0143e-01 1.0 4.39e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   487
-STApply              111 1.0 1.5099e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3296
-STMatSolve           111 1.0 1.4049e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3368
-KSPSetUp               1 1.0 1.4542e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-KSPSolve             111 1.0 1.4049e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3368
-PCSetUp                1 1.0 4.5466e+02 1.0 5.63e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    12
-PCApply              111 1.0 1.4049e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3369
-BVCopy                13 1.0 6.5670e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-BVMultVec            223 1.0 8.1415e-02 1.0 8.45e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 10373
-BVMultInPlace         14 1.0 1.8349e-02 1.0 4.99e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 27220
-BVDotVec             223 1.0 8.3298e-02 1.0 9.16e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 10991
-BVOrthogonalizeV     113 1.0 1.6529e-01 1.0 1.76e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 10650
-BVScale              112 1.0 4.5648e-03 1.0 1.78e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3905
-BVNormVec              1 1.0 1.9189e-04 1.0 3.18e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  1659
-BVSetRandom            1 1.0 1.1748e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-BVMatMultVec         111 1.0 1.5099e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3296
-DSSolve               13 1.0 6.0764e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-DSVectors             15 1.0 5.3334e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-DSOther               39 1.0 1.3762e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatMult              111 1.0 1.4941e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3331
+MatSolve             111 1.0 1.3902e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3404
+MatLUFactorSym         1 1.0 8.5877e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum         1 1.0 4.4739e+02 1.0 5.63e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
+MatConvert             2 1.0 7.2314e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetValues          12 1.0 1.0157e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.5066e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAXPY                2 1.0 1.7637e-01 1.0 4.39e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2491
+VecCopy              113 1.0 9.5444e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSetRandom           1 1.0 1.0885e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+EPSSetUp               1 1.0 4.4873e+02 1.0 5.85e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
+EPSSolve               1 1.0 5.9836e+02 1.0 5.06e+11 1.0 0.0e+00 0.0e+00 0.0e+00 81 100  0  0  0 100 100  0  0  0   845
+STSetUp                1 1.0 4.4872e+02 1.0 5.85e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
+STComputeOperatr       2 1.0 8.9952e-01 1.0 4.39e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0   488
+STApply              111 1.0 1.4941e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3331
+STMatSolve           111 1.0 1.3902e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3404
+KSPSetUp               1 1.0 1.6250e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve             111 1.0 1.3902e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3404
+PCSetUp                1 1.0 4.4825e+02 1.0 5.63e+09 1.0 0.0e+00 0.0e+00 0.0e+00 61  1  0  0  0  75  1  0  0  0    13
+PCApply              111 1.0 1.3902e+02 1.0 4.73e+11 1.0 0.0e+00 0.0e+00 0.0e+00 19 94  0  0  0  23 94  0  0  0  3404
+BVCopy                13 1.0 9.1536e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+BVMultVec            223 1.0 9.9495e-02 1.0 8.45e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  8488
+BVMultInPlace         14 1.0 1.8218e-02 1.0 4.99e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 27417
+BVDotVec             223 1.0 9.5454e-02 1.0 9.16e+08 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  9591
+BVOrthogonalizeV     113 1.0 1.9548e-01 1.0 1.76e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  9006
+BVScale              112 1.0 5.1695e-03 1.0 1.78e+07 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  3448
+BVNormVec              1 1.0 1.5870e-04 1.0 3.18e+05 1.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0  2006
+BVSetRandom            1 1.0 1.0902e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+BVMatMultVec         111 1.0 1.4941e+02 1.0 4.98e+11 1.0 0.0e+00 0.0e+00 0.0e+00 20 98  0  0  0  25 98  0  0  0  3331
+DSSolve               13 1.0 5.5305e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+DSVectors             15 1.0 6.0031e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+DSOther               39 1.0 1.4360e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
 
 --- Event Stage 4: post
 
-BuildTwoSided          1 1.0 6.4255e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecScatterBegin        1 1.0 7.2101e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
-VecScatterEnd          1 1.0 3.1377e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-SFSetGraph             1 1.0 1.2654e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  10  0  0  0  0     0
-SFSetUp                1 1.0 1.2743e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  10  0  0  0  0     0
-SFPack                 1 1.0 7.6470e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-SFUnpack               1 1.0 6.4898e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+BuildTwoSided          1 1.0 5.8381e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin        1 1.0 6.8346e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+VecScatterEnd          1 1.0 3.0544e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFSetGraph             1 1.0 1.1019e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   9  0  0  0  0     0
+SFSetUp                1 1.0 1.2514e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  10  0  0  0  0     0
+SFPack                 1 1.0 7.8129e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFUnpack               1 1.0 6.9034e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
 ------------------------------------------------------------------------------------------------------------------------
 
 Object Type          Creations   Destructions. Reports information only for process 0.
@@ -250,7 +250,7 @@ Object Type          Creations   Destructions. Reports information only for proc
            Index Set     1              1
    Star Forest Graph     1              1
 ========================================================================================================================
-Average time to get PetscTime(): 1.24419e-08
+Average time to get PetscTime(): 1.24426e-08
 #PETSc Option Table entries:
 -eps_view # (source: command line)
 -ksp_view # (source: command line)
@@ -259,24 +259,24 @@ Average time to get PetscTime(): 1.24419e-08
 Compiled without FORTRAN kernels
 Compiled with full precision matrices (default)
 sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
-Configure options: --download-mumps --download-scalapack --download-slepc --with-blaslapackdir=/opt/intel/oneapi/mkl/latest --with-mpi-dir=/opt/intel/oneapi/mpi/latest --with-debugging=no COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3
+Configure options: --download-mumps --download-scalapack --download-slepc --with-blaslapackdir=/opt/intel/oneapi/mkl/latest --with-mpi-dir=/opt/intel/oneapi/mpi/latest --with-debugging=no --with-fortran-bindings=0 COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3
 -----------------------------------------
-Libraries compiled on 2024-05-16 10:59:35 on LIN54Z7SQ3 
+Libraries compiled on 2024-05-16 22:29:44 on LIN54Z7SQ3 
 Machine characteristics: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
-Using PETSc directory: /home/jtheler/libs/petsc-3.21.1
-Using PETSc arch: intel
+Using PETSc directory: /home/jtheler/libs/petsc
+Using PETSc arch: release-intel
 -----------------------------------------
 
 Using C compiler: /opt/intel/oneapi/mpi/latest/bin/mpiicc  -fPIC -Wall -Wwrite-strings -Wno-unknown-pragmas -fstack-protector -Qunused-arguments -fvisibility=hidden -O3  
 Using Fortran compiler: /opt/intel/oneapi/mpi/latest/bin/mpiifort  -fPIC -O3    
 -----------------------------------------
 
-Using include paths: -I/home/jtheler/libs/petsc-3.21.1/include -I/home/jtheler/libs/petsc-3.21.1/intel/include -I/opt/intel/oneapi/mpi/latest/include
+Using include paths: -I/home/jtheler/libs/petsc/include -I/home/jtheler/libs/petsc/release-intel/include -I/opt/intel/oneapi/mpi/latest/include
 -----------------------------------------
 
 Using C linker: /opt/intel/oneapi/mpi/latest/bin/mpiicc
 Using Fortran linker: /opt/intel/oneapi/mpi/latest/bin/mpiifort
-Using libraries: -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/intel/lib -L/home/jtheler/libs/petsc-3.21.1/intel/lib -lpetsc -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/intel/lib -L/home/jtheler/libs/petsc-3.21.1/intel/lib -fortlib -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib/release -L/opt/intel/oneapi/mpi/latest/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib -L/opt/intel/oneapi/mpi/latest/lib -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -L/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/lib -L/opt/intel/oneapi/compiler/2023.2.1/linux/lib -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11 -Wl,-rpath,/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -L/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -L/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib/release -L/opt/intel/oneapi/mpi/2021.9.0/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib -L/opt/intel/oneapi/mpi/2021.9.0/lib -Wl,-rpath,/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -L/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -L/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -L/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -Wl,-rpath,/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -L/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -L/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lopenblas -lX11 -lmpicxx -lmpifort -lmpi -ldl -lrt -lpthread -lsvml -lirng -lstdc++ -limf -lm -lgcc_s -lirc -lirc_s
+Using libraries: -Wl,-rpath,/home/jtheler/libs/petsc/release-intel/lib -L/home/jtheler/libs/petsc/release-intel/lib -lpetsc -Wl,-rpath,/home/jtheler/libs/petsc/release-intel/lib -L/home/jtheler/libs/petsc/release-intel/lib -fortlib -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib/release -L/opt/intel/oneapi/mpi/latest/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/latest/lib -L/opt/intel/oneapi/mpi/latest/lib -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -L/opt/intel/oneapi/compiler/2023.2.1/linux/compiler/lib/intel64_lin -Wl,-rpath,/opt/intel/oneapi/compiler/2023.2.1/linux/lib -L/opt/intel/oneapi/compiler/2023.2.1/linux/lib -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11 -Wl,-rpath,/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -L/opt/intel/oneapi/tbb/2021.10.0/lib/intel64/gcc4.8 -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -L/opt/intel/oneapi/mpi/2021.9.0/libfabric/lib -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib/release -L/opt/intel/oneapi/mpi/2021.9.0/lib/release -Wl,-rpath,/opt/intel/oneapi/mpi/2021.9.0/lib -L/opt/intel/oneapi/mpi/2021.9.0/lib -Wl,-rpath,/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -L/opt/intel/oneapi/mkl/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -L/opt/intel/oneapi/ipp/2021.9.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -L/opt/intel/oneapi/ippcp/2021.8.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -L/opt/intel/oneapi/dnnl/2023.2.0/cpu_dpcpp_gpu_dpcpp/lib -Wl,-rpath,/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -L/opt/intel/oneapi/dal/2023.2.0/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -L/opt/intel/oneapi/clck/2021.7.3/lib/intel64 -Wl,-rpath,/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -L/opt/intel/oneapi/ccl/2021.10.0/lib/cpu_gpu_dpcpp -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lopenblas -lX11 -lmpicxx -lmpifort -lmpi -ldl -lrt -lpthread -lsvml -lirng -lstdc++ -limf -lm -lgcc_s -lirc -lirc_s
 -----------------------------------------
 
 WARNING! There are options you set that were not used!

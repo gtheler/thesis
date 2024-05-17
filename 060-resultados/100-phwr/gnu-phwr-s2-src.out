@@ -47,7 +47,7 @@ PC Object: 1 MPI process
               INFOG(25) (after factorization: number of pivots modified by static pivoting): 0
               INFOG(28) (after factorization: number of null pivots encountered): 0
               INFOG(29) (after factorization: effective number of entries in the factors (sum over all processors)): 1846732800
-              INFOG(30, 31) (after solution: size in Mbytes of memory used during solution phase): 17987, 17987
+              INFOG(30, 31) (after solution: size in Mbytes of memory used during solution phase): 17991, 17991
               INFOG(32) (after analysis: type of analysis done): 1
               INFOG(33) (value used for ICNTL(8)): 7
               INFOG(34) (exponent of the determinant if determinant is requested): 0
@@ -63,7 +63,7 @@ PC Object: 1 MPI process
     total: nonzeros=61656064, allocated nonzeros=61656064
     total number of mallocs used during MatSetValues calls=0
       using I-node routines: found 64480 nodes, limit used is 5
-size = 257920	time = 700.1 s	 memory = 17.8 Gb
+size = 257920	time = 268.6 s	 memory = 17.8 Gb
 [0/1 LIN54Z7SQ3] local memory = 17.8 Gb
 ****************************************************************************************************************************************************************
 ***                                WIDEN YOUR WINDOW TO 160 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document                                 ***
@@ -71,14 +71,14 @@ size = 257920	time = 700.1 s	 memory = 17.8 Gb
 
 ------------------------------------------------------------------ PETSc Performance Summary: ------------------------------------------------------------------
 
-/home/jtheler/feenox/feenox-gnu on a gnu named LIN54Z7SQ3 with 1 processor(s), by jtheler on Thu May 16 11:54:51 2024
-Using Petsc Release Version 3.21.1, Apr 26, 2024 
+/home/jtheler/feenox/feenox-gnu on a release-gnu named LIN54Z7SQ3 with 1 process, by jtheler on Thu May 16 19:42:37 2024
+Using Petsc Development GIT revision: v3.21.1-175-gcef0416bfaf  GIT Date: 2024-05-15 19:29:27 +0000
 
                          Max       Max/Min     Avg       Total
-Time (sec):           6.985e+02     1.000   6.985e+02
+Time (sec):           2.660e+02     1.000   2.660e+02
 Objects:              0.000e+00     0.000   0.000e+00
 Flops:                8.408e+09     1.000   8.408e+09  8.408e+09
-Flops/sec:            1.204e+07     1.000   1.204e+07  1.204e+07
+Flops/sec:            3.161e+07     1.000   3.161e+07  3.161e+07
 MPI Msg Count:        0.000e+00     0.000   0.000e+00  0.000e+00
 MPI Msg Len (bytes):  0.000e+00     0.000   0.000e+00  0.000e+00
 MPI Reductions:       0.000e+00     0.000
@@ -89,11 +89,11 @@ Flop counting convention: 1 flop = 1 real number operation of type (multiply/div
 
 Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
                         Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
- 0:      Main Stage: 2.8841e-01   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 1:            init: 4.1707e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 2:           build: 4.4986e+01   6.4%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 3:           solve: 6.5320e+02  93.5%  8.4082e+09 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
- 4:            post: 1.0491e-02   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 0:      Main Stage: 2.2357e-01   0.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 1:            init: 4.1959e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 2:           build: 3.3316e+01  12.5%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 3:           solve: 2.3247e+02  87.4%  8.4082e+09 100.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
+ 4:            post: 6.4548e-03   0.0%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0%
 
 ------------------------------------------------------------------------------------------------------------------------
 See the 'Profiling' chapter of the users' manual for details on interpreting output.
@@ -123,37 +123,37 @@ Event                Count      Time (sec)     Flop                             
 
 --- Event Stage 2: build
 
-MatConvert             1 1.0 3.0897e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
-MatAssemblyBegin       1 1.0 8.9000e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatAssemblyEnd         1 1.0 7.1649e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0  16  0  0  0  0     0
-MatSetValues      352975 1.0 3.7522e+01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  5  0  0  0  0  83  0  0  0  0     0
-MatZeroEntries         1 1.0 5.8800e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecCopy                1 1.0 2.8949e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecAssemblyBegin       2 1.0 1.8900e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecAssemblyEnd         2 1.0 1.6700e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecSetValues       95056 1.0 4.9108e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatConvert             1 1.0 1.9094e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatAssemblyBegin       1 1.0 8.0000e-08 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         1 1.0 3.7096e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0  11  0  0  0  0     0
+MatSetValues      352975 1.0 2.9270e+01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 11  0  0  0  0  88  0  0  0  0     0
+MatZeroEntries         1 1.0 4.8100e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecCopy                1 1.0 1.1324e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyBegin       2 1.0 1.8100e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAssemblyEnd         2 1.0 1.7800e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSetValues       95056 1.0 3.5273e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
 
 --- Event Stage 3: solve
 
-MatSolve               1 1.0 1.5193e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  2431
-MatLUFactorSym         1 1.0 1.2427e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-MatLUFactorNum         1 1.0 6.5044e+02 1.0 4.72e+09 1.0 0.0e+00 0.0e+00 0.0e+00 93 56  0  0  0 100 56  0  0  0     7
-MatView                2 1.0 2.7856e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecCopy                1 1.0 3.0762e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-KSPSetUp               1 1.0 5.3700e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-KSPSolve               1 1.0 1.5193e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  2431
-PCSetUp                1 1.0 6.5168e+02 1.0 4.72e+09 1.0 0.0e+00 0.0e+00 0.0e+00 93 56  0  0  0 100 56  0  0  0     7
-PCApply                1 1.0 1.5193e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  2431
+MatSolve               1 1.0 1.0512e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  3513
+MatLUFactorSym         1 1.0 6.4390e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatLUFactorNum         1 1.0 2.3078e+02 1.0 4.72e+09 1.0 0.0e+00 0.0e+00 0.0e+00 87 56  0  0  0  99 56  0  0  0    20
+MatView                2 1.0 1.5154e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecCopy                1 1.0 1.2598e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSetUp               1 1.0 2.6700e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               1 1.0 1.0512e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  3513
+PCSetUp                1 1.0 2.3142e+02 1.0 4.72e+09 1.0 0.0e+00 0.0e+00 0.0e+00 87 56  0  0  0 100 56  0  0  0    20
+PCApply                1 1.0 1.0512e+00 1.0 3.69e+09 1.0 0.0e+00 0.0e+00 0.0e+00  0 44  0  0  0   0 44  0  0  0  3513
 
 --- Event Stage 4: post
 
-BuildTwoSided          1 1.0 1.1457e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-VecScatterBegin        1 1.0 2.4591e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
-VecScatterEnd          1 1.0 1.5960e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-SFSetGraph             1 1.0 3.9014e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  37  0  0  0  0     0
-SFSetUp                1 1.0 2.7110e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  26  0  0  0  0     0
-SFPack                 1 1.0 1.0500e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
-SFUnpack               1 1.0 1.0400e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+BuildTwoSided          1 1.0 9.1770e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin        1 1.0 1.1131e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+VecScatterEnd          1 1.0 1.0430e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFSetGraph             1 1.0 1.9358e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  30  0  0  0  0     0
+SFSetUp                1 1.0 1.5536e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  24  0  0  0  0     0
+SFPack                 1 1.0 1.1400e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFUnpack               1 1.0 1.0900e-07 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
 ------------------------------------------------------------------------------------------------------------------------
 
 Object Type          Creations   Destructions. Reports information only for process 0.
@@ -186,7 +186,7 @@ Object Type          Creations   Destructions. Reports information only for proc
            Index Set     1              1
    Star Forest Graph     1              1
 ========================================================================================================================
-Average time to get PetscTime(): 2.38e-08
+Average time to get PetscTime(): 1.56e-08
 #PETSc Option Table entries:
 -eps_view # (source: command line)
 -ksp_view # (source: command line)
@@ -195,24 +195,24 @@ Average time to get PetscTime(): 2.38e-08
 Compiled without FORTRAN kernels
 Compiled with full precision matrices (default)
 sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
-Configure options: --download-mumps --download-openblas --download-scalapack --with-debugging=no --with-fortran-bindings=0 COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3 PETSC_ARCH=gnu
+Configure options: --download-openblas --download-mumps --download-scalapack --download-slepc --with-debugging=no --with-fortran-bindings=0 COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3 --force
 -----------------------------------------
-Libraries compiled on 2024-05-16 11:25:39 on LIN54Z7SQ3 
+Libraries compiled on 2024-05-16 22:18:29 on LIN54Z7SQ3 
 Machine characteristics: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
-Using PETSc directory: /home/jtheler/libs/petsc-3.21.1
-Using PETSc arch: gnu
+Using PETSc directory: /home/jtheler/libs/petsc
+Using PETSc arch: release-gnu
 -----------------------------------------
 
 Using C compiler: mpicc  -fPIC -Wall -Wwrite-strings -Wno-unknown-pragmas -Wno-lto-type-mismatch -Wno-stringop-overflow -fstack-protector -fvisibility=hidden -O3  
 Using Fortran compiler: mpif90  -fPIC -Wall -ffree-line-length-none -ffree-line-length-0 -Wno-lto-type-mismatch -Wno-unused-dummy-argument -O3    
 -----------------------------------------
 
-Using include paths: -I/home/jtheler/libs/petsc-3.21.1/include -I/home/jtheler/libs/petsc-3.21.1/gnu/include
+Using include paths: -I/home/jtheler/libs/petsc/include -I/home/jtheler/libs/petsc/release-gnu/include
 -----------------------------------------
 
 Using C linker: mpicc
 Using Fortran linker: mpif90
-Using libraries: -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/gnu/lib -L/home/jtheler/libs/petsc-3.21.1/gnu/lib -lpetsc -Wl,-rpath,/home/jtheler/libs/petsc-3.21.1/gnu/lib -L/home/jtheler/libs/petsc-3.21.1/gnu/lib -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11 -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lopenblas -lm -lX11 -lmpichfort -lmpich -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -lquadmath
+Using libraries: -Wl,-rpath,/home/jtheler/libs/petsc/release-gnu/lib -L/home/jtheler/libs/petsc/release-gnu/lib -lpetsc -Wl,-rpath,/home/jtheler/libs/petsc/release-gnu/lib -L/home/jtheler/libs/petsc/release-gnu/lib -Wl,-rpath,/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11 -ldmumps -lmumps_common -lpord -lpthread -lscalapack -lopenblas -lm -lX11 -lmpichfort -lmpich -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -lquadmath
 -----------------------------------------
 
 WARNING! There are options you set that were not used!
