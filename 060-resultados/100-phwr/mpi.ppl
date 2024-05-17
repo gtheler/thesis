@@ -21,10 +21,10 @@ set ylabel "memoria RAM por proceso [Gb]"
 set output "mpi-gnu.pdf"
 plot "gnu-phwr-dif-mpi.dat" u 1:2 w lp pt 16 lt 1 lw 1 color blue ti "Difusi\\'on 257k DOFs",\
      "gnu-phwr-s2-mpi.dat"  u 1:2 w lp pt 17 lt 2 lw 3 color green ti "S$_2$ 258k DOFs",\
-     "gnu-phwr-s4-mpi.dat"  u 1:2 w lp pt 18 lt 3 lw 2 color red ti "S$_4$ 160k DOFs"
+     "gnu-phwr-s4-mpi.dat"  u 1:2 w lp pt 18 lt 3 lw 2 color red ti "S$_4$ 159k DOFs"
 
 set output "mpi-intel.pdf"
 plot "intel-phwr-dif-mpi.dat" u 1:2 w lp pt 16 lt 1 lw 1 color blue ti "Difusi\\'on 257k DOFs",\
      "intel-phwr-s2-mpi.dat"  u 1:2 w lp pt 17 lt 2 lw 3 color green ti "S$_2$ 258k DOFs",\
-     "intel-phwr-s4-mpi.dat"  u 1:2 w lp pt 18 lt 3 lw 2 color red ti "S$_4$ 160k DOFs"
+     "intel-phwr-s4-mpi.dat"  u 1:2 w lp pt 18 lt 3 lw 2 color red ti "S$_4$ 159k DOFs"
 
