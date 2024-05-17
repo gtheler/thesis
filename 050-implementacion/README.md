@@ -168,10 +168,11 @@ Las dos tareas principales son
 
  1. construir la matriz global de rigidez $\mat{K}$ y el vector $\vec{b}$ (o la matriz de masa $\mat{M}$), y
  2. resolver el sistema de ecuaciones $\mat{K} \cdot \vec{u} = \vec{b}$ (o $\mat{K} \cdot \vec{u} = \lambda \cdot \mat{M} \cdot \vec{u}$)
+ 3. convertir $\vec{u}$ en flujos $\psi(\vec{x})$ y/o $\phi(\vec{x})$ 
 
  
 Haciendo énfasis en la filosofía Unix, tenemos que escribir un programa que haga bien una sola cosa^[[Do only one thing but do it well]{lang=en-US}.] que nadie más hace y que interactúe con otros que hacen bien otras cosas (regla de composición).
-En este sentido, nuestra herramienta se tiene que enfocar en el punto 1.
+En este sentido, nuestra herramienta se tiene que enfocar en los puntos 1 y 3.
 Pero tenemos que definir quién va a hacer el punto 2 para que sepamos cómo es que tenemos que construir $\mat{K}$ y $\vec{b}$.
 
 Las bibliotecas PETSc [@petsc-user-ref;@petsc-efficient] junto con la extensión SLEPc [@slepc-manual;@slepc-toms] proveen exactamente lo que necesita una herramienta que satisfaga el SRS siguiendo la filosofía de diseño del SDS.
