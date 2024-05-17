@@ -231,12 +231,12 @@ Es por eso también que los problemas sin fuentes independientes son más intens
 ::: {#tbl-mpi}
 Formulación         |   DOFs    |   Problema   |   Build     |   Solve     |   Total     |   Mem.
 :-------------------|:---------:|:------------:|------------:|------------:|------------:|------------:
-Difusión            |   257k    |   KSP        |     4.6 s   |     1.2 s   |     7.7 s   |    0.7 Gb
-                    |           |   EPS        |     6.3 s   |    87.4 s   |    95.2 s   |    6.5 Gb
-S$_2$               |   258k    |   KSP        |    24.8 s   |   219.3 s   |   246.3 s   |   18.0 Gb
-                    |           |   EPS        |    30.6 s   |   256.3 s   |   290.9 s   |   18.0 Gb
-S$_4$               |   160k    |   KSP        |    54.3 s   |   171.8 s   |   227.1 s   |   16.3 Gb
-                    |           |   EPS        |    57.2 s   |   357.2 s   |   415.5 s   |   20.1 Gb
+Difusión            |   257k    |   KSP        |     3.5 s   |     5.4 s   |    10.6 s   |    0.6 Gb
+                    |           |   EPS        |     6.9 s   |    66.3 s   |    74.7 s   |    6.4 Gb
+S$_2$               |   258k    |   KSP        |    30.4 s   |   228.1 s   |   260.0 s   |   17.7 Gb
+                    |           |   EPS        |    63.2 s   |   368.6 s   |   432.9 s   |   19.8 Gb
+S$_4$               |   159k    |   KSP        |    64.7 s   |   449.1 s   |   514.6 s   |   23.3 Gb
+                    |           |   EPS        |   138.9 s   |   598.8 s   |   738.3 s   |   27.0 Gb
 
 : {#tbl-mpi2}
 
