@@ -2174,7 +2174,7 @@ Por ejemplo, la posibilidad de seleccionar en tiempo de ejecución cuál de toda
 por ejemplo generando diferentes ejecutables de FeenoX para particularizaciones de
 
  * el tipo de problema (para evitar apuntadores a función)
- * la dimensión del problema (para poder usar arreglos de tamaño fijo en lugar de recurrir a reservación dinámica de memoria)
+ * la dimensión del problema (para poder usar arreglos de tamaño fijo en lugar de recurrir a reserva dinámica de memoria)
  * mallas con todos los tipos de elementos iguales (para evitar tener que pedir memoria dinámica elemento por elemento)
  * tamaño de variables de coma flotante (simple o doble precisión para optimizar memoria)
  * etc.
