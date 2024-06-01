@@ -911,7 +911,7 @@ Dentro de las inicializaciones en tiempo de parseo, cada implementación especí
     b. la palabra clave `WRITE_RESULTS` que escribe "automáticamente" los resultados en un archivo de post-procesamiento en formato `.msh` o `.vtk`. Esto es necesario ya que las rutinas que escriben los resultados son parte del framework general pero dependiendo de la PDE a resolver e incluso de los detalles de la PDE (por ejemplo la cantidad de grupos de energía en un problema neutrónico o la cantidad de modos calculadas en un problema de análisis de modos naturales de oscilación mecánicos).
     
  ii. inicializar estructuras internas
- iii. solicitar la memoria virtual necesaria al sistema operativo^[Del inglés [_allocate_]{lang=en-US}.] y construir las matrices y los vectores globales
+ iii. reservar la memoria virtual necesaria con una llamada al sistema operativo^[Del inglés [_allocate with a system call_]{lang=en-US}.] y construir las matrices y los vectores globales
  iv. resolver las ecuaciones discretizadas con PETSc (o SLEPc) según el tipo de problema resultante:
  
       a. problema lineal en estado estacionario $\mat{K} \cdot \vec{u} = \vec{b}$ (PETSc KSP)
