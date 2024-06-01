@@ -2040,7 +2040,7 @@ $
 
 ### Filosofía Unix
 
-Por diseño, FeenoX ha sido escrito desde cero teniendo encuentra las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en la @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
+Por diseño, FeenoX ha sido escrito desde cero teniendo encuentra las ideas de la filosofía de programación Unix resumida en las 17 reglas discutidas el libro ["The Art of Unix Programming"]{lang=en-US}^[Este título es un juego de palabras donde Eric Raymond le responde a la obra clásica (e inconclusa al momento de la escritura de esta tesis) de Donald Knuth ["The Art of Computer Programming"]{lang=en-US} @knuth97.] @raymond que explicamos brevemente en el @sec-unix. Los autores originales de Unix explican sus ideas en la referencia @unix.
 En particular, son de especial aplicación a FeenoX las reglas de
 
  * composición (@sec-unix-composition)
