@@ -1659,7 +1659,7 @@ $$
 \label{remark-ug}
 ```
 Si bien este procedimiento es matemáticamente correcto, no parece sencillo encontrar una función $u_g \in H^1_g$ apropiada para una condición de contorno arbitraria $g(\vec{x})$.
-En la @sec-fem mostramos en un espacio vectorial de dimensión finita el procedimiento es más sencillo.
+En la @sec-fem mostramos que en un espacio vectorial de dimensión finita el procedimiento es más sencillo.
 En el [capítulo @sec-implementacion] que sigue mostramos que la implementación práctica de este tipo de condiciones de contorno es más sencilla todavía.
 :::
 
