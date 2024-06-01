@@ -4664,7 +4664,7 @@ for (unsigned int j = 0; j < neutron_sn.n_nodes; j++) {
 ## Problemas de estado estacionario {#sec-problemas-steady-state}
 
 Si bien en el [capítulo @sec-transporte-difusion] hemos mantenido por completitud la dependencia temporal explícitamente en los flujos y corrientes, en esta tesis resolvemos solamente problemas de estado estacionario.
-Tal como hemos hecho en este capítulo, al eliminar el término de la temporada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
+Tal como hemos hecho en este capítulo, al eliminar el término de la derivada con respecto al tiempo, las propiedades matemáticas de las ecuaciones cambian y por lo tanto debemos resolverlas en forma diferente según tengamos alguno de los siguientes tres casos:
 
  #. Medio no multiplicativo con fuentes independientes,
  #. Medio multiplicativo con fuentes independientes, y
