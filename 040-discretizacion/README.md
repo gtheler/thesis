@@ -1451,10 +1451,10 @@ $$
 \mathcal{a} \Big(u(\vec{x}), v(\vec{x})\Big) = \mathcal{B} \Big(v(\vec{x})\Big)
 \quad  \forall v(\vec{x}) \in V
 $$
-donde $V$ es un espacio funcional apropiado, por ejemplo el $H^1_0(U)$ de las funciones $U \in \mathbb{R}^D \mapsto \mathbb{R}$ cuyo gradiente es de cuadrado integrable (el superíndice uno) en el dominio $U$ y que se anulan en $\Gamma_D$ (el subíndice cero)
+donde $V$ es un espacio funcional apropiado, por ejemplo el $H^1_0(U)$ de las funciones $U \in \mathbb{R}^D \mapsto \mathbb{R}$ cuyo gradiente (el superíndice uno) es de cuadrado integrable en el dominio $U$ y que se anulan en $\Gamma_D$ (el subíndice cero)
 
 $$
-V = H^1_0 (U) = \left\{ v \in H^1_0 (U) : \int_U \left( \nabla v \right)^{D} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = 0 \forall \vec{x} \in \Gamma_D  \right\}
+V = H^1_0 (U) = \left\{ v \in H^1_0 (U) : \int_U \left( \nabla v \right)^{2} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = 0 \forall \vec{x} \in \Gamma_D  \right\}
 $$
 y los operadores $\mathcal{a}(u,v) : V \times V \mapsto \mathbb{R}$ y $\mathcal{B}(v) : V \mapsto \mathbb{R}$ se obtienen a partir de los cuatro pasos arriba mencionados.
 En particular, para el problema generalizado de Poisson de la formulación de la @eq-poisson-debil, es
