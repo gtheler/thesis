@@ -243,7 +243,7 @@ De todas maneras, la herramienta computacional cuya implementación describimos 
  2. Permite discretizar el dominio espacial utilizando mallas no estructuradas.^[Del inglés [*unstructured grids*]{lang=en-US}.]
  3. Puede correr en paralelo en una cantidad arbitraria de computadoras.^[Del inglés [*hosts*]{lang=en-US}.]
 
-En particular, permite a los ingenieros nucleares comparar las soluciones obtenidas con las formulaciones $S_N$ de difusión al resolver un mismo problema de tamaño arbitrario.
+En particular, permite a los ingenieros nucleares comparar las soluciones obtenidas con las formulaciones $S_N$ y de difusión al resolver un mismo problema de tamaño arbitrario.
 De esta forma, es posible justificar ante gerencias superiores o entes regulatorios la factibilidad (o no) de encarar un proyecto para analizar un reactor nuclear con la ecuación de difusión utilizando
 
  a. datos objetivos, y
