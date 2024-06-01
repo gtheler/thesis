@@ -3112,7 +3112,7 @@ siguen siendo válidas.
 
 
 ::: {.remark}
-Además de triángulos (tetrahedros) se podrían haber utilizado elementos cuadrangulares (hexaédricos, prismáticos o piramidales), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$ para $j=1,\dots,J$. Las relaciones matriciales [-@eq-relaciones] seguirían siendo válidas.
+Además de triángulos (tetraedros) se podrían haber utilizado elementos cuadrangulares (hexaédricos, prismáticos o piramidales), cada uno con su correspondiente elemento canónico en el plano $\xi$-$\eta$ (espacio $\xi$-$\eta$-$\zeta$) y funciones de forma $h_j(\symbf{\xi})$ para $j=1,\dots,J$. Las relaciones matriciales [-@eq-relaciones] seguirían siendo válidas.
 :::
 
 

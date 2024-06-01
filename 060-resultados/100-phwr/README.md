@@ -159,7 +159,7 @@ Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión
 
 Resolvamos ahora el mismo problema pero con ordenadas discretas.
 Comenzamos por $S_2$, que involucra ocho direcciones por cada grupo de energías.
-Para tener un tamaño de problema comparable utilizamos tetrahedros de primer orden.
+Para tener un tamaño de problema comparable utilizamos tetraedros de primer orden.
 Estudiemos cómo cambia el tiempo de pared y la memoria con 1, 2, 4 y 8 procesos MPI:
 
 ```terminal
