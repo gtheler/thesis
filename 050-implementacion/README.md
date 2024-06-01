@@ -620,7 +620,7 @@ Entonces la rutina particular dentro de `src/pde/thermal` que evalúa las contri
 La salida, que por diseño está 100% definida por el archivo de entrada (reglas de Unix de silencio @sec-unix-silence y de economía @sec-unix-economy) consiste en la temperatura evaluada en $x=1/2$ junto con la solución analítica $\log(1+\frac{1}{2})/\log(2)$ en dicho punto.
 
 Por completitud, mostramos que también la conductividad podría depender de la temperatura.
-En este caso particular el problema resulta no linea. Mencionamos algunas particularidades sin ahondar en detalles.
+En este caso particular el problema resulta no lineal. Mencionamos algunas particularidades sin ahondar en detalles.
 El parser algebraico de FeenoX sabe que $k$ depende de $T$, por lo que la rutina particular de inicialización de la PDE de conducción de calor marca que el problema debe ser resuelto por PETSc con un objeto SNES en lugar de un KSP como para el caso lineal. FeenoX también calcula el jacobiano necesario para resolver el problema con un método de Newton iterativo, que incluye un término proporcional a $\partial k / \partial T$:
 
 ```feenox
