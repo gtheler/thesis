@@ -1540,11 +1540,11 @@ $$
 :::
 
 
-::: {#def-a-coercivo}
+::: {#def-a-coercitivo}
 
-## operador coercivo
+## operador coercitivo
 
-Un operador $\mathcal{a}(v,u) : V \times V \mapsto \mathbb{R}$ es coercivo si existe una constante $\alpha >0$ tal que
+Un operador $\mathcal{a}(v,u) : V \times V \mapsto \mathbb{R}$ es coercitivo si existe una constante $\alpha >0$ tal que
 
 $$
 \mathcal{a}(v,v) \geq \alpha \cdot || v ||^2_V
@@ -1552,7 +1552,7 @@ $$
 :::
 
 ::: {#cor-norma}
-Si $\mathcal{a}(v,u)$ es coercivo entonces
+Si $\mathcal{a}(v,u)$ es coercitivo entonces
 
 $$
 ||v||_{\mathcal{a}} = \sqrt{\mathcal{a}(v,v)}
@@ -1560,13 +1560,13 @@ $$
 es una norma.
 :::
 
-::::: {#thm-poisson-coercivo}
+::::: {#thm-poisson-coercitivo}
 El operador
 
 $$
 \mathcal{a}(u,v) = \int_U \mathrm{grad}\Big[ v(\vec{x}) \Big] \cdot k(\vec{x}) \cdot \mathrm{grad}\Big[ u(\vec{x}) \Big] \, d^D \vec{x}
 $$
-es coercivo si $k(\vec{x}) > 0 \forall \vec{x} \in U$.
+es coercitivo si $k(\vec{x}) > 0 \forall \vec{x} \in U$.
 
 ::: {.proof}
 La demostración detallada se puede encontrar la sección 5.3 de @brennerscott e en involucra análisis funcional y algunas desigualdades, como la de Poincaré.
@@ -1589,7 +1589,7 @@ $$
 siendo
 
  a. $V$ un sub-espacio de $H^1(U)$,
- b. $\mathcal{a} : V \times V \mapsto \mathbb{R}$ un operador continuo, bi-lineal y coercivo, y
+ b. $\mathcal{a} : V \times V \mapsto \mathbb{R}$ un operador continuo, bi-lineal y coercitivo, y
  c. $\mathcal{B} : V \mapsto \mathbb{R}$ un funcional continuo y lineal
  
 entonces la solución $u$ existe y es única.
@@ -1796,7 +1796,7 @@ Si el operador $\mathcal{a}$ es simétrico entonces la matriz $\mat{A}$ tambi�
 :::
 
 ::::: {#thm-A-spd}
-Si el operador $\mathcal{a}$ es bi-lineal y coercivo entonces la matriz $\mat{A}$ es definida positiva.
+Si el operador $\mathcal{a}$ es bi-lineal y coercitivo entonces la matriz $\mat{A}$ es definida positiva.
 
 ::: {.proof}
 
@@ -1823,7 +1823,7 @@ Ver @hughes para una demostración alternativa.
 
 ## existencia y unicidad
 
-Si el operador $\mathcal{a}$ es bi-lineal y coercivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
+Si el operador $\mathcal{a}$ es bi-lineal y coercitivo entonces el problema de Galerkin de la @def-galerkin existe y es único.
 
 ::: {.proof}
 Por el @thm-A-spd la matriz $\mat{A}$ es definida positiva. Luego es invertible y la @eq-Au $\mat{A} \cdot \vec{u} = \vec{b}$ tiene solución única.
@@ -1906,7 +1906,7 @@ $$
 
 La primera equivalencia está probada por el @thm-equivalencia-fuerte-debil.
 No hay ninguna aproximación involucrada. Solamente hay que marcar que la equivalencia se mantiene en todo el dominio $U$ excepto en, a lo más, un sub-conjunto de medida cero.
-La aproximación entre la formulación débil y el problema de Galerkin es la idea central del método numérico: pasar de una espacio vectorial $V$ de dimensión infinita a un espacio vectorial $V_N$ de dimensión finita. La equivalencia entre Galerkin y un sistema lineal de ecuaciones algebraicas (que puede ser resuelto con una computadora digital) funciona siempre y cuando el operador $a(u,v)$ sea coercivo y bi-lineal. Para problemas no lineales (por ejemplo para el caso en el que $k$ dependiera de $u$) la última equivalencia se reemplaza por una formulación vectorial no lineal $\vec{F}(\vec{u})=0$. En la @sec-nomult-src mencionamos brevemente cómo formular y resolver este tipo de problemas.
+La aproximación entre la formulación débil y el problema de Galerkin es la idea central del método numérico: pasar de una espacio vectorial $V$ de dimensión infinita a un espacio vectorial $V_N$ de dimensión finita. La equivalencia entre Galerkin y un sistema lineal de ecuaciones algebraicas (que puede ser resuelto con una computadora digital) funciona siempre y cuando el operador $a(u,v)$ sea coercitivo y bi-lineal. Para problemas no lineales (por ejemplo para el caso en el que $k$ dependiera de $u$) la última equivalencia se reemplaza por una formulación vectorial no lineal $\vec{F}(\vec{u})=0$. En la @sec-nomult-src mencionamos brevemente cómo formular y resolver este tipo de problemas.
 :::
 
 
@@ -3548,10 +3548,10 @@ El operador de la @eq-a-dif-uno es simétrico.
 :::
 
 ::: {.remark}
-El operador de la @eq-a-dif-uno es coercivo si $\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) > \nu\Sigma_{f}(\vec{x})$.
+El operador de la @eq-a-dif-uno es coercitivo si $\Sigma_{t}(\vec{x})  - \Sigma_{s_0}(\vec{x}) > \nu\Sigma_{f}(\vec{x})$.
 Pero puede dejar de serlo si la desigualdad no se cumple.
 En efecto, la desigualdad implica $k_\text{\infty} < 1$.
-Siguiendo razonamientos físicos, podemos decir que el operador es coercivo sólo si el factor de multiplicación $k_\text{eff} < 1$.
+Siguiendo razonamientos físicos, podemos decir que el operador es coercitivo sólo si el factor de multiplicación $k_\text{eff} < 1$.
 Esto es, un medio multiplicativo crítico o super-crítico con una fuente independiente no tiene solución de estado estacionario.
 :::
 
@@ -4362,7 +4362,7 @@ Las matrices $\mat{R}$ y $\mat{X}$ no son simétricas para propiedades nuclear
 :::
 
 ::: {.remark}
-El operador de la @eq-a-dif-G es coercivo sólo si $k_\text{eff} < 1$.
+El operador de la @eq-a-dif-G es coercitivo sólo si $k_\text{eff} < 1$.
 :::
 
 ::: {.remark}
@@ -4529,7 +4529,7 @@ d^D \vec{x}
 $$
 
 ::: {.remark}
-El operador $\mathcal{a}\big([\psi_{11} \dots \psi_{MG}]^T, [v_{11} \dots v_{MG}]^T\big)$ para ordenadas discretas no es simétrico y la mayoría de las veces tampoco es coercivo.
+El operador $\mathcal{a}\big([\psi_{11} \dots \psi_{MG}]^T, [v_{11} \dots v_{MG}]^T\big)$ para ordenadas discretas no es simétrico y la mayoría de las veces tampoco es coercitivo.
 :::
 
 Como en la formulación S$_N$ las condiciones de contorno son sólo de Dirichlet, la única contribución al vector $\vec{b}$ proviene del término de fuentes independientes. Entonces el funcional $\mathcal{B}(v) : V^{MG} \mapsto \mathbb{R}$ es directamente
@@ -4546,7 +4546,7 @@ $$
 
 
 En principio, estaríamos en condiciones de discretizar la variable espacial $\vec{x}$ con las matrices $\mat{H}_{MGc}$ y $\mat{B}_{MG}$ tal como hemos hecho en la @sec-dif-fem-G para la ecuación de difusión multigrupo, con la salvedad de que ahora hay $MG$ grados de libertad por nodo espacial.
-Pero el hecho de que el operador no sea coercivo hace que el método numérico basado en la aproximación de Galerkin no sea estable y por lo tanto no converja.
+Pero el hecho de que el operador no sea coercitivo hace que el método numérico basado en la aproximación de Galerkin no sea estable y por lo tanto no converja.
 Una forma de recuperar la coercividad del operador $\mathcal{a}$ y poder obtener una solución numérica al problema de ordenadas discretas formulado con un esquema de elementos finitos sobre la variable espacial $\vec{x}$ es resolver un problema de Petrov-Galerkin en el cual cada una de las funciones de prueba $v_{mg}$ vive en un espacio vectorial $V^\prime_{N}$ diferente al espacio vectorial $V_N$ donde viven las incógnitas $\psi_{mg}$ para alguna elección adecuada de $V^\prime_{N}$.
 
 ::: {#def-petrov-galerkin}
