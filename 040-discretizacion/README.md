@@ -1621,7 +1621,7 @@ $$ {#eq-no-homogeneo}
 entonces una idea sería pedir que $v \in H^1_0$ pero que $u \in H^1_g$ tal que
 
 $$
-H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^{D} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x})~\forall \vec{x} \in \Gamma_D  \right\}
+H^1_g (U) = \left\{ v \in H^1_g (U) : \int_U \left( \nabla v \right)^{2} \,d^D\vec{x} < \infty \wedge v(\vec{x}) = g(\vec{x})~\forall \vec{x} \in \Gamma_D  \right\}
 $$
 
 Este planteo, además de ser poco elegante al romper la simetría entre $u$ y $v$, tiene un problema insalvable: $H^1_g$ es un conjunto^[Técnicamente es un [_affine manifold_]{lang=en-US}.] pero no un espacio ya que la suma de dos funciones $u_1 \in H^1_g$ y $u_2 \in H^1_g$ no están en $H^1_g$ sino en $H^1_{2g}$.
