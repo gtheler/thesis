@@ -1284,7 +1284,7 @@ Llamamos a la ecuación diferencial propiamente dicha junto con sus condiciones 
 :::
 
 ::: {.remark}
-En la formulación fuerte, todas las funciones deben ser derivables al menos hasta el orden apropiado según dónde aparezca cada una. Por ejemplo, en la @eq-poisson-fuerte, $u$ debe ser derivable una vez y el producto $k \nabla u$ debe ser derivable dos veces.
+En la formulación fuerte, todas las funciones deben ser derivables al menos hasta el orden apropiado según dónde aparezca cada una. Por ejemplo, en la @eq-poisson-fuerte, tanto $u$ como el producto $k \nabla u$ deben ser derivables.
 Este requerimiento usualmente es demasiado restrictivo en aplicaciones físicas.
 Por ejemplo, la formulación fuerte del problema de conducción de calor no está bien definida en las interfaces entre materiales con diferentes conductividades $k$ a cada lado de la interfaz.
 :::
