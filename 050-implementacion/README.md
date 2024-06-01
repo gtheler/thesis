@@ -1707,9 +1707,9 @@ Si en la expresión aparecen otras variables que no forman parte de los argument
 ```feenox
 VAR v0
 v(x0,t) = x0 + v0*t
-PRINT v(1)
+PRINT v(0,1)
 v0 = 1
-PRINT v(1)
+PRINT v(0,1)
 ```
 en la primera evaluación obtendremos `0` y en la segunda `1`.
 
