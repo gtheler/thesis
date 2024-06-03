@@ -1435,7 +1435,7 @@ $ for c in $(feenox steps.fee); do gmsh -v 0 -1 slab.geo -clscale ${c} -o slab-$
 $
 ```
 
-Since the main input file is the first argument (not counting POSIX options starting with at least one dash), FeenoX might be invoked indirectly by adding a shebang line to the input file with the location of the system-wide executable and setting execution permissions on the input file itself. So if we modify the above `hello.fee` example as `hello`
+Since the main input file is the first argument (not counting POSIX options starting with at least one dash), FeenoX might be invoked indirectly by adding a [shebang](https://en.wikipedia.org/wiki/Shebang_%28Unix%29) line to the input file with the location of the system-wide executable and setting execution permissions on the input file itself. So if we modify the above `hello.fee` example as `hello`
 
 ```{.feenox include="hello"}
 ```
@@ -1470,7 +1470,10 @@ $ feenox f.fee "sin(t)" 1 | ./derivative.fee
 0.95    0.574296
 $
 ```
+where `f.fee` is a "command-line function generator":
 
+```{.feenox include="f.fee"}
+```
 
 
 ## Problem input {#sec-input}
