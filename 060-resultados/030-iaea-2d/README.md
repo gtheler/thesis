@@ -108,7 +108,7 @@ $
 ```
 
 
-![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8 resuelto con difusión. La imagen del flujo rápido corresponde a una rotación de 45 grados de la malla.](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=70%}
+![Flujos rápidos y térmicos en el problema 2D de IAEA con simetría 1/8 resuelto con difusión. La imagen del flujo rápido corresponde a una reflexión con respecto a una línea a 45 grados.](iaea-2dpwr-fluxes.png){#fig-iaea-2dpwr-fluxes width=70%}
 
 ::: {.remark}
 El tiempo de CPU reportado por `time`  es el mismo independiente de la cantidad de grados de libertad.
