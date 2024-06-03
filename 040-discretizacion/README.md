@@ -1017,7 +1017,7 @@ para $i=2,\dots,N/2$.
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico. Los triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico indicando los puntos de igual peso^[Equivalentes a la figura 6.4 de la página 205 de @stammler y a la figura 4.3 de la página 161 de @lewis.] Los triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 ::: {.remark}
 Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un cluster alrededor de los polos.
