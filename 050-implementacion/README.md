@@ -1800,7 +1800,7 @@ Pero por ejemplo si una componente es una temperatura y otra una presión, la m�
 Una segunda forma de evaluar la función es con una interpolación tipo Shepard @shepard, original o modificada. La primera consiste en realizar una suma pesada con alguna potencia $p$ de la distancia del punto de evaluación $\vec{x}$ a todos los $N$ puntos de definición de la función
 
 $$
-f(\vec{x}) = \frac{\sum_{i=1}^N w_i(\vec{x}) \cdot f_i}{w_i(\vec{x})}
+f(\vec{x}) = \frac{\sum_{i=1}^N w_i(\vec{x}) \cdot f_i}{\sum_{i=1}^N w_i(\vec{x})}
 $$
 donde
 
