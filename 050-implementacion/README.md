@@ -1756,13 +1756,16 @@ Pero el siguiente ejemplo ilustra que no es lo mismo definir `f(x)` que `f(y)` y
 
 ```feenox
 FUNCTION f(x) DATA {
+-0.8 sin(-0.8)
 0.2 sin(0.2)
-0.4 sin(0.4)
-0.6 sin(0.6)
-0.8 sin(0.8)
+1.2 sin(1.2)
+2.2 sin(2.2)
+3.2 sin(3.2)
 }
 
-PRINT_FUNCTION f sin(x) MIN 0.2 MAX 0.8 NSTEPS 100
+f_a = vecmin(vec_f_x)
+f_b = vecmax(vec_f_x)
+PRINT_FUNCTION f f(x)-sin(x) MIN f_a MAX f_b NSTEPS 100
 ```
 
 Este pequeño archivo de entrada---que además muestra que una función definida por puntos puede usar expresiones algebraicas---fue usado para generar la @fig-sine.
