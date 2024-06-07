@@ -52,7 +52,8 @@ Reactividad calculada mediante cinética inversa de dos maneras diferentes
 ## Control de inestabilidades de xenón
 
 Ahora introducimos un poco más de complejidad.
-A las ecuaciones de cinética puntual le agregamos cinética de xenón 135. Como el sistema resultante es inestable ante cambios de flujo, la reactividad es ahora una función de la posición de una barra de control ficticia cuya importancia está dada por una interpolación tipo Steffen de su posición adimensional $z$.
+A las ecuaciones de cinética puntual le agregamos cinética de xenón 135.
+Como el sistema dinámico resultante es Lyapunov-inestable^[Para observar "oscilaciones de xenón" es necesario a. un lazo de control a lazo cerrado y b. cinética espacial o multi-puntual.] ante cambios de flujo, la reactividad es ahora una función de la posición de una barra de control ficticia cuya importancia está dada por una interpolación tipo Steffen de su posición adimensional $z$.
 Una lógica de control PI (con una banda muerta del 0.3%) "mueve" dicha barra de control de forma tal de forzar al reactor a bajar la potencia del 100% al 80% en mil segundos, mantenerse durante tres mil segundos a esa potencia y volver al 100% en cinco mil:
 
 ```{.feenox include="xenon.fee"}
