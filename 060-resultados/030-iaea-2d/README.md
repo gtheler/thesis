@@ -269,10 +269,6 @@ geometry = quarter
 $ 
 ```
 
-::: {.remark}
-El tiempo real o "de pared" escala en forma relativamente lineal con la cantidad de procesos MPI.
-:::
-
 
 ## Caso 3D con simetría 1/8, reflector circular resuelto con S$_4$ {#sec-iaea3d-s4}
 
