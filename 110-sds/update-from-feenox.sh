@@ -1,9 +1,15 @@
 #!/bin/bash
 dir=${HOME}/codigos/feenox
 
+cp ${dir}/doc/[1234]*.md ../100-srs
+sed -i 's/sec:/sec-srs-/g' ../100-srs/[1234]*.md
+
+# convert @sec-xxx to [section @sec-xxx]
+# sed -i 's/@sec-\([^.,\) ]*\)/[sqection @sec-\1]/g' [1234]*.md
+# sed -i 's/@Sec-\([^.,\) ]*\)/[Section @sec-\1]/g' [1234]*.md
 
 for i in ../100-srs/[1234]*.md; do
-  ln -sf ${i}
+  cp ${i} .
 done
 
 for i in download; do
@@ -43,11 +49,15 @@ sed -i 's/ig:/ig-/g' *.md
 sed -i 's/ec:/ec-/g' *.md
 sed -i 's/tbl:/tbl-/g' *.md
 
+sed -i 's/@sec-\([^.,\) ]*\)/[section @sec-\1]/g' ../100-srs/[1234]*.md
+sed -i 's/@Sec-\([^.,\) ]*\)/[Section @sec-\1]/g' ../100-srs/[1234]*.md
+
+
 # convert @sec-xxx to [section @sec-xxx]
-sed -i 's/@sec-\([^., ]*\)/[section @sec-\1]/g' *.md
-sed -i 's/@Sec-\([^., ]*\)/[Section @sec-\1]/g' *.md
-sed -i 's/@fig-\([^., ]*\)/[figure @fig-\1]/g' *.md
-sed -i 's/@Fig-\([^., ]*\)/[Figure @fig-\1]/g' *.md
+sed -i 's/@sec-\([^.,\) ]*\)/[section @sec-\1]/g' *.md
+# sed -i 's/@Sec-\([^.,\) ]*\)/[Section @sec-\1]/g' *.md
+sed -i 's/@fig-\([^.,\) ]*\)/[figure @fig-\1]/g' *.md
+# sed -i 's/@Fig-\([^.,\) ]*\)/[Figure @fig-\1]/g' *.md
 
 grep -v joss.05846/status FAQ.md > tmp
 mv tmp FAQ.md

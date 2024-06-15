@@ -3,7 +3,7 @@ A computational tool (herein after referred to as _the tool_) specifically desig
 This (imaginary but plausible) Software Requirements Specification document describes the mandatory features this tool ought to have and lists some features which would be nice the tool had.
 Also it contains requirements and guidelines about architecture, execution and interfaces in order to fulfill the needs of cognizant engineers as of the 2020s. 
 
-On the one hand, the tool should allow to solve industrial problems under stringent efficiency (@sec-srs-efficiency) and quality (@sec-srs-qa) requirements. It is therefore mandatory to be able to assess the source code for
+On the one hand, the tool should allow to solve industrial problems under stringent efficiency ([section @sec-srs-efficiency]) and quality ([section @sec-srs-qa]) requirements. It is therefore mandatory to be able to assess the source code for
 
  * independent verification, and/or
  * performance profiling, and/or
@@ -12,4 +12,4 @@ On the one hand, the tool should allow to solve industrial problems under string
 by qualified third parties from all around the world.
 Hence, it has to be _open source_ according to the definition of the Open Source Initiative.
 
-On the other hand, the initial version of the tool is expected to provide a basic functionality which might be extended (@sec-srs-objective and @sec-srs-extensibility) by academic researchers and/or professional programmers. It thus should also be _free_---in the sense of freedom, not in the sense of price---as defined by the Free Software Foundation. There is no requirement on the pricing scheme, which is up to the vendor to define in the offer along with the detailed licensing terms. These should allow users to solve their problems the way they need and, eventually, to modify and improve the tool to suit their needs. If they cannot program themselves, they should have the _freedom_ to hire somebody to do it for them.
+On the other hand, the initial version of the tool is expected to provide a basic functionality which might be extended ([section @sec-srs-objective] and [section @sec-srs-extensibility]) by academic researchers and/or professional programmers. It thus should also be _free_---in the sense of freedom, not in the sense of price---as defined by the Free Software Foundation. There is no requirement on the pricing scheme, which is up to the vendor to define in the offer along with the detailed licensing terms. These should allow users to solve their problems the way they need and, eventually, to modify and improve the tool to suit their needs. If they cannot program themselves, they should have the _freedom_ to hire somebody to do it for them.

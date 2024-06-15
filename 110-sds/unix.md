@@ -33,7 +33,7 @@ On the one hand, it relies on third-party high-quality libraries to do the heavy
 because these libraries were written by professional programmers using algorithms designed by professional mathematicians.
 Yet-to-be-discovered improved mathematical schemes and/or coding algorithms can be eventually used by FeenoX by just updating those dependencies, which for sure will keep their well-defined interfaces (because they are programmed by professional programmers).
 
-Moreover, the extensibility feature ([section @sec-unix-extensibility)] of having each PDE in separate directories which can be added or removed at compile time without changing any line of the source code goes into this direction as well.
+Moreover, the extensibility feature ([section @sec-unix-extensibility]) of having each PDE in separate directories which can be added or removed at compile time without changing any line of the source code goes into this direction as well.
 Relying of C function pointers allows (in principle) to replace these "virtual" methods with other ones using the same interface.
 
 > Note that our (human) languages in general and words in particular shape and limit the way we think.
@@ -59,7 +59,7 @@ The two illustrative cases are the NAFEMS [LE10](https://www.seamplex.com/feenox
 > Developers should write programs that can communicate easily with other programs. This rule aims to allow developers to break down projects into small, simple programs rather than overly complex monolithic programs.
 
 Previous designs of FeenoX' predecessors used to include instructions to perform parametric sweeps( and even optimization loops), non-trivial macro expansions using M4 and even execution of arbitrary shell commands. These non-trivial operations were removed from FeenoX to focus on the rule of composition, paying especially attention to easing the inclusion of calling the `feenox` binary from shell scripts, enforcing the composition with other Unix-like tools.
-Emphasis has been put on adding flexibility to programmatic generation of input files (see also rule of generation in [section @sec-unix-generation)] and the handling and expansion of command-line arguments to increase the composition with other programs.
+Emphasis has been put on adding flexibility to programmatic generation of input files (see also rule of generation in [section @sec-unix-generation]) and the handling and expansion of command-line arguments to increase the composition with other programs.
 
 Moreover, the output is 100% controlled by the user at run-time so it can be tailored to suit any other programs’ input needs as well.
 An illustrative example is [creating professional-looking tables with results using AWK & LaTeX](https://www.seamplex.com/feenox/sds.html#sec-interoperability).
@@ -105,7 +105,7 @@ Instead, in FeenoX, these type of runs have to be driven from an outer script (B
 
 > Developers should design for visibility and discoverability by writing in a way that their thought process can lucidly be seen by future developers working on the project and using input and output formats that make it easy to identify valid input and correct output. This rule aims to reduce debugging time and extend the lifespan of programs.
 
-As with the rule of clarity ([section @sec-unix-clarity)], there is a risk of falling into the confirmation bias because every programmer thinks its code is transparent.
+As with the rule of clarity ([section @sec-unix-clarity]), there is a risk of falling into the confirmation bias because every programmer thinks its code is transparent.
 Anyway, FeenoX is written in C99 which is way easier to debug than both Fortran and C++.
 Yet, very much like PETSc, FeenoX makes use of structures and function pointers to give the same functionality as C++’s virtual methods without needing to introduce other complexities that make the code base harder to maintain and to debug.
 

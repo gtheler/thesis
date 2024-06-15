@@ -20,7 +20,7 @@ Bitmapped, meshed and solved mazes.
 
  2. Create a maze
  
- 3. Download it in PNG ([figure @fig-maze12)]
+ 3. Download it in PNG ([figure @fig-maze12])
  
  4. Perform some conversions
      - PNG $\rightarrow$ PNM $\rightarrow$ SVG $\rightarrow$ DXF $\rightarrow$ GEO
@@ -40,7 +40,7 @@ Bitmapped, meshed and solved mazes.
     - Add a surface
     - Set physical curves for "start" and "end"
     
- 6. Mesh it ([figure @fig-maze12)]
+ 6. Mesh it ([figure @fig-maze12])
  
     ```terminal
     gmsh -2 maze.geo
