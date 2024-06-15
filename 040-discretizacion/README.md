@@ -2,20 +2,9 @@
 
 ::::: {.chapterquote data-latex=""}
 ::: {lang=en-US}
-> The miracle of the appropriateness of the language of mathematics for the formulation
-> of the laws of physics is a wonderful gift which we neither understand nor deserve.
-> We should be grateful for it and hope that it will remain valid in future research that
-> it will extend, for better, or for worse, to our pleasure, even though perhaps also
-> to our bafflement, to wide branches of learning.
+> You can know a great deal about something without writing about it. Can you ever know so much that you wouldn't learn more from trying to explain what you know? I don't think so. I've written about at least two subjects I know well---Lisp hacking and startups---and in both cases I learned a lot from writing about them.^[Machinery and circuits are formal languages.] In both cases there were things I didn't consciously realize till I had to explain them. And I don't think my experience was anomalous. A great deal of knowledge is unconscious, and experts have if anything a higher proportion of unconscious knowledge than beginners.
 >
-> _Eugene Wigner_
-
-> I don't believe in the idea that there are a few peculiar people capable of understanding math and the rest of the world is normal.
-> Math is a human discovery, and it's no more complicated than humans can understand.
-> I had a calculus book once that said, 'What one fool can do, another can'
-> There's a tendency to pomposity in all this, to make it all [artificially] deep and profund.
-> 
-> _Richard Feynmann_
+> _Paul Graham, Putting Ideas into Words, 2022_
 
 > Boundary conditions tend to make the theory of PDEs difficult.
 >
@@ -1017,7 +1006,7 @@ para $i=2,\dots,N/2$.
 |          |                    |          | ```                |
 +----------+--------------------+----------+--------------------+
 
-: Triángulos de cuadratura de nivel simétrico indicando los puntos de igual peso^[Equivalentes a la figura 6.4 de la página 205 de @stammler y a la figura 4.3 de la página 161 de @lewis.] Los triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
+: Triángulos de cuadratura de nivel simétrico indicando los puntos de igual peso.^[Equivalentes a la figura 6.4 de la página 205 de @stammler y a la figura 4.3 de la página 161 de @lewis.] Las direcciones con el mismo número tienen el mismo peso. Estos triángulos fueron generados por la herramienta descripta en el [capítulo @sec-implementacion] por lo que es posible generar esta tabla para un $N$ arbitrario. {#tbl-triangulos}
 
 ::: {.remark}
 Si el primer coseno director $\mu_1$ es cercano a cero, las direcciones tienden a formar un cluster alrededor de los polos.
@@ -1115,7 +1104,7 @@ donde
 
 El cálculo detallado de los pesos está fuera del alcance de esta tesis.
 La herramienta computacional tiene cargados el primer coseno director de cada $N$ y los pesos reportados en las referencias [@lewis;@stammler].
-Consultar el código fuente para ver los detalles algorítmicos y numéricos.
+Consultar el código fuente de la implementación descripta en el [capítulo @sec-implementacion] para ver los detalles algorítmicos y numéricos.
 
 
 #### Dos dimensiones {#sec-dosdimensiones}
