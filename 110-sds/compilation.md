@@ -13,7 +13,7 @@ These detailed compilation instructions are aimed at `amd64` Debian-based GNU/Li
 
 Note that the quickest way to get started is to [download](https://www.seamplex.com/feenox/#download) an already-compiled statically-linked binary executable. Note that getting a binary is the quickest and easiest way to go but it is the less flexible one. Mind the following instructions if a binary-only option is not suitable for your workflow and/or you do need to compile the source code from scratch.
 
-On a GNU/Linux box (preferably Debian-based), follow these quick steps. See\ @sec-details for the actual detailed explanations.
+On a GNU/Linux box (preferably Debian-based), follow these quick steps. See\ [section @sec-details] for the actual detailed explanations.
 
 ```include
 git.md
@@ -25,7 +25,7 @@ The main target and development environment is [Debian\ GNU/Linux](https://www.d
 
 Following the Unix philosophy discussed in the [SDS](SDS.md), FeenoX re-uses a lot of already-existing high-quality free and open source libraries that implement a wide variety of mathematical operations. This leads to a number of dependencies that FeenoX needs in order to implement certain features.
 
-There is only one dependency that is mandatory, namely [GNU GSL](https://www.gnu.org/software/gsl/) (see\ @sec-gsl), which if it not found then FeenoX cannot be compiled. All other dependencies are optional, meaning that FeenoX can be compiled but its capabilities will be partially reduced.
+There is only one dependency that is mandatory, namely [GNU GSL](https://www.gnu.org/software/gsl/) (see\ [section @sec-gsl),] which if it not found then FeenoX cannot be compiled. All other dependencies are optional, meaning that FeenoX can be compiled but its capabilities will be partially reduced.
 
 As per the [SRS](SRS.md), all dependencies have to be available on mainstream GNU/Linux distributions and have to be free and open source software. But they can also be compiled from source in case the package repositories are not available or customized compilation flags are needed (i.e. optimization or debugging settings).
 
@@ -86,7 +86,7 @@ In absence of all these, FeenoX can still be used to
  
 
 These optional dependencies have to be installed separately. There is no option to have `configure` to download them as with `--enable-download-gsl`.
-When running the test suite (@sec-test-suite), those tests that need an optional dependency which was not found at compile time will be skipped.
+When running the test suite ([section @sec-test-suite),] those tests that need an optional dependency which was not found at compile time will be skipped.
 
 
 ### SUNDIALS
@@ -310,7 +310,7 @@ The [`test`](https://github.com/seamplex/feenox/tree/main/tests) directory conta
 ```
 ::::
 
-After compiling FeenoX as explained in\ @sec-compilation, the test suite can be run with `make check`. Ideally everything should be green meaning the tests passed:
+After compiling FeenoX as explained in\ [section @sec-compilation,] the test suite can be run with `make check`. Ideally everything should be green meaning the tests passed:
 
 ```terminal
 $ make check

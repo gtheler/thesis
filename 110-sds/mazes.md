@@ -5,7 +5,7 @@
 ![Homer trying to solve a maze on a placemat [during season four](https://en.wikipedia.org/wiki/Selma%27s_Choice).](maze-homer.png){#fig-maze-homer}
 
 Say you are [Homer J. Simpson](https://en.wikipedia.org/wiki/Homer_Simpson) and you want to [solve a maze drawn in a restaurant's placemat while driving to your wife's aunt funeral](https://en.wikipedia.org/wiki/Selma%27s_Choice).
-One where both the start and end points are known beforehand as show in @fig-maze-homer. In order to avoid falling into the alligator's mouth, you can exploit the ellipticity of the Laplacian operator to solve any maze (even a hand-drawn one) without needing any fancy AI or ML algorithm. Just FeenoX and a bunch of standard open source tools to convert a bitmapped picture of the maze into an unstructured mesh.
+One where both the start and end points are known beforehand as show in [figure @sec-maze-homer]. In order to avoid falling into the alligator's mouth, you can exploit the ellipticity of the Laplacian operator to solve any maze (even a hand-drawn one) without needing any fancy AI or ML algorithm. Just FeenoX and a bunch of standard open source tools to convert a bitmapped picture of the maze into an unstructured mesh.
 
 
 ::: {#fig-maze123 layout-ncol=2}
@@ -20,7 +20,7 @@ Bitmapped, meshed and solved mazes.
 
  2. Create a maze
  
- 3. Download it in PNG (@fig-maze12)
+ 3. Download it in PNG ([figure @sec-maze12)]
  
  4. Perform some conversions
      - PNG $\rightarrow$ PNM $\rightarrow$ SVG $\rightarrow$ DXF $\rightarrow$ GEO
@@ -40,7 +40,7 @@ Bitmapped, meshed and solved mazes.
     - Add a surface
     - Set physical curves for "start" and "end"
     
- 6. Mesh it (@fig-maze12)
+ 6. Mesh it ([figure @sec-maze12)]
  
     ```terminal
     gmsh -2 maze.geo

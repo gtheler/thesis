@@ -59,12 +59,12 @@ A subsequent road map and release plans can be designed as requested. FeenoX's f
  * structural modal analysis
  * multi-group neutron transport and diffusion
 
-@Sec-extensibility explains the mechanisms that FeenoX provides in order to add (or even remove) other types of problems  to be solved.
+[Section [section @sec-extensibility]] explains the mechanisms that FeenoX provides in order to add (or even remove) other types of problems  to be solved.
  
-Recalling that FeenoX is a “cloud-first” tool as explained in @sec-introduction, it is designed to be developed and executed primarily on [GNU/Linux](https://www.gnu.org/gnu/linux-and-gnu.html) hosts, which is the architecture of more than 90% of the internet servers which we collectively call “the public cloud.”
-It should be noted that GNU/Linux is a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant operating system which is compatible with [Unix](https://en.wikipedia.org/wiki/Unix), and that FeenoX was designed and implemented following the rules of Unix philosophy which is further explained in @sec-unix.
-Besides the POSIX standard, as explained below in @sec-scalability, FeenoX also uses [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface) which is a well-known industry standard for massive execution of parallel processes following the distributed-systems parallelization paradigm.
-Finally, if performance and/or scalability are not important issues, FeenoX can be run in a (properly cooled) local PC, laptop or even in embedded systems such as [Raspberry\ Pi](https://en.wikipedia.org/wiki/Raspberry_Pi) (see @sec-architecture).
+Recalling that FeenoX is a “cloud-first” tool as explained in [section @sec-introduction,] it is designed to be developed and executed primarily on [GNU/Linux](https://www.gnu.org/gnu/linux-and-gnu.html) hosts, which is the architecture of more than 90% of the internet servers which we collectively call “the public cloud.”
+It should be noted that GNU/Linux is a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant operating system which is compatible with [Unix](https://en.wikipedia.org/wiki/Unix), and that FeenoX was designed and implemented following the rules of Unix philosophy which is further explained in [section @sec-unix].
+Besides the POSIX standard, as explained below in [section @sec-scalability,] FeenoX also uses [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface) which is a well-known industry standard for massive execution of parallel processes following the distributed-systems parallelization paradigm.
+Finally, if performance and/or scalability are not important issues, FeenoX can be run in a (properly cooled) local PC, laptop or even in embedded systems such as [Raspberry\ Pi](https://en.wikipedia.org/wiki/Raspberry_Pi) (see [section @sec-architecture)].
 
 
 ## Scope {#sec-scope}
@@ -106,8 +106,8 @@ Keep in mind that even though both the quotes above and many finite-element prog
  * do insist on interactive input.
 
 There are other FEA tools that, even though born closer in time, also follow the above bullets literally.
-But FeenoX does not, since it follows the Unix philosophy in general and Eric Raymond's\ 17\ Unix Rules (@sec-unix) in particular.
-One of the main ideas is the _rule of separation_ (@sec-unix-separation) that essentially asks to separate mechanism from policy, that in the computational engineering world translates into separating the front end from the back end as illustrated in @fig-front-back.
+But FeenoX does not, since it follows the Unix philosophy in general and Eric Raymond's\ 17\ Unix Rules ([section @sec-unix)] in particular.
+One of the main ideas is the _rule of separation_ ([section @sec-unix-separation)] that essentially asks to separate mechanism from policy, that in the computational engineering world translates into separating the front end from the back end as illustrated in [figure @sec-front-back].
 
 When solving ordinary differential equations, the usual workflow involves solving them with FeenoX and plotting the results with Gnuplot or Pyxplot.
 When solving partial differential equations (PDEs), the mesh is created with Gmsh and the output can be post-processed with Gmsh, Paraview or any other post-processing system (even a web-based interface) that follows rule of separation.
@@ -159,7 +159,7 @@ Very much like the C language (after A & B) and Unix itself (after a first attem
 
 Feenox is indeed the third version written from scratch after a first implementation in 2009 (different small components with different names) and a second one (named wasora that allowed dynamically-shared plugins to be linked at runtime to provide particular PDEs) which was far more complex and had far more features circa 2012--2015. The third attempt, FeenoX, explicitly addresses the “do one thing well” idea from Unix. 
 
-Furthermore, not only is FeenoX itself both [free](https://www.gnu.org/philosophy/free-sw.en.html) and [open-source](https://opensource.com/resources/what-open-source) software but, following the _rule of composition_ (@sec-unix-composition), it also is designed to connect and to work with  other free and open source software such as
+Furthermore, not only is FeenoX itself both [free](https://www.gnu.org/philosophy/free-sw.en.html) and [open-source](https://opensource.com/resources/what-open-source) software but, following the _rule of composition_ ([section @sec-unix-composition),] it also is designed to connect and to work with  other free and open source software such as
 
  * [Gmsh](http://gmsh.info/) for pre and/or post-processing
  * [ParaView](https://www.paraview.org/) for post-processing
@@ -197,7 +197,7 @@ This way, FeenoX bounds its scope to do only one thing and to do it well: to bui
 
 
 FeenoX’s main development architecture is [Debian GNU/Linux](https://www.debian.org/) running over 64-bits Intel-compatible processors (but binaries for ARM architectures can be compiled as well).
-All the dependencies are free and/or open source and already available in Debian’s latest stable official repositories, as explained in @sec-deployment.
+All the dependencies are free and/or open source and already available in Debian’s latest stable official repositories, as explained in [section @sec-deployment].
 
 The POSIX standard is followed whenever possible, allowing thus FeenoX to be compiled in other operating systems and architectures such as Windows (using [Cygwin](https://www.cygwin.com/)) and MacOS. The build procedure is the well-known and mature `./configure && make` command. 
 
@@ -212,7 +212,7 @@ For PDEs, FeenoX uses [Argonne’s PETSc library](https://www.mcs.anl.gov/petsc/
  * actively developed and updated,
  * very well known both in the industry and academia.
 
-Moreover, PETSc and SLEPc are scalable through the [MPI standard](https://www.mcs.anl.gov/research/projects/mpi/standard.html), further discussed in @sec-scalability.
+Moreover, PETSc and SLEPc are scalable through the [MPI standard](https://www.mcs.anl.gov/research/projects/mpi/standard.html), further discussed in [section @sec-scalability].
 This means that programs using both these libraries can run on either large high-performance supercomputers or low-end laptops. FeenoX has been run on
 
  - Raspberry Pi
@@ -224,7 +224,7 @@ This means that programs using both these libraries can run on either large high
  - Docker/Kubernetes containers
  - AWS/DigitalOcean/Contabo instances
 
-Due to the way that FeenoX is designed and the policy separated from the mechanism, it is possible to control a running instance remotely from a separate client which can eventually run on a mobile device ([@fig-caeplex-ipad,@fig-nafems-le10-caeplex]).
+Due to the way that FeenoX is designed and the policy separated from the mechanism, it is possible to control a running instance remotely from a separate client which can eventually run on a mobile device ([[figure @sec-caeplex-ipad,@fig-nafems-le10-caeplex])].
 
 The following example illustrates how well FeenoX works as one of many links in a chain that goes from tracing a bitmap with the problem's geometry down to creating a nice figure with the results of a computation.
 
@@ -239,7 +239,7 @@ mazes.md
 > ```
 
 
-As already stated, FeenoX can be compiled from its sources using the well-established `configure` & `make` procedure. The code’s source tree is hosted on Github so cloning the repository is the preferred way to obtain FeenoX, but source tarballs are periodically released too according to the requirements in @sec-traceability.
+As already stated, FeenoX can be compiled from its sources using the well-established `configure` & `make` procedure. The code’s source tree is hosted on Github so cloning the repository is the preferred way to obtain FeenoX, but source tarballs are periodically released too according to the requirements in [section @sec-traceability].
 There are also non-official binary `.deb` packages which can be installed with `apt` using a custom package repository location.
 
 The configuration and compilation is based on [GNU Autotools](https://www.gnu.org/software/automake/manual/html_node/Autotools-Introduction.html) that has more than thirty years of maturity and it is the most portable way of compiling C code in a wide variety of Unix variants. It has been tested with
@@ -248,7 +248,7 @@ The configuration and compilation is based on [GNU Autotools](https://www.gnu.or
  * [LLVM Clang compiler](http://clang.org/) (free)
  * [Intel oneAPI C compiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html) (privative)
 
-FeenoX depends on the four open source libraries stated in @sec-architecture, although the last three of them are optional. The only mandatory library is the GNU Scientific Library which is part of the GNU/Linux operating system and as such is readily available in all distributions as `libgsl-dev`. The sources of the rest of the optional libraries are also widely available in most common GNU/Linux distributions.
+FeenoX depends on the four open source libraries stated in [section @sec-architecture,] although the last three of them are optional. The only mandatory library is the GNU Scientific Library which is part of the GNU/Linux operating system and as such is readily available in all distributions as `libgsl-dev`. The sources of the rest of the optional libraries are also widely available in most common GNU/Linux distributions.
 
 In effect, doing 
 
@@ -313,17 +313,17 @@ This way, deployment of the solver can be customized and tweaked as needed, incl
 > 220-execution.md
 > ```
 
-As requested by the SRS and explained in @sec-scope, FeenoX is a program that reads the problem to be solved at run-time and not a library that has to be linked against code that defines the problem.
+As requested by the SRS and explained in [section @sec-scope,] FeenoX is a program that reads the problem to be solved at run-time and not a library that has to be linked against code that defines the problem.
 Since FeenoX is designed to run as
 
  * a Unix filter, or
  * as a transfer function between input and output files
  
 and it explicitly avoids having a graphical interface, the binary executable works as any other Unix terminal command.
-Moreover, as discussed in @sec-scalability, FeenoX uses the MPI standard for parallelization among several hosts.
+Moreover, as discussed in [section @sec-scalability,] FeenoX uses the MPI standard for parallelization among several hosts.
 Therefore, it can be launched through the command [`mpiexec`](https://www.mpich.org/static/docs/v3.0.x/www1/mpiexec.html) ([or `mpirun`](https://stackoverflow.com/questions/25287981/mpiexec-vs-mpirun)).
 
-When invoked without arguments, it prints its version (a thorough explanation of the versioning scheme is given in @sec-traceability), a one-line description and the usage options:
+When invoked without arguments, it prints its version (a thorough explanation of the versioning scheme is given in [section @sec-traceability),] a one-line description and the usage options:
 
 ```terminal
 $ feenox
@@ -369,7 +369,7 @@ $
 ```
  
 FeenoX provides mechanisms to inform its progress by writing certain information to devices or files, which in turn can be monitored remotely or even trigger server actions. Progress can be as simple as an ASCII bar (triggered with `--progress` in the command line or with the keyword [`PROGRESS`](https://www.seamplex.com/feenox/feenox-manual.html#problem) in the input file) to more complex mechanisms like writing the status in a shared memory segment.
-@Fig-caeplex-progress shows how the [CAEplex](https://www.caeplex.com) platform shows the progress interactively in its web-based interface.
+[Figure @sec-caeplex-progress] shows how the [CAEplex](https://www.caeplex.com) platform shows the progress interactively in its web-based interface.
 
 ![ASCII progress bars parsed and converted into a web-based interface](caeplex-progress.png){#fig-caeplex-progress width_latex=65% width_html=100%}
 
@@ -485,7 +485,7 @@ It then calls FeenoX with the input above and passes `${element}` and `${c}` as 
 ```{.bash include="cantilever.sh"}
 ```
 
-After the execution of the script, thanks to the design decision (explained in @sec-output) that output is 100% defined by the user (in this case with the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) instruction), one has several files `cantilever-${element}.dat` files. When plotted, these show the shear locking effect of fully-integrated first-order elements as illustrated in @fig-cantilever-displacement. The theoretical [Euler-Bernoulli](https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory) result is just a reference as, among other things, it does not take into account the effect of the material's [Poisson's ratio](https://en.wikipedia.org/wiki/Poisson%27s_ratio).
+After the execution of the script, thanks to the design decision (explained in [section @sec-output)] that output is 100% defined by the user (in this case with the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) instruction), one has several files `cantilever-${element}.dat` files. When plotted, these show the shear locking effect of fully-integrated first-order elements as illustrated in [figure @sec-cantilever-displacement]. The theoretical [Euler-Bernoulli](https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory) result is just a reference as, among other things, it does not take into account the effect of the material's [Poisson's ratio](https://en.wikipedia.org/wiki/Poisson%27s_ratio).
 Note that the abscissa shows the number of _nodes_, which are proportional to the number of degrees of freedom (i.e. the size of the problem matrix) and not the number of _elements_, which is irrelevant here and in most problems.
 
 
@@ -497,12 +497,12 @@ Note that the abscissa shows the number of _nodes_, which are proportional to th
 Optimization loops work very much like parametric runs from the FeenoX point of view. The difference is mainly on the calling script that has to implement a certain optimization algorithm such as [conjugate gradients](https://en.wikipedia.org/wiki/Conjugate_gradient_method), [Nelder-Mead](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method), [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing), [genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), etc. to choose which parameters to pass to FeenoX as command-line argument.
 The only particularity on FeenoX's side is that since the next argument that the optimization loop will pass might depend on the result of the current step, care has to be taken in order to be able to return back to the calling script whatever results it needs in order to compute the next arguments. This is usually just the scalar being optimized for, but it can also include other results such as derivatives or other relevant data.
 
-To illustrate how to use FeenoX in an optimization loop, let us consider the problem of finding the length\ $\ell_1$ of a tuning fork (@fig-fork-meshed) such that the fundamental frequency on a free-free oscillation is equal to the base\ A frequency at\ 440\ Hz.
+To illustrate how to use FeenoX in an optimization loop, let us consider the problem of finding the length\ $\ell_1$ of a tuning fork ([figure @sec-fork-meshed)] such that the fundamental frequency on a free-free oscillation is equal to the base\ A frequency at\ 440\ Hz.
 
 
 ![What length\ $\ell_1$ is needed so the fork vibrates at 440\ Hz?](fork-meshed){#fig-fork-meshed width=20%}
 
-This extremely simple input file (_rule of simplicity_ @sec-unix-simplicity) solves the free-free mechanical modal problem (i.e. without any Dirichlet boundary condition) and prints the fundamental frequency:
+This extremely simple input file (_rule of simplicity_ [section @sec-unix-simplicity)] solves the free-free mechanical modal problem (i.e. without any Dirichlet boundary condition) and prints the fundamental frequency:
 
 ```{.feenox include="fork.fee"}
 ```
@@ -556,7 +556,7 @@ $
 
 Note that the approach used here is to use Gmsh Python API to build the mesh and then fork the FeenoX executable to solve the fork (no pun intended). There are plans to provide a Python API for FeenoX so the problem can be set up, solved and the results read back directly from the script instead of needing to do a fork+exec, read back the standard output as a string and then convert it to a Python `float`.
 
-@Fig-fork shows the results of the combination of the optimization loop over $\ell_1$ and a parametric run over\ $n$. The difference for $n=6$ and $n=7$ is in the order of one hundredth of millimeter.
+[Figure @sec-fork] shows the results of the combination of the optimization loop over $\ell_1$ and a parametric run over\ $n$. The difference for $n=6$ and $n=7$ is in the order of one hundredth of millimeter.
 
 
 
@@ -568,7 +568,7 @@ Note that the approach used here is to use Gmsh Python API to build the mesh and
 
 One of the most widely known quotations in computer science is that one that says “premature optimization is the root of all evil.” that is an extremely over-simplified version of [Donald E. Knuth’s](https://en.wikipedia.org/wiki/Donald_Knuth) analysis in his [The Art of Computer Programming](https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming). Bottom line is that the programmer should not not spend too much time trying to optimize code based on hunches but based on profiling measurements. Yet a disciplined programmer can tell when an algorithm will be way too inefficient (say something that scales up like $O(n^2)$) and how small changes can improve performance (say by understanding how caching levels work in order to implement faster nested loops). It is also true that usually an improvement in one aspect leads to a deterioration in another one (e.g. a decrease in CPU time by caching intermediate results in an increase of RAM usage).
 
-Even though FeenoX is still evolving so it could be premature in many cases, it is informative to compare running times and memory consumption when solving the same problem with different cloud-friendly FEA programs. In effect, a [serial single-thread single-host comparison of resource usage when solving the NAFEMS LE10 problem](https://seamplex.com/feenox/tests/nafems/le10/) introduced above was performed, using both [unstructured tetrahedral](https://www.seamplex.com/feenox/tests/nafems/le10/report-tet.html) and [structured hexahedral](https://www.seamplex.com/feenox/tests/nafems/le10/report-hex.html) meshes. @Fig-le10-tet shows two figures of the many ones contained in the detailed report. In general, FeenoX using the iterative approach based on PETSc’s Geometric-Algebraic Multigrid Preconditioner  and a conjugate gradients solver is faster for (relatively) large problems at the expense of a larger memory consumption. The curves that use MUMPS confirm the well-known theoretical result that direct linear solvers are robust but not scalable. 
+Even though FeenoX is still evolving so it could be premature in many cases, it is informative to compare running times and memory consumption when solving the same problem with different cloud-friendly FEA programs. In effect, a [serial single-thread single-host comparison of resource usage when solving the NAFEMS LE10 problem](https://seamplex.com/feenox/tests/nafems/le10/) introduced above was performed, using both [unstructured tetrahedral](https://www.seamplex.com/feenox/tests/nafems/le10/report-tet.html) and [structured hexahedral](https://www.seamplex.com/feenox/tests/nafems/le10/report-hex.html) meshes. [Figure @sec-le10-tet] shows two figures of the many ones contained in the detailed report. In general, FeenoX using the iterative approach based on PETSc’s Geometric-Algebraic Multigrid Preconditioner  and a conjugate gradients solver is faster for (relatively) large problems at the expense of a larger memory consumption. The curves that use MUMPS confirm the well-known theoretical result that direct linear solvers are robust but not scalable. 
 
 
 ::: {#fig-le10-tet layout-ncol=2}
@@ -643,7 +643,7 @@ This scheme would allow to solve a problem in parallel where the CPU and RAM loa
 ![Gmsh's tutorial `t21`: two squares decomposed in 6 partitions.](t21){#fig-t21 width=90%}
 
 We can used Gmsh's tutorial `t21` that illustrated the concept of domain decomposition (DDM) to show another aspect of how MPI parallelization works in FeenoX.
-In effect, let us consider the mesh from @fig-t21 that consists of two non-dimensional squares of size $1 \times 1$ and let us say we want to compute the integral of the constant 1 over the surface to obtain the numerical result 2.
+In effect, let us consider the mesh from [figure @sec-t21] that consists of two non-dimensional squares of size $1 \times 1$ and let us say we want to compute the integral of the constant 1 over the surface to obtain the numerical result 2.
 
 ```feenox
 READ_MESH t21.msh
@@ -801,8 +801,8 @@ $
 > 250-flexibility.md
 > ```
 
-The third-system effect mentioned in @sec-architecture involves more than ten years of experience in the nuclear industry,^[This experience also shaped many of the features that FeenoX has and most of the features is does deliberately not have.] where complex dependencies of multiple material properties over space through intermediate distributions (temperature, neutronic poisons, etc.) and time (control rod positions, fuel burn-up, etc.) are mandatory.
-One of the cornerstone design decisions in FeenoX is that **everything is an expression** (@sec-expression). Here, “everything” means any location in the input file where a numerical value is expected. The most common use case is in the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) keyword. For example, the [Sophomore's dream](https://en.wikipedia.org/wiki/Sophomore%27s_dream) (in contrast to [Freshman's dream](https://en.wikipedia.org/wiki/Freshman%27s_dream)) identity
+The third-system effect mentioned in [section @sec-architecture] involves more than ten years of experience in the nuclear industry,^[This experience also shaped many of the features that FeenoX has and most of the features is does deliberately not have.] where complex dependencies of multiple material properties over space through intermediate distributions (temperature, neutronic poisons, etc.) and time (control rod positions, fuel burn-up, etc.) are mandatory.
+One of the cornerstone design decisions in FeenoX is that **everything is an expression** ([section @sec-expression)]. Here, “everything” means any location in the input file where a numerical value is expected. The most common use case is in the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) keyword. For example, the [Sophomore's dream](https://en.wikipedia.org/wiki/Sophomore%27s_dream) (in contrast to [Freshman's dream](https://en.wikipedia.org/wiki/Freshman%27s_dream)) identity
 
 
 $$
@@ -821,9 +821,9 @@ $ feenox sophomore.fee
 $
 ```
 
-Of course most engineering problems will not need explicit integrals---although a few of them do---but some might need summation loops, so it is handy to have these functionals available inside the FEA tool. This might seem to go against the “keep it simple” and “do one thing good” Unix principle, but definitely follows [Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)’s idea that “simple things should be simple, complex things should be possible” (further discussion in\ @sec-complex).
+Of course most engineering problems will not need explicit integrals---although a few of them do---but some might need summation loops, so it is handy to have these functionals available inside the FEA tool. This might seem to go against the “keep it simple” and “do one thing good” Unix principle, but definitely follows [Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)’s idea that “simple things should be simple, complex things should be possible” (further discussion in\ [section @sec-complex)].
 
-Flexibility in defining non-trivial material properties is illustrated with the following example, where two squares made of different dimensionless materials are juxtaposed in thermal contact (glued?) and subject to different boundary conditions at each of the four sides (@fig-two-squares-mesh).
+Flexibility in defining non-trivial material properties is illustrated with the following example, where two squares made of different dimensionless materials are juxtaposed in thermal contact (glued?) and subject to different boundary conditions at each of the four sides ([figure @sec-two-squares-mesh)].
 
 ![Two non-dimensional $1 \times 1$ squares each in thermal contact made of different materials.](two-squares-mesh){#fig-two-squares-mesh width_latex=75% width_html=100%}
 
@@ -912,7 +912,7 @@ $
 ![Temperature vs. time at three axial locations for the NAFEMS\ T3 benchmark](nafems-t3){#fig-nafems-t3 width=100%}
 
 
-Besides “everything is an expression,” FeenoX follows another cornerstone rule: **simple problems ought to have simple inputs**, akin to Unix’ _rule of simplicity_---that addresses the first half of Alan Kay’s quote above. This rule is further discussed in @sec-input.
+Besides “everything is an expression,” FeenoX follows another cornerstone rule: **simple problems ought to have simple inputs**, akin to Unix’ _rule of simplicity_---that addresses the first half of Alan Kay’s quote above. This rule is further discussed in [section @sec-input].
 
 
 ## Extensibility {#sec-extensibility}
@@ -998,7 +998,7 @@ make[1]: Leaving directory '/home/gtheler/tmp/feenox'
 ~/tmp/feenox$
 ```
 
-Now if we wanted to run the thermal problem with the two juxtaposed squares from\ @sec-flexibility above, the "temporary" FeenoX would complain.
+Now if we wanted to run the thermal problem with the two juxtaposed squares from\ [section @sec-flexibility] above, the "temporary" FeenoX would complain.
 But it would still be able solve the [NAFEMS\ LE10 problem](https://www.seamplex.com/feenox/examples/#nafems-le10-thick-plate-pressure-benchmark) problem right away:
 
 ```terminal
@@ -1027,7 +1027,7 @@ Besides removals, additions---which are also handled by `autogen.sh` as describe
 Additional elliptic problems can be added by using the `laplace` directory as a template while using the other directories as examples about how to add further features (e.g. a Robin-type boundary condition in `thermal` and a vector-valued unknown in `mechanical`).
 More information can be found in the [FeenoX programming & contributing](https://www.seamplex.com/feenox/#programming-and-contributing) section.
 
-As already discussed in @sec-introduction, FeenoX is [free-as-in-freedom](https://en.wikipedia.org/wiki/Free_as_in_Freedom) software licensed under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0) version\ 3 or, at the user convenience, any later version.
+As already discussed in [section @sec-introduction,] FeenoX is [free-as-in-freedom](https://en.wikipedia.org/wiki/Free_as_in_Freedom) software licensed under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0) version\ 3 or, at the user convenience, any later version.
 In the particular case of additions to the code base, this fact has two implications.
 
  i. Every person in the world is _free_ to modify FeenoX to suit their needs, including adding a new problem type either by
@@ -1050,13 +1050,13 @@ Following the same principle, new models can be added by adding new routines and
 > 270-interoperatibility.md
 > ```
 
-@Sec-scope already introduced the ideas about interoperability behind the Unix philosophy which make up for most the the FeenoX design basis. Essentially, they sum up to “do only one thing but do it well.” Since FeenoX is  filter (or a transfer-function), interoperability is a must. So far, this SDS has already shown examples of exchanging information with:
+[Section [section @sec-scope]] already introduced the ideas about interoperability behind the Unix philosophy which make up for most the the FeenoX design basis. Essentially, they sum up to “do only one thing but do it well.” Since FeenoX is  filter (or a transfer-function), interoperability is a must. So far, this SDS has already shown examples of exchanging information with:
 
- * [Kate](https://kate-editor.org/) (with syntax highlighting): @fig-nafems-le10-problem-input
- * [Gmsh](http://gmsh.info/) (both as a mesher and a post-processor): [@fig-maze123;@fig-mazes;@fig-cantilever-mesh;@fig-fork-meshed;@fig-two-squares-mesh;@fig-two-squares-results]
- * [Paraview](https://www.paraview.org/): @fig-nafems-le10-sigmay
- * [Gnuplot](http://gnuplot.info/): [@fig-lorenz-gnuplot;@fig-le10-tet]
- * [Pyxplot](http://www.pyxplot.org.uk/): [@fig-cantilever-displacement;@fig-fork;@fig-nafems-t3]
+ * [Kate](https://kate-editor.org/) (with syntax highlighting): [figure @sec-nafems-le10-problem-input]
+ * [Gmsh](http://gmsh.info/) (both as a mesher and a post-processor): [[figure @sec-maze123;@fig-mazes;@fig-cantilever-mesh;@fig-fork-meshed;@fig-two-squares-mesh;@fig-two-squares-results]]
+ * [Paraview](https://www.paraview.org/): [figure @sec-nafems-le10-sigmay]
+ * [Gnuplot](http://gnuplot.info/): [[figure @sec-lorenz-gnuplot;@fig-le10-tet]]
+ * [Pyxplot](http://www.pyxplot.org.uk/): [[figure @sec-cantilever-displacement;@fig-fork;@fig-nafems-t3]]
 
  
 To illustrate this approach, consider the following input file that solves Laplace’s equation $\nabla^2 \phi = 0$ on a square with some space-dependent boundary conditions. Either Gmsh or Paraview can be used to post-process the results:
@@ -1065,7 +1065,7 @@ To illustrate this approach, consider the following input file that solves Lapla
 laplace.md
 ```
 
-A great deal of FeenoX interoperability capabilities comes from another design decision: **output is 100% controlled by the user** (further discussed in @sec-output), a.k.a. “no [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print), no OUTPUT” whose corollary is the Unix _rule of silence_ (@sec-unix-silence).
+A great deal of FeenoX interoperability capabilities comes from another design decision: **output is 100% controlled by the user** (further discussed in [section @sec-output),] a.k.a. “no [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print), no OUTPUT” whose corollary is the Unix _rule of silence_ ([section @sec-unix-silence)].
 The following input file computes the natural frequencies of oscillation of a cantilevered wire both using the Euler-Bernoulli theory and finite elements. It writes a [Gihub-formatted markdown table](https://github.github.com/gfm/#tables-extension-) into the standard output which is then piped to [Pandoc](https://pandoc.org/) and then converted to HTML:
 
 ```{.feenox include="wire.fee"}
@@ -1154,8 +1154,8 @@ This is not a requirement from the SRS, but is indeed a nice-to-have feature.
 > 300-interfaces.md
 > ```
 
-FeenoX is provided as a console-only executable (recall it is a program, not a library) which can be run remotely through the mechanisms discussed in @sec-execution without any requirement such as graphical servers or special input devices.
-As already explained, when executed without any arguments, FeenoX writes a brief message with the version (further discussed in\ @sec-traceability) and the basic usage on the standard output and return to the calling shell with a return errorlevel zero:
+FeenoX is provided as a console-only executable (recall it is a program, not a library) which can be run remotely through the mechanisms discussed in [section @sec-execution] without any requirement such as graphical servers or special input devices.
+As already explained, when executed without any arguments, FeenoX writes a brief message with the version (further discussed in\ [section @sec-traceability)] and the basic usage on the standard output and return to the calling shell with a return errorlevel zero:
 
 ```terminal
 $ feenox 
@@ -1293,7 +1293,7 @@ $
 
 This way, the error line can easily be parsed with standard Unix tools like `grep` and `cut` or with a proper regular expression parser. Eventually, any error should be forwarded back to the initiating entity---which depending on the workflow can be a human or an automation script---in order for her/him/it to fix it.
 
-Following the _rule of repair_ (@sec-unix-repair), ill-defined input files with missing material properties or inconsistent boundary conditions are detected before the actual assembly of the matrix begins:
+Following the _rule of repair_ ([section @sec-unix-repair),] ill-defined input files with missing material properties or inconsistent boundary conditions are detected before the actual assembly of the matrix begins:
 
 ```terminal
 $ feenox thermal-1d-dirichlet-no-k.fee
@@ -1360,9 +1360,9 @@ $
 ```
 ::::
 
-Once again, these ASCII-based progress bars can be parsed by the calling entity and then present it back to the user. For example,\ @fig-caeplex-progress shows how the web-based GUI CAEplex shows progress inside an Onshape tab.
+Once again, these ASCII-based progress bars can be parsed by the calling entity and then present it back to the user. For example,\ [figure @sec-caeplex-progress] shows how the web-based GUI CAEplex shows progress inside an Onshape tab.
 
-Since FeenoX uses PETSc (and SLEPc), command-line options can be passed from FeenoX to PETSc. The only difference is that since FeenoX follows the POSIX standard regarding options and PETSc does not, double dashes are required instead of PETSc' single-dash approach. That is to say, instead of `-ksp_monitor` one would have to pass `--ksp_monitor` (see @sec-simple for details about the input files):
+Since FeenoX uses PETSc (and SLEPc), command-line options can be passed from FeenoX to PETSc. The only difference is that since FeenoX follows the POSIX standard regarding options and PETSc does not, double dashes are required instead of PETSc' single-dash approach. That is to say, instead of `-ksp_monitor` one would have to pass `--ksp_monitor` (see [section @sec-simple] for details about the input files):
 
 ```terminal
 $ feenox thermal-1d-dirichlet-uniform-k.fee --ksp_monitor
@@ -1396,7 +1396,7 @@ $ feenox thermal-1d-dirichlet-uniform-k.fee --ksp_monitor --mumps
 $
 ```
 
-An illustration of the usage of PETSc arguments and the fact that FeenoX automatically detects whether a problem is linear or not is given below. The case `thermal-1d-dirichlet-uniform-k.fee` is linear while the `two-squares.fee` from section\ @sec-flexibility is not. Therefore, an SNES monitor should give output for the latter but not for the former. In effect:
+An illustration of the usage of PETSc arguments and the fact that FeenoX automatically detects whether a problem is linear or not is given below. The case `thermal-1d-dirichlet-uniform-k.fee` is linear while the `two-squares.fee` from section\ [section @sec-flexibility] is not. Therefore, an SNES monitor should give output for the latter but not for the former. In effect:
 
 ```terminal
 $ feenox thermal-1d-dirichlet-uniform-k.fee --snes_monitor
@@ -1415,7 +1415,7 @@ $ feenox two-squares.fee --snes_monitor
 $
 ```
 
-As already explained in @sec-parametric, FeenoX supports run-time replacement arguments that get replaced verbatim in the input file. This feature is handy when the same problem has to be solved over different meshes, such as when investigating the $h$-convergence order over Gmsh's element scale factor `-clscale`:
+As already explained in [section @sec-parametric,] FeenoX supports run-time replacement arguments that get replaced verbatim in the input file. This feature is handy when the same problem has to be solved over different meshes, such as when investigating the $h$-convergence order over Gmsh's element scale factor `-clscale`:
 
 ```{.feenox include="thermal-1d-dirichlet-temperature-k-parametric.fee"}
 ```
@@ -1494,7 +1494,7 @@ that would either
  i. create an input file and run FeenoX in the back, or
  ii. successively call the FeenoX functions that define definitions and execute instructions (to be done).
  
-As already explained in\ @sec-introduction, the motto is “FeenoX is---in a certain sense---to desktop FEA programs  and libraries what Markdown is to Word and (La)TeX, respectively and _deliberately_.”
+As already explained in\ [section @sec-introduction,] the motto is “FeenoX is---in a certain sense---to desktop FEA programs  and libraries what Markdown is to Word and (La)TeX, respectively and _deliberately_.”
 Hence, the input files act as the Markdown source: instructions about what to do but not how to do it.
 
 The input files are indeed plain-text ASCII files with English-like keywords that fully define the problem.
@@ -1516,8 +1516,8 @@ The ultimate goal of FeenoX is to solve mathematical equations that are hard to 
 In particular, to integrate differential equations (recall that the first usable computer was named [ENIAC](https://en.wikipedia.org/wiki/ENIAC), which stands for Electronic Numerical Integrator and Computer).
 The input file format was designed as to how to ask the _computer_ what to _compute_.
 The syntax, based on keywords and alphanumerical arguments was chosen as to sit in the middle of the purely binary numerical system employed by digital computers^[Analog and quantum computers are out of the scope.] and the purely linguistical nature of human communication.
-The rationale behind its design is that an average user can peek a FeenoX input file and tell what it is asking the computer to compute, as already illustrated for the [NAFEMS\ LE10 problem](https://www.seamplex.com/feenox/examples/#nafems-le10-thick-plate-pressure-benchmark) in @fig-nafems-le10-problem-input.
-Even if the input files are created by a computer and not by a human, the code used to create a human-friendly input file will be human-friendlier than a code that writes only zeroes and ones as its output (that will become the input of another one following the Unix _rule of composition_ @sec-unix-composition).
+The rationale behind its design is that an average user can peek a FeenoX input file and tell what it is asking the computer to compute, as already illustrated for the [NAFEMS\ LE10 problem](https://www.seamplex.com/feenox/examples/#nafems-le10-thick-plate-pressure-benchmark) in [figure @sec-nafems-le10-problem-input].
+Even if the input files are created by a computer and not by a human, the code used to create a human-friendly input file will be human-friendlier than a code that writes only zeroes and ones as its output (that will become the input of another one following the Unix _rule of composition_ [section @sec-unix-composition)].
 
 
 The first argument not starting with a dash to the `feenox` executable is the path to the main input file.
@@ -1541,11 +1541,11 @@ t = 0.003;
 ```
 
 
-The input files are plain text files, either pure ASCII or UTF-8 (more details in @sec-git-friendliness).
+The input files are plain text files, either pure ASCII or UTF-8 (more details in [section @sec-git-friendliness)].
 In principle any extension (even no extension) can be used for the FeenoX input files.
 Throughout the FeenoX repository and documentation the extension `.fee` is used, which has a couple of advantages:
 
- 1. The `.fee` extension is detected by syntax-highlighting extensions for common editors (both graphical such as [Kate](https://kate-editor.org/) and cloud-friendly such as [Vim](https://www.vim.org/)) as illustrated in @fig-highlighting.
+ 1. The `.fee` extension is detected by syntax-highlighting extensions for common editors (both graphical such as [Kate](https://kate-editor.org/) and cloud-friendly such as [Vim](https://www.vim.org/)) as illustrated in [figure @sec-highlighting].
  2. The expression `$0` (or `${0}`) is expanded to the base name of the input file, i.e. the directory part (if present) is removed  and the `.fee` extension is removed. Therefore, 
  
     ```feenox
@@ -1660,7 +1660,7 @@ A discussion of the difference between linear and non-linear problems can be fou
 
 ### Complex things {#sec-complex}
 
-[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)’s idea that “simple things should be simple, complex things should be possible” has already been mentioned in @sec-flexibility.
+[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)’s idea that “simple things should be simple, complex things should be possible” has already been mentioned in [section @sec-flexibility].
 The first part of the quote was addressed in the previous section.
 Of course, complexity can scale up almost indefinitely so we cannot show an example right here.
 But the following repositories contain the scripts and input files (for Gmsh, FeenoX and other common Unix tools such as Sed and Awk) that solve non-trivial problems using FeenoX as the main tool and employing free and open source software only, both for the computation and for the creation of figures and result tables.
@@ -1701,13 +1701,13 @@ Refer to the READMEs in each repository for further details about the mathematic
  
 ### Everything is an expression {#sec-expression}
 
-As explained in the history of FeenoX (@sec-history), the first objective of the code was to solve ODEs written in an ASCII file as human-friendly as possible. So even before any other feature, the first thing the FeenoX ancestors had was an algebraic parser and evaluator.
+As explained in the history of FeenoX ([section @sec-history),] the first objective of the code was to solve ODEs written in an ASCII file as human-friendly as possible. So even before any other feature, the first thing the FeenoX ancestors had was an algebraic parser and evaluator.
 This was back in 2009, and I performed an online search before writing the whole thing from scratch.
 I found a nice post in Slack Overflow^[<http://stackoverflow.com/questions/1384811/code-golf-mathematical-expression-evaluator-that-respects-pemdas>] that discussed some cool ideas and even had some code published under the terms of the Creative Commons license.
 
 Besides ODEs, algebraic expressions are a must if one will be dealing with arbitrary functions in general and spatial distributions in particular---which is essentially what PDE solvers are for. If a piece of software wants to allow features ranging from comparing numerical results with analytical expression to converting material properties from a system of units to another one in a straightforward way for the user (either an actual human being or a computer creating an input file), it ought to be able to handle algebraic expressions. 
 
-Appropriately handling algebraic expressions leads to fulfilling the Unix rule of least surprise (@sec-unix-least-surprise). If the user needs to define a function $f(x) = 1/2 \cdot x^2$, all she has to do is write
+Appropriately handling algebraic expressions leads to fulfilling the Unix rule of least surprise ([section @sec-unix-least-surprise)]. If the user needs to define a function $f(x) = 1/2 \cdot x^2$, all she has to do is write
 
 ```feenox
 f(x) = 1/2 * x^2
@@ -1721,7 +1721,7 @@ PRINT integral(f(x), x, 0, 1)
 
 to be one third.
 
-Of course, expressions are needed to get 100%-user defined output (further discussed in\ @sec-output), as with the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) instruction above. 
+Of course, expressions are needed to get 100%-user defined output (further discussed in\ [section @sec-output),] as with the [`PRINT`](https://www.seamplex.com/feenox/feenox-manual.html#print) instruction above. 
 But once an algebraic parser and evaluator is available, it does not make sense to keep force the user to write numerical data only. What if a the angular speed is in RPM and the model needs it in radians per second? Instead of having to write `104.72`, FeenoX allows the user to write
 
 ```feenox
@@ -1766,7 +1766,7 @@ $$T(x,y)~[\text{ºC}] = 200 + 350 \cdot y$$
 ```{.feenox include="mechanical-square-temperature.fee"}
 ```
 
-By replacing `T(x,y) = 200 + 350*y` with `T(x,y) = 200` we can compare the results of the temperature-dependent case with the uniform-properties case (@fig-mechanical-square):
+By replacing `T(x,y) = 200 + 350*y` with `T(x,y) = 200` we can compare the results of the temperature-dependent case with the uniform-properties case ([figure @sec-mechanical-square):]
 
 ```terminal
 $ feenox mechanical-square-temperature.fee 
@@ -1792,15 +1792,15 @@ Mechanical plane-strain square with temperature-dependent Young modulus and comp
 :::
 
 
-In real applications this distribution\ $T(x,y)$ can be read from the output of an actual heat conduction problem. See @sec-non-conformal for a revisit of this case, reading the temperature from an unstructured triangular mesh instead of hard-coding it as an algebraic expression of space.
+In real applications this distribution\ $T(x,y)$ can be read from the output of an actual heat conduction problem. See [section @sec-non-conformal] for a revisit of this case, reading the temperature from an unstructured triangular mesh instead of hard-coding it as an algebraic expression of space.
 
 So remember, in FeenoX *everything is an expression*---especially temperature, as also shown in the next section.
 
 ### Matching formulations {#sec-matching-formulations}
 
 
-The [Lorenz’ dynamical system](http://en.wikipedia.org/wiki/Lorenz_system) system and the [NAFEMS\ LE10](https://www.nafems.org/publications/resource_center/p18/) benchmark problem, both discussed earlier in @sec-scope, illustrate how well the FeenoX input file matches the usual human-readable formulation of ODE or PDE problems.
-In effect, @fig-nafems-le10-problem-input shows there is a trivial one-to-one correspondence between the sections of the problem formulated in a sheet of paper and the text file `nafems-le10.fee`.
+The [Lorenz’ dynamical system](http://en.wikipedia.org/wiki/Lorenz_system) system and the [NAFEMS\ LE10](https://www.nafems.org/publications/resource_center/p18/) benchmark problem, both discussed earlier in [section @sec-scope,] illustrate how well the FeenoX input file matches the usual human-readable formulation of ODE or PDE problems.
+In effect, [figure @sec-nafems-le10-problem-input] shows there is a trivial one-to-one correspondence between the sections of the problem formulated in a sheet of paper and the text file `nafems-le10.fee`.
 The same effect can be seen in the NAFEMS LE11 problem, which involves a temperature distribution given as an algebraic expression of $\vec{x}$:
 
 ```include
@@ -1882,7 +1882,7 @@ $
 
 Something similar could have been done for two groups of energy, although the equations get a little bit more complex so we leave it as an example in the Git repository.
 
-A notable non-trivial thermo-mechanical problem that nevertheless has an analytical solution for the displacement field is the  [“Parallelepiped whose Young’s modulus is a function of the temperature”](https://www.seamplex.com/feenox/examples/#parallelepiped-whose-youngs-modulus-is-a-function-of-the-temperature) (@fig-parallelepiped).
+A notable non-trivial thermo-mechanical problem that nevertheless has an analytical solution for the displacement field is the  [“Parallelepiped whose Young’s modulus is a function of the temperature”](https://www.seamplex.com/feenox/examples/#parallelepiped-whose-youngs-modulus-is-a-function-of-the-temperature) ([figure @sec-parallelepiped)].
 The problem consists of finding the non-dimensional temperature\ $T$ and displacements\ $u$, $v$
 and $w$ distributions within a solid parallelepiped of length\ $\ell$ whose base is a square of $h\times h$.
 The solid is subject to heat fluxes and to a traction pressure at the same time.
@@ -1954,9 +1954,9 @@ Then, the mechanical problem reads two meshes: one for solving the actual mechan
 
 ### Run-time arguments {#sec-run-time-arguments}
 
-The usage of run-time command-line arguments was illustrated in @sec-parametric.
+The usage of run-time command-line arguments was illustrated in [section @sec-parametric].
 The idea is that if the expression `$n` (or `${n}`) is found in the input file, the FeenoX parser expands the expression literally as the $n$-th non-optional argument in the command line.
-The case $n=0$ is particular in the sense that, as explained in @sec-sugar, expands to the name of the input file without the leading directory path and the trailing extension `.fee`.
+The case $n=0$ is particular in the sense that, as explained in [section @sec-sugar,] expands to the name of the input file without the leading directory path and the trailing extension `.fee`.
 
 The definition [`DEFAULT_ARGUMENT_VALUE`](https://www.seamplex.com/feenox/feenox-manual.html#default_argument_value) can be used to give a default value for arguments not provided.
 otherwise, FeenoX would complain:
@@ -2035,7 +2035,7 @@ This means that they can be tracked with Git or any other version control system
  a. Gmsh, that can either use ASCII input files as well or be used as an API from C, C++, Python and Julia, and
  b. Other scripting languages such as Bash, Python or even AWK, whose input files are ASCII files as well,
  
-makes it possible to track a whole computation using FeenoX as a Git repository, as already exemplified in @sec-complex.
+makes it possible to track a whole computation using FeenoX as a Git repository, as already exemplified in [section @sec-complex].
 It is important to note that what files that should be tracked in Git include
 
  1. READMEs and documentation in Markdown
@@ -2051,7 +2051,7 @@ Files that should not be tracked include
 
 since in principle they could be generated from the files in the Git repository by executing the scripts, Gmsh and/or FeenoX.
 
-Even more, in some cases, the FeenoX input files---following the Unix rule of generation @sec-unix-generation--can be created out of generic macros that create particular cases. For example, say one has a mesh of a fin-based dissipator where all the surfaces are named `surf_1_`$i$ for $i=1,...,26$. All of them will have a convection boundary condition while surface number\ 6 is the one that is attached to the electronic part that has to be cooled. Instead of having to "manually" giving the list of surfaces that have the convection condition, we can use M4 to do it for us:
+Even more, in some cases, the FeenoX input files---following the Unix rule of generation [section @sec-unix-generation--can] be created out of generic macros that create particular cases. For example, say one has a mesh of a fin-based dissipator where all the surfaces are named `surf_1_`$i$ for $i=1,...,26$. All of them will have a convection boundary condition while surface number\ 6 is the one that is attached to the electronic part that has to be cooled. Instead of having to "manually" giving the list of surfaces that have the convection condition, we can use M4 to do it for us:
 
 ```{.feenox include="fins.fee.m4"}
 ```
@@ -2063,13 +2063,13 @@ $ m4 fins.fee.m4 | feenox -
 $
 ```
 
-@Fig-fins-temperature confirms that all the faces have the right boundary conditions: face number six got the power BC and all the rest got the convection BC.
+[Figure @sec-fins-temperature] confirms that all the faces have the right boundary conditions: face number six got the power BC and all the rest got the convection BC.
 
 ![Temperature distribution in a fin dissipator where all the faces have a convection BC except one that has a fixed heat flux of $q'' = 1,000 \text{W} \cdot \text{m}^{-2}$.](fins-temp.png){#fig-fins-temperature}
 
 
 
-Besides being ASCII files, should special characters be needed for any reason within a particular application of FeenoX, UTF-8 characters can be used natively as illustrated in @fig-utf-8.
+Besides being ASCII files, should special characters be needed for any reason within a particular application of FeenoX, UTF-8 characters can be used natively as illustrated in [figure @sec-utf-8].
 
 ::: {#fig-utf-8 layout-ncol=2}
 ![UTF-8 in Kate](utf8-kate.png)
@@ -2097,7 +2097,7 @@ The output in FeenoX is 100% user defined, i.e. everything that FeenoX writes co
  * [`DUMP`](https://www.seamplex.com/feenox/feenox-manual.html#dump)
 
 In the absence of any of these instructions, FeenoX _will not_ write anything.
-Not in the standard output, not in any other file. Nothing (Unix rule of silence, @sec-unix-silence).
+Not in the standard output, not in any other file. Nothing (Unix rule of silence, [section @sec-unix-silence)].
 
  Computer | Monthly Rental  | Relative Speed | First Delivery 
 :----------------|:------------------------:|:-----------:|:-----------:
@@ -2185,7 +2185,7 @@ $
 ```
 
 In the same sense, in principle any ASCII-based format can be implemented this way.
-Markdown output, which can then be converted to other formats as well (such as LaTeX which can then create professionally-looking tables as in @fig-latex-tables), has been already covered in @sec-interoperability.
+Markdown output, which can then be converted to other formats as well (such as LaTeX which can then create professionally-looking tables as in [figure @sec-latex-tables),] has been already covered in [section @sec-interoperability].
 
 Current version can write space and time-dependent distributions into Gmsh's `.msh` and VTK's `.vtk` formats.
 Both of them are open standard and have open-source readers.
@@ -2194,7 +2194,7 @@ Other formats such as VTK's `.vtu` or CalculiX's `.frd` should be easy to add, b
 
 ### Data exchange between non-conformal meshes {#sec-non-conformal}
 
-To illustrate how the output of a FeenoX execution can be read by another FeenoX instance, let us revisit the plane-strain square from @sec-expression. This time, instead of setting the temperature with an algebraic expression, we will solve a thermal problem that gives rise to the same temperature distribution but on a different mesh.
+To illustrate how the output of a FeenoX execution can be read by another FeenoX instance, let us revisit the plane-strain square from [section @sec-expression]. This time, instead of setting the temperature with an algebraic expression, we will solve a thermal problem that gives rise to the same temperature distribution but on a different mesh.
 
 First, we solve a thermal problem on the same square\ $[-1,+1]\times[-1,+1]$ such that the resulting temperature field is $T(x,y) = 200 + 350\cdot y$:
 
@@ -2330,7 +2330,7 @@ The `autogen.sh` script builds this string at compile time, which is stored in a
 The major $m$ and minor $n$ integers are read from the git tag formatted as `vm.n`, which is bumped manually by adding an annotated tag to a particular commit. The revision is computed automatically with `git describe` as the number of commits in the main branch from the tag to the last commit. The hash is also added to avoid ambiguities in case the repository is forked and diverged from the official one.
 Periodically, source and binary tarballs are built (using automated scripts in the `dist` subdirectory) and published online.
 
-Given the input-file scheme thoroughfully explained in @sec-input---especially the separation of the problem formulation from the mesh data--the input files can be tracked with Git (or any other VCS) as well, therefore enhancing traceability of results and data governance.
+Given the input-file scheme thoroughfully explained in [section @sec-input---especially] the separation of the problem formulation from the mesh data--the input files can be tracked with Git (or any other VCS) as well, therefore enhancing traceability of results and data governance.
 Again, this might be obvious in the 2020s. But there are many FEM solvers which mix the mesh data with the problem definition (e.g. when external loads have to be given at the nodes instead of using expressions like `p=rho*g*z` or `Fx=1e3`).
 
 ## Automated testing {#sec-testing}
@@ -2409,7 +2409,7 @@ $
 > 430-bugs.md
 > ```
 
-The Github Issues feature at <https://github.com/seamplex/feenox/issues> is used to report and track bugs and errors (@fig-github-issues).
+The Github Issues feature at <https://github.com/seamplex/feenox/issues> is used to report and track bugs and errors ([figure @sec-github-issues)].
 
 ![Github Issues for FeenoX](issues.png){#fig-github-issues}
 
@@ -2424,7 +2424,7 @@ According to Eric Raymond's book "The Art of Unix Programming":
 
 > Compactness is the property that a design can fit inside a human being's head. A good practical test for compactness is this: Does an experienced user normally need a manual? If not, then the design (or at least the subset of it that covers normal use) is compact.
 
-Following to 20-80 rule, we could say that FeenoX is compact for 80% of its usage. But the most complex 20% of the cases might need users (even the author) to look up the syntax of the definition and instructions in the manual page (illustrated in @fig-sds-manpage), which is accessible with `man feenox` after installing  with `make install`:
+Following to 20-80 rule, we could say that FeenoX is compact for 80% of its usage. But the most complex 20% of the cases might need users (even the author) to look up the syntax of the definition and instructions in the manual page (illustrated in [figure @sec-sds-manpage),] which is accessible with `man feenox` after installing  with `make install`:
 
 ```terminal
 $ man -k feenox
@@ -2482,7 +2482,7 @@ int feenox_parse_integrate(void) {
 [...]
 ```
 
-The script `reference.sh` would create the markdown snippet shown in @fig-integrate-md, which then can be converted to other output formats ([@fig-integrate-man; @fig-integrate-html; @fig-integrate-pdf]) for the final user (and author) to look up the syntax of the input keywords.
+The script `reference.sh` would create the markdown snippet shown in [figure @sec-integrate-md,] which then can be converted to other output formats ([[figure @sec-integrate-man;] [figure @sec-integrate-html;] [figure @sec-integrate-pdf])] for the final user (and author) to look up the syntax of the input keywords.
 
 ::: {#fig-integrate-doc layout-ncol=2}
 ![Markdown](integrate-md){#fig-integrate-md}

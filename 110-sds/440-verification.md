@@ -14,11 +14,11 @@ Another possibility is to follow the Method of Manufactured Solutions, which doe
 > commercial software, where some information is regarded as proprietary.
 > If the governing equations cannot be determined, we would question the validity of using the code.
 
-To enforce the availability of the governing equations, the tool has to be open source as required in @sec-srs-introduction and well documented as required in @sec-srs-documentation.
+To enforce the availability of the governing equations, the tool has to be open source as required in [section @sec-srs-introduction] and well documented as required in [section @sec-srs-documentation].
 
 
 A report following either the MES and/or MMS procedures has to be prepared for each type of equation that the tool can solve. The report should show how the numerical results converge to the exact or manufactured results with respect to the mesh size or number of degrees of freedom. This rate should then be compared to the theoretical expected order.
 
-Whenever a verification task is performed and documented, at least one of the cases should be added to the test suite. Even though the verification report must contain a parametric mesh study, a single-mesh case is enough to be added to the test suite. The objective of the tests defined in @sec-srs-testing is to be able to detect regressions which might have been inadvertently introduced in the code and not to do any actual verification.
+Whenever a verification task is performed and documented, at least one of the cases should be added to the test suite. Even though the verification report must contain a parametric mesh study, a single-mesh case is enough to be added to the test suite. The objective of the tests defined in [section @sec-srs-testing] is to be able to detect regressions which might have been inadvertently introduced in the code and not to do any actual verification.
 Therefore a single-mesh case is enough for the test suites.
 
