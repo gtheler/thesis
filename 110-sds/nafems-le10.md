@@ -1,5 +1,5 @@
 Let us solve the linear elasticity benchmark problem [NAFEMS\ LE10 “Thick plate pressure.”](https://www.seamplex.com/feenox/examples/mechanical.html#nafems-le10-thick-plate-pressure-benchmark) with FeenoX.
-Note the one-to-one correspondence between the human-friendly problem statement from [figure @sec-nafems-le10-problem-input] and the FeenoX input file:
+Note the one-to-one correspondence between the human-friendly problem statement from [figure @fig-nafems-le10-problem-input] and the FeenoX input file:
 
 ![The NAFEMS LE10 problem statement and the corresponding FeenoX input](nafems-le10-problem-input){#fig-nafems-le10-problem-input width_html=100% width_latex=100% width_texinfo=15cm} 
 

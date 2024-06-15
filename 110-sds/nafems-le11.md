@@ -1,4 +1,4 @@
-Let us consider the [NAFEMS\ LE11](https://www.nafems.org/publications/resource_center/p18/) benchmark problem titled “Solid cylinder/taper/sphere-temperature” stated in [figure @sec-nafems-le11-problem]. It consists of an axi-symmetrical geometry subject to thermal loading by a temperature distribution given by an algebraic expression. The material properties are linear, orthotropic and uniform. The boundary conditions prescribe symmetries in all directions.
+Let us consider the [NAFEMS\ LE11](https://www.nafems.org/publications/resource_center/p18/) benchmark problem titled “Solid cylinder/taper/sphere-temperature” stated in [figure @fig-nafems-le11-problem]. It consists of an axi-symmetrical geometry subject to thermal loading by a temperature distribution given by an algebraic expression. The material properties are linear, orthotropic and uniform. The boundary conditions prescribe symmetries in all directions.
 
 ![Formulation of the NAFEMS\ LE11 problem.](nafems-le11-problem.png){#fig-nafems-le11-problem width_html=100% width_latex=100% width_texinfo=15cm}
 

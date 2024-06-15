@@ -63,7 +63,7 @@ then it is expected nor to exist a one-size-fits-all solution able to handle all
 
 However, if the underlying computational tool has been carefully designed to be able to handle all these details and to be flexible enough to accommodate other eventual and/or unexpected requirements by design, then we say that the tool is "cloud first."
 Throughout this SDS we thoroughly explain the features of this particular cloud-first design.
-Indeed, FeenoX is essentially a back end which can work with a number of different front ends ([figure @sec-front-back),] including these thin clients and web-based interfaces ([figure @sec-caeplex-ipad)]
+Indeed, FeenoX is essentially a back end which can work with a number of different front ends ([figure @fig-front-back)], including these thin clients and web-based interfaces ([figure @fig-caeplex-ipad)]
 
 ![Conceptual illustration of the difference between a front end and a back end ©bluecoders.](front-back.png){#fig-front-back width=40%}
 

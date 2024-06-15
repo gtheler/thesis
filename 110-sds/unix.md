@@ -105,7 +105,7 @@ Instead, in FeenoX, these type of runs have to be driven from an outer script (B
 
 > Developers should design for visibility and discoverability by writing in a way that their thought process can lucidly be seen by future developers working on the project and using input and output formats that make it easy to identify valid input and correct output. This rule aims to reduce debugging time and extend the lifespan of programs.
 
-As with the rule of clarity ([section @sec-unix-clarity),] there is a risk of falling into the confirmation bias because every programmer thinks its code is transparent.
+As with the rule of clarity ([section @sec-unix-clarity)], there is a risk of falling into the confirmation bias because every programmer thinks its code is transparent.
 Anyway, FeenoX is written in C99 which is way easier to debug than both Fortran and C++.
 Yet, very much like PETSc, FeenoX makes use of structures and function pointers to give the same functionality as C++’s virtual methods without needing to introduce other complexities that make the code base harder to maintain and to debug.
 

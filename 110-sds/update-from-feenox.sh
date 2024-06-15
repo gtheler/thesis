@@ -44,10 +44,10 @@ sed -i 's/ec:/ec-/g' *.md
 sed -i 's/tbl:/tbl-/g' *.md
 
 # convert @sec-xxx to [section @sec-xxx]
-sed -i 's/@Sec-\([^. ]*\)/[Section @sec-\1]/g' *.md
-sed -i 's/@sec-\([^. ]*\)/[section @sec-\1]/g' *.md
-sed -i 's/@Fig-\([^. ]*\)/[Figure @sec-\1]/g' *.md
-sed -i 's/@fig-\([^. ]*\)/[figure @sec-\1]/g' *.md
+sed -i 's/@sec-\([^., ]*\)/[section @sec-\1]/g' *.md
+sed -i 's/@Sec-\([^., ]*\)/[Section @sec-\1]/g' *.md
+sed -i 's/@fig-\([^., ]*\)/[figure @fig-\1]/g' *.md
+sed -i 's/@Fig-\([^., ]*\)/[Figure @fig-\1]/g' *.md
 
 grep -v joss.05846/status FAQ.md > tmp
 mv tmp FAQ.md
