@@ -78,7 +78,7 @@ lc = b/n;
 La @fig-two-zone-slab-msh muestra la diferencia entre los dos casos i (no uniforme) y ii (uniforme) para $n=10$.
 Cuando $a=55$ (@fig-two-zone-slab-55), en la malla i hay cinco elementos en cada una de las dos zonas.
 Los elementos de la zona $A$ son ligeramente más grandes que los de la zona $B$.
-En la malla ii todos los elementos son iguales. Hay cinco elementos en la zona $A$, uno en la zona $AB$ y cuatro en la zona $A$.
+En la malla ii todos los elementos son iguales. Hay cinco elementos en la zona $A$, uno en la zona $AB$ y cuatro en la zona $B$.
 Para $a=72$ (@fig-two-zone-slab-72), hay siete elementos a la izquierda de $x=a$ y tres a la derecha en el caso i.
 En el caso ii, hay siete elementos en la zona $A$, uno en la zona $AB$ y dos en la zona $B$.
 
