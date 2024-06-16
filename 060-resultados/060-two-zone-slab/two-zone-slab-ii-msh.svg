@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1445pt" height="824pt" viewBox="0 0 1445 824">
+<title>two-zone-slab-ii-msh</title>
+<desc>
+Creator: GL2PS 1.4.3, (C) 1999-2020 C. Geuzaine
+For: Gmsh
+CreationDate: Sat Jun 15 22:23:25 2024
+</desc>
+<defs>
+</defs>
+<g>
+<circle fill="#5a5a5a" cx="127.101" cy="462.853" r="2"/>
+<circle fill="#5a5a5a" cx="868.701" cy="462.853" r="2"/>
+<circle fill="#5a5a5a" cx="974.644" cy="462.853" r="2"/>
+<circle fill="#5a5a5a" cx="1186.53" cy="462.853" r="2"/>
+<circle fill="#ffc800" cx="127.101" cy="462.853" r="8"/>
+<circle fill="#ff7800" cx="868.701" cy="462.853" r="8"/>
+<circle fill="#ff7800" cx="974.644" cy="462.853" r="8"/>
+<circle fill="#00d8ff" cx="1186.53" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="233.044" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="338.987" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="444.93" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="550.873" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="656.815" cy="462.853" r="8"/>
+<circle fill="#5da7cc" cx="762.758" cy="462.853" r="8"/>
+<circle fill="#a1d6cb" cx="1080.59" cy="462.853" r="8"/>
+<polyline fill="none" stroke="#5da7cc" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" points="127.101,462.853 233.044,462.853 338.987,462.853 444.93,462.853 550.873,462.853 656.815,462.853 762.758,462.853 868.701,462.853"/>
+<polyline fill="none" stroke="#ffeb80" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" points="868.701,462.853 974.644,462.853"/>
+<polyline fill="none" stroke="#a1d6cb" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" points="974.644,462.853 1080.59,462.853 1186.53,462.853"/>
+</g>
+</svg>

@@ -69,11 +69,26 @@ y luego el archivo `two-zone-slab-ii.geo`:
 Ambos necesitan un archivo `ab.geo` con la definición de las variables geométricas necesarias:
 
 ```geo
-a = 52;
+a = 55;
 b = 100;
 n = 10;
 lc = b/n;
 ```
+
+La @fig-two-zone-slab-msh muestra la diferencia entre los dos casos i (no uniforme) y ii (uniforme) para $n=10$.
+Cuando $a=55$ (@fig-two-zone-slab-55), en la malla i hay cinco elementos en cada una de las dos zonas.
+Los elementos de la zona $A$ son ligeramente más grandes que los de la zona $B$.
+En la malla ii todos los elementos son iguales. Hay cinco elementos en la zona $A$, uno en la zona $AB$ y cuatro en la zona $A$.
+Para $a=72$ (@fig-two-zone-slab-72), hay siete elementos a la izquierda de $x=a$ y tres a la derecha en el caso i.
+En el caso ii, hay siete elementos en la zona $A$, uno en la zona $AB$ y dos en la zona $B$.
+
+::: {#fig-two-zone-slab-msh layout="[1]"}
+![$a = 55$](two-zone-slab-55.svg){#fig-two-zone-slab-55 width=100%}
+
+![$a = 72$](two-zone-slab-72.svg){#fig-two-zone-slab-72 width=100%}
+
+Mallas i (arriba, no uniforme con dos materiales) y ii (abajo, uniforme con tres materiales) para $n=10$.
+:::
 
 Ahora preparamos este archivo de entrada de FeenoX que es de los más complicados (pero a la vez de los más flexibles) que hemos visto hasta el momento:
 

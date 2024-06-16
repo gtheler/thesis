@@ -10,9 +10,9 @@ Point(4) = {b, 0, 0, lc};
 Line(1) = {1, 2};
 Line(2) = {2, 3};
 Line(3) = {3, 4};
-Physical Line("A") = {1};
-Physical Line("AB") = {2};
-Physical Line("B") = {3};
+Physical Line("A", 1) = {1};
+Physical Line("AB", 3) = {2};
+Physical Line("B", 2) = {3};
 
 Physical Point("left") = {1};
 Physical Point("right") = {4};
