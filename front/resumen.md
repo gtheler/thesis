@@ -2,7 +2,7 @@
 
 ### {{< meta title >}} {.unnumbered  .unlisted}
 
-Las herramientas neutrónicas a nivel de núcleo tradicionales suelen resolver la ecuación de difusión de neutrones multigrupo sobre mallas estructuradas hexahédricas.
+Las herramientas neutrónicas a nivel de núcleo tradicionales suelen resolver la ecuación de difusión de neutrones multigrupo sobre mallas estructuradas hexaédricas.
 Aunque este enfoque puede ser razonable para reactores de potencia de agua liviana, los núcleos en los cuales el moderador está separado del refrigerante---como por ejemplo los reactores de potencia de agua pesada y algunos reactores de investigación---no pueden ser representados en forma precisa con mallas estructuradas, especialmente si las barras de control están inclinadas.
 En este trabajo, mostramos cómo podemos usar una herramienta libre y abierta que permite escalabilidad en paralelo corriendo en la nube para resolver ecuaciones en derivadas parciales discretizadas espacialmente con el método de elementos finitos para resolver neutrónica a nivel de núcleo con el método angular de ordenadas discretas S$_N$ multigrupo.
 Esta herramienta, llamada FeenoX y desarrollada desde cero usando la filosofía de programación Unix, puede resolver PDEs genéricas al proveer un mecanismo basado en puntos de entrada arbitrarios usando apuntadores a funciones de C que construyen los objetos elementales de la formulación FEM.
