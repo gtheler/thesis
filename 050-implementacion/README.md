@@ -129,26 +129,26 @@ Consiste en aproximadamente cuarenta y cinco mil líneas de código `organizadas
 ```{=latex}
 \begin{figure}
 \begin{verbatim}
-.
-├── dist
-├── doc
-├── examples
-├── src
-│   ├── contrib
-│   ├── flow
-│   ├── io
-│   ├── math
-│   ├── mesh
-│   │   └── elements
-│   ├── parser
-│   └── pdes
-│       ├── laplace
-│       ├── mechanical
-│       ├── modal
-│       ├── neutron_diffusion
-│       ├── neutron_sn
-│       └── thermal
-└── tests
+                         .
+                         ├── dist
+                         ├── doc
+                         ├── examples
+                         ├── src
+                         │   ├── contrib
+                         │   ├── flow
+                         │   ├── io
+                         │   ├── math
+                         │   ├── mesh
+                         │   │   └── elements
+                         │   ├── parser
+                         │   └── pdes
+                         │       ├── laplace
+                         │       ├── mechanical
+                         │       ├── modal
+                         │       ├── neutron_diffusion
+                         │       ├── neutron_sn
+                         │       └── thermal
+                         └── tests
 \end{verbatim}
 \caption{\label{fig:tree} Estructura de directorios del código fuente de FeenoX.}
 \end{figure}
@@ -1499,11 +1499,7 @@ Pero en el archivo ASCII de entrada de FeenoX es más natural escribir `psig.m`
 :::
 
 
-## Algoritmos auxiliares
-
-
-
-### Expresiones algebraicas {#sec-pemdas}
+## Expresiones algebraicas {#sec-pemdas}
 
 Una característica distintiva de FeenoX es que en cada lugar del archivo de entrada donde se espere un valor numérico, desde la cantidad de grupos de energía después de la palabra clave `GROUPS` hasta las propiedades de los materiales, es posible escribir una expresión algebraica. Por ejemplo
 
@@ -1664,7 +1660,7 @@ $ feenox thermal-slab-transient.fee
 $
 ```
 
-### Evaluación de funciones  {#sec-funciones}
+## Evaluación de funciones  {#sec-funciones}
 
 Tal como las expresiones de la sección anterior, el concepto de _funciones_ es central para FeenoX como oposición y negación definitiva de la idea de "tabla" para dar dependencias no triviales de las secciones eficaces con respecto a
 
@@ -1686,7 +1682,7 @@ Las funciones en FeenoX pueden ser
  i. algebraicas, o
  ii. definidas por puntos
  
-#### Funciones definidas algebráicamente {#sec-funciones-algebraicas}
+### Funciones definidas algebráicamente {#sec-funciones-algebraicas}
     
 En el caso de funciones algebraicas, los argumentos de la definición tienen que ser variables que luego aparecen en la expresión que define la función. El valor de la función proviene de
 
@@ -1735,7 +1731,7 @@ WRITE_MESH harmonics.vtk Y00 Y1m1 Y10 Y1p1 Y2m2 Y2m1 Y20 Y2p1 Y2p2
 ```
 :::
 
-#### Funciones definidas por puntos sin topología
+### Funciones definidas por puntos sin topología
 
 Por otro lado, las funciones definidas por puntos pueden ser uni-dimensionales o multi-dimensionales.
 Las multi-dimensionales pueden tener o no topología.
@@ -1816,7 +1812,7 @@ La determinación de qué puntos $\vec{x}_i$ están dentro de la hiper-bola de 
 :::
 
 
-#### Funciones definidas por puntos con topología implícita
+### Funciones definidas por puntos con topología implícita
 
 Si los puntos de definición están en una grilla multidimensional estructurada rectangularmente (no necesariamente con incrementos uniformes), entonces FeenoX puede detectar la topología implícita y realizar una interpolación local a partir de los vértices del hiper-cubo que contiene el punto de evaluación $\vec{x} \in \mathbb{R}^k$. Esta interpolación local es similar a la explicada a continuación para el caso de topología explícita mediante una generalización de las funciones de forma para los elementos producto-tensor de primer orden a una dimensión arbitraria $k$.
 
@@ -1871,7 +1867,7 @@ para obtener la @fig-2dinterp.
 Tres formas de interpolar funciones definidas por puntos a partir del mismo conjunto de datos con topología implícita.
 :::
 
-#### Funciones definidas por puntos con topología explícita
+### Funciones definidas por puntos con topología explícita
 
 Otra forma de definir y evaluar funciones definidas por puntos es cuando existe una topología explícita.
 Esto es, cuando los puntos de definición forman parte de una malla no estructurada con una conectividad conocida.

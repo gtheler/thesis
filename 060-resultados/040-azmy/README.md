@@ -60,8 +60,6 @@ $
 Dado que es esperable que haya grandes gradientes en el flujo neutrónico en las interfaces entre la zona de la fuente y el reflector, podemos aprovechar la posibilidad de hacer un refinamiento local en mallas no estructuradas (@fig-azmy-mesh).
 Para ilustrar la flexibilidad de FeenoX, ahora no asignamos una entidad física a cada cuadrante sino que integramos el flujo con el funcional `integrate` dando explícitamente el dominio de integración como función de $x$ e $y$.
 
-![Malla triangular no estructurada de primer orden (tri3) para el problema de Azmy](azmy-mesh.png){#fig-azmy-mesh width=50%}
-
 ```{.geo include="azmy.geo"}
 ```
 
@@ -94,7 +92,7 @@ $
 ```
 
 
-
+![Malla triangular no estructurada de primer orden (tri3) para el problema de Azmy](azmy-mesh.png){#fig-azmy-mesh width=85%}
 
 ::: {#fig-azmy-phi layout="[33,33,33]"}
 ![S$_4$](azmy-4-00.png){#fig-azmy-4-00}

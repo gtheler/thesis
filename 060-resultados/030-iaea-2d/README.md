@@ -146,7 +146,7 @@ Con FeenoX es posible resolver fácilmente esta geometría con el mismo archivo 
  b. triángulos y cuadrángulos.
 
 ::: {#fig-pwr-tipico-circ layout="[50,50]"}
-![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr}
+![Geometría típica de un PWR](1694041862141.jpeg){#fig-pwr width=90%}
 
 ![Malla para simetría 1/8 y reflector circular](iaea-2dpwr-eighth-circular.png){#fig-iaea-2dpwr-eighth-circular}
 
@@ -179,7 +179,8 @@ Ya que estamos en 3D, podemos preparar la geometría con una herramienta tipo CA
 En particular, usamos la plataforma CAD Onshape que corre en la nube y se utiliza directamente desde el navegador.^[La plataforma [CAEplex](https://www.caeplex.com) desarrollada por el autor de esta tesis que provee una interfaz web para una versión anterior de FeenoX corriendo en la nube está 100% integrada en Onshape para realizar cálculos termo-mecánicos.]
 La @fig-iaea-3dpwr-onshape muestra la geometría continua, que luego de ser mallada con Gmsh con elementos de segundo orden arroja la malla de la @fig-iaea-3dpwr-eighth-circular-mesh.
 
-![Preparación de la geometría del benchmark PWR 3D de IAEA en Onshape](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape}
+
+![Preparación de la [geometría del benchmark PWR 3D de IAEA en Onshape](https://cad.onshape.com/documents/2b75f9feaefe2c44a9a88391/w/2021e5b8f94e8bdd1f6f4302/e/d155699bda2fae330aeb2e3d)](iaea-3dpwr-onshape.png){#fig-iaea-3dpwr-onshape width=75%}
 
 ::: {#fig-iaea-3dpwr-eighth-circular-mesh layout="[21.8,-3,21,-3,27]"}
 ![](iaea-3dpwr-eighth-circular-mesh1.png){#fig-iaea-3dpwr-eighth-mesh1}
@@ -193,10 +194,14 @@ Malla para el problema 3D PWR IAEA con simetría 1/8 y reflector circular con el
 Cada color indica un material diferente de la @tbl-iaea-xs, incluyendo el material número 5 "barras de control en el reflector superior".
 :::
 
+
+
 El archivo de entrada sigue siendo relativamente sencillo, sólo que ahora agregamos un poco más de información a la salida:
 
 ```{.feenox include="iaea-3dpwr.fee"}
 ```
+
+
 
 Como somos ingenieros y tenemos un trauma profesional con el tema de performance, debemos comparar la "ganancia" de usar simetría 1/8 con respecto al original de 1/4:
 

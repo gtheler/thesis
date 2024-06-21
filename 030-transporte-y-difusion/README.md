@@ -181,7 +181,7 @@ es la probabilidad por unidad de longitud lineal que un neutrón de energía $E
 
 Utilizando argumentos de simetría, podemos mostrar que la sección eficaz diferencial de [scattering]{lang=en-US} $\Sigma_s$ sólo puede depender del producto interno $\mu = \omegaversor \cdot \omegaprimaversor$ y no separadamente de $\omegaversor$ y de $\omegaprimaversor$. En la @fig-omegamu ilustramos la idea.
 
-![Debido a la simetría azimutal, el [scattering]{lang=en-US} no depende de las direcciones $\omegaversor$ y de $\omegaprimaversor$ en forma separada sino que depende del coseno del ángulo entre ellas $\mu = \omegaversor \cdot \omegaprimaversor$.](omegamu-nice){#fig-omegamu width=60%}
+![Debido a la simetría azimutal, el [scattering]{lang=en-US} no depende de las direcciones $\omegaversor$ y de $\omegaprimaversor$ en forma separada sino que depende del coseno del ángulo entre ellas $\mu = \omegaversor \cdot \omegaprimaversor$.](omegamu-nice.svg){#fig-omegamu width=75%}
 
 En general podemos separar a la sección eficaz diferencial (@def-sigmasdif) en una sección eficaz total $\Sigma_{s_t}$ y en una probabilidad de distribución angular y energética $\xi_s$ tal que
 
@@ -228,8 +228,6 @@ $$
 
 :::
 
-![Primeros seis polinomios de Legendre $P_\ell(\mu)$, $\ell = 1,\dots,6$.](legendre){#fig-legendre}
-
 ::: {#def-P0}
 Los primeros polinomios de Legendre (@fig-legendre) son
 
@@ -245,6 +243,8 @@ P_6(\mu) &= \frac{1}{16}\left(231 \mu^6 - 315 \mu^4 + 105 \mu^2 - 5 \right)
 \end{aligned}
 $$
 :::
+
+![Primeros seis polinomios de Legendre $P_\ell(\mu)$, $\ell = 1,\dots,6$.](legendre){#fig-legendre}
 
 ::: {#def-kronecker}
 

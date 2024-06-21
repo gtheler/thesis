@@ -132,30 +132,9 @@ Más importante aún es el comportamiento de la memoria: a medida que usamos má
 La @fig-phwr-dif muestra la distribución de flujos rápido y térmico resultantes.
 
 
-::: {#fig-phwr-dif layout="[25,25,25,25]"}
-![$\phi_1$ a $z=z1$](phwr-dif-phi1-200.png){#fig-phwr-dif-phi1-200}
-
-![$\phi_1$ a $z=z2$](phwr-dif-phi1-300.png){#fig-phwr-dif-phi1-300}
-
-![$\phi_1$ a $z=z3$](phwr-dif-phi1-400.png){#fig-phwr-dif-phi1-400}
-
-![$\phi_1$ a $z=z4$](phwr-dif-phi1-500.png){#fig-phwr-dif-phi1-500}
-
-
-![$\phi_2$ a $z=z1$](phwr-dif-phi2-200.png){#fig-phwr-dif-phi2-200}
-
-![$\phi_2$ a $z=z2$](phwr-dif-phi2-300.png){#fig-phwr-dif-phi2-300}
-
-![$\phi_2$ a $z=z3$](phwr-dif-phi2-400.png){#fig-phwr-dif-phi2-400}
-
-![$\phi_2$ a $z=z4$](phwr-dif-phi2-500.png){#fig-phwr-dif-phi2-500}
-
-Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión. Todos los combustibles tienen el mismo quemado.
-:::
-
-
 
 ## Ordenadas discretas con elementos de primer orden
+
 
 Resolvamos ahora el mismo problema pero con ordenadas discretas.
 Comenzamos por $S_2$, que involucra ocho direcciones por cada grupo de energías.
@@ -185,6 +164,29 @@ size = 257920   time = 182.7 s   memory = 33.9 Gb
 [7/8 tux] local memory = 4.0 Gb
 $ 
 ``` 
+
+::: {#fig-phwr-dif layout="[25,25,25,25]"}
+![$\phi_1$ a $z=z1$](phwr-dif-phi1-200.png){#fig-phwr-dif-phi1-200}
+
+![$\phi_1$ a $z=z2$](phwr-dif-phi1-300.png){#fig-phwr-dif-phi1-300}
+
+![$\phi_1$ a $z=z3$](phwr-dif-phi1-400.png){#fig-phwr-dif-phi1-400}
+
+![$\phi_1$ a $z=z4$](phwr-dif-phi1-500.png){#fig-phwr-dif-phi1-500}
+
+
+![$\phi_2$ a $z=z1$](phwr-dif-phi2-200.png){#fig-phwr-dif-phi2-200}
+
+![$\phi_2$ a $z=z2$](phwr-dif-phi2-300.png){#fig-phwr-dif-phi2-300}
+
+![$\phi_2$ a $z=z3$](phwr-dif-phi2-400.png){#fig-phwr-dif-phi2-400}
+
+![$\phi_2$ a $z=z4$](phwr-dif-phi2-500.png){#fig-phwr-dif-phi2-500}
+
+Flujos escalares rápido $\phi_1$ y térmico $\phi_2$ calculados con difusión. Todos los combustibles tienen el mismo quemado.
+:::
+
+![Disminución de la memoria por proceso MPI](mpi.svg){#fig-mpi}
 
 Resolver un problema formulado en S$_N$ es computacionalmente mucho más demandante porque las matrices resultantes no son simétricas y tienen una estructura compleja.
 Los requerimientos de memoria y CPU son mayores que para difusión. Incluso la escala de paralelización, aún cuando debemos notar nuevamente que hay mucho terreno para mejorar en FeenoX, es peor que en la sección anterior para un tamaño de problema similar.
@@ -218,10 +220,11 @@ size = 159168   time = 153.3 s   memory = 33.7 Gb
 $
 ```
 
+
+
 Esto es, para el mismo número de grados de libertad totales el tiempo y memoria necesario para resolver el problema con $S_4$ aumenta.
 De todas maneras, lo que sí sigue siendo cierto, como mostramos en la @fig-mpi, es que a medida que aumentamos la cantidad de procesos de MPI la memoria local disminuye.
 
-![Disminución de la memoria por proceso MPI](mpi.svg){#fig-mpi}
 
 Para finalizar, debemos notar que al resolver problemas de criticidad lo que FeenoX hace es transformar la formulación numérica desarrollada en el [capítulo @sec-esquemas] en un problema de auto-valores y auto-vectores generalizado como explicamos en la @sec-multiplicativo-sin-fuente.
 Para resolver este tipo de problemas se necesita un [solver]{lang=en-US} lineal que pueda "invertir"^[En el sentido de resolver un problema lineal, no de calcular explícitamente la inversa densa de una matriz rala.] la matriz de fisiones.

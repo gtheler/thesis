@@ -2,7 +2,7 @@
 
 > **TL;DR:** Un "experimento pensado" para verificar que una esfera es más eficiente que un cubo. No es posible resolver una geometría con bordes curvos con una malla cartesiana estructurada, mientras que elementos curvos de segundo orden pueden discretizar superficies cónicas exactamente.
 
-::: {#fig-cube-and-sphere layout="[1,-0.1,1]"}
+::: {#fig-cube-and-sphere layout="[1,-0.25,1]"}
 ![Reactor cúbico](cubesphere-0.png){#fig-cubesphere-0 width=90%}
 
 ![Reactor esférico](cubesphere-100.png){#fig-cubesphere-100 width=90%}
@@ -50,9 +50,7 @@ $ python cubesphere.py | tee cubesphere.dat
 30      1.06013 5672.15 999996
 35      1.06129 5775.31 999997
 40      1.06251 5883.41 999998
-45      1.06376 5993.39 999998
-50      1.06499 6102.55 999998
-55      1.06619 6208.37 999998
+[...]
 60      1.06733 6308.65 999998
 65      1.06839 6401.41 999999
 70      1.06935 6485.03 999998

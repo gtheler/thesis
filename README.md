@@ -6,6 +6,10 @@ A PhD in Nuclear Engineering thesis written in markdown and tracked with Git whi
  * [HTML](https://seamplex.com/thesis/html/)
  * [ePub](https://seamplex.com/thesis/epub/) (best viewed with [KOReader](https://koreader.rocks/))
 
+The slides of the oral defense are available in a separate repository:
+
+ * [Slides for oral defense](https://github.com/gtheler/thesis-defense)
+ 
 The hash and date of the Git commit use to compile the document goes into
 
  * the [abstract page](https://seamplex.com/thesis/html/front/abstract.html) in all formats
@@ -38,6 +42,7 @@ Two of the PDEs that the initial version of the code can solve include multigrou
 This thesis explains the mathematics of the neutron transport equation, how the diffusion approximation can be derived from the former and two of the many possible numerical discretizations in angle and space for both equations. It also discusses the design and implementation of the tool FeenoX, that fulfills a fictitious (but plausible) set of requirement specifications (SRS) by proposing a design document (SDS) explaining how the developed tool addresses each of the tender requirements.
 In the results chapter, ten neutronic problems are solved. All of them need at least one of the unfair advantages that FeenoX's features configure: 1. programmatic simulation (that derives from the Unix philosophy); 2. unstructured grids; 3. discrete ordinates; 4. parallelization using MPI.
 This work sets a basis for further numerical studies comparing S$_N$ and diffusion schemes for advanced core-level reactor analysis.
+
 
 ## Compilation
 

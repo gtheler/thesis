@@ -60,7 +60,7 @@ Para ilustrar cómo hemos obtenido la @tbl-la-inf mostramos a continuación el 
 ```{.feenox include="la-p74-URR-3-0-IN.fee"}
 ```
 
-![Secciones eficaces macroscópicas a tres grupos del material URR @losalamos.](xs3.png){#fig-xs3 width=85%}
+![Secciones eficaces macroscópicas a tres grupos del material URR @losalamos.](xs3.png){#fig-xs3 width=70%}
 
 Como las secciones eficaces son las mismas para varios problemas, cada material tiene un archivo separado que se incluye desde cada entrada principal. En este caso, a partir de los datos originales mostrados en la @fig-xs3, preparamos el archivo `URR.fee`:
 
@@ -87,4 +87,4 @@ Para ello podemos crear un script de Bash que llame a cada uno de los archivos d
 ![Factor de multiplicación vs. cantidad de grados de libertad para 13 de los 75 problemas de @losalamos. A medida que aumentamos el tamaño del problema (sea por refinamiento de malla o por incrementar $N$) el $k_\text{eff}$ se acerca a la unidad.](losalamos.svg){#fig-losalamos}
 
 La @fig-losalamos muestra---en forma poco rigurosa---que en general al aumentar el tamaño del problema resuelto por FeenoX, el factor de multiplicación efectivo se acerca a la unidad.
-Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero nos deja relativamente tranquilos de que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisótropo y con más de dos grupos de energías.
+Esta no es una verificación según la definición industrial de ["code verification"]{lang=en-US} pero indica que nuestro solver hace las cosas razonablemente bien, incluso en casos con scattering anisótropo y con más de dos grupos de energías.
