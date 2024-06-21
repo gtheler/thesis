@@ -1,5 +1,9 @@
 # Resumen {.unnumbered .unlisted}
 
+:::: {.only-in-format .html }
+[PDF](https://seamplex.com/thesis/pdf/) | [EPUB](https://seamplex.com/thesis/epub/)
+::::
+
 ### {{< meta title >}} {.unnumbered  .unlisted}
 
 Las herramientas neutrónicas a nivel de núcleo tradicionales suelen resolver la ecuación de difusión de neutrones multigrupo sobre mallas estructuradas hexaédricas.

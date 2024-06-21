@@ -1,5 +1,10 @@
 #   {.unnumbered  .unlisted}
 
+
+:::: {.only-in-format .html }
+[PDF](https://seamplex.com/thesis/pdf/) | [EPUB](https://seamplex.com/thesis/epub/)
+::::
+
 ```{=latex}
 \hspace{\fill}\parbox{10cm}{\begin{flushright}
 ```

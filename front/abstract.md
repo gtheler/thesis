@@ -1,5 +1,10 @@
 # [Abstract]{lang=en-US} {.unnumbered  .unlisted}
 
+:::: {.only-in-format .html }
+[PDF](https://seamplex.com/thesis/pdf/) | [EPUB](https://seamplex.com/thesis/epub/)
+::::
+
+
 ### [{{< meta title-en >}}]{lang=en-US} {.unnumbered  .unlisted}
 
 ::: {lang=en-US}
