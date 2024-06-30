@@ -844,7 +844,7 @@ Cuando un neutrón reacciona con un núcleo blanco, el neutrón incidente puede.
 
  a. ser dispersado, o
  b. generar una fisión, o
- c. ser absorbido por el núcleo blanco.
+ c. ser capturado por el núcleo blanco.
 
 En los últimos dos casos, el neutrón incidente realmente “desaparece” físicamente. En el caso b, vuelven a nacer $\nu(E)$ neutrones nuevos: una fracción $(1-\beta)$ instantáneamente y $\beta$ en forma retardada durante la cadena de decaimiento de los productos de fisión.
 En el primer caso, el neutrón incidente nunca desaparece sino que cambia su energía y su dirección de vuelo.
