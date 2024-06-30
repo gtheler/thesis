@@ -32,7 +32,7 @@ Región | $D_1$ | $D_2$ | $\Sigma_{s1 \rightarrow 2}$ | $\Sigma_{a1}$ | $\Sigma_
    4   |  2.0  |  0.3  | 0.04  |  0    | 0.01  |   0   | Reflector
    5   |  2.0  |  0.3  | 0.04  |  0    | 0.055 |   0   | Refl. + Rod
 
-: Datos originales de @anl7416 {#tbl-iaea-xs2}
+: Datos originales de @anl7416 {#tbl-iaea-xs2}. El material 5 es utilizado sólo en el caso 3D.
 
 Secciones eficaces macroscópicas (uniformes por zonas) del benchmark PWR de IAEA. Al caso 2D se le debe sumar un término de [buckling]{lang=en-US} geométrico $B_g^2=0.8 \times 10^{-4}$.
  
