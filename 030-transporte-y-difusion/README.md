@@ -931,7 +931,7 @@ del espacio, la dirección, la energía y el tiempo que representa la cantidad d
 
 ### La ecuación de transporte {#sec-ecuacion-transporte}
 
-La conservación de neutrones implica que la derivada temporal total de la población de neutrones en la posición $\vec{x}$ viajando en la dirección $\omegaversor$ con una energía $E$ debe ser igual a la diferencia entre la tasa de producciones y la Igualando la derivada total de la @eq-dNdt a la diferencia entre la suma de las tres fuentes de las [@eq-qs,@eq-qf,@eq-s] y  la tasa de desapariciones @eq-desapariciones, tenemos
+La conservación de neutrones implica que la derivada temporal total de la población de neutrones en la posición $\vec{x}$ viajando en la dirección $\omegaversor$ con una energía $E$ debe ser igual a la diferencia entre la suma de las tres fuentes de las [@eq-qs,@eq-qf,@eq-s] y  la tasa de desapariciones @eq-desapariciones, tenemos
 
 $$
 \begin{gathered}
