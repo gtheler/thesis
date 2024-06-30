@@ -2220,6 +2220,10 @@ $$
 \phi(\vec{x}, E, t)  + 2 \cdot D(\vec{x}, E) \cdot \frac{\partial \phi}{\partial n} = 0 \quad\quad \forall \vec{x} \in \Gamma_V \subset \partial U
 $$
 
+::: {.remark}
+La @def-ccvacuum-dif es aplicable solamente a la ecuación de difusión. No aplica a la ecuación de transporte.
+:::
+
 Definimos el conjunto $\Gamma_V \subset \partial U$ como el lugar geométrico de todos los puntos $\vec{x} \in \partial U$ donde imponemos esta
 condición de contorno. Esta condición es de tipo Robin ya que se da el valor de una combinación lineal de la incógnita $\phi$ y de su derivada
 normal $\partial \phi/\partial n$.
