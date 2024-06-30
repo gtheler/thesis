@@ -138,7 +138,8 @@ $$
 \lim_{N\rightarrow \infty} \left[ \mathcal{F}_N(\varphi, \Sigma) - \mathcal{F}(\varphi, \Sigma) \right] = 0
 $$
 
-Es decir, si el operador discreto $\mathcal{F}_N$ tiende al operador continuo $\mathcal{F}$ para $N\rightarrow \infty$.
+dado que $\mathcal{F}(\varphi, \Sigma) = 0$.
+Es decir, si el operador discreto $\mathcal{F}_N$ tiende al operador continuo $\mathcal{F}$ para $N\rightarrow \infty$ entonces el método es consistente.
 Más aún, si
 
 $$
