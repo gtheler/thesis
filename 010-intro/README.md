@@ -681,7 +681,7 @@ Sin embargo, esta metodología presenta al menos tres inconvenientes:
     hace que se sobrestime la reactividad negativa introducida por el
     boro, aunque un refinamiento excesivo de la malla de cálculo
     neutrónico remueve boro numéricamente en forma espuria introduciendo
-    un efecto opuesto.
+    un efecto opuesto.^[Estrictamente hablando este efecto puede ser corregido, pero el problema de la escalabilidad persiste.]
 
  ii. Los canales no se pueden representar en forma satisfactoria con un
     malla de cálculo neutrónico estructurada basada en paralelepípedos,
