@@ -847,7 +847,7 @@ Cuando un neutrón reacciona con un núcleo blanco, el neutrón incidente puede.
  c. ser absorbido por el núcleo blanco.
 
 En los últimos dos casos, el neutrón incidente realmente “desaparece” físicamente. En el caso b, vuelven a nacer $\nu(E)$ neutrones nuevos: una fracción $(1-\beta)$ instantáneamente y $\beta$ en forma retardada durante la cadena de decaimiento de los productos de fisión.
-En el último caso, el neutrón incidente nunca desaparece sino que cambia su energía y su dirección de vuelo.
+En el primer caso, el neutrón incidente nunca desaparece sino que cambia su energía y su dirección de vuelo.
 De todas maneras, conceptualmente es posible pensar que aún en un proceso de [scattering]{lang=en-US} el neutrón incidente de energía $E$ y dirección $\omegaversor$ desaparece y se emite exactamente un neutrón nuevo con una energía $E^\prime$ y una dirección $\omegaprimaversor$ según la ley de [scattering]{lang=en-US} de la sección eficaz diferencial $\Sigma_s(\vec{x},\omegaversor \rightarrow \omegaprimaversor, E \rightarrow E^\prime)$ dada por la @def-sigmasdif.
 
 Con esta idea, cualquier reacción nuclear genera una desaparición del neutrón incidente al mismo tiempo que los casos a y b producen nuevos neutrones.
