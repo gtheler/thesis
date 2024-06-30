@@ -505,7 +505,9 @@ función de los parámetros termohidráulicos (temperaturas y densidades) y
 de la concentración de venenos (xenón y boro) de la celda. Como el boro
 no está uniformemente distribuido, debemos obtener un valor medio que
 proponemos calcular como un promedio de las concentraciones de boro de
-la gota y del resto de la celda pesado con los volúmenes relativos. Para
+la gota y del resto de la celda pesado con los volúmenes relativos.
+Esta propuesta no conserva ritmos de reacción, pero no hay mejores alternativas dado que existe un único parámetro de boro para toda la celda.
+Para
 el caso de la @fig-gota, la concentración media de boro de la celda
 sería 100 ppm, resultando en una absorción casi negra para toda la celda en
 lugar de una absorción completamente negra sólo en el 5% del volumen. La
