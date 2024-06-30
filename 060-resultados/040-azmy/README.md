@@ -131,7 +131,8 @@ Flujo escalar $\phi(x,y)$ en el problema de Azmy resuelto con malla no estructu
 
 ![$\psi_{12}$](azmy-4-12.png){#fig-azmy-4-12}
 
-Flujos angulares $\psi_g(x,y)$ en el problema de Azmy resuelto con malla no estructurada.
+$1/2 \cdot 4 \cdot (4+2) = 12$ flujos angulares $\psi_g(x,y)$ en el problema de Azmy resuelto con malla no estructurada con S$_4$.
+
 :::
 
 
