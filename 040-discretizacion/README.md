@@ -1260,7 +1260,7 @@ Pero además el operador es parabólico de primer orden y la formulación numér
 
 ### Ecuación de Poisson generalizada {#sec-poisson}
 
-Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada (en el sentido de que el coeficiente del operador diferencial puede depender del espacio) sobre un dominio espacial $D$-dimensional $U \in \mathbb{R}^D$ con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
+Comencemos resolviendo la ecuación escalar elíptica de Poisson generalizada (en el sentido de que el coeficiente del operador diferencial puede depender del espacio) sobre un dominio espacial $D$-dimensional $U \in \mathbb{R}^D$---cuya frontera es $\partial U$---con condiciones de contorno de Dirichlet homogéneas en $\Gamma_D \in \partial U$ y condiciones arbitrarias de Neumann en $\Gamma_N \in \partial U$ tal que $\Gamma_D \cup \Gamma_N = \partial U$ y $\Gamma_D \cap \Gamma_N = \emptyset$ (@fig-dominio-pelado):
 
 ![El dominio espacial $U \in \mathbb{R}^2$ de la @fig-dominio con una parte de la frontera $\Gamma_D$ con condiciones de Dirichlet (de color cian) y otra parte $\Gamma_N$ con condiciones de Neumann (magenta).](dominio-pelado){#fig-dominio-pelado width=75%}
 
