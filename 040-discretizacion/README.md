@@ -68,7 +68,11 @@ El grueso del capítulo lo dedicamos a la discretización espacial de ambas ecua
 En la monografía @monografia mostramos, para la ecuación de difusión, una derivación similar a la formulación propuesta en esta tesis basada en elementos finitos. Pero también se incluye una formulación espacial basada en volúmenes finitos. Por cuestiones de longitud, hemos decidido enfocarnos solamente en elementos finitos en esta tesis.
 Dejamos la extensión a volúmenes finitos y su comparación con otros esquemas como trabajos futuros.
 
-Finalmente analizamos la forma matricial/vectorial de los tres casos de problemas de estado estacionario que resolvemos en esta tesis según el medio se multiplicativo o no y según haya fuentes externas o no.
+Finalmente analizamos la forma matricial/vectorial de los tres casos de problemas de estado estacionario que resolvemos en esta tesis:
+
+ * medio no multiplicativo con fuentes independentes
+ * medio multiplicativo con fuentes independientes
+ * medio multiplicativo sin fuentes independientes
 
 
 ## Métodos numéricos {#sec-metodos-numericos}
