@@ -1875,7 +1875,7 @@ En este caso, dada una función $f(\vec{x})$, el procedimiento para evaluarla en
 
  1. Encontrar el elemento $e_i$ que contiene al punto $\vec{x}$
  2. Encontrar las coordenadas locales $\symbf{\xi}$ del punto $\vec{x}$ en $e_i$
- 3. Evaluar las $J$ funciones de forma $h_j(\symbf{\xi})$ del elemento $e_i$ en el punto $\symbf{\xi}$
+ 3. Evaluar las $J$ funciones de forma $0 \leq h_j(\symbf{\xi}) \leq 1$ del elemento $e_i$ en el punto $\symbf{\xi}$
  4. Calcular $f(\vec{x})$ a partir de los $J$ valores nodales de definición $f_j$ como
  
 $$
