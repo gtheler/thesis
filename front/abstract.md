@@ -1,7 +1,7 @@
 # [Abstract]{lang=en-US} {.unnumbered  .unlisted}
 
 :::: {.only-in-format .html }
-[PDF](https://seamplex.com/thesis/pdf/) | [EPUB](https://seamplex.com/thesis/epub/) | [Github](https://github.com/gtheler/thesis/)
+[PDF](https://seamplex.com/thesis/pdf/) | [EPUB](https://seamplex.com/thesis/epub/) | [Github](https://github.com/gtheler/thesis/) | [Youtube](https://youtu.be/XU2wdq0YqBI)
 ::::
 
 
