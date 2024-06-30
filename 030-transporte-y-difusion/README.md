@@ -244,7 +244,7 @@ P_6(\mu) &= \frac{1}{16}\left(231 \mu^6 - 315 \mu^4 + 105 \mu^2 - 5 \right)
 $$
 :::
 
-![Primeros seis polinomios de Legendre $P_\ell(\mu)$, $\ell = 1,\dots,6$.](legendre){#fig-legendre}
+![Primeros seis polinomios de Legendre $P_\ell(\mu)$, $\ell = 0,\dots,5$.](legendre){#fig-legendre}
 
 ::: {#def-kronecker}
 
