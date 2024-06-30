@@ -734,10 +734,11 @@ $$
 \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \left[ \int_{U^{\prime}(t+\Delta t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x}  - \int_{U^{\prime}(t)} N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \right]
 $$ {#eq-integral_dos_dominios}
 
-Notemos que
+Notemos que el dominio $U$ se mueve según
 
 $$
-\lim_{\Delta t \rightarrow 0} U^{\prime}(t+\Delta t) = U^{\prime}(t) + v(E) \cdot \omegaversor \cdot \Delta t
+\lim_{\Delta t \rightarrow 0} U^{\prime}(t+\Delta t) =
+\lim_{\Delta t \rightarrow 0} U^{\prime}(t) + v(E) \cdot \omegaversor \cdot \Delta t
 $$
 para cada punto $\vec{x} \in U^{\prime}(t)$. Además, como ni $v(E)$ ni $\hat{\Omega}_i$ dependen de $\vec{x}$ ya que la velocidad es constante y la dirección está fija, entonces el cambio de coordenadas
 
@@ -795,7 +796,7 @@ N(\vec{x})
 \text{grad}\left[N(\vec{x})\right] \cdot v \cdot \omegaversor
 $$
 
-Como $U^{\prime}(t) \equiv U$ entonces podemos escribir la derivada total de la cantidad de neutrones en $U$ con respecto al tiempo como
+Como habíamos supuesto que el dominio móvil $U^{\prime}(t)$ coincide con el dominio fijo $U$ en el instante $t$, es decir $U^{\prime}(t) \equiv U$, entonces podemos escribir la derivada total de la cantidad de neutrones en $U$ con respecto al tiempo como
 
 $$
 \frac{dN_U}{dt} = \frac{\partial N_U}{\partial t} + \int_{U} \omegaversor \cdot v(E) \cdot \text{grad} \left[ N(\vec{x}, \omegaversor, E, t) \right]  d^3\vec{x}
