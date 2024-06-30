@@ -1688,7 +1688,7 @@ $$
 $$
 
 :::{.remark}
-Si $\gamma(\vec{x})$ es lo suficientemente negativo, el operador $\mathcal{a}(u,v)$ puede perder su coercividad.
+Si $\gamma(\vec{x})$ es lo suficientemente negativo, el operador $\mathcal{a}(u,v)$ puede perder su coercitividad.
 :::
 
 
