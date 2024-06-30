@@ -604,7 +604,7 @@ $$
 N(\vec{x}, \omegaversor, E, t) \, d^3\vec{x} \, d\omegaversor \, dE
 $$
 
-es el número de neutrones (en el sentido de la media estadística dada la naturaleza probabilística del comportamiento de los neutrones) en un elemento volumétrico $d^3\vec{x}$ ubicado alrededor del punto $\vec{x}$ del espacio viajando en el cono de direcciones de magnitud $d\omegaversor$ alrededor de la dirección $\omegaversor$ con energías entre $E$ y $E+dE$ en el tiempo $t$.^[Como ya hemos mencionado, ignoramos el principio de Heisenberg.]
+es el número de neutrones (en el sentido de la media estadística dada la naturaleza probabilística del comportamiento de los neutrones) en un elemento volumétrico $d^3\vec{x}$ ubicado alrededor del punto $\vec{x}$ del espacio viajando en el cono de direcciones de magnitud $d\omegaversor$ alrededor de la dirección $\omegaversor$ con energías entre $E$ y $E+dE$ en el tiempo $t$.^[Como ya hemos mencionado, no tenemos en cuenta el principio de Heisenberg.]
 :::
 
 ::: {#def-flujoangular}
