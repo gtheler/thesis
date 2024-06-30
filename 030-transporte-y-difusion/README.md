@@ -1495,7 +1495,7 @@ Definimos el conjunto $\Gamma_I \subset \partial U$ como el lugar geométrico d
 :::
 
 ::: {.remark}
-Los problemas en los cuales la única fuente de neutrones proviene de fisiones no admiten condiciones de contorno inhomogéneas.
+Los problemas estacionarios en los cuales la única fuente de neutrones proviene de fisiones no admiten condiciones de contorno inhomogéneas.
 :::
 
 ## Aproximación de difusión {#sec-difusion}
