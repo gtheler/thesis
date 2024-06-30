@@ -4816,12 +4816,12 @@ La probabilidad de que en un sistema multiplicativo sin una fuente independiente
 Para tener una solución matemática no nula, debemos agregar al menos un parámetro real que permita ajustar uno o más términos en forma continua para lograr ficticiamente que $\alpha_0 = 0$.
 Por ejemplo podríamos escribir las secciones eficaces en función de un parámetro $\xi$ que podría ser
 
- a. geométrico (por ejemplo la posición de una barra de control), o
+ a. geométrico (por ejemplo la posición de una barra de control o las fugas si fuese posible modificar la geometría), o
  b. físico (por ejemplo la concentración media de boro en el moderador).
  
 De esta forma, podríamos encontrar un valor de $\xi$ que haga que $\alpha_0 = 0$ y haya una solución de estado estacionario.
 
-Hay un parámetro real que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
+Hay un parámetro real---en el sentido matemático---que, además de permitir encontrar una solución no trivial para cualquier conjunto físicamente razonable de geometrías y secciones eficaces, nos da una idea de qué tan lejos se encuentra el modelo de la criticidad.
 El procedimiento consiste en dividir el término de fisiones por un número real $k_\text{eff} > 0$, para obtener la ecuación de difusión como
 
 
