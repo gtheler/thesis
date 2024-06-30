@@ -1673,7 +1673,7 @@ $$
 podemos pasar el primer término al otro miembro y llamar $p(\vec{x})$ a la expresión resultante
 
 $$
-k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = \beta(\vec{x}) - \gamma(\vec{x}) \cdot u(\vec{x}) p(\vec{x}) =
+k(\vec{x}) \cdot \Big[ \text{grad} \left[ u(\vec{x}) \right] \cdot \hat{\vec{n}} \Big] = \beta(\vec{x}) - \gamma(\vec{x}) \cdot u(\vec{x}) = p(\vec{x})
 $$
 
 De esta manera, una condición de Robin tendrá una contribución sobre el operador $\mathcal{a}(u,v)$
