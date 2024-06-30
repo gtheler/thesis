@@ -2305,7 +2305,7 @@ A partir de mediciones experimentales, los datos se procesan de forma tal de que
 ### Cálculo a nivel celda {#sec-celda}
 
 Este nivel de cálculo es el punto central del trabajo de doctorado de la referencia @chaco.
-A partir de bibliotecas de secciones eficaces microscópica se procede a realizar cálculos de transporte de forma tal de calcular secciones eficaces macroscópicas a pocos grupos de energía que puedan ser usadas como los coeficientes de las ecuaciones de transporte utilizadas en el cálculo a nivel de núcleo.
+A partir de bibliotecas de secciones eficaces microscópicas se procede a realizar cálculos de transporte de forma tal de calcular secciones eficaces macroscópicas a pocos grupos de energía que puedan ser usadas como los coeficientes de las ecuaciones de transporte utilizadas en el cálculo a nivel de núcleo.
 
 ### Cálculo a nivel núcleo
 
