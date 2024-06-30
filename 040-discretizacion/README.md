@@ -506,6 +506,9 @@ De hecho, en este caso, los volúmenes finitos son áreas $\Delta \omegaversor_
 para $m=1,\dots,M$. 
 Nuevamente el acople entre volúmenes de control es algebraico y no necesariamente a primeros vecinos.
 
+::: {.remark}
+La cantidad $\Delta \omegaversor_m$ es un escalar ya que representa una porción de área de la esfera unitaria alrededor del versor $\omegaversor_m$.
+:::
 
 ::::: {#thm-cuadratura}
 
