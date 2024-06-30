@@ -2836,7 +2836,7 @@ Para que una transformación $\vec{x} \mapsto \symbf{\xi}$ sea biyectiva, es de
 Si la transformación $\vec{x} \mapsto \symbf{\xi}$ es biyectiva, $\det{(\mat{J})} \neq 0$ y $\mat{J}$ tiene inversa.
 :::
 
-En forma análoga a la @eq-grad-v-B-v, en un elemento $e_i$ el gradiente de una función $v \in V$ es
+En forma análoga a la @eq-dxdxi, en un elemento $e_i$ el gradiente de una función $v \in V$ es
 
 $$
 \begin{bmatrix}
