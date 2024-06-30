@@ -1913,7 +1913,7 @@ La aproximación entre la formulación débil y el problema de Galerkin es la id
 #### Elementos finitos {#sec-fem}
 
 Tomemos un dominio $U\in \mathbb{R}^D$ y consideremos $J$ puntos $\vec{x}_j \in U$.
-Estos puntos $\vec{x}_i$ para $j=1,\dots,J$ incluyen la frontera $\Gamma_N$ con condiciones de contorno de Neumann pero no incluyen a $\Gamma_D$ con condiciones de Dirichlet.
+Estos puntos $\vec{x}_j$ para $j=1,\dots,J$ incluyen la frontera $\Gamma_N$ con condiciones de contorno de Neumann pero no incluyen a $\Gamma_D$ con condiciones de Dirichlet.
 Por ejemplo, en la @fig-dominio-solo-nodos tenemos $J=32$.
 Supongamos que existen $J$ funciones $h_j(\vec{x})$ "de forma"^[En la gran mayoría de la literatura de elementos finitos las funciones de forma se llaman $N(\vec{x})$. Como este símbolo no nos parece apropiado para una función del espacio, seguimos la nomenclatura de Bathe @bathe (que fue director de doctorado del Dr. Dvorkin que a su vez organizó el departamento de cálculo de la UBA donde este doctorando cursó la materia de elementos finitos) que utiliza la nomenclatura $h(\vec{x})$ para las funciones de forma.] que cumplen simultáneamente
 
@@ -4547,7 +4547,7 @@ $$
 
 En principio, estaríamos en condiciones de discretizar la variable espacial $\vec{x}$ con las matrices $\mat{H}_{MGc}$ y $\mat{B}_{MG}$ tal como hemos hecho en la @sec-dif-fem-G para la ecuación de difusión multigrupo, con la salvedad de que ahora hay $MG$ grados de libertad por nodo espacial.
 Pero el hecho de que el operador no sea coercitivo hace que el método numérico basado en la aproximación de Galerkin no sea estable y por lo tanto no converja.
-Una forma de recuperar la coercividad del operador $\mathcal{a}$ y poder obtener una solución numérica al problema de ordenadas discretas formulado con un esquema de elementos finitos sobre la variable espacial $\vec{x}$ es resolver un problema de Petrov-Galerkin en el cual cada una de las funciones de prueba $v_{mg}$ vive en un espacio vectorial $V^\prime_{N}$ diferente al espacio vectorial $V_N$ donde viven las incógnitas $\psi_{mg}$ para alguna elección adecuada de $V^\prime_{N}$.
+Una forma de recuperar la coercitividad del operador $\mathcal{a}$ y poder obtener una solución numérica al problema de ordenadas discretas formulado con un esquema de elementos finitos sobre la variable espacial $\vec{x}$ es resolver un problema de Petrov-Galerkin en el cual cada una de las funciones de prueba $v_{mg}$ vive en un espacio vectorial $V^\prime_{N}$ diferente al espacio vectorial $V_N$ donde viven las incógnitas $\psi_{mg}$ para alguna elección adecuada de $V^\prime_{N}$.
 
 ::: {#def-petrov-galerkin}
 
