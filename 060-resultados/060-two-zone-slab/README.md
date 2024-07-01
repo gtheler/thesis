@@ -69,9 +69,12 @@ y luego el archivo `two-zone-slab-ii.geo`:
 Ambos necesitan un archivo `ab.geo` con la definición de las variables geométricas necesarias:
 
 ```geo
-a = 55;
+// dimensiones del slab
+a = 57;
 b = 100;
-n = 10;
+// número de elementos
+n = 20;
+// longitud característica
 lc = b/n;
 ```
 

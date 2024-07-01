@@ -33,7 +33,6 @@ format:
   pdf:
     include-in-header: 
       - text: \\cfoot{\\tiny{${dateedtf}--${hash}}}
-      - text: \\fecha{${monthyear^}}
 book:
   date: ${dateedtf}
 EOF

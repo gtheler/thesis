@@ -133,6 +133,7 @@ format:
           \usepackage{lipsum}
           \usepackage{bigints}
           \input{ibthesis.tex}
+          \fecha{Junio 2024}
           \usepackage{scrlayer-scrpage}
           %\lehead{\leftmark}
           %\rohead{\leftmark}

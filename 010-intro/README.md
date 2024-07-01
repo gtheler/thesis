@@ -774,13 +774,13 @@ Es por eso que:
  
     * es libre y abierta distribuida bajo licencia GPLv3+ (@sec-introduction)
     * sigue la filosofía de programación Unix @raymond. Estrictamente hablando es un filtro de Unix que funciona como una función de transferencia (@sec-scope) entre
-      a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
-      b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
-      
+
       ```include
       110-sds/transfer.md
       ```
 
+      a. uno o más archivos de entrada de texto plano que definen completamente la entrada, y
+      b. cero o más archivos de salida (posiblemente incluyendo `stdout`) con los resultados solicitados:
       
     * no escribe (y muy probablemente ni siquiera calcule) un resultado si éste no se pide explícitamente como una salida (@sec-output)
     * los archivos de entrada (@sec-input) deben...
